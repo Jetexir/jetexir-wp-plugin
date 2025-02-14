@@ -1,0 +1,25 @@
+{
+  "name": "parsa-kafi/woo-assistant",
+  "description": "WooCommerce Assistant",
+  "type": "project",
+  "scripts": {
+    "autoload": "composer dump-autoload"
+  },
+  "autoload": {
+    "psr-4": {
+      "WooAssistant\\": [
+        "inc/"
+      ]
+    }
+  },
+  "config": {
+    "optimize-autoloader": true
+  },
+  "authors": [
+    {
+      "name": "Parsa Kafi",
+      "email": "parsadeng@gmail.com"
+    }
+  ],
+  "require": {}
+}

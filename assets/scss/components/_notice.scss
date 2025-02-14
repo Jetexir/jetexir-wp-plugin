@@ -1,0 +1,63 @@
+@use "../utilities/variables";
+
+.#{variables.$plugin_key}-notices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+
+  .wa-notice {
+    color: variables.$default;
+    background-color: variables.$default_light;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    //font-weight: 600;
+    letter-spacing: 0.02em;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    svg {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    &.wa-notice-info {
+      color: variables.$info;
+      background-color: variables.$info_light;
+    }
+
+    &.wa-notice-success {
+      color: variables.$success;
+      background-color: variables.$success_light;
+    }
+
+    &.wa-notice-warning {
+      color: variables.$warning;
+      background-color: variables.$warning_light;
+    }
+
+    &.wa-notice-error {
+      color: variables.$error;
+      background-color: variables.$error_light;
+    }
+  }
+}
+
+body.rtl.#{variables.$plugin_key}-notices {
+  .wa-notice {
+    letter-spacing: normal;
+  }
+}

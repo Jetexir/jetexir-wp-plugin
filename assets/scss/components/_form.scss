@@ -1,0 +1,82 @@
+@use "../utilities/variables";
+
+.#{variables.$plugin_key}-wrap {
+  @import "toggle";
+  @import "button";
+  @import "input";
+  @import "checkbox";
+  @import "radio";
+  @import "range";
+  @import "select";
+  @import "plugins";
+
+  #wa-settings-form {
+    & > *:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  .wa-grid {
+    display: grid !important;
+    gap: 3rem !important;
+  }
+
+  .wa-grid-cols-2 {
+    grid-template-columns: 200px auto !important;
+  }
+
+  .wa-field-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .wa-field-head {
+      display: flex;
+      column-gap: 20px;
+      row-gap: 10px;
+      align-items: center;
+      max-width: 500px;
+    }
+  }
+
+  .wa-fields-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .wa-field-wrap {
+      .wa-field-head {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      &.wa-field-toggle {
+        .wa-field-head {
+          flex-direction: row-reverse;
+          justify-content: space-between;
+        }
+      }
+
+      &.wa-appearance-text-field {
+        input[type="number"] {
+          -webkit-appearance: none;
+          -moz-appearance: textfield;
+          appearance: textfield;
+        }
+      }
+    }
+
+    .wa-radio-group {
+      legend {
+        margin-bottom: .5rem;
+      }
+
+      .wa-radio-group-options {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: .5rem;
+      }
+    }
+  }
+}

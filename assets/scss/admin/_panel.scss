@@ -1,0 +1,197 @@
+@use "../utilities/variables";
+
+body.toplevel_page_#{variables.$plugin_key} {
+  .wrap {
+    margin-top: 30px;
+    //padding: 15px;
+
+    h1 {
+      font-size: 23px;
+      font-weight: 400;
+    }
+
+    h2 {
+      font-size: 17px;
+      font-weight: 400;
+    }
+
+    h3, h4, h5, h6 {
+      font-size: 15px;
+      font-weight: 400;
+    }
+  }
+
+  .#{variables.$plugin_key}-wrap {
+    background: white;
+    border: 1px solid variables.$border_color;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 250px auto;
+    overflow: hidden;
+    color: variables.$text;
+    font-size: 14px;
+
+    * {
+      box-sizing: border-box;
+    }
+
+    hr {
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid variables.$border_color;
+      margin: 20px 0;
+      padding: 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: variables.$link;
+
+      &:hover {
+        color: variables.$link_hover;
+      }
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+    }
+
+    .wa-sidebar {
+      background-color: variables.$background_side;
+      border-right: 1px solid variables.$border_color;
+      padding: 20px;
+
+      .menu-items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 30px;
+
+        .menu-item {
+          padding: 10px 12px;
+          display: block;
+          border-radius: 10px;
+          color: variables.$gray;
+          border: 1px solid transparent;
+
+          &:focus {
+            box-shadow: 0 0 0 2px variables.$primary;
+          }
+
+          &:hover, &:active, &:focus {
+            background-color: white;
+          }
+
+          &.menu-item-current {
+            color: variables.$text;
+            background-color: variables.$background_menu;
+            border-color: variables.$border_color;
+          }
+        }
+      }
+    }
+
+    .wa-content {
+      padding: 30px;
+
+      a {
+        &:hover, &:focus, &:active {
+          text-decoration: underline;
+          text-underline-offset: 3px;
+        }
+      }
+    }
+
+    .wa-description {
+      font-size: 0.9em;
+      color: variables.$meta;
+    }
+
+    .wa-header {
+      h1 {
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        color: variables.$meta;
+        padding: 0;
+        margin: 10px 0 0 0;
+        font-size: 1em;
+      }
+
+      hr {
+        margin: 20px 0;
+      }
+    }
+
+    .wa-section-links {
+      ul {
+        display: flex;
+        gap: 15px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          display: inline-block;
+          padding: 0;
+          margin: 0;
+
+          &:not(:last-child):after {
+            content: "|";
+            color: variables.$border_color;
+            display: inline-block;
+            margin-inline-start: 15px;
+          }
+
+          a {
+            color: variables.$gray;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+
+            &:focus, &:active, &:hover {
+              outline: none;
+              box-shadow: none;
+              border-color: variables.$gray;
+              text-decoration: none;
+            }
+
+            &.wa-section-link-current {
+              color: variables.$primary;
+              border-color: variables.$primary;
+            }
+          }
+        }
+      }
+
+      p {
+        margin-top: 20px;
+      }
+
+      & + hr {
+        margin-top: 25px;
+      }
+    }
+
+    .wa-footer {
+      padding: 30px 30px;
+      margin: 30px -30px -30px -30px;
+      background-color: lighten(variables.$background_side, 1%);
+      display: flex;
+      gap: 10px;
+
+      &.wa-settings-footer {
+        pointer-events: inherit;
+        opacity: 1;
+
+        &.wa-submit-inactive {
+          pointer-events: none;
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}

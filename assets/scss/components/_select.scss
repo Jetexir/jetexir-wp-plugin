@@ -1,0 +1,29 @@
+@use "../utilities/variables";
+
+select {
+  color: variables.$dark;
+  border: 1px solid variables.$border_color;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 400;
+  width: 100%;
+  max-width: 500px;
+  -webkit-appearance: none;
+  background: white url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUgNmw1IDUgNS01IDIgMS03IDctNy03IDItMXoiIGZpbGw9IiNFNkUyRjUiLz48L3N2Zz4=") no-repeat right 10px top 55%;
+
+  &:hover {
+    color: variables.$dark;
+    border-color: darken(variables.$border_color, 5%);
+  }
+
+  &:focus {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUgNmw1IDUgNS01IDIgMS03IDctNy03IDItMXoiIGZpbGw9IiM4NzNlZmYiLz48L3N2Zz4=");
+    box-shadow: none;
+    //outline-offset: 2px;
+    outline: variables.$primary solid 2px;
+  }
+
+  option {
+    background-color: white;
+  }
+}
