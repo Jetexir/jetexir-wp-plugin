@@ -28,6 +28,7 @@ class HTML {
 		'hidden',
 		'select',
 		'posttype',
+		'taxonomy',
 
 		'plugin',
 		'wpcolorpicker'
@@ -106,22 +107,46 @@ class HTML {
 			return '';
 		}
 
+		$name = self::prefixName . $data['id'] . ( isset( $data['attributes']['multiple'] ) && $data['attributes']['multiple'] ? '[]' : '' );
+
 		$field = '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'select-label">' . $data['title'] . '</label>' .
-		         '<select name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-' . $data['type'] . '" ' . self::getAttributes( $data ) . '>';
+		         '<select name="' . $name . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-' . $data['type'] . '" ' . self::getAttributes( $data ) . '>';
 
 		if ( ! empty( $data['option_none'] ) ) {
-			$field .= '<option value="' . $data['option_none_value'] . '" selected>' . $data['option_none'] . '</option>';
+			$field .= '<option value="' . $data['option_none_value'] . '">' . $data['option_none'] . '</option>';
 		}
 
 		if ( ! empty( $data['options'] ) ) {
 			foreach ( $data['options'] as $key => $value ) {
-				$field .= '<option value="' . $key . '" ' . selected( $data['setting_value'] == $key, true, false ) . '>' . $value . '</option>';
+				$selected = isset( $data['multiple'] ) && $data['multiple'] && is_array( $data['setting_value'] ) ? in_array( $key, $data['setting_value'], true ) : $data['setting_value'] == $key;
+				$field    .= '<option value="' . $key . '" ' . selected( $selected, true, false ) . '>' . $value . '</option>';
 			}
 		}
 
 		$field .= '</select>';
 
 		return self::wrap( $field, $data );
+	}
+
+	public static function taxonomy( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$defaultArgs     = array(
+			'taxonomy'   => 'category',
+			'hide_empty' => true,
+			'orderby'    => 'name',
+			'order'      => 'ASC',
+		);
+		$args            = wp_parse_args( $data['args'], $defaultArgs );
+		$args['fields']  = 'all';
+		$terms           = get_terms( $args );
+		$termIds         = wp_list_pluck( $terms, 'term_id' );
+		$termNames       = wp_list_pluck( $terms, 'name' );
+		$data['options'] = array_combine( $termIds, $termNames );
+
+		return self::select( $data );
 	}
 
 	public static function posttype( $data ): string {
@@ -250,6 +275,10 @@ class HTML {
 	}
 
 	public static function startgrid( $data ): string {
+		if ( ! isset( $data['cols'] ) ) {
+			$data['cols'] = 2;
+		}
+
 		return '<div class="' . self::prefix . 'grid ' . self::prefix . 'grid-cols-' . $data['cols'] . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '"><div class="' . self::prefix . 'title">' . $data['title'] . '</div><div class="' . self::prefix . 'fields-wrap">';
 	}
 
@@ -351,11 +380,17 @@ class HTML {
 		if ( ( empty( $data['id'] ) || empty( $data['title'] ) ) && in_array( $data['type'], self::saveFields, true ) ) {
 			return false;
 		}
-		if ( isset( $data['setting_value'] ) ) {
+		if ( $data['type'] === 'image' && filter_var( $data['src'], FILTER_VALIDATE_URL ) ) {
+			return false;
+		}
+		if ( isset( $data['setting_value'] ) && ( is_string( $data['setting_value'] ) || is_numeric( $data['setting_value'] ) ) ) {
 			$settingValue = html_entity_decode( $data['setting_value'] );
 			if ( mb_strlen( $settingValue ) !== mb_strlen( $data['setting_value'] ) ) {
 				$data['setting_value'] = $settingValue;
 			}
+		}
+		if ( isset( $data['multiple'] ) && $data['multiple'] ) {
+			$attributes['multiple'] = 'multiple';
 		}
 		if ( isset( $data['disabled'] ) && $data['disabled'] ) {
 			$attributes['disabled'] = 'disabled';
@@ -384,8 +419,8 @@ class HTML {
 		if ( $data['type'] === 'posttype' && ( ! isset( $data['args'] ) || ! is_array( $data['args'] ) ) ) {
 			$data['args'] = array();
 		}
-		if ( $data['type'] === 'image' && filter_var( $data['src'], FILTER_VALIDATE_URL ) ) {
-			return false;
+		if ( $data['type'] === 'taxonomy' && ( ! isset( $data['args'] ) || ! is_array( $data['args'] ) ) ) {
+			$data['args'] = array();
 		}
 		if ( $data['type'] === 'wpcolorpicker' ) {
 			$data['class'] = self::getClass( $data, self::prefix . 'wp-color-picker' );
