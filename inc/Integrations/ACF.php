@@ -10,8 +10,8 @@ use WooAssistant\Plugins\Plugin;
 
 class ACF extends Plugin implements PluginInterface {
 	public function __construct() {
-		parent::__construct();
 		$this->pluginID = 'acf';
+		parent::__construct();
 	}
 
 	public function initAction(): void {
