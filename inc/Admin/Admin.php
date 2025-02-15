@@ -12,5 +12,6 @@ class Admin {
 
 		new AdminDashboard();
 		new AdminTools();
+		new AdminProduct();
 	}
 }
