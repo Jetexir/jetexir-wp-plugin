@@ -8,7 +8,6 @@ use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Param;
-use function Sodium\add;
 
 defined( 'ABSPATH' ) || die();
 
@@ -69,9 +68,15 @@ class AdminPages {
                     <div class="menu-items">
 						<?php
 						do_action( 'woo_assistant_start_menus' );
-						$menus = self::getMenus();
+						$menus     = self::getMenus();
+						$pluginSep = false;
 						echo self::menuItem( __( 'Dashboard', 'woo-assistant' ), 'dashboard' );
 						foreach ( $menus as $tab => $title ) {
+							if ( ! $pluginSep && ! in_array( $tab, self::defaultTabs() ) ) {
+								echo '<hr>';
+								$pluginSep = true;
+							}
+
 							echo self::menuItem( $title, $tab );
 						}
 						do_action( 'woo_assistant_end_menus' );
@@ -120,7 +125,7 @@ class AdminPages {
 	}
 
 	private static function defaultTabs(): array {
-		return [ 'dashboard', 'tools', 'plugins' ];
+		return [ 'dashboard', 'product', 'tools', 'plugins' ];
 
 		/*return array(
 			'dashboard' => __( 'Dashboard', 'woo-assistant' ),
