@@ -20,6 +20,11 @@ abstract class Plugin {
 		add_action( 'woo_assistant_admin_init', [ $this, 'registerMenu' ] );
 		add_filter( 'woo_assistant_settings', [ $this, 'allSettings' ] );
 
+		if ( $this->pluginID ) {
+			add_filter( 'woo_assistant_' . $this->pluginID . '_tab_display_notice', '__return_false' );
+			add_filter( 'woo_assistant_' . $this->pluginID . '_tab_content_display_notice', '__return_true' );
+		}
+
 		// Register WordPress hooks
 		add_action( 'init', [ $this, 'registerInitAction' ] );
 		add_action( 'admin_init', [ $this, 'registerAdminInitAction' ] );
