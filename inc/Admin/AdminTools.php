@@ -45,16 +45,41 @@ class AdminTools implements AdminTabInterface {
 							'cols'  => 2,
 							'type'  => 'startgrid',
 						),
-						'quantity_input_style'            => array(
-							'id'       => 'quantity_input_plus_minus_button',
-							'title'    => __( 'Enable Plus/Minus', 'woo-assistant' ),
-							'type'     => 'toggle',
-							'value'    => 1,
-							'default'  => false,
-							'desc'     => __( 'Add Plus/Minus buttons to Quantity input', 'woo-assistant' ),
-							'sanitize' => 'bool'
+
+						'post_type_page' => array(
+							'id'                => 'post_type_page',
+							'title'             => __( 'Select page', 'woo-assistant' ),
+							'type'              => 'postType',
+							'args'              => array(
+								'post_type' => 'page'
+							),
+							'default'           => 0,
+							'option_none'       => '---',
+							'option_none_value' => '',
+							'desc'              => __( 'Select page', 'woo-assistant' )
 						),
-						'end_grid_quantity_input_style'   => array(
+
+						'term_tax' => array(
+							'id'                => 'term_tax',
+							'title'             => __( 'Select term', 'woo-assistant' ),
+							'type'              => 'taxonomy',
+							'args'              => array(
+								'taxonomy'   => 'category',
+								'hide_empty' => false,
+							),
+							'multiple'          => true,
+							'default'           => 0,
+							'option_none'       => '---',
+							'option_none_value' => '',
+							'desc'              => __( 'Select category', 'woo-assistant' ),
+							'sanitize'          => 'array',
+							'sanitize_options'  => 'int',
+							'attributes'        => array(
+								'size' => 5,
+							)
+						),
+
+						'end_grid_quantity_input_style' => array(
 							'type' => 'endgrid',
 						),
 					)
