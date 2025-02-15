@@ -29,7 +29,8 @@ class HTML {
 		'select',
 		'posttype',
 
-		'plugin'
+		'plugin',
+		'wpcolorpicker'
 	];
 	// FAQ
 
@@ -65,6 +66,10 @@ class HTML {
 	}
 
 	public static function color( $data ): string {
+		return self::inputText( $data );
+	}
+
+	public static function wpcolorpicker( $data ): string {
 		return self::inputText( $data );
 	}
 
@@ -382,8 +387,10 @@ class HTML {
 		if ( $data['type'] === 'image' && filter_var( $data['src'], FILTER_VALIDATE_URL ) ) {
 			return false;
 		}
-
-
+		if ( $data['type'] === 'wpcolorpicker' ) {
+			$data['class'] = self::getClass( $data, self::prefix . 'wp-color-picker' );
+			$data['type']  = 'text';
+		}
 		$data['attributes'] = $attributes;
 
 		return $data;
