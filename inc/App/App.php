@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 class App {
 	public function __construct() {
+		new AppAssets();
 		new ProductQuantity();
 	}
 }
