@@ -5,6 +5,10 @@ namespace WooAssistant\Helper;
 defined( 'ABSPATH' ) || exit;
 
 class Sanitizing {
+	public static function array( $value ): array {
+		return (array) $value;
+	}
+
 	public static function bool( $value ): bool {
 		return wc_string_to_bool( $value );
 	}
