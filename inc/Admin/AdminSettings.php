@@ -41,13 +41,33 @@ class AdminSettings {
 					if ( in_array( $setting['type'], $saveFields, true ) ) {
 						$default = ! empty( $setting['default'] ) ? $setting['default'] : null;
 
-						if ( in_array( $setting['type'], [ 'toggle', 'checkbox', 'plugin' ], true ) ) {
+						if ( empty( $setting['default'] ) && in_array( $setting['type'], [
+								'toggle',
+								'checkbox',
+								'plugin'
+							], true ) ) {
 							$default = 0;
 						}
+
+						if ( isset( $data['multiple'] ) && $data['multiple'] && empty( $setting['default'] ) && in_array( $setting['type'], [
+								'select',
+								'taxonomy',
+								'posttype'
+							] ) ) {
+							$default = [];
+						}
+
 						$value = Param::post( WOOASSISTANT_INPUT_PREFIX . $setting['id'], $default );
 
 						if ( empty( $setting['sanitize'] ) ) {
-							if ( in_array( $setting['type'], [
+							if ( isset( $setting['multiple'] ) && $setting['multiple'] && in_array( $setting['type'], [
+									'taxonomy',
+									'posttype',
+									'select'
+								] ) ) {
+								$setting['sanitize'] = 'array';
+
+							} else if ( in_array( $setting['type'], [
 								'text',
 								'search',
 								'password',
@@ -77,7 +97,7 @@ class AdminSettings {
 							} elseif ( $setting['type'] === 'range' ) {
 								$setting['sanitize'] = 'int';
 
-							} elseif ( $setting['type'] === 'posttype' ) {
+							} elseif ( $setting['type'] === 'posttype' || $setting['type'] === 'taxonomy' ) {
 								$setting['sanitize'] = 'absint';
 
 							} elseif ( $setting['type'] === 'plugin' ) {
@@ -89,10 +109,16 @@ class AdminSettings {
 							$value = Sanitizing::{$setting['sanitize']}( $value );
 						}
 
+						if ( is_array( $value ) && isset( $setting['sanitize_options'] ) && method_exists( Sanitizing::class, $setting['sanitize_options'] ) ) {
+							$value = array_map( 'WooAssistant\Helper\Sanitizing::' . $setting['sanitize_options'], $value );
+						}
+
 						$options[ $setting['id'] ] = $value;
 					}
 				}
 			}
+
+			$options = apply_filters( 'woo_assistant_settings_before_save', $options, $tab );
 
 			$saved = Settings::saves( $options, $optionsName );
 
