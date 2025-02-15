@@ -1,6 +1,8 @@
 @use "../utilities/variables";
 
 .#{variables.$plugin_key}-wrap {
+  position: relative;
+
   @import "toggle";
   @import "button";
   @import "input";
@@ -9,10 +11,19 @@
   @import "range";
   @import "select";
   @import "plugins";
+  @import "wp";
 
   #wa-settings-form {
+    //height: 100% !important;
+    display: flex;
+    flex-direction: column;
+
     & > *:not(:last-child) {
-      margin-bottom: 20px;
+      margin-bottom: 40px;
+    }
+
+    hr {
+      margin-top: 0;
     }
   }
 
@@ -42,7 +53,7 @@
   .wa-fields-wrap {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
 
     .wa-field-wrap {
       .wa-field-head {

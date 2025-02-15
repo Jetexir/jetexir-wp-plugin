@@ -180,12 +180,16 @@ body.toplevel_page_#{variables.$plugin_key} {
       padding: 30px 30px;
       margin: 30px -30px -30px -30px;
       background-color: lighten(variables.$background_side, 1%);
-      display: flex;
-      gap: 10px;
+      //position: sticky;
+      //display: flex;
+      //gap: 10px;
+      //z-index: 10;
 
       &.wa-settings-footer {
         pointer-events: inherit;
         opacity: 1;
+        position: sticky;
+        bottom: 0;
 
         &.wa-submit-inactive {
           pointer-events: none;
