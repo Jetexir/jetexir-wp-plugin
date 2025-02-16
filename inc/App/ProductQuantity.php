@@ -5,7 +5,6 @@ namespace WooAssistant\App;
 defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Helper\Assets;
-use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Helper\Helper;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Param;
@@ -30,6 +29,7 @@ class ProductQuantity {
 		add_filter( 'woocommerce_product_data_tabs', [ $this, 'productTab' ] );
 		add_filter( 'woocommerce_product_data_panels', [ $this, 'productSettings' ] );
 		add_action( 'woocommerce_process_product_meta', [ $this, 'productSaveMeta' ] );
+
 		add_filter( 'woocommerce_quantity_input_args', [ $this, 'changeQuantityInputArgs' ], 10, 2 );
 		add_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes',
 			[ $this, 'changeQuantityAddToCart' ], 10, 2 );
@@ -203,10 +203,11 @@ class ProductQuantity {
 	 */
 	public function changeQuantityInputArgs( $args, $product ): array {
 		if ( $product instanceof \WC_Product ) {
-			$productID = $product->get_id();
-			$min       = Sanitizing::int( Settings::get( 'quantity_minimum_value', false ) );
-			$max       = Sanitizing::int( Settings::get( 'quantity_maximum_value', false ) );
-			$step      = Sanitizing::int( Settings::get( 'quantity_step_value', false ) );
+			$productID   = $product->get_id();
+			$maxPurchase = $product->get_max_purchase_quantity();
+			$min         = Sanitizing::int( Settings::get( 'quantity_minimum_value', false ) );
+			$max         = Sanitizing::int( Settings::get( 'quantity_maximum_value', false ) );
+			$step        = Sanitizing::int( Settings::get( 'quantity_step_value', false ) );
 
 			if ( Settings::get( 'quantity_manage_min_max_product', false ) ) {
 				$productMin  = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' ) );
@@ -224,16 +225,16 @@ class ProductQuantity {
 			}
 
 			if ( $min ) {
-				$args['min_value'] = $min;
+				$args['min_value'] = $maxPurchase > 0 ? min( $min, $maxPurchase ) : $min;
 			}
 			if ( $max ) {
-				$args['max_value'] = $max;
+				$args['max_value'] = $maxPurchase > 0 ? min( $max, $maxPurchase ) : $max;
 			}
 			if ( $step ) {
 				$args['step'] = $step;
 			}
 
-			$args['input_value'] = $min;
+			$args['input_value'] = $maxPurchase > 0 ? min( $min, $maxPurchase ) : $min;
 		}
 
 		return $args;
