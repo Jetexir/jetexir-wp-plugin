@@ -4,7 +4,10 @@ namespace WooAssistant\App;
 
 defined( 'ABSPATH' ) || exit;
 
+use WooAssistant\Admin\AdminAssets;
+use WooAssistant\Admin\AdminSettings;
 use WooAssistant\Helper\Assets;
+use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Helper\Helper;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Param;
@@ -25,6 +28,7 @@ class ProductQuantity {
 		add_action( 'woocommerce_after_quantity_input_field', [ $this, 'afterQuantityInputField' ] );
 		add_action( 'wp_footer', [ $this, 'enqueueScripts' ] );
 		add_action( 'wp_footer', [ $this, 'printStyle' ] );
+		//add_filter( 'woo_assistant_settings_header_image', [ $this, 'addHeaderImage' ], 10, 4 );
 
 		add_filter( 'woocommerce_product_data_tabs', [ $this, 'productTab' ] );
 		add_filter( 'woocommerce_product_data_panels', [ $this, 'productSettings' ] );
@@ -74,7 +78,7 @@ class ProductQuantity {
 		return $tabs;
 	}
 
-	public function productSettings() {
+	public function productSettings(): void {
 		if ( ! Settings::get( 'quantity_manage_min_max_product', false ) ) {
 			return;
 		}
@@ -264,6 +268,14 @@ class ProductQuantity {
 		return $options;
 	}
 
+	public function addHeaderImage( $image, $tab, $section, $settings ) {
+		if ( $tab === 'product' && $section === 'quantity' ) {
+			return AdminAssets::imageUrl( 'header/product-quantity-header.png' );
+		}
+
+		return $image;
+	}
+
 	public function printStyle(): void {
 		if ( ! self::$printed ) {
 			return;
@@ -309,26 +321,28 @@ class ProductQuantity {
 		}
 
 		// Input style
-		if ( $value = Settings::get( 'quantity_input_border_width', false ) ) {
-			$inputStyle['border'] = $value . ' solid transparent';
-		}
-		if ( $value = Settings::get( 'quantity_input_border_radius', false ) ) {
-			$inputStyle['border-radius'] = $value;
-		}
-		if ( $value = Settings::get( 'quantity_input_font_color', false ) ) {
-			$inputStyle['color'] = $value;
-		}
-		if ( $value = Settings::get( 'quantity_input_bg_color', false ) ) {
-			$inputStyle['background-color'] = $value;
-		}
-		if ( $value = Settings::get( 'quantity_input_border_color', false ) ) {
-			$inputStyle['border-color'] = $value;
-		}
-		if ( $value = Settings::get( 'quantity_input_width', false ) ) {
-			$inputStyle['width'] = $value;
-		}
-		if ( $value = Settings::get( 'quantity_input_height', false ) ) {
-			$inputStyle['height'] = $value;
+		if ( Settings::get( 'quantity_input_style', false ) ) {
+			if ( $value = Settings::get( 'quantity_input_border_width', false ) ) {
+				$inputStyle['border'] = $value . ' solid transparent';
+			}
+			if ( $value = Settings::get( 'quantity_input_border_radius', false ) ) {
+				$inputStyle['border-radius'] = $value;
+			}
+			if ( $value = Settings::get( 'quantity_input_font_color', false ) ) {
+				$inputStyle['color'] = $value;
+			}
+			if ( $value = Settings::get( 'quantity_input_bg_color', false ) ) {
+				$inputStyle['background-color'] = $value;
+			}
+			if ( $value = Settings::get( 'quantity_input_border_color', false ) ) {
+				$inputStyle['border-color'] = $value;
+			}
+			if ( $value = Settings::get( 'quantity_input_width', false ) ) {
+				$inputStyle['width'] = $value;
+			}
+			if ( $value = Settings::get( 'quantity_input_height', false ) ) {
+				$inputStyle['height'] = $value;
+			}
 		}
 
 		$buttonStyle = Helper::combineStyles( $buttonStyle );
@@ -556,6 +570,14 @@ class ProductQuantity {
 			'start_grid_quantity_input5'   => array(
 				'title' => __( 'Input Box', 'woo-assistant' ),
 				'type'  => 'startgrid',
+			),
+			'quantity_input_style'         => array(
+				'id'       => 'quantity_input_style',
+				'title'    => __( 'Enable quantity input style', 'woo-assistant' ),
+				'type'     => 'toggle',
+				'value'    => 1,
+				'default'  => false,
+				'sanitize' => 'bool'
 			),
 			'quantity_input_font_color'    => array(
 				'id'       => 'quantity_input_font_color',

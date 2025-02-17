@@ -10,11 +10,21 @@ use WooAssistant\Helper\HTML;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Param;
 use WooAssistant\Helper\Sanitizing;
+use WooAssistant\Helper\Validating;
 use WooAssistant\Settings\Settings;
 
 class AdminSettings {
 	public function __construct() {
 		add_action( 'woo_assistant_submit_settings_form', [ $this, 'saveForm' ] );
+		//add_filter( 'woo_assistant_settings_header_image', [ $this, 'headerImage' ], 0 );
+	}
+
+	public function headerImage( $image ) {
+		if ( empty( $image ) ) {
+			return AdminAssets::imageUrl( 'header/settings-header.png' );
+		}
+
+		return $image;
 	}
 
 	public function saveForm( $tab ): void {
@@ -181,13 +191,21 @@ class AdminSettings {
 	}
 
 	private static function headerSettings( $currentTab, $settings ): void {
-		echo '<header id="wa-settings-header" class="wa-header">';
+		$currentSection = self::getActiveSection( $settings );
+		$headerImage    = apply_filters( 'woo_assistant_settings_header_image', $settings['header_image'] ?? '', $currentTab, $currentSection, $settings );
+		$headerImage    = ! empty( $headerImage ) && Validating::isUrl( $headerImage ) ? $headerImage : false;
+
+		echo '<header id="wa-settings-header" class="wa-header ' . ( $headerImage ? 'wa-has-header-image' : '' ) . '">';
+		echo '<div class="wa-header-title" style="' . ( $headerImage ? 'background-image: url(' . $headerImage . ');' : '' ) . '">';
 		echo '<h1>' . $settings['title'] . '</h1>';
 		if ( ! empty( $settings['desc'] ) ) {
 			echo '<p class="wa-description">' . $settings['desc'] . '</p>';
 		}
-		echo '<hr />';
+		echo '</div>';
+		echo '<hr class="wa-header-separator"/>';
+		echo '<div class="wa-header-links">';
 		self::printSections( $currentTab, $settings );
+		echo '</div>';
 		echo '</header>';
 
 		if ( apply_filters( 'woo_assistant_' . $currentTab . '_tab_content_display_notice', false ) ) {
@@ -260,7 +278,11 @@ class AdminSettings {
 		return array_filter( $sections );
 	}
 
-	private static function getActiveSection( $settings ) {
+	public static function getActiveSection( $settings ) {
+		if ( empty( $settings['sections'] ) ) {
+			return false;
+		}
+
 		$sections = array_keys( $settings['sections'] );
 		$sections = array_map( 'strtolower', $sections );
 		$default  = current( $sections );

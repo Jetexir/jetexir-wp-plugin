@@ -32,9 +32,10 @@ class AdminProduct implements AdminTabInterface {
 
 	public function settings(): array {
 		return array(
-			'title'    => __( 'Product', 'woo-assistant' ),
-			'desc'     => __( 'Product enhance tools', 'woo-assistant' ),
-			'sections' => apply_filters( 'woo_assistant_product_settings_sections', [] )
+			'title'        => __( 'Product', 'woo-assistant' ),
+			'desc'         => __( 'Product enhance tools', 'woo-assistant' ),
+			//'header_image' => AdminAssets::imageUrl( 'header/product-header.png' ),
+			'sections'     => apply_filters( 'woo_assistant_product_settings_sections', [] )
 		);
 	}
 }
