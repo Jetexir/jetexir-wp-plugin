@@ -47,7 +47,17 @@ class ACF extends Plugin implements PluginInterface {
 							'default'  => 1,
 							'sanitize' => 'bool'
 						),
-						'end_grid_1'         => array(
+
+						'extra_html2' => array(
+							'id'       => 'extra_html2',
+							'title'    => __( 'Add extra html', 'woo-assistant' ),
+							'type'     => 'checkbox',
+							'value'    => 1,
+							'default'  => 1,
+							'sanitize' => 'bool'
+						),
+
+						'end_grid_1' => array(
 							'type' => 'endgrid',
 						),
 					)
