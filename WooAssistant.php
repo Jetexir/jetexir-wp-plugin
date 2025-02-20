@@ -12,7 +12,14 @@
  * Requires PHP:            7.4
  */
 
+namespace WooAssistant;
+
 defined( 'ABSPATH' ) || exit;
+
+use WooAssistant\Admin\Admin;
+use WooAssistant\App\App;
+use WooAssistant\Integrations\Integrations;
+use WooAssistant\Plugins\Plugins;
 
 final class WooAssistant {
 	public function __construct() {
@@ -57,10 +64,10 @@ final class WooAssistant {
 	 * @return void
 	 */
 	private function instance(): void {
-		new WooAssistant\Admin\Admin();
-		new WooAssistant\Plugins\Plugins();
-		new WooAssistant\Integrations\Integrations();
-		new WooAssistant\App\App();
+		new Admin();
+		new Plugins();
+		new Integrations();
+		new App();
 	}
 }
 
