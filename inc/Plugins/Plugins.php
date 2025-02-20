@@ -4,6 +4,7 @@ namespace WooAssistant\Plugins;
 
 defined( 'ABSPATH' ) || exit;
 
+use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Cache;
 use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Helper\Notice;
@@ -192,6 +193,7 @@ class Plugins {
 			'customizations' => __( 'Customizations', 'woo-assistant' ),
 			'conversion'     => __( 'Conversion', 'woo-assistant' ),
 			'seo'            => __( 'SEO', 'woo-assistant' ),
+			'utility'        => __( 'Utility', 'woo-assistant' ),
 		);
 
 		$cats = apply_filters( 'woo_assistant_plugin_cats', array() );
