@@ -190,7 +190,11 @@ class AdminSettings {
 		}
 	}
 
-	private static function headerSettings( $currentTab, $settings ): void {
+	public static function headerSettings( $currentTab, $settings ): void {
+		if ( empty( $settings['title'] ) ) {
+			return;
+		}
+
 		$currentSection = self::getActiveSection( $settings );
 		$headerImage    = apply_filters( 'woo_assistant_settings_header_image', $settings['header_image'] ?? '', $currentTab, $currentSection, $settings );
 		$headerImage    = ! empty( $headerImage ) && Validating::isUrl( $headerImage ) ? $headerImage : false;
