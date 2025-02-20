@@ -176,16 +176,18 @@ class AdminSettings {
 	}
 
 	private static function printSettings( $settings, $optionsName ): void {
-		foreach ( $settings as $key => $field ) {
-			if ( ! empty( $field['type'] ) && method_exists( HTML::class, strtolower( $field['type'] ) ) ) {
-				if ( isset( $field['force_value'] ) ) {
-					$field['setting_value'] = $field['force_value'];
-				} else {
-					$field['setting_value'] = wp_unslash( Settings::get( $field['id'], $field['default'], $optionsName ) );
-				}
+		if ( is_array( $settings ) ) {
+			foreach ( $settings as $key => $field ) {
+				if ( ! empty( $field['type'] ) && method_exists( HTML::class, strtolower( $field['type'] ) ) ) {
+					if ( isset( $field['force_value'] ) ) {
+						$field['setting_value'] = $field['force_value'];
+					} else {
+						$field['setting_value'] = wp_unslash( Settings::get( $field['id'], $field['default'], $optionsName ) );
+					}
 
-				$field['type'] = strtolower( $field['type'] );
-				echo HTML::{$field['type']}( $field );
+					$field['type'] = strtolower( $field['type'] );
+					echo HTML::{$field['type']}( $field );
+				}
 			}
 		}
 	}
