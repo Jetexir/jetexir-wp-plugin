@@ -4,6 +4,7 @@ namespace WooAssistant\Plugins;
 
 defined( 'ABSPATH' ) || exit;
 
+use WooAssistant\Admin\AdminSettings;
 use WooAssistant\Helper\Cache;
 use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Settings\Settings;
@@ -67,6 +68,11 @@ abstract class Plugin {
 		if ( $this->getInfo( 'has_page', false ) && $this->isActivated() ) {
 			add_filter( 'woo_assistant_menus', [ $this, 'addMenu' ] );
 
+			if ( $this->getInfo( 'content_header', false ) ) {
+				add_action( 'woo_assistant_' . $this->pluginID . '_tab_content',
+					[ $this, 'displayContentHeader' ], - 10 );
+			}
+
 			if ( method_exists( $this, 'content' ) ) {
 				add_action( 'woo_assistant_' . $this->pluginID . '_tab_content', [ $this, 'content' ] );
 			}
@@ -74,6 +80,12 @@ abstract class Plugin {
 			if ( method_exists( $this, 'settings' ) ) {
 				add_filter( 'woo_assistant_' . $this->pluginID . '_settings', [ $this, 'settings' ] );
 			}
+		}
+	}
+
+	public function displayContentHeader(): void {
+		if ( $this->getInfo( 'content_header', false ) ) {
+			AdminSettings::headerSettings( $this->pluginID, $this->getInfo() );
 		}
 	}
 
@@ -111,6 +123,10 @@ abstract class Plugin {
 		}
 
 		return $plugin;
+	}
+
+	public function getSettingsKey() {
+		return WOOASSISTANT_PLUGIN_KEY . '_' . $this->pluginID;
 	}
 
 	public function getSettings( $key = null, $default = null ) {
