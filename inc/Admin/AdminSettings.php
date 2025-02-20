@@ -164,14 +164,18 @@ class AdminSettings {
 
 		if ( self::isSectionMode( $settings ) ) {
 			$currentSection  = self::getActiveSection( $settings );
-			$sectionSettings = $settings['sections'][ $currentSection ]['settings'];
+			$currentSettings = $settings['sections'][ $currentSection ]['settings'] ?? [];
 
-			self::printSettings( $sectionSettings, $optionsName );
+			do_action( 'woo_assistant_section_content', $currentTab, $currentSection, $currentSettings );
+			self::printSettings( $currentSettings, $optionsName );
 		} else {
-			self::printSettings( $settings['settings'], $optionsName );
+			$currentSettings = $settings['settings'] ?? [];
+			self::printSettings( $currentSettings, $optionsName );
 		}
 
-		self::footerSettings( $currentTab );
+		if ( ! empty( $currentSettings ) ) {
+			self::footerSettings( $currentTab );
+		}
 		echo '</form>';
 	}
 
