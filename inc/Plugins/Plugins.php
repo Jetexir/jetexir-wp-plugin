@@ -66,7 +66,7 @@ class Plugins {
 			}
 
 			$tags                 = is_array( $plugin['tags'] ) ? $plugin['tags'] : [];
-			$icon                 = ! empty( $plugin['icon'] ) && str_starts_with( $plugin['icon'], '<svg' ) !== false ? $plugin['icon'] : '';
+			$icon                 = ! empty( $plugin['icon'] ) && str_starts_with( $plugin['icon'], '<svg' ) !== false ? Assets::setSvgDimensions( $plugin['icon'], 50 ) : '';
 			$image                = ! empty( $plugin['image'] ) && Validating::isUrl( $plugin['image'] ) ? $plugin['image'] : '';
 			$imageLink            = ! empty( $plugin['image_link'] ) && Validating::isUrl( $plugin['image_link'] ) ? $plugin['image_link'] : '';
 			$moreInfo             = ! empty( $plugin['more_info_link'] ) && Validating::isUrl( $plugin['more_info_link'] ) ? $plugin['more_info_link'] : '';
