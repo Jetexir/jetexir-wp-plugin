@@ -16,6 +16,9 @@
   }
 
   .wa-plugin-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid variables.$border_color;
     border-radius: 10px;
     overflow: hidden;
@@ -78,7 +81,7 @@
       }
 
       .wa-desc {
-
+        color: variables.$meta;
       }
 
       .wa-more-info-link {
@@ -92,8 +95,11 @@
     }
 
     .wa-action-wrap {
+      align-self: flex-end;
+      width: 100%;
       padding: 20px 15px;
       background-color: variables.$background_side;
+      margin-top: auto;
 
       .wa-field-head {
         display: flex;
