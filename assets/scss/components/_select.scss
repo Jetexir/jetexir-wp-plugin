@@ -29,8 +29,8 @@ select {
     outline: variables.$primary solid 2px;
   }
 
-  &[multiple]{
-    &:focus{
+  &[multiple] {
+    &:focus {
       &:checked {
         background: variables.$primary;
         color: white;
