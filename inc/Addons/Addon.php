@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Plugins;
+namespace WooAssistant\Addons;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,19 +11,19 @@ use WooAssistant\Settings\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
-abstract class Plugin {
+abstract class Addon {
 	use DebugTrait;
 
-	public string $pluginID;
+	public string $addonID;
 
 	public function __construct() {
-		add_filter( 'woo_assistant_plugins', [ $this, 'registerPlugin' ] );
+		add_filter( 'woo_assistant_addons', [ $this, 'registerAddon' ] );
 		add_action( 'woo_assistant_admin_init', [ $this, 'registerMenu' ] );
 		add_filter( 'woo_assistant_settings', [ $this, 'allSettings' ] );
 
-		if ( $this->pluginID ) {
-			add_filter( 'woo_assistant_' . $this->pluginID . '_tab_display_notice', '__return_false' );
-			add_filter( 'woo_assistant_' . $this->pluginID . '_tab_content_display_notice', '__return_true' );
+		if ( $this->addonID ) {
+			add_filter( 'woo_assistant_' . $this->addonID . '_tab_display_notice', '__return_false' );
+			add_filter( 'woo_assistant_' . $this->addonID . '_tab_content_display_notice', '__return_true' );
 		}
 
 		// Register WordPress hooks
@@ -69,72 +69,72 @@ abstract class Plugin {
 			add_filter( 'woo_assistant_menus', [ $this, 'addMenu' ] );
 
 			if ( $this->getInfo( 'content_header', false ) ) {
-				add_action( 'woo_assistant_' . $this->pluginID . '_tab_content',
+				add_action( 'woo_assistant_' . $this->addonID . '_tab_content',
 					[ $this, 'displayContentHeader' ], - 10 );
 			}
 
 			if ( method_exists( $this, 'content' ) ) {
-				add_action( 'woo_assistant_' . $this->pluginID . '_tab_content', [ $this, 'content' ] );
+				add_action( 'woo_assistant_' . $this->addonID . '_tab_content', [ $this, 'content' ] );
 			}
 
 			if ( method_exists( $this, 'settings' ) ) {
-				add_filter( 'woo_assistant_' . $this->pluginID . '_settings', [ $this, 'settings' ] );
+				add_filter( 'woo_assistant_' . $this->addonID . '_settings', [ $this, 'settings' ] );
 			}
 		}
 	}
 
 	public function displayContentHeader(): void {
 		if ( $this->getInfo( 'content_header', false ) ) {
-			AdminSettings::headerSettings( $this->pluginID, $this->getInfo() );
+			AdminSettings::headerSettings( $this->addonID, $this->getInfo() );
 		}
 	}
 
 	public function allSettings( $settings ): array {
 		if ( method_exists( $this, 'settings' ) ) {
-			$settings[ $this->pluginID ] = $this->settings();
+			$settings[ $this->addonID ] = $this->settings();
 		}
 
 		return $settings;
 	}
 
 	public function addMenu( $menus ) {
-		$plugin                   = $this->getInfo();
-		$menus[ $this->pluginID ] = $plugin['menu_title'] ?? ( $plugin['name'] ?? $plugin['title'] );
+		$addon                   = $this->getInfo();
+		$menus[ $this->addonID ] = $addon['menu_title'] ?? ( $addon['name'] ?? $addon['title'] );
 
 		return $menus;
 	}
 
-	public function registerPlugin( $plugins ) {
-		$plugins[] = $this->getInfo();
+	public function registerAddon( $addons ) {
+		$addons[] = $this->getInfo();
 
-		return $plugins;
+		return $addons;
 	}
 
 	private function getInfo( $key = null, $default = null ) {
-		$plugin = Cache::get( $this->pluginID . '_internal_plugin_info', false );
+		$addon = Cache::get( $this->addonID . '_internal_addon_info', false );
 
-		if ( ! is_array( $plugin ) ) {
-			$plugin = $this->info();
-			Cache::set( $this->pluginID . '_internal_plugin_info', $plugin, 0 );
+		if ( ! is_array( $addon ) ) {
+			$addon = $this->info();
+			Cache::set( $this->addonID . '_internal_addon_info', $addon, 0 );
 		}
 
 		if ( $key !== null ) {
-			return $plugin[ $key ] ?? $default;
+			return $addon[ $key ] ?? $default;
 		}
 
-		return $plugin;
+		return $addon;
 	}
 
 	public function getSettingsKey() {
-		return WOOASSISTANT_PLUGIN_KEY . '_' . $this->pluginID;
+		return WOOASSISTANT_PLUGIN_KEY . '_' . $this->addonID;
 	}
 
 	public function getSettings( $key = null, $default = null ) {
-		return Settings::get( $key, $default, $this->pluginID );
+		return Settings::get( $key, $default, $this->addonID );
 	}
 
 	public function isActivated(): bool {
-		if ( ! $this->getInfo( 'force_enable', false ) && Settings::get( 'internal_plugin_' . $this->pluginID, false ) !== 1 ) {
+		if ( ! $this->getInfo( 'force_enable', false ) && Settings::get( 'internal_addon_' . $this->addonID, false ) !== 1 ) {
 			return false;
 		}
 
@@ -142,7 +142,7 @@ abstract class Plugin {
 		$canActivate     = empty( $requiresPlugins );
 
 		if ( ! $canActivate && ! empty( $requiresPlugins ) && is_array( $requiresPlugins ) ) {
-			$requirePluginsActive = Cache::get( $this->pluginID . '_requires_plugins_count', false );
+			$requirePluginsActive = Cache::get( $this->addonID . '_requires_plugins_count', false );
 
 			if ( $requirePluginsActive === false ) {
 				$requirePluginsActive = 0;
@@ -155,7 +155,7 @@ abstract class Plugin {
 						$requirePluginsActive ++;
 					}
 				}
-				Cache::set( $this->pluginID . '_requires_plugins_count', $requirePluginsActive, 0 );
+				Cache::set( $this->addonID . '_requires_plugins_count', $requirePluginsActive, 0 );
 			}
 
 			$canActivate = $requirePluginsActive > 0 && $requirePluginsActive === count( $requiresPlugins );

@@ -4,13 +4,13 @@ namespace WooAssistant\Integrations;
 
 defined( 'ABSPATH' ) || exit;
 
+use WooAssistant\Addons\Addon;
 use WooAssistant\Helper\FeedReader;
-use WooAssistant\Interfaces\PluginInterface;
-use WooAssistant\Plugins\Plugin;
+use WooAssistant\Interfaces\AddonInterface;
 
-class WooDeveloperFeed extends Plugin implements PluginInterface {
+class WooDeveloperFeed extends Addon implements AddonInterface {
 	public function __construct() {
-		$this->pluginID = 'woo-developer-feed';
+		$this->addonID = 'woo-developer-feed';
 		parent::__construct();
 	}
 
@@ -47,7 +47,7 @@ class WooDeveloperFeed extends Plugin implements PluginInterface {
 </svg>';
 
 		return array(
-			'id'             => $this->pluginID,
+			'id'             => $this->addonID,
 			'title'          => __( 'Woo Developer Feed', 'woo-assistant-wc-developer-feed' ),
 			'has_page'       => true,
 			'force_enable'   => false,

@@ -2,6 +2,6 @@
 
 namespace WooAssistant\Interfaces;
 
-interface PluginInterface {
+interface AddonInterface {
 	public function info(): array;
 }

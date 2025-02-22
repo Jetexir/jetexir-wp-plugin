@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'WooAssistant\\Addons\\Addon' => $baseDir . '/inc/Addons/Addon.php',
+    'WooAssistant\\Addons\\Addons' => $baseDir . '/inc/Addons/Addons.php',
     'WooAssistant\\Admin\\Admin' => $baseDir . '/inc/Admin/Admin.php',
     'WooAssistant\\Admin\\AdminAssets' => $baseDir . '/inc/Admin/AdminAssets.php',
     'WooAssistant\\Admin\\AdminDashboard' => $baseDir . '/inc/Admin/AdminDashboard.php',
@@ -19,9 +21,11 @@ return array(
     'WooAssistant\\App\\Post' => $baseDir . '/inc/App/Post.php',
     'WooAssistant\\App\\Product' => $baseDir . '/inc/App/Product.php',
     'WooAssistant\\App\\ProductQuantity' => $baseDir . '/inc/App/ProductQuantity.php',
+    'WooAssistant\\App\\ProductTest' => $baseDir . '/inc/App/ProductTest.php',
     'WooAssistant\\Helper\\Assets' => $baseDir . '/inc/Helper/Assets.php',
     'WooAssistant\\Helper\\Cache' => $baseDir . '/inc/Helper/Cache.php',
     'WooAssistant\\Helper\\DebugTrait' => $baseDir . '/inc/Helper/DebugTrait.php',
+    'WooAssistant\\Helper\\FeedReader' => $baseDir . '/inc/Helper/FeedReader.php',
     'WooAssistant\\Helper\\HTML' => $baseDir . '/inc/Helper/HTML.php',
     'WooAssistant\\Helper\\Helper' => $baseDir . '/inc/Helper/Helper.php',
     'WooAssistant\\Helper\\Notice' => $baseDir . '/inc/Helper/Notice.php',
@@ -32,9 +36,8 @@ return array(
     'WooAssistant\\Helper\\Validating' => $baseDir . '/inc/Helper/Validating.php',
     'WooAssistant\\Integrations\\ACF' => $baseDir . '/inc/Integrations/ACF.php',
     'WooAssistant\\Integrations\\Integrations' => $baseDir . '/inc/Integrations/Integrations.php',
+    'WooAssistant\\Integrations\\WooDeveloperFeed' => $baseDir . '/inc/Integrations/WooDeveloperFeed.php',
+    'WooAssistant\\Interfaces\\AddonInterface' => $baseDir . '/inc/Interfaces/AddonInterface.php',
     'WooAssistant\\Interfaces\\AdminTabInterface' => $baseDir . '/inc/Interfaces/AdminTabInterface.php',
-    'WooAssistant\\Interfaces\\PluginInterface' => $baseDir . '/inc/Interfaces/PluginInterface.php',
-    'WooAssistant\\Plugins\\Plugin' => $baseDir . '/inc/Plugins/Plugin.php',
-    'WooAssistant\\Plugins\\Plugins' => $baseDir . '/inc/Plugins/Plugins.php',
     'WooAssistant\\Settings\\Settings' => $baseDir . '/inc/Settings/Settings.php',
 );

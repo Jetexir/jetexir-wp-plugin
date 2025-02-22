@@ -68,19 +68,18 @@ class AdminPages {
                     <div class="menu-items">
 						<?php
 						do_action( 'woo_assistant_start_menus' );
-						$menus     = self::getMenus();
-						$pluginSep = false;
+						$menus    = self::getMenus();
+						$addonSep = false;
 						echo self::menuItem( __( 'Dashboard', 'woo-assistant' ), 'dashboard' );
 						foreach ( $menus as $tab => $title ) {
-							if ( ! $pluginSep && ! in_array( $tab, self::defaultTabs() ) ) {
+							if ( ! $addonSep && ! in_array( $tab, self::defaultTabs() ) ) {
 								echo '<hr>';
-								$pluginSep = true;
+								$addonSep = true;
 							}
 
 							echo self::menuItem( $title, $tab );
 						}
 						do_action( 'woo_assistant_end_menus' );
-						//echo self::menuItem( __( 'Plugins', 'woo-assistant' ), 'plugins' );
 						?>
                     </div>
                 </div>
@@ -125,7 +124,7 @@ class AdminPages {
 	}
 
 	private static function defaultTabs(): array {
-		return [ 'dashboard', 'product', 'tools', 'plugins' ];
+		return [ 'dashboard', 'product', 'tools', 'addons' ];
 
 		/*return array(
 			'dashboard' => __( 'Dashboard', 'woo-assistant' ),

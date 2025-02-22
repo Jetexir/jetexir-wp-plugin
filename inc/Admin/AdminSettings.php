@@ -54,7 +54,7 @@ class AdminSettings {
 						if ( empty( $setting['default'] ) && in_array( $setting['type'], [
 								'toggle',
 								'checkbox',
-								'plugin'
+								'addon'
 							], true ) ) {
 							$default = 0;
 						}
@@ -110,7 +110,7 @@ class AdminSettings {
 							} elseif ( $setting['type'] === 'posttype' || $setting['type'] === 'taxonomy' ) {
 								$setting['sanitize'] = 'absint';
 
-							} elseif ( $setting['type'] === 'plugin' ) {
+							} elseif ( $setting['type'] === 'addon' ) {
 								$setting['sanitize'] = 'int';
 							}
 						}

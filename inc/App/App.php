@@ -14,7 +14,7 @@ class App {
 	}
 
 	public function init() {
-		do_action( 'woo_assistant_plugins_load' );
+		do_action( 'woo_assistant_addons_load' );
 		do_action( 'woo_assistant_init' );
 	}
 }

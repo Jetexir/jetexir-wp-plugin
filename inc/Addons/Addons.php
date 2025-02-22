@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Plugins;
+namespace WooAssistant\Addons;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -13,15 +13,15 @@ use WooAssistant\Helper\Validating;
 
 defined( 'ABSPATH' ) || exit;
 
-class Plugins {
-	public const tab = 'plugins';
+class Addons {
+	public const tab = 'addons';
 
 	public function __construct() {
 		add_filter( 'woo_assistant_menus', [ $this, 'addMenu' ] );
-		add_filter( 'woo_assistant_plugins_settings', [ $this, 'settings' ] );
-		add_filter( 'woo_assistant_plugins_tab_display_notice', '__return_false' );
-		add_filter( 'woo_assistant_plugins_tab_content_display_notice', '__return_true' );
-		add_filter( 'woo_assistant_plugins_settings_display_reset_button', '__return_false' );
+		add_filter( 'woo_assistant_' . self::tab . '_settings', [ $this, 'settings' ] );
+		add_filter( 'woo_assistant_' . self::tab . '_tab_display_notice', '__return_false' );
+		add_filter( 'woo_assistant_' . self::tab . '_tab_content_display_notice', '__return_true' );
+		add_filter( 'woo_assistant_' . self::tab . '_settings_display_reset_button', '__return_false' );
 		add_filter( 'woo_assistant_settings_submit_button_title', [ $this, 'changeSubmitButtonTitle' ], 10, 2 );
 		add_filter( 'woo_assistant_save_settings_success_message', [ $this, 'saveMessage' ], 10, 2 );
 		add_action( 'woo_assistant_notice', [ $this, 'addRefreshNotice' ] );
@@ -29,7 +29,7 @@ class Plugins {
 
 	public function addRefreshNotice( $tab ): void {
 		if ( $tab === self::tab && Cache::get( 'settings_saved' ) ) {
-			Notice::add( self::tab, 'For initial plugins hook, page refreshed.', 'warning' );
+			Notice::add( self::tab, 'For initial addons hook, page refreshed.', 'warning' );
 			?>
             <script>
                 setTimeout(function () {
@@ -41,44 +41,44 @@ class Plugins {
 	}
 
 	public function addMenu( $menus ) {
-		$menus[ self::tab ] = __( 'Plugins', 'woo-assistant' );
+		$menus[ self::tab ] = __( 'Addons', 'woo-assistant' );
 
 		return $menus;
 	}
 
 	public function saveMessage( $message, $tab ) {
 		if ( $tab === self::tab ) {
-			$message = __( 'Plugins settings saved.', 'woo-assistant' );
+			$message = __( 'Addons settings saved.', 'woo-assistant' );
 		}
 
 		return $message;
 	}
 
 	public function settings(): array {
-		$plugins    = apply_filters( 'woo_assistant_plugins', array() );
-		$pluginList = array();
-		$pluginCats = self::getPluginCats();
+		$addons    = apply_filters( 'woo_assistant_addons', array() );
+		$addonList = array();
+		$addonCats = self::getAddonCats();
 
-		foreach ( $plugins as $plugin ) {
-			$cat = empty( $plugin['cat'] ) || ! array_key_exists( $plugin['cat'], $pluginCats ) ? 'other' : $plugin['cat'];
+		foreach ( $addons as $addon ) {
+			$cat = empty( $addon['cat'] ) || ! array_key_exists( $addon['cat'], $addonCats ) ? 'other' : $addon['cat'];
 
-			if ( empty( $plugin['id'] ) || empty( $plugin['title'] ) || isset( $pluginList[ $cat ][ $plugin['id'] ] ) ) {
+			if ( empty( $addon['id'] ) || empty( $addon['title'] ) || isset( $addonList[ $cat ][ $addon['id'] ] ) ) {
 				continue;
 			}
 
-			$tags                 = is_array( $plugin['tags'] ) ? $plugin['tags'] : [];
-			$icon                 = ! empty( $plugin['icon'] ) && str_starts_with( $plugin['icon'], '<svg' ) !== false ? Assets::setSvgDimensions( $plugin['icon'], 50 ) : '';
-			$image                = ! empty( $plugin['image'] ) && Validating::isUrl( $plugin['image'] ) ? $plugin['image'] : '';
-			$imageLink            = ! empty( $plugin['image_link'] ) && Validating::isUrl( $plugin['image_link'] ) ? $plugin['image_link'] : '';
-			$moreInfo             = ! empty( $plugin['more_info_link'] ) && Validating::isUrl( $plugin['more_info_link'] ) ? $plugin['more_info_link'] : '';
-			$forceEnable          = Sanitizing::bool( $plugin['force_enable'] );
-			$canActivate          = empty( $plugin['requires_plugins'] );
+			$tags                 = is_array( $addon['tags'] ) ? $addon['tags'] : [];
+			$icon                 = ! empty( $addon['icon'] ) && str_starts_with( $addon['icon'], '<svg' ) !== false ? Assets::setSvgDimensions( $addon['icon'], 50 ) : '';
+			$image                = ! empty( $addon['image'] ) && Validating::isUrl( $addon['image'] ) ? $addon['image'] : '';
+			$imageLink            = ! empty( $addon['image_link'] ) && Validating::isUrl( $addon['image_link'] ) ? $addon['image_link'] : '';
+			$moreInfo             = ! empty( $addon['more_info_link'] ) && Validating::isUrl( $addon['more_info_link'] ) ? $addon['more_info_link'] : '';
+			$forceEnable          = Sanitizing::bool( $addon['force_enable'] );
+			$canActivate          = empty( $addon['requires_plugins'] );
 			$requirePluginsActive = 0;
 			$actionLink           = '';
-			$actionTitle          = __( 'Enable plugin', 'woo-assistant' );
+			$actionTitle          = __( 'Enable addon', 'woo-assistant' );
 
-			if ( ! $canActivate && ! empty( $plugin['requires_plugins'] ) && is_array( $plugin['requires_plugins'] ) ) {
-				foreach ( $plugin['requires_plugins'] as $requirePluginPath => $requirePlugin ) {
+			if ( ! $canActivate && ! empty( $addon['requires_plugins'] ) && is_array( $addon['requires_plugins'] ) ) {
+				foreach ( $addon['requires_plugins'] as $requirePluginPath => $requirePlugin ) {
 					$fileExists = file_exists( WP_PLUGIN_DIR . '/' . $requirePluginPath );
 
 					if (
@@ -90,23 +90,23 @@ class Plugins {
 
 					} elseif ( $fileExists ) {
 						$actionLink  = wp_nonce_url(
-							self_admin_url( 'plugins.php?action=activate&plugin=' . $requirePluginPath ),
+							self_admin_url( 'addons.php?action=activate&addon=' . $requirePluginPath ),
 							'activate-plugin_' . $requirePluginPath
 						);
-						$actionTitle = __( 'Activate required plugin', 'woo-assistant' );
+						$actionTitle = __( 'Activate required addon', 'woo-assistant' );
 
 					} elseif ( isset( $requirePlugin['is_wp_plugin'] ) && $requirePlugin['is_wp_plugin'] ) {
 						$pluginSlug = self::convertToSlug( $requirePluginPath );
 
 						$actionLink  = wp_nonce_url(
-							self_admin_url( 'update.php?action=install-plugin&plugin=' . $pluginSlug ),
+							self_admin_url( 'update.php?action=install-addon&addon=' . $pluginSlug ),
 							'install-plugin_' . $pluginSlug
 						);
-						$actionTitle = __( 'Install required plugin', 'woo-assistant' );
+						$actionTitle = __( 'Install required addon', 'woo-assistant' );
 
 					} elseif ( ! empty( $requirePlugin['plugin_link'] ) && Validating::isUrl( $requirePlugin['plugin_link'] ) ) {
 						$actionLink  = $requirePlugin['plugin_link'];
-						$actionTitle = isset( $requirePlugin['is_free'] ) && $requirePlugin['is_free'] ? __( 'Download required plugin', 'woo-assistant' ) : __( 'Buy required plugin', 'woo-assistant' );
+						$actionTitle = isset( $requirePlugin['is_free'] ) && $requirePlugin['is_free'] ? __( 'Download required addon', 'woo-assistant' ) : __( 'Buy required addon', 'woo-assistant' );
 
 					}
 
@@ -115,15 +115,15 @@ class Plugins {
 					}
 				}
 
-				if ( $requirePluginsActive > 0 && $requirePluginsActive === count( $plugin['requires_plugins'] ) ) {
+				if ( $requirePluginsActive > 0 && $requirePluginsActive === count( $addon['requires_plugins'] ) ) {
 					$canActivate = true;
 				}
 			}
 
-			$pluginList[ $cat ][ $plugin['id'] ] = array(
-				'id'                   => 'internal_plugin_' . $plugin['id'],
-				'title'                => $plugin['title'],
-				'desc'                 => wp_trim_words( $plugin['desc'] ?? '', 20, '' ),
+			$addonList[ $cat ][ $addon['id'] ] = array(
+				'id'                   => 'internal_addon_' . $addon['id'],
+				'title'                => $addon['title'],
+				'desc'                 => wp_trim_words( $addon['desc'] ?? '', 20, '' ),
 				'value'                => 1,
 				'default'              => 0,
 				'image'                => $image,
@@ -141,29 +141,29 @@ class Plugins {
 		}
 
 		$elementList = array();
-		if ( count( $pluginList ) ) {
-			$lastKey = array_key_last( $pluginList );
-			foreach ( $pluginList as $cat => $plugins ) {
-				if ( ! is_array( $plugins ) || empty( $plugins ) ) {
+		if ( count( $addonList ) ) {
+			$lastKey = array_key_last( $addonList );
+			foreach ( $addonList as $cat => $addons ) {
+				if ( ! is_array( $addons ) || empty( $addons ) ) {
 					continue;
 				}
 
-				$elementList[ $cat . '_startplugins' ] = array(
-					'type'  => 'startplugins',
-					'title' => $pluginCats[ $cat ],
+				$elementList[ $cat . '_startaddons' ] = array(
+					'type'  => 'startaddons',
+					'title' => $addonCats[ $cat ],
 				);
 
-				foreach ( $plugins as $pluginId => $pluginOptions ) {
-					$elementList[ $pluginId . '_plugin' ] = array_merge(
+				foreach ( $addons as $addonID => $pluginOptions ) {
+					$elementList[ $addonID . '_plugin' ] = array_merge(
 						$pluginOptions, [
-							'type' => 'plugin',
-							'name' => 'active_plugins[' . $pluginId . ']'
+							'type' => 'addon',
+							'name' => 'active_plugins[' . $addonID . ']'
 						]
 					);
 				}
 
-				$elementList[ $cat . '_endplugins' ] = array(
-					'type' => 'endplugins'
+				$elementList[ $cat . '_endaddons' ] = array(
+					'type' => 'endaddons'
 				);
 
 				if ( $cat !== $lastKey ) {
@@ -177,13 +177,13 @@ class Plugins {
 		//DebugTrait::dd( $elementList );
 
 		return array(
-			'title'    => __( 'Plugins', 'woo-assistant' ),
+			'title'    => __( 'Addons', 'woo-assistant' ),
 			'desc'     => __( 'Woo Assistant can integrate with other products, to help you further improve your website. You can enable or disable these integrations below.', 'woo-assistant' ),
 			'settings' => $elementList
 		);
 	}
 
-	public static function getPluginCats(): ?array {
+	public static function getAddonCats(): ?array {
 		$defaultCats = array(
 			'recommended'    => __( 'Recommended', 'woo-assistant' ),
 			'marketing'      => __( 'Marketing', 'woo-assistant' ),
@@ -196,15 +196,15 @@ class Plugins {
 			'utility'        => __( 'Utility', 'woo-assistant' ),
 		);
 
-		$cats = apply_filters( 'woo_assistant_plugin_cats', array() );
+		$cats = apply_filters( 'woo_assistant_addon_cats', array() );
 		$cats = is_array( $cats ) ? $cats : [];
 
-		return array_merge( $defaultCats, $cats, [ 'other' => __( 'Other plugins', 'woo-assistant' ) ] );
+		return array_merge( $defaultCats, $cats, [ 'other' => __( 'Other addons', 'woo-assistant' ) ] );
 	}
 
 	public function changeSubmitButtonTitle( $title, $tab ) {
 		if ( $tab === self::tab ) {
-			$title = __( 'Save active plugins', 'woo-assistant' );
+			$title = __( 'Save active addons', 'woo-assistant' );
 		}
 
 		return $title;

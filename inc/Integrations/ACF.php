@@ -4,13 +4,13 @@ namespace WooAssistant\Integrations;
 
 defined( 'ABSPATH' ) || exit;
 
+use WooAssistant\Addons\Addon;
 use WooAssistant\Admin\AdminAssets;
-use WooAssistant\Interfaces\PluginInterface;
-use WooAssistant\Plugins\Plugin;
+use WooAssistant\Interfaces\AddonInterface;
 
-class ACF extends Plugin implements PluginInterface {
+class ACF extends Addon implements AddonInterface {
 	public function __construct() {
-		$this->pluginID = 'acf';
+		$this->addonID = 'acf';
 		parent::__construct();
 	}
 
@@ -26,7 +26,7 @@ class ACF extends Plugin implements PluginInterface {
 
 	public function settings(): array {
 		return array(
-			'options_id' => $this->pluginID,
+			'options_id' => $this->addonID,
 			'title'      => __( 'ACF', 'woo-assistant' ),
 			'desc'       => __( 'ACF Integration', 'woo-assistant' ),
 			'sections'   => array(
@@ -170,7 +170,7 @@ class ACF extends Plugin implements PluginInterface {
 	}
 
 	public function content(): void {
-		//	echo $this->pluginID;
+
 	}
 
 	public function info(): array {
@@ -190,7 +190,7 @@ class ACF extends Plugin implements PluginInterface {
 </svg>';
 
 		return array(
-			'id'               => $this->pluginID,
+			'id'               => $this->addonID,
 			'name'             => __( 'ACF', 'woo-assistant' ),
 			'title'            => __( 'ACF', 'woo-assistant' ),
 			'menu_title'       => __( 'ACF', 'woo-assistant' ),

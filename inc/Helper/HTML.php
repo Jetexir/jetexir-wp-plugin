@@ -30,7 +30,7 @@ class HTML {
 		'posttype',
 		'taxonomy',
 
-		'plugin',
+		'addon',
 		'wpcolorpicker'
 	];
 	// FAQ
@@ -290,7 +290,7 @@ class HTML {
 		return '<h2 class="' . self::prefix . 'heading-2">' . $data['title'] . '</h2>';
 	}
 
-	public static function plugin( $data ): string {
+	public static function addon( $data ): string {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
 		}
@@ -298,14 +298,14 @@ class HTML {
 		$canActivate = isset( $data['can_activate'] ) && $data['can_activate'];
 		$class       = ' ' . ( $data['class'] ?? '' );
 		if ( ! $canActivate ) {
-			$class .= ' ' . self::prefix . 'plugin-inactive';
+			$class .= ' ' . self::prefix . 'addon-inactive';
 		}
 
-		$plugin = '<div class="' . self::prefix . 'plugin-wrap' . $class . '">' .
-		          '<div class="' . self::prefix . 'image-wrap">';
+		$addon = '<div class="' . self::prefix . 'addon-wrap' . $class . '">' .
+		         '<div class="' . self::prefix . 'image-wrap">';
 
 		if ( is_array( $data['tags'] ) && ! empty( $data['tags'] ) && is_string( $data['tags'][0] ) ) {
-			$plugin .= '<span class="' . self::prefix . 'tag">' . $data['tags'][0] . '</span>';
+			$addon .= '<span class="' . self::prefix . 'tag">' . $data['tags'][0] . '</span>';
 		}
 
 		$image = '';
@@ -317,20 +317,20 @@ class HTML {
 
 		if ( ! empty( $image ) ) {
 			if ( ! empty( $data['image_link'] ) ) {
-				$plugin .= '<a href="' . $data['image_link'] . '" target="_blank" class="' . self::prefix . 'image-link">' . $image . '</a>';
+				$addon .= '<a href="' . $data['image_link'] . '" target="_blank" class="' . self::prefix . 'image-link">' . $image . '</a>';
 			} else {
-				$plugin .= $image;
+				$addon .= $image;
 			}
 		}
 
 
-		$plugin .= '</div><div class="' . self::prefix . 'title-desc"><h3 class="' . self::prefix . 'title">' . $data['title'] . '</h3>' .
-		           ( ! empty( $data['desc'] ) ? '<p class="' . self::prefix . 'desc">' . $data['desc'] . '</p>' : '' ) .
-		           ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link">' . self::chevronRightIcon . __( 'More info' ) . '</a>' : '' ) .
-		           '</div><div class="' . self::prefix . 'action-wrap">';
+		$addon .= '</div><div class="' . self::prefix . 'title-desc"><h3 class="' . self::prefix . 'title">' . $data['title'] . '</h3>' .
+		          ( ! empty( $data['desc'] ) ? '<p class="' . self::prefix . 'desc">' . $data['desc'] . '</p>' : '' ) .
+		          ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link">' . self::chevronRightIcon . __( 'More info' ) . '</a>' : '' ) .
+		          '</div><div class="' . self::prefix . 'action-wrap">';
 
 		if ( $canActivate ) {
-			$plugin .= self::toggle( array(
+			$addon .= self::toggle( array(
 				'id'            => $data['id'],
 				'type'          => 'toggle',
 				'title'         => $data['action_title'],
@@ -340,22 +340,22 @@ class HTML {
 			) );
 
 		} else if ( ! empty( $data['action_link'] ) ) {
-			$plugin .= '<a href="' . $data['action_link'] . '" ' . ( $data['action_link_external'] ? 'target="_blank"' : '' ) . ' class="' . self::prefix . 'action-link">' . $data['action_title'] . '</a>';
+			$addon .= '<a href="' . $data['action_link'] . '" ' . ( $data['action_link_external'] ? 'target="_blank"' : '' ) . ' class="' . self::prefix . 'action-link">' . $data['action_title'] . '</a>';
 
 		} else {
 
 		}
 
-		$plugin .= '</div></div>';
+		$addon .= '</div></div>';
 
-		return $plugin;
+		return $addon;
 	}
 
-	public static function startplugins( $data ): string {
-		return '<div class="' . self::prefix . 'plugins-wrap' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '">' . self::h2( $data ) . '<div class="' . self::prefix . 'plugins-grid">';
+	public static function startaddons( $data ): string {
+		return '<div class="' . self::prefix . 'addons-wrap' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '">' . self::h2( $data ) . '<div class="' . self::prefix . 'addons-grid">';
 	}
 
-	public static function endplugins( $data ): string {
+	public static function endaddons( $data ): string {
 		return '</div></div>';
 	}
 

@@ -16,10 +16,10 @@ namespace WooAssistant;
 
 defined( 'ABSPATH' ) || exit;
 
+use WooAssistant\Addons\Addons;
 use WooAssistant\Admin\Admin;
 use WooAssistant\App\App;
 use WooAssistant\Integrations\Integrations;
-use WooAssistant\Plugins\Plugins;
 
 final class WooAssistant {
 	public function __construct() {
@@ -65,7 +65,7 @@ final class WooAssistant {
 	 */
 	private function instance(): void {
 		new Admin();
-		new Plugins();
+		new Addons();
 		new Integrations();
 		new App();
 	}

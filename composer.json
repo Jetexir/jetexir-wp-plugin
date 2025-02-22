@@ -3,7 +3,7 @@
   "description": "WooCommerce Assistant",
   "type": "project",
   "scripts": {
-    "autoload": "composer dump-autoload"
+    "woo-assistant-autoload": "composer dump-autoload"
   },
   "autoload": {
     "psr-4": {

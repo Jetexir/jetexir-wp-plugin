@@ -1,6 +1,6 @@
 @use "../utilities/variables";
 
-.wa-plugins-wrap {
+.wa-addons-wrap {
   .wa-heading-2 {
     margin-bottom: 30px;
   }
@@ -9,13 +9,13 @@
     margin: 30px 0 !important;
   }
 
-  .wa-plugins-grid {
+  .wa-addons-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, 300px);
     gap: 20px;
   }
 
-  .wa-plugin-wrap {
+  .wa-addon-wrap {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -23,7 +23,7 @@
     border-radius: 10px;
     overflow: hidden;
 
-    &.wa-plugin-inactive {
+    &.wa-addon-inactive {
       .wa-image-wrap {
         img, svg {
           opacity: 0.5;

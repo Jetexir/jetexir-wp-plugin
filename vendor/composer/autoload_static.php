@@ -22,6 +22,8 @@ class ComposerStaticInit3d7b02fa6ae06202f848d5e89f8f9d58
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'WooAssistant\\Addons\\Addon' => __DIR__ . '/../..' . '/inc/Addons/Addon.php',
+        'WooAssistant\\Addons\\Addons' => __DIR__ . '/../..' . '/inc/Addons/Addons.php',
         'WooAssistant\\Admin\\Admin' => __DIR__ . '/../..' . '/inc/Admin/Admin.php',
         'WooAssistant\\Admin\\AdminAssets' => __DIR__ . '/../..' . '/inc/Admin/AdminAssets.php',
         'WooAssistant\\Admin\\AdminDashboard' => __DIR__ . '/../..' . '/inc/Admin/AdminDashboard.php',
@@ -34,9 +36,11 @@ class ComposerStaticInit3d7b02fa6ae06202f848d5e89f8f9d58
         'WooAssistant\\App\\Post' => __DIR__ . '/../..' . '/inc/App/Post.php',
         'WooAssistant\\App\\Product' => __DIR__ . '/../..' . '/inc/App/Product.php',
         'WooAssistant\\App\\ProductQuantity' => __DIR__ . '/../..' . '/inc/App/ProductQuantity.php',
+        'WooAssistant\\App\\ProductTest' => __DIR__ . '/../..' . '/inc/App/ProductTest.php',
         'WooAssistant\\Helper\\Assets' => __DIR__ . '/../..' . '/inc/Helper/Assets.php',
         'WooAssistant\\Helper\\Cache' => __DIR__ . '/../..' . '/inc/Helper/Cache.php',
         'WooAssistant\\Helper\\DebugTrait' => __DIR__ . '/../..' . '/inc/Helper/DebugTrait.php',
+        'WooAssistant\\Helper\\FeedReader' => __DIR__ . '/../..' . '/inc/Helper/FeedReader.php',
         'WooAssistant\\Helper\\HTML' => __DIR__ . '/../..' . '/inc/Helper/HTML.php',
         'WooAssistant\\Helper\\Helper' => __DIR__ . '/../..' . '/inc/Helper/Helper.php',
         'WooAssistant\\Helper\\Notice' => __DIR__ . '/../..' . '/inc/Helper/Notice.php',
@@ -47,10 +51,9 @@ class ComposerStaticInit3d7b02fa6ae06202f848d5e89f8f9d58
         'WooAssistant\\Helper\\Validating' => __DIR__ . '/../..' . '/inc/Helper/Validating.php',
         'WooAssistant\\Integrations\\ACF' => __DIR__ . '/../..' . '/inc/Integrations/ACF.php',
         'WooAssistant\\Integrations\\Integrations' => __DIR__ . '/../..' . '/inc/Integrations/Integrations.php',
+        'WooAssistant\\Integrations\\WooDeveloperFeed' => __DIR__ . '/../..' . '/inc/Integrations/WooDeveloperFeed.php',
+        'WooAssistant\\Interfaces\\AddonInterface' => __DIR__ . '/../..' . '/inc/Interfaces/AddonInterface.php',
         'WooAssistant\\Interfaces\\AdminTabInterface' => __DIR__ . '/../..' . '/inc/Interfaces/AdminTabInterface.php',
-        'WooAssistant\\Interfaces\\PluginInterface' => __DIR__ . '/../..' . '/inc/Interfaces/PluginInterface.php',
-        'WooAssistant\\Plugins\\Plugin' => __DIR__ . '/../..' . '/inc/Plugins/Plugin.php',
-        'WooAssistant\\Plugins\\Plugins' => __DIR__ . '/../..' . '/inc/Plugins/Plugins.php',
         'WooAssistant\\Settings\\Settings' => __DIR__ . '/../..' . '/inc/Settings/Settings.php',
     );
 
