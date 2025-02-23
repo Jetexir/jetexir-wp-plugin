@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\App;
+namespace WooAssistant\App\Product;
 
 class ProductTest {
 	private static string $sectionID = 'test';
