@@ -4,7 +4,6 @@ namespace WooAssistant\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\App\ProductQuantity;
 use WooAssistant\Interfaces\AdminTabInterface;
 
 class AdminProduct implements AdminTabInterface {
