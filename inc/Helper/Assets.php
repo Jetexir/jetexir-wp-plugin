@@ -5,8 +5,29 @@ namespace WooAssistant\Helper;
 defined( 'ABSPATH' ) || exit;
 
 class Assets {
+	public static function getVersion(): string {
+		return WOOASSISTANT_PLUGIN_VERSION . ( defined( 'WP_DEVELOPMENT_MODE' ) && WP_DEVELOPMENT_MODE === 'plugin' ? time() : '' );
+	}
+
 	public static function url( $path ): string {
 		return WOOASSISTANT_PLUGIN_URL . 'assets/' . $path;
+	}
+
+	/**
+	 *  Get WP image sizes
+	 * https://developer.wordpress.org/reference/functions/get_intermediate_image_sizes/
+	 *
+	 * @return array WP image sizes
+	 */
+	public static function getImageSizes(): array {
+		$sizes      = get_intermediate_image_sizes();
+		$imageSizes = [];
+
+		foreach ( $sizes as $value ) {
+			$imageSizes[ $value ] = ucwords( str_replace( '_', ' ', $value ) );
+		}
+
+		return $imageSizes;
 	}
 
 	public static function setSvgDimensions( $svg, $width, $height = null ): string {
@@ -44,7 +65,6 @@ class Assets {
 				$svg = str_replace( $openingTag, $openTag, $svg );
 			}
 		}
-
 
 		return $svg;
 	}
