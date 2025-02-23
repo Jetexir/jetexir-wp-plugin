@@ -116,16 +116,28 @@ class HTML {
 			$field .= '<option value="' . $data['option_none_value'] . '">' . $data['option_none'] . '</option>';
 		}
 
-		if ( ! empty( $data['options'] ) ) {
+		if ( ! empty( $data['options'] ) && is_array( $data['options'] ) ) {
+			$isList = array_is_list( $data['options'] );
+
 			foreach ( $data['options'] as $key => $value ) {
-				$selected = isset( $data['multiple'] ) && $data['multiple'] && is_array( $data['setting_value'] ) ? in_array( $key, $data['setting_value'], true ) : $data['setting_value'] == $key;
-				$field    .= '<option value="' . $key . '" ' . selected( $selected, true, false ) . '>' . $value . '</option>';
+				$selected = isset( $data['multiple'] ) && $data['multiple'] && is_array( $data['setting_value'] ) ? in_array( ( $isList ? $value : $key ), $data['setting_value'], true ) : $data['setting_value'] == ( $isList ? $value : $key );
+
+				$field .= '<option value="' . ( $isList ? $value : $key ) . '" ' . selected( $selected, true, false ) . '>' . $value . '</option>';
 			}
 		}
 
 		$field .= '</select>';
 
 		return self::wrap( $field, $data );
+	}
+
+	public static function imagesize( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+		$data['options'] = apply_filters( 'woo_assistant_image_sizes_select_items', Assets::getImageSizes() );
+
+		return self::select( $data );
 	}
 
 	public static function taxonomy( $data ): string {
@@ -359,6 +371,30 @@ class HTML {
 		return '</div></div>';
 	}
 
+	public static function notice( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$key = 'notice_element_' . $data['id'];
+		Notice::clear( $key );
+		foreach ( $data['notices'] as $notice ) {
+			Notice::add( $key, $notice['message'], $notice['type'] );
+		}
+
+		return Notice::display( $key, null, false );
+	}
+
+	public static function paragraph( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$class = self::getClass( $data, self::prefix . 'paragraph-wrap' );
+
+		return '<p class="' . $class . '">' . $data['text'] . '</p>';
+	}
+
 	public static function image( $data ): string {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
@@ -383,6 +419,11 @@ class HTML {
 		if ( $data['type'] === 'image' && filter_var( $data['src'], FILTER_VALIDATE_URL ) ) {
 			return false;
 		}
+
+		if ( $data['type'] === 'notice' && ( empty( $data['id'] ) || empty( $data['notices'] ) || ! is_array( $data['notices'] ) ) ) {
+			return false;
+		}
+
 		if ( isset( $data['setting_value'] ) && ( is_string( $data['setting_value'] ) || is_numeric( $data['setting_value'] ) ) ) {
 			$settingValue = html_entity_decode( $data['setting_value'] );
 			if ( mb_strlen( $settingValue ) !== mb_strlen( $data['setting_value'] ) ) {
