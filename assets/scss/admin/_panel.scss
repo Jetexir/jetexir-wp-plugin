@@ -19,6 +19,16 @@ body.toplevel_page_#{variables.$plugin_key} {
       font-size: 15px;
       font-weight: 400;
     }
+
+    code {
+      background-color: variables.$background_side;
+      border-radius: 2px;
+      padding: 5px;
+    }
+
+    P {
+      margin: 0;
+    }
   }
 
   .#{variables.$plugin_key}-wrap {
