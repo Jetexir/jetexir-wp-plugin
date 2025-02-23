@@ -59,10 +59,15 @@ class AdminSettings {
 							$default = 0;
 						}
 
+						if ( empty( $setting['default'] ) && $setting['type'] === 'imagesize' ) {
+							$default = 'thumbnail';
+						}
+
 						if ( isset( $data['multiple'] ) && $data['multiple'] && empty( $setting['default'] ) && in_array( $setting['type'], [
 								'select',
 								'taxonomy',
-								'posttype'
+								'posttype',
+								'imagesize'
 							] ) ) {
 							$default = [];
 						}
