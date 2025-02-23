@@ -9,9 +9,9 @@ trait DebugTrait {
 		error_log( print_r( $value, true ) );
 	}
 
-	public static function dd( $value ): void {
-		echo '<pre>';
-		var_dump( $value );
+	public static function dd( $var ): void {
+		echo '<pre style="background: #520b0b; color: white; direction: ltr; text-align: left; border-radius: 10px; padding: 20px; font-size: 1.3em">';
+		var_dump( $var );
 		echo '</pre>';
 	}
 }
