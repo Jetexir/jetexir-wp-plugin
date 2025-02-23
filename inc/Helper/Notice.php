@@ -7,21 +7,31 @@ defined( 'ABSPATH' ) || die();
 class Notice {
 	private static array $messages = [];
 
-	public static function add( $tab, $message, $type = null ): void {
-		$type                         = empty( $type ) ? 'default' : $type;
-		self::$messages[ $tab ][] = array(
+	public static function addAndDisplay( $key, $notices, $echo = false ) {
+		self::clear( $key );
+
+		foreach ( $notices as $type => $message ) {
+			self::add( $key, $message, $type );
+		}
+
+		return self::display( $key, null, $echo );
+	}
+
+	public static function add( $key, $message, $type = null ): void {
+		$type                     = self::getType( $type );
+		self::$messages[ $key ][] = array(
 			'type'    => $type,
 			'message' => $message
 		);
 	}
 
-	public static function clear( $tab ): void {
-		self::$messages[ $tab ] = array();
+	public static function clear( $key ): void {
+		self::$messages[ $key ] = array();
 	}
 
-	public static function display( $tab, $type = null ): void {
-		$messages = self::$messages[ $tab ] ?? [];
-		$notices  = '';
+	public static function display( $key, $type = null, $echo = true ) {
+		$messages = self::$messages[ $key ] ?? [];
+		$notices  = $noticeWrap = '';
 		if ( ! empty( $messages ) ) {
 			foreach ( $messages as $message ) {
 				if ( ! is_null( $type ) && $message['type'] !== $type ) {
@@ -31,15 +41,23 @@ class Notice {
 				$notices .= self::html( $message['type'], $message['message'] );
 			}
 
-			self::clear( $tab );
+			self::clear( $key );
 		}
 
 		if ( ! empty( $notices ) ) {
-			echo '<div class="' . WOOASSISTANT_PLUGIN_SLUG . '-notices">' . $notices . '</div>';
+			$noticeWrap = '<div class="' . WOOASSISTANT_PLUGIN_SLUG . '-notices">' . $notices . '</div>';
+		}
+
+		if ( $echo ) {
+			echo $noticeWrap;
+		} else {
+			return $noticeWrap;
 		}
 	}
 
 	public static function html( $type, $message ): string {
+		$type = self::getType( $type );
+
 		return '<div class="wa-notice wa-notice-' . $type . '" ><div>' . self::getIcon( $type ) . '<p>' . $message . '</p></div></div>';
 	}
 
@@ -72,5 +90,11 @@ class Notice {
 		);
 
 		return $icons[ $type ] ?? $icons['default'];
+	}
+
+	private static function getType( $type ): string {
+		$types = array( 'default', 'info', 'success', 'warning', 'error' );
+
+		return in_array( $type, $types, true ) ? $type : 'default';
 	}
 }
