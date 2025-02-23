@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\App;
+namespace WooAssistant\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -391,11 +391,8 @@ class ProductQuantity {
 	}
 
 	public function enqueueScripts(): void {
-		$pluginVersion = WOOASSISTANT_PLUGIN_VERSION . ( defined( 'DEVELOPMENT_MODE' ) && DEVELOPMENT_MODE ? time() : '' );
-
-		//wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-admin-style',
-		//	Assets::url( 'css-admin/admin-style.min.css' ), false, WOOASSISTANT_PLUGIN_VERSION );
 		if ( self::$printed && Settings::get( 'quantity_input_plus_minus_button', false ) ) {
+			$pluginVersion = Assets::getVersion();
 			wp_enqueue_script( WOOASSISTANT_PLUGIN_SLUG . '-product-quantity-script',
 				Assets::url( 'js/product-quantity.min.js' ),
 				[ 'jquery' ], $pluginVersion, [ 'in_footer' => true ] );
