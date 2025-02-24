@@ -15,6 +15,7 @@ class HTML {
 		'checkbox',
 		'radio',
 		'radioinline',
+		'checkboxinline',
 		'textarea',
 		'text',
 		'password',
@@ -242,6 +243,32 @@ class HTML {
 		return $field;
 	}
 
+	public static function checkboxinline( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$isList = array_is_list( $data['options'] );
+		if ( $isList ) {
+			$data['options'] = array_combine( $data['options'], $data['options'] );
+		}
+
+		$field = self::startradiogroup( $data );
+
+		$labelClass = self::prefix . 'checkbox-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' wa-not-equal' : '' );
+		foreach ( $data['options'] as $key => $value ) {
+			$checked = is_array( $data['setting_value'] ) ? in_array( ( $isList ? $value : $key ), $data['setting_value'], true ) : $data['setting_value'] == ( $isList ? $value : $key );
+
+			$field .= '<label class="' . $labelClass . '">' .
+			          '<input type="checkbox" name="' . self::prefixName . $data['id'] . '[]" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" value="' . $key . '"  ' . checked( $checked, true, false ) . self::getAttributes( $data ) . '>' .
+			          '<span class="' . self::prefix . 'checkmark"></span><span class="' . self::prefix . 'title">' . $value . '</span></label>';
+		}
+
+		$field .= self::endradiogroup( $data );
+
+		return $field;
+	}
+
 	public static function checkbox( $data ): string {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
@@ -279,7 +306,9 @@ class HTML {
 	}
 
 	public static function startradiogroup( $data ): string {
-		return '<fieldset id="' . self::prefix . $data['id'] . '-radio-group" class="' . self::prefix . 'radio-group ' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '"><legend class="' . self::prefix . 'title">' . $data['title'] . '</legend><div class="' . self::prefix . 'radio-group-options">';
+		$type = $data['type'] === 'radioinline' ? 'radio' : 'checkbox';
+
+		return '<fieldset id="' . self::prefix . $data['id'] . '-' . $type . '-group" class="' . self::prefix . $type . '-group ' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '"><legend class="' . self::prefix . 'title">' . $data['title'] . '</legend><div class="' . self::prefix . $type . '-group-options">';
 	}
 
 	public static function endradiogroup( $data ): string {
@@ -445,7 +474,8 @@ class HTML {
 		if ( ! empty( $data['option_none'] ) && ! isset( $data['option_none_value'] ) ) {
 			$data['option_none_value'] = '';
 		}
-		if ( $data['type'] === 'radioinline' && ( ! isset( $data['options'] ) || ! is_array( $data['options'] ) ) ) {
+		if ( in_array( $data['type'], [ 'radioinline', 'checkboxinline' ] )
+		     && ( ! isset( $data['options'] ) || ! is_array( $data['options'] ) ) ) {
 			$data['options'] = array();
 		}
 		if ( $data['type'] === 'select' && ( ! isset( $data['options'] ) || ! is_array( $data['options'] ) ) ) {

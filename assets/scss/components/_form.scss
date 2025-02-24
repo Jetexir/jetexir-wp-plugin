@@ -77,12 +77,12 @@
       }
     }
 
-    .wa-radio-group {
+    :is( .wa-radio-group, .wa-checkbox-group) {
       legend {
-        margin-bottom: .5rem;
+        margin-bottom: 1em;
       }
 
-      .wa-radio-group-options {
+      :is( .wa-radio-group-options, .wa-checkbox-group-options) {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

@@ -1,6 +1,6 @@
 @use "../utilities/variables";
 
-.wa-radio-inline {
+:is(.wa-radio-inline,.wa-checkbox-inline) {
   position: relative;
 
   input {
@@ -15,6 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
     margin-inline-start: 0;
     cursor: pointer;
     border: 2px solid variables.$border_color;
@@ -22,6 +23,7 @@
     border-radius: 10px;
     height: 3.5rem;
     width: 3.5rem;
+    padding: 0 10px;
   }
 
   .wa-checkmark {
@@ -64,6 +66,12 @@
 
   input[disabled] ~ .wa-title, input[disabled] + .wa-checkmark {
     opacity: 0.7;
+  }
+
+  &.wa-not-equal {
+    .wa-title {
+      width: inherit;
+    }
   }
 }
 

@@ -75,11 +75,13 @@ class AdminSettings {
 						$value = Param::post( WOOASSISTANT_INPUT_PREFIX . $setting['id'], $default );
 
 						if ( empty( $setting['sanitize'] ) ) {
-							if ( isset( $setting['multiple'] ) && $setting['multiple'] && in_array( $setting['type'], [
-									'taxonomy',
-									'posttype',
-									'select'
-								] ) ) {
+							if ( $setting['type'] === 'checkboxinline' ||
+							     ( isset( $setting['multiple'] ) && $setting['multiple'] &&
+							       in_array( $setting['type'], [
+								       'taxonomy',
+								       'posttype',
+								       'select'
+							       ] ) ) ) {
 								$setting['sanitize'] = 'array';
 
 							} else if ( in_array( $setting['type'], [
