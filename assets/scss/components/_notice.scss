@@ -34,24 +34,49 @@
       margin: 0;
     }
 
+    code {
+      color: darken(variables.$default, 5%);
+      background-color: darken(variables.$default_light, 5%);
+    }
+
     &.wa-notice-info {
       color: variables.$info;
       background-color: variables.$info_light;
+
+      code {
+        color: darken(variables.$info, 5%);
+        background-color: darken(variables.$info_light, 5%);
+      }
     }
 
     &.wa-notice-success {
       color: variables.$success;
       background-color: variables.$success_light;
+
+      code {
+        color: darken(variables.$success, 5%);
+        background-color: darken(variables.$success_light, 5%);
+      }
     }
 
     &.wa-notice-warning {
       color: variables.$warning;
       background-color: variables.$warning_light;
+
+      code {
+        color: darken(variables.$warning, 5%);
+        background-color: darken(variables.$warning_light, 5%);
+      }
     }
 
     &.wa-notice-error {
       color: variables.$error;
       background-color: variables.$error_light;
+
+      code {
+        color: darken(variables.$error, 5%);
+        background-color: darken(variables.$error_light, 5%);
+      }
     }
   }
 }
