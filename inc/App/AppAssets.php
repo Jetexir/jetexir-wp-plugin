@@ -12,7 +12,7 @@ class AppAssets {
 	}
 
 	public function enqueueScripts(): void {
-		$pluginVersion = WOOASSISTANT_PLUGIN_VERSION . ( defined( 'DEVELOPMENT_MODE' ) && DEVELOPMENT_MODE ? time() : '' );
+		$pluginVersion = Assets::getVersion();
 
 		wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-global-style',
 			Assets::url( 'css/style.min.css' ), false, $pluginVersion );
