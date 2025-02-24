@@ -7,11 +7,11 @@ defined( 'ABSPATH' ) || die();
 class Notice {
 	private static array $messages = [];
 
-	public static function addAndDisplay( $key, $notices, $echo = false ) {
+	public static function addAndDisplay( $key, $notices, $echo = true ) {
 		self::clear( $key );
 
-		foreach ( $notices as $type => $message ) {
-			self::add( $key, $message, $type );
+		foreach ( $notices as $notice ) {
+			self::add( $key, $notice['message'], $notice['type'] );
 		}
 
 		return self::display( $key, null, $echo );
@@ -30,6 +30,7 @@ class Notice {
 	}
 
 	public static function display( $key, $type = null, $echo = true ) {
+		$type     = is_null( $type ) ? $type : self::getType( $type );
 		$messages = self::$messages[ $key ] ?? [];
 		$notices  = $noticeWrap = '';
 		if ( ! empty( $messages ) ) {
@@ -94,6 +95,7 @@ class Notice {
 
 	private static function getType( $type ): string {
 		$types = array( 'default', 'info', 'success', 'warning', 'error' );
+		$type  = strtolower( $type );
 
 		return in_array( $type, $types, true ) ? $type : 'default';
 	}
