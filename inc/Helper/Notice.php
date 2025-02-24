@@ -29,7 +29,7 @@ class Notice {
 		self::$messages[ $key ] = array();
 	}
 
-	public static function display( $key, $type = null, $echo = true ) {
+	public static function display( $key, $type = null, $echo = true ): string {
 		$type     = is_null( $type ) ? $type : self::getType( $type );
 		$messages = self::$messages[ $key ] ?? [];
 		$notices  = $noticeWrap = '';
@@ -54,6 +54,8 @@ class Notice {
 		} else {
 			return $noticeWrap;
 		}
+
+		return '';
 	}
 
 	public static function html( $type, $message ): string {
