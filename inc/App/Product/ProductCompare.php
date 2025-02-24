@@ -6,7 +6,6 @@ use Automattic\WooCommerce\Utilities\I18nUtil;
 use WooAssistant\App\App;
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Cookie;
-use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Helper\Nonce;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\WooCommerce;
@@ -24,7 +23,7 @@ class ProductCompare {
 		add_action( 'woo_assistant_init', [ $this, 'init' ] );
 	}
 
-	public function init() {
+	public function init(): void {
 		if ( Settings::get( 'product_compare_enable', false ) ) {
 			App::addShortcode( self::shortCode, [ $this, 'compareShortcode' ] );
 			if ( Settings::get( 'product_compare_archive_button', false ) ) {
@@ -94,7 +93,7 @@ class ProductCompare {
 						if ( ! $product->is_visible() ) {
 							$data['title'][] = esc_html( $product->get_name() );
 						} else {
-							$data['title'][] = sprintf( '<a href="%s">%s</a>', esc_url( $product->get_permalink() ),
+							$data['title'][] = wp_sprintf( '<a href="%s">%s</a>', esc_url( $product->get_permalink() ),
 								esc_html( $product->get_name() ) );
 						}
 
@@ -155,6 +154,7 @@ class ProductCompare {
 					// Head
 					echo '<div class="wa-product-compare-row wa-product-compare-head">';
 					foreach ( $data['title'] as $i => $title ) {
+						$i = (int) $i;
 						echo '<div class="wa-product-compare-col">';
 						echo $data['removeButton'][ $i ];
 						echo $data['images'][ $i ];
@@ -177,7 +177,7 @@ class ProductCompare {
 						echo $field['label'];
 						echo '</div>';
 						echo '<div class="wa-product-compare-row wa-product-compare-row-field wa-product-compare-row-' . $key . '">';
-						foreach ( $field['value'] as $i => $value ) {
+						foreach ( $field['value'] as $value ) {
 							echo '<div class="wa-product-compare-col">';
 							echo empty( $value ) ? '---' : $value;
 							echo '</div>';
@@ -238,7 +238,7 @@ class ProductCompare {
 	 *
 	 * @return array Return status and count of items
 	 */
-	private function updateStorage( $productID, $max = 2 ): array {
+	private function updateStorage( int $productID, int $max = 2 ): array {
 		$productIDs = $this->getStorageItems();
 		$count      = count( $productIDs );
 		$status     = 'added';
@@ -257,7 +257,7 @@ class ProductCompare {
 			$count ++;
 		}
 
-		$productIDs = json_encode( $productIDs );
+		$productIDs = json_encode( $productIDs, JSON_THROW_ON_ERROR );
 		$expire     = current_time( 'timestamp' ) + HOUR_IN_SECONDS;
 		Cookie::set( self::cookieName, $productIDs, $expire );
 

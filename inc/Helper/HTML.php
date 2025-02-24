@@ -354,8 +354,6 @@ class HTML {
 		} else if ( ! empty( $data['action_link'] ) ) {
 			$addon .= '<a href="' . $data['action_link'] . '" ' . ( $data['action_link_external'] ? 'target="_blank"' : '' ) . ' class="' . self::prefix . 'action-link">' . $data['action_title'] . '</a>';
 
-		} else {
-
 		}
 
 		$addon .= '</div></div>';
@@ -471,13 +469,9 @@ class HTML {
 	private static function getAttributes( $data ): string {
 		$attributes = '';
 
-		if ( ! empty( $data['attributes'] ) ) {
-			if ( is_array( $data['attributes'] ) ) {
-				foreach ( $data['attributes'] as $key => $value ) {
-					$attributes .= ' ' . $key . '="' . $value . '"';
-				}
-			} else {
-				//$attributes .= ' ' . $data['attributes'];
+		if ( ! empty( $data['attributes'] ) && is_array( $data['attributes'] ) ) {
+			foreach ( $data['attributes'] as $key => $value ) {
+				$attributes .= ' ' . $key . '="' . $value . '"';
 			}
 		}
 
