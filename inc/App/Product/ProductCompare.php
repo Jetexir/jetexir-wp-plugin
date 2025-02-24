@@ -6,6 +6,7 @@ use Automattic\WooCommerce\Utilities\I18nUtil;
 use WooAssistant\App\App;
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Cookie;
+use WooAssistant\Helper\JSON;
 use WooAssistant\Helper\Nonce;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\WooCommerce;
@@ -257,7 +258,7 @@ class ProductCompare {
 			$count ++;
 		}
 
-		$productIDs = json_encode( $productIDs, JSON_THROW_ON_ERROR );
+		$productIDs = JSON::encode( $productIDs );
 		$expire     = current_time( 'timestamp' ) + HOUR_IN_SECONDS;
 		Cookie::set( self::cookieName, $productIDs, $expire );
 
@@ -284,7 +285,7 @@ class ProductCompare {
 	 */
 	private function getStorageItems(): array {
 		$value      = Cookie::get( self::cookieName, '' );
-		$productIDs = json_decode( $value, true );
+		$productIDs = JSON::decode( $value, true );
 		$productIDs = is_array( $productIDs ) ? $productIDs : [];
 		$productIDs = array_filter( $productIDs );
 		$productIDs = array_values( $productIDs );
