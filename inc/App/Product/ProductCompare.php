@@ -112,7 +112,7 @@ class ProductCompare {
 								$value = false;
 
 								if ( $key === 'brand' ) {
-									$value = do_shortcode( '[product_brand post_id="' . $productID . '" class="test"]' );
+									$value = do_shortcode( '[product_brand post_id="' . $productID . '" class="wa-product-compare-brand"]' );
 
 								} elseif ( $key === 'dimensions' && $product->has_dimensions() ) {
 									$value = preg_replace( '/ /', '', $product->get_dimensions(), 4 );
@@ -176,7 +176,7 @@ class ProductCompare {
 						echo '<div class="wa-product-compare-field-title">';
 						echo $field['label'];
 						echo '</div>';
-						echo '<div class="wa-product-compare-row wa-product-compare-row-' . $key . '">';
+						echo '<div class="wa-product-compare-row wa-product-compare-row-field wa-product-compare-row-' . $key . '">';
 						foreach ( $field['value'] as $i => $value ) {
 							echo '<div class="wa-product-compare-col">';
 							echo empty( $value ) ? '---' : $value;
@@ -345,6 +345,15 @@ class ProductCompare {
 				'default'  => false,
 				'sanitize' => 'bool'
 			),
+			'product_compare_archive_button'     => array(
+				'id'       => 'product_compare_archive_button',
+				'title'    => __( 'Archive compare button', 'woo-assistant' ),
+				'type'     => 'toggle',
+				'value'    => 1,
+				'default'  => false,
+				'desc'     => __( 'Display compare button in WooCommerce archive pages', 'woo-assistant' ),
+				'sanitize' => 'bool'
+			),
 			'product_compare_page'               => array(
 				'id'                => 'product_compare_page',
 				'title'             => __( 'Compare page', 'woo-assistant' ),
@@ -376,15 +385,6 @@ class ProductCompare {
 				'option_none'       => '---',
 				'option_none_value' => '',
 				'desc'              => __( 'Select product image size', 'woo-assistant' )
-			),
-			'product_compare_archive_button'     => array(
-				'id'       => 'product_compare_archive_button',
-				'title'    => __( 'Archive compare button', 'woo-assistant' ),
-				'type'     => 'toggle',
-				'value'    => 1,
-				'default'  => false,
-				'desc'     => __( 'Display compare button in WooCommerce archive pages', 'woo-assistant' ),
-				'sanitize' => 'bool'
 			),
 			'product_compare_add_to_cart_button' => array(
 				'id'       => 'product_compare_add_to_cart_button',
@@ -440,7 +440,7 @@ class ProductCompare {
 				'id'      => 'product_compare_no_attributes_notice',
 				'notices' => array(
 					array(
-						'message' => __( 'Your product attributes is empty, Add attribute in "Products > Attributes" menu', 'woo-assistant' ),
+						'message' => __( 'Your product attributes is empty, Add attribute in "Products > Attributes" menu.', 'woo-assistant' ),
 						'type'    => 'warning',
 					)
 				),

@@ -4,6 +4,10 @@
   margin: 30px 15px;
   color: #333;
 
+  img {
+    border-radius: 2px;
+  }
+
   &.wa-product-compare-cols-2 {
     .wa-product-compare-row {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -48,11 +52,15 @@
       }
     }
 
-    &.compare-row-brand {
-      img {
-        width: 100px;
-        height: auto;
+    &.wa-product-compare-row-field {
+      a {
+        display: inline-block;
       }
+    }
+
+    img.wa-product-compare-brand {
+      width: 70px;
+      height: auto;
     }
   }
 
