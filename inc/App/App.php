@@ -29,7 +29,7 @@ class App {
 	 *                           or null if not set (`$content`), and finally the shortcode tag
 	 *                           itself (`$shortcode_tag`), in that order.
 	 */
-	public static function addShortcode( $tag, $callback ) {
+	public static function addShortcode( $tag, $callback ): void {
 		if ( apply_filters( 'woo_assistant_add_shortcode', true, $tag ) ) {
 			add_shortcode( $tag, $callback );
 		}
