@@ -377,12 +377,8 @@ class HTML {
 		}
 
 		$key = 'notice_element_' . $data['id'];
-		Notice::clear( $key );
-		foreach ( $data['notices'] as $notice ) {
-			Notice::add( $key, $notice['message'], $notice['type'] );
-		}
 
-		return Notice::display( $key, null, false );
+		return Notice::addAndDisplay( $key, $data['notices'], false );
 	}
 
 	public static function paragraph( $data ): string {
