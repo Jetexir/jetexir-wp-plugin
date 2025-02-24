@@ -56,8 +56,11 @@ class ProductCompare {
 
 		if ( empty( $productIDs ) ) {
 			Notice::addAndDisplay( 'product-compare', array(
-				'error' => __( 'Your product compare list is empty', 'woo-assistant' )
-			), true );
+				array(
+					'type'    => 'warning',
+					'message' => __( 'Your product compare list is empty', 'woo-assistant' ),
+				)
+			) );
 
 		} else {
 			$productIDs = array_slice( $productIDs, 0, $maxItems );
@@ -187,8 +190,11 @@ class ProductCompare {
 
 			} else {
 				Notice::addAndDisplay( 'product-compare', array(
-					'error' => __( 'Your product compare list is empty', 'woo-assistant' )
-				), true );
+					array(
+						'type'    => 'warning',
+						'message' => __( 'Your product compare list is empty', 'woo-assistant' ),
+					)
+				) );
 			}
 		}
 
