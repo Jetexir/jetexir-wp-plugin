@@ -1,0 +1,135 @@
+@use "variables" as *;
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?qugwi2') format('truetype'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?qugwi2') format('woff'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?qugwi2##{$icomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.wa-icon-bluesky {
+  &:before {
+    content: $wa-icon-bluesky;
+  }
+}
+
+.wa-icon-viber {
+  &:before {
+    content: $wa-icon-viber;
+  }
+}
+
+.wa-icon-whatsapp {
+  &:before {
+    content: $wa-icon-whatsapp;
+  }
+}
+
+.wa-icon-telegram {
+  &:before {
+    content: $wa-icon-telegram;
+  }
+}
+
+.wa-icon-mastodon {
+  &:before {
+    content: $wa-icon-mastodon;
+  }
+}
+
+.wa-icon-yahoo {
+  &:before {
+    content: $wa-icon-yahoo;
+  }
+}
+
+.wa-icon-x-twitter {
+  &:before {
+    content: $wa-icon-x-twitter;
+  }
+}
+
+.wa-icon-evernote {
+  &:before {
+    content: $wa-icon-evernote;
+  }
+}
+
+.wa-icon-xing {
+  &:before {
+    content: $wa-icon-xing;
+  }
+}
+
+.wa-icon-vk {
+  &:before {
+    content: $wa-icon-vk;
+  }
+}
+
+.wa-icon-tumblr {
+  &:before {
+    content: $wa-icon-tumblr;
+  }
+}
+
+.wa-icon-email {
+  &:before {
+    content: $wa-icon-email;
+  }
+}
+
+.wa-icon-pocket {
+  &:before {
+    content: $wa-icon-pocket;
+  }
+}
+
+.wa-icon-reddit {
+  &:before {
+    content: $wa-icon-reddit;
+  }
+}
+
+.wa-icon-linkedin {
+  &:before {
+    content: $wa-icon-linkedin;
+  }
+}
+
+.wa-icon-facebook {
+  &:before {
+    content: $wa-icon-facebook;
+  }
+}
+
+.wa-icon-pinterest {
+  &:before {
+    content: $wa-icon-pinterest;
+  }
+}
+
+.wa-icon-weibo {
+  &:before {
+    content: $wa-icon-weibo;
+  }
+}
+
