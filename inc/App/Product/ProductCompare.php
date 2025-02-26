@@ -322,13 +322,10 @@ class ProductCompare {
 
 		wp_enqueue_script( WOOASSISTANT_PLUGIN_KEY . '-product-compare-script',
 			Assets::url( 'js/product-compare.min.js' ),
-			[ 'jquery' ], $pluginVersion, [ 'in_footer' => true ] );
+			[ WOOASSISTANT_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
-		wp_localize_script( WOOASSISTANT_PLUGIN_KEY . '-product-compare-script', 'WooAssistantProductCompare', array(
-			'ajaxurl'            => admin_url( 'admin-ajax.php' ),
-			'ajaxnonce'          => Nonce::create(),
-			'maxExceededMessage' => __( 'It is not possible to add more than %number% product to the comparison.',
-				'woo-assistant' ),
+		wp_localize_script( WOOASSISTANT_PLUGIN_KEY . '-product-compare-script', WOOASSISTANT_PLUGIN_KEYCAP . 'ProductCompare', array(
+			'maxExceededMessage' => __( 'It is not possible to add more than %number% product to the comparison.', 'woo-assistant' ),
 		) );
 	}
 
