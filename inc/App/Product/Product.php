@@ -4,9 +4,9 @@ namespace WooAssistant\App\Product;
 
 class Product {
 	public function __construct() {
+		new ProductCompare();
 		new ProductQuantity();
 		//new ProductTest();
-		new ProductCompare();
 		new ProductSocialShare();
 	}
 

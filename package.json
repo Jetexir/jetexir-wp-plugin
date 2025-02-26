@@ -8,6 +8,7 @@
     "woo-assistant-admin-css": "sass --watch assets/scss/admin-style.scss:assets/css-admin/admin-style.min.css --style compressed",
     "woo-assistant-site-css": "sass --watch assets/scss/style.scss:assets/css/style.min.css --style compressed",
     "woo-assistant-product-compare-css": "sass --watch assets/scss/product-compare.scss:assets/css/product-compare.min.css --style compressed",
+    "woo-assistant-product-share-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.min.css --style compressed",
     "woo-assistant-build-js": "webpack --config webpack.config.js"
   },
   "devDependencies": {
