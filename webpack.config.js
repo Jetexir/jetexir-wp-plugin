@@ -10,7 +10,22 @@ const optimization = {
                 ecma: undefined,
                 parse: {},
                 compress: {},
-                mangle: true, // Note `mangle.properties` is `false` by default.
+                mangle: true,
+                // mangle: {
+                //     properties: {
+                //         debug: false,
+                //         reserved: ['wooAssistantAjax'],
+                //         keep_quoted: false
+                //     }
+                // },
+                // mangle: {
+                //     keep_fnames: true,
+                //     keep_classnames: true,
+                //     properties: {
+                //         //reserved: ['wooAssistantAjax', 'BaseModel'],
+                //         regex: /(^wooAssistantAjax|^p1|^_p1)[A-Z]\w*/
+                //     }
+                // }, // Note `mangle.properties` is `false` by default.
                 module: false,
                 // Deprecated
                 output: null,
@@ -19,7 +34,7 @@ const optimization = {
                 nameCache: null,
                 ie8: false,
                 keep_classnames: undefined,
-                keep_fnames: false,
+                keep_fnames: true,
                 safari10: false,
             },
         }),
