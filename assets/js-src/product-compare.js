@@ -1,15 +1,13 @@
 jQuery(document).ready(function ($) {
-    var wooAssistantAjax = false;
-
     $('.wa-button-product-compare').on('click', function (e) {
         var $this = $(this);
         if (wooAssistantAjax) return;
         wooAssistantAjax = true;
 
         $.post(
-            WooAssistantProductCompare.ajaxurl,
+            WooAssistant.ajaxUrl,
             {
-                nonce: WooAssistantProductCompare.ajaxnonce,
+                nonce: WooAssistant.ajaxNonce,
                 action: "wa_product_compare_add_remove",
                 product_id: $this.data('id')
             }
