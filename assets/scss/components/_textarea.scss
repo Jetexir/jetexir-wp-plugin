@@ -1,0 +1,28 @@
+@use "../utilities/variables";
+
+textarea {
+  background-color: white;
+  color: variables.$dark;
+  border: 1px solid variables.$border_color;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 400;
+  -webkit-transition: .2s;
+  transition: .2s;
+  width: 100%;
+  max-width: 500px;
+  max-height: 500px;
+
+  &:hover {
+    border-color: darken(variables.$border_color, 5%);
+  }
+
+  &:focus {
+    box-shadow: none;
+    outline: variables.$primary solid 2px;
+  }
+
+  &[resize="none"] {
+    resize: none;
+  }
+}
