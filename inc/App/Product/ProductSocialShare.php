@@ -292,7 +292,7 @@ class ProductSocialShare {
 		}
 
 		$sections[ self::sectionID ] = array(
-			'title'    => __( 'Social Share', 'woo-assistant' ),
+			'title'    => __( 'Share', 'woo-assistant' ),
 			'desc'     => __( 'Product Social Share', 'woo-assistant' ),
 			'settings' => array(
 				'product_social_share_start_grid_1'    => array(
