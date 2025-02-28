@@ -56,6 +56,25 @@ class HTML {
 		return '<div class="' . self::getClass( $data, self::prefix . 'field-wrap ' . self::prefix . 'field-' . $data['type'] . ( $controlDisabled ? ' ' . self::prefix . 'control-disabled' : '' ) ) . '"><div class="' . self::prefix . 'field-head">' . $field . '</div>' . ( ! empty( $data['desc'] ) ? '<div class="' . self::prefix . 'description">' . $data['desc'] . '</div>' : '' ) . '</div>';
 	}
 
+	public static function textarea( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$id   = self::prefix . $data['type'] . '-' . $data['id'];
+		$name = self::prefixName . $data['id'];
+
+		if ( isset( $data['is_repeatable'] ) && $data['is_repeatable'] ) {
+			$name .= '[]';
+			$id   = '';
+		}
+
+		$field = '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . '</label>' .
+		         '<textarea name="' . $name . '" id="' . $id . '" class="' . self::getClass( $data, self::prefix . 'field-textarea' ) . '" ' . self::getAttributes( $data ) . '>' . $data['setting_value'] . '</textarea>';
+
+		return self::wrap( $field, $data );
+	}
+
 	public static function inputText( $data ): string {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
