@@ -2,10 +2,9 @@
 
 @font-face {
   font-family: '#{$icomoon-font-family}';
-  src:
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?ieyuc3') format('truetype'),
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?ieyuc3') format('woff'),
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?ieyuc3##{$icomoon-font-family}') format('svg');
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?qyneeh') format('truetype'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?qyneeh') format('woff'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?qyneeh##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -31,139 +30,171 @@
     content: $wa-icon-file_copy;
   }
 }
+
 .wa-icon-content_copy {
   &:before {
     content: $wa-icon-content_copy;
   }
 }
+
+.wa-icon-plus {
+  &:before {
+    content: $wa-icon-plus;
+  }
+}
+
 .wa-icon-chevrons-up {
   &:before {
     content: $wa-icon-chevrons-up;
   }
 }
+
 .wa-icon-chevrons-right {
   &:before {
     content: $wa-icon-chevrons-right;
   }
 }
+
 .wa-icon-chevrons-left {
   &:before {
     content: $wa-icon-chevrons-left;
   }
 }
+
 .wa-icon-chevrons-down {
   &:before {
     content: $wa-icon-chevrons-down;
   }
 }
+
 .wa-icon-chevron-right {
   &:before {
     content: $wa-icon-chevron-right;
   }
 }
+
 .wa-icon-chevron-left {
   &:before {
     content: $wa-icon-chevron-left;
   }
 }
+
 .wa-icon-chevron-down {
   &:before {
     content: $wa-icon-chevron-down;
   }
 }
+
 .wa-icon-chevron-up {
   &:before {
     content: $wa-icon-chevron-up;
   }
 }
+
 .wa-icon-bluesky {
   &:before {
     content: $wa-icon-bluesky;
   }
 }
+
 .wa-icon-viber {
   &:before {
     content: $wa-icon-viber;
   }
 }
+
 .wa-icon-whatsapp {
   &:before {
     content: $wa-icon-whatsapp;
   }
 }
+
 .wa-icon-telegram {
   &:before {
     content: $wa-icon-telegram;
   }
 }
+
 .wa-icon-mastodon {
   &:before {
     content: $wa-icon-mastodon;
   }
 }
+
 .wa-icon-yahoo {
   &:before {
     content: $wa-icon-yahoo;
   }
 }
+
 .wa-icon-x-twitter {
   &:before {
     content: $wa-icon-x-twitter;
   }
 }
+
 .wa-icon-evernote {
   &:before {
     content: $wa-icon-evernote;
   }
 }
+
 .wa-icon-xing {
   &:before {
     content: $wa-icon-xing;
   }
 }
+
 .wa-icon-vk {
   &:before {
     content: $wa-icon-vk;
   }
 }
+
 .wa-icon-tumblr {
   &:before {
     content: $wa-icon-tumblr;
   }
 }
+
 .wa-icon-email {
   &:before {
     content: $wa-icon-email;
   }
 }
+
 .wa-icon-pocket {
   &:before {
     content: $wa-icon-pocket;
   }
 }
+
 .wa-icon-reddit {
   &:before {
     content: $wa-icon-reddit;
   }
 }
+
 .wa-icon-linkedin {
   &:before {
     content: $wa-icon-linkedin;
   }
 }
+
 .wa-icon-facebook {
   &:before {
     content: $wa-icon-facebook;
   }
 }
+
 .wa-icon-pinterest {
   &:before {
     content: $wa-icon-pinterest;
   }
 }
+
 .wa-icon-weibo {
   &:before {
     content: $wa-icon-weibo;
   }
 }
-

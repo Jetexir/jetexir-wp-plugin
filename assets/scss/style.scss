@@ -55,8 +55,12 @@
     }
 
     .wa-faq-question.active {
-      & i {
+      & i.wa-icon-chevrons-down, & i.wa-icon-chevron-down {
         transform: rotate(180deg);
+      }
+
+      & i.wa-icon-plus {
+        transform: rotate(45deg);
       }
 
       & + .wa-faq-answer {

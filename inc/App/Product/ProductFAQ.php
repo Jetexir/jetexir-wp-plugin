@@ -31,6 +31,7 @@ class ProductFAQ {
 		$productID          = get_the_ID();
 		$globalFAQsPosition = Settings::get( 'product_faq_global_position', 'before' );
 		$globalFAQs         = Settings::get( 'product_faq', [] );
+		$buttonIcon         = Settings::get( 'product_faq_button_icon', 'chevron' );
 		$primaryColor       = Settings::get( 'product_faq_primary_color', '#720eec' );
 		$bgColor            = Settings::get( 'product_faq_bg_color', '#ffffff' );
 		$productFAQs        = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq' );
@@ -54,12 +55,24 @@ class ProductFAQ {
 				}
 
 				echo '<div class="wa-faq-item">';
-				echo '<button class="wa-faq-question" type="button">' . $faq['question'] . '<i class="wa-icon-chevron-down"></i></button>';
+				echo '<button class="wa-faq-question" type="button">' . $faq['question'] . $this->getIcon( $buttonIcon ) . '</button>';
 				echo '<div class="wa-faq-answer">' . $faq['answer'] . '</div>';
 				echo '</div>';
 			}
 			echo '</div>';
 		}
+	}
+
+	private function getIcon( $icon ): string {
+		if ( $icon === 'chevron' ) {
+			return '<i class="wa-icon-chevron-down"></i>';
+		} elseif ( $icon === 'chevrons' ) {
+			return '<i class="wa-icon-chevrons-down"></i>';
+		} elseif ( $icon === 'plus' ) {
+			return '<i class="wa-icon-plus"></i>';
+		}
+
+		return '';
 	}
 
 	public function productTab( $tabs ) {
@@ -179,8 +192,8 @@ class ProductFAQ {
 					'title'    => __( 'Global FAQ position', 'woo-assistant' ),
 					'type'     => 'select',
 					'options'  => array(
-						'before' => __( 'Before product FAQs', 'woo-assistant' ),
-						'after'  => __( 'After product FAQs', 'woo-assistant' ),
+						'before' => __( 'Before Product FAQs', 'woo-assistant' ),
+						'after'  => __( 'After Product FAQs', 'woo-assistant' ),
 					),
 					'default'  => 'before',
 					'sanitize' => 'text'
@@ -226,6 +239,18 @@ class ProductFAQ {
 					'id'    => 'product_faq_start_grid_2',
 					'title' => __( 'Style', 'woo-assistant' ),
 					'type'  => 'startgrid',
+				),
+				'product_faq_button_icon'               => array(
+					'id'       => 'product_faq_button_icon',
+					'title'    => __( 'Button icon', 'woo-assistant' ),
+					'type'     => 'radioInline',
+					'default'  => 'chevron',
+					'options'  => array(
+						'chevron'  => '<i class="wa-icon-chevron-down"></i>',
+						'chevrons' => '<i class="wa-icon-chevrons-down"></i>',
+						'plus'     => '<i class="wa-icon-plus"></i>',
+					),
+					'sanitize' => 'text'
 				),
 				'product_faq_primary_color'             => array(
 					'id'       => 'product_faq_primary_color',
