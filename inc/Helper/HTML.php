@@ -132,7 +132,7 @@ class HTML {
 		return self::wrap( $field, $data );
 	}
 
-	public static function imagesize( $data ): string {
+	public static function imagesizeselect( $data ): string {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
 		}

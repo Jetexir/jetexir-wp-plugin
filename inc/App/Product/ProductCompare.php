@@ -375,7 +375,7 @@ class ProductCompare {
 			'product_compare_image_size'         => array(
 				'id'                => 'product_compare_image_size',
 				'title'             => __( 'Image size', 'woo-assistant' ),
-				'type'              => 'imageSize',
+				'type'              => 'imageSizeSelect',
 				'args'              => array(
 					'post_type' => 'page'
 				),
