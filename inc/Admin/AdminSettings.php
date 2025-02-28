@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Helper\Cache;
 use WooAssistant\Helper\DebugTrait;
+use WooAssistant\Helper\Helper;
 use WooAssistant\Helper\HTML;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Param;
@@ -43,101 +44,31 @@ class AdminSettings {
 			}
 
 			if ( is_array( $tabSettings ) ) {
+				$tabSettings = self::saveRepeatableSettings( $tabSettings, $optionsName );
+
 				foreach ( $tabSettings as $setting ) {
-					if ( isset( $setting['save'] ) && $setting['save'] === false ) {
+					$setting['type'] = strtolower( $setting['type'] );
+
+					if ( ( isset( $setting['save'] ) && $setting['save'] === false ) ||
+					     ( isset( $setting['is_repeatable'] ) && $setting['is_repeatable'] ) ||
+					     ! in_array( $setting['type'], $saveFields, true ) ) {
 						continue;
 					}
-					$setting['type'] = strtolower( $setting['type'] );
-					if ( in_array( $setting['type'], $saveFields, true ) ) {
-						$default = ! empty( $setting['default'] ) ? $setting['default'] : null;
 
-						if ( empty( $setting['default'] ) && in_array( $setting['type'], [
-								'toggle',
-								'checkbox',
-								'addon'
-							], true ) ) {
-							$default = 0;
-						}
+					$default = self::getSettingDefault( $setting );
+					$value   = Param::post( WOOASSISTANT_INPUT_PREFIX . $setting['id'], $default );
+					$value   = self::sanitizeSetting( $value, $setting );
 
-						if ( empty( $setting['default'] ) && $setting['type'] === 'imagesize' ) {
-							$default = 'thumbnail';
-						}
-
-						if ( isset( $data['multiple'] ) && $data['multiple'] && empty( $setting['default'] ) && in_array( $setting['type'], [
-								'select',
-								'taxonomy',
-								'posttype',
-								'imagesize'
-							] ) ) {
-							$default = [];
-						}
-
-						$value = Param::post( WOOASSISTANT_INPUT_PREFIX . $setting['id'], $default );
-
-						if ( empty( $setting['sanitize'] ) ) {
-							if ( $setting['type'] === 'checkboxinline' ||
-							     ( isset( $setting['multiple'] ) && $setting['multiple'] &&
-							       in_array( $setting['type'], [
-								       'taxonomy',
-								       'posttype',
-								       'select'
-							       ] ) ) ) {
-								$setting['sanitize'] = 'array';
-
-							} else if ( in_array( $setting['type'], [
-								'text',
-								'search',
-								'password',
-								'tel',
-								'hidden',
-								'radio',
-								'radioinline',
-								'select'
-							], true ) ) {
-								$setting['sanitize'] = 'text';
-
-							} elseif ( $setting['type'] === 'number' ) {
-								$setting['sanitize'] = 'float';
-
-							} elseif ( $setting['type'] === 'email' ) {
-								$setting['sanitize'] = 'email';
-
-							} elseif ( $setting['type'] === 'url' ) {
-								$setting['sanitize'] = 'url';
-
-							} elseif ( $setting['type'] === 'textarea' ) {
-								$setting['sanitize'] = 'textarea';
-
-							} elseif ( $setting['type'] === 'color' ) {
-								$setting['sanitize'] = 'color';
-
-							} elseif ( $setting['type'] === 'range' ) {
-								$setting['sanitize'] = 'int';
-
-							} elseif ( $setting['type'] === 'posttype' || $setting['type'] === 'taxonomy' ) {
-								$setting['sanitize'] = 'absint';
-
-							} elseif ( $setting['type'] === 'addon' ) {
-								$setting['sanitize'] = 'int';
-							}
-						}
-
-						if ( ! empty( $setting['sanitize'] ) && method_exists( Sanitizing::class, $setting['sanitize'] ) ) {
-							$value = Sanitizing::{$setting['sanitize']}( $value );
-						}
-
-						if ( is_array( $value ) && isset( $setting['sanitize_options'] ) && method_exists( Sanitizing::class, $setting['sanitize_options'] ) ) {
-							$value = array_map( 'WooAssistant\Helper\Sanitizing::' . $setting['sanitize_options'], $value );
-						}
-
-						$options[ $setting['id'] ] = $value;
+					if ( is_array( $value ) && isset( $setting['sanitize_options'] ) && method_exists( Sanitizing::class, $setting['sanitize_options'] ) ) {
+						$value = array_map( 'WooAssistant\Helper\Sanitizing::' . $setting['sanitize_options'], $value );
 					}
+
+					$options[ $setting['id'] ] = $value;
 				}
 			}
 
 			$options = apply_filters( 'woo_assistant_settings_before_save', $options, $tab );
-
-			$saved = Settings::saves( $options, $optionsName );
+			$saved   = Settings::saves( $options, $optionsName );
 
 			if ( $saved ) {
 				Cache::set( 'settings_saved', true, 0 );
@@ -146,6 +77,149 @@ class AdminSettings {
 				Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_error_message', __( 'Error saving settings!', 'woo-assistant' ), $tab ), 'error' );
 			}
 		}
+	}
+
+	private static function saveRepeatableSettings( $settings, $optionsName ) {
+		$types = array_column( $settings, 'type' );
+		$types = array_map( 'strtolower', $types );
+
+		if ( in_array( 'startrepeatableelements', $types, true ) ) {
+			$saveValue              = [];
+			$saveRepeatableElements = $repeatableSettingId = false;
+			foreach ( $settings as $key => $setting ) {
+				$setting['type'] = strtolower( $setting['type'] );
+
+				if ( $setting['type'] === 'startrepeatableelements' ) {
+					$saveRepeatableElements            = true;
+					$repeatableSettingId               = $setting['id'];
+					$saveValue[ $repeatableSettingId ] = [];
+				}
+
+				if ( $saveRepeatableElements && ! in_array( $setting['type'], [
+						'startrepeatableelements',
+						'endrepeatableelements'
+					] ) ) {
+					$setting['is_repeatable'] = true;
+					$default                  = self::getSettingDefault( $setting );
+					$rowKey                   = str_replace( WOOASSISTANT_INPUT_PREFIX . $repeatableSettingId . '_', '', WOOASSISTANT_INPUT_PREFIX . $setting['id'] );
+					$value                    = Param::post( WOOASSISTANT_INPUT_PREFIX . $setting['id'], $default );
+
+					if ( is_array( $value ) ) {
+						for ( $i = 0; $i <= count( $value ) - 1; $i ++ ) {
+							$saveValue[ $repeatableSettingId ][ $i ][ $rowKey ] = $value[ $i ];
+						}
+					}
+				}
+
+				if ( $setting['type'] === 'endrepeatableelements' ) {
+					$saveRepeatableElements = false;
+				}
+
+				$settings[ $key ] = $setting;
+			}
+
+			if ( ! empty( $saveValue ) ) {
+				foreach ( $saveValue as $settingKey => $settingValue ) {
+					foreach ( $settingValue as $index => $value ) {
+						$value = array_map( 'trim', $value );
+						if ( implode( $value ) === '' ) {
+							unset( $settingValue[ $index ] );
+						}
+					}
+					$saveValue[ $settingKey ] = array_values( $settingValue );
+				}
+
+				Settings::saves( $saveValue, $optionsName );
+			}
+		}
+
+		return $settings;
+	}
+
+	private static function getSettingDefault( $setting ) {
+		$default = ! empty( $setting['default'] ) ? $setting['default'] : null;
+
+		// Set default value for toggle, checkbox, addon
+		if ( empty( $setting['default'] ) && in_array( $setting['type'], [
+				'toggle',
+				'checkbox',
+				'addon'
+			], true ) ) {
+			$default = 0;
+		}
+
+		// Set default value for imageSizeSelect
+		if ( empty( $setting['default'] ) && $setting['type'] === 'imagesizeselect' ) {
+			$default = 'thumbnail';
+		}
+
+		// Set default value for elements with multiple attr: select, taxonomy, postType, imageSizeSelect
+		if ( isset( $data['multiple'] ) && $data['multiple'] && empty( $setting['default'] ) && in_array( $setting['type'], [
+				'select',
+				'taxonomy',
+				'posttype',
+				'imagesizeselect'
+			] ) ) {
+			$default = [];
+		}
+
+		return $default;
+	}
+
+	private static function sanitizeSetting( $value, $setting ) {
+		if ( empty( $setting['sanitize'] ) ) {
+			if ( $setting['type'] === 'checkboxinline' ||
+			     ( isset( $setting['multiple'] ) && $setting['multiple'] &&
+			       in_array( $setting['type'], [
+				       'taxonomy',
+				       'posttype',
+				       'select'
+			       ] ) ) ) {
+				$setting['sanitize'] = 'array';
+
+			} else if ( in_array( $setting['type'], [
+				'text',
+				'search',
+				'password',
+				'tel',
+				'hidden',
+				'radio',
+				'radioinline',
+				'select'
+			], true ) ) {
+				$setting['sanitize'] = 'text';
+
+			} elseif ( $setting['type'] === 'number' ) {
+				$setting['sanitize'] = 'float';
+
+			} elseif ( $setting['type'] === 'email' ) {
+				$setting['sanitize'] = 'email';
+
+			} elseif ( $setting['type'] === 'url' ) {
+				$setting['sanitize'] = 'url';
+
+			} elseif ( $setting['type'] === 'textarea' ) {
+				$setting['sanitize'] = 'textarea';
+
+			} elseif ( in_array( $setting['type'], [ 'color', 'wpcolorpicker' ] ) ) {
+				$setting['sanitize'] = 'color';
+
+			} elseif ( $setting['type'] === 'range' ) {
+				$setting['sanitize'] = 'int';
+
+			} elseif ( $setting['type'] === 'posttype' || $setting['type'] === 'taxonomy' ) {
+				$setting['sanitize'] = 'absint';
+
+			} elseif ( $setting['type'] === 'addon' ) {
+				$setting['sanitize'] = 'int';
+			}
+		}
+
+		if ( ! empty( $setting['sanitize'] ) && method_exists( Sanitizing::class, $setting['sanitize'] ) ) {
+			$value = Sanitizing::{$setting['sanitize']}( $value );
+		}
+
+		return $value;
 	}
 
 	public static function getSettings( $tab ) {
@@ -188,6 +262,7 @@ class AdminSettings {
 
 	private static function printSettings( $settings, $optionsName ): void {
 		if ( is_array( $settings ) ) {
+			$settings = self::checkRepeatableSettings( $settings, $optionsName );
 			foreach ( $settings as $key => $field ) {
 				if ( ! empty( $field['type'] ) && method_exists( HTML::class, strtolower( $field['type'] ) ) ) {
 					if ( isset( $field['force_value'] ) ) {
@@ -201,6 +276,74 @@ class AdminSettings {
 				}
 			}
 		}
+	}
+
+	private static function checkRepeatableSettings( $settings, $optionsName ): array {
+		$types = array_column( $settings, 'type' );
+		$types = array_map( 'strtolower', $types );
+		if ( in_array( 'startrepeatableelements', $types, true ) ) {
+			$repeatableElements      = [];
+			$saveRepeatableElements  = $repeatableSettingValue = $repeatableSettingId = $repeatableSettinKey = false;
+			$repeatableElementsIndex = $index = 0;
+			foreach ( $settings as $key => $setting ) {
+				$setting['type'] = strtolower( $setting['type'] );
+
+				if ( $setting['type'] === 'startrepeatableelements' ) {
+					$saveRepeatableElements  = true;
+					$repeatableElementsIndex = $index;
+					$repeatableSettingId     = $setting['id'];
+					$repeatableSettingValue  = Settings::get( $repeatableSettingId, [], $optionsName );
+				}
+
+				if ( $saveRepeatableElements ) {
+					if ( ! in_array( $setting['type'], [ 'startrepeatableelements', 'endrepeatableelements' ] ) ) {
+						$setting['is_repeatable'] = true;
+					}
+
+					$repeatableElements[ $key ] = $setting;
+				}
+
+				$settings[ $key ] = $setting;
+
+				if ( $setting['type'] === 'endrepeatableelements' ) {
+					$saveRepeatableElements = false;
+					$addElements            = [];
+					if ( is_array( $repeatableSettingValue ) && count( $repeatableSettingValue ) ) {
+						foreach ( $repeatableSettingValue as $rowIndex => $rowValue ) {
+							foreach ( $repeatableElements as $repeatableElementIndex => $repeatableElement ) {
+								if ( in_array( $repeatableElement['type'], [
+									'startrepeatableelements',
+									'endrepeatableelements'
+								] ) ) {
+									$addElements[ $repeatableElementIndex . '_' . $rowIndex ] = $repeatableElement;
+
+								} else {
+									$repeatableRowKey = str_replace( $repeatableSettingId . '_', '', $repeatableElementIndex );
+
+									if ( isset( $rowValue[ $repeatableRowKey ] ) ) {
+										$repeatableElement['force_value'] = $rowValue[ $repeatableRowKey ];
+									}
+
+									$addElements[ $repeatableElementIndex . '_' . $rowIndex ] = $repeatableElement;
+								}
+							}
+						}
+					}
+
+					if ( ! empty( $addElements ) ) {
+						$settings = Helper::arrayInsertAfter( $settings, $repeatableElementsIndex, $addElements );
+					}
+
+					$repeatableElements = [];
+				}
+
+				$index ++;
+			}
+
+			//DebugTrait::dd( $settings );
+		}
+
+		return $settings;
 	}
 
 	public static function headerSettings( $currentTab, $settings ): void {

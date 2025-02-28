@@ -17,11 +17,13 @@ $gray_light_two: #D3D3D3;
 $text: $dark;
 $meta: $gray;
 
+$red: #b04b55;
+
 $default: $woo_purple_50;
 $default_light: #EEEBF8;
 $warning: #8c6d29;
 $warning_light: #FFF8E3;
-$error: #b04b55;
+$error: $red;
 $error_light: #FFEEEC;
 $success: #207b34;
 $success_light: #E2F3E6;

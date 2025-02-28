@@ -8,6 +8,7 @@ class Product {
 		new ProductQuantity();
 		//new ProductTest();
 		new ProductSocialShare();
+		new ProductFAQ();
 	}
 
 	/**

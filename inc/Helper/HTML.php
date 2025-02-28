@@ -80,8 +80,16 @@ class HTML {
 			return '';
 		}
 
-		$field = '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-label">' . $data['title'] . '</label>' .
-		         '<input type="' . $data['type'] . '" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-' . $data['type'] . '" value="' . $data['setting_value'] . '" ' . self::getAttributes( $data ) . '>';
+		$id   = self::prefix . $data['type'] . '-' . $data['id'];
+		$name = self::prefixName . $data['id'];
+
+		if ( isset( $data['is_repeatable'] ) && $data['is_repeatable'] ) {
+			$name .= '[]';
+			$id   = '';
+		}
+
+		$field = '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . '</label>' .
+		         '<input type="' . $data['type'] . '" name="' . $name . '" id="' . $id . '" class="' . self::prefix . 'input-' . $data['type'] . '" value="' . $data['setting_value'] . '" ' . self::getAttributes( $data ) . '>';
 
 		return self::wrap( $field, $data );
 	}
@@ -334,12 +342,81 @@ class HTML {
 		return '</div></fieldset>';
 	}
 
+	public static function startrepeatable( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="start"><svg width="24px" height="24px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(-464.000000, -1087.000000)">
+        <path d="M480,1117 C472.268,1117 466,1110.73 466,1103 C466,1095.27 472.268,1089 480,1089 C487.732,1089 494,1095.27 494,1103 C494,1110.73 487.732,1117 480,1117 L480,1117 Z M480,1087 C471.163,1087 464,1094.16 464,1103 C464,1111.84 471.163,1119 480,1119 C488.837,1119 496,1111.84 496,1103 C496,1094.16 488.837,1087 480,1087 L480,1087 Z M486,1102 L481,1102 L481,1097 C481,1096.45 480.553,1096 480,1096 C479.447,1096 479,1096.45 479,1097 L479,1102 L474,1102 C473.447,1102 473,1102.45 473,1103 C473,1103.55 473.447,1104 474,1104 L479,1104 L479,1109 C479,1109.55 479.447,1110 480,1110 C480.553,1110 481,1109.55 481,1109 L481,1104 L486,1104 C486.553,1104 487,1103.55 487,1103 C487,1102.45 486.553,1102 486,1102 L486,1102 Z">
+        </path>
+    </g>
+</svg></a>';
+
+		return '<div class="' . self::prefix . 'repeatable ' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '" ' . self::getAttributes( $data ) . '>' .
+		       '<div class="' . self::prefix . 'title">' . $data['title'] . $addRepeat . '</div>' .
+		       '<div class="' . self::prefix . 'repeatable-wrap">';
+	}
+
+	public static function endrepeatable( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$addText   = ! empty( $data['add_text'] ) ? ' ' . $data['add_text'] : '';
+		$addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="end"><svg width="24px" height="24px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(-464.000000, -1087.000000)">
+        <path d="M480,1117 C472.268,1117 466,1110.73 466,1103 C466,1095.27 472.268,1089 480,1089 C487.732,1089 494,1095.27 494,1103 C494,1110.73 487.732,1117 480,1117 L480,1117 Z M480,1087 C471.163,1087 464,1094.16 464,1103 C464,1111.84 471.163,1119 480,1119 C488.837,1119 496,1111.84 496,1103 C496,1094.16 488.837,1087 480,1087 L480,1087 Z M486,1102 L481,1102 L481,1097 C481,1096.45 480.553,1096 480,1096 C479.447,1096 479,1096.45 479,1097 L479,1102 L474,1102 C473.447,1102 473,1102.45 473,1103 C473,1103.55 473.447,1104 474,1104 L479,1104 L479,1109 C479,1109.55 479.447,1110 480,1110 C480.553,1110 481,1109.55 481,1109 L481,1104 L486,1104 C486.553,1104 487,1103.55 487,1103 C487,1102.45 486.553,1102 486,1102 L486,1102 Z">
+        </path>
+    </g>
+</svg>' . $addText . '</a>';
+
+		return '</div>' . $addRepeat . '</div>';
+	}
+
+	public static function startrepeatableelements( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$data         = wp_parse_args( $data, [ 'move_action' => true ] );
+		$moveUpRepeat = $moveDownRepeat = '';
+
+		if ( $data['move_action'] ) {
+			$moveUpRepeat   = '<a href="#" class="' . self::prefix . 'move-up-repeatable"><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 15L12 9L18 15" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></a>';
+			$moveDownRepeat = '<a href="#" class="' . self::prefix . 'move-down-repeatable"><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 9L12 15L18 9" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></a>';
+		}
+
+		$removeRepeat = '<a href="#" class="' . self::prefix . 'remove-repeatable"><svg width="24px" height="24px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">
+        <g transform="translate(-516.000000, -1087.000000)">
+            <path d="M532,1117 C524.268,1117 518,1110.73 518,1103 C518,1095.27 524.268,1089 532,1089 C539.732,1089 546,1095.27 546,1103 C546,1110.73 539.732,1117 532,1117 L532,1117 Z M532,1087 C523.163,1087 516,1094.16 516,1103 C516,1111.84 523.163,1119 532,1119 C540.837,1119 548,1111.84 548,1103 C548,1094.16 540.837,1087 532,1087 L532,1087 Z M538,1102 L526,1102 C525.447,1102 525,1102.45 525,1103 C525,1103.55 525.447,1104 526,1104 L538,1104 C538.553,1104 539,1103.55 539,1103 C539,1102.45 538.553,1102 538,1102 L538,1102 Z">
+            </path>
+        </g>
+    </g>
+</svg></a>';
+
+		return '<div class="' . self::prefix . 'repeatable-fields-wrap" data-repeat-title="' . ( $data['title'] ?? '' ) . '">' .
+		       '<div class="' . self::prefix . 'repeatable-actions">' . $moveUpRepeat . $moveDownRepeat . $removeRepeat . '</div>';
+	}
+
+	public static function endrepeatableelements( $data ): string {
+		return '</div>';
+	}
+
 	public static function startgrid( $data ): string {
 		if ( ! isset( $data['cols'] ) ) {
 			$data['cols'] = 2;
 		}
 
-		return '<div class="' . self::prefix . 'grid ' . self::prefix . 'grid-cols-' . $data['cols'] . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '"><div class="' . self::prefix . 'title">' . $data['title'] . '</div><div class="' . self::prefix . 'fields-wrap">';
+		return '<div class="' . self::prefix . 'grid ' . self::prefix . 'grid-cols-' . $data['cols'] . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '">' .
+		       '<div class="' . self::prefix . 'title">' . $data['title'] . '</div>' .
+		       '<div class="' . self::prefix . 'fields-wrap">';
 	}
 
 	public static function endgrid( $data ): string {
@@ -455,16 +532,34 @@ class HTML {
 	private static function checkData( array $data ) {
 		$attributes = empty( $data['attributes'] ) || ! is_array( $data['attributes'] ) ? [] : $data['attributes'];
 
+		if ( ! in_array( $data['type'], self::saveFields, true ) ) {
+			if ( $data['type'] === 'image' && filter_var( $data['src'], FILTER_VALIDATE_URL ) ) {
+				return false;
+			}
+			if ( $data['type'] === 'notice' && ( empty( $data['id'] ) || empty( $data['notices'] ) || ! is_array( $data['notices'] ) ) ) {
+				return false;
+			}
+			if ( $data['type'] === 'startrepeatable' ) {
+				if ( ! empty( $data['max_repeat'] ) ) {
+					$attributes['data-max-repeat'] = (int) $data['max_repeat'];
+				}
+			}
+			if ( $data['type'] === 'startrepeatableelements' ) {
+				if ( isset( $data['move_action'] ) ) {
+					$data['move_action'] = Sanitizing::bool( $data['move_action'] );
+				}
+			}
+
+			$data['attributes'] = $attributes;
+
+			return $data;
+		}
+
 		if ( ( empty( $data['id'] ) || empty( $data['title'] ) ) && in_array( $data['type'], self::saveFields, true ) ) {
 			return false;
 		}
-		if ( $data['type'] === 'image' && filter_var( $data['src'], FILTER_VALIDATE_URL ) ) {
-			return false;
-		}
 
-		if ( $data['type'] === 'notice' && ( empty( $data['id'] ) || empty( $data['notices'] ) || ! is_array( $data['notices'] ) ) ) {
-			return false;
-		}
+		$attributes['data-default'] = $data['default'] ?? '';
 
 		if ( isset( $data['setting_value'] ) && ( is_string( $data['setting_value'] ) || is_numeric( $data['setting_value'] ) ) ) {
 			$settingValue = html_entity_decode( $data['setting_value'] );
@@ -515,8 +610,12 @@ class HTML {
 		return $data;
 	}
 
-	private static function getAttributes( $data ): string {
+	private static function getAttributes( $data, $default = [] ): string {
 		$attributes = '';
+
+		if ( is_array( $data['attributes'] ) && is_array( $default ) ) {
+			$data['attributes'] = array_merge( $default, $data['attributes'] );
+		}
 
 		if ( ! empty( $data['attributes'] ) && is_array( $data['attributes'] ) ) {
 			foreach ( $data['attributes'] as $key => $value ) {

@@ -48,7 +48,7 @@ class PostMeta {
 	 *                  is the same as the one that is already in the database.
 	 */
 	public static function update( $postId, $metaKey, $metaValue, $prevValue = '' ) {
-		if ( $metaValue = apply_filters( 'woo_assistant_update_post_meta', $metaValue, $postId, $metaKey, $prevValue ) ) {
+		if ( ( $metaValue = apply_filters( 'woo_assistant_update_post_meta', $metaValue, $postId, $metaKey, $prevValue ) ) !== false ) {
 			return update_post_meta( $postId, $metaKey, $metaValue, $prevValue );
 		}
 

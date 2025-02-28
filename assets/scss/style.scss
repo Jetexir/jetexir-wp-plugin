@@ -1,4 +1,5 @@
 @use "components/notice";
+@use "utilities/variables";
 
 .wa-appearance-text-field {
   input[type="number"] {
@@ -11,5 +12,56 @@
 .wa-button {
   &.wa-button-remove {
     color: #bb2323;
+  }
+}
+
+.wa-faqs-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 18px;
+
+  .wa-faq-item {
+    border: 1px solid var(--wa-faq-bg-color, variables.$gray_light);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+
+    .wa-faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      color: var(--wa-faq-primary-color, variables.$primary);
+      background-color: var(--wa-faq-bg-color, #ffffff);
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+      outline: none;
+      border: none;
+      font-weight: 600;
+
+      i {
+        font-size: 24px;
+      }
+    }
+
+    .wa-faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: 0.3s;
+      padding: 0 15px;
+      font-size: .9em;
+    }
+
+    .wa-faq-question.active {
+      & i {
+        transform: rotate(180deg);
+      }
+
+      & + .wa-faq-answer {
+        padding: 15px;
+      }
+    }
   }
 }
