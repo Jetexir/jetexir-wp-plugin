@@ -5,6 +5,7 @@ namespace WooAssistant\Settings;
 defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Helper\Cache;
+use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Helper\Validating;
 
 class Settings {
@@ -23,9 +24,8 @@ class Settings {
 		$now          = current_time( 'timestamp' );
 
 		// Prevent from save option error
-		$savedOptions['save_options_time_123456'] = Validating::isTimeStamp( $now ) ? $now : time();
-
-		$newOptions = wp_parse_args( $options, $savedOptions );
+		$savedOptions['save_options_time_123456'] = ( Validating::isTimeStamp( $now ) ? $now : time() ) + random_int( 999, 9999 );
+		$newOptions                               = wp_parse_args( $options, $savedOptions );
 
 		Cache::delete( 'options_' . $optionsName );
 
@@ -47,5 +47,19 @@ class Settings {
 		}
 
 		return $options ?: $default;
+	}
+
+	public static function delete( string $key, $optionsName = null ): bool {
+		$optionsName  = is_string( $optionsName ) ? WOOASSISTANT_PLUGIN_KEY . '_' . $optionsName : WOOASSISTANT_PLUGIN_KEY;
+		$savedOptions = get_option( $optionsName, [] );
+		$savedOptions = is_array( $savedOptions ) ? $savedOptions : [];
+
+		if ( isset( $savedOptions[ $key ] ) ) {
+			unset( $savedOptions[ $key ] );
+		}
+
+		Cache::delete( 'options_' . $optionsName );
+
+		return update_option( $optionsName, $savedOptions, false );
 	}
 }
