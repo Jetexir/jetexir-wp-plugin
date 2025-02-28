@@ -28,9 +28,9 @@ class ProductQuantity {
 		add_action( 'wp_footer', [ $this, 'printStyle' ] );
 		//add_filter( 'woo_assistant_settings_header_image', [ $this, 'addHeaderImage' ], 10, 4 );
 
-		add_filter( 'woocommerce_product_data_tabs', [ $this, 'productTab' ] );
-		add_filter( 'woocommerce_product_data_panels', [ $this, 'productSettings' ] );
-		add_action( 'woocommerce_process_product_meta', [ $this, 'productSaveMeta' ] );
+		add_filter( 'woocommerce_product_data_tabs', [ $this, 'adminProductTab' ] );
+		add_filter( 'woocommerce_product_data_panels', [ $this, 'adminProductSettings' ] );
+		add_action( 'woocommerce_process_product_meta', [ $this, 'adminProductSaveMeta' ] );
 
 		add_filter( 'woocommerce_quantity_input_args', [ $this, 'changeQuantityInputArgs' ], 10, 2 );
 		add_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes',
@@ -38,7 +38,10 @@ class ProductQuantity {
 		add_filter( 'woocommerce_loop_add_to_cart_link', [ $this, 'changeQuantityAddToCartLink' ], 10, 3 );
 	}
 
-	public function productSaveMeta( $productID ): void {
+	public function adminProductSaveMeta( $productID ): void {
+		if ( ! Settings::get( 'quantity_manage_min_max_product', false ) ) {
+			return;
+		}
 		$min  = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'product_quantity_min' ) );
 		$max  = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'product_quantity_max' ) );
 		$step = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'product_quantity_step' ) );
@@ -64,7 +67,7 @@ class ProductQuantity {
 		}
 	}
 
-	public function productTab( $tabs ) {
+	public function adminProductTab( $tabs ) {
 		if ( Settings::get( 'quantity_manage_min_max_product', false ) ) {
 			$tabs[ WOOASSISTANT_PLUGIN_KEY . '_quantity_control' ] = array(
 				'label'  => __( 'Min/Max/Step', 'woo-assistant' ),
@@ -76,13 +79,13 @@ class ProductQuantity {
 		return $tabs;
 	}
 
-	public function productSettings(): void {
+	public function adminProductSettings(): void {
 		if ( ! Settings::get( 'quantity_manage_min_max_product', false ) ) {
 			return;
 		}
-
 		?>
-        <div id="<?php echo WOOASSISTANT_PLUGIN_KEY . '_quantity_control' ?>" class="panel woocommerce_options_panel">
+        <div id="<?php echo WOOASSISTANT_PLUGIN_KEY . '_quantity_control' ?>" class="panel woocommerce_options_panel"
+             style="display: none">
             <div class="options_group">
 				<?php
 				$inputs = array(
