@@ -450,14 +450,14 @@ class ProductSocialShare {
 					'id'       => 'product_social_share_primary_color',
 					'title'    => __( 'Primary color', 'woo-assistant' ),
 					'type'     => 'wpColorPicker',
-					'default'  => '#720eec',
+					'default'  => '#424242',
 					'sanitize' => 'color'
 				),
 				'product_social_share_bg_color'            => array(
 					'id'       => 'product_social_share_bg_color',
 					'title'    => __( 'Background color', 'woo-assistant' ),
 					'type'     => 'wpColorPicker',
-					'default'  => '#ffffff',
+					'default'  => '#f6f5f9',
 					'sanitize' => 'color'
 				),
 				'product_social_share_end_grid_3'          => array(

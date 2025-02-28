@@ -34,6 +34,10 @@
       text-decoration: none !important;
       font-size: 14px;
 
+      .wa-icon-content_copy {
+        animation: waBlinkText 250ms step-start 0s infinite;
+      }
+
       &.wa-product-share-link-size-large {
         font-size: 18px;
         width: 45px;
@@ -61,5 +65,11 @@
         border-radius: 0;
       }
     }
+  }
+}
+
+@keyframes waBlinkText {
+  50% {
+    opacity: 0.0;
   }
 }
