@@ -9,9 +9,13 @@ trait DebugTrait {
 		error_log( print_r( $value, true ) );
 	}
 
-	public static function dd( $var ): void {
+	public static function dd( $var, $exit = false ): void {
 		echo '<pre style="background: #520b0b; color: white; direction: ltr; text-align: left; border-radius: 10px; padding: 20px; font-size: 1.3em">';
 		var_dump( $var );
 		echo '</pre>';
+
+		if ( $exit ) {
+			exit();
+		}
 	}
 }
