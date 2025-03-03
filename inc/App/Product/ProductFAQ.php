@@ -66,8 +66,16 @@ class ProductFAQ {
 	private function getIcon( $icon ): string {
 		if ( $icon === 'chevron' ) {
 			return '<i class="wa-icon-chevron-down"></i>';
+
 		} elseif ( $icon === 'chevrons' ) {
 			return '<i class="wa-icon-chevrons-down"></i>';
+
+		} elseif ( $icon === 'arrow' ) {
+			return '<i class="wa-icon-arrow-down"></i>';
+
+		} elseif ( $icon === 'arrow-circle' ) {
+			return '<i class="wa-icon-circle-down"></i>';
+
 		} elseif ( $icon === 'plus' ) {
 			return '<i class="wa-icon-plus"></i>';
 		}
@@ -246,9 +254,11 @@ class ProductFAQ {
 					'type'     => 'radioInline',
 					'default'  => 'chevron',
 					'options'  => array(
-						'chevron'  => '<i class="wa-icon-chevron-down"></i>',
-						'chevrons' => '<i class="wa-icon-chevrons-down"></i>',
-						'plus'     => '<i class="wa-icon-plus"></i>',
+						'chevron'      => '<i class="wa-icon-chevron-down"></i>',
+						'chevrons'     => '<i class="wa-icon-chevrons-down"></i>',
+						'arrow'        => '<i class="wa-icon-arrow-down"></i>',
+						'arrow-circle' => '<i class="wa-icon-circle-down"></i>',
+						'plus'         => '<i class="wa-icon-plus"></i>',
 					),
 					'sanitize' => 'text'
 				),

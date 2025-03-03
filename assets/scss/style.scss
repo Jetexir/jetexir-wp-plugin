@@ -1,4 +1,5 @@
 @use "components/notice";
+@use "icon/style";
 @use "utilities/variables";
 
 .wa-appearance-text-field {
@@ -42,6 +43,7 @@
       font-weight: 500;
 
       i {
+        transition: all 0.2s;
         font-size: 24px;
       }
     }
@@ -55,7 +57,7 @@
     }
 
     .wa-faq-question.active {
-      & i.wa-icon-chevrons-down, & i.wa-icon-chevron-down {
+      & i:is(.wa-icon-chevrons-down, .wa-icon-chevron-down ,.wa-icon-arrow-down, .wa-icon-circle-down) {
         transform: rotate(180deg);
       }
 
