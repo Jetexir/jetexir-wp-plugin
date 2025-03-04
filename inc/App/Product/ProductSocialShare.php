@@ -295,12 +295,12 @@ class ProductSocialShare {
 			'title'    => __( 'Share', 'woo-assistant' ),
 			'desc'     => __( 'Product Social Share', 'woo-assistant' ),
 			'settings' => array(
-				'product_social_share_start_grid_1'    => array(
+				'product_social_share_start_grid_1'        => array(
 					'id'    => 'product_social_share_start_grid_1',
 					'title' => __( 'Product Social Share', 'woo-assistant' ),
 					'type'  => 'startgrid',
 				),
-				'product_social_share_enable'          => array(
+				'product_social_share_enable'              => array(
 					'id'       => 'product_social_share_enable',
 					'title'    => __( 'Enable social share feature', 'woo-assistant' ),
 					'type'     => 'toggle',
@@ -308,7 +308,7 @@ class ProductSocialShare {
 					'default'  => false,
 					'sanitize' => 'bool'
 				),
-				'product_social_share_position'        => array(
+				'product_social_share_position'            => array(
 					'id'                => 'product_social_share_position',
 					'title'             => __( 'Position', 'woo-assistant' ),
 					'type'              => 'select',
@@ -323,12 +323,12 @@ class ProductSocialShare {
 					'sanitize'          => 'text',
 					'desc'              => sprintf( __( 'You can display social share with %s shortcode.', 'woo-assistant' ), '<code>[wa_product_share]</code>' )
 				),
-				'product_social_share_link_type_start' => array(
+				'product_social_share_link_type_start'     => array(
 					'id'    => 'product_social_share_link_type_start',
 					'title' => __( 'Link type', 'woo-assistant' ),
-					'type'  => 'startradiogroup',
+					'type'  => 'startInlineElements',
 				),
-				'product_social_share_link_type_long'  => array(
+				'product_social_share_link_type_long'      => array(
 					'id'       => 'product_social_share_link_type',
 					'title'    => __( 'Long link', 'woo-assistant' ),
 					'type'     => 'radio',
@@ -336,7 +336,7 @@ class ProductSocialShare {
 					'value'    => 'long',
 					'sanitize' => 'text'
 				),
-				'product_social_share_link_type_short' => array(
+				'product_social_share_link_type_short'     => array(
 					'id'       => 'product_social_share_link_type',
 					'title'    => __( 'Short link', 'woo-assistant' ),
 					'type'     => 'radio',
@@ -344,10 +344,10 @@ class ProductSocialShare {
 					'value'    => 'short',
 					'sanitize' => 'text'
 				),
-				'product_social_share_link_type_end'   => array(
-					'type' => 'endradiogroup',
+				'product_social_share_link_type_end'       => array(
+					'type' => 'endInlineElements',
 				),
-				'product_social_share_encode_url'      => array(
+				'product_social_share_encode_url'          => array(
 					'id'       => 'product_social_share_encode_url',
 					'title'    => __( 'Encode URL', 'woo-assistant' ),
 					'type'     => 'toggle',
@@ -355,15 +355,18 @@ class ProductSocialShare {
 					'default'  => false,
 					'sanitize' => 'bool'
 				),
-				'product_social_share_end_grid_1'      => array(
+				'product_social_share_end_grid_1'          => array(
 					'type' => 'endgrid',
 				),
-				'product_social_share_start_grid_2'    => array(
+				'product_social_share_sep_1'               => array(
+					'type' => 'hr',
+				),
+				'product_social_share_start_grid_2'        => array(
 					'id'    => 'product_social_share_start_grid_2',
 					'title' => __( 'Social networks', 'woo-assistant' ),
 					'type'  => 'startgrid',
 				),
-				'product_social_share_networks'        => array(
+				'product_social_share_networks'            => array(
 					'id'               => 'product_social_share_networks',
 					'title'            => __( 'Select Social Networks', 'woo-assistant' ),
 					'type'             => 'checkboxInline',
@@ -373,7 +376,7 @@ class ProductSocialShare {
 					'sanitize'         => 'array',
 					'sanitize_options' => 'text'
 				),
-				'product_social_share_copy_clipboard'  => array(
+				'product_social_share_copy_clipboard'      => array(
 					'id'       => 'product_social_share_copy_clipboard',
 					'title'    => __( 'Enable "Copy to Clipboard"', 'woo-assistant' ),
 					'type'     => 'toggle',
@@ -381,10 +384,12 @@ class ProductSocialShare {
 					'default'  => true,
 					'sanitize' => 'bool'
 				),
-				'product_social_share_end_grid_2'      => array(
+				'product_social_share_end_grid_2'          => array(
 					'type' => 'endgrid',
 				),
-
+				'product_social_share_sep_2'               => array(
+					'type' => 'hr',
+				),
 				'product_social_share_start_grid_3'        => array(
 					'id'    => 'product_social_share_start_grid_2',
 					'title' => __( 'Appearance', 'woo-assistant' ),
@@ -425,7 +430,7 @@ class ProductSocialShare {
 				'product_social_share_button_size_start'   => array(
 					'id'    => 'product_social_share_button_size_start',
 					'title' => __( 'Button Size', 'woo-assistant' ),
-					'type'  => 'startradiogroup',
+					'type'  => 'startInlineElements',
 				),
 				'product_social_share_button_size_default' => array(
 					'id'       => 'product_social_share_button_size',
@@ -444,7 +449,7 @@ class ProductSocialShare {
 					'sanitize' => 'text'
 				),
 				'product_social_share_button_size_end'     => array(
-					'type' => 'endradiogroup',
+					'type' => 'endInlineElements',
 				),
 				'product_social_share_primary_color'       => array(
 					'id'       => 'product_social_share_primary_color',
