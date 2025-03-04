@@ -79,13 +79,14 @@
       }
     }
 
-    :is( .wa-radio-group, .wa-checkbox-group) {
+    :is( .wa-inline-elements-group, .wa-radio-group, .wa-checkbox-group) {
       legend {
         margin-bottom: 1em;
       }
 
-      :is( .wa-radio-group-options, .wa-checkbox-group-options) {
+      :is(.wa-inline-elements-group-options, .wa-radio-group-options, .wa-checkbox-group-options) {
         display: flex;
+        align-items: center;
         flex-direction: row;
         flex-wrap: wrap;
         gap: .5rem;
