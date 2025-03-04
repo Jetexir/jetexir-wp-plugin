@@ -2,6 +2,7 @@
 
 namespace WooAssistant\App;
 
+use WooAssistant\App\GlobalSettings\GlobalSettings;
 use WooAssistant\App\Product\Product;
 
 defined( 'ABSPATH' ) || exit;
@@ -10,6 +11,7 @@ class App {
 	public function __construct() {
 		new AppAssets();
 		new Product();
+		new GlobalSettings();
 
 		add_action( 'init', [ $this, 'init' ] );
 	}

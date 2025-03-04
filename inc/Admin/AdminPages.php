@@ -124,7 +124,7 @@ class AdminPages {
 	}
 
 	private static function defaultTabs(): array {
-		return [ 'dashboard', 'product', 'tools', 'addons' ];
+		return [ 'dashboard', 'product', 'tools', 'addons', 'global' ];
 
 		/*return array(
 			'dashboard' => __( 'Dashboard', 'woo-assistant' ),
