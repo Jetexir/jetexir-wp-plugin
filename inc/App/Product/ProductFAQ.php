@@ -243,12 +243,17 @@ class ProductFAQ {
 				'product_faq_end_grid_1'                => array(
 					'type' => 'endgrid',
 				),
-				'product_faq_start_grid_2'              => array(
+
+				'product_faq_sep_1' => array(
+					'type' => 'hr',
+				),
+
+				'product_faq_start_grid_2'  => array(
 					'id'    => 'product_faq_start_grid_2',
 					'title' => __( 'Style', 'woo-assistant' ),
 					'type'  => 'startgrid',
 				),
-				'product_faq_button_icon'               => array(
+				'product_faq_button_icon'   => array(
 					'id'       => 'product_faq_button_icon',
 					'title'    => __( 'Button icon', 'woo-assistant' ),
 					'type'     => 'radioInline',
@@ -262,21 +267,21 @@ class ProductFAQ {
 					),
 					'sanitize' => 'text'
 				),
-				'product_faq_primary_color'             => array(
+				'product_faq_primary_color' => array(
 					'id'       => 'product_faq_primary_color',
 					'title'    => __( 'Primary color', 'woo-assistant' ),
 					'type'     => 'wpColorPicker',
 					'default'  => '#424242',
 					'sanitize' => 'color'
 				),
-				'product_faq_bg_color'                  => array(
+				'product_faq_bg_color'      => array(
 					'id'       => 'product_faq_bg_color',
 					'title'    => __( 'Background color', 'woo-assistant' ),
 					'type'     => 'wpColorPicker',
 					'default'  => '#f6f5f9',
 					'sanitize' => 'color'
 				),
-				'product_faq_end_grid_2'                => array(
+				'product_faq_end_grid_2'    => array(
 					'type' => 'endgrid',
 				),
 			)
