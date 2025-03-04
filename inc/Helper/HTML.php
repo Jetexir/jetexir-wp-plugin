@@ -30,7 +30,7 @@ class HTML {
 		'select',
 		'posttype',
 		'taxonomy',
-
+		'imagesizeselect',
 		'addon',
 		'wpcolorpicker'
 	];
@@ -68,9 +68,13 @@ class HTML {
 			$name .= '[]';
 			$id   = '';
 		}
+		$field = '';
 
-		$field = '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . '</label>' .
-		         '<textarea name="' . $name . '" id="' . $id . '" class="' . self::getClass( $data, self::prefix . 'field-textarea' ) . '" ' . self::getAttributes( $data ) . '>' . $data['setting_value'] . '</textarea>';
+		if ( ! empty( $data['title'] ) ) {
+			$field .= '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
+		}
+
+		$field .= '<textarea name="' . $name . '" id="' . $id . '" class="' . self::getClass( $data, self::prefix . 'field-textarea' ) . '" ' . self::getAttributes( $data ) . '>' . $data['setting_value'] . '</textarea>';
 
 		return self::wrap( $field, $data );
 	}
@@ -88,8 +92,13 @@ class HTML {
 			$id   = '';
 		}
 
-		$field = '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . '</label>' .
-		         '<input type="' . $data['type'] . '" name="' . $name . '" id="' . $id . '" class="' . self::prefix . 'input-' . $data['type'] . '" value="' . $data['setting_value'] . '" ' . self::getAttributes( $data ) . '>';
+		$field = '';
+
+		if ( ! empty( $data['title'] ) ) {
+			$field .= '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
+		}
+
+		$field .= '<input type="' . $data['type'] . '" name="' . $name . '" id="' . $id . '" class="' . self::prefix . 'input-' . $data['type'] . '" value="' . $data['setting_value'] . '" ' . self::getAttributes( $data ) . '>';
 
 		return self::wrap( $field, $data );
 	}
@@ -135,10 +144,14 @@ class HTML {
 			return '';
 		}
 
-		$name = self::prefixName . $data['id'] . ( isset( $data['attributes']['multiple'] ) && $data['attributes']['multiple'] ? '[]' : '' );
+		$name  = self::prefixName . $data['id'] . ( isset( $data['attributes']['multiple'] ) && $data['attributes']['multiple'] ? '[]' : '' );
+		$field = '';
 
-		$field = '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'select-label">' . $data['title'] . '</label>' .
-		         '<select name="' . $name . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-' . $data['type'] . '" ' . self::getAttributes( $data ) . '>';
+		if ( ! empty( $data['title'] ) ) {
+			$field .= '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'select-label">' . $data['title'] . '</label>';
+		}
+
+		$field .= '<select name="' . $name . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-' . $data['type'] . '" ' . self::getAttributes( $data ) . '>';
 
 		if ( ! empty( $data['option_none'] ) ) {
 			$field .= '<option value="' . $data['option_none_value'] . '">' . $data['option_none'] . '</option>';
@@ -224,8 +237,15 @@ class HTML {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
 		}
-		$field = '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-text">' . $data['title'] . '</label>' .
-		         '<div class="' . self::prefix . 'range-field-wrap' . '"><input type="' . $data['type'] . '" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-' . $data['type'] . '" value="' . $data['setting_value'] . '" ' . self::getAttributes( $data ) . '>';
+
+		$field = '';
+
+		if ( ! empty( $data['title'] ) ) {
+			$field .= '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-text">' . $data['title'] . '</label>';
+		}
+
+		$field .= '<div class="' . self::prefix . 'range-field-wrap' . '"><input type="' . $data['type'] . '" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::getClass( $data, self::prefix . 'input-' . $data['type'] ) . '" value="' . $data['setting_value'] . '" ' . self::getAttributes( $data ) . '>';
+
 		if ( isset( $data['display_value'] ) && $data['display_value'] ) {
 			$field .= '<output>' . $data['setting_value'] . '</output></div>';
 		}
@@ -257,7 +277,7 @@ class HTML {
 			$data['options'] = array_combine( $data['options'], $data['options'] );
 		}
 
-		$field = self::startradiogroup( $data );
+		$field = self::startinlineelements( $data );
 
 		foreach ( $data['options'] as $key => $value ) {
 			$field .= '<label class="' . self::prefix . 'radio-inline">' .
@@ -265,7 +285,7 @@ class HTML {
 			          '<span class="' . self::prefix . 'checkmark"></span><span class="' . self::prefix . 'title">' . $value . '</span></label>';
 		}
 
-		$field .= self::endradiogroup( $data );
+		$field .= self::endinlineelements( $data );
 
 		return $field;
 	}
@@ -280,7 +300,7 @@ class HTML {
 			$data['options'] = array_combine( $data['options'], $data['options'] );
 		}
 
-		$field = self::startradiogroup( $data );
+		$field = self::startinlineelements( $data );
 
 		$labelClass = self::prefix . 'checkbox-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' wa-not-equal' : '' );
 		foreach ( $data['options'] as $key => $value ) {
@@ -291,7 +311,7 @@ class HTML {
 			          '<span class="' . self::prefix . 'checkmark"></span><span class="' . self::prefix . 'title">' . $value . '</span></label>';
 		}
 
-		$field .= self::endradiogroup( $data );
+		$field .= self::endinlineelements( $data );
 
 		return $field;
 	}
@@ -332,13 +352,19 @@ class HTML {
 		return '<hr />';
 	}
 
-	public static function startradiogroup( $data ): string {
-		$type = $data['type'] === 'radioinline' ? 'radio' : 'checkbox';
+	public static function startinlineelements( $data ): string {
+		if ( $data['type'] === 'startinlineelements' ) {
+			$type = 'inline-elements';
+		} else if ( $data['type'] === 'radioinline' ) {
+			$type = 'radio';
+		} else {
+			$type = 'checkbox';
+		}
 
-		return '<fieldset id="' . self::prefix . $data['id'] . '-' . $type . '-group" class="' . self::prefix . $type . '-group ' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '"><legend class="' . self::prefix . 'title">' . $data['title'] . '</legend><div class="' . self::prefix . $type . '-group-options">';
+		return '<fieldset id="' . self::prefix . ( empty( $data['id'] ) ? '' : $data['id'] . '-' ) . $type . '-group" class="' . self::getClass( $data, self::prefix . $type . '-group' ) . '"><legend class="' . self::prefix . 'title">' . $data['title'] . '</legend><div class="' . self::prefix . $type . '-group-options">';
 	}
 
-	public static function endradiogroup( $data ): string {
+	public static function endinlineelements( $data ): string {
 		return '</div></fieldset>';
 	}
 
@@ -555,7 +581,7 @@ class HTML {
 			return $data;
 		}
 
-		if ( ( empty( $data['id'] ) || empty( $data['title'] ) ) && in_array( $data['type'], self::saveFields, true ) ) {
+		if ( empty( $data['id'] ) && in_array( $data['type'], self::saveFields, true ) ) {
 			return false;
 		}
 
