@@ -3,7 +3,7 @@
 namespace WooAssistant\Helper;
 
 class WooCommerce {
-	public static function isWoocommerce() {
+	public static function isWoocommerce(): bool {
 		return is_woocommerce();
 	}
 
@@ -37,6 +37,17 @@ class WooCommerce {
 
 	public static function getProducts( $args ) {
 		return wc_get_products( $args );
+	}
+
+	public static function getCurrentId(): int {
+		global $product;
+
+		$productID = 0;
+		if ( is_a( $product, 'WC_Product' ) && method_exists( $product, 'get_id' ) ) {
+			$productID = $product->get_id();
+		}
+
+		return $productID;
 	}
 
 	/**

@@ -11,6 +11,7 @@ use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Param;
 use WooAssistant\Helper\PostMeta;
 use WooAssistant\Helper\Sanitizing;
+use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Settings\Settings;
 
 defined( 'ABSPATH' ) || exit;
@@ -372,7 +373,7 @@ class ProductQuantity {
 		}
 
 		self::$printed = true;
-		$productID     = Product::getCurrentId();
+		$productID     = WooCommerce::getCurrentId();
 		$displayButton = apply_filters( 'woo_assistant_quantity_input_display_plus_minus', true, $productID );
 
 		if ( $displayButton ) {
@@ -385,7 +386,7 @@ class ProductQuantity {
 			return;
 		}
 
-		$productID     = Product::getCurrentId();
+		$productID     = WooCommerce::getCurrentId();
 		$displayButton = apply_filters( 'woo_assistant_quantity_input_display_plus_minus', true, $productID );
 
 		if ( $displayButton ) {
