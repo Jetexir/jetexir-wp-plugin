@@ -56,8 +56,13 @@ class AdminSettings {
 					}
 
 					$default = self::getSettingDefault( $setting );
-					$value   = Param::post( WOOASSISTANT_INPUT_PREFIX . $setting['id'], $default );
-					$value   = self::sanitizeSetting( $value, $setting );
+					if ( in_array( $setting['type'], [ 'checkbox', 'toggle' ] ) ) {
+						$value = isset( $_POST[ WOOASSISTANT_INPUT_PREFIX . $setting['id'] ] ) ? Param::post( WOOASSISTANT_INPUT_PREFIX . $setting['id'], $default ) : false;
+					} else {
+						$value = Param::post( WOOASSISTANT_INPUT_PREFIX . $setting['id'], $default );
+					}
+
+					$value = self::sanitizeSetting( $value, $setting );
 
 					if ( is_array( $value ) && isset( $setting['sanitize_options'] ) && method_exists( Sanitizing::class, $setting['sanitize_options'] ) ) {
 						$value = array_map( 'WooAssistant\Helper\Sanitizing::' . $setting['sanitize_options'], $value );
