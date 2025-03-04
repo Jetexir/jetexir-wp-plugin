@@ -7,12 +7,32 @@
     box-sizing: initial !important;
   }
 
+  &.wp-picker-active {
+    position: relative;
+
+    .button {
+      margin-right: 5px;
+    }
+
+    .wp-picker-input-wrap {
+      display: inline-flex;
+      gap: 5px;
+    }
+
+    .wp-picker-holder {
+      position: absolute;
+      left: 0;
+      z-index: 999;
+    }
+  }
+
   .button {
     border-color: variables.$border_color;
     color: variables.$text;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: none;
+    margin: 0;
 
     &:focus {
       border-color: variables.$primary;
