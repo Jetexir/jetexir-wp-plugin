@@ -8,7 +8,7 @@ use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Settings\Settings;
 
 class Styles {
-	private const sectionID = 'compare';
+	private const sectionID = 'styles';
 
 	public function __construct() {
 		add_filter( 'woo_assistant_global_settings_sections', [ $this, 'addSectionSettings' ] );
