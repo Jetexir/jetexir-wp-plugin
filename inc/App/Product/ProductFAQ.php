@@ -2,6 +2,7 @@
 
 namespace WooAssistant\App\Product;
 
+use WooAssistant\Enums\Colors;
 use WooAssistant\Helper\Param;
 use WooAssistant\Helper\PostMeta;
 use WooAssistant\Settings\Settings;
@@ -32,8 +33,6 @@ class ProductFAQ {
 		$globalFAQsPosition = Settings::get( 'product_faq_global_position', 'before' );
 		$globalFAQs         = Settings::get( 'product_faq', [] );
 		$buttonIcon         = Settings::get( 'product_faq_button_icon', 'chevron' );
-		$primaryColor       = Settings::get( 'product_faq_primary_color', '#720eec' );
-		$bgColor            = Settings::get( 'product_faq_bg_color', '#ffffff' );
 		$productFAQs        = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq' );
 		$productFAQs        = is_array( $productFAQs ) ? $productFAQs : [];
 
@@ -48,7 +47,7 @@ class ProductFAQ {
 		echo '<h2>' . $title . '</h2>';
 
 		if ( ! empty( $FAQs ) ) {
-			echo '<div class="wa-faqs-wrap" style="--wa-faq-primary-color: ' . $primaryColor . '; --wa-faq-bg-color: ' . $bgColor . ';">';
+			echo '<div class="wa-faqs-wrap">';
 			foreach ( $FAQs as $faq ) {
 				if ( empty( $faq['question'] ) || empty( $faq['answer'] ) ) {
 					continue;
@@ -182,12 +181,12 @@ class ProductFAQ {
 			'title'    => __( 'FAQ', 'woo-assistant' ),
 			'desc'     => __( 'Product frequently asked questions', 'woo-assistant' ),
 			'settings' => array(
-				'product_faq_start_grid_1'              => array(
+				'product_faq_start_grid_1'    => array(
 					'id'    => 'product_faq_start_grid_1',
 					'title' => __( 'Frequently asked questions', 'woo-assistant' ),
 					'type'  => 'startgrid',
 				),
-				'product_faq_enable'                    => array(
+				'product_faq_enable'          => array(
 					'id'       => 'product_faq_enable',
 					'title'    => __( 'Enable FAQ feature', 'woo-assistant' ),
 					'type'     => 'toggle',
@@ -195,7 +194,7 @@ class ProductFAQ {
 					'default'  => false,
 					'sanitize' => 'bool'
 				),
-				'product_faq_global_position'           => array(
+				'product_faq_global_position' => array(
 					'id'       => 'product_faq_global_position',
 					'title'    => __( 'Global FAQ position', 'woo-assistant' ),
 					'type'     => 'select',
@@ -205,6 +204,29 @@ class ProductFAQ {
 					),
 					'default'  => 'before',
 					'sanitize' => 'text'
+				),
+				'product_faq_button_icon'   => array(
+					'id'       => 'product_faq_button_icon',
+					'title'    => __( 'Button icon', 'woo-assistant' ),
+					'type'     => 'radioInline',
+					'default'  => 'chevron',
+					'options'  => array(
+						'chevron'      => '<i class="wa-icon-chevron-down"></i>',
+						'chevrons'     => '<i class="wa-icon-chevrons-down"></i>',
+						'arrow'        => '<i class="wa-icon-arrow-down"></i>',
+						'arrow-circle' => '<i class="wa-icon-circle-down"></i>',
+						'plus'         => '<i class="wa-icon-plus"></i>',
+					),
+					'sanitize' => 'text'
+				),
+				'product_faq_end_grid_1'      => array(
+					'type' => 'endgrid',
+				),
+
+				'product_faq_start_grid_3'              => array(
+					'id'    => 'product_faq_start_grid_3',
+					'title' => __( 'Global FAQs', 'woo-assistant' ),
+					'type'  => 'startgrid',
 				),
 				'product_faq_start_repeatable'          => array(
 					'id'         => 'product_faq_start_repeatable',
@@ -240,48 +262,7 @@ class ProductFAQ {
 					'add_text' => __( 'Add', 'woo-assistant' ),
 					'type'     => 'endRepeatable',
 				),
-				'product_faq_end_grid_1'                => array(
-					'type' => 'endgrid',
-				),
-
-				'product_faq_sep_1' => array(
-					'type' => 'hr',
-				),
-
-				'product_faq_start_grid_2'  => array(
-					'id'    => 'product_faq_start_grid_2',
-					'title' => __( 'Style', 'woo-assistant' ),
-					'type'  => 'startgrid',
-				),
-				'product_faq_button_icon'   => array(
-					'id'       => 'product_faq_button_icon',
-					'title'    => __( 'Button icon', 'woo-assistant' ),
-					'type'     => 'radioInline',
-					'default'  => 'chevron',
-					'options'  => array(
-						'chevron'      => '<i class="wa-icon-chevron-down"></i>',
-						'chevrons'     => '<i class="wa-icon-chevrons-down"></i>',
-						'arrow'        => '<i class="wa-icon-arrow-down"></i>',
-						'arrow-circle' => '<i class="wa-icon-circle-down"></i>',
-						'plus'         => '<i class="wa-icon-plus"></i>',
-					),
-					'sanitize' => 'text'
-				),
-				'product_faq_primary_color' => array(
-					'id'       => 'product_faq_primary_color',
-					'title'    => __( 'Primary color', 'woo-assistant' ),
-					'type'     => 'wpColorPicker',
-					'default'  => '#424242',
-					'sanitize' => 'color'
-				),
-				'product_faq_bg_color'      => array(
-					'id'       => 'product_faq_bg_color',
-					'title'    => __( 'Background color', 'woo-assistant' ),
-					'type'     => 'wpColorPicker',
-					'default'  => '#f6f5f9',
-					'sanitize' => 'color'
-				),
-				'product_faq_end_grid_2'    => array(
+				'product_faq_end_grid_3'                => array(
 					'type' => 'endgrid',
 				),
 			)
