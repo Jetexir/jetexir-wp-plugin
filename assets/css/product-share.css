@@ -29,6 +29,7 @@
   height: 32px;
   text-decoration: none !important;
   font-size: 14px;
+  transition: all 0.3s ease;
 }
 .wa-product-share-wrapper .wa-product-share-links .wa-product-share-link .wa-icon-content_copy {
   animation: waBlinkText 250ms step-start 0s infinite;
@@ -39,7 +40,10 @@
   height: 45px;
 }
 .wa-product-share-wrapper .wa-product-share-links .wa-product-share-link:hover, .wa-product-share-wrapper .wa-product-share-links .wa-product-share-link:focus {
-  outline: 1px solid var(--wa-element-border-color, #E6E2F5);
+  color: var(--wa-element-hover-color, #2B2B2B);
+  border: 1px solid var(--wa-element-hover-border-color, #E6E2F5);
+  background-color: var(--wa-element-hover-bg-color, rgb(247.35, 247.35, 247.35));
+  outline: 1px solid var(--wa-element-hover-border-color, #E6E2F5);
 }
 .wa-product-share-wrapper .wa-product-share-links .wa-product-share-link.wa-product-share-link-shape-round {
   border-radius: 50%;

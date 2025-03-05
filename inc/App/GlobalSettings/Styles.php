@@ -168,6 +168,31 @@ class Styles {
 				'type' => 'endInlineElements',
 			),
 
+			'start_inline_elements_element_hover_color' => array(
+				'title' => __( 'Hover text color', 'woo-assistant' ),
+				'type'  => 'startInlineElements',
+			),
+			'element_hover_color_enable'                => array(
+				'id'       => 'element_hover_color_enable',
+				'type'     => 'checkbox',
+				'value'    => 1,
+				'default'  => true,
+				'sanitize' => 'bool'
+			),
+			'element_hover_color'                       => array(
+				'id'       => 'element_hover_color',
+				'type'     => 'wpColorPicker',
+				'default'  => Colors::primary,
+				'sanitize' => 'color',
+				'meta'     => [
+					'css_variable' => 'element-hover-color',
+					'css_syntax'   => 'color',
+				]
+			),
+			'end_inline_elements_element_hover_color'   => array(
+				'type' => 'endInlineElements',
+			),
+
 			'start_inline_elements_element_bg_color' => array(
 				'title' => __( 'Background color', 'woo-assistant' ),
 				'type'  => 'startInlineElements',
@@ -193,6 +218,31 @@ class Styles {
 				'type' => 'endInlineElements',
 			),
 
+			'start_inline_elements_element_hover_bg_color' => array(
+				'title' => __( 'Hover background color', 'woo-assistant' ),
+				'type'  => 'startInlineElements',
+			),
+			'element_hover_bg_color_enable'                => array(
+				'id'       => 'bg_color_enable',
+				'type'     => 'checkbox',
+				'value'    => 1,
+				'default'  => true,
+				'sanitize' => 'bool'
+			),
+			'element_hover_bg_color'                       => array(
+				'id'       => 'element_hover_bg_color',
+				'type'     => 'wpColorPicker',
+				'default'  => Colors::primaryLight2,
+				'sanitize' => 'color',
+				'meta'     => [
+					'css_variable' => 'element-hover-bg-color',
+					'css_syntax'   => 'color',
+				]
+			),
+			'end_inline_elements_element_hover_bg_color'   => array(
+				'type' => 'endInlineElements',
+			),
+
 			'start_inline_elements_element_border_color' => array(
 				'title' => __( 'Border color', 'woo-assistant' ),
 				'type'  => 'startInlineElements',
@@ -215,6 +265,31 @@ class Styles {
 				]
 			),
 			'end_inline_elements_element_border_color'   => array(
+				'type' => 'endInlineElements',
+			),
+
+			'start_inline_elements_element_hover_border_color' => array(
+				'title' => __( 'Hover border color', 'woo-assistant' ),
+				'type'  => 'startInlineElements',
+			),
+			'element_hover_border_color_enable'                => array(
+				'id'       => 'element_hover_border_color_enable',
+				'type'     => 'checkbox',
+				'value'    => 1,
+				'default'  => true,
+				'sanitize' => 'bool'
+			),
+			'element_hover_border_color'                       => array(
+				'id'       => 'element_hover_border_color',
+				'type'     => 'wpColorPicker',
+				'default'  => Colors::primary,
+				'sanitize' => 'color',
+				'meta'     => [
+					'css_variable' => 'element-hover-border-color',
+					'css_syntax'   => 'color',
+				]
+			),
+			'end_inline_elements_element_hover_border_color'   => array(
 				'type' => 'endInlineElements',
 			),
 

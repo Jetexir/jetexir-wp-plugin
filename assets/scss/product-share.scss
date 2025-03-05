@@ -32,6 +32,7 @@
       height: 32px;
       text-decoration: none !important;
       font-size: 14px;
+      transition: all 0.3s ease;
 
       .wa-icon-content_copy {
         animation: waBlinkText 250ms step-start 0s infinite;
@@ -44,7 +45,10 @@
       }
 
       &:hover, &:focus {
-        outline: 1px solid var(--wa-element-border-color, variables.$border_color);
+        color: var(--wa-element-hover-color, variables.$text);
+        border: 1px solid var(--wa-element-hover-border-color, variables.$border_color);
+        background-color: var(--wa-element-hover-bg-color, variables.$white2);
+        outline: 1px solid var(--wa-element-hover-border-color, variables.$border_color);
       }
 
       &.wa-product-share-link-shape-round {

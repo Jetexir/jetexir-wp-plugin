@@ -22,6 +22,13 @@ final class Colors {
 	public const primaryLight = '#f6f5f9';
 
 	/**
+	 * Light Primary color
+	 *
+	 * @var string
+	 */
+	public const primaryLight2 = '#f2edff';
+
+	/**
 	 * Text color
 	 *
 	 * @var string
