@@ -4,7 +4,6 @@ namespace WooAssistant\App\Product;
 
 use WooAssistant\App\App;
 use WooAssistant\Helper\Assets;
-use WooAssistant\Helper\Sanitizing;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Settings\Settings;
 
@@ -45,8 +44,6 @@ class ProductSocialShare {
 		$buttonAppearance = Settings::get( 'product_social_share_appearance', 'icon' );
 		$buttonShape      = Settings::get( 'product_social_share_shape', 'round' );
 		$buttonSize       = Settings::get( 'product_social_share_button_size', 'default' );
-		$primaryColor     = Settings::get( 'product_social_share_primary_color', '#720eec' );
-		$bgColor          = Settings::get( 'product_social_share_bg_color', '#ffffff' );
 
 		$args = array(
 			'socials'           => $socials,
@@ -57,8 +54,6 @@ class ProductSocialShare {
 			'button_appearance' => $buttonAppearance,
 			'button_shape'      => $buttonShape,
 			'button_size'       => $buttonSize,
-			'primary_color'     => $primaryColor,
-			'bg_color'          => $bgColor,
 		);
 
 		echo $this->shareShortcode( $args );
@@ -75,8 +70,6 @@ class ProductSocialShare {
 			'button_appearance' => 'icon',
 			'button_shape'      => 'round',
 			'button_size'       => 'default',
-			'primary_color'     => '#720eec',
-			'bg_color'          => '#ffffff',
 		), $atts, self::shortCode );
 
 		$productId = (int) $atts['product_id'];
@@ -105,10 +98,6 @@ class ProductSocialShare {
 			'default',
 			'large',
 		] ) ? $atts['button_size'] : 'default';
-		$primaryColor     = ! empty( $atts['primary_color'] ) ? Sanitizing::color( $atts['primary_color'] ) : '';
-		$primaryColor     = empty( $primaryColor ) ? '#720eec' : $primaryColor;
-		$bgColor          = ! empty( $atts['bg_color'] ) ? Sanitizing::color( $atts['bg_color'] ) : '';
-		$bgColor          = empty( $bgColor ) ? '#ffffff' : $bgColor;
 
 		$socialNetworks   = $this->socialNetworks();
 		$links            = [];
@@ -122,7 +111,7 @@ class ProductSocialShare {
 		$productLink = $linkType === 'long' ? get_permalink( $productId ) : wp_get_shortlink( $productId );
 		$productLink = $encodeUrl ? urlencode( esc_url( $productLink ) ) : esc_url( $productLink );
 
-		$wrap = '<div class="wa-product-share-wrapper" style="--wa-product-share-primary-color: ' . $primaryColor . '; --wa-product-share-bg-color: ' . $bgColor . ';">';
+		$wrap = '<div class="wa-product-share-wrapper">';
 		if ( ! empty( $title ) ) {
 			$wrap .= '<span class="wa-product-share-title">' . $title . '</span>';
 		}
@@ -149,7 +138,6 @@ class ProductSocialShare {
 			}
 		}
 
-		var_dump( $copyClipboard );
 		if ( $copyClipboard ) {
 			$linkClass         = $linkClassDefault;
 			$linkClass[]       = 'wa-copy-text';
@@ -450,20 +438,6 @@ class ProductSocialShare {
 				),
 				'product_social_share_button_size_end'     => array(
 					'type' => 'endInlineElements',
-				),
-				'product_social_share_primary_color'       => array(
-					'id'       => 'product_social_share_primary_color',
-					'title'    => __( 'Primary color', 'woo-assistant' ),
-					'type'     => 'wpColorPicker',
-					'default'  => '#424242',
-					'sanitize' => 'color'
-				),
-				'product_social_share_bg_color'            => array(
-					'id'       => 'product_social_share_bg_color',
-					'title'    => __( 'Background color', 'woo-assistant' ),
-					'type'     => 'wpColorPicker',
-					'default'  => '#f6f5f9',
-					'sanitize' => 'color'
 				),
 				'product_social_share_end_grid_3'          => array(
 					'type' => 'endgrid',
