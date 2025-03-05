@@ -283,6 +283,7 @@ class ProductQuantity {
 			return;
 		}
 
+		$enableStyle = Settings::get( 'enable_styles', false );
 		$style       = '';
 		$buttonStyle = $buttonHoverStyle = $inputStyle = [];
 
@@ -294,51 +295,29 @@ class ProductQuantity {
 			$buttonStyle['width']           = $value;
 			$buttonStyle['height']          = $value;
 		}
+		if ( $enableStyle ) {
+			$buttonStyle['border']           = 'var(--wa-button-border-width, 0) solid transparent';
+			$buttonStyle['border-radius']    = 'var(--wa-button-border-radius, 0)';
+			$buttonStyle['color']            = 'var(--wa-button-color, initial)';
+			$buttonStyle['background-color'] = 'var(--wa-button-bg-color, initial)';
+			$buttonStyle['border-color']     = 'var(--wa-button-border-color, initial)';
 
-		if ( $value = Settings::get( 'quantity_button_border_width', false ) ) {
-			$buttonStyle['border'] = $value . ' solid transparent';
-		}
-		if ( $value = Settings::get( 'quantity_button_border_radius', false ) ) {
-			$buttonStyle['border-radius'] = $value;
-		}
-		if ( $value = Settings::get( 'quantity_button_font_color', false ) ) {
-			$buttonStyle['color'] = $value;
-		}
-		if ( $value = Settings::get( 'quantity_button_bg_color', false ) ) {
-			$buttonStyle['background-color'] = $value;
-		}
-		if ( $value = Settings::get( 'quantity_button_border_color', false ) ) {
-			$buttonStyle['border-color'] = $value;
-		}
-
-		// Button hover style
-		if ( $value = Settings::get( 'quantity_button_font_hover_color', false ) ) {
-			$buttonHoverStyle['color'] = $value;
-		}
-		if ( $value = Settings::get( 'quantity_button_bg_hover_color', false ) ) {
-			$buttonHoverStyle['background-color'] = $value;
-		}
-		if ( $value = Settings::get( 'quantity_button_border_hover_color', false ) ) {
-			$buttonHoverStyle['border-color'] = $value;
+			// Button hover style
+			$buttonHoverStyle['color']            = 'var(--wa-button-hover-color, initial)';
+			$buttonHoverStyle['background-color'] = 'var(--wa-button-hover-bg-color, initial)';
+			$buttonHoverStyle['border-color']     = 'var(--wa-button-hover-border-color, initial)';
 		}
 
 		// Input style
 		if ( Settings::get( 'quantity_input_style', false ) ) {
-			if ( $value = Settings::get( 'quantity_input_border_width', false ) ) {
-				$inputStyle['border'] = $value . ' solid transparent';
+			if ( $enableStyle ) {
+				$inputStyle['border']           = 'var(--wa-input-border-width, 0) solid transparent';
+				$inputStyle['border-radius']    = 'var(--wa-input-border-radius, 0)';
+				$inputStyle['color']            = 'var(--wa-input-color, initial)';
+				$inputStyle['background-color'] = 'var(--wa-input-bg-color, initial)';
+				$inputStyle['border-color']     = 'var(--wa-input-border-color, initial)';
 			}
-			if ( $value = Settings::get( 'quantity_input_border_radius', false ) ) {
-				$inputStyle['border-radius'] = $value;
-			}
-			if ( $value = Settings::get( 'quantity_input_font_color', false ) ) {
-				$inputStyle['color'] = $value;
-			}
-			if ( $value = Settings::get( 'quantity_input_bg_color', false ) ) {
-				$inputStyle['background-color'] = $value;
-			}
-			if ( $value = Settings::get( 'quantity_input_border_color', false ) ) {
-				$inputStyle['border-color'] = $value;
-			}
+
 			if ( $value = Settings::get( 'quantity_input_width', false ) ) {
 				$inputStyle['width'] = $value;
 			}
@@ -485,24 +464,9 @@ class ProductQuantity {
 				'id'         => 'quantity_button_width_height',
 				'title'      => __( 'Button width/height', 'woo-assistant' ),
 				'type'       => 'text',
+				'default'    => '30px',
 				'attributes' => array(
 					'placeholder' => 'eg: 30px'
-				)
-			),
-			'quantity_button_border_width'     => array(
-				'id'         => 'quantity_button_border_width',
-				'title'      => __( 'Border width', 'woo-assistant' ),
-				'type'       => 'text',
-				'attributes' => array(
-					'placeholder' => 'eg: 1px'
-				)
-			),
-			'quantity_button_border_radius'    => array(
-				'id'         => 'quantity_button_border_radius',
-				'title'      => __( 'Border radius', 'woo-assistant' ),
-				'type'       => 'text',
-				'attributes' => array(
-					'placeholder' => 'eg: 4px'
 				)
 			),
 
@@ -510,67 +474,11 @@ class ProductQuantity {
 				'type' => 'endgrid',
 			),
 
-			'start_grid_quantity_input2'   => array(
-				'title' => __( 'Button Color', 'woo-assistant' ),
-				'type'  => 'startgrid',
-			),
-			'quantity_button_font_color'   => array(
-				'id'       => 'quantity_button_font_color',
-				'title'    => __( 'Font', 'woo-assistant' ),
-				'type'     => 'wpColorPicker',
-				'sanitize' => 'color'
-			),
-			'quantity_button_bg_color'     => array(
-				'id'       => 'quantity_button_bg_color',
-				'title'    => __( 'Background', 'woo-assistant' ),
-				'type'     => 'wpColorPicker',
-				'sanitize' => 'color'
-			),
-			'quantity_button_border_color' => array(
-				'id'       => 'quantity_button_border_color',
-				'title'    => __( 'Border', 'woo-assistant' ),
-				'type'     => 'wpColorPicker',
-				'sanitize' => 'color'
-			),
-			'end_grid_quantity_input2'     => array(
-				'type' => 'endgrid',
-			),
-
-			'start_grid_quantity_input3'         => array(
-				'title' => __( 'Button Hover Color', 'woo-assistant' ),
-				'type'  => 'startgrid',
-			),
-			'quantity_button_font_hover_color'   => array(
-				'id'       => 'quantity_button_font_hover_color',
-				'title'    => __( 'Font', 'woo-assistant' ),
-				'type'     => 'wpColorPicker',
-				'sanitize' => 'color'
-			),
-			'quantity_button_bg_hover_color'     => array(
-				'id'       => 'quantity_button_bg_hover_color',
-				'title'    => __( 'Background', 'woo-assistant' ),
-				'type'     => 'wpColorPicker',
-				'sanitize' => 'color'
-			),
-			'quantity_button_border_hover_color' => array(
-				'id'       => 'quantity_button_border_hover_color',
-				'title'    => __( 'Border', 'woo-assistant' ),
-				'type'     => 'wpColorPicker',
-				'sanitize' => 'color'
-			),
-			'end_grid_quantity_input3'           => array(
-				'type' => 'endgrid',
-			),
-
-			'quantity_input_sep' => array(
-				'type' => 'hr',
-			),
-
-			'start_grid_quantity_input5'   => array(
+			'start_grid_quantity_input5' => array(
 				'title' => __( 'Input Box', 'woo-assistant' ),
 				'type'  => 'startgrid',
 			),
-			'quantity_input_style'         => array(
+			'quantity_input_style'       => array(
 				'id'       => 'quantity_input_style',
 				'title'    => __( 'Enable quantity input style', 'woo-assistant' ),
 				'type'     => 'toggle',
@@ -578,25 +486,7 @@ class ProductQuantity {
 				'default'  => false,
 				'sanitize' => 'bool'
 			),
-			'quantity_input_font_color'    => array(
-				'id'       => 'quantity_input_font_color',
-				'title'    => __( 'Font', 'woo-assistant' ),
-				'type'     => 'wpColorPicker',
-				'sanitize' => 'color'
-			),
-			'quantity_input_bg_color'      => array(
-				'id'       => 'quantity_input_bg_color',
-				'title'    => __( 'Background', 'woo-assistant' ),
-				'type'     => 'wpColorPicker',
-				'sanitize' => 'color'
-			),
-			'quantity_input_border_color'  => array(
-				'id'       => 'quantity_input_border_color',
-				'title'    => __( 'Border', 'woo-assistant' ),
-				'type'     => 'wpColorPicker',
-				'sanitize' => 'color'
-			),
-			'quantity_input_width'         => array(
+			'quantity_input_width'       => array(
 				'id'         => 'quantity_input_width',
 				'title'      => __( 'Width', 'woo-assistant' ),
 				'type'       => 'text',
@@ -604,7 +494,7 @@ class ProductQuantity {
 					'placeholder' => 'eg: 50px'
 				)
 			),
-			'quantity_input_height'        => array(
+			'quantity_input_height'      => array(
 				'id'         => 'quantity_input_height',
 				'title'      => __( 'Height', 'woo-assistant' ),
 				'type'       => 'text',
@@ -612,23 +502,7 @@ class ProductQuantity {
 					'placeholder' => 'eg: 30px'
 				)
 			),
-			'quantity_input_border_width'  => array(
-				'id'         => 'quantity_input_border_width',
-				'title'      => __( 'Border width', 'woo-assistant' ),
-				'type'       => 'text',
-				'attributes' => array(
-					'placeholder' => 'eg: 1px'
-				)
-			),
-			'quantity_input_border_radius' => array(
-				'id'         => 'quantity_input_border_radius',
-				'title'      => __( 'Border radius', 'woo-assistant' ),
-				'type'       => 'text',
-				'attributes' => array(
-					'placeholder' => 'eg: 4px'
-				)
-			),
-			'end_grid_quantity_input5'     => array(
+			'end_grid_quantity_input5'   => array(
 				'type' => 'endgrid',
 			)
 		);
