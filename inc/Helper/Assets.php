@@ -5,6 +5,64 @@ namespace WooAssistant\Helper;
 defined( 'ABSPATH' ) || exit;
 
 class Assets {
+
+	/**
+	 * Generate CSS property
+	 * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties
+	 * https://developer.mozilla.org/en-US/docs/Web/CSS/@property/syntax#syntax
+	 *
+	 * @param string $var
+	 * @param string|array $syntax
+	 * @param bool $inherits
+	 * @param string $initialValue
+	 *
+	 * @return string
+	 */
+	public static function generateCssProperty( string $var, $syntax = '*', bool $inherits = false, string $initialValue = '' ): string {
+		$property    = '@property --' . $var . ' {';
+		$syntaxUnits = [
+			'angle',
+			'color',
+			'custom-ident',
+			'image',
+			'url',
+			'resolution',
+			'string',
+			'time',
+			'transform-function',
+			'transform-list',
+			'integer',
+			'number',
+			'length-percentage',
+			'length',
+			'percentage'
+		];
+
+		if ( is_array( $syntax ) ) {
+			$syntax   = array_map( 'strtolower', $syntax );
+			$syntaxes = [];
+			foreach ( $syntax as $value ) {
+				$syntaxes[] = in_array( $value, $syntaxUnits, true ) ? '<' . $value . '>' : $value;
+			}
+			$syntax = implode( ' | ', $syntaxes );
+
+		} else {
+			$syntax = strtolower( $syntax );
+			$syntax = in_array( $syntax, $syntaxUnits, true ) ? '<' . $syntax . '>' : $syntax;
+		}
+
+		$property .= 'syntax: ' . $syntax . ';';
+		$property .= 'inherits: ' . ( $inherits ? 'true' : 'false' ) . ';';
+
+		if ( ! empty( $initialValue ) ) {
+			$property .= 'initial-value: ' . $initialValue . ';';
+		}
+
+		$property .= '}';
+
+		return $property;
+	}
+
 	public static function getVersion(): string {
 		return WOOASSISTANT_PLUGIN_VERSION . ( defined( 'WP_DEVELOPMENT_MODE' ) && WP_DEVELOPMENT_MODE === 'plugin' ? time() : '' );
 	}

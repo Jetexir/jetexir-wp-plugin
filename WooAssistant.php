@@ -41,6 +41,7 @@ final class WooAssistant {
 		define( 'WOOASSISTANT_PLUGIN_PATH', __DIR__ );
 		define( 'WOOASSISTANT_PLUGIN_URL', plugins_url( '/', WOOASSISTANT_PLUGIN_FILE_PATH ) );
 		define( 'WOOASSISTANT_INPUT_PREFIX', WOOASSISTANT_PLUGIN_KEY . '_' );
+		define( 'WOOASSISTANT_INPUT_CLASS_PREFIX', 'wa-' );
 
 		if ( ! function_exists( 'get_plugin_data' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
