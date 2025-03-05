@@ -86,7 +86,7 @@ class ProductCompare {
 						$productID = $product->get_id();
 						$imageID   = (int) $product->get_image_id();
 
-						$data['removeButton'][] = '<button type="button" class="button wa-button wa-button-product-compare wa-button-remove" data-id="' . $productID . '" data-action="refresh"><svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M8.00001 8L16 16" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+						$data['removeButton'][] = '<button type="button" class="button wa-button wa-product-compare-button wa-button-remove" data-id="' . $productID . '" data-action="refresh"><svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M8.00001 8L16 16" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
 
 						$data['images'][] = ! empty( $imageSize ) && $imageID ? wp_get_attachment_image( $imageID, $imageSize, false,
 							[ 'class' => 'wa-product-compare-image' ] ) : '';
@@ -273,7 +273,7 @@ class ProductCompare {
 	public function addButton(): void {
 		$productID = get_the_ID();
 		$exists    = $this->checkExistsItem( $productID );
-		echo '<button type="button" class="button wa-button wa-button-product-compare' . ( $exists ? ' wa-button-remove' : '' ) . '" data-id="' . $productID . '" data-action="non">' .
+		echo '<button type="button" class="button wa-button wa-product-compare-button' . ( $exists ? ' wa-button-remove' : '' ) . '" data-id="' . $productID . '" data-action="non">' .
 		     __( 'Compare', 'woo-assistant' )
 		     . '</button>';
 	}

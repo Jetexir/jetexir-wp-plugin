@@ -1,5 +1,22 @@
 @use "utilities/variables";
 
+.wa-product-compare-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--wa-secondary-button-border-width, 0) solid transparent;
+  border-radius: var(--wa-secondary-button-border-radius, 0);
+  color: var(--wa-secondary-button-color, initial);
+  background-color: var(--wa-secondary-button-bg-color, initial);
+  border-color: var(--wa-secondary-button-border-color, initial);
+
+  &:hover {
+    color: var(--wa-secondary-button-hover-color, initial);
+    background-color: var(--wa-secondary-button-hover-bg-color, initial);
+    border-color: var(--wa-secondary-button-hover-border-color, initial);
+  }
+}
+
 .wa-product-compare-wrapper {
   margin: 30px 15px;
   color: #333;

@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    $('.wa-button-product-compare').on('click', function (e) {
+    $('.wa-product-compare-button').on('click', function (e) {
         var $this = $(this);
         if (wooAssistantAjax) return;
         wooAssistantAjax = true;
