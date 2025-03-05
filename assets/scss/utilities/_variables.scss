@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 $plugin_key: "woo-assistant";
 
 // https://woocommerce.com/brand-and-logo-guidelines/
@@ -17,9 +19,8 @@ $gray_light_two: #D3D3D3;
 $text: $dark;
 $meta: $gray;
 
-$white: #fff;
-$white2: darken($white, 3%);
-
+$white: color.adjust(#fff);
+$white2: color.scale($white, $lightness: -3%);
 $red: #b04b55;
 
 $default: $woo_purple_50;
@@ -34,7 +35,7 @@ $info: #356aa3;
 $info_light: #DCEBFB;
 
 $link: $primary;
-$link_hover: darken($primary, 10%);
+$link_hover: color.scale($primary, $lightness: -10%);
 
 // Background
 $background_side: #F6F5F9;

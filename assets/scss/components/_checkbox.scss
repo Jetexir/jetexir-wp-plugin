@@ -1,72 +1,75 @@
+@use 'sass:color';
 @use "../utilities/variables";
 
-.wa-checkbox-wrap {
-  position: relative;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: flex;
-  gap: 7px;
-
-  input {
-    position: absolute;
-    opacity: 0;
+@mixin wa-checkbox {
+  .wa-checkbox-wrap {
+    position: relative;
     cursor: pointer;
-    height: 0;
-    width: 0;
-  }
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: flex;
+    gap: 7px;
 
-  .wa-checkmark {
-    display: block;
-    height: 18px;
-    width: 18px;
-    background-color: variables.$background_input;
-    box-shadow: 0 0 0 1px darken(variables.$background_input, 3%);
-    border-radius: 4px;
-
-    &:after {
-      content: "";
+    input {
       position: absolute;
-      display: none;
-      left: 7px;
-      top: 4px;
-      width: 3px;
-      height: 7px;
-      border: solid white;
-      border-width: 0 1.5px 1.5px 0;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
     }
-  }
 
-  &:hover input:not(:checked) ~ .wa-checkmark {
-    background-color: darken(variables.$background_input, 2%);
-  }
+    .wa-checkmark {
+      display: block;
+      height: 18px;
+      width: 18px;
+      background-color: variables.$background_input;
+      box-shadow: 0 0 0 1px color.scale(variables.$background_input, $lightness: -3%);
+      border-radius: 4px;
 
-  input:checked ~ .wa-checkmark {
-    background-color: variables.$primary;
-  }
+      &:after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 7px;
+        top: 4px;
+        width: 3px;
+        height: 7px;
+        border: solid white;
+        border-width: 0 1.5px 1.5px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    }
 
-  input:checked ~ .wa-checkmark:after {
-    display: block;
-  }
+    &:hover input:not(:checked) ~ .wa-checkmark {
+      background-color: color.scale(variables.$background_input, $lightness: -2%);
+    }
 
-  input:focus + .wa-checkmark {
-    box-shadow: 0 0 0 2px variables.$primary;
-  }
+    input:checked ~ .wa-checkmark {
+      background-color: variables.$primary;
+    }
 
-  input[disabled] + .wa-checkmark {
-    opacity: 0.7;
-  }
+    input:checked ~ .wa-checkmark:after {
+      display: block;
+    }
 
-  /*input[disabled] + .wa-checkmark {
-    background-color: variables.$gray_light_two;
-  }
+    input:focus + .wa-checkmark {
+      box-shadow: 0 0 0 2px variables.$primary;
+    }
 
-  input[disabled]:checked + .wa-checkmark {
-    background-color: variables.$gray_light;
-  }*/
+    input[disabled] + .wa-checkmark {
+      opacity: 0.7;
+    }
+
+    /*input[disabled] + .wa-checkmark {
+      background-color: variables.$gray_light_two;
+    }
+
+    input[disabled]:checked + .wa-checkmark {
+      background-color: variables.$gray_light;
+    }*/
+  }
 }

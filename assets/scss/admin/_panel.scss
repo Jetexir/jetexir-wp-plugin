@@ -1,4 +1,6 @@
+@use 'sass:color';
 @use "../utilities/variables";
+@use "../components/list_links";
 
 body.toplevel_page_#{variables.$plugin_key} {
   .wrap {
@@ -223,7 +225,7 @@ body.toplevel_page_#{variables.$plugin_key} {
     .wa-footer {
       padding: 30px 30px;
       margin: 30px -30px -30px -30px;
-      background-color: lighten(variables.$background_side, 1%);
+      background-color: color.adjust(variables.$background_side, $lightness: 1%);
       //position: sticky;
       //display: flex;
       //gap: 10px;
@@ -242,6 +244,6 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    @import "../components/list_links";
+    @include list_links.wa-list-links;
   }
 }

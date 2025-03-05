@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use "../utilities/variables";
 
 .#{variables.$plugin_key}-notices {
@@ -35,8 +36,8 @@
     }
 
     code {
-      color: darken(variables.$default, 5%);
-      background-color: darken(variables.$default_light, 5%);
+      color: color.scale(variables.$default, $lightness: -5%);
+      background-color: color.scale(variables.$default_light, $lightness: -5%);
     }
 
     &.wa-notice-info {
@@ -44,8 +45,8 @@
       background-color: variables.$info_light;
 
       code {
-        color: darken(variables.$info, 5%);
-        background-color: darken(variables.$info_light, 5%);
+        color: color.scale(variables.$info, $lightness: -5%);
+        background-color: color.scale(variables.$info_light, $lightness: -5%);
       }
     }
 
@@ -54,8 +55,8 @@
       background-color: variables.$success_light;
 
       code {
-        color: darken(variables.$success, 5%);
-        background-color: darken(variables.$success_light, 5%);
+        color: color.scale(variables.$success, $lightness: -5%);
+        background-color: color.scale(variables.$success_light, $lightness: -5%);
       }
     }
 
@@ -64,8 +65,8 @@
       background-color: variables.$warning_light;
 
       code {
-        color: darken(variables.$warning, 5%);
-        background-color: darken(variables.$warning_light, 5%);
+        color: color.scale(variables.$warning, $lightness: -5%);
+        background-color: color.scale(variables.$warning_light, $lightness: -5%);
       }
     }
 
@@ -74,8 +75,8 @@
       background-color: variables.$error_light;
 
       code {
-        color: darken(variables.$error, 5%);
-        background-color: darken(variables.$error_light, 5%);
+        color: color.scale(variables.$error, $lightness: -5%);
+        background-color: color.scale(variables.$error_light, $lightness: -5%);
       }
     }
   }

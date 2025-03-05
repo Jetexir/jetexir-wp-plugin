@@ -1,19 +1,30 @@
 @use "../utilities/variables";
+@use "toggle";
+@use "button";
+@use "input";
+@use "textarea";
+@use "checkbox";
+@use "radio";
+@use "range";
+@use "select";
+@use "addons";
+@use "wp";
+@use "repeatable";
 
 .#{variables.$plugin_key}-wrap {
   position: relative;
 
-  @import "toggle";
-  @import "button";
-  @import "input";
-  @import "textarea";
-  @import "checkbox";
-  @import "radio";
-  @import "range";
-  @import "select";
-  @import "addons";
-  @import "wp";
-  @import "repeatable";
+  @include toggle.wa-toggle;
+  @include button.wa-button;
+  @include input.wa-input;
+  @include textarea.wa-textarea;
+  @include checkbox.wa-checkbox;
+  @include radio.wa-radio;
+  @include range.wa-range;
+  @include select.wa-select;
+  @include addons.wa-addons;
+  @include wp.wa-wp;
+  @include repeatable.wa-repeatable;
 
   #wa-settings-form {
     //height: 100% !important;

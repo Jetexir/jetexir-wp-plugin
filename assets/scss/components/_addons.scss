@@ -1,123 +1,125 @@
 @use "../utilities/variables";
 
-.wa-addons-wrap {
-  .wa-heading-2 {
-    margin-bottom: 30px;
-  }
-
-  + hr {
-    margin: 30px 0 !important;
-  }
-
-  .wa-addons-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 300px);
-    gap: 20px;
-  }
-
-  .wa-addon-wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid variables.$border_color;
-    border-radius: 10px;
-    overflow: hidden;
-
-    &.wa-addon-inactive {
-      .wa-image-wrap {
-        img, svg {
-          opacity: 0.5;
-          filter: grayscale(80%);
-        }
-      }
+@mixin wa-addons {
+  .wa-addons-wrap {
+    .wa-heading-2 {
+      margin-bottom: 30px;
     }
 
-    .wa-image-wrap {
-      background-color: variables.$background_side;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+    + hr {
+      margin: 30px 0 !important;
+    }
 
-      .wa-tag {
-        position: absolute;
-        right: 5px;
-        top: 5px;
-        padding: 3px 5px;
-        background-color: variables.$border_color;
-        color: variables.$gray;
-        border-radius: 5px;
-        font-size: 12px;
-        line-height: 1;
-        cursor: default;
+    .wa-addons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 300px);
+      gap: 20px;
+    }
+
+    .wa-addon-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid variables.$border_color;
+      border-radius: 10px;
+      overflow: hidden;
+
+      &.wa-addon-inactive {
+        .wa-image-wrap {
+          img, svg {
+            opacity: 0.5;
+            filter: grayscale(80%);
+          }
+        }
       }
 
-      .wa-image-link {
-        width: 100%;
-        height: 100%;
+      .wa-image-wrap {
+        background-color: variables.$background_side;
+        height: 100px;
         display: flex;
         align-items: center;
         justify-content: center;
-      }
+        position: relative;
 
-      .wa-image {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-      }
+        .wa-tag {
+          position: absolute;
+          right: 5px;
+          top: 5px;
+          padding: 3px 5px;
+          background-color: variables.$border_color;
+          color: variables.$gray;
+          border-radius: 5px;
+          font-size: 12px;
+          line-height: 1;
+          cursor: default;
+        }
 
-      svg {
-        height: 50px;
-        width: auto;
-      }
-    }
+        .wa-image-link {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
 
-    .wa-title-desc {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 20px 15px;
-
-      .wa-title {
-        margin: 0;
-      }
-
-      .wa-desc {
-        color: variables.$meta;
-      }
-
-      .wa-more-info-link {
-        display: inline-flex;
-        align-items: center;
+        .wa-image {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
 
         svg {
-          stroke: variables.$primary;
+          height: 50px;
+          width: auto;
         }
       }
-    }
 
-    .wa-action-wrap {
-      align-self: flex-end;
-      width: 100%;
-      padding: 20px 15px;
-      background-color: variables.$background_side;
-      margin-top: auto;
-
-      .wa-field-head {
+      .wa-title-desc {
         display: flex;
-        align-items: center;
-        flex-direction: row-reverse;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px 15px;
+
+        .wa-title {
+          margin: 0;
+        }
+
+        .wa-desc {
+          color: variables.$meta;
+        }
+
+        .wa-more-info-link {
+          display: inline-flex;
+          align-items: center;
+
+          svg {
+            stroke: variables.$primary;
+          }
+        }
       }
 
-      .wa-action-link {
-        display: block;
-        text-align: center;
-        background-color: white;
-        border-radius: 10px;
-        padding: 10px;
-        color: variables.$text;
+      .wa-action-wrap {
+        align-self: flex-end;
+        width: 100%;
+        padding: 20px 15px;
+        background-color: variables.$background_side;
+        margin-top: auto;
+
+        .wa-field-head {
+          display: flex;
+          align-items: center;
+          flex-direction: row-reverse;
+          justify-content: space-between;
+        }
+
+        .wa-action-link {
+          display: block;
+          text-align: center;
+          background-color: white;
+          border-radius: 10px;
+          padding: 10px;
+          color: variables.$text;
+        }
       }
     }
   }

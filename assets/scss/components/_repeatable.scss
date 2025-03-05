@@ -1,115 +1,117 @@
 @use "../utilities/variables";
 
-.wa-repeatable {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  background-color: variables.$background_side;
-  //border-left: 2px solid variables.$border_color;
-  max-width: 500px;
-  padding: 15px;
-  border-radius: 10px;
-  counter-reset: repeatable;
-
-  > .wa-title {
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  > .wa-add-repeatable {
-    align-self: end;
-
-    svg {
-      height: 16px;
-      width: 16px;
-    }
-  }
-
-  .wa-repeatable-wrap {
+@mixin wa-repeatable {
+  .wa-repeatable {
     display: flex;
     flex-direction: column;
     gap: 15px;
-  }
-
-  .wa-repeatable-fields-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    background-color: white;
-    padding: 10px;
+    background-color: variables.$background_side;
+    //border-left: 2px solid variables.$border_color;
+    max-width: 500px;
+    padding: 15px;
     border-radius: 10px;
-    position: relative;
+    counter-reset: repeatable;
 
-    .wa-repeatable-actions {
-      position: absolute;
-      right: 10px;
-      top: 10px;
+    > .wa-title {
+      margin-bottom: 15px;
       display: flex;
-      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .wa-remove-repeatable {
-      display: none;
+    > .wa-add-repeatable {
+      align-self: end;
 
       svg {
-        fill: variables.$red;
-        height: 20px;
+        height: 16px;
+        width: 16px;
       }
     }
 
-    :is(.wa-move-up-repeatable,.wa-move-down-repeatable) {
-      display: none;
+    .wa-repeatable-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .wa-repeatable-fields-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background-color: white;
+      padding: 10px;
+      border-radius: 10px;
+      position: relative;
+
+      .wa-repeatable-actions {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .wa-remove-repeatable {
+        display: none;
+
+        svg {
+          fill: variables.$red;
+          height: 20px;
+        }
+      }
+
+      :is(.wa-move-up-repeatable,.wa-move-down-repeatable) {
+        display: none;
+
+        svg {
+          stroke: variables.$gray;
+          height: 20px;
+        }
+      }
+
+      &:first-child {
+        .wa-move-up-repeatable {
+          display: none !important;
+        }
+      }
+
+      &:last-child {
+        .wa-move-down-repeatable {
+          display: none !important;
+        }
+      }
+
+      &:before {
+        display: block;
+        counter-increment: repeatable;
+        content: attr(data-repeat-title) " " counter(repeatable) ": ";
+      }
+    }
+
+    .wa-add-repeatable {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+
+      &:hover, &:focus {
+        text-decoration: none !important;
+      }
+
+      &[disable="true"] {
+        cursor: default;
+        opacity: .6;
+      }
 
       svg {
-        stroke: variables.$gray;
-        height: 20px;
+        fill: variables.$primary;
+        border-radius: 50%;
       }
-    }
 
-    &:first-child {
-      .wa-move-up-repeatable {
-        display: none !important;
-      }
-    }
-
-    &:last-child {
-      .wa-move-down-repeatable {
-        display: none !important;
-      }
-    }
-
-    &:before {
-      display: block;
-      counter-increment: repeatable;
-      content: attr(data-repeat-title) " " counter(repeatable) ": ";
-    }
-  }
-
-  .wa-add-repeatable {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-
-    &:hover, &:focus {
-      text-decoration: none !important;
-    }
-
-    &[disable="true"] {
-      cursor: default;
-      opacity: .6;
-    }
-
-    svg {
-      fill: variables.$primary;
-      border-radius: 50%;
-    }
-
-    &:hover, &:focus {
-      svg {
-        outline: 1px solid variables.$woo_purple_10;
+      &:hover, &:focus {
+        svg {
+          outline: 1px solid variables.$woo_purple_10;
+        }
       }
     }
   }
