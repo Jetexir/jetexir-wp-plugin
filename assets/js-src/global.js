@@ -22,26 +22,24 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    /* $('.wa-faqs-wrap .wa-faq-question').unbind("click").on('click', function (e) {
-         $(this).closest('.wa-faq-item').toggleClass('active');
-     });*/
+    $('.wa-faq-question').on('click', function () {
+        let $this = $(this),
+            faqItem = $this.closest('.wa-faq-item'),
+            faqAnswer = faqItem.find('.wa-faq-answer'),
+            faqActive = faqItem.hasClass('active');
 
-    let question = document.querySelectorAll(".wa-faq-question");
+        $('.wa-faq-item').each(function (i) {
+            $(this).removeClass('active');
+            $(this).find('.wa-faq-answer').css('max-height', 0);
+        });
 
-    question.forEach(question => {
-        question.addEventListener("click", event => {
-            const active = document.querySelector(".wa-faq-question.active");
-            if (active && active !== question) {
-                active.classList.toggle("active");
-                active.nextElementSibling.style.maxHeight = 0;
-            }
-            question.classList.toggle("active");
-            const answer = question.nextElementSibling;
-            if (question.classList.contains("active")) {
-                answer.style.maxHeight = 'initial';
+        if (!faqActive) {
+            faqItem.toggleClass('active');
+            if (faqItem.hasClass('active')) {
+                faqAnswer.css('max-height', 'initial');
             } else {
-                answer.style.maxHeight = 0;
+                faqAnswer.css('max-height', 0);
             }
-        })
+        }
     });
 });
