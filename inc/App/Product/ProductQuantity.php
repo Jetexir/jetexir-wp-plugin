@@ -22,25 +22,30 @@ class ProductQuantity {
 	public function __construct() {
 		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
 		add_filter( 'woo_assistant_settings_before_save', [ $this, 'checkSettingsBeforeSave' ], 10, 2 );
+		add_action( 'woo_assistant_init', [ $this, 'init' ] );
+	}
 
-		add_action( 'woocommerce_before_quantity_input_field', [ $this, 'beforeQuantityInputField' ] );
-		add_action( 'woocommerce_after_quantity_input_field', [ $this, 'afterQuantityInputField' ] );
-		add_action( 'wp_footer', [ $this, 'enqueueScripts' ] );
-		add_action( 'wp_footer', [ $this, 'printStyle' ] );
-		//add_filter( 'woo_assistant_settings_header_image', [ $this, 'addHeaderImage' ], 10, 4 );
+	function init() {
+		if ( Settings::get( 'product_quantity_tools_enable', false ) ) {
+			add_action( 'woocommerce_before_quantity_input_field', [ $this, 'beforeQuantityInputField' ] );
+			add_action( 'woocommerce_after_quantity_input_field', [ $this, 'afterQuantityInputField' ] );
+			add_action( 'wp_footer', [ $this, 'enqueueScripts' ] );
+			add_action( 'wp_footer', [ $this, 'printStyle' ] );
+			//add_filter( 'woo_assistant_settings_header_image', [ $this, 'addHeaderImage' ], 10, 4 );
 
-		add_filter( 'woocommerce_product_data_tabs', [ $this, 'adminProductTab' ] );
-		add_filter( 'woocommerce_product_data_panels', [ $this, 'adminProductSettings' ] );
-		add_action( 'woocommerce_process_product_meta', [ $this, 'adminProductSaveMeta' ] );
+			add_filter( 'woocommerce_product_data_tabs', [ $this, 'adminProductTab' ] );
+			add_filter( 'woocommerce_product_data_panels', [ $this, 'adminProductSettings' ] );
+			add_action( 'woocommerce_process_product_meta', [ $this, 'adminProductSaveMeta' ] );
 
-		add_filter( 'woocommerce_quantity_input_args', [ $this, 'changeQuantityInputArgs' ], 10, 2 );
-		add_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes',
-			[ $this, 'changeQuantityAddToCart' ], 10, 2 );
-		add_filter( 'woocommerce_loop_add_to_cart_link', [ $this, 'changeQuantityAddToCartLink' ], 10, 3 );
+			add_filter( 'woocommerce_quantity_input_args', [ $this, 'changeQuantityInputArgs' ], 10, 2 );
+			add_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes',
+				[ $this, 'changeQuantityAddToCart' ], 10, 2 );
+			add_filter( 'woocommerce_loop_add_to_cart_link', [ $this, 'changeQuantityAddToCartLink' ], 10, 3 );
+		}
 	}
 
 	public function adminProductSaveMeta( $productID ): void {
-		if ( ! Settings::get( 'quantity_manage_min_max_product', false ) ) {
+		if ( ! Settings::get( 'product_single_quantity_tools_enable', false ) ) {
 			return;
 		}
 		$min  = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'product_quantity_min' ) );
@@ -69,7 +74,7 @@ class ProductQuantity {
 	}
 
 	public function adminProductTab( $tabs ) {
-		if ( Settings::get( 'quantity_manage_min_max_product', false ) ) {
+		if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
 			$tabs[ WOOASSISTANT_PLUGIN_KEY . '_quantity_control' ] = array(
 				'label'  => __( 'Min/Max/Step', 'woo-assistant' ),
 				'target' => WOOASSISTANT_PLUGIN_KEY . '_quantity_control',
@@ -81,7 +86,7 @@ class ProductQuantity {
 	}
 
 	public function adminProductSettings(): void {
-		if ( ! Settings::get( 'quantity_manage_min_max_product', false ) ) {
+		if ( ! Settings::get( 'product_single_quantity_tools_enable', false ) ) {
 			return;
 		}
 		?>
@@ -159,7 +164,7 @@ class ProductQuantity {
 		$min       = Sanitizing::int( Settings::get( 'quantity_minimum_value', false ) );
 		$quantity  = Sanitizing::int( $args['quantity'] );
 
-		if ( Settings::get( 'quantity_manage_min_max_product', false ) ) {
+		if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
 			$productMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' ) );
 			if ( $productMin ) {
 				$min = $productMin;
@@ -187,7 +192,7 @@ class ProductQuantity {
 		$min       = Sanitizing::int( Settings::get( 'quantity_minimum_value', false ) );
 		$quantity  = Sanitizing::int( $attributes['data-quantity'] );
 
-		if ( Settings::get( 'quantity_manage_min_max_product', false ) ) {
+		if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
 			$productMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' ) );
 			if ( $productMin ) {
 				$min = $productMin;
@@ -215,7 +220,7 @@ class ProductQuantity {
 			$max         = Sanitizing::int( Settings::get( 'quantity_maximum_value', false ) );
 			$step        = Sanitizing::int( Settings::get( 'quantity_step_value', false ) );
 
-			if ( Settings::get( 'quantity_manage_min_max_product', false ) ) {
+			if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
 				$productMin  = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' ) );
 				$productMax  = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_max' ) );
 				$productStep = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_step' ) );
@@ -394,20 +399,20 @@ class ProductQuantity {
 
 	public static function getSettings(): array {
 		return array(
-			'start_grid_quantity_min_max'      => array(
+			'start_grid_quantity_min_max'          => array(
 				'title' => __( 'Quantity Min/Max', 'woo-assistant' ),
 				'type'  => 'startgrid',
 			),
-			'quantity_manage_min_max_product'  => array(
-				'id'       => 'quantity_manage_min_max_product',
-				'title'    => __( 'Enable Min/Max', 'woo-assistant' ),
+			'product_quantity_tools_enable'        => array(
+				'id'       => 'product_quantity_tools_enable',
+				'title'    => __( 'Enable Quantity tools', 'woo-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
-				'desc'     => __( 'Manage Minimum/Maximum Quantity per Product', 'woo-assistant' ),
+				'desc'     => __( 'Global Minimum/Maximum/Step of Quantity', 'woo-assistant' ),
 				'sanitize' => 'bool'
 			),
-			'quantity_minimum_value'           => array(
+			'quantity_minimum_value'               => array(
 				'id'         => 'quantity_minimum_value',
 				'title'      => __( 'Minimum', 'woo-assistant' ),
 				'type'       => 'number',
@@ -418,7 +423,7 @@ class ProductQuantity {
 				),
 				'sanitize'   => 'int'
 			),
-			'quantity_maximum_value'           => array(
+			'quantity_maximum_value'               => array(
 				'id'         => 'quantity_maximum_value',
 				'title'      => __( 'Maximum', 'woo-assistant' ),
 				'type'       => 'number',
@@ -429,7 +434,7 @@ class ProductQuantity {
 				),
 				'sanitize'   => 'int'
 			),
-			'quantity_step_value'              => array(
+			'quantity_step_value'                  => array(
 				'id'         => 'quantity_step_value',
 				'title'      => __( 'Step', 'woo-assistant' ),
 				'type'       => 'number',
@@ -441,17 +446,26 @@ class ProductQuantity {
 				),
 				'sanitize'   => 'int'
 			),
-			'end_grid_quantity_min_max'        => array(
+			'product_single_quantity_tools_enable' => array(
+				'id'       => 'product_single_quantity_tools_enable',
+				'title'    => __( 'Enable quantity manager per Product', 'woo-assistant' ),
+				'type'     => 'toggle',
+				'value'    => 1,
+				'default'  => false,
+				'desc'     => __( 'Manage Minimum/Maximum/Step Quantity per Product', 'woo-assistant' ),
+				'sanitize' => 'bool'
+			),
+			'end_grid_quantity_min_max'            => array(
 				'type' => 'endgrid',
 			),
-			'quantity_min_max_sep'             => array(
+			'quantity_min_max_sep'                 => array(
 				'type' => 'hr',
 			),
-			'start_grid_quantity_input1'       => array(
+			'start_grid_quantity_input1'           => array(
 				'title' => __( 'Quantity Plus/Minus button', 'woo-assistant' ),
 				'type'  => 'startgrid',
 			),
-			'quantity_input_plus_minus_button' => array(
+			'quantity_input_plus_minus_button'     => array(
 				'id'       => 'quantity_input_plus_minus_button',
 				'title'    => __( 'Enable Plus/Minus', 'woo-assistant' ),
 				'type'     => 'toggle',
@@ -460,7 +474,7 @@ class ProductQuantity {
 				'desc'     => __( 'Add Plus/Minus buttons to Quantity input', 'woo-assistant' ),
 				'sanitize' => 'bool'
 			),
-			'quantity_button_width_height'     => array(
+			'quantity_button_width_height'         => array(
 				'id'         => 'quantity_button_width_height',
 				'title'      => __( 'Button width/height', 'woo-assistant' ),
 				'type'       => 'text',
