@@ -38,7 +38,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 15px;
-      color: var(--wa-element-text-color, variables.$text);
+      color: var(--wa-element-color, variables.$text);
       background-color: var(--wa-element-bg-color, variables.$white2);
       transition: background-color 0.3s ease;
       cursor: pointer;

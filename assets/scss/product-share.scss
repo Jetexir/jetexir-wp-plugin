@@ -24,7 +24,7 @@
       justify-content: center;
       align-items: center;
       gap: 5px;
-      color: var(--wa-element-text-color, variables.$text);
+      color: var(--wa-element-color, variables.$text);
       border: 1px solid var(--wa-element-border-color, variables.$border_color);
       background-color: var(--wa-element-bg-color, variables.$white2);
       padding: 10px;

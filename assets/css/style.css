@@ -245,7 +245,7 @@ body.rtl.woo-assistant-notices .wa-notice {
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  color: var(--wa-element-text-color, #2B2B2B);
+  color: var(--wa-element-color, #2B2B2B);
   background-color: var(--wa-element-bg-color, rgb(247.35, 247.35, 247.35));
   transition: background-color 0.3s ease;
   cursor: pointer;

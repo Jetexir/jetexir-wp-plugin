@@ -143,28 +143,28 @@ class Styles {
 				'type'  => 'startgrid',
 			),
 
-			'start_inline_elements_element_text_color' => array(
+			'start_inline_elements_element_color' => array(
 				'title' => __( 'Text color', 'woo-assistant' ),
 				'type'  => 'startInlineElements',
 			),
-			'element_text_color_enable'                => array(
-				'id'       => 'element_text_color_enable',
+			'element_color_enable'                => array(
+				'id'       => 'element_color_enable',
 				'type'     => 'checkbox',
 				'value'    => 1,
 				'default'  => true,
 				'sanitize' => 'bool'
 			),
-			'element_text_color'                       => array(
-				'id'       => 'element_text_color',
+			'element_color'                       => array(
+				'id'       => 'element_color',
 				'type'     => 'wpColorPicker',
 				'default'  => Colors::text,
 				'sanitize' => 'color',
 				'meta'     => [
-					'css_variable' => 'element-text-color',
+					'css_variable' => 'element-color',
 					'css_syntax'   => 'color',
 				]
 			),
-			'end_inline_elements_element_text_color'   => array(
+			'end_inline_elements_element_color'   => array(
 				'type' => 'endInlineElements',
 			),
 

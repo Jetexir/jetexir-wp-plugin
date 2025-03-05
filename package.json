@@ -13,7 +13,7 @@
     "wa-product-compare-css": "sass --watch assets/scss/product-compare.scss:assets/css/product-compare.css",
     "wa-product-compare-compressed-css": "sass --watch assets/scss/product-compare.scss:assets/css/product-compare.min.css --style compressed",
     "wa-product-share-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.css",
-    "wa-product-share-compressed-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.min.css --style ",
+    "wa-product-share-compressed-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.min.css --style compressed",
     "wa-build-scss": "webpack --config webpack-css.config.js",
     "wa-build-js": "webpack --config webpack.config.js"
   },
