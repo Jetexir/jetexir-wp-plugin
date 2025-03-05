@@ -69,7 +69,8 @@ module.exports = [
             //  toReturn["main"] = "./js/index.js";
 
             return toReturn;
-        })(), output: {
+        })(),
+        output: {
             path: path.resolve('./assets/js'), filename: "[name].min.js"
         }
     },
@@ -94,7 +95,8 @@ module.exports = [
             //  toReturn["main"] = "./js/index.js";
 
             return toReturn;
-        })(), output: {
+        })(),
+        output: {
             path: path.resolve('./assets/js-admin'), filename: "[name].min.js"
         }
     }
