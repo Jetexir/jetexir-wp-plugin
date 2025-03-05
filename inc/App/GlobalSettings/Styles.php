@@ -12,10 +12,10 @@ class Styles {
 
 	public function __construct() {
 		add_filter( 'woo_assistant_global_settings_sections', [ $this, 'addSectionSettings' ] );
-		add_action( 'wp_head', [ $this, 'printStyles' ], 0 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'addInlineStyles' ], 0 );
 	}
 
-	public function printStyles(): void {
+	public function addInlineStyles(): void {
 		if ( ! Settings::get( 'enable_styles', false ) ) {
 			return;
 		}
@@ -43,19 +43,17 @@ class Styles {
 			}
 		}
 
+
 		if ( empty( $variables ) ) {
 			return;
 		}
 
-		$sep = "\n\t\t\t";
-		?>
-        <style>
-            <?php
-			echo implode($sep,$properties) .$sep;
-			echo ":root{".$sep."\t".implode($sep."\t",$variables) ."$sep}\n";
-			?>
-        </style>
-		<?php
+		$sep    = WOOASSISTANT_DEBUG_MODE ? "\n\t\t\t" : '';
+		$styles = implode( $sep, $properties ) . $sep . ":root{" . $sep . "\t" . implode( $sep . "\t", $variables ) . "$sep}\n";
+
+		wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-global-inline-style', false );
+		wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-global-inline-style' );
+		wp_add_inline_style( WOOASSISTANT_PLUGIN_SLUG . '-global-inline-style', $styles );
 	}
 
 	public function addSectionSettings( $sections ) {
