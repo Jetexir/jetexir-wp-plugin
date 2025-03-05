@@ -261,14 +261,15 @@ class ProductSocialShare {
 	 * @return void
 	 */
 	public function enqueueScripts(): void {
-		$pluginVersion = Assets::getVersion();
-
 		if ( ! WooCommerce::isWoocommerce() ) {
 			return;
 		}
 
+		$pluginVersion = Assets::getVersion();
+		$debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
+
 		wp_enqueue_style( WOOASSISTANT_PLUGIN_KEY . '-product-share-style',
-			Assets::url( 'css/product-share.min.css' ),
+			Assets::url( 'css/product-share' . $debugName . '.css' ),
 			false, $pluginVersion );
 	}
 

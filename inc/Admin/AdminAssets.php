@@ -13,14 +13,15 @@ class AdminAssets {
 	}
 
 	public function enqueueScripts(): void {
-		$pluginVersion = WOOASSISTANT_PLUGIN_VERSION . ( defined( 'DEVELOPMENT_MODE' ) && DEVELOPMENT_MODE ? time() : '' );
-
 		if ( Param::get( 'page' ) === WOOASSISTANT_PLUGIN_SLUG ) {
+			$pluginVersion = Assets::getVersion();
+			$debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
+
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( 'wp-color-picker' );
 
 			wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-admin-style',
-				Assets::url( 'css-admin/admin-style.min.css' ), false, $pluginVersion );
+				Assets::url( 'css-admin/admin-style' . $debugName . '.css' ), false, $pluginVersion );
 
 			wp_enqueue_script( WOOASSISTANT_PLUGIN_SLUG . '-admin',
 				Assets::url( 'js-admin/script.min.js' ),

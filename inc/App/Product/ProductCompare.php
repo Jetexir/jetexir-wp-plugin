@@ -310,14 +310,15 @@ class ProductCompare {
 	 * @return void
 	 */
 	public function enqueueScripts(): void {
-		$pluginVersion = Assets::getVersion();
-
 		if ( ! WooCommerce::isWoocommerce() && ! WordPress::isPage( Settings::get( 'product_compare_page', 0 ) ) ) {
 			return;
 		}
 
+		$pluginVersion = Assets::getVersion();
+		$debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
+
 		wp_enqueue_style( WOOASSISTANT_PLUGIN_KEY . '-product-compare-style',
-			Assets::url( 'css/product-compare.min.css' ),
+			Assets::url( 'css/product-compare' . $debugName . '.css' ),
 			false, $pluginVersion );
 
 		wp_enqueue_script( WOOASSISTANT_PLUGIN_KEY . '-product-compare-script',
