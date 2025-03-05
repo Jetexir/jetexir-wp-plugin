@@ -5,14 +5,25 @@
   "homepage": "https://parsa.ws",
   "author": "Parsa Kafi (https://parsa.ws)",
   "scripts": {
-    "woo-assistant-admin-css": "sass --watch assets/scss/admin-style.scss:assets/css-admin/admin-style.min.css --style compressed",
-    "woo-assistant-site-css": "sass --watch assets/scss/style.scss:assets/css/style.min.css --style compressed",
-    "woo-assistant-product-compare-css": "sass --watch assets/scss/product-compare.scss:assets/css/product-compare.min.css --style compressed",
-    "woo-assistant-product-share-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.min.css --style compressed",
-    "woo-assistant-build-js": "webpack --config webpack.config.js"
+    "wa-css": "concurrently \"npm run wa-admin-css\" \"npm run wa-admin-compressed-css\" \"npm run wa-site-css\" \"npm run wa-site-compressed-css\" \"npm run wa-product-compare-css\" \"npm run wa-product-compare-compressed-css\" \"npm run wa-product-share-css\" \"npm run wa-product-share-compressed-css\"",
+    "wa-admin-css": "sass --watch assets/scss/admin-style.scss:assets/css-admin/admin-style.css",
+    "wa-admin-compressed-css": "sass --watch assets/scss/admin-style.scss:assets/css-admin/admin-style.min.css --style compressed",
+    "wa-site-css": "sass --watch assets/scss/style.scss:assets/css/style.css",
+    "wa-site-compressed-css": "sass --watch assets/scss/style.scss:assets/css/style.min.css --style compressed",
+    "wa-product-compare-css": "sass --watch assets/scss/product-compare.scss:assets/css/product-compare.css",
+    "wa-product-compare-compressed-css": "sass --watch assets/scss/product-compare.scss:assets/css/product-compare.min.css --style compressed",
+    "wa-product-share-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.css",
+    "wa-product-share-compressed-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.min.css --style ",
+    "wa-build-scss": "webpack --config webpack-css.config.js",
+    "wa-build-js": "webpack --config webpack.config.js"
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
+    "extract-loader": "^5.1.0",
+    "sass": "^1.85.1",
+    "sass-loader": "^16.0.5",
     "terser-webpack-plugin": "^5.3.11",
+    "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1"
   }
 }
