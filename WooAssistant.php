@@ -20,6 +20,7 @@ use WooAssistant\Addons\Addons;
 use WooAssistant\Admin\Admin;
 use WooAssistant\App\App;
 use WooAssistant\Integrations\Integrations;
+use WooAssistant\Settings\Settings;
 
 final class WooAssistant {
 	public function __construct() {
@@ -65,6 +66,8 @@ final class WooAssistant {
 	 * @return void
 	 */
 	private function instance(): void {
+		define( 'WOOASSISTANT_DEBUG_MODE', Settings::get( 'debug_enable', false ) );
+
 		new Admin();
 		new Addons();
 		new Integrations();
