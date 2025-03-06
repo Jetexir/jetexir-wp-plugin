@@ -3,6 +3,10 @@
 namespace WooAssistant\Helper;
 
 class WooCommerce {
+	public static function currencySymbol() {
+		return get_woocommerce_currency_symbol();
+	}
+
 	public static function isWoocommerce(): bool {
 		return is_woocommerce();
 	}
