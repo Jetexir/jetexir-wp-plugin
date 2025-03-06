@@ -2,30 +2,29 @@
 
 namespace WooAssistant\App\Product;
 
-use WooAssistant\Enums\Colors;
+defined( 'ABSPATH' ) || exit;
+
+use WooAssistant\Addons\Addon;
 use WooAssistant\Helper\Param;
 use WooAssistant\Helper\PostMeta;
+use WooAssistant\Interfaces\AddonInterface;
 use WooAssistant\Settings\Settings;
 
-class ProductFAQ {
+class ProductFAQ extends Addon implements AddonInterface {
+	public string $addonID = 'product-faq';
 	private const sectionID = 'faq';
-	private const maxProductFAQs = 5;
+	private const maxProductFAQs = 10;
 
-	public function __construct() {
+	public function initAction(): void {
 		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
-		add_action( 'woo_assistant_init', [ $this, 'init' ] );
-	}
 
-	public function init(): void {
-		if ( Settings::get( 'product_faq_enable', false ) ) {
-			// Admin
-			add_filter( 'woocommerce_product_data_tabs', [ $this, 'adminProductTab' ] );
-			add_filter( 'woocommerce_product_data_panels', [ $this, 'adminProductSettings' ] );
-			add_action( 'woocommerce_process_product_meta', [ $this, 'adminProductSaveMeta' ] );
+		// Admin
+		add_filter( 'woocommerce_product_data_tabs', [ $this, 'adminProductTab' ] );
+		add_filter( 'woocommerce_product_data_panels', [ $this, 'adminProductSettings' ] );
+		add_action( 'woocommerce_process_product_meta', [ $this, 'adminProductSaveMeta' ] );
 
-			// Front
-			add_filter( 'woocommerce_product_tabs', [ $this, 'productTab' ], 9999 );
-		}
+		// Front
+		add_filter( 'woocommerce_product_tabs', [ $this, 'productTab' ], 9999 );
 	}
 
 	public function productTabContent(): void {
@@ -186,14 +185,6 @@ class ProductFAQ {
 					'title' => __( 'Frequently asked questions', 'woo-assistant' ),
 					'type'  => 'startgrid',
 				),
-				'product_faq_enable'          => array(
-					'id'       => 'product_faq_enable',
-					'title'    => __( 'Enable FAQ feature', 'woo-assistant' ),
-					'type'     => 'toggle',
-					'value'    => 1,
-					'default'  => false,
-					'sanitize' => 'bool'
-				),
 				'product_faq_global_position' => array(
 					'id'       => 'product_faq_global_position',
 					'title'    => __( 'Global FAQ position', 'woo-assistant' ),
@@ -205,7 +196,7 @@ class ProductFAQ {
 					'default'  => 'before',
 					'sanitize' => 'text'
 				),
-				'product_faq_button_icon'   => array(
+				'product_faq_button_icon'     => array(
 					'id'       => 'product_faq_button_icon',
 					'title'    => __( 'Button icon', 'woo-assistant' ),
 					'type'     => 'radioInline',
@@ -269,5 +260,16 @@ class ProductFAQ {
 		);
 
 		return $sections;
+	}
+
+	public function info(): array {
+		return array(
+			'id'             => $this->addonID,
+			'title'          => __( 'Products FAQ', 'woo-assistant' ),
+			'desc'           => __( 'Add FAQ to product', 'woo-assistant' ),
+			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
+			'cat'            => 'product',
+			'more_info_link' => 'https://parsa.ws'
+		);
 	}
 }

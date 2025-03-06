@@ -2,7 +2,10 @@
 
 namespace WooAssistant\App\Product;
 
+defined( 'ABSPATH' ) || exit;
+
 use Automattic\WooCommerce\Utilities\I18nUtil;
+use WooAssistant\Addons\Addon;
 use WooAssistant\App\App;
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Cookie;
@@ -11,30 +14,25 @@ use WooAssistant\Helper\Nonce;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Helper\WordPress;
+use WooAssistant\Interfaces\AddonInterface;
 use WooAssistant\Settings\Settings;
 
-class ProductCompare {
+class ProductCompare extends Addon implements AddonInterface {
+	public string $addonID = 'product-compare';
 	private const sectionID = 'compare';
 	private const shortCode = 'wa_products_compare';
 	private const cookieName = 'wc_products_compare';
 	private const maxItems = 4;
 
-	public function __construct() {
+	public function initAction(): void {
 		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
-		add_action( 'woo_assistant_init', [ $this, 'init' ] );
-	}
-
-	public function init(): void {
-		if ( Settings::get( 'product_compare_enable', false ) ) {
-			App::addShortcode( self::shortCode, [ $this, 'compareShortcode' ] );
-			if ( Settings::get( 'product_compare_archive_button', false ) ) {
-				add_action( 'woocommerce_after_shop_loop_item', [ $this, 'addButton' ], 9999 );
-			}
-			add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'addButton' ], 9999 );
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScripts' ) );
-			add_action( 'wp_ajax_wa_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
-			add_action( 'wp_ajax_nopriv_wa_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
+		App::addShortcode( self::shortCode, [ $this, 'compareShortcode' ] );
+		if ( Settings::get( 'product_compare_archive_button', false ) ) {
+			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'addButton' ], 9999 );
 		}
+		add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'addButton' ], 9999 );
+		add_action( 'wp_ajax_wa_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
+		add_action( 'wp_ajax_nopriv_wa_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
 	}
 
 	public function compareShortcode( $atts ) {
@@ -274,7 +272,7 @@ class ProductCompare {
 		$productID = get_the_ID();
 		$exists    = $this->checkExistsItem( $productID );
 		echo '<button type="button" class="button wa-button wa-product-compare-button' . ( $exists ? ' wa-button-remove' : '' ) . '" data-id="' . $productID . '" data-action="non">' .
-		     __( 'Compare', 'woo-assistant' )
+		     Settings::get( 'product_compare_button_text', __( 'Compare', 'woo-assistant' ) )
 		     . '</button>';
 	}
 
@@ -309,7 +307,7 @@ class ProductCompare {
 	 *
 	 * @return void
 	 */
-	public function enqueueScripts(): void {
+	public function wpEnqueueScriptsAction(): void {
 		if ( ! WooCommerce::isWoocommerce() && ! WordPress::isPage( Settings::get( 'product_compare_page', 0 ) ) ) {
 			return;
 		}
@@ -336,13 +334,12 @@ class ProductCompare {
 				'title' => __( 'Product Compare', 'woo-assistant' ),
 				'type'  => 'startgrid',
 			),
-			'product_compare_enable'             => array(
-				'id'       => 'product_compare_enable',
-				'title'    => __( 'Enable product compare feature', 'woo-assistant' ),
-				'type'     => 'toggle',
-				'value'    => 1,
-				'default'  => false,
-				'sanitize' => 'bool'
+			'product_compare_button_text'        => array(
+				'id'      => 'product_compare_button_text',
+				'title'   => __( 'Button Text', 'woo-assistant' ),
+				'type'    => 'text',
+				'default' => __( 'Compare', 'woo-assistant' ),
+				'desc'    => __( 'Compare button text', 'woo-assistant' )
 			),
 			'product_compare_archive_button'     => array(
 				'id'       => 'product_compare_archive_button',
@@ -470,5 +467,16 @@ class ProductCompare {
 		);
 
 		return $sections;
+	}
+
+	public function info(): array {
+		return array(
+			'id'             => $this->addonID,
+			'title'          => __( 'Products Compare', 'woo-assistant' ),
+			'desc'           => __( 'Allows customers to compare products.', 'woo-assistant' ),
+			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
+			'cat'            => 'product',
+			'more_info_link' => 'https://parsa.ws'
+		);
 	}
 }

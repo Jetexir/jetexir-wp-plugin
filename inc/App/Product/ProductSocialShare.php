@@ -2,36 +2,34 @@
 
 namespace WooAssistant\App\Product;
 
+defined( 'ABSPATH' ) || exit;
+
+use WooAssistant\Addons\Addon;
 use WooAssistant\App\App;
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\WooCommerce;
+use WooAssistant\Interfaces\AddonInterface;
 use WooAssistant\Settings\Settings;
 
-class ProductSocialShare {
+class ProductSocialShare extends Addon implements AddonInterface {
+	public string $addonID = 'product-social-share';
 	private const sectionID = 'social-share';
 	private const shortCode = 'wa_product_share';
 
-	public function __construct() {
+	public function initAction(): void {
 		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
-		add_action( 'woo_assistant_init', [ $this, 'init' ] );
-	}
+		App::addShortcode( self::shortCode, [ $this, 'shareShortcode' ] );
 
-	public function init(): void {
-		if ( Settings::get( 'product_social_share_enable', false ) ) {
-			App::addShortcode( self::shortCode, [ $this, 'shareShortcode' ] );
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScripts' ) );
+		$position = Settings::get( 'product_social_share_position', false );
 
-			$position = Settings::get( 'product_social_share_position', false );
+		if ( $position === 'after_categories' ) {
+			add_action( 'woocommerce_share', [ $this, 'displayLinks' ] );
 
-			if ( $position === 'after_categories' ) {
-				add_action( 'woocommerce_share', [ $this, 'displayLinks' ] );
+		} elseif ( $position === 'after_title' ) {
+			add_action( 'woocommerce_single_product_summary', [ $this, 'displayLinks' ], 6 );
 
-			} elseif ( $position === 'after_title' ) {
-				add_action( 'woocommerce_single_product_summary', [ $this, 'displayLinks' ], 6 );
-
-			} elseif ( $position === 'after_price' ) {
-				add_action( 'woocommerce_single_product_summary', [ $this, 'displayLinks' ], 11 );
-			}
+		} elseif ( $position === 'after_price' ) {
+			add_action( 'woocommerce_single_product_summary', [ $this, 'displayLinks' ], 11 );
 		}
 	}
 
@@ -260,7 +258,7 @@ class ProductSocialShare {
 	 *
 	 * @return void
 	 */
-	public function enqueueScripts(): void {
+	public function wpEnqueueScriptsAction(): void {
 		if ( ! WooCommerce::isWoocommerce() ) {
 			return;
 		}
@@ -288,14 +286,6 @@ class ProductSocialShare {
 					'id'    => 'product_social_share_start_grid_1',
 					'title' => __( 'Product Social Share', 'woo-assistant' ),
 					'type'  => 'startgrid',
-				),
-				'product_social_share_enable'              => array(
-					'id'       => 'product_social_share_enable',
-					'title'    => __( 'Enable social share feature', 'woo-assistant' ),
-					'type'     => 'toggle',
-					'value'    => 1,
-					'default'  => false,
-					'sanitize' => 'bool'
 				),
 				'product_social_share_position'            => array(
 					'id'                => 'product_social_share_position',
@@ -447,5 +437,16 @@ class ProductSocialShare {
 		);
 
 		return $sections;
+	}
+
+	public function info(): array {
+		return array(
+			'id'             => $this->addonID,
+			'title'          => __( 'Product Social Share', 'woo-assistant' ),
+			'desc'           => __( 'Display social icons on WooCommerce products', 'woo-assistant' ),
+			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
+			'cat'            => 'product',
+			'more_info_link' => 'https://parsa.ws'
+		);
 	}
 }

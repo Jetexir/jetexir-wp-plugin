@@ -9,10 +9,7 @@ use WooAssistant\Helper\FeedReader;
 use WooAssistant\Interfaces\AddonInterface;
 
 class WooDeveloperFeed extends Addon implements AddonInterface {
-	public function __construct() {
-		$this->addonID = 'woo-developer-feed';
-		parent::__construct();
-	}
+	public string $addonID = 'woo-developer-feed';
 
 	public function content(): void {
 		$feedReader = new FeedReader( [ 'url' => 'https://developer.woocommerce.com/feed/' ] );
