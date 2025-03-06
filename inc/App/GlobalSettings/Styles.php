@@ -4,7 +4,6 @@ namespace WooAssistant\App\GlobalSettings;
 
 use WooAssistant\Enums\Colors;
 use WooAssistant\Helper\Assets;
-use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Settings\Settings;
 
 class Styles {
@@ -42,7 +41,6 @@ class Styles {
 				}
 			}
 		}
-
 
 		if ( empty( $variables ) ) {
 			return;
