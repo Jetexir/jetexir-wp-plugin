@@ -9,6 +9,8 @@ use WooAssistant\Interfaces\AdminTabInterface;
 class AdminProduct implements AdminTabInterface {
 	public const tab = 'product';
 
+	private static ?array $settings = null;
+
 	public function __construct() {
 		add_filter( 'woo_assistant_menus', [ $this, 'addMenu' ] );
 		add_filter( 'woo_assistant_' . self::tab . '_settings', [ $this, 'settings' ] );
@@ -18,7 +20,10 @@ class AdminProduct implements AdminTabInterface {
 	}
 
 	public function addMenu( $menus ) {
-		$menus[ self::tab ] = __( 'Product', 'woo-assistant' );
+		$settings = $this->settings();
+		if ( ! empty( $settings['sections'] ) ) {
+			$menus[ self::tab ] = __( 'Product', 'woo-assistant' );
+		}
 
 		return $menus;
 	}
@@ -30,11 +35,15 @@ class AdminProduct implements AdminTabInterface {
 	}
 
 	public function settings(): array {
-		return array(
-			'title'        => __( 'Product', 'woo-assistant' ),
-			'desc'         => __( 'Product enhance tools', 'woo-assistant' ),
-			//'header_image' => AdminAssets::imageUrl( 'header/product-header.png' ),
-			'sections'     => apply_filters( 'woo_assistant_product_settings_sections', [] )
-		);
+		if ( self::$settings === null ) {
+			self::$settings = array(
+				'title'    => __( 'Product', 'woo-assistant' ),
+				'desc'     => __( 'Product enhance tools', 'woo-assistant' ),
+				// 'header_image' => AdminAssets::imageUrl( 'header/product-header.png' ),
+				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
+			);
+		}
+
+		return self::$settings;
 	}
 }
