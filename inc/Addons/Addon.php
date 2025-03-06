@@ -115,7 +115,7 @@ abstract class Addon {
 
 		if ( ! is_array( $addon ) ) {
 			$addon = $this->info();
-			Cache::set( $this->addonID . '_internal_addon_info', $addon, 0 );
+			Cache::set( $this->addonID . '_internal_addon_info', $addon );
 		}
 
 		if ( $key !== null ) {
@@ -155,7 +155,7 @@ abstract class Addon {
 						$requirePluginsActive ++;
 					}
 				}
-				Cache::set( $this->addonID . '_requires_plugins_count', $requirePluginsActive, 0 );
+				Cache::set( $this->addonID . '_requires_plugins_count', $requirePluginsActive );
 			}
 
 			$canActivate = $requirePluginsActive > 0 && $requirePluginsActive === count( $requiresPlugins );

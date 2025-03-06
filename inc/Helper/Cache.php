@@ -11,7 +11,7 @@ class Cache {
 		return self::get( $key, $useDBCache ) !== false;
 	}
 
-	public static function set( $key, $value, $expireTime, $useDBCache = true ): bool {
+	public static function set( $key, $value, $expireTime = 0, $useDBCache = true ): bool {
 		$cache = $cache2 = wp_cache_set( $key, $value, self::cacheGroup, $expireTime );
 
 		if ( $useDBCache && $expireTime > 0 ) {

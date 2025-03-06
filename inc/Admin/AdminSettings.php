@@ -76,7 +76,7 @@ class AdminSettings {
 			$saved   = Settings::saves( $options, $optionsName );
 
 			if ( $saved ) {
-				Cache::set( 'settings_saved', true, 0 );
+				Cache::set( 'settings_saved', true );
 				Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_success_message', __( 'Settings saved.', 'woo-assistant' ), $tab ), 'success' );
 			} else {
 				Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_error_message', __( 'Error saving settings!', 'woo-assistant' ), $tab ), 'error' );
