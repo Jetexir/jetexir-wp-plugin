@@ -176,7 +176,9 @@ class AdminSettings {
 			if ( $setting['type'] === 'checkboxinline' ||
 			     ( isset( $setting['multiple'] ) && $setting['multiple'] &&
 			       in_array( $setting['type'], [
+				       'taxonomyselect',
 				       'termselect',
+				       'posttypeselect',
 				       'postselect',
 				       'imagesizeselect',
 				       'select'
@@ -193,6 +195,7 @@ class AdminSettings {
 				'radioinline',
 				'select',
 				'posttypeselect',
+				'taxonomyselect',
 				'imagesizeselect',
 			], true ) ) {
 				$setting['sanitize'] = 'text';
