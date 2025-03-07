@@ -34,6 +34,7 @@ class HTML {
 		'termselect',
 		'imagesizeselect',
 		'userroleselect',
+		'userselect',
 		'addon',
 		'wpcolorpicker'
 	];
@@ -180,6 +181,29 @@ class HTML {
 			return '';
 		}
 		$data['options'] = apply_filters( 'woo_assistant_image_sizes_select_items', Assets::getImageSizes() );
+
+		return self::select( $data );
+	}
+
+	public static function userselect( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$userList       = [];
+		$defaultArgs    = array(
+			'number'      => 50,
+			'count_total' => false
+		);
+		$args           = wp_parse_args( $data['args'], $defaultArgs );
+		$args['fields'] = [ 'ID', 'display_name', 'user_login', 'user_email' ];
+		$users          = get_users( $args );
+		if ( ! empty( $users ) && is_array( $users ) ) {
+			foreach ( $users as $user ) {
+				$userList[ $user->ID ] = $user->display_name . ' (' . $user->ID . ', ' . $user->user_login . ', ' . $user->user_email . ')';
+			}
+		}
+		$data['options'] = $userList;
 
 		return self::select( $data );
 	}
@@ -669,10 +693,12 @@ class HTML {
 		}
 
 		if ( in_array( $data['type'], [
+				'userselect',
+				'userroleselect',
 				'posttypeselect',
 				'postselect',
 				'taxonomyselect',
-				'termselect'
+				'termselect',
 			] ) && ( ! isset( $data['args'] ) || ! is_array( $data['args'] ) ) ) {
 			$data['args'] = array();
 		}

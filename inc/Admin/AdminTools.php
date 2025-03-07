@@ -46,6 +46,15 @@ class AdminTools implements AdminTabInterface {
 							'type'  => 'startgrid',
 						),
 
+						'user_select_test' => array(
+							'id'                => 'user_select_test',
+							'title'             => __( 'Select user role', 'woo-assistant' ),
+							'type'              => 'userselect',
+							'option_none'       => '---',
+							'option_none_value' => '',
+							'multiple'          => true,
+						),
+
 						'user_role_select_test' => array(
 							'id'                => 'user_role_select_test',
 							'title'             => __( 'Select user role', 'woo-assistant' ),
