@@ -436,10 +436,12 @@ class ProductQuantity extends Addon implements AddonInterface {
 		if ( ! Settings::get( 'quantity_input_plus_minus_button', false ) ) {
 			return;
 		}
-		$productID = WooCommerce::getCurrentId();
-		$product   = WooCommerce::getProduct( $productID );
-		if ( $product->managing_stock() && ! is_null( $product->get_stock_quantity() ) && $product->get_stock_quantity() <= 1 ) {
-			return;
+		if ( WooCommerce::isProduct() ) {
+			$productID = WooCommerce::getCurrentId();
+			$product   = WooCommerce::getProduct( $productID );
+			if ( $product->is_sold_individually() || ( $product->managing_stock() && ! is_null( $product->get_stock_quantity() ) && $product->get_stock_quantity() <= 1 ) ) {
+				return;
+			}
 		}
 
 		self::$printStyle = true;
