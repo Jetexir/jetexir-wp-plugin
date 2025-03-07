@@ -28,8 +28,8 @@ class HTML {
 		'range',
 		'hidden',
 		'select',
-		'posttype',
-		'taxonomy',
+		'postselect',
+		'termselect',
 		'imagesizeselect',
 		'addon',
 		'wpcolorpicker'
@@ -181,7 +181,7 @@ class HTML {
 		return self::select( $data );
 	}
 
-	public static function taxonomy( $data ): string {
+	public static function termselect( $data ): string {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
 		}
@@ -202,7 +202,7 @@ class HTML {
 		return self::select( $data );
 	}
 
-	public static function posttype( $data ): string {
+	public static function postselect( $data ): string {
 		global $post;
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
@@ -621,12 +621,14 @@ class HTML {
 		if ( $data['type'] === 'select' && ( ! isset( $data['options'] ) || ! is_array( $data['options'] ) ) ) {
 			$data['options'] = array();
 		}
-		if ( $data['type'] === 'posttype' && ( ! isset( $data['args'] ) || ! is_array( $data['args'] ) ) ) {
+
+		if ( in_array( $data['type'], [
+				'postselect',
+				'termselect'
+			] ) && ( ! isset( $data['args'] ) || ! is_array( $data['args'] ) ) ) {
 			$data['args'] = array();
 		}
-		if ( $data['type'] === 'taxonomy' && ( ! isset( $data['args'] ) || ! is_array( $data['args'] ) ) ) {
-			$data['args'] = array();
-		}
+		
 		if ( $data['type'] === 'wpcolorpicker' ) {
 			$data['class'] = self::getClass( $data, self::prefix . 'wp-color-picker' );
 			$data['type']  = 'text';

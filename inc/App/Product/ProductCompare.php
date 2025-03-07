@@ -353,7 +353,7 @@ class ProductCompare extends Addon implements AddonInterface {
 			'product_compare_page'               => array(
 				'id'                => 'product_compare_page',
 				'title'             => __( 'Compare page', 'woo-assistant' ),
-				'type'              => 'postType',
+				'type'              => 'postSelect',
 				'args'              => array(
 					'post_type' => 'page'
 				),
