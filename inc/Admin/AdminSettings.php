@@ -181,6 +181,7 @@ class AdminSettings {
 				       'posttypeselect',
 				       'postselect',
 				       'imagesizeselect',
+				       'userroleselect',
 				       'select'
 			       ] ) ) ) {
 				$setting['sanitize'] = 'array';
@@ -197,6 +198,7 @@ class AdminSettings {
 				'posttypeselect',
 				'taxonomyselect',
 				'imagesizeselect',
+				'userroleselect',
 			], true ) ) {
 				$setting['sanitize'] = 'text';
 

@@ -33,6 +33,7 @@ class HTML {
 		'taxonomyselect',
 		'termselect',
 		'imagesizeselect',
+		'userroleselect',
 		'addon',
 		'wpcolorpicker'
 	];
@@ -179,6 +180,19 @@ class HTML {
 			return '';
 		}
 		$data['options'] = apply_filters( 'woo_assistant_image_sizes_select_items', Assets::getImageSizes() );
+
+		return self::select( $data );
+	}
+
+	public static function userroleselect( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$roles           = get_editable_roles();
+		$roleNames       = array_keys( $roles );
+		$roleLabels      = wp_list_pluck( $roles, 'name' );
+		$data['options'] = array_combine( $roleNames, $roleLabels );
 
 		return self::select( $data );
 	}
