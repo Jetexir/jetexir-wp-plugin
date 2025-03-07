@@ -55,10 +55,19 @@ class AdminTools implements AdminTabInterface {
 							'option_none_value' => ''
 						),
 
+						'taxonomy_select_test' => array(
+							'id'                => 'taxonomy_select_test',
+							'title'             => __( 'Select taxonomy', 'woo-assistant' ),
+							'type'              => 'taxonomySelect',
+							'default'           => 'category',
+							'option_none'       => '---',
+							'option_none_value' => ''
+						),
+
 						'term_tax' => array(
 							'id'                => 'term_tax',
 							'title'             => __( 'Select term', 'woo-assistant' ),
-							'type'              => 'taxonomy',
+							'type'              => 'termselect',
 							'args'              => array(
 								'taxonomy'   => 'category',
 								'hide_empty' => false,

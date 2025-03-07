@@ -30,6 +30,7 @@ class HTML {
 		'select',
 		'posttypeselect',
 		'postselect',
+		'taxonomyselect',
 		'termselect',
 		'imagesizeselect',
 		'addon',
@@ -182,6 +183,21 @@ class HTML {
 		return self::select( $data );
 	}
 
+	public static function taxonomyselect( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$defaultArgs     = array( 'public' => true );
+		$args            = wp_parse_args( $data['args'], $defaultArgs );
+		$taxonomies      = get_taxonomies( $args, 'objects' );
+		$taxonomyNames   = wp_list_pluck( $taxonomies, 'name' );
+		$taxonomyLabels  = wp_list_pluck( $taxonomies, 'label' );
+		$data['options'] = array_combine( $taxonomyNames, $taxonomyLabels );
+
+		return self::select( $data );
+	}
+
 	public static function termselect( $data ): string {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
@@ -208,12 +224,9 @@ class HTML {
 			return '';
 		}
 
-		$defaultArgs = array(
-			'public'   => true
-		);
-		$args        = wp_parse_args( $data['args'], $defaultArgs );
-		$postTypes   = get_post_types( $args, 'objects' );
-
+		$defaultArgs     = array( 'public' => true );
+		$args            = wp_parse_args( $data['args'], $defaultArgs );
+		$postTypes       = get_post_types( $args, 'objects' );
 		$postTypeNames   = wp_list_pluck( $postTypes, 'name' );
 		$postTypeLabels  = wp_list_pluck( $postTypes, 'label' );
 		$data['options'] = array_combine( $postTypeNames, $postTypeLabels );
@@ -644,6 +657,7 @@ class HTML {
 		if ( in_array( $data['type'], [
 				'posttypeselect',
 				'postselect',
+				'taxonomyselect',
 				'termselect'
 			] ) && ( ! isset( $data['args'] ) || ! is_array( $data['args'] ) ) ) {
 			$data['args'] = array();
