@@ -26,12 +26,14 @@ class ProductQuantity extends Addon implements AddonInterface {
 		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
 		add_filter( 'woo_assistant_settings_before_save', [ $this, 'checkSettingsBeforeSave' ], 10, 2 );
 
-		add_filter( 'woocommerce_add_to_cart_validation', [ $this, 'addToCartValidation' ], 10, 5 );
+		if ( Settings::get( 'product_quantity_tools_enable', false ) ) {
+			add_filter( 'woocommerce_add_to_cart_validation', [ $this, 'addToCartValidation' ], 10, 5 );
+		}
 	}
 
 	public function adminInitAction(): void {
 		// Control min/max/step per product
-		if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
+		if ( Settings::get( 'product_quantity_tools_enable', false ) && Settings::get( 'product_single_quantity_tools_enable', false ) ) {
 			add_action( 'woocommerce_process_product_meta', [ $this, 'adminProductSaveMeta' ] );
 			add_action( 'woocommerce_product_options_stock_fields', [ $this, 'addInventoryFields' ] );
 		}
@@ -52,13 +54,14 @@ class ProductQuantity extends Addon implements AddonInterface {
 		}
 		//add_filter( 'woo_assistant_settings_header_image', [ $this, 'addHeaderImage' ], 10, 4 );
 
-		add_filter( 'woocommerce_quantity_input_args', [ $this, 'changeQuantityInputArgs' ], 10, 2 );
-		add_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes',
-			[ $this, 'changeQuantityAddToCart' ], 10, 2 );
-		add_filter( 'woocommerce_loop_add_to_cart_link', [ $this, 'changeQuantityAddToCartLink' ], 10, 3 );
-		add_filter( 'woocommerce_quantity_input_min', [ $this, 'changeQuantityInputMin' ], 10, 2 );
-		add_filter( 'woocommerce_quantity_input_max', [ $this, 'changeQuantityInputMax' ], 10, 2 );
-
+		if ( Settings::get( 'product_quantity_tools_enable', false ) ) {
+			add_filter( 'woocommerce_quantity_input_args', [ $this, 'changeQuantityInputArgs' ], 10, 2 );
+			add_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes',
+				[ $this, 'changeQuantityAddToCart' ], 10, 2 );
+			add_filter( 'woocommerce_loop_add_to_cart_link', [ $this, 'changeQuantityAddToCartLink' ], 10, 3 );
+			add_filter( 'woocommerce_quantity_input_min', [ $this, 'changeQuantityInputMin' ], 10, 2 );
+			add_filter( 'woocommerce_quantity_input_max', [ $this, 'changeQuantityInputMax' ], 10, 2 );
+		}
 	}
 
 	public function adminProductSaveMeta( $productID ): void {
@@ -242,6 +245,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 
 		$quantities[ $cartProductId ] = isset( $quantities[ $cartProductId ] ) ? $quantities[ $cartProductId ] + $quantity : $quantity;
 		$max                          = min( $stockQuantity, $globalMax, $productMax );
+		var_dump( $max );
 		if ( $quantities[ $cartProductId ] > $max ) {
 			wc_add_notice( __( 'You have reached the maximum number of items in your cart for this product.', 'woocommerce' ), 'error' );
 
@@ -439,7 +443,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		if ( WooCommerce::isProduct() ) {
 			$productID = WooCommerce::getCurrentId();
 			$product   = WooCommerce::getProduct( $productID );
-			if ( $product->is_sold_individually() || ( $product->managing_stock() && ! is_null( $product->get_stock_quantity() ) && $product->get_stock_quantity() <= 1 ) ) {
+			if ( is_bool( $product ) || is_null( $product ) || ( $product->is_sold_individually() || ( $product->managing_stock() && ! is_null( $product->get_stock_quantity() ) && $product->get_stock_quantity() <= 1 ) ) ) {
 				return;
 			}
 		}
@@ -533,10 +537,20 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'title' => __( 'Min/Max/Step', 'woo-assistant' ),
 					'type'  => 'startGrid',
 				),
+				'product_quantity_tools_enable'        => array(
+					'id'       => 'product_quantity_tools_enable',
+					'title'    => __( 'Enable quantity manager', 'woo-assistant' ),
+					'type'     => 'toggle',
+					'value'    => 1,
+					'default'  => false,
+					'desc'     => __( 'Enable Minimum/Maximum/Step Quantity for all Products', 'woo-assistant' ),
+					'sanitize' => 'bool'
+				),
 				'quantity_minimum_value'               => array(
 					'id'         => 'quantity_minimum_value',
 					'title'      => __( 'Minimum', 'woo-assistant' ),
 					'type'       => 'number',
+					'default'    => 1,
 					'attributes' => array(
 						'placeholder' => 'eg: 2',
 						'step'        => 1,
