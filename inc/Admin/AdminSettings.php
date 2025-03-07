@@ -158,11 +158,11 @@ class AdminSettings {
 			$default = 'thumbnail';
 		}
 
-		// Set default value for elements with multiple attr: select, taxonomy, postType, imageSizeSelect
+		// Set default value for elements with multiple attr: select, termSelect, postSelect, imageSizeSelect
 		if ( isset( $data['multiple'] ) && $data['multiple'] && empty( $setting['default'] ) && in_array( $setting['type'], [
 				'select',
-				'taxonomy',
-				'posttype',
+				'termselect',
+				'postselect',
 				'imagesizeselect'
 			] ) ) {
 			$default = [];
@@ -176,8 +176,9 @@ class AdminSettings {
 			if ( $setting['type'] === 'checkboxinline' ||
 			     ( isset( $setting['multiple'] ) && $setting['multiple'] &&
 			       in_array( $setting['type'], [
-				       'taxonomy',
-				       'posttype',
+				       'termselect',
+				       'postselect',
+				       'imagesizeselect',
 				       'select'
 			       ] ) ) ) {
 				$setting['sanitize'] = 'array';
@@ -190,7 +191,9 @@ class AdminSettings {
 				'hidden',
 				'radio',
 				'radioinline',
-				'select'
+				'select',
+				'posttypeselect',
+				'imagesizeselect',
 			], true ) ) {
 				$setting['sanitize'] = 'text';
 
@@ -212,7 +215,7 @@ class AdminSettings {
 			} elseif ( $setting['type'] === 'range' ) {
 				$setting['sanitize'] = 'int';
 
-			} elseif ( $setting['type'] === 'posttype' || $setting['type'] === 'taxonomy' ) {
+			} elseif ( in_array( $setting['type'], [ 'postselect', 'termselect' ] ) ) {
 				$setting['sanitize'] = 'absint';
 
 			} elseif ( $setting['type'] === 'addon' ) {
