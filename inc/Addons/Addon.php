@@ -29,6 +29,7 @@ abstract class Addon {
 		// Register WordPress hooks
 		add_action( 'init', [ $this, 'registerInitAction' ] );
 		add_action( 'admin_init', [ $this, 'registerAdminInitAction' ] );
+		add_action( 'template_redirect', [ $this, 'registerTemplateRedirectAction' ] );
 		add_action( 'wp', [ $this, 'registerWpAction' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'registerWpEnqueueScriptsAction' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'registerAdminEnqueueScriptsAction' ] );
@@ -55,6 +56,12 @@ abstract class Addon {
 	public function registerInitAction(): void {
 		if ( method_exists( $this, 'initAction' ) && $this->isActivated() ) {
 			$this->initAction();
+		}
+	}
+
+	public function registerTemplateRedirectAction(): void {
+		if ( method_exists( $this, 'templateRedirectAction' ) && $this->isActivated() ) {
+			$this->templateRedirectAction();
 		}
 	}
 
