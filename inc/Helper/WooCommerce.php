@@ -43,6 +43,27 @@ class WooCommerce {
 		return wc_get_products( $args );
 	}
 
+	public static function getProduct( $productID ) {
+		return wc_get_product( $productID );
+	}
+
+	public static function getCartProduct( $productID, $variationId = 0 ) {
+		if ( WC()->cart->is_empty() ) {
+			return false;
+		}
+
+		$items         = WC()->cart->get_cart();
+		$cartProductId = $variationId ?: $productID;
+		$key           = $variationId ? 'variation_id' : 'product_id';
+		foreach ( $items as $item ) {
+			if ( $item[ $key ] === $cartProductId ) {
+				return $item;
+			}
+		}
+
+		return false;
+	}
+
 	public static function getCurrentId(): int {
 		global $product;
 
