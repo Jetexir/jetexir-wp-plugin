@@ -245,7 +245,6 @@ class ProductQuantity extends Addon implements AddonInterface {
 
 		$quantities[ $cartProductId ] = isset( $quantities[ $cartProductId ] ) ? $quantities[ $cartProductId ] + $quantity : $quantity;
 		$max                          = min( $stockQuantity, $globalMax, $productMax );
-		var_dump( $max );
 		if ( $quantities[ $cartProductId ] > $max ) {
 			wc_add_notice( __( 'You have reached the maximum number of items in your cart for this product.', 'woocommerce' ), 'error' );
 
