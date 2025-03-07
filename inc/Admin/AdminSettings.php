@@ -64,8 +64,8 @@ class AdminSettings {
 
 					$value = self::sanitizeSetting( $value, $setting );
 
-					if ( is_array( $value ) && isset( $setting['sanitize_options'] ) && method_exists( Sanitizing::class, $setting['sanitize_options'] ) ) {
-						$value = array_map( 'WooAssistant\Helper\Sanitizing::' . $setting['sanitize_options'], $value );
+					if ( is_array( $value ) ) {
+						$value = self::sanitizeOptionsSetting( $value, $setting );
 					}
 
 					$options[ $setting['id'] ] = $value;
@@ -171,6 +171,29 @@ class AdminSettings {
 		return $default;
 	}
 
+	private static function sanitizeOptionsSetting( $value, $setting ) {
+		if ( ! is_array( $value ) ) {
+			return $value;
+		}
+
+		if ( empty( $setting['sanitize_options'] ) ) {
+			if ( ( isset( $setting['multiple'] ) && $setting['multiple'] &&
+			       in_array( $setting['type'], [
+				       'termselect',
+				       'postselect',
+				       'userselect'
+			       ] ) ) ) {
+				$setting['sanitize_options'] = 'int';
+			}
+		}
+
+		if ( isset( $setting['sanitize_options'] ) && method_exists( Sanitizing::class, $setting['sanitize_options'] ) ) {
+			$value = array_map( 'WooAssistant\Helper\Sanitizing::' . $setting['sanitize_options'], $value );
+		}
+
+		return $value;
+	}
+
 	private static function sanitizeSetting( $value, $setting ) {
 		if ( empty( $setting['sanitize'] ) ) {
 			if ( $setting['type'] === 'checkboxinline' ||
@@ -182,6 +205,7 @@ class AdminSettings {
 				       'postselect',
 				       'imagesizeselect',
 				       'userroleselect',
+				       'userselect',
 				       'select'
 			       ] ) ) ) {
 				$setting['sanitize'] = 'array';
@@ -198,7 +222,7 @@ class AdminSettings {
 				'posttypeselect',
 				'taxonomyselect',
 				'imagesizeselect',
-				'userroleselect',
+				'userroleselect'
 			], true ) ) {
 				$setting['sanitize'] = 'text';
 
@@ -220,7 +244,7 @@ class AdminSettings {
 			} elseif ( $setting['type'] === 'range' ) {
 				$setting['sanitize'] = 'int';
 
-			} elseif ( in_array( $setting['type'], [ 'postselect', 'termselect' ] ) ) {
+			} elseif ( in_array( $setting['type'], [ 'postselect', 'termselect', 'userselect' ] ) ) {
 				$setting['sanitize'] = 'absint';
 
 			} elseif ( $setting['type'] === 'addon' ) {
