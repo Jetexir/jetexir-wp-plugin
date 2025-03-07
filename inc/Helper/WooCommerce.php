@@ -43,6 +43,16 @@ class WooCommerce {
 		return wc_get_products( $args );
 	}
 
+	/**
+	 * Get product
+	 *
+	 * This function should only be called after 'init' action is finished, as there might be taxonomies that are getting
+	 * registered during the init action.
+	 *
+	 *
+	 * @param mixed $productID Post object or post ID of the product.
+	 * @return \WC_Product|null|false
+	 */
 	public static function getProduct( $productID ) {
 		return wc_get_product( $productID );
 	}
