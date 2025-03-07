@@ -48,15 +48,11 @@ class AdminTools implements AdminTabInterface {
 
 						'post_type_page' => array(
 							'id'                => 'post_type_page',
-							'title'             => __( 'Select page', 'woo-assistant' ),
-							'type'              => 'postType',
-							'args'              => array(
-								'post_type' => 'page'
-							),
-							'default'           => 0,
+							'title'             => __( 'Select post type', 'woo-assistant' ),
+							'type'              => 'postTypeSelect',
+							'default'           => 'post',
 							'option_none'       => '---',
-							'option_none_value' => '',
-							'desc'              => __( 'Select page', 'woo-assistant' )
+							'option_none_value' => ''
 						),
 
 						'term_tax' => array(

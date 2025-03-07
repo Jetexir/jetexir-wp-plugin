@@ -28,6 +28,7 @@ class HTML {
 		'range',
 		'hidden',
 		'select',
+		'posttypeselect',
 		'postselect',
 		'termselect',
 		'imagesizeselect',
@@ -198,6 +199,24 @@ class HTML {
 		$termIds         = wp_list_pluck( $terms, 'term_id' );
 		$termNames       = wp_list_pluck( $terms, 'name' );
 		$data['options'] = array_combine( $termIds, $termNames );
+
+		return self::select( $data );
+	}
+
+	public static function posttypeselect( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$defaultArgs = array(
+			'public'   => true
+		);
+		$args        = wp_parse_args( $data['args'], $defaultArgs );
+		$postTypes   = get_post_types( $args, 'objects' );
+
+		$postTypeNames   = wp_list_pluck( $postTypes, 'name' );
+		$postTypeLabels  = wp_list_pluck( $postTypes, 'label' );
+		$data['options'] = array_combine( $postTypeNames, $postTypeLabels );
 
 		return self::select( $data );
 	}
@@ -623,12 +642,13 @@ class HTML {
 		}
 
 		if ( in_array( $data['type'], [
+				'posttypeselect',
 				'postselect',
 				'termselect'
 			] ) && ( ! isset( $data['args'] ) || ! is_array( $data['args'] ) ) ) {
 			$data['args'] = array();
 		}
-		
+
 		if ( $data['type'] === 'wpcolorpicker' ) {
 			$data['class'] = self::getClass( $data, self::prefix . 'wp-color-picker' );
 			$data['type']  = 'text';
