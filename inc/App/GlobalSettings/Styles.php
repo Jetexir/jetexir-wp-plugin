@@ -291,6 +291,60 @@ class Styles {
 				'type' => 'endInlineElements',
 			),
 
+			'start_inline_elements_element_border_radius' => array(
+				'title' => __( 'Border radius', 'woo-assistant' ),
+				'type'  => 'startInlineElements',
+			),
+			'element_border_radius_enable'                => array(
+				'id'       => 'element_border_radius_enable',
+				'type'     => 'checkbox',
+				'value'    => 1,
+				'default'  => true,
+				'sanitize' => 'bool'
+			),
+			'element_border_radius'                       => array(
+				'id'         => 'element_border_radius',
+				'type'       => 'text',
+				'default'    => '5px',
+				'attributes' => array(
+					'placeholder' => 'eg: 4px'
+				),
+				'meta'       => [
+					'css_variable' => 'element-border-radius',
+					'css_syntax'   => [ 'length', 'percentage' ],
+				]
+			),
+			'end_inline_elements_element_border_radius'   => array(
+				'type' => 'endInlineElements',
+			),
+
+			'start_inline_elements_element_border_width' => array(
+				'title' => __( 'Border width', 'woo-assistant' ),
+				'type'  => 'startInlineElements',
+			),
+			'element_border_width_enable'                => array(
+				'id'       => 'element_border_width_enable',
+				'type'     => 'checkbox',
+				'value'    => 1,
+				'default'  => true,
+				'sanitize' => 'bool'
+			),
+			'element_border_width'                       => array(
+				'id'         => 'element_border_width',
+				'type'       => 'text',
+				'default'    => '1px',
+				'attributes' => array(
+					'placeholder' => 'eg: 1px'
+				),
+				'meta'       => [
+					'css_variable' => 'element-border-width',
+					'css_syntax'   => [ 'length', 'percentage' ],
+				]
+			),
+			'end_inline_elements_element_border_width'   => array(
+				'type' => 'endInlineElements',
+			),
+
 			'end_grid_elements_styles' => array(
 				'type' => 'endgrid',
 			),
