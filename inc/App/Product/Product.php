@@ -2,6 +2,8 @@
 
 namespace WooAssistant\App\Product;
 
+defined( 'ABSPATH' ) || exit;
+
 class Product {
 	public function __construct() {
 		new ProductCompare();
