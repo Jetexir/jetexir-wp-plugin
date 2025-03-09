@@ -71,7 +71,7 @@ body.rtl.woo-assistant-notices .wa-notice {
 
 @font-face {
   font-family: "wooassistant-icon";
-  src: url("../fonts/wooassistant-icon.ttf?765nm7") format("truetype"), url("../fonts/wooassistant-icon.woff?765nm7") format("woff"), url("../fonts/wooassistant-icon.svg?765nm7#wooassistant-icon") format("svg");
+  src: url("../fonts/wooassistant-icon.ttf?18rlr0") format("truetype"), url("../fonts/wooassistant-icon.woff?18rlr0") format("woff"), url("../fonts/wooassistant-icon.svg?18rlr0#wooassistant-icon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -90,12 +90,24 @@ body.rtl.woo-assistant-notices .wa-notice {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.wa-icon-shopping-cart:before {
+  content: "\e91c";
+}
+
 .wa-icon-file_copy:before {
   content: "\e912";
 }
 
 .wa-icon-content_copy:before {
   content: "\e913";
+}
+
+.wa-icon-shopping-bag:before {
+  content: "\e91d";
+}
+
+.wa-icon-shopping-cart3:before {
+  content: "\e91e";
 }
 
 .wa-icon-plus:before {
@@ -134,6 +146,70 @@ body.rtl.woo-assistant-notices .wa-notice {
   content: "\e91a";
 }
 
+.wa-icon-shopping-cart7:before {
+  content: "\e91f";
+}
+
+.wa-icon-shopping-basket2:before {
+  content: "\e920";
+}
+
+.wa-icon-shopping-cart5:before {
+  content: "\e921";
+}
+
+.wa-icon-shopping-cart6:before {
+  content: "\e93a";
+}
+
+.wa-icon-arrow-down:before {
+  content: "\ea3e";
+}
+
+.wa-icon-circle-down:before {
+  content: "\ea43";
+}
+
+.wa-icon-weibo:before {
+  content: "\ea9a";
+}
+
+.wa-icon-shopping-cart1:before {
+  content: "\e922";
+}
+
+.wa-icon-location-shopping:before {
+  content: "\e923";
+}
+
+.wa-icon-shopping-basket:before {
+  content: "\e924";
+}
+
+.wa-icon-shopping-bag1:before {
+  content: "\e925";
+}
+
+.wa-icon-shopping-cart4:before {
+  content: "\e926";
+}
+
+.wa-icon-evernote:before {
+  content: "\e90d";
+}
+
+.wa-icon-xing:before {
+  content: "\e90a";
+}
+
+.wa-icon-vk:before {
+  content: "\e902";
+}
+
+.wa-icon-tumblr:before {
+  content: "\e907";
+}
+
 .wa-icon-bluesky:before {
   content: "\e90f";
 }
@@ -162,20 +238,12 @@ body.rtl.woo-assistant-notices .wa-notice {
   content: "\e900";
 }
 
-.wa-icon-evernote:before {
-  content: "\e90d";
+.wa-icon-shopping-basket1:before {
+  content: "\e929";
 }
 
-.wa-icon-xing:before {
-  content: "\e90a";
-}
-
-.wa-icon-vk:before {
-  content: "\e902";
-}
-
-.wa-icon-tumblr:before {
-  content: "\e907";
+.wa-icon-shopping-cart2:before {
+  content: "\e928";
 }
 
 .wa-icon-email:before {
@@ -200,18 +268,6 @@ body.rtl.woo-assistant-notices .wa-notice {
 
 .wa-icon-pinterest:before {
   content: "\e906";
-}
-
-.wa-icon-arrow-down:before {
-  content: "\ea3e";
-}
-
-.wa-icon-circle-down:before {
-  content: "\ea43";
-}
-
-.wa-icon-weibo:before {
-  content: "\ea9a";
 }
 
 .wa-appearance-text-field input[type=number] {
