@@ -5,7 +5,7 @@
   "homepage": "https://parsa.ws",
   "author": "Parsa Kafi (https://parsa.ws)",
   "scripts": {
-    "wa-css": "concurrently \"npm run wa-admin-css\" \"npm run wa-admin-compressed-css\" \"npm run wa-site-css\" \"npm run wa-site-compressed-css\" \"npm run wa-product-compare-css\" \"npm run wa-product-compare-compressed-css\" \"npm run wa-product-share-css\" \"npm run wa-product-share-compressed-css\"",
+    "wa-css": "concurrently \"npm run wa-admin-css\" \"npm run wa-admin-compressed-css\" \"npm run wa-site-css\" \"npm run wa-site-compressed-css\" \"npm run wa-product-compare-css\" \"npm run wa-product-compare-compressed-css\" \"npm run wa-product-share-css\" \"npm run wa-product-share-compressed-css\" \"npm run wa-fly-cart-css\" \"npm run wa-fly-cart-compressed-css\"",
     "wa-admin-css": "sass --watch assets/scss/admin-style.scss:assets/css-admin/admin-style.css",
     "wa-admin-compressed-css": "sass --watch assets/scss/admin-style.scss:assets/css-admin/admin-style.min.css --style compressed",
     "wa-site-css": "sass --watch assets/scss/style.scss:assets/css/style.css",
@@ -14,6 +14,8 @@
     "wa-product-compare-compressed-css": "sass --watch assets/scss/product-compare.scss:assets/css/product-compare.min.css --style compressed",
     "wa-product-share-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.css",
     "wa-product-share-compressed-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.min.css --style compressed",
+    "wa-fly-cart-css": "sass --watch assets/scss/fly-cart.scss:assets/css/fly-cart.css",
+    "wa-fly-cart-compressed-css": "sass --watch assets/scss/fly-cart.scss:assets/css/fly-cart.min.css --style compressed", 
     "wa-build-scss": "webpack --config webpack-css.config.js",
     "wa-build-js": "webpack --config webpack.config.js"
   },

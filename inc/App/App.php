@@ -2,21 +2,23 @@
 
 namespace WooAssistant\App;
 
+defined( 'ABSPATH' ) || exit;
+
 use WooAssistant\App\GlobalSettings\GlobalSettings;
 use WooAssistant\App\Product\Product;
-
-defined( 'ABSPATH' ) || exit;
+use WooAssistant\App\Cart\Cart;
 
 class App {
 	public function __construct() {
 		new AppAssets();
 		new Product();
+		new Cart();
 		new GlobalSettings();
 
 		add_action( 'init', [ $this, 'init' ] );
 	}
 
-	public function init() {
+	public function init(): void {
 		do_action( 'woo_assistant_addons_load' );
 		do_action( 'woo_assistant_init' );
 	}
