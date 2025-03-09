@@ -36,17 +36,17 @@ class Settings {
 		$optionsName = is_string( $optionsName ) ? WOOASSISTANT_PLUGIN_KEY . '_' . $optionsName : WOOASSISTANT_PLUGIN_KEY;
 		$options     = Cache::get( 'options_' . $optionsName, false );
 
-		if ( ! $useCache || $options === false ) {
+		if ( ! $useCache || ! is_array( $options ) ) {
 			$options = get_option( $optionsName, [] );
 			$options = is_array( $options ) ? $options : [];
 			Cache::set( 'options_' . $optionsName, $options, DAY_IN_SECONDS, false );
 		}
 
 		if ( $key !== null ) {
-			return $options[ $key ] ?? $default;
+			return apply_filters( 'woo_assistant_get_setting', $options[ $key ] ?? $default, $key, $default, $options, $optionsName );
 		}
 
-		return $options ?: $default;
+		return apply_filters( 'woo_assistant_get_settings', $options ?: $default, $optionsName );
 	}
 
 	public static function delete( string $key, $optionsName = null ): bool {
