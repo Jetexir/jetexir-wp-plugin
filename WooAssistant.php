@@ -19,6 +19,7 @@ defined( 'ABSPATH' ) || exit;
 use WooAssistant\Addons\Addons;
 use WooAssistant\Admin\Admin;
 use WooAssistant\App\App;
+use WooAssistant\AppHelper\AppHelper;
 use WooAssistant\Integrations\Integrations;
 use WooAssistant\Settings\Settings;
 
@@ -71,6 +72,7 @@ final class WooAssistant {
 		new Admin();
 		new Addons();
 		new Integrations();
+		new AppHelper();
 		new App();
 	}
 }
