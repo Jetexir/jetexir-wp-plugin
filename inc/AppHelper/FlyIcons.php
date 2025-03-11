@@ -1,0 +1,107 @@
+<?php
+
+namespace WooAssistant\AppHelper;
+
+class FlyIcons {
+	public function __construct() {
+		add_action( 'admin_footer', [ $this, 'adminIcons' ] );
+		add_action( 'wp_footer', [ $this, 'siteIcons' ] );
+	}
+
+	private function printIcons( $flyIcons ): void {
+		if ( empty( $flyIcons ) || ! is_array( $flyIcons ) ) {
+			return;
+		}
+		$positions     = $this->getAllowedPositions();
+		$positionIcons = [];
+		foreach ( $flyIcons as $flyIcon ) {
+			if ( empty( $flyIcon['id'] ) || empty( $flyIcon['position'] ) || ( empty( $flyIcon['title'] ) && empty( $flyIcon['icon'] ) ) || ! in_array( $flyIcon['position'], $positions, true ) ) {
+				continue;
+			}
+
+			$iconHTML = $this->getIconHTML( $flyIcon );
+			if ( ! empty( $iconHTML ) ) {
+				$positionIcons[ $flyIcon['position'] ][] = $iconHTML;
+			}
+		}
+
+		if ( ! empty( $positionIcons ) ) {
+			foreach ( $positionIcons as $position => $icons ) {
+				$icons     = implode( '', $icons );
+				$positions = explode( '-', $position );
+				echo '<div id="wa-fly-icons-' . $position . '" class="wa-fly-icons wa-fly-icons-' . $position . ' wa-fly-icons-' . $positions[0] . ' wa-fly-icons-' . $positions[1] . '">' . $icons . '</div>';
+			}
+		}
+	}
+
+	private function getIconHTML( $flyIcon ): string {
+		$defaultArgs = array(
+			'id'          => '',
+			'tag'         => 'a',
+			'title'       => '',
+			'icon'        => '',
+			'count_badge' => '',
+			'attributes'  => '',
+			'position'    => ''
+		);
+		$flyIcon     = wp_parse_args( $flyIcon, $defaultArgs );
+
+		$id                             = 'wa-fly-icon-' . $flyIcon['id'];
+		$tag                            = in_array( $flyIcon['tag'], [ 'div', 'a' ] ) ? $flyIcon['tag'] : 'div';
+		$title                          = is_string( $flyIcon['title'] ) ? $flyIcon['title'] : '';
+		$icon                           = is_string( $flyIcon['icon'] ) ? $flyIcon['icon'] : '';
+		$countBadge                     = (string) ( $flyIcon['count_badge'] ?? '' );
+		$flyIcon['attributes']['class'] = 'wa-fly-icon ' . $flyIcon['attributes']['class'] ?? '';
+		$attributes                     = $this->getAttributes( $flyIcon['attributes'] ?? '' );
+
+		$output = '<' . $tag . ' id="' . $id . '" ' . $attributes . '>';
+		$output .= $icon;
+		if ( ! empty( $title ) ) {
+			$output .= '<span class="wa-fly-icon-title">' . $title . '</span>';
+		}
+		if ( ! empty( $countBadge ) ) {
+			$output .= '<span class="wa-fly-icon-count">' . $countBadge . '</span>';
+		}
+		$output .= '</' . $tag . '>';
+
+		return $output;
+	}
+
+	private function getAttributes( $iconAttributes ): string {
+		if ( empty( $iconAttributes ) ) {
+			return '';
+		}
+
+		if ( is_string( $iconAttributes ) ) {
+			return $iconAttributes;
+		}
+
+		if ( is_array( $iconAttributes ) ) {
+			$attributes = [];
+			foreach ( $iconAttributes as $attribute => $value ) {
+				$attributes[] = $attribute . '="' . $value . '"';
+			}
+
+			return implode( ' ', $attributes );
+		}
+
+		return '';
+	}
+
+	private function getAllowedPositions(): array {
+		return array(
+			'top-left',
+			'top-right',
+			'bottom-left',
+			'bottom-right',
+		);
+	}
+
+	public function siteIcons(): void {
+		$this->printIcons( apply_filters( 'woo_assistant_site_fly_icons', [] ) );
+	}
+
+	public function adminIcons(): void {
+		$this->printIcons( apply_filters( 'woo_assistant_admin_fly_icons', [] ) );
+	}
+}

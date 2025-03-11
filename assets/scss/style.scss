@@ -2,6 +2,8 @@
 @use "icon/style";
 @use "utilities/variables";
 @use "components/faqs";
+@use "components/fly_icons";
+@use "components/modal";
 
 .wa-appearance-text-field {
   input[type="number"] {
