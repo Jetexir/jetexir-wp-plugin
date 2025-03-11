@@ -1,25 +1,4 @@
-@use "components/notice";
-@use "icon/style";
-@use "utilities/variables";
-@use "components/faqs";
-
-.wa-appearance-text-field {
-  input[type="number"] {
-    -webkit-appearance: none;
-    -moz-appearance: textfield;
-    appearance: textfield;
-  }
-}
-
-.wa-button {
-  &.wa-button-remove {
-    color: #bb2323;
-
-    &:hover {
-      color: #bb2323;
-    }
-  }
-}
+@use "../utilities/variables";
 
 .wa-faqs-wrap {
   display: flex;
