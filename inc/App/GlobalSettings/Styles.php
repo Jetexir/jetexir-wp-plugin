@@ -80,6 +80,31 @@ class Styles {
 				'type'  => 'startgrid',
 			),
 
+			'start_inline_elements_primary_color' => array(
+				'title' => __( 'Primary color', 'woo-assistant' ),
+				'type'  => 'startInlineElements',
+			),
+			'primary_color_enable'                => array(
+				'id'       => 'primary_color_enable',
+				'type'     => 'checkbox',
+				'value'    => 1,
+				'default'  => true,
+				'sanitize' => 'bool'
+			),
+			'primary_color'                       => array(
+				'id'       => 'primary_color',
+				'type'     => 'wpColorPicker',
+				'default'  => Colors::primary,
+				'sanitize' => 'color',
+				'meta'     => [
+					'css_variable' => 'primary-color',
+					'css_syntax'   => 'color',
+				]
+			),
+			'end_inline_elements_primary_color'   => array(
+				'type' => 'endInlineElements',
+			),
+
 			'start_inline_elements_text_color' => array(
 				'title' => __( 'Text color', 'woo-assistant' ),
 				'type'  => 'startInlineElements',
