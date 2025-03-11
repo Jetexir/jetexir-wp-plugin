@@ -1,6 +1,36 @@
 wooAssistantAjax = false;
 
 jQuery(document).ready(function ($) {
+    function waModalOverlay(status, target = '') {
+        let modalOverlay = $('#wa-modal-overlay'),
+            modalTarget = modalOverlay.attr('data-wa-target');
+
+        if (status && !modalOverlay.hasClass('active')) {
+            modalOverlay.addClass('active').attr('data-wa-target', target);
+
+        } else if (!status && modalOverlay.hasClass('active')) {
+            modalOverlay.removeClass('active').removeAttr('data-wa-target');
+            $(modalTarget).hide().removeClass('active').attr('aria-hidden', 'true');
+        }
+    }
+
+    $('[data-wa-toggle="modal"]').on('click', function () {
+        let $this = $(this),
+            modalTarget = $this.data('wa-target');
+
+        if (modalTarget !== undefined) {
+            let modalTargetElm = $(modalTarget);
+            if (modalTargetElm.length) {
+                waModalOverlay(true, modalTarget);
+                $(modalTarget).toggleClass('active').removeAttr('aria-hidden').show();
+            }
+        }
+    });
+
+    $('#wa-modal-overlay').on('click', function () {
+        waModalOverlay(false);
+    });
+
     $('.wa-copy-text').on('click', function (e) {
         e.preventDefault();
 

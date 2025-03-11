@@ -1,0 +1,71 @@
+@use "../utilities/variables";
+
+.wa-modal {
+  display: none;
+  position: fixed;
+  z-index: 999999;
+  font-size: 14px;
+  padding: 0;
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  color: black;
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+  }
+
+  .modal-dialog {
+    transition: transform .3s ease-out;
+    transform: translate(0, -50px);
+    position: relative;
+    width: auto;
+    max-width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    pointer-events: none;
+  }
+
+  .modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: var(--bs-modal-color);
+    pointer-events: auto;
+    background-color: var(--bs-modal-bg);
+    background-clip: padding-box;
+    border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+    border-radius: var(--bs-modal-border-radius);
+    outline: 0;
+  }
+}
+
+.wa-modal-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  z-index: 999998;
+  opacity: 0;
+  visibility: hidden;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}

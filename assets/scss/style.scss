@@ -1,6 +1,6 @@
-@use "components/notice";
-@use "icon/style";
 @use "utilities/variables";
+@use "icon/style";
+@use "components/notice";
 @use "components/faqs";
 @use "components/fly_icons";
 @use "components/modal";
@@ -23,70 +23,12 @@
   }
 }
 
-.wa-faqs-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  font-size: 18px;
+.wa-fade {
+  transition: opacity .15s linear;
+  opacity: 1;
 
-  .wa-faq-item {
-    border: 1.5px solid var(--wa-element-border-color, variables.$border_color);
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-
-    .wa-faq-question {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-      color: var(--wa-element-color, variables.$text);
-      background-color: var(--wa-element-bg-color, variables.$white2);
-      transition: all 0.3s ease;
-      cursor: pointer;
-      outline: none;
-      border: none;
-      font-weight: 500;
-
-      i {
-        transition: all 0.2s;
-        font-size: 24px;
-      }
-    }
-
-    &:not(.active):hover {
-      border-color: var(--wa-element-hover-border-color, variables.$border_color);
-
-      .wa-faq-question {
-        color: var(--wa-element-hover-color, variables.$text);
-        background-color: var(--wa-element-hover-bg-color, variables.$white2);
-      }
-    }
-
-    .wa-faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: 0.3s;
-      padding: 0 15px;
-      font-size: .9em;
-    }
-
-    &.active {
-      .wa-faq-question {
-        & i:is(.wa-icon-chevrons-down, .wa-icon-chevron-down ,.wa-icon-arrow-down, .wa-icon-circle-down) {
-          transform: rotate(180deg);
-        }
-
-        & i.wa-icon-plus {
-          transform: rotate(45deg);
-        }
-      }
-
-      .wa-faq-answer {
-        padding: 15px;
-      }
-    }
+  &:not(.active) {
+    opacity: 0;
   }
 }
+

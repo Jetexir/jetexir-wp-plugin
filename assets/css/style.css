@@ -1,74 +1,3 @@
-.woo-assistant-notices {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-.woo-assistant-notices .wa-notice {
-  color: #720eec;
-  background-color: #EEEBF8;
-  border-radius: 10px;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  letter-spacing: 0.02em;
-}
-.woo-assistant-notices .wa-notice > div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.woo-assistant-notices .wa-notice svg {
-  width: 22px;
-  height: 22px;
-  min-width: 22px;
-}
-.woo-assistant-notices .wa-notice p {
-  margin: 0;
-}
-.woo-assistant-notices .wa-notice code {
-  color: rgb(108.3, 13.3, 224.2);
-  background-color: rgb(222.7944444444, 217.1111111111, 241.7388888889);
-}
-.woo-assistant-notices .wa-notice.wa-notice-info {
-  color: #356aa3;
-  background-color: #DCEBFB;
-}
-.woo-assistant-notices .wa-notice.wa-notice-info code {
-  color: rgb(50.35, 100.7, 154.85);
-  background-color: rgb(198.8653846154, 222.9230769231, 248.5846153846);
-}
-.woo-assistant-notices .wa-notice.wa-notice-success {
-  color: #207b34;
-  background-color: #E2F3E6;
-}
-.woo-assistant-notices .wa-notice.wa-notice-success code {
-  color: rgb(30.4, 116.85, 49.4);
-  background-color: rgb(209.4134146341, 236.1365853659, 215.7012195122);
-}
-.woo-assistant-notices .wa-notice.wa-notice-warning {
-  color: #8c6d29;
-  background-color: #FFF8E3;
-}
-.woo-assistant-notices .wa-notice.wa-notice-warning code {
-  color: rgb(133, 103.55, 38.95);
-  background-color: rgb(255, 241.975, 202.9);
-}
-.woo-assistant-notices .wa-notice.wa-notice-error {
-  color: #b04b55;
-  background-color: #FFEEEC;
-}
-.woo-assistant-notices .wa-notice.wa-notice-error code {
-  color: rgb(167.2, 71.25, 80.75);
-  background-color: rgb(255, 216.0342105263, 211.45);
-}
-
-body.rtl.woo-assistant-notices .wa-notice {
-  letter-spacing: normal;
-}
-
 @font-face {
   font-family: "wooassistant-icon";
   src: url("../fonts/wooassistant-icon.ttf?18rlr0") format("truetype"), url("../fonts/wooassistant-icon.woff?18rlr0") format("woff"), url("../fonts/wooassistant-icon.svg?18rlr0#wooassistant-icon") format("svg");
@@ -270,17 +199,75 @@ body.rtl.woo-assistant-notices .wa-notice {
   content: "\e906";
 }
 
-.wa-appearance-text-field input[type=number] {
-  -webkit-appearance: none;
-  -moz-appearance: textfield;
-  appearance: textfield;
+.woo-assistant-notices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.woo-assistant-notices .wa-notice {
+  color: #720eec;
+  background-color: #EEEBF8;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 0.02em;
+}
+.woo-assistant-notices .wa-notice > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.woo-assistant-notices .wa-notice svg {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+}
+.woo-assistant-notices .wa-notice p {
+  margin: 0;
+}
+.woo-assistant-notices .wa-notice code {
+  color: rgb(108.3, 13.3, 224.2);
+  background-color: rgb(222.7944444444, 217.1111111111, 241.7388888889);
+}
+.woo-assistant-notices .wa-notice.wa-notice-info {
+  color: #356aa3;
+  background-color: #DCEBFB;
+}
+.woo-assistant-notices .wa-notice.wa-notice-info code {
+  color: rgb(50.35, 100.7, 154.85);
+  background-color: rgb(198.8653846154, 222.9230769231, 248.5846153846);
+}
+.woo-assistant-notices .wa-notice.wa-notice-success {
+  color: #207b34;
+  background-color: #E2F3E6;
+}
+.woo-assistant-notices .wa-notice.wa-notice-success code {
+  color: rgb(30.4, 116.85, 49.4);
+  background-color: rgb(209.4134146341, 236.1365853659, 215.7012195122);
+}
+.woo-assistant-notices .wa-notice.wa-notice-warning {
+  color: #8c6d29;
+  background-color: #FFF8E3;
+}
+.woo-assistant-notices .wa-notice.wa-notice-warning code {
+  color: rgb(133, 103.55, 38.95);
+  background-color: rgb(255, 241.975, 202.9);
+}
+.woo-assistant-notices .wa-notice.wa-notice-error {
+  color: #b04b55;
+  background-color: #FFEEEC;
+}
+.woo-assistant-notices .wa-notice.wa-notice-error code {
+  color: rgb(167.2, 71.25, 80.75);
+  background-color: rgb(255, 216.0342105263, 211.45);
 }
 
-.wa-button.wa-button-remove {
-  color: #bb2323;
-}
-.wa-button.wa-button-remove:hover {
-  color: #bb2323;
+body.rtl.woo-assistant-notices .wa-notice {
+  letter-spacing: normal;
 }
 
 .wa-faqs-wrap {
@@ -336,6 +323,175 @@ body.rtl.woo-assistant-notices .wa-notice {
 }
 .wa-faqs-wrap .wa-faq-item.active .wa-faq-answer {
   padding: 15px;
+}
+
+.wa-fly-icons {
+  position: fixed;
+  z-index: 999997;
+  font-size: 18px;
+  display: flex;
+  gap: 15px;
+}
+.wa-fly-icons.wa-fly-icons-top {
+  top: 40px;
+}
+.wa-fly-icons.wa-fly-icons-top > :is(a, div):hover, .wa-fly-icons.wa-fly-icons-top > :is(a, div):focus {
+  bottom: inherit;
+  top: 5px;
+}
+.wa-fly-icons.wa-fly-icons-bottom {
+  bottom: 40px;
+}
+.wa-fly-icons.wa-fly-icons-bottom > :is(a, div):hover, .wa-fly-icons.wa-fly-icons-bottom > :is(a, div):focus {
+  top: inherit;
+  bottom: 5px;
+}
+.wa-fly-icons.wa-fly-icons-left {
+  left: 40px;
+}
+.wa-fly-icons.wa-fly-icons-left .wa-fly-icon-count {
+  right: -10px;
+}
+.wa-fly-icons.wa-fly-icons-right {
+  right: 40px;
+}
+.wa-fly-icons.wa-fly-icons-right .wa-fly-icon-count {
+  left: -10px;
+}
+.wa-fly-icons > :is(a, div) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  line-height: 1;
+  width: 60px;
+  height: 60px;
+  top: 0;
+  bottom: 0;
+  color: var(--wa-element-color, #2B2B2B);
+  background-color: var(--wa-element-bg-color, rgb(247.35, 247.35, 247.35));
+  border: 1.5px solid var(--wa-element-border-color, #E6E2F5);
+  border-radius: var(--wa-element-border-radius, 0);
+  transition: all 0.5s;
+  box-shadow: rgba(33, 35, 38, 0.1) 0 10px 10px -10px;
+  text-decoration: none;
+  outline: none;
+}
+.wa-fly-icons > :is(a, div):hover, .wa-fly-icons > :is(a, div):focus {
+  text-decoration: none;
+  outline: none;
+  border-color: var(--wa-element-hover-border-color, #E6E2F5);
+  color: var(--wa-element-hover-color, #2B2B2B);
+  background-color: var(--wa-element-hover-bg-color, rgb(247.35, 247.35, 247.35));
+}
+.wa-fly-icons svg {
+  height: 18px;
+  width: auto;
+}
+.wa-fly-icons .wa-fly-icon-title {
+  font-size: 12px;
+}
+.wa-fly-icons .wa-fly-icon-count {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -10px;
+  height: 30px;
+  width: 30px;
+  font-size: 12px;
+  border-radius: 50%;
+  color: white;
+  background: var(--wa-primary-color, #873eff);
+}
+
+.wa-modal {
+  display: none;
+  position: fixed;
+  z-index: 999999;
+  font-size: 14px;
+  padding: 0;
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  color: black;
+  pointer-events: none;
+}
+.wa-modal.active {
+  opacity: 1;
+}
+.wa-modal .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -50px);
+  position: relative;
+  width: auto;
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+  pointer-events: none;
+}
+.wa-modal .modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--bs-modal-color);
+  pointer-events: auto;
+  background-color: var(--bs-modal-bg);
+  background-clip: padding-box;
+  border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+  border-radius: var(--bs-modal-border-radius);
+  outline: 0;
+}
+
+.wa-modal-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  z-index: 999998;
+  opacity: 0;
+  visibility: hidden;
+}
+.wa-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.wa-appearance-text-field input[type=number] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.wa-button.wa-button-remove {
+  color: #bb2323;
+}
+.wa-button.wa-button-remove:hover {
+  color: #bb2323;
+}
+
+.wa-fade {
+  transition: opacity 0.15s linear;
+  opacity: 1;
+}
+.wa-fade:not(.active) {
+  opacity: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
