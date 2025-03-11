@@ -14,40 +14,40 @@ class FlyCart extends Addon implements AddonInterface {
 
 	public function initAction(): void {
 		add_filter( 'woo_assistant_cart_settings_sections', [ $this, 'addSectionSettings' ] );
-		add_action( 'wp_footer', [ $this, 'addCart' ] );
-//		add_action( 'wp_footer', [ $this, 'enqueueScripts' ] );
+		add_filter( 'woo_assistant_site_fly_icons', [ $this, 'addFlyIcon' ] );
+		add_action( 'woo_assistant_site_modals', [ $this, 'printCart' ] );
+
+		if ( Settings::get( 'fly_cart_overlay_layer', true ) ) {
+			add_filter( 'woo_assistant_modal_overlay', '__return_true' );
+		}
 	}
 
-	public function addCart(): void {
-		$icon     = $this->getBasketIcons( Settings::get( 'fly_cart_icon', 'wa-icon-shopping-cart' ), true );
-		$position = explode( '-', Settings::get( 'fly_cart_position', 'bottom-left' ) );
+	public function printCart(): void {
 		?>
-        <a href="#" id="wa-fly-cart"
-           class="wa-fly-cart wa-fly-cart-<?php echo $position[0] ?> wa-fly-cart-<?php echo $position[1] ?>"
-           style="--fly-cart-primary-color: <?php echo Settings::get( 'fly_cart_primary_color', Colors::primary ) ?>">
-			<?php echo $icon; ?>
-            <span id="wa-fly-cart-count" class="wa-fly-cart-count">5</span>
-        </a>
+        <div id="wa-fly-cart-modal" class="wa-modal wa-fade" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            test
+        </div>
 		<?php
 	}
 
-	public function wpEnqueueScriptsAction(): void {
-		$pluginVersion = Assets::getVersion();
-		$debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
+	public function addFlyIcon( $icons ) {
+		$icons[] = array(
+			'id'          => $this->addonID,
+			'tag'         => 'a',
+			'title'       => Settings::get( 'fly_cart_title', __( 'Cart', 'woo-assistant' ) ),
+			'icon'        => $this->getBasketIcons( Settings::get( 'fly_cart_icon', 'wa-icon-shopping-cart' ), true ),
+			'count_badge' => 3,
+			'attributes'  => array(
+				'class'          => 'wa-fly-cart',
+				'href'           => '#',
+				'data-wa-toggle' => 'modal',
+				'data-wa-target' => '#wa-fly-cart-modal'
+			),
+			'position'    => Settings::get( 'fly_cart_position', 'bottom-left' ),
+		);
 
-		wp_enqueue_style( WOOASSISTANT_PLUGIN_KEY . '-fly-cart-style',
-			Assets::url( 'css/fly-cart' . $debugName . '.css' ),
-			false, $pluginVersion );
-
-		return;
-
-		wp_enqueue_script( WOOASSISTANT_PLUGIN_SLUG . '-fly-cart-script',
-			Assets::url( 'js/product-quantity.min.js' ),
-			[ 'jquery' ], $pluginVersion, [ 'in_footer' => true ] );
-
-		wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-fly-cart-script', WOOASSISTANT_PLUGIN_KEYCAP . 'FlyCart', array(
-			'plusMinusButtons' => Sanitizing::int( Settings::get( 'quantity_input_plus_minus_button', false ) )
-		) );
+		return $icons;
 	}
 
 	private function getBasketIcons( $icon = null, $tag = false ) {
@@ -91,7 +91,24 @@ class FlyCart extends Addon implements AddonInterface {
 					'title' => __( 'Appearance', 'woo-assistant' ),
 					'type'  => 'startGrid',
 				),
-				'fly_cart_position'      => array(
+				'fly_cart_overlay_layer' => array(
+					'id'       => 'fly_cart_overlay_layer',
+					'title'    => __( 'Overlay layer', 'woo-assistant' ),
+					'type'     => 'toggle',
+					'value'    => 1,
+					'default'  => true,
+					'sanitize' => 'bool'
+				),
+				'fly_cart_end_grid_1'    => array(
+					'type' => 'endGrid',
+				),
+
+				'fly_cart_start_grid_icon' => array(
+					'id'    => 'fly_cart_start_grid_1',
+					'title' => __( 'Fly Cart Icon', 'woo-assistant' ),
+					'type'  => 'startGrid',
+				),
+				'fly_cart_position'        => array(
 					'id'       => 'fly_cart_position',
 					'title'    => __( 'Position', 'woo-assistant' ),
 					'type'     => 'select',
@@ -104,7 +121,7 @@ class FlyCart extends Addon implements AddonInterface {
 					'default'  => 'bottom-left',
 					'sanitize' => 'text'
 				),
-				'fly_cart_icon'          => array(
+				'fly_cart_icon'            => array(
 					'id'       => 'fly_cart_icon',
 					'title'    => __( 'Icon', 'woo-assistant' ),
 					'type'     => 'radioInline',
@@ -112,14 +129,20 @@ class FlyCart extends Addon implements AddonInterface {
 					'options'  => $basketIcons,
 					'sanitize' => 'text'
 				),
-				'fly_cart_primary_color' => array(
+				'fly_cart_title'           => array(
+					'id'      => 'fly_cart_title',
+					'title'   => __( 'Title', 'woo-assistant' ),
+					'type'    => 'text',
+					'default' => __( 'Cart', 'woo-assistant' )
+				),
+				/*'fly_cart_primary_color' => array(
 					'id'       => 'fly_cart_primary_color',
 					'title'    => __( 'Primary color', 'woo-assistant' ),
 					'type'     => 'wpColorPicker',
 					'default'  => Colors::primary,
 					'sanitize' => 'color',
-				),
-				'fly_cart_end_grid_1'    => array(
+				),*/
+				'fly_cart_end_grid_icon'   => array(
 					'type' => 'endGrid',
 				),
 			]
@@ -137,5 +160,22 @@ class FlyCart extends Addon implements AddonInterface {
 			'cat'            => 'cart',
 			'more_info_link' => 'https://parsa.ws'
 		);
+	}
+
+	public function wpEnqueueScriptsAction(): void {
+		$pluginVersion = Assets::getVersion();
+		$debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
+
+		wp_enqueue_style( WOOASSISTANT_PLUGIN_KEY . '-fly-cart-style',
+			Assets::url( 'css/fly-cart' . $debugName . '.css' ),
+			false, $pluginVersion );
+
+		wp_enqueue_script( WOOASSISTANT_PLUGIN_SLUG . '-fly-cart-script',
+			Assets::url( 'js/fly-cart.min.js' ),
+			[ 'jquery' ], $pluginVersion, [ 'in_footer' => true ] );
+
+		/*wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-fly-cart-script', WOOASSISTANT_PLUGIN_KEYCAP . 'FlyCart', array(
+			'plusMinusButtons' => Sanitizing::int( Settings::get( 'quantity_input_plus_minus_button', false ) )
+		) );*/
 	}
 }
