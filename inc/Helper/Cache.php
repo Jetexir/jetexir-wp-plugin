@@ -22,11 +22,11 @@ class Cache {
 	}
 
 	public static function get( $key, $useDBCache = true ) {
-		if ( $value = wp_cache_get( $key, self::cacheGroup ) ) {
+		if ( ( $value = wp_cache_get( $key, self::cacheGroup ) ) !== false ) {
 			return $value;
 		}
 
-		if ( $useDBCache && $value = get_transient( $key . '_' . self::cacheGroup ) ) {
+		if ( $useDBCache && ( $value = get_transient( $key . '_' . self::cacheGroup ) ) !== false ) {
 			return $value;
 		}
 
