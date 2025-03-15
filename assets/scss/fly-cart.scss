@@ -1,72 +1,118 @@
 @use "utilities/variables";
 
-/*
-.wa-fly-cart {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  color: var(--wa-element-color, variables.$text);
-  background-color: var(--wa-element-bg-color, variables.$white2);
-  border: 1.5px solid var(--wa-element-border-color, variables.$border_color);
-  border-radius: var(--wa-element-border-radius, 5px);
-  z-index: 9999;
-  transition: all 0.5s;
-  box-shadow: rgba(33, 35, 38, 0.1) 0 10px 10px -10px;
-  text-decoration: none;
-
-  .wa-fly-cart-count {
-    position: absolute;
+#wa-fly-cart-modal {
+  .wa-fly-cart-items {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    top: -10px;
-    height: 30px;
-    width: 30px;
-    font-size: 12px;
-    border-radius: 50%;
-    color: white;
-    background: var(--fly-cart-primary-color, variables.$primary);
-  }
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
 
-  &.wa-fly-cart-top {
-    top: 40px;
+    .wa-fly-cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
 
-    &:hover, &:focus {
-      top: 45px;
+      .wa-fly-cart-item-image {
+        width: 60px;
+        flex: 0 0 60px;
+      }
+
+      .wa-fly-cart-item-info {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      .wa-fly-cart-item-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        gap: 7px;
+        font-size: 0.8em;
+      }
+
+      .wa-fly-cart-item-price {
+        font-size: 0.8em;
+      }
+
+      .wa-fly-cart-item-quantity {
+        display: flex;
+        border-radius: 3px;
+        overflow: hidden;
+        background-color: #ededed;
+
+        .quantity {
+          width: auto !important;
+          min-width: 0 !important;
+          margin: 0 !important;
+        }
+
+        input, button {
+          border: none;
+          outline: none;
+          background-color: transparent;
+          box-shadow: none;
+          padding: 5px;
+          font-size: 0.8em;
+          height: 100%;
+
+          &:hover, &:focus {
+            border: none;
+            outline: none;
+            background-color: transparent;
+          }
+        }
+
+        input {
+          width: 60px;
+        }
+
+        button {
+          padding: 5px 10px;
+
+          &:hover, &:focus {
+            background-color: #e3e3e3;
+          }
+        }
+
+        .wa-fly-cart-item-quantity-value {
+          padding: 5px 10px;
+          display: inline-block;
+        }
+
+        &.wa-fly-cart-item-quantity-buttons {
+          input {
+            width: 40px;
+          }
+        }
+      }
+
+      .wa-fly-cart-item-remove {
+        color: variables.$red;
+        gap: 3px;
+      }
     }
   }
 
-  &.wa-fly-cart-bottom {
-    bottom: 40px;
+  .wa-fly-cart-meta {
+    justify-content: space-between;
+    font-size: 0.9em;
 
-    &:hover, &:focus {
-      bottom: 45px;
+    > span:nth-child(even) {
+      font-weight: 600;
     }
   }
 
-  &.wa-fly-cart-left {
-    left: 40px;
+  .wa-modal-footer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 
-    .wa-fly-cart-count {
-      right: -10px;
+    > * {
+      flex-basis: 50%;
+      flex-grow: 0;
     }
   }
-
-  &.wa-fly-cart-right {
-    right: 40px;
-
-    .wa-fly-cart-count {
-      left: -10px;
-    }
-  }
-
-  &:hover, &:focus {
-    text-decoration: none;
-    border-color: var(--wa-element-hover-border-color, variables.$border_color);
-    color: var(--wa-element-hover-color, variables.$text);
-    background-color: var(--wa-element-hover-bg-color, variables.$white2);
-  }
-}*/
+}
