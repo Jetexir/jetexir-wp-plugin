@@ -4,6 +4,7 @@ namespace WooAssistant\App;
 
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Nonce;
+use WooAssistant\Helper\WordPress;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,6 +27,7 @@ class AppAssets {
 			'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 			'ajaxNonce' => Nonce::create(),
 			'sslError'  => __( 'Your site does not have SSL support, For example: https://example.com', 'woo-assistant' ),
+			'pageName'  => WordPress::getPageName()
 		) );
 	}
 }
