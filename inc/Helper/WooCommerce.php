@@ -11,31 +11,31 @@ class WooCommerce {
 		return is_woocommerce();
 	}
 
-	public static function isShop() {
+	public static function isShop(): bool {
 		return is_shop();
 	}
 
-	public static function isProduct() {
+	public static function isProduct(): bool {
 		return is_product();
 	}
 
-	public static function isProductTaxonomy() {
+	public static function isProductTaxonomy(): bool {
 		return is_product_taxonomy();
 	}
 
-	public static function isProductCategory( $term = '' ) {
+	public static function isProductCategory( $term = '' ): bool {
 		return is_product_category( $term );
 	}
 
-	public static function isProductTag( $term = '' ) {
+	public static function isProductTag( $term = '' ): bool {
 		return is_product_tag( $term );
 	}
 
-	public static function isCart() {
+	public static function isCart(): bool {
 		return is_cart();
 	}
 
-	public static function isCheckout() {
+	public static function isCheckout(): bool {
 		return is_checkout();
 	}
 
@@ -51,10 +51,34 @@ class WooCommerce {
 	 *
 	 *
 	 * @param mixed $productID Post object or post ID of the product.
+	 *
 	 * @return \WC_Product|null|false
 	 */
 	public static function getProduct( $productID ) {
 		return wc_get_product( $productID );
+	}
+
+	/**
+	 * @return \WC_Cart|null
+	 */
+	public static function getCart(): ?\WC_Cart {
+		return WC()->cart;
+	}
+
+	public static function getCartItemsCount(): int {
+		return WC()->cart->get_cart_contents_count();
+	}
+
+	public static function getCartTotal() {
+		return WC()->cart->get_cart_total();
+	}
+
+	public static function getCartSubTotal() {
+		return WC()->cart->get_cart_subtotal();
+	}
+
+	public static function getCartItems(): array {
+		return WC()->cart->get_cart();
 	}
 
 	public static function getCartProduct( $productID, $variationId = 0 ) {
@@ -62,7 +86,7 @@ class WooCommerce {
 			return false;
 		}
 
-		$items         = WC()->cart->get_cart();
+		$items         = self::getCartItems();
 		$cartProductId = $variationId ?: $productID;
 		$key           = $variationId ? 'variation_id' : 'product_id';
 		foreach ( $items as $item ) {
@@ -72,6 +96,10 @@ class WooCommerce {
 		}
 
 		return false;
+	}
+
+	public static function removeCartItem( $itemKey ): bool {
+		return WC()->cart->remove_cart_item( $itemKey );
 	}
 
 	public static function getCurrentId(): int {
