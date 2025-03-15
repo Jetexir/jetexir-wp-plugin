@@ -85,16 +85,16 @@ jQuery(document).ready(function ($) {
         let $this = $(this),
             faqItem = $this.closest('.wa-faq-item'),
             faqAnswer = faqItem.find('.wa-faq-answer'),
-            faqActive = faqItem.hasClass('active');
+            faqActive = faqItem.hasClass('wa-active');
 
         $('.wa-faq-item').each(function (i) {
-            $(this).removeClass('active');
+            $(this).removeClass('wa-active');
             $(this).find('.wa-faq-answer').css('max-height', 0);
         });
 
         if (!faqActive) {
-            faqItem.toggleClass('active');
-            if (faqItem.hasClass('active')) {
+            faqItem.toggleClass('wa-active');
+            if (faqItem.hasClass('wa-active')) {
                 faqAnswer.css('max-height', 'initial');
             } else {
                 faqAnswer.css('max-height', 0);
