@@ -23,6 +23,8 @@ class AppAssets {
 			Assets::url( 'js/global.min.js' ),
 			[ 'jquery' ], $pluginVersion, [ 'in_footer' => true ] );
 
+		wp_add_inline_script( WOOASSISTANT_PLUGIN_SLUG . '-global', 'var wooAssistantAjax, wooAssistantModalCloseEvent;', 'before' );
+
 		wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-global', WOOASSISTANT_PLUGIN_KEYCAP, array(
 			'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 			'ajaxNonce' => Nonce::create(),

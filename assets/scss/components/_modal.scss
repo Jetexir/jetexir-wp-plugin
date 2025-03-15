@@ -1,10 +1,15 @@
 @use "../utilities/variables";
 
 .wa-modal {
+  --wa-modal-color: var(--wa-text-color, variables.$text);
+  --wa-modal-border-width: var(--wa-element-border-width, 0);
+  --wa-modal-border-color: variables.$gray_light_two;
+  --wa-modal-bg-color: var(--wa-bg-color, variables.$white);
+  --wa-modal-border-radius: var(--wa-element-border-radius, 0);
+
   display: none;
   position: fixed;
   z-index: 999999;
-  font-size: 14px;
   padding: 0;
   height: 100%;
   max-height: 100%;
@@ -12,40 +17,83 @@
   overflow-x: hidden;
   overflow-y: auto;
   outline: 0;
-  left: 0;
-  right: 0;
   top: 0;
-  bottom: 0;
-  color: black;
+  left: 0;
   pointer-events: none;
+  font-size: 16px;
+  border: none;
 
-  &.active {
-    opacity: 1;
-  }
-
-  .modal-dialog {
-    transition: transform .3s ease-out;
-    transform: translate(0, -50px);
+  .wa-modal-dialog {
     position: relative;
     width: auto;
     max-width: 500px;
-    margin-right: auto;
-    margin-left: auto;
+    margin: calc(var(--wa-admin-bar-height, 0) + 2em) auto 2em;
     pointer-events: none;
   }
 
-  .modal-content {
+  .wa-modal-content {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    color: var(--bs-modal-color);
+    color: var(--wa-modal-color);
     pointer-events: auto;
-    background-color: var(--bs-modal-bg);
+    background-color: var(--wa-modal-bg-color);
     background-clip: padding-box;
-    border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
-    border-radius: var(--bs-modal-border-radius);
+    border: var(--wa-modal-border-width) solid var(--wa-modal-border-color);
+    border-radius: var(--wa-modal-border-radius);
+    overflow: hidden;
     outline: 0;
+  }
+
+  .wa-modal-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: var(--wa-modal-border-width) solid var(--wa-modal-border-color);
+  }
+
+  .wa-modal-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+
+  .wa-modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 15px;
+  }
+
+  .wa-modal-footer {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px;
+    border-top: var(--wa-modal-border-width) solid var(--wa-modal-border-color);
+
+    a, button {
+      text-align: center;
+    }
+  }
+
+  &.wa-fade {
+    .wa-modal-dialog {
+      transition: transform .3s ease-out;
+      transform: translate(0, -50px);
+    }
+  }
+
+  &.wa-active {
+    .wa-modal-dialog {
+      transform: none;
+    }
   }
 }
 
@@ -64,7 +112,7 @@
   opacity: 0;
   visibility: hidden;
 
-  &.active {
+  &.wa-active {
     opacity: 1;
     visibility: visible;
   }
