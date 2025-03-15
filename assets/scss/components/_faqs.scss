@@ -33,7 +33,7 @@
       }
     }
 
-    &:not(.active):hover {
+    &:not(.wa-active):hover {
       border-color: var(--wa-element-hover-border-color, variables.$border_color);
 
       .wa-faq-question {
@@ -50,7 +50,7 @@
       font-size: .9em;
     }
 
-    &.active {
+    &.wa-active {
       .wa-faq-question {
         & i:is(.wa-icon-chevrons-down, .wa-icon-chevron-down ,.wa-icon-arrow-down, .wa-icon-circle-down) {
           transform: rotate(180deg);
