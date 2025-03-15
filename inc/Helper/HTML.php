@@ -654,8 +654,11 @@ class HTML {
 		if ( empty( $data['id'] ) && in_array( $data['type'], self::saveFields, true ) ) {
 			return false;
 		}
-
-		$attributes['data-default'] = $data['default'] ?? '';
+		$default = $data['default'] ?? '';
+		if ( is_array( $default ) ) {
+			$default = JSON::encode( $default );
+		}
+		$attributes['data-default'] = $default;
 
 		if ( isset( $data['setting_value'] ) && ( is_string( $data['setting_value'] ) || is_numeric( $data['setting_value'] ) ) ) {
 			$settingValue = html_entity_decode( $data['setting_value'] );
