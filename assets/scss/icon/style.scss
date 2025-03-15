@@ -3,9 +3,9 @@
 @font-face {
   font-family: '#{$icomoon-font-family}';
   src:
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?18rlr0') format('truetype'),
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?18rlr0') format('woff'),
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?18rlr0##{$icomoon-font-family}') format('svg');
+          url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?r9efbd') format('truetype'),
+          url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?r9efbd') format('woff'),
+          url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?r9efbd##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -96,6 +96,11 @@
     content: $wa-icon-chevron-up;
   }
 }
+.wa-icon-cross {
+  &:before {
+    content: $wa-icon-cross;
+  }
+}
 .wa-icon-shopping-cart7 {
   &:before {
     content: $wa-icon-shopping-cart7;
@@ -131,6 +136,11 @@
     content: $wa-icon-weibo;
   }
 }
+.wa-icon-close {
+  &:before {
+    content: $wa-icon-close;
+  }
+}
 .wa-icon-shopping-cart1 {
   &:before {
     content: $wa-icon-shopping-cart1;
@@ -139,6 +149,11 @@
 .wa-icon-location-shopping {
   &:before {
     content: $wa-icon-location-shopping;
+  }
+}
+.wa-icon-circle-with-cross {
+  &:before {
+    content: $wa-icon-circle-with-cross;
   }
 }
 .wa-icon-shopping-basket {
