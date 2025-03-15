@@ -1,6 +1,6 @@
 @font-face {
   font-family: "wooassistant-icon";
-  src: url("../fonts/wooassistant-icon.ttf?18rlr0") format("truetype"), url("../fonts/wooassistant-icon.woff?18rlr0") format("woff"), url("../fonts/wooassistant-icon.svg?18rlr0#wooassistant-icon") format("svg");
+  src: url("../fonts/wooassistant-icon.ttf?r9efbd") format("truetype"), url("../fonts/wooassistant-icon.woff?r9efbd") format("woff"), url("../fonts/wooassistant-icon.svg?r9efbd#wooassistant-icon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -75,6 +75,10 @@
   content: "\e91a";
 }
 
+.wa-icon-cross:before {
+  content: "\e92a";
+}
+
 .wa-icon-shopping-cart7:before {
   content: "\e91f";
 }
@@ -103,12 +107,20 @@
   content: "\ea9a";
 }
 
+.wa-icon-close:before {
+  content: "\e927";
+}
+
 .wa-icon-shopping-cart1:before {
   content: "\e922";
 }
 
 .wa-icon-location-shopping:before {
   content: "\e923";
+}
+
+.wa-icon-circle-with-cross:before {
+  content: "\e92b";
 }
 
 .wa-icon-shopping-basket:before {
