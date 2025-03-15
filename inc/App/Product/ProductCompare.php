@@ -12,6 +12,8 @@ use WooAssistant\Helper\Cookie;
 use WooAssistant\Helper\JSON;
 use WooAssistant\Helper\Nonce;
 use WooAssistant\Helper\Notice;
+use WooAssistant\Helper\Param;
+use WooAssistant\Helper\Sanitizing;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Helper\WordPress;
 use WooAssistant\Interfaces\AddonInterface;
@@ -206,11 +208,10 @@ class ProductCompare extends Addon implements AddonInterface {
 	 * @return void
 	 */
 	public function addRemoveItem(): void {
-		$productID = (int) $_POST['product_id'];
-
 		if ( Nonce::verify() ) {
-			$max    = Settings::get( 'product_compare_max_items', 2 );
-			$update = $this->updateStorage( $productID, $max );
+			$productID = Sanitizing::int( Param::post( 'product_id', 0 ) );
+			$max       = Settings::get( 'product_compare_max_items', 2 );
+			$update    = $this->updateStorage( $productID, $max );
 
 			$data = array(
 				'status'   => $update['status'],
@@ -271,7 +272,7 @@ class ProductCompare extends Addon implements AddonInterface {
 	public function addButton(): void {
 		$productID = get_the_ID();
 		$exists    = $this->checkExistsItem( $productID );
-		echo '<button type="button" class="button wa-button wa-product-compare-button' . ( $exists ? ' wa-button-remove' : '' ) . '" data-id="' . $productID . '" data-action="non">' .
+		echo '<button type="button" class="button wa-button wa-button-secondary wa-product-compare-button' . ( $exists ? ' wa-button-remove' : '' ) . '" data-id="' . $productID . '" data-action="non">' .
 		     Settings::get( 'product_compare_button_text', __( 'Compare', 'woo-assistant' ) )
 		     . '</button>';
 	}
