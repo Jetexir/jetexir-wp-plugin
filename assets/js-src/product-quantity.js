@@ -1,6 +1,5 @@
 jQuery(document).ready(function ($) {
-    const waWcCart = $('form.cart'),
-        waQuantityInput = $('input[name="quantity"]');
+    const waWcCart = $('form.cart');
 
     if (waWcCart.length > 0) {
         waWcCart.addClass('wa-quantity-input-plus-minus');
@@ -8,36 +7,39 @@ jQuery(document).ready(function ($) {
     }
 
     if (WooAssistantProductQuantity.plusMinusButtons === '1') {
-        if (waQuantityInput.length > 0) {
-            $('.wa-button-change-quantity').on('click', function () {
-                let qtyVal = parseInt(waQuantityInput.val()),
-                    step = parseInt(waQuantityInput.attr('step')),
-                    min = parseInt(waQuantityInput.attr('min')),
-                    max = parseInt(waQuantityInput.attr('max')),
-                    action = $(this).data('action');
+        $('.wa-button-change-quantity').on('click', function () {
+            let qtyCurrentVal,
+                parentDiv = $(this).closest('.quantity'),
+                waQuantityInput = parentDiv.find('input[name="quantity"]'),
+                qtyVal = parseInt(waQuantityInput.val()),
+                step = parseInt(waQuantityInput.attr('step')),
+                min = parseInt(waQuantityInput.attr('min')),
+                max = parseInt(waQuantityInput.attr('max')),
+                action = $(this).data('action');
 
-                step = isNaN(step) ? 1 : step;
-                min = isNaN(min) ? 1 : min;
+            step = isNaN(step) ? 1 : step;
+            min = isNaN(min) ? 1 : min;
+            qtyCurrentVal = qtyVal = isNaN(qtyVal) ? min : qtyVal;
 
-                if (action === 'plus' && (isNaN(max) || qtyVal < max)) {
-                    qtyVal += step;
+            if (action === 'plus' && (isNaN(max) || qtyVal < max)) {
+                qtyVal += step;
 
-                    if (!isNaN(max))
-                        qtyVal = Math.min(qtyVal, max);
+                if (!isNaN(max))
+                    qtyVal = Math.min(qtyVal, max);
 
-                } else if (action === 'minus' && qtyVal > min) {
-                    qtyVal -= step;
-                    qtyVal = Math.max(qtyVal, min);
-                }
+            } else if (action === 'minus' && qtyVal > min) {
+                qtyVal -= step;
+                qtyVal = Math.max(qtyVal, min);
+            }
 
-                waQuantityInput.val(qtyVal);
-            });
-        }
+            if (qtyCurrentVal !== qtyVal)
+                waQuantityInput.val(qtyVal).trigger('change');
+        });
     }
 
     setTimeout(function () {
         if (WooAssistantProductQuantity.quantityDisabled === '1') {
-            $('input[name="quantity"]').prop('disabled', true);
+            waWcCart.find('input[name="quantity"]').prop('disabled', true);
             $('.wc-block-components-quantity-selector__input').prop('disabled', true);
             $('.wc-block-components-quantity-selector__button').prop('disabled', true);
         }
