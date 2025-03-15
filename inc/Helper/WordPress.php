@@ -39,6 +39,10 @@ class WordPress {
 		return get_bloginfo( $show, $filter );
 	}
 
+	public static function isAjax(): bool {
+		return wp_doing_ajax();
+	}
+
 	public static function isHome(): bool {
 		return ( is_front_page() && is_home() ) || is_front_page();
 	}

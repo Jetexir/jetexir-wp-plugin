@@ -81,84 +81,90 @@ class FlyCart extends Addon implements AddonInterface {
 
 	public function printCartBody( $echo = true ) {
 		$echo = ! is_bool( $echo ) || $echo;
-		$cart = WooCommerce::getCart();
+
 		ob_start();
 		echo '<div class="wa-loader-wrap" style="display: none"><div class="wa-loader"></div></div>';
 
-		if ( $cart->is_empty() ) {
-			echo '<p>' . Settings::get( 'fly_cart_empty_message', __( 'Your cart is currently empty!' ) ) . '</p>';
+		if ( ! WordPress::isAjax() && Settings::get( 'fly_cart_reload_page_load', true ) ) {
+			echo '<p>' . __( 'Loading...', 'woo-assistant' ) . '</p>';
 
 		} else {
-			$itemPrice       = Settings::get( 'fly_cart_item_price', 'price' );
-			$quantityButtons = Settings::get( 'fly_cart_quantity_buttons', true );
+			$cart = WooCommerce::getCart();
 
-			echo '<div class="wa-fly-cart-items">';
-			$items = $cart->get_cart();
+			if ( $cart->is_empty() ) {
+				echo '<p>' . Settings::get( 'fly_cart_empty_message', __( 'Your cart is currently empty!', 'woo-assistant' ) ) . '</p>';
 
-			foreach ( $items as $itemKey => $item ) {
-				$item        = (object) $item;
-				$productID   = $item->data->get_id();
-				$_product    = wc_get_product( $productID );
-				$productLink = $_product->get_permalink();
-				$name        = wp_strip_all_tags( $_product->get_name() );
-				$minValue    = apply_filters( 'woocommerce_quantity_input_min', $_product->get_min_purchase_quantity(), $_product );
-				$maxValue    = apply_filters( 'woocommerce_quantity_input_max', $_product->get_max_purchase_quantity(), $_product );
-				$buttons     = $quantityButtons && ! ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() );
+			} else {
+				$itemPrice       = Settings::get( 'fly_cart_item_price', 'price' );
+				$quantityButtons = Settings::get( 'fly_cart_quantity_buttons', true );
 
-				echo '<div class="wa-fly-cart-item" data-item-key="' . $itemKey . '" data-product-id="' . $productID . '">';
-				echo '<a href="' . $productLink . '" class="wa-fly-cart-item-image">' . $_product->get_image() . '</a>';
+				echo '<div class="wa-fly-cart-items">';
+				$items = $cart->get_cart();
 
-				echo '<div class="wa-fly-cart-item-info">';
-				echo '<a href="' . $productLink . '" class="wa-fly-cart-item-title">' . $name . '</a>';
-				if ( $itemPrice === 'price' ) {
-					echo sprintf( '<div class="wa-fly-cart-item-price">%s</div>', $_product->get_price_html() );
-				} elseif ( $itemPrice === 'subtotal' ) {
-					echo sprintf( '<div class="wa-fly-cart-item-price">%s</div>', WC()->cart->get_product_subtotal( $_product, $item->quantity ) );
+				foreach ( $items as $itemKey => $item ) {
+					$item        = (object) $item;
+					$productID   = $item->data->get_id();
+					$_product    = wc_get_product( $productID );
+					$productLink = $_product->get_permalink();
+					$name        = wp_strip_all_tags( $_product->get_name() );
+					$minValue    = apply_filters( 'woocommerce_quantity_input_min', $_product->get_min_purchase_quantity(), $_product );
+					$maxValue    = apply_filters( 'woocommerce_quantity_input_max', $_product->get_max_purchase_quantity(), $_product );
+					$buttons     = $quantityButtons && ! ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() );
+
+					echo '<div class="wa-fly-cart-item" data-item-key="' . $itemKey . '" data-product-id="' . $productID . '">';
+					echo '<a href="' . $productLink . '" class="wa-fly-cart-item-image">' . $_product->get_image() . '</a>';
+
+					echo '<div class="wa-fly-cart-item-info">';
+					echo '<a href="' . $productLink . '" class="wa-fly-cart-item-title">' . $name . '</a>';
+					if ( $itemPrice === 'price' ) {
+						echo sprintf( '<div class="wa-fly-cart-item-price">%s</div>', $_product->get_price_html() );
+					} elseif ( $itemPrice === 'subtotal' ) {
+						echo sprintf( '<div class="wa-fly-cart-item-price">%s</div>', WC()->cart->get_product_subtotal( $_product, $item->quantity ) );
+					}
+					echo '</div>';
+
+					echo '<div class="wa-fly-cart-item-actions">';
+
+					echo '<div class="wa-fly-cart-item-quantity ' . ( $buttons ? 'wa-fly-cart-item-quantity-buttons wa-appearance-text-field' : '' ) . '">';
+					if ( $buttons ) {
+						echo '<button type="button" data-action="minus" aria-label="' . __( 'Reduce quantity', 'woo-assistant' ) . '">-</button>';
+					}
+
+					if ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() ) {
+						echo '<span class="wa-fly-cart-item-quantity-value">' . $item->quantity . '</span>';
+					} else {
+						add_filter( 'woo_assistant_quantity_input_display_plus_minus', '__return_false' );
+						$quantity = isset( $item->quantity ) ? wc_stock_amount( $item->quantity ) : $_product->get_min_purchase_quantity();
+						woocommerce_quantity_input( [
+							'input_name'  => WOOASSISTANT_INPUT_PREFIX . 'quantity_' . $productID,
+							'input_value' => $quantity,
+							'min_value'   => $minValue,
+							'max_value'   => $maxValue,
+						], $_product );
+					}
+
+					if ( $buttons ) {
+						echo '<button type="button" data-action="plus" aria-label="' . __( 'Increase quantity', 'woo-assistant' ) . '">+</button>';
+					}
+
+					echo '</div>';
+
+					echo '<a href="#" class="wa-fly-cart-item-remove wa-flex" ><i class="wa-icon-cross"></i> ' . __( 'Remove', 'woo-assistant' ) . '</a>';
+					echo '</div>';
+
+					echo '</div>';
 				}
+
 				echo '</div>';
 
-				echo '<div class="wa-fly-cart-item-actions">';
-
-				echo '<div class="wa-fly-cart-item-quantity ' . ( $buttons ? 'wa-fly-cart-item-quantity-buttons wa-appearance-text-field' : '' ) . '">';
-				if ( $buttons ) {
-					echo '<button type="button" data-action="minus" aria-label="' . __( 'Reduce quantity', 'woo-assistant' ) . '">-</button>';
+				if ( Settings::get( 'fly_cart_subtotal', true ) ) {
+					echo '<div class="wa-fly-cart-subtotal wa-fly-cart-meta wa-flex"><span>' . __( 'Subtotal', 'woo-assistant' ) . '</span>' . $cart->get_cart_subtotal() . '</div>';
 				}
-
-				if ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() ) {
-					echo '<span class="wa-fly-cart-item-quantity-value">' . $item->quantity . '</span>';
-				} else {
-					add_filter( 'woo_assistant_quantity_input_display_plus_minus', '__return_false' );
-					$quantity = isset( $item->quantity ) ? wc_stock_amount( $item->quantity ) : $_product->get_min_purchase_quantity();
-					woocommerce_quantity_input( [
-						'input_name'  => WOOASSISTANT_INPUT_PREFIX . 'quantity_' . $productID,
-						'input_value' => $quantity,
-						'min_value'   => $minValue,
-						'max_value'   => $maxValue,
-					], $_product );
+				if ( Settings::get( 'fly_cart_total', true ) ) {
+					echo '<div class="wa-fly-cart-total wa-fly-cart-meta wa-flex"><span>' . __( 'Total', 'woo-assistant' ) . '</span>' . $cart->get_cart_total() . '</div>';
 				}
-
-				if ( $buttons ) {
-					echo '<button type="button" data-action="plus" aria-label="' . __( 'Increase quantity', 'woo-assistant' ) . '">+</button>';
-				}
-
-				echo '</div>';
-
-				echo '<a href="#" class="wa-fly-cart-item-remove wa-flex" ><i class="wa-icon-cross"></i> ' . __( 'Remove', 'woo-assistant' ) . '</a>';
-				echo '</div>';
-
-				echo '</div>';
-			}
-
-			echo '</div>';
-
-			if ( Settings::get( 'fly_cart_subtotal', true ) ) {
-				echo '<div class="wa-fly-cart-subtotal wa-fly-cart-meta wa-flex"><span>' . __( 'Subtotal', 'woo-assistant' ) . '</span>' . $cart->get_cart_subtotal() . '</div>';
-			}
-			if ( Settings::get( 'fly_cart_total', true ) ) {
-				echo '<div class="wa-fly-cart-total wa-fly-cart-meta wa-flex"><span>' . __( 'Total', 'woo-assistant' ) . '</span>' . $cart->get_cart_total() . '</div>';
 			}
 		}
-
 
 		if ( $echo ) {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -428,8 +434,16 @@ class FlyCart extends Addon implements AddonInterface {
 				'end_inline_elements_checkout_button'   => array(
 					'type' => 'endInlineElements',
 				),
-
-				'fly_cart_overlay_layer'  => array(
+				'fly_cart_reload_page_load'             => array(
+					'id'       => 'fly_cart_reload_page_load',
+					'title'    => __( 'Reload the cart', 'woo-assistant' ),
+					'desc'     => __( 'Reload the shopping cart after the page opens.', 'woo-assistant' ),
+					'type'     => 'toggle',
+					'value'    => 1,
+					'default'  => true,
+					'sanitize' => 'bool'
+				),
+				'fly_cart_overlay_layer'                => array(
 					'id'       => 'fly_cart_overlay_layer',
 					'title'    => __( 'Overlay layer', 'woo-assistant' ),
 					'type'     => 'toggle',
@@ -437,7 +451,7 @@ class FlyCart extends Addon implements AddonInterface {
 					'default'  => true,
 					'sanitize' => 'bool'
 				),
-				'fly_cart_end_grid_modal' => array(
+				'fly_cart_end_grid_modal'               => array(
 					'type' => 'endGrid',
 				),
 
@@ -536,8 +550,8 @@ class FlyCart extends Addon implements AddonInterface {
 			Assets::url( 'js/fly-cart.min.js' ),
 			[ WOOASSISTANT_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
-		/*wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-fly-cart-script', WOOASSISTANT_PLUGIN_KEYCAP . 'FlyCart', array(
-			'plusMinusButtons' => Sanitizing::int( Settings::get( 'quantity_input_plus_minus_button', false ) )
-		) );*/
+		wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-fly-cart-script', WOOASSISTANT_PLUGIN_KEYCAP . 'FlyCart', array(
+			'reloadOnLoad' => Sanitizing::int( Settings::get( 'fly_cart_reload_page_load', true ) )
+		) );
 	}
 }

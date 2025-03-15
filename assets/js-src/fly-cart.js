@@ -121,4 +121,10 @@ jQuery(document).ready(function ($) {
     });
 
     waFlyCartInit();
+
+    if (WooAssistantFlyCart.reloadOnLoad === '1') {
+        setTimeout(function () {
+            waFlyCartUpdate();
+        }, 2000);
+    }
 });
