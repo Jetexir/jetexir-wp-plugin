@@ -1,6 +1,6 @@
 @font-face {
   font-family: "wooassistant-icon";
-  src: url("../fonts/wooassistant-icon.ttf?18rlr0") format("truetype"), url("../fonts/wooassistant-icon.woff?18rlr0") format("woff"), url("../fonts/wooassistant-icon.svg?18rlr0#wooassistant-icon") format("svg");
+  src: url("../fonts/wooassistant-icon.ttf?r9efbd") format("truetype"), url("../fonts/wooassistant-icon.woff?r9efbd") format("woff"), url("../fonts/wooassistant-icon.svg?r9efbd#wooassistant-icon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -75,6 +75,10 @@
   content: "\e91a";
 }
 
+.wa-icon-cross:before {
+  content: "\e92a";
+}
+
 .wa-icon-shopping-cart7:before {
   content: "\e91f";
 }
@@ -103,12 +107,20 @@
   content: "\ea9a";
 }
 
+.wa-icon-close:before {
+  content: "\e927";
+}
+
 .wa-icon-shopping-cart1:before {
   content: "\e922";
 }
 
 .wa-icon-location-shopping:before {
   content: "\e923";
+}
+
+.wa-icon-circle-with-cross:before {
+  content: "\e92b";
 }
 
 .wa-icon-shopping-basket:before {
@@ -301,10 +313,10 @@ body.rtl.woo-assistant-notices .wa-notice {
   transition: all 0.2s;
   font-size: 24px;
 }
-.wa-faqs-wrap .wa-faq-item:not(.active):hover {
+.wa-faqs-wrap .wa-faq-item:not(.wa-active):hover {
   border-color: var(--wa-element-hover-border-color, #E6E2F5);
 }
-.wa-faqs-wrap .wa-faq-item:not(.active):hover .wa-faq-question {
+.wa-faqs-wrap .wa-faq-item:not(.wa-active):hover .wa-faq-question {
   color: var(--wa-element-hover-color, #2B2B2B);
   background-color: var(--wa-element-hover-bg-color, rgb(247.35, 247.35, 247.35));
 }
@@ -315,13 +327,13 @@ body.rtl.woo-assistant-notices .wa-notice {
   padding: 0 15px;
   font-size: 0.9em;
 }
-.wa-faqs-wrap .wa-faq-item.active .wa-faq-question i:is(.wa-icon-chevrons-down, .wa-icon-chevron-down, .wa-icon-arrow-down, .wa-icon-circle-down) {
+.wa-faqs-wrap .wa-faq-item.wa-active .wa-faq-question i:is(.wa-icon-chevrons-down, .wa-icon-chevron-down, .wa-icon-arrow-down, .wa-icon-circle-down) {
   transform: rotate(180deg);
 }
-.wa-faqs-wrap .wa-faq-item.active .wa-faq-question i.wa-icon-plus {
+.wa-faqs-wrap .wa-faq-item.wa-active .wa-faq-question i.wa-icon-plus {
   transform: rotate(45deg);
 }
-.wa-faqs-wrap .wa-faq-item.active .wa-faq-answer {
+.wa-faqs-wrap .wa-faq-item.wa-active .wa-faq-answer {
   padding: 15px;
 }
 
@@ -408,10 +420,14 @@ body.rtl.woo-assistant-notices .wa-notice {
 }
 
 .wa-modal {
+  --wa-modal-color: var(--wa-text-color, variables.$text);
+  --wa-modal-border-width: var(--wa-element-border-width, 0);
+  --wa-modal-border-color: variables.$gray_light_two;
+  --wa-modal-bg-color: var(--wa-bg-color, variables.$white);
+  --wa-modal-border-radius: var(--wa-element-border-radius, 0);
   display: none;
   position: fixed;
   z-index: 999999;
-  font-size: 14px;
   padding: 0;
   height: 100%;
   max-height: 100%;
@@ -419,38 +435,71 @@ body.rtl.woo-assistant-notices .wa-notice {
   overflow-x: hidden;
   overflow-y: auto;
   outline: 0;
-  left: 0;
-  right: 0;
   top: 0;
-  bottom: 0;
-  color: black;
+  left: 0;
   pointer-events: none;
+  font-size: 16px;
+  border: none;
 }
-.wa-modal.active {
-  opacity: 1;
-}
-.wa-modal .modal-dialog {
-  transition: transform 0.3s ease-out;
-  transform: translate(0, -50px);
+.wa-modal .wa-modal-dialog {
   position: relative;
   width: auto;
   max-width: 500px;
-  margin-right: auto;
-  margin-left: auto;
+  margin: calc(var(--wa-admin-bar-height, 0) + 2em) auto 2em;
   pointer-events: none;
 }
-.wa-modal .modal-content {
+.wa-modal .wa-modal-content {
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
-  color: var(--bs-modal-color);
+  color: var(--wa-modal-color);
   pointer-events: auto;
-  background-color: var(--bs-modal-bg);
+  background-color: var(--wa-modal-bg-color);
   background-clip: padding-box;
-  border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
-  border-radius: var(--bs-modal-border-radius);
+  border: var(--wa-modal-border-width) solid var(--wa-modal-border-color);
+  border-radius: var(--wa-modal-border-radius);
+  overflow: hidden;
   outline: 0;
+}
+.wa-modal .wa-modal-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: var(--wa-modal-border-width) solid var(--wa-modal-border-color);
+}
+.wa-modal .wa-modal-title {
+  margin-bottom: 0;
+  line-height: 1.5;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+.wa-modal .wa-modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 15px;
+}
+.wa-modal .wa-modal-footer {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 15px;
+  border-top: var(--wa-modal-border-width) solid var(--wa-modal-border-color);
+}
+.wa-modal .wa-modal-footer a, .wa-modal .wa-modal-footer button {
+  text-align: center;
+}
+.wa-modal.wa-fade .wa-modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -50px);
+}
+.wa-modal.wa-active .wa-modal-dialog {
+  transform: none;
 }
 
 .wa-modal-overlay {
@@ -468,9 +517,122 @@ body.rtl.woo-assistant-notices .wa-notice {
   opacity: 0;
   visibility: hidden;
 }
-.wa-modal-overlay.active {
+.wa-modal-overlay.wa-active {
   opacity: 1;
   visibility: visible;
+}
+
+.wa-button {
+  background-color: transparent;
+  color: var(--wa-text-color, #2B2B2B);
+  border: none;
+  padding: 10px 15px;
+  border-radius: var(--wa-button-border-radius, 0);
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  -webkit-appearance: button;
+  text-transform: none;
+}
+.wa-button:hover, .wa-button:focus, .wa-button:active {
+  color: var(--wa-text-color, #525252);
+  background-color: transparent;
+}
+.wa-button.wa-button-primary {
+  color: var(--wa-button-color, var(--wa-text-color, #2B2B2B));
+  background-color: var(--wa-button-bg-color, #873eff);
+  border-color: var(--wa-button-border-color, #720eec);
+}
+.wa-button.wa-button-primary:hover, .wa-button.wa-button-primary:focus, .wa-button.wa-button-primary:active {
+  color: var(--wa-button-hover-color, var(--wa-text-color, #2B2B2B));
+  background-color: var(--wa-button-hover-bg-color, rgb(125.1450777202, 46.15, 255));
+  border-color: var(--wa-button-hover-border-color, #720eec);
+}
+.wa-button.wa-button-primary:focus, .wa-button.wa-button-primary:active {
+  outline-offset: 2px;
+  outline: var(--wa-button-hover-border-color, #720eec) solid 2px;
+}
+.wa-button.wa-button-secondary {
+  color: var(--wa-secondary-button-color, var(--wa-text-color, #2B2B2B));
+  background-color: var(--wa-secondary-button-bg-color, #873eff);
+  border-color: var(--wa-secondary-button-border-color, #720eec);
+}
+.wa-button.wa-button-secondary:hover, .wa-button.wa-button-secondary:focus, .wa-button.wa-button-secondary:active {
+  color: var(--wa-secondary-button-hover-color, var(--wa-text-color, #2B2B2B));
+  background-color: var(--wa-secondary-button-hover-bg-color, rgb(125.1450777202, 46.15, 255));
+  border-color: var(--wa-secondary-button-hover-border-color, #720eec);
+}
+.wa-button.wa-button-secondary:focus, .wa-button.wa-button-secondary:active {
+  outline-offset: 2px;
+  outline: var(--wa-secondary-button-hover-border-color, #720eec) solid 2px;
+}
+
+.wa-button-close {
+  --wa-btn-close-color: var(--wa-text-color, variables.$dark);
+  --wa-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+  --wa-btn-close-opacity: 0.5;
+  --wa-btn-close-hover-opacity: 0.75;
+  --wa-btn-close-focus-opacity: 1;
+  --wa-btn-close-disabled-opacity: 0.25;
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.5rem;
+  color: var(--wa-btn-close-color);
+  background: transparent var(--wa-btn-close-bg) center/1em auto no-repeat;
+  border: 0;
+  border-radius: 0.375rem;
+  opacity: var(--wa-btn-close-opacity);
+}
+.wa-button-close:hover {
+  opacity: var(--wa-btn-close-hover-opacity);
+}
+.wa-button-close:focus {
+  opacity: var(--wa-btn-close-focus-opacity);
+}
+.wa-button-close[disabled] {
+  opacity: var(--wa-btn-close-disabled-opacity);
+}
+
+/*
+ https://css-loaders.com
+ HTML: <div class="wa-loader"></div>
+  */
+.wa-loader-wrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.6509803922);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wa-loader {
+  width: 32px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 3px;
+  background: radial-gradient(farthest-side, #424242 95%, rgba(0, 0, 0, 0)) 50% 0/8px 8px no-repeat, radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 2px), #424242 calc(100% - 2px)) content-box;
+  animation: wa-loader-animation 2s infinite;
+}
+
+@keyframes wa-loader-animation {
+  to {
+    transform: rotate(1turn);
+  }
+}
+body {
+  --wa-admin-bar-height: 0;
+}
+body.admin-bar {
+  --wa-admin-bar-height: 32px;
+}
+body *[class^=wa-] {
+  box-sizing: border-box;
 }
 
 .wa-appearance-text-field input[type=number] {
@@ -490,8 +652,20 @@ body.rtl.woo-assistant-notices .wa-notice {
   transition: opacity 0.15s linear;
   opacity: 1;
 }
-.wa-fade:not(.active) {
+.wa-fade:not(.wa-active) {
   opacity: 0;
+}
+
+.wa-flex {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar {
+    --wa-admin-bar-height: 46px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,85 @@
+@use 'sass:color';
+@use "../utilities/variables";
+
+.wa-button {
+  background-color: transparent;
+  color: var(--wa-text-color, variables.$dark);
+  border: none;
+  padding: 10px 15px;
+  border-radius: var(--wa-button-border-radius, 0);
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-transition: .2s;
+  transition: .2s;
+  -webkit-appearance: button;
+  text-transform: none;
+
+  &:hover, &:focus, &:active {
+    color: var(--wa-text-color, variables.$gray);
+    background-color: transparent;
+  }
+
+  &.wa-button-primary {
+    color: var(--wa-button-color, var(--wa-text-color, variables.$dark));
+    background-color: var(--wa-button-bg-color, variables.$primary);
+    border-color: var(--wa-button-border-color, variables.$woo_purple_50);
+
+    &:hover, &:focus, &:active {
+      color: var(--wa-button-hover-color, var(--wa-text-color, variables.$dark));
+      background-color: var(--wa-button-hover-bg-color, color.scale(variables.$primary, $lightness: -5%));
+      border-color: var(--wa-button-hover-border-color, variables.$woo_purple_50);
+    }
+
+    &:focus, &:active {
+      outline-offset: 2px;
+      outline: var(--wa-button-hover-border-color, variables.$woo_purple_50) solid 2px;
+    }
+  }
+
+  &.wa-button-secondary {
+    color: var(--wa-secondary-button-color, var(--wa-text-color, variables.$dark));
+    background-color: var(--wa-secondary-button-bg-color, variables.$primary);
+    border-color: var(--wa-secondary-button-border-color, variables.$woo_purple_50);
+
+    &:hover, &:focus, &:active {
+      color: var(--wa-secondary-button-hover-color, var(--wa-text-color, variables.$dark));
+      background-color: var(--wa-secondary-button-hover-bg-color, color.scale(variables.$primary, $lightness: -5%));
+      border-color: var(--wa-secondary-button-hover-border-color, variables.$woo_purple_50);
+    }
+
+    &:focus, &:active {
+      outline-offset: 2px;
+      outline: var(--wa-secondary-button-hover-border-color, variables.$woo_purple_50) solid 2px;
+    }
+  }
+}
+
+.wa-button-close {
+  --wa-btn-close-color: var(--wa-text-color, variables.$dark);
+  --wa-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+  --wa-btn-close-opacity: 0.5;
+  --wa-btn-close-hover-opacity: 0.75;
+  --wa-btn-close-focus-opacity: 1;
+  --wa-btn-close-disabled-opacity: 0.25;
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.5rem;
+  color: var(--wa-btn-close-color);
+  background: transparent var(--wa-btn-close-bg) center/1em auto no-repeat;
+  border: 0;
+  border-radius: .375rem;
+  opacity: var(--wa-btn-close-opacity);
+
+  &:hover {
+    opacity: var(--wa-btn-close-hover-opacity);
+  }
+
+  &:focus {
+    opacity: var(--wa-btn-close-focus-opacity);
+  }
+
+  &[disabled] {
+    opacity: var(--wa-btn-close-disabled-opacity);
+  }
+}

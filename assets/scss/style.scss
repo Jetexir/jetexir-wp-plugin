@@ -4,6 +4,20 @@
 @use "components/faqs";
 @use "components/fly_icons";
 @use "components/modal";
+@use "site/button";
+@use "components/loading";
+
+body {
+  --wa-admin-bar-height: 0;
+
+  &.admin-bar {
+    --wa-admin-bar-height: 32px;
+  }
+
+  *[class^="wa-"] {
+    box-sizing: border-box;
+  }
+}
 
 .wa-appearance-text-field {
   input[type="number"] {
@@ -27,8 +41,21 @@
   transition: opacity .15s linear;
   opacity: 1;
 
-  &:not(.active) {
+  &:not(.wa-active) {
     opacity: 0;
   }
 }
 
+.wa-flex {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media screen and (max-width: 782px) {
+  body {
+    &.admin-bar {
+      --wa-admin-bar-height: 46px;
+    }
+  }
+}
