@@ -292,6 +292,7 @@ class FlyCart extends Addon implements AddonInterface {
 			'wa-icon-shopping-basket',
 			'wa-icon-shopping-basket1',
 			'wa-icon-shopping-basket2',
+			'wa-icon-shopping-basket3',
 		);
 
 		if ( is_null( $icon ) ) {
