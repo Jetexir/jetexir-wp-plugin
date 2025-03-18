@@ -46,8 +46,14 @@ body {
   }
 }
 
+.wa-inline-flex {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+}
+
 .wa-flex {
-  display: flex;
+  display: flex !important;
   align-items: center;
   gap: 5px;
 }

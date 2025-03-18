@@ -1,6 +1,6 @@
 @font-face {
   font-family: "wooassistant-icon";
-  src: url("../fonts/wooassistant-icon.ttf?r9efbd") format("truetype"), url("../fonts/wooassistant-icon.woff?r9efbd") format("woff"), url("../fonts/wooassistant-icon.svg?r9efbd#wooassistant-icon") format("svg");
+  src: url("../fonts/wooassistant-icon.ttf?wpdkrz") format("truetype"), url("../fonts/wooassistant-icon.woff?wpdkrz") format("woff"), url("../fonts/wooassistant-icon.svg?wpdkrz#wooassistant-icon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -19,8 +19,172 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.wa-icon-magic-wand:before {
+  content: "\e94a";
+}
+
+.wa-icon-magic-portal:before {
+  content: "\e92c";
+}
+
+.wa-icon-magic-wand3:before {
+  content: "\e943";
+}
+
+.wa-icon-magic-wand1:before {
+  content: "\e944";
+}
+
+.wa-icon-magic-lamp:before {
+  content: "\e945";
+}
+
+.wa-icon-magic-lamp1:before {
+  content: "\e946";
+}
+
+.wa-icon-magic-wand2:before {
+  content: "\e947";
+}
+
+.wa-icon-wish:before {
+  content: "\e948";
+}
+
+.wa-icon-crossed-fingers:before {
+  content: "\e949";
+}
+
+.wa-icon-bluesky:before {
+  content: "\e90f";
+}
+
+.wa-icon-viber:before {
+  content: "\e903";
+}
+
+.wa-icon-whatsapp:before {
+  content: "\e905";
+}
+
+.wa-icon-telegram:before {
+  content: "\e904";
+}
+
+.wa-icon-mastodon:before {
+  content: "\e90e";
+}
+
+.wa-icon-yahoo:before {
+  content: "\e90b";
+}
+
+.wa-icon-x-twitter:before {
+  content: "\e900";
+}
+
+.wa-icon-shopping-basket3:before {
+  content: "\e938";
+}
+
+.wa-icon-heart3:before {
+  content: "\e92f";
+}
+
+.wa-icon-heart1:before {
+  content: "\e92d";
+}
+
+.wa-icon-heart-stroke:before {
+  content: "\e930";
+}
+
+.wa-icon-shopping-basket2:before {
+  content: "\e920";
+}
+
+.wa-icon-shopping-cart5:before {
+  content: "\e921";
+}
+
+.wa-icon-shopping-cart6:before {
+  content: "\e93a";
+}
+
+.wa-icon-checkmark:before {
+  content: "\ea10";
+}
+
+.wa-icon-checkmark2:before {
+  content: "\ea11";
+}
+
+.wa-icon-arrow-down:before {
+  content: "\ea3e";
+}
+
+.wa-icon-circle-down:before {
+  content: "\ea43";
+}
+
+.wa-icon-weibo:before {
+  content: "\ea9a";
+}
+
+.wa-icon-tick-outline:before {
+  content: "\e937";
+}
+
 .wa-icon-shopping-cart:before {
   content: "\e91c";
+}
+
+.wa-icon-star_rate:before {
+  content: "\e939";
+}
+
+.wa-icon-bookmark_outline:before {
+  content: "\e93c";
+}
+
+.wa-icon-star_outline:before {
+  content: "\e93d";
+}
+
+.wa-icon-star_half:before {
+  content: "\e93e";
+}
+
+.wa-icon-library_add:before {
+  content: "\e93f";
+}
+
+.wa-icon-bookmarks:before {
+  content: "\e940";
+}
+
+.wa-icon-bookmark:before {
+  content: "\e941";
+}
+
+.wa-icon-heart:before {
+  content: "\e942";
+}
+
+.wa-icon-library_add_check:before {
+  content: "\e933";
+}
+
+.wa-icon-check_circle_outline:before {
+  content: "\e934";
+}
+
+.wa-icon-check_circle:before {
+  content: "\e935";
+}
+
+.wa-icon-check_box:before {
+  content: "\e936";
 }
 
 .wa-icon-file_copy:before {
@@ -29,6 +193,14 @@
 
 .wa-icon-content_copy:before {
   content: "\e913";
+}
+
+.wa-icon-check:before {
+  content: "\e931";
+}
+
+.wa-icon-heart2:before {
+  content: "\e92e";
 }
 
 .wa-icon-shopping-bag:before {
@@ -83,30 +255,6 @@
   content: "\e91f";
 }
 
-.wa-icon-shopping-basket2:before {
-  content: "\e920";
-}
-
-.wa-icon-shopping-cart5:before {
-  content: "\e921";
-}
-
-.wa-icon-shopping-cart6:before {
-  content: "\e93a";
-}
-
-.wa-icon-arrow-down:before {
-  content: "\ea3e";
-}
-
-.wa-icon-circle-down:before {
-  content: "\ea43";
-}
-
-.wa-icon-weibo:before {
-  content: "\ea9a";
-}
-
 .wa-icon-close:before {
   content: "\e927";
 }
@@ -151,32 +299,8 @@
   content: "\e907";
 }
 
-.wa-icon-bluesky:before {
-  content: "\e90f";
-}
-
-.wa-icon-viber:before {
-  content: "\e903";
-}
-
-.wa-icon-whatsapp:before {
-  content: "\e905";
-}
-
-.wa-icon-telegram:before {
-  content: "\e904";
-}
-
-.wa-icon-mastodon:before {
-  content: "\e90e";
-}
-
-.wa-icon-yahoo:before {
-  content: "\e90b";
-}
-
-.wa-icon-x-twitter:before {
-  content: "\e900";
+.wa-icon-check1:before {
+  content: "\e932";
 }
 
 .wa-icon-shopping-basket1:before {
