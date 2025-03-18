@@ -102,7 +102,7 @@ class WooCommerce {
 		return WC()->cart->remove_cart_item( $itemKey );
 	}
 
-	public static function getCurrentId(): int {
+	public static function getCurrentProductId(): int {
 		global $product;
 
 		$productID = 0;
