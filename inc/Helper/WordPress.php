@@ -35,6 +35,14 @@ class WordPress {
 		return '';
 	}
 
+	public static function isUserLoggedIn(): bool {
+		return is_user_logged_in();
+	}
+
+	public static function getCurrentUserID(): int {
+		return get_current_user_id();
+	}
+
 	public static function blogInfo( $show = '', $filter = 'raw' ) {
 		return get_bloginfo( $show, $filter );
 	}
