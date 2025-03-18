@@ -158,7 +158,7 @@ class HTML {
 		$field .= '<select name="' . $name . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-' . $data['type'] . '" ' . self::getAttributes( $data ) . '>';
 
 		if ( ! empty( $data['option_none'] ) ) {
-			$field .= '<option value="' . $data['option_none_value'] . '">' . $data['option_none'] . '</option>';
+			$field .= '<option value="' . $data['option_none_value'] . '">-- ' . $data['option_none'] . ' --</option>';
 		}
 
 		if ( ! empty( $data['options'] ) && is_array( $data['options'] ) ) {
