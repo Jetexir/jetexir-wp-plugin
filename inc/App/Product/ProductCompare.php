@@ -217,7 +217,7 @@ class ProductCompare extends Addon implements AddonInterface {
 				'status'   => $update['status'],
 				'count'    => $update['count'],
 				'max'      => (int) $max,
-				'redirect' => $update['count'] >= $max ? get_permalink( Settings::get( 'product_compare_page', 0 ) ) : ''
+				'redirect' => $update['status'] === 'max_exceeded' ? get_permalink( Settings::get( 'product_compare_page', 0 ) ) : ''
 			);
 
 			wp_send_json_success( $data );
