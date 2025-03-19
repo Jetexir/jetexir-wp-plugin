@@ -101,4 +101,66 @@ jQuery(document).ready(function ($) {
             }
         }
     });
+
+    $('a[data-wa-product-remove-action]').on('click', function (e) {
+        e.preventDefault();
+
+        let $this = $(this),
+            removeAction = $this.data('wa-product-remove-action'),
+            removeWrapperTarget = $this.data('wa-product-list-wrap'),
+            removeNoticeTarget = $this.data('wa-product-list-notice'),
+            removeParentTarget = $this.data('wa-product-parent'),
+            removeLoaderTarget = $this.data('wa-product-loader'),
+            removeProductID = $this.data('product-id'),
+            removeWrapper, removeNotice, removeParent, removeLoader;
+
+        if (removeProductID === undefined || removeProductID === '' || removeAction === undefined || removeAction === '')
+            return;
+
+        removeWrapperTarget = removeWrapperTarget === undefined || removeWrapperTarget === '' ? '.wa-product-list-wrap' : removeWrapperTarget;
+        removeNoticeTarget = removeNoticeTarget === undefined || removeNoticeTarget === '' ? '.wa-product-list-notice' : removeNoticeTarget;
+        removeParentTarget = removeParentTarget === undefined || removeParentTarget === '' ? '.wa-product-item-wrap' : removeParentTarget;
+        removeLoaderTarget = removeLoaderTarget === undefined || removeLoaderTarget === '' ? '.wa-loader-wrap' : removeLoaderTarget;
+
+        removeWrapper = $this.closest(removeWrapperTarget);
+        removeNotice = removeWrapper.find(removeNoticeTarget);
+        removeParent = $this.closest(removeParentTarget);
+        removeLoader = removeWrapper.find(removeLoaderTarget);
+
+        if (wooAssistantAjax) return;
+        wooAssistantAjax = true;
+
+        removeLoader.css('display', '');
+
+        $.post(
+            WooAssistant.ajaxUrl,
+            {
+                nonce: WooAssistant.ajaxNonce,
+                action: removeAction,
+                product_id: removeProductID,
+            }
+        )
+            .done(function (data) {
+                removeParent.slideUp("normal", function () {
+                    $(this).remove();
+
+                    if (removeWrapper.find(removeParentTarget).length === 0) {
+                        removeNotice.css('display', '');
+                    }
+                });
+
+                if (data.data?.redirect && data.data.redirect !== '')
+                    window.location.href = data.data.redirect;
+            })
+            .fail(function (xhr, status, error) {
+                if (xhr.responseJSON?.data?.refresh)
+                    setTimeout(function () {
+                        window.location.reload(true);
+                    }, 3000);
+            })
+            .always(function () {
+                removeLoader.hide();
+                wooAssistantAjax = false;
+            });
+    })
 });
