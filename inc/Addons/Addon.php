@@ -33,6 +33,25 @@ abstract class Addon {
 		add_action( 'wp', [ $this, 'registerWpAction' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'registerWpEnqueueScriptsAction' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'registerAdminEnqueueScriptsAction' ] );
+
+		add_filter( 'query_vars', [ $this, 'registerQueryVarsFilter' ] );
+		add_filter( 'woocommerce_account_menu_items', [ $this, 'registerWooAccountMenuItemsFilter' ] );
+	}
+
+	public function registerQueryVarsFilter( $vars ) {
+		if ( method_exists( $this, 'queryVarsFilter' ) && $this->isActivated() ) {
+			return $this->queryVarsFilter( $vars );
+		}
+
+		return $vars;
+	}
+
+	public function registerWooAccountMenuItemsFilter( $items ) {
+		if ( method_exists( $this, 'wooAccountMenuItemsFilter' ) && $this->isActivated() ) {
+			return $this->wooAccountMenuItemsFilter( $items );
+		}
+
+		return $items;
 	}
 
 	public function registerAdminEnqueueScriptsAction(): void {
