@@ -1,36 +1,3 @@
-#wa-fly-cart-modal .wa-fly-cart-items {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-#wa-fly-cart-modal .wa-fly-cart-items .wa-fly-cart-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  width: 100%;
-}
-#wa-fly-cart-modal .wa-fly-cart-items .wa-fly-cart-item .wa-fly-cart-item-image {
-  width: 60px;
-  flex: 0 0 60px;
-}
-#wa-fly-cart-modal .wa-fly-cart-items .wa-fly-cart-item .wa-fly-cart-item-info {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  gap: 7px;
-}
-#wa-fly-cart-modal .wa-fly-cart-items .wa-fly-cart-item .wa-fly-cart-item-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  gap: 7px;
-  font-size: 0.8em;
-}
-#wa-fly-cart-modal .wa-fly-cart-items .wa-fly-cart-item .wa-fly-cart-item-price {
-  font-size: 0.8em;
-}
 #wa-fly-cart-modal .wa-fly-cart-items .wa-fly-cart-item .wa-fly-cart-item-quantity {
   display: flex;
   border-radius: 3px;
@@ -71,10 +38,6 @@
 }
 #wa-fly-cart-modal .wa-fly-cart-items .wa-fly-cart-item .wa-fly-cart-item-quantity.wa-fly-cart-item-quantity-buttons input {
   width: 40px;
-}
-#wa-fly-cart-modal .wa-fly-cart-items .wa-fly-cart-item .wa-fly-cart-item-remove {
-  color: #b04b55;
-  gap: 3px;
 }
 #wa-fly-cart-modal .wa-fly-cart-meta {
   justify-content: space-between;

@@ -98,7 +98,7 @@ class FlyCart extends Addon implements AddonInterface {
 				$itemPrice       = Settings::get( 'fly_cart_item_price', 'price' );
 				$quantityButtons = Settings::get( 'fly_cart_quantity_buttons', true );
 
-				echo '<div class="wa-fly-cart-items">';
+				echo '<div class="wa-fly-cart-items wa-product-list-wrap">';
 				$items = $cart->get_cart();
 
 				foreach ( $items as $itemKey => $item ) {
@@ -111,19 +111,19 @@ class FlyCart extends Addon implements AddonInterface {
 					$maxValue    = apply_filters( 'woocommerce_quantity_input_max', $_product->get_max_purchase_quantity(), $_product );
 					$buttons     = $quantityButtons && ! ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() );
 
-					echo '<div class="wa-fly-cart-item" data-item-key="' . $itemKey . '" data-product-id="' . $productID . '">';
-					echo '<a href="' . $productLink . '" class="wa-fly-cart-item-image">' . $_product->get_image() . '</a>';
+					echo '<div class="wa-fly-cart-item wa-product-item-wrap" data-item-key="' . $itemKey . '" data-product-id="' . $productID . '">';
+					echo '<a href="' . $productLink . '" class="wa-fly-cart-item-image wa-product-item-image">' . $_product->get_image() . '</a>';
 
-					echo '<div class="wa-fly-cart-item-info">';
-					echo '<a href="' . $productLink . '" class="wa-fly-cart-item-title">' . $name . '</a>';
+					echo '<div class="wa-fly-cart-item-info wa-product-item-info">';
+					echo '<a href="' . $productLink . '" class="wa-fly-cart-item-title wa-product-item-title">' . $name . '</a>';
 					if ( $itemPrice === 'price' ) {
-						echo sprintf( '<div class="wa-fly-cart-item-price">%s</div>', $_product->get_price_html() );
+						echo sprintf( '<div class="wa-fly-cart-item-price wa-product-item-price">%s</div>', $_product->get_price_html() );
 					} elseif ( $itemPrice === 'subtotal' ) {
-						echo sprintf( '<div class="wa-fly-cart-item-price">%s</div>', WC()->cart->get_product_subtotal( $_product, $item->quantity ) );
+						echo sprintf( '<div class="wa-fly-cart-item-price wa-product-item-price">%s</div>', WC()->cart->get_product_subtotal( $_product, $item->quantity ) );
 					}
 					echo '</div>';
 
-					echo '<div class="wa-fly-cart-item-actions">';
+					echo '<div class="wa-fly-cart-item-actions wa-product-item-actions">';
 
 					echo '<div class="wa-fly-cart-item-quantity ' . ( $buttons ? 'wa-fly-cart-item-quantity-buttons wa-appearance-text-field' : '' ) . '">';
 					if ( $buttons ) {
@@ -149,7 +149,7 @@ class FlyCart extends Addon implements AddonInterface {
 
 					echo '</div>';
 
-					echo '<a href="#" class="wa-fly-cart-item-remove wa-flex" ><i class="wa-icon-cross"></i> ' . __( 'Remove', 'woo-assistant' ) . '</a>';
+					echo '<a href="#" class="wa-fly-cart-item-remove wa-flex wa-product-item-remove" ><i class="wa-icon-cross"></i> ' . __( 'Remove', 'woo-assistant' ) . '</a>';
 					echo '</div>';
 
 					echo '</div>';
