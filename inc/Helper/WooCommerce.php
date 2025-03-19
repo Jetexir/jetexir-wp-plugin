@@ -3,6 +3,20 @@
 namespace WooAssistant\Helper;
 
 class WooCommerce {
+	public static function url( $page, $endpoint = 'dashboard' ) {
+		if ( $page === 'cart' ) {
+			return wc_get_cart_url();
+		} elseif ( $page === 'checkout' ) {
+			return wc_get_checkout_url();
+		} elseif ( in_array( $page, [ 'myaccount', 'dashboard' ] ) ) {
+			return $endpoint ? wc_get_account_endpoint_url( $endpoint ) : wc_get_page_permalink( 'myaccount' );
+		} elseif ( $page === 'terms' ) {
+			return wc_get_page_permalink( 'terms' );
+		}
+
+		return false;
+	}
+
 	public static function currencySymbol() {
 		return get_woocommerce_currency_symbol();
 	}
