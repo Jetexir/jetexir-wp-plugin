@@ -715,7 +715,7 @@ class HTML {
 		return $data;
 	}
 
-	private static function getAttributes( $data, $default = [] ): string {
+	public static function getAttributes( $data, $default = [] ): string {
 		$attributes = '';
 
 		if ( is_array( $data['attributes'] ) && is_array( $default ) ) {

@@ -101,7 +101,7 @@ class ProductCompare extends Addon implements AddonInterface {
 						if ( $addToCardButton ) {
 							$button = '';
 							if ( $product->is_purchasable() && $product->is_in_stock() ) {
-								$button = WooCommerce::getAddToCardButton( $product );
+								$button = WooCommerce::getAddToCartButton( $product );
 							}
 
 							$data['addToCard'][] = $button;
