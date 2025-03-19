@@ -25,6 +25,10 @@ class WooCommerce {
 		return is_woocommerce();
 	}
 
+	public static function isDashboard(): bool {
+		return is_account_page();
+	}
+
 	public static function isShop(): bool {
 		return is_shop();
 	}
