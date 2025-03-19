@@ -132,13 +132,13 @@ class WooCommerce {
 	}
 
 	/**
-	 * Get product add to card button
+	 * Get product add to cart button
 	 *
 	 * @param $product
 	 *
 	 * @return string
 	 */
-	public static function getAddToCardButton( $product ): string {
+	public static function getAddToCartButton( $product ): string {
 		ob_start();
 		$GLOBALS['product'] = $product;
 		woocommerce_template_loop_add_to_cart();
