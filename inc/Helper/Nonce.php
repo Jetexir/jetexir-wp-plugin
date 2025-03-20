@@ -8,7 +8,7 @@ class Nonce {
 	}
 
 	public static function verify( $nonce = null, $action = WOOASSISTANT_PLUGIN_KEY ) {
-		$nonce = is_null( $nonce ) && isset( $_POST['nonce'] ) ? Sanitizing::text( wp_unslash( $_POST['nonce'] ) ) : null;
+		$nonce = is_null( $nonce ) && isset( $_POST['nonce'] ) ? Sanitizing::text( wp_unslash( Param::post( 'nonce' ) ) ) : $nonce;
 		if ( is_null( $nonce ) ) {
 			return false;
 		}
