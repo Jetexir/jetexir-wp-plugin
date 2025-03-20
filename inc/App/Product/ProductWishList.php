@@ -180,16 +180,14 @@ class ProductWishList extends Addon implements AddonInterface {
 		$wishlist = is_array( $wishlist ) ? $wishlist : [];
 
 		if ( is_null( $list ) ) {
-			return $wishlist;
+			return apply_filters( 'woo_assistant_wishlist_items', $wishlist, $userId );;
 		}
 
 		$wishlist = $wishlist[ $list ] ?? [];
 
+		$wishlist = apply_filters( 'woo_assistant_wishlist_list_items', $wishlist, $list, $userId );
+
 		return $wishlist;
-
-		$wishlist = array_filter( $wishlist );
-
-		return array_map( 'intval', $wishlist );
 	}
 
 	public function addButton(): void {
