@@ -266,20 +266,20 @@ class ProductWishList extends Addon implements AddonInterface {
 			'button_appearance' => $buttonAppearance,
 			'remove_text'       => Settings::get( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'woo-assistant' ) ),
 			'browse_text'       => Settings::get( 'wishlist_button_browse_text', __( 'Browse wishlist', 'woo-assistant' ) ),
-			'added_action'      => SEttings::get( 'wishlist_added_action', 'remove' )
+			'added_action'      => Settings::get( 'wishlist_added_action', 'remove' )
 		) );
 	}
 
 	public function buttonShortcode( $atts ): string {
 		$atts = shortcode_atts( array(
 			'product_id'        => WooCommerce::getCurrentProductId(),
-			'icon'              => '<i class="wa-icon-heart"></i>',
-			'text'              => __( 'Add to wishlist', 'woo-assistant' ),
-			'remove_text'       => __( 'Remove from wishlist', 'woo-assistant' ),
-			'browse_text'       => __( 'Browse wishlist', 'woo-assistant' ),
-			'added_action'      => 'remove',
-			'type'              => 'button',
-			'button_appearance' => 'icon',
+			'icon'              => $this->getButtonIcons( Settings::get( 'wishlist_button_icon', 'wa-icon-heart' ), true ),
+			'text'              => Settings::get( 'wishlist_button_text', __( 'Add to wishlist', 'woo-assistant' ) ),
+			'remove_text'       => Settings::get( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'woo-assistant' ) ),
+			'browse_text'       => Settings::get( 'wishlist_button_browse_text', __( 'Browse wishlist', 'woo-assistant' ) ),
+			'added_action'      => Settings::get( 'wishlist_added_action', 'remove' ),
+			'type'              => Settings::get( 'wishlist_button_type', 'button' ),
+			'button_appearance' => 'icon_text',
 			'class'             => '',
 			'default_class'     => 'on'
 		), $atts, self::buttonShortCode );
