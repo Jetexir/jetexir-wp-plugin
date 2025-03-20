@@ -35,8 +35,11 @@ class ProductWishList extends Addon implements AddonInterface {
 				add_rewrite_endpoint( 'wishlist', EP_PAGES );
 				add_action( 'woocommerce_account_wishlist_endpoint', [ $this, 'wishlistEndPointContent' ] );
 			}
+
+			add_action( 'woocommerce_thankyou', [ $this, 'removeWishlistItem' ], 99999 );
 			add_action( 'wp_ajax_wa_product_wishlist_add_remove', [ $this, 'addRemoveItem' ] );
 			add_action( 'wp_ajax_wa_product_wishlist_remove', [ $this, 'addRemoveItem' ] );
+
 			if ( $position = Settings::get( 'wishlist_product_position', 'after_add_to_cart' ) ) {
 				add_action( 'woocommerce_single_product_summary', [
 					$this,
@@ -63,6 +66,48 @@ class ProductWishList extends Addon implements AddonInterface {
 				} elseif ( $position === 'after_add_to_cart' ) {
 					add_action( 'woocommerce_after_shop_loop_item', [ $this, 'addButton' ], 11 );
 				}
+			}
+		}
+	}
+
+	public function removeWishlistItem( $orderID ): void {
+		if ( ! Settings::get( 'wishlist_auto_remove', false ) || ! WordPress::isUserLoggedIn() ) {
+			return;
+		}
+
+		$order = wc_get_order( $orderID );
+		if ( ! $order ) {
+			return;
+		}
+
+		$productIDs = [];
+		foreach ( $order->get_items() as $item ) {
+			$productIDs[] = $item->get_product_id();
+		}
+
+		if ( empty( $productIDs ) ) {
+			return;
+		}
+
+		$userID = WordPress::getCurrentUserID();
+		$list   = array( 'default' );
+
+		foreach ( $list as $listKey ) {
+			$items = self::getListItems( $listKey, $userID );
+			if ( empty( $items ) ) {
+				continue;
+			}
+
+			$initItemsCount = count( $items );
+			$itemKeys       = array_keys( $items );
+			foreach ( $itemKeys as $productID ) {
+				if ( in_array( $productID, $productIDs, true ) ) {
+					unset( $items[ $productID ] );
+				}
+			}
+
+			if ( $initItemsCount !== count( $items ) ) {
+				self::saveListItems( $listKey, $items, $userID );
 			}
 		}
 	}
