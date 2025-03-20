@@ -24,6 +24,7 @@ class ProductWishList extends Addon implements AddonInterface {
 	private const buttonShortCode = 'wa_product_wishlist_button';
 	private const wishlistShortcode = 'wa_products_wishlist';
 	private const userMeta = WOOASSISTANT_PLUGIN_KEY . '_wishlist_items';
+	private const defaultList = 'default';
 
 	public function initAction(): void {
 		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
@@ -89,10 +90,10 @@ class ProductWishList extends Addon implements AddonInterface {
 			return;
 		}
 
-		$userID = WordPress::getCurrentUserID();
-		$list   = array( 'default' );
+		$userID   = WordPress::getCurrentUserID();
+		$listKeys = self::getListKeys( $userID );
 
-		foreach ( $list as $listKey ) {
+		foreach ( $listKeys as $listKey ) {
 			$items = self::getListItems( $listKey, $userID );
 			if ( empty( $items ) ) {
 				continue;
@@ -138,7 +139,7 @@ class ProductWishList extends Addon implements AddonInterface {
 	public function addRemoveItem(): void {
 		if ( Nonce::verify() ) {
 			$productID = Sanitizing::int( Param::post( 'product_id', 0 ) );
-			$list      = 'default'; //Sanitizing::text( Param::post( 'list', 'default' ) );
+			$list      = self::defaultList; //Sanitizing::text( Param::post( 'list', self::defaultList ) );
 			$max       = Settings::get( 'wishlist_max_items', 10 );
 			$update    = $this->updateStorage( $productID, $list, $max );
 
@@ -169,7 +170,7 @@ class ProductWishList extends Addon implements AddonInterface {
 	 *
 	 * @return array Return status and count of items
 	 */
-	private function updateStorage( int $productID, $list = 'default', int $max = 10 ): array {
+	private function updateStorage( int $productID, $list = self::defaultList, int $max = 10 ): array {
 		$listItems = self::getListItems( $list );
 		$count     = count( $listItems );
 		$status    = 'added';
@@ -197,7 +198,23 @@ class ProductWishList extends Addon implements AddonInterface {
 		return [ 'status' => $status, 'count' => $count ];
 	}
 
-	public static function checkExistsItem( $productID, $list = 'default' ): bool {
+	public static function getListKeys( $userID = 0 ): array {
+		if ( $userID === 0 ) {
+			$userID = WordPress::getCurrentUserID();
+		}
+
+		$listKeys = array( self::defaultList );
+		$listKeys = apply_filters( 'woo_assistant_wishlist_list_keys', $listKeys, $userID );
+		$listKeys = array_values( $listKeys );
+
+		if ( ! in_array( self::defaultList, $listKeys, true ) ) {
+			$listKeys[] = self::defaultList;
+		}
+
+		return $listKeys;
+	}
+
+	public static function checkExistsItem( $productID, $list = self::defaultList ): bool {
 		$productID = (int) $productID;
 		$listItems = self::getListItems( $list );
 
@@ -303,7 +320,7 @@ class ProductWishList extends Addon implements AddonInterface {
 			'data-product-id'   => $atts['product_id'],
 			'data-icon'         => str_replace( '"', "'", $atts['icon'] ),
 			'data-added-action' => $atts['added_action'],
-			'data-in-wishlist'  => $exists ? 'default' : '',
+			'data-in-wishlist'  => $exists ? self::defaultList : '',
 			'data-add-text'     => str_replace( '"', "'", $buttonAddText ),
 			'data-added-text'   => str_replace( '"', "'", $buttonAddedText ),
 		);
@@ -315,7 +332,7 @@ class ProductWishList extends Addon implements AddonInterface {
 	public function wishlistShortcode( $atts ): string {
 		$atts = shortcode_atts( array(
 			'user_id' => 0,
-			'list'    => 'default'
+			'list'    => self::defaultList
 		), $atts, self::wishlistShortcode );
 
 		$emptyNotice = Notice::addAndDisplay( 'product-compare', array(
