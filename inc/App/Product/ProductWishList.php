@@ -253,7 +253,7 @@ class ProductWishList extends Addon implements AddonInterface {
 	}
 
 	public function addButton(): void {
-		if ( WooCommerce::isProduct() ) {
+		if ( WooCommerce::isProduct() && WordPress::isAction( 'woocommerce_single_product_summary' ) ) {
 			$buttonAppearance = Settings::get( 'wishlist_product_button', 'icon_text' );
 		} else {
 			$buttonAppearance = Settings::get( 'wishlist_archive_button', 'icon' );
