@@ -35,6 +35,20 @@ class WordPress {
 		return '';
 	}
 
+	public static function getCurrentAction(): string {
+		return current_action();
+	}
+
+	public static function isAction( $actions ): bool {
+		$currentAction = self::getCurrentAction();
+
+		if ( is_array( $actions ) ) {
+			return in_array( $currentAction, $actions, true );
+		}
+
+		return $currentAction === $actions;
+	}
+
 	public static function isUserLoggedIn(): bool {
 		return is_user_logged_in();
 	}
