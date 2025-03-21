@@ -21,6 +21,10 @@ class WooCommerce {
 		return get_woocommerce_currency_symbol();
 	}
 
+	public static function isWoo(): bool {
+		return self::isWoocommerce() || self::isDashboard() || self::isCart() || self::isCheckout();
+	}
+
 	public static function isWoocommerce(): bool {
 		return is_woocommerce();
 	}

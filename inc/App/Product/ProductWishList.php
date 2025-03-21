@@ -484,7 +484,7 @@ class ProductWishList extends Addon implements AddonInterface {
 	 */
 	public function wpEnqueueScriptsAction(): void {
 		$wishlistPage = Settings::get( 'wishlist_page', 0 );
-		if ( ! WooCommerce::isWoocommerce() && ! WooCommerce::isDashboard() && ! WordPress::isPage( $wishlistPage ) ) {
+		if ( ! WooCommerce::isWoo() && ! WordPress::isPage( $wishlistPage ) ) {
 			return;
 		}
 
