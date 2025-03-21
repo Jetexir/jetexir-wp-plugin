@@ -16,11 +16,16 @@ class ProductGlobal {
 	}
 
 	public function addSectionSettings( $sections ) {
-		$settings                    = [];
+		$settings = apply_filters( 'woo_assistant_product_global_settings', [] );
+
+		if ( empty( $settings ) ) {
+			return $sections;
+		}
+
 		$sections[ self::sectionID ] = array(
 			'title'    => __( 'Global', 'woo-assistant' ),
 			'desc'     => __( 'Product global settings', 'woo-assistant' ),
-			'settings' => apply_filters( 'woo_assistant_product_global_settings', $settings ),
+			'settings' => $settings
 		);
 
 		return $sections;
