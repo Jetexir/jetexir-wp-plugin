@@ -14,6 +14,8 @@
     "wa-product-compare-compressed-css": "sass --watch assets/scss/product-compare.scss:assets/css/product-compare.min.css --style compressed",
     "wa-product-share-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.css",
     "wa-product-share-compressed-css": "sass --watch assets/scss/product-share.scss:assets/css/product-share.min.css --style compressed",
+    "wa-product-related-css": "sass --watch assets/scss/product-related.scss:assets/css/product-related.css",
+    "wa-product-related-compressed-css": "sass --watch assets/scss/product-related.scss:assets/css/product-related.min.css --style compressed",
     "wa-fly-cart-css": "sass --watch assets/scss/fly-cart.scss:assets/css/fly-cart.css",
     "wa-fly-cart-compressed-css": "sass --watch assets/scss/fly-cart.scss:assets/css/fly-cart.min.css --style compressed",
     "wa-owl-carousel-css": "sass --watch assets/scss/owl-carousel.scss:assets/css/owl-carousel.css",

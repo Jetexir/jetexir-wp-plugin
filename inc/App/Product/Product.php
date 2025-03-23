@@ -14,6 +14,7 @@ class Product {
 		new ProductWishList();
 		new ProductSocialShare();
 		new ProductFAQ();
+		new ProductRelated();
 	}
 
 	/**
