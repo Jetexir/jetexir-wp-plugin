@@ -5,7 +5,6 @@ namespace WooAssistant\Settings;
 defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Helper\Cache;
-use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Helper\Validating;
 
 class Settings {
