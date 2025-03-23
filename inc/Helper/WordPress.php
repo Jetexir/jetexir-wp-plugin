@@ -49,6 +49,10 @@ class WordPress {
 		return $currentAction === $actions;
 	}
 
+	public static function isRTL(): bool {
+		return is_rtl();
+	}
+
 	public static function isUserLoggedIn(): bool {
 		return is_user_logged_in();
 	}
