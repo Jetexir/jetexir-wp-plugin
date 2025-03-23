@@ -15,7 +15,7 @@ jQuery(document).ready(function ($) {
         dots: WooAssistantProductRelated.dots === '1',
         autoplay: WooAssistantProductRelated.autoplay === '1',
         autoplayTimeout: parseInt(WooAssistantProductRelated.autoplayTimeout),
-        autoplayHoverPause: true,
+        autoplayHoverPause: WooAssistantProductRelated.autoplay === '1',
         responsiveClass: true,
         lazyLoad: true,
         navText: ['<i class="wa-icon-chevron-left"></i>', '<i class="wa-icon-chevron-right"></i>'],
