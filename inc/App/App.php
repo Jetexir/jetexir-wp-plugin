@@ -14,6 +14,7 @@ class App {
 		new Product();
 		new Cart();
 		new GlobalSettings();
+		new WooCommerce();
 
 		add_action( 'init', [ $this, 'init' ] );
 	}
