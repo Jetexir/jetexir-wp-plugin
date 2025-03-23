@@ -50,11 +50,15 @@ class ProductRelated extends Addon implements AddonInterface {
 		}
 	}
 
-	public function changeQuery( $query, $productID, $args ) {
+	/**
+	 * @copyright Based on get_related_products_query() WC method
+	 */
+	public function changeQuery( $query, $productID, $args ): array {
 		global $wpdb;
 
 		$brandsArray    = apply_filters( 'woocommerce_product_related_posts_relate_by_brand', true, $productID ) ? apply_filters( 'woocommerce_get_related_product_brand_terms', wc_get_product_term_ids( $productID, 'product_brand' ), $productID ) : array();
 		$includeTermIDs = array_merge( $args['categories'], $args['tags'], $brandsArray );
+		$excludeIDs     = $args['exclude_ids'];
 
 		$attributes = WooCommerce::getAttributeTaxonomies();
 		if ( ! empty( $attributes ) ) {
@@ -71,9 +75,28 @@ class ProductRelated extends Addon implements AddonInterface {
 			$includeTermIDs = array_merge( $includeTermIDs, ...$attributesIDs );
 		}
 
-		$query['join']            = '';
+		$changeQuery              = array(
+			'fields' => "
+				SELECT DISTINCT ID FROM {$wpdb->posts} p
+			",
+			'join'   => '',
+			'where'  => "
+				WHERE 1=1
+				AND p.post_status = 'publish'
+				AND p.post_type = 'product'
+			",
+			'limits' => '
+				LIMIT ' . absint( $args['limit'] ) . '
+			',
+		);
 		$excludeTermIDs           = array();
+		$excludeCats              = Settings::get( 'product_related_exclude_cats', [] );
 		$productVisibilityTermIDs = wc_get_product_visibility_term_ids();
+
+		if ( ! empty( $excludeCats ) ) {
+			$excludeTermIDs = array_merge( $excludeTermIDs, $excludeCats );
+		}
+
 		if ( $productVisibilityTermIDs['exclude-from-catalog'] ) {
 			$excludeTermIDs[] = $productVisibilityTermIDs['exclude-from-catalog'];
 		}
@@ -81,15 +104,22 @@ class ProductRelated extends Addon implements AddonInterface {
 			$excludeTermIDs[] = $productVisibilityTermIDs['outofstock'];
 		}
 
+		$includeTermIDs = array_values( array_diff( $includeTermIDs, $excludeTermIDs ) );
+
 		if ( count( $excludeTermIDs ) ) {
-			$query['join'] .= " LEFT JOIN ( SELECT object_id FROM {$wpdb->term_relationships} WHERE term_taxonomy_id IN ( " . implode( ',', array_map( 'absint', $excludeTermIDs ) ) . ' ) ) AS exclude_join ON exclude_join.object_id = p.ID';
+			$changeQuery['join']  .= " LEFT JOIN ( SELECT object_id FROM {$wpdb->term_relationships} WHERE term_taxonomy_id IN ( " . implode( ',', array_map( 'absint', $excludeTermIDs ) ) . ' ) ) AS exclude_join ON exclude_join.object_id = p.ID';
+			$changeQuery['where'] .= ' AND exclude_join.object_id IS NULL';
 		}
 
 		if ( count( $includeTermIDs ) ) {
-			$query['join'] .= " INNER JOIN ( SELECT object_id FROM {$wpdb->term_relationships} INNER JOIN {$wpdb->term_taxonomy} using( term_taxonomy_id ) WHERE term_id IN ( " . implode( ',', array_map( 'absint', $includeTermIDs ) ) . ' ) ) AS include_join ON include_join.object_id = p.ID';
+			$changeQuery['join'] .= " INNER JOIN ( SELECT object_id FROM {$wpdb->term_relationships} INNER JOIN {$wpdb->term_taxonomy} using( term_taxonomy_id ) WHERE term_id IN ( " . implode( ',', array_map( 'absint', $includeTermIDs ) ) . ' ) ) AS include_join ON include_join.object_id = p.ID';
 		}
 
-		return $query;
+		if ( count( $excludeIDs ) ) {
+			$changeQuery['where'] .= ' AND p.ID NOT IN ( ' . implode( ',', array_map( 'absint', $excludeIDs ) ) . ' )';
+		}
+
+		return $changeQuery;
 	}
 
 	public function relatedByBrand( $use, $productID ): bool {
@@ -266,6 +296,25 @@ class ProductRelated extends Addon implements AddonInterface {
 				'default'  => true,
 				'sanitize' => 'bool'
 			],
+			'product_related_exclude_cats'      => array(
+				'id'                => 'product_related_exclude_cats',
+				'title'             => __( 'Exclude categories', 'woo-assistant' ),
+				'type'              => 'termSelect',
+				'args'              => array(
+					'taxonomy'   => 'product_cat',
+					'hide_empty' => true,
+				),
+				'multiple'          => true,
+				'default'           => 0,
+				'option_none'       => '---',
+				'option_none_value' => '',
+				'desc'              => __( 'Select categories excluded from related products', 'woo-assistant' ),
+				'sanitize'          => 'array',
+				'sanitize_options'  => 'int',
+				'attributes'        => array(
+					'size' => 5,
+				)
+			),
 			'product_related_by_tag'            => [
 				'id'       => 'product_related_by_tag',
 				'title'    => __( 'Tag', 'woo-assistant' ),
