@@ -32,9 +32,10 @@ class AdminSettings {
 		$settings = self::getSettings( $tab );
 
 		if ( $settings ) {
-			$optionsName = $settings['options_id'] ?? null;
-			$options     = [];
-			$saveFields  = HTML::saveFields;
+			$optionsName    = $settings['options_id'] ?? null;
+			$options        = [];
+			$saveFields     = HTML::saveFields;
+			$currentSection = null;
 
 			if ( self::isSectionMode( $settings ) ) {
 				$currentSection = self::getActiveSection( $settings );
@@ -79,13 +80,16 @@ class AdminSettings {
 			}
 
 			$options = apply_filters( 'woo_assistant_settings_before_save', $options, $tab );
-			$saved   = Settings::saves( $options, $optionsName );
+			if ( count( $options ) ) {
+				$saved = Settings::saves( $options, $optionsName );
 
-			if ( $saved ) {
-				Cache::set( 'settings_saved', true );
-				Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_success_message', __( 'Settings saved.', 'woo-assistant' ), $tab ), 'success' );
-			} else {
-				Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_error_message', __( 'Error saving settings!', 'woo-assistant' ), $tab ), 'error' );
+				if ( $saved ) {
+					Cache::set( 'settings_saved', true );
+					Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_success_message', __( 'Settings saved.', 'woo-assistant' ), $tab ), 'success' );
+					do_action( 'woo_assistant_save_settings_success', $tab, $currentSection, $options );
+				} else {
+					Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_error_message', __( 'Error saving settings!', 'woo-assistant' ), $tab ), 'error' );
+				}
 			}
 		}
 	}
