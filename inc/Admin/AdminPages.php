@@ -4,6 +4,7 @@ namespace WooAssistant\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
+use WooAssistant\Helper\Cache;
 use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Assets;
@@ -20,6 +21,13 @@ class AdminPages {
 		add_action( 'woo_assistant_notice', [ $this, 'displayNotices' ] );
 		add_action( 'woo_assistant_content', [ $this, 'content' ] );
 		add_action( 'woo_assistant_admin_init', [ $this, 'checkSubmitForm' ], 999999 );
+		add_action( 'admin_footer', [ $this, 'flushRewriteRules' ] );
+	}
+
+	public function flushRewriteRules(): void {
+		if ( Cache::get( 'settings_saved' ) ) {
+			flush_rewrite_rules();
+		}
 	}
 
 	public function checkSubmitForm(): void {
