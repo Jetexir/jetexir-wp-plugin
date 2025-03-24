@@ -3,9 +3,9 @@
 @font-face {
   font-family: '#{$icomoon-font-family}';
   src:
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?wpdkrz') format('truetype'),
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?wpdkrz') format('woff'),
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?wpdkrz##{$icomoon-font-family}') format('svg');
+          url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?6e4rki') format('truetype'),
+          url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?6e4rki') format('woff'),
+          url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?6e4rki##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -29,11 +29,6 @@
 .wa-icon-magic-wand {
   &:before {
     content: $wa-icon-magic-wand;
-  }
-}
-.wa-icon-magic-portal {
-  &:before {
-    content: $wa-icon-magic-portal;
   }
 }
 .wa-icon-magic-wand3 {
@@ -309,6 +304,11 @@
 .wa-icon-chevron-up {
   &:before {
     content: $wa-icon-chevron-up;
+  }
+}
+.wa-icon-plus-circle {
+  &:before {
+    content: $wa-icon-plus-circle;
   }
 }
 .wa-icon-cross {
