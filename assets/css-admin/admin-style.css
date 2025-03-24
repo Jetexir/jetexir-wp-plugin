@@ -1271,6 +1271,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   align-items: center;
   justify-content: space-between;
 }
+.woo-assistant-wrap .wa-repeatable > .wa-title .wa-add-repeatable i {
+  font-size: 1.5em;
+}
 .woo-assistant-wrap .wa-repeatable > .wa-add-repeatable {
   align-self: end;
 }
@@ -1329,6 +1332,7 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   align-items: center;
   gap: 5px;
   text-decoration: none;
+  line-height: 1;
 }
 .woo-assistant-wrap .wa-repeatable .wa-add-repeatable:hover, .woo-assistant-wrap .wa-repeatable .wa-add-repeatable:focus {
   text-decoration: none !important;
@@ -1336,6 +1340,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 .woo-assistant-wrap .wa-repeatable .wa-add-repeatable[disable=true] {
   cursor: default;
   opacity: 0.6;
+}
+.woo-assistant-wrap .wa-repeatable .wa-add-repeatable i {
+  font-size: 1.1em;
 }
 .woo-assistant-wrap .wa-repeatable .wa-add-repeatable svg {
   fill: #873eff;
