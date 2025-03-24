@@ -46,6 +46,35 @@ class AdminTools implements AdminTabInterface {
 							'type'  => 'startgrid',
 						),
 
+						'color_palette_test' => array(
+							'id'        => 'color_palette_test',
+							'title'     => __( 'Color palette', 'woo-assistant' ),
+							'type'      => 'colorPalette',
+							'addable'   => true,
+							'removable' => true,
+							'add_text'  => __( 'Add color', 'woo-assistant' ),
+							'max_items' => 5,
+							'mode'      => 'vertical',
+							'default'   => array(
+								'#000000',
+								'#ff00f0',
+							)
+						),
+
+						'color_palette_test2' => array(
+							'id'        => 'color_palette_test2',
+							'title'     => __( 'Color palette', 'woo-assistant' ),
+							'type'      => 'colorPalette',
+							'addable'   => true,
+							'removable' => true,
+							'add_text'  => __( 'Add color', 'woo-assistant' ),
+							'max_items' => 5,
+							'default'   => array(
+								'#000000',
+								'#ff00f0',
+							)
+						),
+
 						'user_select_test' => array(
 							'id'                => 'user_select_test',
 							'title'             => __( 'Select user role', 'woo-assistant' ),

@@ -1,4 +1,11 @@
 jQuery(document).ready(function ($) {
+    var wpColorPickerOptions = {
+        defaultColor: false, change: function (event, ui) {
+            waActiveSettingsForm();
+        }, clear: function () {
+            waActiveSettingsForm();
+        }, hide: true, palettes: true
+    };
     const settingsForm = document.getElementById('wa-settings-form'),
         settingsFooter = document.getElementById('wa-settings-footer'),
         settingsResetButton = document.getElementById("wa-settings-reset-button");
@@ -27,19 +34,65 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    const wpColorPicker = $('.wa-wp-color-picker input[type="text"]');
+    const wpColorPicker = $('.wa-wp-color-picker input[type="text"], .wa-color-palette input[type="text"]');
 
     if (wpColorPicker.length) {
-        var myOptions = {
-            defaultColor: false, change: function (event, ui) {
-                waActiveSettingsForm();
-            }, clear: function () {
-                waActiveSettingsForm();
-            }, hide: true, palettes: true
-        };
+        wpColorPicker.wpColorPicker(wpColorPickerOptions);
 
-        wpColorPicker.wpColorPicker(myOptions);
+        setTimeout(function () {
+            $('.wa-color-palette[data-removable="1"]').each(function () {
+                let waPickerContainer = $(this).find('.wp-picker-container');
+
+                if (waPickerContainer.length > 0) {
+                    waPickerContainer.append('<button type="button" class="wa-remove-color"><i class="wa-icon-cross"></i></button>');
+                }
+            });
+
+            waColorPaletteInit();
+        }, 500);
     }
+
+    $('.wa-color-palette .wa-add-color').unbind("click").on('click', function (e) {
+        e.preventDefault();
+
+        let $this = $(this),
+            waColorPalette = $this.closest('.wa-color-palette'),
+            waColorPaletteItems = waColorPalette.find('.wa-color-palette-items'),
+            waColorPaletteMax = waColorPalette.attr('data-max-items'),
+            waColorInput = waColorPalette.find('.wp-picker-container').last().find('.wp-picker-input-wrap .wp-color-picker'),
+            currentColorCount = waColorPalette.find('.wp-picker-container').length;
+
+        if (waColorPaletteMax !== undefined && parseInt(waColorPaletteMax) <= currentColorCount)
+            return;
+
+        let waColorInputClone = waColorInput.clone(),
+            waColorInputCloneName = waColorInputClone.attr('name');
+        let waColorIndex = waColorInputCloneName.substring(
+            waColorInputCloneName.indexOf("[") + 1,
+            waColorInputCloneName.lastIndexOf("]")
+        );
+        waColorIndex = parseInt(waColorIndex);
+        waColorInputClone.attr('name', waColorInputCloneName.replace('[' + waColorIndex + ']', '[' + waColorIndex + 1 + ']'));
+        waColorInputClone.removeClass('wp-color-picker');
+        waColorInputClone.val("#000000".replace(/0/g, function () {
+            return (~~(Math.random() * 16)).toString(16);
+        }));
+        waColorPaletteItems.append(waColorInputClone);
+
+        waColorInputClone.wpColorPicker(wpColorPickerOptions);
+
+        if (waColorPaletteMax !== undefined && parseInt(waColorPaletteMax) <= (currentColorCount + 1)) {
+            $this.attr('disable', 'true');
+        }
+
+        if (waColorPalette.attr('data-removable') === '1') {
+            waColorPalette.find('.wa-remove-color').show();
+            waColorInputClone.closest('.wp-picker-container').append('<button type="button" class="wa-remove-color"><i class="wa-icon-cross"></i></button>');
+        }
+
+        waColorPaletteInit();
+        waActiveSettingsForm();
+    });
 
     $('.wa-add-repeatable').unbind("click").on('click', function (e) {
         e.preventDefault();
@@ -86,10 +139,29 @@ jQuery(document).ready(function ($) {
         waActiveSettingsForm();
     });
 
+    function waColorPaletteInit() {
+        $('.wa-color-palette .wa-remove-color').unbind("click").on('click', function (e) {
+            let $this = $(this),
+                waColorPalette = $this.closest('.wa-color-palette');
+
+            $this.closest('.wp-picker-container').slideUp("normal", function () {
+                $(this).remove();
+
+                waColorPalette.find('.wa-add-color').removeAttr('disable');
+
+                if (waColorPalette.find('.wp-picker-container').length <= 1) {
+                    waColorPalette.find('.wa-remove-color').hide();
+                }
+
+                waActiveSettingsForm();
+            });
+        });
+    }
+
     function waRepeatableInit() {
         $('.wa-remove-repeatable').unbind("click").on('click', function (e) {
             e.preventDefault();
-            let $this = $(this), waRepeatable = $this.closest('.wa-repeatable'), waRepeatableFieldsWrap;
+            let $this = $(this), waRepeatable = $this.closest('.wa-repeatable');
 
             //$this.closest('.wa-repeatable-fields-wrap').remove();
             $this.closest('.wa-repeatable-fields-wrap').slideUp("normal", function () {
@@ -97,9 +169,7 @@ jQuery(document).ready(function ($) {
 
                 waRepeatable.find('.wa-add-repeatable').removeAttr('disable');
 
-                waRepeatableFieldsWrap = waRepeatable.find('.wa-repeatable-fields-wrap');
-
-                if (waRepeatableFieldsWrap.length <= 1) {
+                if (waRepeatable.find('.wa-repeatable-fields-wrap').length <= 1) {
                     waRepeatable.find('.wa-remove-repeatable').hide();
                     waRepeatable.find('.wa-move-up-repeatable').hide();
                     waRepeatable.find('.wa-move-down-repeatable').hide();

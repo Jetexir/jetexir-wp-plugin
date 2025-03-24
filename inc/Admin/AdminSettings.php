@@ -68,6 +68,12 @@ class AdminSettings {
 						$value = self::sanitizeOptionsSetting( $value, $setting );
 					}
 
+					if ( $setting['type'] === 'colorpalette' ) {
+						$value = array_values( $value );
+					}
+
+					$value = apply_filters( 'woo_assistant_setting_value_before_save', $value, $setting );
+
 					$options[ $setting['id'] ] = $value;
 				}
 			}
@@ -185,6 +191,10 @@ class AdminSettings {
 			       ] ) ) ) {
 				$setting['sanitize_options'] = 'int';
 			}
+
+			if ( $setting['type'] === 'colorpalette' ) {
+				$setting['sanitize_options'] = 'color';
+			}
 		}
 
 		if ( isset( $setting['sanitize_options'] ) && method_exists( Sanitizing::class, $setting['sanitize_options'] ) ) {
@@ -196,7 +206,7 @@ class AdminSettings {
 
 	private static function sanitizeSetting( $value, $setting ) {
 		if ( empty( $setting['sanitize'] ) ) {
-			if ( $setting['type'] === 'checkboxinline' ||
+			if ( in_array( $setting['type'], [ 'checkboxinline', 'colorpalette' ] ) ||
 			     ( isset( $setting['multiple'] ) && $setting['multiple'] &&
 			       in_array( $setting['type'], [
 				       'taxonomyselect',
