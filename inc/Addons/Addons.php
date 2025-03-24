@@ -4,10 +4,11 @@ namespace WooAssistant\Addons;
 
 defined( 'ABSPATH' ) || exit;
 
+use WooAssistant\Admin\AdminPages;
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Cache;
-use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Helper\Notice;
+use WooAssistant\Helper\Param;
 use WooAssistant\Helper\Sanitizing;
 use WooAssistant\Helper\Validating;
 
@@ -25,15 +26,26 @@ class Addons {
 		add_filter( 'woo_assistant_settings_submit_button_title', [ $this, 'changeSubmitButtonTitle' ], 10, 2 );
 		add_filter( 'woo_assistant_save_settings_success_message', [ $this, 'saveMessage' ], 10, 2 );
 		add_action( 'woo_assistant_notice', [ $this, 'addRefreshNotice' ] );
+		add_action( 'admin_init', [ $this, 'flushRewriteRules' ] );
+	}
+
+	public function flushRewriteRules(): void {
+		if ( Param::get( 'page' ) === WOOASSISTANT_PLUGIN_SLUG && Param::get( 'tab' ) === self::tab && Param::get( 'addons-refreshed' ) === '1' ) {
+			flush_rewrite_rules();
+			wp_safe_redirect( AdminPages::link( [ 'tab' => self::tab ] ) );
+			exit();
+		}
 	}
 
 	public function addRefreshNotice( $tab ): void {
 		if ( $tab === self::tab && Cache::get( 'settings_saved' ) ) {
 			Notice::add( self::tab, 'For initial addons hook, page refreshed.', 'warning' );
+			$url = AdminPages::link( [ 'tab' => self::tab, 'addons-refreshed' => true ] );
 			?>
             <script>
                 setTimeout(function () {
-                    window.location.reload(true);
+                    // window.location.reload(true);
+                    window.location.href = '<?php echo $url ?>';
                 }, 5000)
             </script>
 			<?php
