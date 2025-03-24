@@ -30,10 +30,10 @@ class ProductWishList extends Addon implements AddonInterface {
 		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
 		App::addShortcode( self::buttonShortCode, [ $this, 'buttonShortcode' ] );
 		App::addShortcode( self::wishlistShortcode, [ $this, 'wishlistShortcode' ] );
+		add_rewrite_endpoint( 'wishlist', EP_PAGES );
 
 		if ( WordPress::isUserLoggedIn() ) {
 			if ( Settings::get( 'wishlist_page', 0 ) === 0 ) {
-				add_rewrite_endpoint( 'wishlist', EP_PAGES );
 				add_action( 'woocommerce_account_wishlist_endpoint', [ $this, 'wishlistEndPointContent' ] );
 			}
 
