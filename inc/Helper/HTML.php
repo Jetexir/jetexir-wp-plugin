@@ -624,10 +624,10 @@ class HTML {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
 		}
-		$id    = self::prefix . $data['type'] . '-' . $data['id'];
+
 		$field = '';
 		if ( ! empty( $data['title'] ) ) {
-			$field .= '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
+			$field .= '<label class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
 		}
 
 		$colors = is_array( $data['setting_value'] ) ? $data['setting_value'] : [];
