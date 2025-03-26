@@ -26,6 +26,7 @@ class HTML {
 		'search',
 		'color',
 		'colorpalette',
+		'gradientcolorpicker',
 		'range',
 		'hidden',
 		'select',
@@ -320,14 +321,16 @@ class HTML {
 		$field = '';
 
 		if ( ! empty( $data['title'] ) ) {
-			$field .= '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-text">' . $data['title'] . '</label>';
+			$field .= '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'title ' . self::prefix . 'input-label ">' . $data['title'] . '</label>';
 		}
 
 		$field .= '<div class="' . self::prefix . 'range-field-wrap' . '"><input type="' . $data['type'] . '" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::getClass( $data, self::prefix . 'input-' . $data['type'] ) . '" value="' . $data['setting_value'] . '" ' . self::getAttributes( $data ) . '>';
 
 		if ( isset( $data['display_value'] ) && $data['display_value'] ) {
-			$field .= '<output>' . $data['setting_value'] . '</output></div>';
+			$field .= '<output>' . $data['setting_value'] . '</output>';
 		}
+
+		$field .= '</div>';
 
 		return self::wrap( $field, $data );
 	}
@@ -618,6 +621,95 @@ class HTML {
 		}
 
 		return '<img src="' . $data['src'] . '" class="' . self::getClass( $data, self::prefix . 'image' ) . '" ' . self::getAttributes( $data ) . '>';
+	}
+
+	public static function gradientcolorpicker( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$field = '';
+		if ( ! empty( $data['title'] ) ) {
+			$field .= '<label class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
+		}
+
+		$id                 = self::prefix . $data['type'] . '-' . $data['id'];
+		$value              = is_array( $data['setting_value'] ) ? $data['setting_value'] : [];
+		$function           = $value['function'] = $value['function'] ?? 'linear-gradient';
+		$rotate             = $value['rotate'] = $value['rotate'] ?? 90;
+		$shape              = $value['shape'] = $value['shape'] ?? 'ellipse';
+		$colors             = $value['colors'] = isset( $value['colors'] ) && is_array( $value['colors'] ) && count( $value['colors'] ) >= 2 ? $value['colors'] : $data['default']['colors'];
+		$gradientFirstParam = $function === 'linear-gradient' ? $rotate . 'deg' : $shape;
+		$gradientStyle      = 'background: ' . Assets::cssGradient( $colors, $function, $gradientFirstParam );
+		$jsonValue          = str_replace( '"', "'", JSON::encode( $value ) );
+		$firstColor         = false;
+
+		$field .= '<div id="' . $id . '" class="' . self::getClass( $data, self::prefix . 'gradient-color-picker-wrap' ) . '" ' . self::getAttributes( $data ) . '>';
+		$field .= '<input type="hidden" name="' . self::prefixName . $data['id'] . '" class="' . self::prefix . 'gradient-color-picker-value"  value="' . $jsonValue . '">';
+
+		$field .= '<div class="' . self::prefix . 'gradient-color-picker" style="' . $gradientStyle . '">';
+		$i     = 0;
+		foreach ( $colors as $position => $color ) {
+			$pointID = $id . '-' . $i;
+			$field   .= '<div id="' . $pointID . '" class="' . self::prefix . 'gradient-color-point ' . ( ! $firstColor ? 'is-active' : '' ) . '" data-color="' . $color . '" data-position="' . $position . '" data-index="' . $i . '" style="left:5px"><span style="background-color: ' . $color . '"></span></div>';
+			$i ++;
+			if ( ! $firstColor ) {
+				$firstColor = $color;
+			}
+		}
+		$field .= '</div>';
+
+		$field .= self::wpcolorpicker( array(
+			'id'            => $data['id'] . '_color_picker',
+			'title'         => __( 'Color', 'woo-assistant' ),
+			'type'          => 'wpcolorpicker',
+			'class'         => 'wa-gradient-select-color',
+			'setting_value' => $firstColor,
+		) );
+
+		$field .= self::radioinline( array(
+			'id'            => $data['id'] . '_type',
+			'title'         => __( 'Type', 'woo-assistant' ),
+			'type'          => 'radioinline',
+			'setting_value' => $function,
+			'not_equal'     => true,
+			'class'         => 'wa-gradient-color-type',
+			'options'       => array(
+				'linear-gradient' => __( 'Linear', 'woo-assistant' ),
+				'radial-gradient' => __( 'Radial', 'woo-assistant' ),
+			)
+		) );
+
+		$field .= self::radioinline( array(
+			'id'            => $data['id'] . '_shape',
+			'title'         => __( 'Shape', 'woo-assistant' ),
+			'type'          => 'radioinline',
+			'setting_value' => $shape,
+			'class'         => 'wa-gradient-color-shape wa-gradient-color-variant',
+			'wrap_style'    => $function !== 'radial-gradient' ? 'display:none' : '',
+			'options'       => array(
+				'ellipse' => __( 'Ellipse', 'woo-assistant' ),
+				'circle'  => __( 'Circle', 'woo-assistant' ),
+			)
+		) );
+
+		$field .= self::range( array(
+			'id'            => $data['id'] . '_range',
+			'title'         => __( 'Rotation °', 'woo-assistant' ),
+			'type'          => 'range',
+			'setting_value' => $rotate,
+			'display_value' => true,
+			'class'         => 'wa-gradient-color-rotation wa-gradient-color-variant',
+			'wrap_style'    => $function !== 'linear-gradient' ? 'display:none' : '',
+			'attributes'    => array(
+				'min' => 0,
+				'max' => 360,
+			),
+		) );
+
+		$field .= '</div>';
+
+		return self::wrap( $field, $data );
 	}
 
 	public static function colorpalette( $data ) {

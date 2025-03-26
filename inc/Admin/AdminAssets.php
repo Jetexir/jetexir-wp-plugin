@@ -23,13 +23,18 @@ class AdminAssets {
 			wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-admin-style',
 				Assets::url( 'css-admin/admin-style' . $debugName . '.css' ), false, $pluginVersion );
 
+			wp_enqueue_script( WOOASSISTANT_PLUGIN_SLUG . '-dom-drag',
+				Assets::url( 'js-admin/dom-drag.js' ),
+				[], $pluginVersion, [ 'in_footer' => true ] );
+
 			wp_enqueue_script( WOOASSISTANT_PLUGIN_SLUG . '-admin',
 				Assets::url( 'js-admin/script.min.js' ),
-				[ 'jquery' ], $pluginVersion, [ 'in_footer' => true ] );
+				[ 'jquery', WOOASSISTANT_PLUGIN_SLUG . '-dom-drag' ], $pluginVersion, [ 'in_footer' => true ] );
 
 			wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-admin', WOOASSISTANT_PLUGIN_KEYCAP, array(
-				'ajaxurl'   => admin_url( 'admin-ajax.php' ),
-				'ajaxnonce' => wp_create_nonce( WOOASSISTANT_PLUGIN_SLUG . current_time( 'd' ) )
+				'ajaxurl'     => admin_url( 'admin-ajax.php' ),
+				'ajaxnonce'   => wp_create_nonce( WOOASSISTANT_PLUGIN_SLUG . current_time( 'd' ) ),
+				'remove_text' => __( 'Remove', 'woo-assistant' ),
 			) );
 		}
 	}

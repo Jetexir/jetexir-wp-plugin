@@ -263,6 +263,9 @@ class AdminSettings {
 
 			} elseif ( $setting['type'] === 'addon' ) {
 				$setting['sanitize'] = 'int';
+
+			} elseif ( $setting['type'] === 'gradientcolorpicker' ) {
+				$setting['sanitize'] = 'jsonArray';
 			}
 		}
 

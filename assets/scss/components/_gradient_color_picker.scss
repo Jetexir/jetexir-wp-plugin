@@ -1,0 +1,104 @@
+@use 'sass:color';
+@use "../utilities/variables";
+
+$height: 100px;
+
+@mixin wa-gradient-color-picker {
+  .wa-gradient-color-picker-wrap {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid variables.$border_color;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .wa-gradient-color-picker {
+      width: 100%;
+      max-width: 100%;
+      height: $height;
+      border-radius: 10px;
+      border: 1px solid variables.$border_color;
+      position: relative;
+
+      .wa-gradient-color-point {
+        background: white;
+        border-radius: 15px;
+        box-shadow: rgba(0, 0, 0, 0.15) 0 0 0 1px, rgba(0, 0, 0, 0.05) 0 10px 10px -5px, inset #fff 0 0 0 6px;
+        cursor: move;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 5px;
+        transition: border 0.15s ease, box-shadow 0.15s ease;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.8;
+
+        &.is-active, &:hover {
+          opacity: 1;
+          box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 2px;
+        }
+
+        &.is-active {
+          // border: 0.5px solid ;
+        }
+
+        span {
+          border-radius: 50%;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          box-shadow: inset rgba(0, 0, 0, 0.15) 0 0 0 1px;
+        }
+      }
+    }
+
+    .wa-gradient-select-color {
+      flex-direction: revert;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .wa-field-wrap {
+      .wa-field-head {
+        flex-direction: row !important;
+        align-items: center !important;
+        column-gap: 10px;
+
+        > .wa-input-label {
+          margin: 0;
+          width: 80px;
+        }
+      }
+    }
+
+    .wa-radio-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+
+      > .wa-title {
+        margin: 0;
+        width: 80px;
+      }
+
+      .wa-checkmark {
+        display: none !important;
+      }
+
+      .wa-radio-group-options {
+        .wa-radio-inline {
+          .wa-title {
+            height: auto;
+          }
+        }
+      }
+    }
+  }
+}

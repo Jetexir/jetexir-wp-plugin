@@ -11,6 +11,7 @@
 @use "wp";
 @use "repeatable";
 @use "color_palette";
+@use "gradient_color_picker";
 
 .#{variables.$plugin_key}-wrap {
   position: relative;
@@ -27,6 +28,7 @@
   @include wp.wa-wp;
   @include repeatable.wa-repeatable;
   @include color_palette.wa-color-palette;
+  @include gradient_color_picker.wa-gradient-color-picker;
 
   #wa-settings-form {
     //height: 100% !important;

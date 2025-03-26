@@ -46,6 +46,24 @@ class AdminTools implements AdminTabInterface {
 							'type'  => 'startgrid',
 						),
 
+						'gradient_color_picker_test' => array(
+							'id'        => 'gradient_color_picker_test',
+							'title'     => __( 'Gradient color picker', 'woo-assistant' ),
+							'type'      => 'gradientColorPicker',
+							'addable'   => true,
+							'removable' => true,
+							'max_items' => 5,
+							'default'   => array(
+								'function' => 'linear-gradient',
+								'rotate'   => 90,
+								'colors'   => array(
+									0   => '#5DE0F0',
+									50  => '#FFFCC1',
+									100 => '#E64F6F',
+								)
+							)
+						),
+
 						'color_palette_test' => array(
 							'id'        => 'color_palette_test',
 							'title'     => __( 'Color palette', 'woo-assistant' ),

@@ -5,6 +5,18 @@ namespace WooAssistant\Helper;
 defined( 'ABSPATH' ) || exit;
 
 class Assets {
+	public static function cssGradient( $colors, $function = 'linear-gradient', $firstParam = '' ): string {
+		$steps = [];
+		foreach ( $colors as $position => $color ) {
+			$color   = Sanitizing::color( $color );
+			$steps[] = "$color $position%";
+		}
+
+		$steps      = implode( ', ', $steps );
+		$firstParam = ! empty( $firstParam ) ? $firstParam . ', ' : '';
+
+		return "$function($firstParam $steps)";
+	}
 
 	/**
 	 * Generate CSS property
