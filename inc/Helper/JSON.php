@@ -93,4 +93,14 @@ class JSON {
 			return false;
 		}
 	}
+
+	public static function validate( $value ): bool {
+		if ( function_exists( 'json_validate' ) ) {
+			return json_validate( $value );
+		}
+
+		self::decode( $value );
+
+		return json_last_error() === JSON_ERROR_NONE;
+	}
 }
