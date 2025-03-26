@@ -166,6 +166,7 @@ jQuery(document).ready(function ($) {
             gradientPointFirst = gradientContainer.find('.wa-gradient-color-point').first(),
             gradientPoint = gradientPointFirst.clone(),
             gradientPointX, minY = gradientPointFirst.css('top'),
+            gradientRemove = gradientWrap.find('.wa-gradient-remove-color'),
             randomColor = "#000000".replace(/0/g, function () {
                 return (~~(Math.random() * 16)).toString(16);
             });
@@ -179,6 +180,7 @@ jQuery(document).ready(function ($) {
         gradientPoint.find('span').css('background-color', randomColor);
 
         gradientContainer.append(gradientPoint);
+        gradientRemove.show();
 
         gradientWrap.find('.wa-gradient-color-point').each(function (index) {
             $(this).attr('id', gradientWrapID + '-' + index);
