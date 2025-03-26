@@ -61,8 +61,9 @@ class HTML {
 		}
 
 		$controlDisabled = isset( $data['attributes']['disabled'] ) && $data['attributes']['disabled'] === 'disabled';
+		$style           = isset( $data['wrap_style'] ) ? 'style="' . $data['wrap_style'] . '"' : '';
 
-		return '<div class="' . self::getClass( $data, self::prefix . 'field-wrap ' . self::prefix . 'field-' . $data['type'] . ( $controlDisabled ? ' ' . self::prefix . 'control-disabled' : '' ) ) . '"><div class="' . self::prefix . 'field-head">' . $field . '</div>' . ( ! empty( $data['desc'] ) ? '<div class="' . self::prefix . 'description">' . $data['desc'] . '</div>' : '' ) . '</div>';
+		return '<div class="' . self::getClass( $data, self::prefix . 'field-wrap ' . self::prefix . 'field-' . $data['type'] . ( $controlDisabled ? ' ' . self::prefix . 'control-disabled' : '' ) ) . '" ' . $style . '><div class="' . self::prefix . 'field-head">' . $field . '</div>' . ( ! empty( $data['desc'] ) ? '<div class="' . self::prefix . 'description">' . $data['desc'] . '</div>' : '' ) . '</div>';
 	}
 
 	public static function textarea( $data ): string {
