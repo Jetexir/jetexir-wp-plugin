@@ -32,7 +32,6 @@ class AdminSettings {
 		$settings = self::getSettings( $tab );
 
 		if ( $settings ) {
-			$optionsName    = $settings['options_id'] ?? null;
 			$options        = [];
 			$saveFields     = HTML::saveFields;
 			$currentSection = null;
@@ -40,8 +39,10 @@ class AdminSettings {
 			if ( self::isSectionMode( $settings ) ) {
 				$currentSection = self::getActiveSection( $settings );
 				$tabSettings    = $settings['sections'][ $currentSection ]['settings'];
+				$optionsName    = $settings['sections'][ $currentSection ]['options_id'] ?? null;
 			} else {
 				$tabSettings = $settings['settings'];
+				$optionsName = $settings['options_id'] ?? null;
 			}
 
 			if ( is_array( $tabSettings ) ) {
