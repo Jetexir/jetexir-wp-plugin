@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    let wpColorPickerPalettes = [],
+    let wpColorPickerPalettes = ['#333', '#5de0f0', '#608bf7', '#7fff3f', '#00b700', '#fff200', '#ffae63', '#e64f6f', '#ef32e3', '#d1c1ff', '#873eff'],
         wpColorPickerOptions = {
             defaultColor: false, change: function (event, ui) {
                 waActiveSettingsForm();
