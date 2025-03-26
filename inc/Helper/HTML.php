@@ -700,7 +700,7 @@ class HTML {
 		}
 		$default = $data['default'] ?? '';
 		if ( is_array( $default ) ) {
-			$default = JSON::encode( $default );
+			$default = str_replace( '"', "'", JSON::encode( $default ) );
 		}
 		$attributes['data-default'] = $default;
 
