@@ -62,6 +62,10 @@ $height: 100px;
       flex-direction: revert;
       justify-content: space-between;
       align-items: center;
+
+      .wp-picker-container .button:focus {
+        box-shadow: none;
+      }
     }
 
     .wa-field-wrap {
@@ -98,6 +102,10 @@ $height: 100px;
             height: auto;
           }
         }
+      }
+
+      :is(.wa-radio-inline, .wa-checkbox-inline) .wa-title {
+        border-width: 1px;
       }
     }
   }

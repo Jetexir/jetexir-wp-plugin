@@ -1576,6 +1576,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   justify-content: space-between;
   align-items: center;
 }
+.woo-assistant-wrap .wa-gradient-color-picker-wrap .wa-gradient-select-color .wp-picker-container .button:focus {
+  box-shadow: none;
+}
 .woo-assistant-wrap .wa-gradient-color-picker-wrap .wa-field-wrap .wa-field-head {
   flex-direction: row !important;
   align-items: center !important;
@@ -1600,6 +1603,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 }
 .woo-assistant-wrap .wa-gradient-color-picker-wrap .wa-radio-group .wa-radio-group-options .wa-radio-inline .wa-title {
   height: auto;
+}
+.woo-assistant-wrap .wa-gradient-color-picker-wrap .wa-radio-group :is(.wa-radio-inline, .wa-checkbox-inline) .wa-title {
+  border-width: 1px;
 }
 .woo-assistant-wrap #wa-settings-form {
   display: flex;
