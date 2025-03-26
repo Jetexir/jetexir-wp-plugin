@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    var wpColorPickerPalettes = [],
+    let wpColorPickerPalettes = [],
         wpColorPickerOptions = {
             defaultColor: false, change: function (event, ui) {
                 waActiveSettingsForm();
@@ -79,7 +79,6 @@ jQuery(document).ready(function ($) {
             }
 
             cssGradient = gradientType + '(' + firstParam + ', ' + gradientColorPoints.join(', ') + ')';
-
             gradientContainer.css('background', cssGradient);
         }
 
@@ -97,15 +96,13 @@ jQuery(document).ready(function ($) {
             defaultColor: false, change: function (event, ui) {
                 let gradientWrap = $(event.target).closest('.wa-gradient-color-picker-wrap'),
                     gradientContainer = gradientWrap.find('.wa-gradient-color-picker'),
-                    selectedColor = gradientWrap.find('.wa-gradient-select-color input.wp-color-picker').val();
+                    selectedColor = ui.color.toString();
 
                 gradientContainer.find('.wa-gradient-color-point.is-active').attr('data-color', selectedColor);
                 gradientContainer.find('.wa-gradient-color-point.is-active span').css('background-color', selectedColor);
-
-                setTimeout(function () {
-                    waUpdateGradient(gradientWrap);
-                }, 300);
+                waUpdateGradient(gradientWrap);
                 waActiveSettingsForm();
+
             }, clear: function () {
                 waActiveSettingsForm();
             }, hide: true, palettes: wpColorPickerPalettes
@@ -140,9 +137,13 @@ jQuery(document).ready(function ($) {
 
     $('.wa-gradient-remove-color').on('click', function (e) {
         e.preventDefault();
-        let gradientWrap = $(this).closest('.wa-gradient-color-picker-wrap');
+        let gradientWrap = $(this).closest('.wa-gradient-color-picker-wrap'),
+            gradientPoints = gradientWrap.find('.wa-gradient-color-point');
+        if (gradientPoints.length <= 2)
+            return;
+
         gradientWrap.find('.wa-gradient-color-point.is-active').remove();
-        let gradientPoints = gradientWrap.find('.wa-gradient-color-point');
+        gradientPoints = gradientWrap.find('.wa-gradient-color-point');
         if (gradientPoints.length <= 2)
             $(this).hide();
 
@@ -193,7 +194,7 @@ jQuery(document).ready(function ($) {
         gradientPoint.trigger('click');
     });
 
-    $('.wa-gradient-color-picker-wrap .wa-gradient-color-rotation .wa-input-range').on('change', function () {
+    $('.wa-gradient-color-picker-wrap .wa-gradient-color-rotation .wa-input-range').on('input', function () {
         waUpdateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
     });
 

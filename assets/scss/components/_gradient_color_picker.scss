@@ -63,8 +63,14 @@ $height: 100px;
       justify-content: space-between;
       align-items: center;
 
-      .wp-picker-container .button:focus {
-        box-shadow: none;
+      .wp-picker-container {
+        .button:focus {
+          box-shadow: none;
+        }
+
+        .wp-picker-clear {
+          display: none;
+        }
       }
     }
 
