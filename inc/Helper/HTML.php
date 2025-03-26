@@ -356,10 +356,11 @@ class HTML {
 			$data['options'] = array_combine( $data['options'], $data['options'] );
 		}
 
-		$field = self::startinlineelements( $data );
+		$field      = self::startinlineelements( $data );
+		$labelClass = self::prefix . 'radio-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' wa-not-equal' : '' );
 
 		foreach ( $data['options'] as $key => $value ) {
-			$field .= '<label class="' . self::prefix . 'radio-inline">' .
+			$field .= '<label class="' . $labelClass . '">' .
 			          '<input type="radio" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" value="' . $key . '"  ' . checked( $data['setting_value'] == $key, true, false ) . self::getAttributes( $data ) . '>' .
 			          '<span class="' . self::prefix . 'checkmark"></span><span class="' . self::prefix . 'title">' . $value . '</span></label>';
 		}
