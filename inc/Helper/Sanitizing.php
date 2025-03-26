@@ -5,6 +5,15 @@ namespace WooAssistant\Helper;
 defined( 'ABSPATH' ) || exit;
 
 class Sanitizing {
+	public static function jsonArray( $value ) {
+		$value = wp_unslash( $value );
+		if ( ! JSON::validate( $value ) ) {
+			return [];
+		}
+
+		return self::array( JSON::decode( $value, true ) );
+	}
+
 	public static function array( $value ): array {
 		return (array) $value;
 	}
