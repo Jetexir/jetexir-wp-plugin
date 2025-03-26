@@ -1011,7 +1011,7 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 }
 .woo-assistant-wrap .wa-range-field-wrap output {
   background-color: #EEEBF8;
-  padding: 4px;
+  padding: 4px 8px;
   border-radius: 4px;
   display: inline-block;
   text-align: center;
