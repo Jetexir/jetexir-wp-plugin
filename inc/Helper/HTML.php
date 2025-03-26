@@ -440,12 +440,14 @@ class HTML {
 		} else {
 			$type = 'checkbox';
 		}
+		$style = isset( $data['wrap_style'] ) ? 'style="' . $data['wrap_style'] . '"' : '';
 
-		return '<fieldset id="' . self::prefix . ( empty( $data['id'] ) ? '' : $data['id'] . '-' ) . $type . '-group" class="' . self::getClass( $data, self::prefix . $type . '-group' ) . '"><legend class="' . self::prefix . 'title">' . $data['title'] . '</legend><div class="' . self::prefix . $type . '-group-options">';
+		// fieldset
+		return '<div id="' . self::prefix . ( empty( $data['id'] ) ? '' : $data['id'] . '-' ) . $type . '-group" class="' . self::getClass( $data, self::prefix . $type . '-group' ) . '" ' . $style . '><legend class="' . self::prefix . 'title">' . $data['title'] . '</legend><div class="' . self::prefix . $type . '-group-options">';
 	}
 
 	public static function endinlineelements( $data ): string {
-		return '</div></fieldset>';
+		return '</div></div>'; // fieldset
 	}
 
 	public static function startrepeatable( $data ): string {
