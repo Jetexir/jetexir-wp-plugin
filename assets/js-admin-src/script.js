@@ -53,12 +53,12 @@ jQuery(document).ready(function ($) {
             let pX = Math.round(x / maxX * 100 * 100) / 100;
             elm.setAttribute('data-position', pX);
 
-            updateGradient($(elm.closest('.wa-gradient-color-picker-wrap')));
+            waUpdateGradient($(elm.closest('.wa-gradient-color-picker-wrap')));
             waActiveSettingsForm();
         }
     }
 
-    function updateGradient(gradientWrap) {
+    function waUpdateGradient(gradientWrap) {
         let gradientContainer = gradientWrap.find('.wa-gradient-color-picker'),
             gradientField = gradientWrap.find('input.wa-gradient-color-picker-value[type="hidden"]'),
             gradientPoints = gradientContainer.find('.wa-gradient-color-point'),
@@ -103,7 +103,7 @@ jQuery(document).ready(function ($) {
                 gradientContainer.find('.wa-gradient-color-point.is-active span').css('background-color', selectedColor);
 
                 setTimeout(function () {
-                    updateGradient(gradientWrap);
+                    waUpdateGradient(gradientWrap);
                 }, 300);
                 waActiveSettingsForm();
             }, clear: function () {
@@ -148,7 +148,7 @@ jQuery(document).ready(function ($) {
 
         gradientWrap.find('.wa-gradient-color-point').first().addClass('is-active').trigger('click');
 
-        updateGradient(gradientWrap);
+        waUpdateGradient(gradientWrap);
         waActiveSettingsForm();
     });
 
@@ -192,11 +192,11 @@ jQuery(document).ready(function ($) {
     });
 
     $('.wa-gradient-color-picker-wrap .wa-gradient-color-rotation .wa-input-range').on('change', function () {
-        updateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
+        waUpdateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
     });
 
     $('.wa-gradient-color-picker-wrap .wa-gradient-color-shape input[type="radio"]').on('click', function () {
-        updateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
+        waUpdateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
     });
 
     $('.wa-gradient-color-picker-wrap .wa-gradient-color-type input[type="radio"]').on('click', function () {
@@ -211,7 +211,7 @@ jQuery(document).ready(function ($) {
             gradientWrap.find('.wa-gradient-color-shape').show();
         }
 
-        updateGradient(gradientWrap);
+        waUpdateGradient(gradientWrap);
     });
 
     waInitGradient();
