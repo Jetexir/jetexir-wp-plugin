@@ -13,6 +13,10 @@ $height: 100px;
     flex-direction: column;
     gap: 15px;
 
+    a {
+      color: variables.$text !important;
+    }
+
     .wa-gradient-color-picker {
       width: 100%;
       max-width: 100%;
@@ -66,6 +70,12 @@ $height: 100px;
       .wp-picker-container {
         .button:focus {
           box-shadow: none;
+        }
+
+        .wp-color-picker {
+          &:focus {
+            outline-width: 1px;
+          }
         }
 
         .wp-picker-clear {

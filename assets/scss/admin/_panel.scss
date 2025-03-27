@@ -109,9 +109,10 @@ body.toplevel_page_#{variables.$plugin_key} {
       padding: 30px;
 
       a {
+        text-underline-offset: 3px;
+
         &:hover, &:focus, &:active {
           text-decoration: underline;
-          text-underline-offset: 3px;
         }
       }
     }

@@ -501,9 +501,11 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-sidebar .menu-items .me
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-content {
   padding: 30px;
 }
+body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-content a {
+  text-underline-offset: 3px;
+}
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-content a:hover, body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-content a:focus, body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-content a:active {
   text-decoration: underline;
-  text-underline-offset: 3px;
 }
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-description {
   font-size: 0.9em;
@@ -1534,6 +1536,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   flex-direction: column;
   gap: 15px;
 }
+.woo-assistant-wrap .wa-gradient-color-picker-wrap a {
+  color: #2B2B2B !important;
+}
 .woo-assistant-wrap .wa-gradient-color-picker-wrap .wa-gradient-color-picker {
   width: 100%;
   max-width: 100%;
@@ -1578,6 +1583,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 }
 .woo-assistant-wrap .wa-gradient-color-picker-wrap .wa-gradient-select-color .wp-picker-container .button:focus {
   box-shadow: none;
+}
+.woo-assistant-wrap .wa-gradient-color-picker-wrap .wa-gradient-select-color .wp-picker-container .wp-color-picker:focus {
+  outline-width: 1px;
 }
 .woo-assistant-wrap .wa-gradient-color-picker-wrap .wa-gradient-select-color .wp-picker-container .wp-picker-clear {
   display: none;
