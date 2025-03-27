@@ -35,14 +35,14 @@ class AdminSettings {
 			$options        = [];
 			$saveFields     = HTML::saveFields;
 			$currentSection = null;
+			$optionsName    = $settings['options_id'] ?? null;
 
 			if ( self::isSectionMode( $settings ) ) {
 				$currentSection = self::getActiveSection( $settings );
 				$tabSettings    = $settings['sections'][ $currentSection ]['settings'];
-				$optionsName    = $settings['sections'][ $currentSection ]['options_id'] ?? null;
+				$optionsName    = $settings['sections'][ $currentSection ]['options_id'] ?? $optionsName;
 			} else {
 				$tabSettings = $settings['settings'];
-				$optionsName = $settings['options_id'] ?? null;
 			}
 
 			if ( is_array( $tabSettings ) ) {
