@@ -80,7 +80,7 @@ class AdminPages {
 						$addonSep = false;
 						echo self::menuItem( __( 'Dashboard', 'woo-assistant' ), 'dashboard' );
 						foreach ( $menus as $tab => $title ) {
-							if ( ! $addonSep && ! in_array( $tab, self::defaultTabs() ) ) {
+							if ( ! $addonSep && ! in_array( $tab, self::defaultTabs(), true ) ) {
 								echo '<hr>';
 								$addonSep = true;
 							}
