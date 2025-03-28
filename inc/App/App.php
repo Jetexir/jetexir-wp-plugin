@@ -7,10 +7,12 @@ defined( 'ABSPATH' ) || exit;
 use WooAssistant\App\GlobalSettings\GlobalSettings;
 use WooAssistant\App\Product\Product;
 use WooAssistant\App\Cart\Cart;
+use WooAssistant\App\Tools\Tools;
 
 class App {
 	public function __construct() {
 		new AppAssets();
+		new Tools();
 		new Product();
 		new Cart();
 		new GlobalSettings();
