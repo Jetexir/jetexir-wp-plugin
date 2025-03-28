@@ -301,6 +301,7 @@ class AdminSettings {
 		if ( self::isSectionMode( $settings ) ) {
 			$currentSection  = self::getActiveSection( $settings );
 			$currentSettings = $settings['sections'][ $currentSection ]['settings'] ?? [];
+			$optionsName     = $settings['sections'][ $currentSection ]['options_id'] ?? $optionsName;
 
 			do_action( 'woo_assistant_section_content', $currentTab, $currentSection, $currentSettings );
 			self::printSettings( $currentSettings, $optionsName );
