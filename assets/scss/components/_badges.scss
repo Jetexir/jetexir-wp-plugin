@@ -1,0 +1,27 @@
+@use 'sass:color';
+@use "../utilities/variables";
+
+.wa-badge {
+  padding: 7px 10px;
+  border-radius: 5px;
+  color: white;
+  line-height: 1;
+  font-size: 0.9em;
+  background-color: variables.$default__badge;
+
+  &.wa-badge-info {
+    background-color: variables.$info__badge;
+  }
+
+  &.wa-badge-success {
+    background-color: variables.$success__badge;
+  }
+
+  &.wa-badge-warning {
+    background-color: variables.$warning__badge;
+  }
+
+  &.wa-badge-danger {
+    background-color: variables.$danger__badge;
+  }
+}

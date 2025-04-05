@@ -1,5 +1,9 @@
 @use "icon/style";
+@use "components/global";
 @use "components/notice";
 @use "admin/admin_menu";
 @use "admin/panel";
 @use "components/form";
+@use "components/badges";
+@use "components/modal";
+@use "components/loading";
