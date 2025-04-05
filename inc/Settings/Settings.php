@@ -8,6 +8,35 @@ use WooAssistant\Helper\Cache;
 use WooAssistant\Helper\Validating;
 
 class Settings {
+	public static function addToArray( $key, $value, $optionsName = null, $reverse = false ): bool {
+		$optionValue = self::get( $key, [], $optionsName );
+		$optionValue = is_array( $optionValue ) ? $optionValue : [];
+		if ( $reverse ) {
+			$optionValue = array_values( array_reverse( $optionValue ) );
+		}
+		$optionValue[] = $value;
+
+		if ( $reverse ) {
+			$optionValue = array_values( array_reverse( $optionValue ) );
+		}
+
+		return self::save( $key, $optionValue, $optionsName );
+	}
+
+	public static function deleteFromArray( $key, $index, $optionsName = null ): bool {
+		$optionValue = self::get( $key, [], $optionsName );
+		$optionValue = is_array( $optionValue ) ? $optionValue : [];
+
+		if ( isset( $optionValue[ $index ] ) ) {
+			unset( $optionValue[ $index ] );
+			$optionValue = array_values( $optionValue );
+		} else {
+			return false;
+		}
+
+		return self::save( $key, $optionValue, $optionsName );
+	}
+
 	public static function save( $key, $value, $optionsName = null ): bool {
 		return self::saves( [ $key => $value ], $optionsName );
 	}
