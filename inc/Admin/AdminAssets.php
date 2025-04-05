@@ -5,6 +5,7 @@ namespace WooAssistant\Admin;
 defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Helper\Assets;
+use WooAssistant\Helper\Nonce;
 use WooAssistant\Helper\Param;
 
 class AdminAssets {
@@ -27,14 +28,24 @@ class AdminAssets {
 				Assets::url( 'js-admin/dom-drag.js' ),
 				[], $pluginVersion, [ 'in_footer' => true ] );
 
+			/*wp_enqueue_script( WOOASSISTANT_PLUGIN_SLUG . '-modal',
+				Assets::url( 'js-admin/modal.min.js' ),
+				[], $pluginVersion, [ 'in_footer' => true ] );*/
+
 			wp_enqueue_script( WOOASSISTANT_PLUGIN_SLUG . '-admin',
 				Assets::url( 'js-admin/script.min.js' ),
-				[ 'jquery', WOOASSISTANT_PLUGIN_SLUG . '-dom-drag' ], $pluginVersion, [ 'in_footer' => true ] );
+				[
+					'jquery',
+					WOOASSISTANT_PLUGIN_SLUG . '-dom-drag',
+					//WOOASSISTANT_PLUGIN_SLUG . '-modal'
+				], $pluginVersion, [ 'in_footer' => true ] );
+
+			wp_add_inline_script( WOOASSISTANT_PLUGIN_SLUG . '-admin', 'var wooAssistantAjax = false, wooAssistantModalCloseEvent;', 'before' );
 
 			wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-admin', WOOASSISTANT_PLUGIN_KEYCAP, array(
-				'ajaxurl'     => admin_url( 'admin-ajax.php' ),
-				'ajaxnonce'   => wp_create_nonce( WOOASSISTANT_PLUGIN_SLUG . current_time( 'd' ) ),
-				'remove_text' => __( 'Remove', 'woo-assistant' ),
+				'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
+				'ajaxNonce'  => Nonce::create(),
+				'removeText' => __( 'Remove', 'woo-assistant' ),
 			) );
 		}
 	}
