@@ -292,7 +292,8 @@ class AdminSettings {
 	}
 
 	public static function printPage( $currentTab, $settings ): void {
-		$optionsName = $settings['options_id'] ?? null;
+		$optionsName    = $settings['options_id'] ?? null;
+		$currentSection = null;
 		self::headerSettings( $currentTab, $settings );
 
 		echo '<form method="post" id="wa-settings-form">';
@@ -311,7 +312,7 @@ class AdminSettings {
 		}
 
 		if ( ! empty( $currentSettings ) ) {
-			self::footerSettings( $currentTab );
+			self::footerSettings( $currentTab, $currentSection );
 		}
 		echo '</form>';
 	}
@@ -430,8 +431,8 @@ class AdminSettings {
 		}
 	}
 
-	private static function footerSettings( $currentTab ): void {
-		if ( ! apply_filters( 'woo_assistant_' . $currentTab . '_settings_display_footer', true ) ) {
+	private static function footerSettings( $currentTab, $currentSection ): void {
+		if ( ! apply_filters( 'woo_assistant_settings_display_footer', true, $currentTab, $currentSection ) || ! apply_filters( 'woo_assistant_' . $currentTab . '_settings_display_footer', true, $currentSection ) ) {
 			return;
 		}
 
