@@ -28,7 +28,7 @@ class WooCommerce {
 			return $template;
 		}
 
-		$path = Templates::getPath( $waTemplate );
+		$path = Templates::getPath( $waTemplate, 'woocommerce' );
 		if ( file_exists( $path ) ) {
 			$template = $path;
 		}
