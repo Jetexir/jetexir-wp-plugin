@@ -5,7 +5,7 @@
   input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="password"], input[type="search"] {
     background-color: white;
     color: variables.$dark;
-    border: 1px solid variables.$border_color;
+    border: 1px solid variables.$input_border_color;
     padding: 8px 12px;
     border-radius: 10px;
     font-weight: 400;
@@ -15,7 +15,7 @@
     max-width: 500px;
 
     &:hover {
-      border-color: color.scale(variables.$border_color, $lightness: -5%);
+      border-color: color.scale(variables.$input_border_color, $lightness: -5%);
     }
 
     &:focus {
@@ -35,7 +35,7 @@
     height: 45px;
     cursor: pointer;
     background-color: white;
-    border: 1px solid variables.$border_color;
+    border: 1px solid variables.$input_border_color;
 
     &::-webkit-color-swatch-wrapper {
       padding: 0;

@@ -4,7 +4,7 @@
 @mixin wa-select {
   select {
     color: variables.$dark;
-    border: 1px solid variables.$border_color;
+    border: 1px solid variables.$input_border_color;
     padding: 8px 12px;
     border-radius: 10px;
     font-weight: 400;
@@ -22,7 +22,7 @@
 
     &:hover {
       color: variables.$dark;
-      border-color: color.scale(variables.$border_color, $lightness: -5%);
+      border-color: color.scale(variables.$input_border_color, $lightness: -5%);
     }
 
     &:focus {

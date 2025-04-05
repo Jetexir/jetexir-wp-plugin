@@ -40,9 +40,19 @@ $link_hover: color.scale($primary, $lightness: -10%);
 
 // Background
 $background_side: #F6F5F9;
+$background_light: color.scale($background_side, $lightness: 50%);
 $background_menu: $default_light;
 $background_input: $default_light;
 $background_input_2: $gray_light;
+$background_disabled: $gray_light_three;
 
 // Border
 $border_color: #E6E2F5;
+$input_border_color: color.scale($border_color, $lightness: -10%);
+
+// Badges
+$default__badge: #818181;
+$info__badge: #3f7cff;
+$success__badge: #1bb034;
+$warning__badge: #ff6c3f;
+$danger__badge: #fd2828;

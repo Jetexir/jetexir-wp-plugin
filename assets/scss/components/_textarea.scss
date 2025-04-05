@@ -5,7 +5,7 @@
   textarea {
     background-color: white;
     color: variables.$dark;
-    border: 1px solid variables.$border_color;
+    border: 1px solid variables.$input_border_color;
     padding: 12px;
     border-radius: 10px;
     font-weight: 400;
@@ -16,7 +16,7 @@
     max-height: 500px;
 
     &:hover {
-      border-color: color.scale(variables.$border_color, $lightness: -5%);
+      border-color: color.scale(variables.$input_border_color, $lightness: -5%);
     }
 
     &:focus {
