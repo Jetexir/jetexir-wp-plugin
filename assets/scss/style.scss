@@ -7,18 +7,7 @@
 @use "components/modal";
 @use "site/button";
 @use "components/loading";
-
-body {
-  --wa-admin-bar-height: 0;
-
-  &.admin-bar {
-    --wa-admin-bar-height: 32px;
-  }
-
-  *[class^="wa-"] {
-    box-sizing: border-box;
-  }
-}
+@use "components/global";
 
 .wa-appearance-text-field {
   input[type="number"] {
@@ -43,15 +32,6 @@ body {
 
   &:hover {
     color: color.scale(variables.$red, $lightness: -10%) !important;
-  }
-}
-
-.wa-fade {
-  transition: opacity .15s linear;
-  opacity: 1;
-
-  &:not(.wa-active) {
-    opacity: 0;
   }
 }
 
@@ -121,14 +101,6 @@ body {
         gap: 3px;
         text-decoration: none;
       }
-    }
-  }
-}
-
-@media screen and (max-width: 782px) {
-  body {
-    &.admin-bar {
-      --wa-admin-bar-height: 46px;
     }
   }
 }
