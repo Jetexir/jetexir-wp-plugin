@@ -26,14 +26,13 @@ class FlyCart extends Addon implements AddonInterface {
 	}
 
 	public function templateRedirectAction(): void {
-		$hide = $this->checkHide();
-		if ( ! $hide ) {
+		if ( ! $this->checkHide() ) {
 			add_filter( 'woo_assistant_site_fly_icons', [ $this, 'addFlyIcon' ] );
 			add_action( 'woo_assistant_site_modals', [ $this, 'printCart' ] );
 			add_action( 'woo_assistant_fly_cart_modal_body', [ $this, 'printCartBody' ] );
 
 			if ( Settings::get( 'fly_cart_overlay_layer', true ) ) {
-				add_filter( 'woo_assistant_modal_overlay', '__return_true' );
+				add_filter( 'woo_assistant_site_modal_overlay', '__return_true' );
 			}
 		}
 	}
