@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || die();
 class Notice {
 	private static array $messages = [];
 
-	public static function addAndDisplay( $key, $notices, $echo = true ) {
+	public static function addAndDisplay( $key, $notices, $echo = true ): string {
 		self::clear( $key );
 
 		foreach ( $notices as $notice ) {
