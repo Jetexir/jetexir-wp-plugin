@@ -152,7 +152,7 @@ class AdminSettings {
 		return $settings;
 	}
 
-	private static function getSettingDefault( $setting ) {
+	public static function getSettingDefault( $setting ) {
 		$default = ! empty( $setting['default'] ) ? $setting['default'] : null;
 
 		// Set default value for toggle, checkbox, addon
@@ -182,7 +182,7 @@ class AdminSettings {
 		return $default;
 	}
 
-	private static function sanitizeOptionsSetting( $value, $setting ) {
+	public static function sanitizeOptionsSetting( $value, $setting ) {
 		if ( ! is_array( $value ) ) {
 			return $value;
 		}
@@ -209,7 +209,7 @@ class AdminSettings {
 		return $value;
 	}
 
-	private static function sanitizeSetting( $value, $setting ) {
+	public static function sanitizeSetting( $value, $setting ) {
 		if ( empty( $setting['sanitize'] ) ) {
 			if ( in_array( $setting['type'], [ 'checkboxinline', 'colorpalette' ] ) ||
 			     ( isset( $setting['multiple'] ) && $setting['multiple'] &&
