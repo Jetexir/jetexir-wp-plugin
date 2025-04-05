@@ -8,6 +8,10 @@ class WordPress {
 			return 'home';
 		} elseif ( self::isBlog() ) {
 			return 'blog';
+		} elseif ( self::isCategory() ) {
+			return 'category';
+		} elseif ( self::isTag() ) {
+			return 'tag';
 		} elseif ( WooCommerce::isCart() ) {
 			return 'cart';
 		} elseif ( WooCommerce::isCheckout() ) {
@@ -22,10 +26,12 @@ class WordPress {
 			return 'product-tag';
 		} elseif ( WooCommerce::isProductTaxonomy() ) {
 			return 'product-taxonomy';
+		} elseif ( self::isSinglePost() ) {
+			return 'single-post';
 		} elseif ( self::isSingle() ) {
 			return 'single';
 		} elseif ( self::isPage() ) {
-			return 'single';
+			return 'page';
 		} elseif ( self::isSingular() ) {
 			return 'singular';
 		} elseif ( self::is404() ) {
@@ -77,6 +83,10 @@ class WordPress {
 		return ! is_front_page() && is_home();
 	}
 
+	public static function isSinglePost(): bool {
+		return is_singular( 'post' );
+	}
+
 	public static function isSingle( $post = '' ): bool {
 		return is_single( $post );
 	}
@@ -91,5 +101,13 @@ class WordPress {
 
 	public static function isPage( $page = '' ): bool {
 		return is_page( $page );
+	}
+
+	public static function isCategory( $category = '' ): bool {
+		return is_category( $category );
+	}
+
+	public static function isTag( $tag = '' ): bool {
+		return is_tag( $tag );
 	}
 }
