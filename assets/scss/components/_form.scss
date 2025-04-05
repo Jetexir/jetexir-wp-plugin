@@ -12,6 +12,7 @@
 @use "repeatable";
 @use "color_palette";
 @use "gradient_color_picker";
+@use "data_table_ui";
 
 .#{variables.$plugin_key}-wrap {
   position: relative;
@@ -29,6 +30,7 @@
   @include repeatable.wa-repeatable;
   @include color_palette.wa-color-palette;
   @include gradient_color_picker.wa-gradient-color-picker;
+  @include data_table_ui.wa-data-table-ui;
 
   #wa-settings-form {
     //height: 100% !important;

@@ -6,11 +6,77 @@ jQuery(document).ready(function ($) {
             }, clear: function () {
                 waActiveSettingsForm();
             }, hide: true, palettes: wpColorPickerPalettes
-        };
-    const settingsForm = document.getElementById('wa-settings-form'),
+        },
+        settingsSubmitActive = false;
+
+    const waBody = $('body'),
+        settingsForm = document.getElementById('wa-settings-form'),
         settingsFooter = document.getElementById('wa-settings-footer'),
         settingsResetButton = document.getElementById("wa-settings-reset-button");
-    let settingsSubmitActive = false;
+
+    /**
+     * Modal methods
+     * */
+    wooAssistantModalCloseEvent = new CustomEvent(
+        "waModalClose",
+        {
+            detail: {
+                time: new Date(),
+            },
+            bubbles: true,
+            cancelable: true
+        }
+    );
+
+    function waToggleModal(status, target = '') {
+        let modalOverlay = $('#wa-modal-overlay'),
+            modalTarget = waBody.attr('data-wa-modal-target');
+
+        if (status && !waBody.hasClass('wa-modal-open')) {
+            waBody.css({
+                "overflow": "hidden",
+                "padding-right": "0"
+            })
+                .addClass('wa-modal-open')
+                .attr('data-wa-modal-target', target);
+            $(target).toggleClass('wa-active').removeAttr('aria-hidden').show();
+            if (modalOverlay !== undefined)
+                modalOverlay.addClass('wa-active');
+
+        } else if (!status && waBody.hasClass('wa-modal-open')) {
+            window.dispatchEvent(wooAssistantModalCloseEvent);
+
+            waBody.css({
+                "overflow": "",
+                "padding-right": ""
+            })
+                .removeClass('wa-modal-open')
+                .removeAttr('data-wa-modal-target');
+            $(modalTarget).hide().removeClass('wa-active').attr('aria-hidden', 'true');
+            if (modalOverlay !== undefined)
+                modalOverlay.removeClass('wa-active');
+        }
+    }
+
+    function waModalInit(wrapper) {
+        wrapper.find('[data-wa-toggle="modal"]').unbind('click').on('click', function () {
+            let $this = $(this),
+                modalTarget = $this.data('wa-target');
+
+            if (modalTarget !== undefined) {
+                let modalTargetElm = $(modalTarget);
+                if (modalTargetElm.length) {
+                    waToggleModal(true, modalTarget);
+                }
+            }
+        });
+    }
+
+    waModalInit(waBody);
+    $('#wa-modal-overlay, [data-wa-dismiss="modal"]').on('click', function () {
+        waToggleModal(false);
+    });
+
 
     function waActiveSettingsForm() {
         if (settingsSubmitActive) return;
@@ -36,6 +102,134 @@ jQuery(document).ready(function ($) {
     }
 
     function waInitGradient() {
+        const wpGradientSelectColor = $('.wa-gradient-select-color input[type="text"]');
+        if (wpGradientSelectColor.length) {
+            wpGradientSelectColor.wpColorPicker({
+                defaultColor: false, change: function (event, ui) {
+                    let gradientWrap = $(event.target).closest('.wa-gradient-color-picker-wrap'),
+                        gradientContainer = gradientWrap.find('.wa-gradient-color-picker'),
+                        selectedColor = ui.color.toString();
+
+                    gradientContainer.find('.wa-gradient-color-point.is-active').attr('data-color', selectedColor);
+                    gradientContainer.find('.wa-gradient-color-point.is-active span').css('background-color', selectedColor);
+                    waUpdateGradient(gradientWrap);
+                    waActiveSettingsForm();
+
+                }, clear: function () {
+                    waActiveSettingsForm();
+                }, hide: true, palettes: wpColorPickerPalettes
+            });
+        }
+
+        $('.wa-gradient-color-picker-wrap').not('.wa-gradient-color-picker-initialized').each(function () {
+            let gradientWrap = $(this),
+                gradientField = gradientWrap.find('input.wa-gradient-color-picker-value[type="hidden"]'),
+                gradientContainer = gradientWrap.find('.wa-gradient-color-picker'),
+                gradientSelectColor = gradientWrap.find('.wa-gradient-select-color'),
+                gradientInfo = JSON.parse(gradientField.val().replaceAll("'", '"')),
+                gradientPoint, gradientPointX, maxX, minX = 5, minY = 5, pX,
+                gradientPoints = Object.entries(gradientInfo.colors);
+
+            gradientWrap.addClass('wa-gradient-color-picker-initialized');
+            gradientSelectColor.append('<a href="#" class="wa-gradient-remove-color" style="display: ' + (gradientPoints.length > 2 ? 'block' : 'none') + '">' + WooAssistant.removeText + '</a>');
+
+            for (let [index, [key, value]] of gradientPoints.entries()) {
+                gradientPoint = gradientWrap.find('div[data-index="' + index + '"]');
+
+                if (gradientPoint.length) {
+                    gradientPoint.css('left', ((gradientContainer.outerWidth() - gradientPoint.outerWidth() - (minX * 2)) / 100) * key + minX);
+
+                    maxX = gradientContainer.outerWidth() - gradientPoint.outerWidth() - minX;
+                    gradientPointX = document.getElementById(gradientWrap.attr('id') + '-' + index);
+                    minY = parseInt(gradientPoint.position().top + (gradientPoint.outerHeight() / 2));
+                    gradientPoint.css('top', minY);
+                    waGradientPointDrag(gradientPointX, minX, maxX, minY);
+                }
+            }
+        });
+
+        $('.wa-gradient-remove-color').unbind('click').on('click', function (e) {
+            e.preventDefault();
+            let gradientWrap = $(this).closest('.wa-gradient-color-picker-wrap'),
+                gradientPoints = gradientWrap.find('.wa-gradient-color-point');
+            if (gradientPoints.length <= 2)
+                return;
+
+            gradientWrap.find('.wa-gradient-color-point.is-active').remove();
+            gradientPoints = gradientWrap.find('.wa-gradient-color-point');
+            if (gradientPoints.length <= 2)
+                $(this).hide();
+
+            gradientWrap.find('.wa-gradient-color-point').first().addClass('is-active').trigger('click');
+
+            waUpdateGradient(gradientWrap);
+            waActiveSettingsForm();
+        });
+
+        $('.wa-gradient-color-picker-wrap .wa-gradient-color-picker').unbind('click').on('click', function (e) {
+            if (!$(e.target).is('.wa-gradient-color-picker'))
+                return;
+
+            var gradientContainer = $(this),
+                gradientWrap = gradientContainer.closest('.wa-gradient-color-picker-wrap'),
+                maxX, minX = 5, pX;
+            gradientWrap.find('.wa-gradient-color-point').removeClass('is-active');
+
+            var gradientWrapID = gradientWrap.attr('id'),
+                leftX = e.pageX - gradientContainer.offset().left,
+                gradientPointFirst = gradientContainer.find('.wa-gradient-color-point').first(),
+                gradientPoint = gradientPointFirst.clone(),
+                gradientPointX, minY = gradientPointFirst.css('top'),
+                gradientRemove = gradientWrap.find('.wa-gradient-remove-color'),
+                randomColor = "#000000".replace(/0/g, function () {
+                    return (~~(Math.random() * 16)).toString(16);
+                });
+            maxX = gradientContainer.outerWidth() - gradientPointFirst.outerWidth() - minX;
+            leftX -= parseInt(gradientPointFirst.outerWidth() / 2);
+            leftX = leftX < minX ? minX : leftX;
+            leftX = leftX > maxX ? maxX : leftX;
+            pX = parseInt(Math.round(leftX / maxX * 100 * 100) / 100);
+            gradientPoint.attr('data-color', randomColor).attr('data-position', pX);
+            gradientPoint.css('left', leftX).addClass('is-active');
+            gradientPoint.find('span').css('background-color', randomColor);
+
+            gradientContainer.append(gradientPoint);
+            gradientRemove.show();
+
+            gradientWrap.find('.wa-gradient-color-point').each(function (index) {
+                $(this).attr('id', gradientWrapID + '-' + index);
+                $(this).attr('data-index', index);
+            });
+
+            gradientPointX = document.getElementById(gradientWrapID + '-' + gradientPoint.attr('data-index'));
+            waGradientPointDrag(gradientPointX, minX, maxX, minY);
+            waInitGradient();
+            gradientPoint.trigger('click');
+        });
+
+        $('.wa-gradient-color-picker-wrap .wa-gradient-color-rotation .wa-input-range').unbind('input').on('input', function () {
+            waUpdateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
+        });
+
+        $('.wa-gradient-color-picker-wrap .wa-gradient-color-shape input[type="radio"]').unbind('click').on('click', function () {
+            waUpdateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
+        });
+
+        $('.wa-gradient-color-picker-wrap .wa-gradient-color-type input[type="radio"]').unbind('click').on('click', function () {
+            let gradientWrap = $(this).closest('.wa-gradient-color-picker-wrap');
+
+            gradientWrap.find('.wa-gradient-color-variant').hide();
+
+            if ($(this).val() === 'linear-gradient') {
+                gradientWrap.find('.wa-gradient-color-rotation').show();
+
+            } else if ($(this).val() === 'radial-gradient') {
+                gradientWrap.find('.wa-gradient-color-shape').show();
+            }
+
+            waUpdateGradient(gradientWrap);
+        });
+
         $('.wa-gradient-color-picker-wrap .wa-gradient-color-point').unbind('click').on('click', function () {
             let gradientWrap = $(this).closest('.wa-gradient-color-picker-wrap');
             gradientWrap.find('.wa-gradient-color-point').removeClass('is-active');
@@ -90,152 +284,29 @@ jQuery(document).ready(function ($) {
         gradientField.val(JSON.stringify(gradientFieldValue));
     }
 
-    const wpGradientSelectColor = $('.wa-gradient-select-color input[type="text"]');
-    if (wpGradientSelectColor.length) {
-        wpGradientSelectColor.wpColorPicker({
-            defaultColor: false, change: function (event, ui) {
-                let gradientWrap = $(event.target).closest('.wa-gradient-color-picker-wrap'),
-                    gradientContainer = gradientWrap.find('.wa-gradient-color-picker'),
-                    selectedColor = ui.color.toString();
-
-                gradientContainer.find('.wa-gradient-color-point.is-active').attr('data-color', selectedColor);
-                gradientContainer.find('.wa-gradient-color-point.is-active span').css('background-color', selectedColor);
-                waUpdateGradient(gradientWrap);
-                waActiveSettingsForm();
-
-            }, clear: function () {
-                waActiveSettingsForm();
-            }, hide: true, palettes: wpColorPickerPalettes
-        });
-    }
-
-    $('.wa-gradient-color-picker-wrap').each(function () {
-        let gradientWrap = $(this),
-            gradientField = gradientWrap.find('input.wa-gradient-color-picker-value[type="hidden"]'),
-            gradientContainer = gradientWrap.find('.wa-gradient-color-picker'),
-            gradientSelectColor = gradientWrap.find('.wa-gradient-select-color'),
-            gradientInfo = JSON.parse(gradientField.val().replaceAll("'", '"')),
-            gradientPoint, gradientPointX, maxX, minX = 5, minY = 5, pX,
-            gradientPoints = Object.entries(gradientInfo.colors);
-
-        gradientSelectColor.append('<a href="#" class="wa-gradient-remove-color" style="display: ' + (gradientPoints.length > 2 ? 'block' : 'none') + '">' + WooAssistant.remove_text + '</a>');
-
-        for (let [index, [key, value]] of gradientPoints.entries()) {
-            gradientPoint = gradientWrap.find('div[data-index="' + index + '"]');
-
-            if (gradientPoint.length) {
-                gradientPoint.css('left', ((gradientContainer.outerWidth() - gradientPoint.outerWidth() - (minX * 2)) / 100) * key + minX);
-
-                maxX = gradientContainer.outerWidth() - gradientPoint.outerWidth() - minX;
-                gradientPointX = document.getElementById(gradientWrap.attr('id') + '-' + index);
-                minY = parseInt(gradientPoint.position().top + (gradientPoint.outerHeight() / 2));
-                gradientPoint.css('top', minY);
-                waGradientPointDrag(gradientPointX, minX, maxX, minY);
-            }
-        }
-    });
-
-    $('.wa-gradient-remove-color').on('click', function (e) {
-        e.preventDefault();
-        let gradientWrap = $(this).closest('.wa-gradient-color-picker-wrap'),
-            gradientPoints = gradientWrap.find('.wa-gradient-color-point');
-        if (gradientPoints.length <= 2)
-            return;
-
-        gradientWrap.find('.wa-gradient-color-point.is-active').remove();
-        gradientPoints = gradientWrap.find('.wa-gradient-color-point');
-        if (gradientPoints.length <= 2)
-            $(this).hide();
-
-        gradientWrap.find('.wa-gradient-color-point').first().addClass('is-active').trigger('click');
-
-        waUpdateGradient(gradientWrap);
-        waActiveSettingsForm();
-    });
-
-    $('.wa-gradient-color-picker-wrap .wa-gradient-color-picker').on('click', function (e) {
-        if (!$(e.target).is('.wa-gradient-color-picker'))
-            return;
-
-        var gradientContainer = $(this),
-            gradientWrap = gradientContainer.closest('.wa-gradient-color-picker-wrap'),
-            maxX, minX = 5, pX;
-        gradientWrap.find('.wa-gradient-color-point').removeClass('is-active');
-
-        var gradientWrapID = gradientWrap.attr('id'),
-            leftX = e.pageX - gradientContainer.offset().left,
-            gradientPointFirst = gradientContainer.find('.wa-gradient-color-point').first(),
-            gradientPoint = gradientPointFirst.clone(),
-            gradientPointX, minY = gradientPointFirst.css('top'),
-            gradientRemove = gradientWrap.find('.wa-gradient-remove-color'),
-            randomColor = "#000000".replace(/0/g, function () {
-                return (~~(Math.random() * 16)).toString(16);
-            });
-        maxX = gradientContainer.outerWidth() - gradientPointFirst.outerWidth() - minX;
-        leftX -= parseInt(gradientPointFirst.outerWidth() / 2);
-        leftX = leftX < minX ? minX : leftX;
-        leftX = leftX > maxX ? maxX : leftX;
-        pX = parseInt(Math.round(leftX / maxX * 100 * 100) / 100);
-        gradientPoint.attr('data-color', randomColor).attr('data-position', pX);
-        gradientPoint.css('left', leftX).addClass('is-active');
-        gradientPoint.find('span').css('background-color', randomColor);
-
-        gradientContainer.append(gradientPoint);
-        gradientRemove.show();
-
-        gradientWrap.find('.wa-gradient-color-point').each(function (index) {
-            $(this).attr('id', gradientWrapID + '-' + index);
-            $(this).attr('data-index', index);
-        });
-
-        gradientPointX = document.getElementById(gradientWrapID + '-' + gradientPoint.attr('data-index'));
-        waGradientPointDrag(gradientPointX, minX, maxX, minY);
-        waInitGradient();
-        gradientPoint.trigger('click');
-    });
-
-    $('.wa-gradient-color-picker-wrap .wa-gradient-color-rotation .wa-input-range').on('input', function () {
-        waUpdateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
-    });
-
-    $('.wa-gradient-color-picker-wrap .wa-gradient-color-shape input[type="radio"]').on('click', function () {
-        waUpdateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
-    });
-
-    $('.wa-gradient-color-picker-wrap .wa-gradient-color-type input[type="radio"]').on('click', function () {
-        let gradientWrap = $(this).closest('.wa-gradient-color-picker-wrap');
-
-        gradientWrap.find('.wa-gradient-color-variant').hide();
-
-        if ($(this).val() === 'linear-gradient') {
-            gradientWrap.find('.wa-gradient-color-rotation').show();
-
-        } else if ($(this).val() === 'radial-gradient') {
-            gradientWrap.find('.wa-gradient-color-shape').show();
-        }
-
-        waUpdateGradient(gradientWrap);
-    });
-
     waInitGradient();
 
-    const wpColorPicker = $('.wa-wp-color-picker,.wa-color-palette').not('.wa-gradient-select-color').find('input[type="text"]');
+    function wpColorPickerInit() {
+        let wpColorPicker = $('.wa-wp-color-picker,.wa-color-palette').not('.wa-gradient-select-color').find('input[type="text"]');
 
-    if (wpColorPicker.length) {
-        wpColorPicker.wpColorPicker(wpColorPickerOptions);
+        if (wpColorPicker.length) {
+            wpColorPicker.wpColorPicker(wpColorPickerOptions);
 
-        setTimeout(function () {
-            $('.wa-color-palette[data-removable="1"]').each(function () {
-                let waPickerContainer = $(this).find('.wp-picker-container');
+            setTimeout(function () {
+                $('.wa-color-palette[data-removable="1"]').each(function () {
+                    let waPickerContainer = $(this).find('.wp-picker-container');
 
-                if (waPickerContainer.length > 0) {
-                    waPickerContainer.append('<button type="button" class="wa-remove-color"><i class="wa-icon-cross"></i></button>');
-                }
-            });
+                    if (waPickerContainer.length > 0) {
+                        waPickerContainer.append('<button type="button" class="wa-remove-color"><i class="wa-icon-cross"></i></button>');
+                    }
+                });
 
-            waColorPaletteInit();
-        }, 500);
+                waColorPaletteInit();
+            }, 500);
+        }
     }
+
+    wpColorPickerInit();
 
     $('.wa-color-palette .wa-add-color').unbind("click").on('click', function (e) {
         e.preventDefault();
@@ -404,4 +475,228 @@ jQuery(document).ready(function ($) {
 
         waRepeatableInit();
     }, 500);
+
+
+    // Data Table UI
+    function waDataTableUiModal($this, waDataTableID, modalTarget) {
+        if (modalTarget !== undefined) {
+            let modalTargetElm = $(modalTarget);
+            if (modalTargetElm.length) {
+                let displayActiveField = parseInt($this.data('display-active-field')),
+                    activeField = parseInt($this.data('active-field'));
+
+                modalTargetElm.attr('data-dtu-id', waDataTableID);
+                modalTargetElm.find('#wa-toggle-dtu-row-active').prop('checked', activeField === 1);
+                if (displayActiveField === 1)
+                    modalTargetElm.find('.wa-modal-footer .wa-field-toggle').show();
+                else
+                    modalTargetElm.find('.wa-modal-footer .wa-field-toggle').hide();
+
+                modalTargetElm.find('.wa-modal-message').html('');
+                modalTargetElm.find('.wa-modal-footer').hide();
+                modalTargetElm.find('.wa-modal-footer .wa-button-primary').html($this.data('primary-button-text'));
+                modalTargetElm.find('.wa-modal-title').html($this.data('modal-title'));
+                modalTargetElm.find('.wa-modal-body').html('<div class="wa-loader-wrap"><div class="wa-loader"></div></div>');
+            }
+        }
+    }
+
+    function waDataTableUiInit() {
+        // Data table action buttons
+        $('.wa-data-table-ui .wa-dtu-action').on('click', function (e) {
+            e.preventDefault();
+
+            if (wooAssistantAjax) return;
+            wooAssistantAjax = true;
+
+            let $this = $(this),
+                waDataTable = $this.closest('.wa-data-table-ui'),
+                waDataTableID = waDataTable.data('id'),
+                waDataTableRow = $this.closest('tr'),
+                waDataTableRowId = waDataTableRow.data('id'),
+                waDataTableAction = $this.data('action'),
+                waDataTableActionType = $this.data('action-type'),
+                waDataTableBody = waDataTable.find('.wa-dtu-body'),
+                waDataTableTable = waDataTable.find('.wa-dtu-table'),
+                waDataTableRowCount = waDataTable.find('.wa-dtu-row-count'),
+                modalTarget = $this.data('wa-target'),
+                modalTargetElm = $(modalTarget);
+
+            waDataTableUiModal($this, waDataTableID, modalTarget);
+
+            $.post(
+                WooAssistant.ajaxUrl,
+                {
+                    nonce: WooAssistant.ajaxNonce,
+                    action: 'woo_assistant_data_table_ui_action',
+                    data_table_id: waDataTableID,
+                    row_id: waDataTableRowId,
+                    row_action: waDataTableAction
+                }
+            )
+                .done(function (data) {
+                    if (waDataTableActionType === 'delete') {
+                        waDataTableRow.fadeTo(200, 0.01, () => {
+                            waDataTableRow.children('td, th')
+                                .animate({padding: 0})
+                                .wrapInner('<div />')
+                                .children()
+                                .slideUp(200, () => {
+                                    waDataTableRow.remove();
+
+                                    if (data?.data?.table && data?.data.table !== '') {
+                                        waDataTableTable.replaceWith(data?.data.table);
+
+                                        if (waDataTableRowCount.length && data?.data?.row_count)
+                                            waDataTableRowCount.html(data?.data?.row_count)
+
+                                        waModalInit(waDataTableBody);
+                                        waDataTableUiInit();
+                                    }
+                                });
+                        });
+
+                    } else if (waDataTableActionType === 'edit') {
+                        modalTargetElm.find('.wa-modal-footer').show();
+                        modalTargetElm.find('.wa-modal-body').html(data.data.content);
+
+                        setTimeout(function () {
+                            wpColorPickerInit();
+                            waInitGradient();
+                        }, 500);
+                    }
+
+                    if (data.data?.redirect && data.data.redirect !== '')
+                        window.location.href = data.data.redirect;
+
+                    if (data.data?.refresh)
+                        window.location.reload(true);
+                })
+                .fail(function (xhr, status, error) {
+                    if (xhr.responseJSON?.data?.refresh)
+                        setTimeout(function () {
+                            window.location.reload(true);
+                        }, 3000);
+                })
+                .always(function () {
+                    wooAssistantAjax = false;
+                });
+        });
+    }
+
+    // Add new button click event
+    $('.wa-data-table-ui .wa-dtu-add-new').on('click', function () {
+        if (wooAssistantAjax) return;
+        wooAssistantAjax = true;
+
+        let $this = $(this),
+            waDataTable = $this.closest('.wa-data-table-ui'),
+            waDataTableID = waDataTable.data('id'),
+            modalTarget = $this.data('wa-target'),
+            modalTargetElm = $(modalTarget);
+
+        waDataTableUiModal($this, waDataTableID, modalTarget);
+
+        $.post(
+            WooAssistant.ajaxUrl,
+            {
+                nonce: WooAssistant.ajaxNonce,
+                action: 'woo_assistant_data_table_ui_action',
+                data_table_id: waDataTableID,
+                row_id: -1,
+                row_action: 'add_form'
+            }
+        )
+            .done(function (data) {
+                modalTargetElm.find('.wa-modal-footer').show();
+                modalTargetElm.find('.wa-modal-body').html(data.data.content);
+
+                setTimeout(function () {
+                    wpColorPickerInit();
+                    waInitGradient();
+                }, 500);
+
+                if (data.data?.redirect && data.data.redirect !== '')
+                    window.location.href = data.data.redirect;
+            })
+            .fail(function (xhr, status, error) {
+                if (xhr.responseJSON?.data?.refresh)
+                    setTimeout(function () {
+                        window.location.reload(true);
+                    }, 3000);
+            })
+            .always(function () {
+                wooAssistantAjax = false;
+            });
+    });
+
+    // DataTableUI modal submit
+    $('.wa-data-table-ui-modal .wa-modal-footer button.wa-button-primary').unbind('click').on('click', function () {
+        let $this = $(this),
+            waModal = $this.closest('.wa-modal'),
+            waDataTableID = waModal.data('dtu-id'),
+            waDataTable = $('.wa-data-table-ui[data-id="' + waDataTableID + '"]'),
+            rowActive = waModal.find('input[name="woo_assistant_dtu-row-active"]').is(':checked'),
+            rowId = waModal.find('input[name="woo_assistant_row_id"]').val(),
+            waModalBody = waModal.find('.wa-modal-body'),
+            waModalMessage = waModal.find('.wa-modal-message'),
+            waCloseButton = waModal.find('.wa-button-close'),
+            waDataTableBody = waDataTable.find('.wa-dtu-body'),
+            waDataTableTable = waDataTable.find('.wa-dtu-table'),
+            waDataTableRowCount = waDataTable.find('.wa-dtu-row-count');
+
+        $.post(
+            WooAssistant.ajaxUrl,
+            {
+                nonce: WooAssistant.ajaxNonce,
+                action: 'woo_assistant_data_table_ui_action',
+                data_table_id: waDataTableID,
+                row_id: parseInt(rowId),
+                row_action: 'save_form',
+                row_active: rowActive ? 1 : 0,
+                form_data: waModalBody.serialize()
+            }
+        )
+            .done(function (data) {
+                if (data?.data?.message && data?.data.message !== '') {
+                    waModalMessage.html(data?.data.message);
+                }
+
+                if (data.data?.redirect && data.data.redirect !== '')
+                    window.location.href = data.data.redirect;
+
+                if (data?.data?.table && data?.data.table !== '') {
+                    waDataTableTable.replaceWith(data?.data.table);
+
+                    if (waDataTableRowCount.length && data?.data?.row_count)
+                        waDataTableRowCount.html(data?.data?.row_count)
+
+                    waModalInit(waDataTableBody);
+                    waDataTableUiInit();
+                }
+
+                setTimeout(function () {
+                    waCloseButton.trigger('click');
+
+                    if (data.data?.refresh)
+                        window.location.reload(true);
+                }, 2000);
+            })
+            .fail(function (xhr, status, error) {
+                if (xhr.responseJSON?.data?.message && xhr.responseJSON?.data.message !== '') {
+                    waModalMessage.html(xhr.responseJSON?.data.message);
+                }
+
+                if (xhr.responseJSON?.data?.refresh)
+                    setTimeout(function () {
+                        window.location.reload(true);
+                    }, 3000);
+            })
+            .always(function () {
+                waModal.animate({scrollTop: 0}, "slow");
+                wooAssistantAjax = false;
+            });
+    });
+
+    waDataTableUiInit();
 });

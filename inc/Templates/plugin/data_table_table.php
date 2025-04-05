@@ -1,0 +1,90 @@
+<?php
+
+use WooAssistant\Providers\UI\AbstractDataTableUI;
+
+defined( 'ABSPATH' ) or die();
+
+if ( ! isset( $args ) ) {
+	return;
+}
+?>
+
+<table class="wa-dtu-table">
+    <thead>
+    <tr>
+		<?php
+		foreach ( $args['thead'] as $columnKey => $column ) {
+			$addClass = [];
+			$addAttr  = '';
+			if ( $column['is_sortable'] ) {
+				$addClass[] = 'is_sortable';
+
+				if ( $column['order_by_field'] == $args['order_by'] ) {
+					$addClass[] = 'active_order_field';
+					$addAttr    .= ' data-order-type="' . ( $args['order_by_type'] === 'ASC' ? 'ASC' : 'DESC' ) . '"';
+				}
+			}
+			$addClass = empty( $addClass ) ? '' : ' class="' . implode( ' ', $addClass ) . '"';
+
+			echo '<th data-column="' . (int) $columnKey . '"' . $addClass . $addAttr . '>' . htmlspecialchars( $column['name'] ) . '</th>';
+		}
+		?>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+	<?php
+	if ( empty( $args['tbody'] ) ) {
+		echo '<tr><td colspan="100%">' . __( 'No entries!', 'woo-assistant' ) . '</td></tr>';
+	} else {
+		foreach ( $args['tbody'] as $row ) {
+			$rowId      = $row['id'];
+			$attributes = '';
+			foreach ( $args['attributes'] as $dataName => $dataValues ) {
+				$attributes .= ' data-' . $dataName . '="' . $dataValues . '"';
+			}
+			?>
+            <tr data-id="<?php echo $rowId ?>"<?php echo $row['attributes'] . ( ! $row['is_active'] ? ' data-disabled="true"' : '' ) ?>>
+				<?php
+				foreach ( $row['data'] as $data ) {
+					$attributes = '';
+					foreach ( $data['attributes'] as $dataName => $dataValues ) {
+						$attributes .= ' data-' . $dataName . '="' . $dataValues . '"';
+					}
+
+					echo '<td' . $attributes . '>' . $data['content'] . '</td>';
+				}
+
+				echo '<td class="wa-dtu-actions-wrap">';
+				if ( ! empty( $args['actions'] ) ) {
+					echo '<div class="wa-dtu-actions">';
+					foreach ( $args['actions'] as $key => $action ) {
+						if ( $action['flags'] === AbstractDataTableUI::ACTION_SINGLE ) {
+							$attributes = [];
+							if ( $action['type'] === AbstractDataTableUI::ACTION_EDIT ) {
+								$attributes['data-modal-title']          = $args['modal_edit_title'];
+								$attributes['data-primary-button-text']  = $args['modal_edit_button'];
+								$attributes['data-display-active-field'] = (int) $args['display_active_field'];
+								$attributes['data-active-field']         = (int) $row['is_active'];
+								$attributes['data-wa-toggle']            = 'modal';
+								$attributes['data-wa-target']            = '#wa-data-table-ui-modal';
+							}
+							$attributes = \WooAssistant\Helper\HTML::getAttributes( $action, $attributes );
+
+							?>
+                            <button class="wa-button wa-dtu-action" data-action="<?php echo $key ?>"
+                                    data-action-type="<?php echo $action['type'] ?>"
+                                    type="button" <?php echo $attributes ?>><?php echo $action['title'] ?></button>
+						<?php }
+					}
+					echo '</div>';
+				}
+				echo '</td>';
+				?>
+            </tr>
+			<?php
+		}
+	}
+	?>
+    </tbody>
+</table>

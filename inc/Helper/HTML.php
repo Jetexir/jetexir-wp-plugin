@@ -7,6 +7,8 @@ defined( 'ABSPATH' ) || exit;
 use WP_Query;
 
 class HTML {
+	use DebugTrait;
+
 	private const prefix = 'wa-';
 	private const prefixName = WOOASSISTANT_INPUT_PREFIX;
 
@@ -750,6 +752,41 @@ class HTML {
 		return self::wrap( $field, $data );
 	}
 
+	public static function datatable( $data ) {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$dataTable                 = $data['data_table'];
+		$dataTable['component_id'] = self::prefix . $data['type'] . '-' . $data['id'];
+		$template                  = Templates::getPath( 'data_table.php' );
+
+		ob_start();
+		Templates::load( $template, $dataTable );
+
+		return ob_get_clean();
+	}
+
+	public static function printFields( $fields, $echo = true ) {
+		if ( ! is_array( $fields ) ) {
+			return '';
+		}
+
+		$output = '';
+		foreach ( $fields as $field ) {
+			if ( ! empty( $field['type'] ) && method_exists( self::class, strtolower( $field['type'] ) ) ) {
+				$field['type'] = strtolower( $field['type'] );
+				$output        .= self::{$field['type']}( $field );
+			}
+		}
+
+		if ( $echo ) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
+
 	/**
 	 * Check input data
 	 *
@@ -801,6 +838,9 @@ class HTML {
 			if ( mb_strlen( $settingValue ) !== mb_strlen( $data['setting_value'] ) ) {
 				$data['setting_value'] = $settingValue;
 			}
+		}
+		if ( ! isset( $data['setting_value'] ) ) {
+			$data['setting_value'] = null;
 		}
 		if ( isset( $data['multiple'] ) && $data['multiple'] ) {
 			$attributes['multiple'] = 'multiple';
