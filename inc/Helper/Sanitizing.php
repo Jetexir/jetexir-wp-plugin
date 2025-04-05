@@ -6,7 +6,8 @@ defined( 'ABSPATH' ) || exit;
 
 class Sanitizing {
 	public static function jsonArray( $value ) {
-		$value = wp_unslash( $value );
+		$value = wp_unslash( htmlspecialchars_decode( $value ) );
+		$value = str_replace( "'", '"', $value );
 		if ( ! JSON::validate( $value ) ) {
 			return [];
 		}
