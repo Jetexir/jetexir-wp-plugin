@@ -68,4 +68,31 @@ class Param {
 	public static function server( $id, $default = false, $filter = FILTER_DEFAULT, $flag = [] ) {
 		return isset( $_SERVER[ $id ] ) ? filter_var( $_SERVER[ $id ], $filter, $flag ) : $default;
 	}
+
+	/**
+	 * Decode form.serelize() jQuery Post String
+	 * Return like $_POST['Form_Input_Name or ID']
+	 *
+	 * @source https://stackoverflow.com/a/5788352/3224296
+	 */
+	public static function decodeSerialize( $queryString ): array {
+		$a     = explode( '&', $queryString );
+		$i     = 0;
+		$store = array();
+		while ( $i < count( $a ) ) {
+			$b              = explode( '=', $a[ $i ] );
+			$arrayName      = htmlspecialchars( urldecode( $b[0] ) );
+			$cleanArrayName = str_replace( '[]', '', $arrayName );
+			$arrayValue     = htmlspecialchars( urldecode( $b[1] ) );
+
+			if ( strpos( $arrayName, '[]' ) !== false ) {
+				$store[ $cleanArrayName ][] = $arrayValue;
+			} else {
+				$store[ $cleanArrayName ] = $arrayValue;
+			}
+			$i ++;
+		}
+
+		return $store;
+	}
 }
