@@ -70,7 +70,7 @@ class AdminPages {
 		$currentTab = self::getActiveTab();
 		?>
         <div class="wrap ">
-            <div class="woo-assistant-wrap">
+            <div class="woo-assistant-wrap woo-assistant-wrapper">
                 <div class="wa-sidebar">
                     <img src="<?php echo $logo ?>" alt="Logo" class="wa-logo">
                     <div class="menu-items">

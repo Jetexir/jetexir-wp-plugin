@@ -34,14 +34,16 @@ body.toplevel_page_#{variables.$plugin_key} {
   }
 
   .#{variables.$plugin_key}-wrap {
-    background: white;
-    border: 1px solid variables.$border_color;
-    border-radius: 20px;
-    display: grid;
-    grid-template-columns: 250px auto;
-    overflow: hidden;
-    color: variables.$text;
-    font-size: 14px;
+    &.woo-assistant-wrapper {
+      background: white;
+      border: 1px solid variables.$border_color;
+      border-radius: 20px;
+      display: grid;
+      grid-template-columns: 250px auto;
+      overflow: hidden;
+      color: variables.$text;
+      font-size: 14px;
+    }
 
     * {
       box-sizing: border-box;
