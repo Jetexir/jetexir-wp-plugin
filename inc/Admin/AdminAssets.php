@@ -43,9 +43,10 @@ class AdminAssets {
 			wp_add_inline_script( WOOASSISTANT_PLUGIN_SLUG . '-admin', 'var wooAssistantAjax = false, wooAssistantModalCloseEvent;', 'before' );
 
 			wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-admin', WOOASSISTANT_PLUGIN_KEYCAP, array(
-				'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
-				'ajaxNonce'  => Nonce::create(),
-				'removeText' => __( 'Remove', 'woo-assistant' ),
+				'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
+				'ajaxNonce'        => Nonce::create(),
+				'removeText'       => __( 'Remove', 'woo-assistant' ),
+				'dtuConfirmDelete' => __( 'Are you sure you want to delete this item?', 'woo-assistant' ),
 			) );
 		}
 	}
