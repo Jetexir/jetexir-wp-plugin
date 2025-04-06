@@ -125,6 +125,11 @@ abstract class AbstractDataTableUI {
 	public const ACTION_DELETE = 'delete';
 
 	/**
+	 * @const Active field
+	 */
+	public const ACTIVE_FIELD = 'is_active';
+
+	/**
 	 * @const Edit action type
 	 */
 	public const ACTION_EDIT = 'edit';
@@ -229,7 +234,7 @@ abstract class AbstractDataTableUI {
 		return $this;
 	}
 
-	public function addColumn( $name, $columnData, $args = [] ): AbstractDataTableUI {
+	public function addColumn( $name, $field, $columnData = null, $args = [] ): AbstractDataTableUI {
 		$defaultArgs = [
 			'is_sortable' => false,
 			'is_shown'    => true,
@@ -238,11 +243,10 @@ abstract class AbstractDataTableUI {
 		];
 
 		$args['name']        = $name;
-		$args['column_data'] = $columnData;
+		$args['field']       = $field;
+		$args['column_data'] = is_null( $columnData ) ? $field : $columnData;
 
-		$column = wp_parse_args( $args, $defaultArgs );
-
-		$this->columns[] = $column;
+		$this->columns[] = wp_parse_args( $args, $defaultArgs );
 
 		return $this;
 	}
@@ -269,6 +273,7 @@ abstract class AbstractDataTableUI {
 
 			$thead[] = [
 				'name'           => $column['name'],
+				'field'          => $column['field'],
 				'is_sortable'    => $column['is_sortable'],
 				'order_by_field' => $column['is_sortable'] ? $column['order_by_field'] : false
 			];
@@ -298,7 +303,10 @@ abstract class AbstractDataTableUI {
 				if ( is_callable( $column['column_data'] ) && is_object( $column['column_data'] ) ) {
 					$columnData = $column['column_data']( $row );
 
-				} else if ( is_string( $column['column_data'] ) && ! empty( $row[ $column['column_data'] ] ) ) {
+				} else if ( $column['column_data'] === static::ACTIVE_FIELD ) {
+					$columnData = (int) $row[ $column['column_data'] ];
+
+				} else if ( is_string( $column['column_data'] ) && isset( $row[ $column['column_data'] ] ) ) {
 					$columnData = $row[ $column['column_data'] ];
 
 					if ( isset( $column['type'] ) ) {
@@ -326,6 +334,7 @@ abstract class AbstractDataTableUI {
 				}
 
 				$newRow[] = [
+					'field'      => $column['field'],
 					'content'    => $columnData,
 					'attributes' => $attributes
 				];
@@ -353,6 +362,8 @@ abstract class AbstractDataTableUI {
 				return empty( $data ) ? '' : wp_date( 'H:i:s', $data );
 			case 'number':
 				return empty( $data ) ? '' : number_format( $data );
+			case 'int':
+				return (int) $data;
 			default:
 				return $data;
 		}

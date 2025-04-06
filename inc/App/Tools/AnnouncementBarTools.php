@@ -149,27 +149,13 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		          ->setRows( Settings::get( 'announcement_bar_data', [], self::sectionID ) )
 		          ->setIdField( $dataTable::ROW_INDEX )
 		          ->setTitle( __( 'Announcement Bars', 'woo-assistant' ) )
-			//->setDesc( __( 'Announcement Bars', 'woo-assistant' ) )
-			//->setActiveField( false )
-			// ->setDisplayActiveField( false )
-			      ->modalAddTitle( __( 'Add new announcement', 'woo-assistant' ) )
+		          ->modalAddTitle( __( 'Add new announcement', 'woo-assistant' ) )
 		          ->modalEditTitle( __( 'Edit announcement', 'woo-assistant' ) )
 		          ->addNewButton( __( 'Add new', 'woo-assistant' ) )
 		          ->addAction( 'edit', '<i class="wa-icon-edit"></i>', $dataTable::ACTION_EDIT )
 		          ->addAction( 'delete', '<i class="wa-icon-trash"></i>', $dataTable::ACTION_DELETE )
-		          ->setDisplayRowCount( true )
-			/*->addColumn(
-				__( '#', 'woo-assistant' ),
-				$dataTable::ROW_INDEX,
-				[
-					'is_html'     => false,
-					'is_sortable' => false,
-				]
-			)*/
-			      ->addColumn( __( 'Title', 'woo-assistant' ), 'title', [
-				'is_html'     => true,
-				'is_sortable' => false,
-			] );
+		          ->addColumn( __( 'Title', 'woo-assistant' ), 'title', null, [ 'is_html' => true, ] )
+		          ->addColumn( __( 'Status', 'woo-assistant' ), $dataTable::ACTIVE_FIELD );
 
 		return $dataTable;
 	}

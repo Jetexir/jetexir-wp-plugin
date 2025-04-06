@@ -1723,6 +1723,10 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table thead tr th {
   background-color: #F6F5F9;
 }
+.woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table thead tr th[data-column=is_active] {
+  width: 100px;
+  text-align: center;
+}
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table tbody tr:nth-child(even) {
   background-color: rgb(250.5, 250, 252);
 }
@@ -1732,6 +1736,12 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 }
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table tbody tr td {
   border: 1px solid #E6E2F5;
+}
+.woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table tbody tr td[data-column=is_active] {
+  text-align: center;
+}
+.woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table tbody tr td[data-column=is_active] .wa-toggle .wa-toggle-slider {
+  cursor: default;
 }
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table tbody tr .wa-dtu-actions-wrap {
   width: 160px;

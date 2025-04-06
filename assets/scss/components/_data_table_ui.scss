@@ -61,6 +61,11 @@
         tr {
           th {
             background-color: variables.$background_side;
+
+            &[data-column="is_active"] {
+              width: 100px;
+              text-align: center;
+            }
           }
         }
       }
@@ -78,6 +83,14 @@
 
           td {
             border: 1px solid variables.$border_color;
+
+            &[data-column="is_active"] {
+              text-align: center;
+
+              .wa-toggle .wa-toggle-slider {
+                cursor: default;
+              }
+            }
           }
 
           .wa-dtu-actions-wrap {

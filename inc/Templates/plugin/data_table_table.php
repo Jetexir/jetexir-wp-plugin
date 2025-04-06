@@ -26,7 +26,7 @@ if ( ! isset( $args ) ) {
 			}
 			$addClass = empty( $addClass ) ? '' : ' class="' . implode( ' ', $addClass ) . '"';
 
-			echo '<th data-column="' . (int) $columnKey . '"' . $addClass . $addAttr . '>' . htmlspecialchars( $column['name'] ) . '</th>';
+			echo '<th data-column="' . $column['field'] . '"' . $addClass . $addAttr . '>' . htmlspecialchars( $column['name'] ) . '</th>';
 		}
 		?>
         <th></th>
@@ -47,9 +47,22 @@ if ( ! isset( $args ) ) {
             <tr data-id="<?php echo $rowId ?>"<?php echo $row['attributes'] . ( ! $row['is_active'] ? ' data-disabled="true"' : '' ) ?>>
 				<?php
 				foreach ( $row['data'] as $data ) {
-					$attributes = '';
+					$attributes = ' data-column="' . $data['field'] . '" ';
 					foreach ( $data['attributes'] as $dataName => $dataValues ) {
 						$attributes .= ' data-' . $dataName . '="' . $dataValues . '"';
+					}
+
+					if ( $data['field'] === AbstractDataTableUI::ACTIVE_FIELD &&
+					     in_array( $data['content'], [ '1', '0' ], true ) ) {
+						$data['content'] = \WooAssistant\Helper\HTML::toggle( array(
+							'id'            => $args['id'] . '_row_active_' . $rowId,
+							'type'          => 'toggle',
+							'value'         => 1,
+							'default'       => true,
+							'setting_value' => (bool) $data['content'],
+							'attributes'    => [ 'disabled' => 'disabled' ],
+							'wrap'          => false
+						) );
 					}
 
 					echo '<td' . $attributes . '>' . $data['content'] . '</td>';
@@ -70,7 +83,6 @@ if ( ! isset( $args ) ) {
 								$attributes['data-wa-target']            = '#wa-data-table-ui-modal';
 							}
 							$attributes = \WooAssistant\Helper\HTML::getAttributes( $action, $attributes );
-
 							?>
                             <button class="wa-button wa-dtu-action" data-action="<?php echo $key ?>"
                                     data-action-type="<?php echo $action['type'] ?>"
