@@ -419,8 +419,10 @@ class HTML {
 
 		$field = '<label class="' . self::prefix . 'toggle">' .
 		         '<input type="checkbox" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . 'toggle-' . $data['id'] . '" value="' . $data['value'] . '" ' . checked( $data['setting_value'] == $data['value'], true, false ) . self::getAttributes( $data ) . '>' .
-		         '<span class="' . self::prefix . 'toggle-slider" type="button"><span class="' . self::prefix . 'toggle-handle">' . self::checkIcon . self::crossIcon . '</span></span></label>' .
-		         '<label for="' . self::prefix . 'toggle-' . $data['id'] . '" class="' . self::prefix . 'input-title">' . $data['title'] . '</label>';
+		         '<span class="' . self::prefix . 'toggle-slider" type="button"><span class="' . self::prefix . 'toggle-handle">' . self::checkIcon . self::crossIcon . '</span></span></label>';
+		if ( ! empty( $data['title'] ) ) {
+			$field .= '<label for="' . self::prefix . 'toggle-' . $data['id'] . '" class="' . self::prefix . 'input-title">' . $data['title'] . '</label>';
+		}
 
 		return self::wrap( $field, $data );
 	}
