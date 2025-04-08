@@ -172,8 +172,14 @@ jQuery(document).ready(function ($) {
 
             var gradientContainer = $(this),
                 gradientWrap = gradientContainer.closest('.wa-gradient-color-picker-wrap'),
+                gradientMaxColors = parseInt(gradientWrap.data('max-colors')),
+                gradientPoints = gradientWrap.find('.wa-gradient-color-point'),
                 maxX, minX = 5, pX;
-            gradientWrap.find('.wa-gradient-color-point').removeClass('is-active');
+
+            if (gradientMaxColors <= gradientPoints.length)
+                return;
+
+            gradientPoints.removeClass('is-active');
 
             var gradientWrapID = gradientWrap.attr('id'),
                 leftX = e.pageX - gradientContainer.offset().left,

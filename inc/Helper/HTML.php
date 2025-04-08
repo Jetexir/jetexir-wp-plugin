@@ -895,6 +895,14 @@ class HTML {
 			}
 		}
 
+		if ( $data['type'] === 'gradientcolorpicker' ) {
+			if ( ! isset( $data['max_colors'] ) ) {
+				$data['max_colors'] = 4;
+			}
+
+			$attributes['data-max-colors'] = (int) $data['max_colors'];
+		}
+
 		if ( in_array( $data['type'], [
 				'userselect',
 				'userroleselect',

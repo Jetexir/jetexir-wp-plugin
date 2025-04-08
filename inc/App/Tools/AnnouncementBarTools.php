@@ -479,7 +479,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				'type'          => 'gradientColorPicker',
 				'addable'       => true,
 				'removable'     => true,
-				'max_items'     => 5,
+				'max_colors'    => 5,
 				'setting_value' => $data['bg_color_gradient'] ?? array(
 						'function' => 'linear-gradient',
 						'rotate'   => 90,
