@@ -519,11 +519,10 @@ jQuery(document).ready(function ($) {
                 modalTarget = $this.data('wa-target'),
                 modalTargetElm = $(modalTarget);
 
-            if (waDataTableActionType === 'delete' && !confirm(WooAssistant.dtuConfirmDelete)) {
+            if (wooAssistantAjax || waDataTableActionType === 'delete' && !confirm(WooAssistant.dtuConfirmDelete)) {
                 return;
             }
 
-            if (wooAssistantAjax) return;
             wooAssistantAjax = true;
 
             waDataTableUiModal($this, waDataTableID, modalTarget);
