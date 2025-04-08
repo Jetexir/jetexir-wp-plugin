@@ -637,16 +637,15 @@ class HTML {
 			$field .= '<label class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
 		}
 
-		$id                 = self::prefix . $data['type'] . '-' . $data['id'];
-		$value              = is_array( $data['setting_value'] ) ? $data['setting_value'] : [];
-		$function           = $value['function'] = $value['function'] ?? 'linear-gradient';
-		$rotate             = $value['rotate'] = $value['rotate'] ?? 90;
-		$shape              = $value['shape'] = $value['shape'] ?? 'ellipse';
-		$colors             = $value['colors'] = isset( $value['colors'] ) && is_array( $value['colors'] ) && count( $value['colors'] ) >= 2 ? $value['colors'] : $data['default']['colors'];
-		$gradientFirstParam = $function === 'linear-gradient' ? $rotate . 'deg' : $shape;
-		$gradientStyle      = 'background: ' . Assets::cssGradient( $colors, $function, $gradientFirstParam );
-		$jsonValue          = str_replace( '"', "'", JSON::encode( $value ) );
-		$firstColor         = false;
+		$id            = self::prefix . $data['type'] . '-' . $data['id'];
+		$value         = is_array( $data['setting_value'] ) ? $data['setting_value'] : [];
+		$function      = $value['function'] = $value['function'] ?? 'linear-gradient';
+		$rotate        = $value['rotate'] = $value['rotate'] ?? 90;
+		$shape         = $value['shape'] = $value['shape'] ?? 'ellipse';
+		$colors        = $value['colors'] = isset( $value['colors'] ) && is_array( $value['colors'] ) && count( $value['colors'] ) >= 2 ? $value['colors'] : $data['default']['colors'];
+		$gradientStyle = 'background: ' . Assets::cssGradient( $value, $data['default'] );
+		$jsonValue     = str_replace( '"', "'", JSON::encode( $value ) );
+		$firstColor    = false;
 
 		$field .= '<div id="' . $id . '" class="' . self::getClass( $data, self::prefix . 'gradient-color-picker-wrap' ) . '" ' . self::getAttributes( $data ) . '>';
 		$field .= '<input type="hidden" name="' . self::prefixName . $data['id'] . '" class="' . self::prefix . 'gradient-color-picker-value"  value="' . $jsonValue . '">';

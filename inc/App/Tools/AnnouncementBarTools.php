@@ -92,13 +92,8 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 		$bgColorType = $announcement['bg_color_type'] ?? 'solid';
 		if ( $bgColorType === 'gradient' ) {
-			$bgColorGradient    = $announcement['bg_color_gradient'] ?? [];
-			$function           = $bgColorGradient['function'] = $bgColorGradient['function'] ?? 'linear-gradient';
-			$rotate             = $bgColorGradient['rotate'] = $bgColorGradient['rotate'] ?? 90;
-			$shape              = $bgColorGradient['shape'] = $bgColorGradient['shape'] ?? 'ellipse';
-			$colors             = isset( $bgColorGradient['colors'] ) && is_array( $bgColorGradient['colors'] ) && count( $bgColorGradient['colors'] ) >= 2 ? $bgColorGradient['colors'] : [];
-			$gradientFirstParam = $function === 'linear-gradient' ? $rotate . 'deg' : $shape;
-			$style              .= '--wa-announcement-bar-bg: ' . Assets::cssGradient( $colors, $function, $gradientFirstParam ) . ';';
+			$bgColorGradient = $announcement['bg_color_gradient'] ?? [];
+			$style           .= '--wa-announcement-bar-bg: ' . Assets::cssGradient( $bgColorGradient ) . ';';
 
 		} else {
 			$style .= '--wa-announcement-bar-bg: ' . $announcement['bg_color_solid'] ?? '#ebe5ff' . ';';

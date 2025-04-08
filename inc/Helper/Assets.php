@@ -5,7 +5,13 @@ namespace WooAssistant\Helper;
 defined( 'ABSPATH' ) || exit;
 
 class Assets {
-	public static function cssGradient( $colors, $function = 'linear-gradient', $firstParam = '' ): string {
+	public static function cssGradient( $value, $default = [] ): string {
+		$function   = $value['function'] = $value['function'] ?? 'linear-gradient';
+		$rotate     = $value['rotate'] = $value['rotate'] ?? 90;
+		$shape      = $value['shape'] = $value['shape'] ?? 'ellipse';
+		$colors     = $value['colors'] = isset( $value['colors'] ) && is_array( $value['colors'] ) && count( $value['colors'] ) >= 2 ? $value['colors'] : $default['colors'];
+		$firstParam = $function === 'linear-gradient' ? $rotate . 'deg' : $shape;
+
 		$steps = [];
 		foreach ( $colors as $position => $color ) {
 			$color   = Sanitizing::color( $color );
