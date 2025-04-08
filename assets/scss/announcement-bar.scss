@@ -58,4 +58,10 @@
       justify-content: center;
     }
   }
+
+  @media screen and (max-width: 782px) {
+    .wa-announcement-bar-container {
+      flex-direction: column;
+    }
+  }
 }

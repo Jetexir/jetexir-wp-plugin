@@ -45,5 +45,10 @@
 .wa-announcement-bar.wa-announcement-bar-center .wa-announcement-bar-container {
   justify-content: center;
 }
+@media screen and (max-width: 782px) {
+  .wa-announcement-bar .wa-announcement-bar-container {
+    flex-direction: column;
+  }
+}
 
 /*# sourceMappingURL=announcement-bar.css.map */
