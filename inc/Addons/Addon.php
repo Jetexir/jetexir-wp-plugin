@@ -33,6 +33,8 @@ abstract class Addon {
 		add_action( 'wp', [ $this, 'registerWpAction' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'registerWpEnqueueScriptsAction' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'registerAdminEnqueueScriptsAction' ] );
+		add_action( 'wp_footer', [ $this, 'registerWpFooterAction' ] );
+		add_action( 'wp_body_open', [ $this, 'registerWpBodyOpenAction' ], 0 );
 
 		add_filter( 'query_vars', [ $this, 'registerQueryVarsFilter' ] );
 		add_filter( 'woocommerce_account_menu_items', [ $this, 'registerWooAccountMenuItemsFilter' ] );
@@ -52,6 +54,18 @@ abstract class Addon {
 		}
 
 		return $items;
+	}
+
+	public function registerWpFooterAction(): void {
+		if ( method_exists( $this, 'wpFooterAction' ) && $this->isActivated() ) {
+			$this->wpFooterAction();
+		}
+	}
+
+	public function registerWpBodyOpenAction(): void {
+		if ( method_exists( $this, 'wpBodyOpenAction' ) && $this->isActivated() ) {
+			$this->wpBodyOpenAction();
+		}
 	}
 
 	public function registerAdminEnqueueScriptsAction(): void {
