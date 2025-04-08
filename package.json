@@ -18,6 +18,8 @@
     "wa-product-related-compressed-css": "sass --watch assets/scss/product-related.scss:assets/css/product-related.min.css --style compressed",
     "wa-fly-cart-css": "sass --watch assets/scss/fly-cart.scss:assets/css/fly-cart.css",
     "wa-fly-cart-compressed-css": "sass --watch assets/scss/fly-cart.scss:assets/css/fly-cart.min.css --style compressed",
+    "wa-announcement-bar-css": "sass --watch assets/scss/announcement-bar.scss:assets/css/announcement-bar.css",
+    "wa-announcement-bar-compressed-css": "sass --watch assets/scss/announcement-bar.scss:assets/css/announcement-bar.min.css --style compressed",
     "wa-owl-carousel-css": "sass --watch assets/scss/owl-carousel.scss:assets/css/owl-carousel.css",
     "wa-owl-carousel-compressed-css": "sass --watch assets/scss/owl-carousel.scss:assets/css/owl-carousel.min.css --style compressed",
     "wa-build-scss": "webpack --config webpack-css.config.js",
