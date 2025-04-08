@@ -1,6 +1,6 @@
 @font-face {
   font-family: "wooassistant-icon";
-  src: url("../fonts/wooassistant-icon.ttf?wpdkrz") format("truetype"), url("../fonts/wooassistant-icon.woff?wpdkrz") format("woff"), url("../fonts/wooassistant-icon.svg?wpdkrz#wooassistant-icon") format("svg");
+  src: url("../fonts/wooassistant-icon.ttf?es6vre") format("truetype"), url("../fonts/wooassistant-icon.woff?es6vre") format("woff"), url("../fonts/wooassistant-icon.svg?es6vre#wooassistant-icon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -21,10 +21,6 @@
 
 .wa-icon-magic-wand:before {
   content: "\e94a";
-}
-
-.wa-icon-magic-portal:before {
-  content: "\e92c";
 }
 
 .wa-icon-magic-wand3:before {
@@ -195,6 +191,14 @@
   content: "\e913";
 }
 
+.wa-icon-edit:before {
+  content: "\e94b";
+}
+
+.wa-icon-trash:before {
+  content: "\e93b";
+}
+
 .wa-icon-check:before {
   content: "\e931";
 }
@@ -245,6 +249,10 @@
 
 .wa-icon-chevron-up:before {
   content: "\e91a";
+}
+
+.wa-icon-plus-circle:before {
+  content: "\e92c";
 }
 
 .wa-icon-cross:before {
@@ -549,6 +557,7 @@ body.rtl.woo-assistant-notices .wa-notice {
   --wa-modal-border-color: variables.$gray_light_two;
   --wa-modal-bg-color: var(--wa-bg-color, variables.$white);
   --wa-modal-border-radius: var(--wa-element-border-radius, 0);
+  --wa-modal-font-size: 15px;
   display: none;
   position: fixed;
   z-index: 999999;
@@ -562,8 +571,9 @@ body.rtl.woo-assistant-notices .wa-notice {
   top: 0;
   left: 0;
   pointer-events: none;
-  font-size: 16px;
+  font-size: var(--wa-modal-font-size, 15px);
   border: none;
+  inset: 0;
 }
 .wa-modal .wa-modal-dialog {
   position: relative;
@@ -571,6 +581,12 @@ body.rtl.woo-assistant-notices .wa-notice {
   max-width: 500px;
   margin: calc(var(--wa-admin-bar-height, 0) + 2em) auto 2em;
   pointer-events: none;
+}
+.wa-modal.wa-modal-large .wa-modal-dialog {
+  max-width: 700px;
+}
+.wa-modal.wa-modal-xlarge .wa-modal-dialog {
+  max-width: 900px;
 }
 .wa-modal .wa-modal-content {
   position: relative;
@@ -600,6 +616,12 @@ body.rtl.woo-assistant-notices .wa-notice {
   font-size: 1.2em;
   font-weight: 600;
 }
+.wa-modal .wa-modal-message:not(:empty) {
+  padding: 15px;
+}
+.wa-modal .wa-modal-message:not(:empty) .woo-assistant-notices {
+  margin-bottom: 0;
+}
 .wa-modal .wa-modal-body {
   position: relative;
   flex: 1 1 auto;
@@ -617,6 +639,11 @@ body.rtl.woo-assistant-notices .wa-notice {
 }
 .wa-modal .wa-modal-footer a, .wa-modal .wa-modal-footer button {
   text-align: center;
+}
+.wa-modal .wa-modal-footer .wa-modal-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .wa-modal.wa-fade .wa-modal-dialog {
   transition: transform 0.3s ease-out;
@@ -650,7 +677,7 @@ body.rtl.woo-assistant-notices .wa-notice {
   background-color: transparent;
   color: var(--wa-text-color, #2B2B2B);
   border: none;
-  padding: 10px 15px;
+  padding: 10px 16px;
   border-radius: var(--wa-button-border-radius, 0);
   font-weight: 500;
   cursor: pointer;
@@ -658,6 +685,7 @@ body.rtl.woo-assistant-notices .wa-notice {
   transition: 0.2s;
   -webkit-appearance: button;
   text-transform: none;
+  line-height: 1;
 }
 .wa-button i {
   font-size: 1.1em;
@@ -693,33 +721,6 @@ body.rtl.woo-assistant-notices .wa-notice {
 .wa-button.wa-button-secondary:focus, .wa-button.wa-button-secondary:active {
   outline-offset: 2px;
   outline: var(--wa-secondary-button-hover-border-color, #720eec) solid 2px;
-}
-
-.wa-button-close {
-  --wa-btn-close-color: var(--wa-text-color, variables.$dark);
-  --wa-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
-  --wa-btn-close-opacity: 0.5;
-  --wa-btn-close-hover-opacity: 0.75;
-  --wa-btn-close-focus-opacity: 1;
-  --wa-btn-close-disabled-opacity: 0.25;
-  box-sizing: content-box;
-  width: 1em;
-  height: 1em;
-  padding: 0.5rem;
-  color: var(--wa-btn-close-color);
-  background: transparent var(--wa-btn-close-bg) center/1em auto no-repeat;
-  border: 0;
-  border-radius: 0.375rem;
-  opacity: var(--wa-btn-close-opacity);
-}
-.wa-button-close:hover {
-  opacity: var(--wa-btn-close-hover-opacity);
-}
-.wa-button-close:focus {
-  opacity: var(--wa-btn-close-focus-opacity);
-}
-.wa-button-close[disabled] {
-  opacity: var(--wa-btn-close-disabled-opacity);
 }
 
 /*
@@ -763,6 +764,46 @@ body *[class^=wa-] {
   box-sizing: border-box;
 }
 
+.wa-fade {
+  transition: opacity 0.15s linear;
+  opacity: 1;
+}
+.wa-fade:not(.wa-active) {
+  opacity: 0;
+}
+
+.wa-button-close {
+  --wa-btn-close-color: var(--wa-text-color, variables.$dark);
+  --wa-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+  --wa-btn-close-opacity: 0.5;
+  --wa-btn-close-hover-opacity: 0.75;
+  --wa-btn-close-focus-opacity: 1;
+  --wa-btn-close-disabled-opacity: 0.25;
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.5rem;
+  color: var(--wa-btn-close-color);
+  background: transparent var(--wa-btn-close-bg) center/1em auto no-repeat;
+  border: 0;
+  border-radius: 0.375rem;
+  opacity: var(--wa-btn-close-opacity);
+}
+.wa-button-close:hover {
+  opacity: var(--wa-btn-close-hover-opacity);
+}
+.wa-button-close:focus {
+  opacity: var(--wa-btn-close-focus-opacity);
+}
+.wa-button-close[disabled] {
+  opacity: var(--wa-btn-close-disabled-opacity);
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar {
+    --wa-admin-bar-height: 46px;
+  }
+}
 .wa-appearance-text-field input[type=number] {
   -webkit-appearance: none;
   -moz-appearance: textfield;
@@ -781,14 +822,6 @@ body *[class^=wa-] {
 }
 .wa-remove-action:hover {
   color: rgb(158.4, 67.5, 76.5) !important;
-}
-
-.wa-fade {
-  transition: opacity 0.15s linear;
-  opacity: 1;
-}
-.wa-fade:not(.wa-active) {
-  opacity: 0;
 }
 
 .wa-inline-flex {
@@ -848,12 +881,6 @@ body *[class^=wa-] {
   color: #b04b55;
   gap: 3px;
   text-decoration: none;
-}
-
-@media screen and (max-width: 782px) {
-  body.admin-bar {
-    --wa-admin-bar-height: 46px;
-  }
 }
 
 /*# sourceMappingURL=style.css.map */

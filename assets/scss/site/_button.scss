@@ -5,7 +5,7 @@
   background-color: transparent;
   color: var(--wa-text-color, variables.$dark);
   border: none;
-  padding: 10px 15px;
+  padding: 10px 16px;
   border-radius: var(--wa-button-border-radius, 0);
   font-weight: 500;
   cursor: pointer;
@@ -13,6 +13,7 @@
   transition: .2s;
   -webkit-appearance: button;
   text-transform: none;
+  line-height: 1;
 
   i {
     font-size: 1.1em;
