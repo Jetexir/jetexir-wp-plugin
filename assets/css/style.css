@@ -686,6 +686,7 @@ body.rtl.woo-assistant-notices .wa-notice {
   -webkit-appearance: button;
   text-transform: none;
   line-height: 1;
+  text-decoration: none !important;
 }
 .wa-button i {
   font-size: 1.1em;
