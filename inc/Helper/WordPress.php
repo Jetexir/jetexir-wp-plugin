@@ -27,7 +27,7 @@ class WordPress {
 		} elseif ( WooCommerce::isProductTaxonomy() ) {
 			return 'product-taxonomy';
 		} elseif ( self::isSinglePost() ) {
-			return 'single-post';
+			return 'post';
 		} elseif ( self::isSingle() ) {
 			return 'single';
 		} elseif ( self::isPage() ) {
