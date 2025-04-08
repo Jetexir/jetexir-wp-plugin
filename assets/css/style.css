@@ -579,7 +579,7 @@ body.rtl.woo-assistant-notices .wa-notice {
   position: relative;
   width: auto;
   max-width: 500px;
-  margin: calc(var(--wa-admin-bar-height, 0) + 2em) auto 2em;
+  margin: calc(var(--wa-admin-bar-height, 0) + 5em) auto 2em;
   pointer-events: none;
 }
 .wa-modal.wa-modal-large .wa-modal-dialog {
