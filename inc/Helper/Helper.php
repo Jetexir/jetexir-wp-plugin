@@ -3,6 +3,29 @@
 namespace WooAssistant\Helper;
 
 class Helper {
+	public static function randomString( $length, $smallAlphabet = true, $largeAlphabet = true, $numbers = true ) {
+		$strings = [];
+		if ( $smallAlphabet ) {
+			$strings = array_merge( $strings, range( 'a', 'z' ) );
+		}
+		if ( $largeAlphabet ) {
+			$strings = array_merge( $strings, range( 'A', 'Z' ) );
+		}
+		if ( $numbers ) {
+			$strings = array_merge( $strings, range( 1, 9 ) );
+		}
+
+		if ( empty( $strings ) ) {
+			return false;
+		}
+
+		shuffle( $strings );
+
+		$strings = implode( "", $strings );
+
+		return substr( str_shuffle( $strings ), 0, $length );
+	}
+
 	/**
 	 * Inserts any number of scalars or arrays at the point
 	 * in the haystack immediately after the search key ($needle) was found,
