@@ -46,7 +46,7 @@ class AdminAssets {
 				'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
 				'ajaxNonce'        => Nonce::create(),
 				'removeText'       => __( 'Remove', 'woo-assistant' ),
-				'dtuConfirmDelete' => __( 'Are you sure you want to delete this item?', 'woo-assistant' ),
+				'dtuConfirmDelete' => __( 'Are you sure you want to delete this item(s)?', 'woo-assistant' ),
 			) );
 		}
 	}
