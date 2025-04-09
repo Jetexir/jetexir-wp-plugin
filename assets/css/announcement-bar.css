@@ -12,7 +12,7 @@
   position: fixed;
   left: 0;
   right: 0;
-  z-index: 9999999;
+  z-index: 999995;
 }
 .wa-announcement-bar.wa-announcement-bar-fixed.wa-announcement-bar-top {
   position: inherit;
