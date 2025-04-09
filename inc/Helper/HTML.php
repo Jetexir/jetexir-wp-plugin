@@ -760,10 +760,10 @@ class HTML {
 
 		$dataTable                 = $data['data_table'];
 		$dataTable['component_id'] = self::prefix . $data['type'] . '-' . $data['id'];
-		$template                  = Templates::getPath( 'data_table.php' );
+		$template                  = Templates::getPath( 'data-table/data_table.php' );
 
 		ob_start();
-		Templates::load( $template, $dataTable );
+		Templates::load( $template, $dataTable, false );
 
 		return ob_get_clean();
 	}
