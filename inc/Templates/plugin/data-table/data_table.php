@@ -36,13 +36,17 @@ if ( ! isset( $args ) ) {
 		}
 
 		if ( ! empty( $args['add_new_button'] ) ) {
-			echo '<button class="wa-button wa-button-secondary wa-dtu-add-new" data-modal-title="' . $args['modal_add_title'] . '" data-primary-button-text="' . $args['modal_add_button'] . '" data-display-active-field="' . ( (int) $args['display_active_field'] ) . '" data-active-field="' . ( (int) $args['active_field'] ) . '" data-wa-toggle="modal" data-wa-target="#wa-data-table-ui-modal" type="button">' . $args['add_new_button'] . '</button>';
+			echo '<button class="wa-button wa-button-primary wa-dtu-add-new" data-modal-title="' . $args['modal_add_title'] . '" data-primary-button-text="' . $args['modal_add_button'] . '" data-display-active-field="' . ( (int) $args['display_active_field'] ) . '" data-active-field="' . ( (int) $args['active_field'] ) . '" data-wa-toggle="modal" data-wa-target="#wa-data-table-ui-modal" type="button">' . $args['add_new_button'] . '</button>';
 		}
 		echo '</div>';
 	}
 	?>
 
     <div class="wa-dtu-body">
-		<?php Templates::load( Templates::getPath( 'data_table_table.php' ), $args ); ?>
+		<?php
+		Templates::load( Templates::getPath( 'data-table/data_table_bulk_action.php' ), array_merge( $args, [ 'bulk_action_position' => 'top' ] ), false );
+		Templates::load( Templates::getPath( 'data-table/data_table_table.php' ), $args );
+		Templates::load( Templates::getPath( 'data-table/data_table_bulk_action.php' ), array_merge( $args, [ 'bulk_action_position' => 'bottom' ] ), false );
+		?>
     </div>
 </div>

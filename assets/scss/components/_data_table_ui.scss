@@ -43,12 +43,37 @@
 
     .wa-dtu-body {
       position: relative;
+
+      select {
+        max-width: 200px;
+        padding: 4px 14px;
+      }
+    }
+
+    .wa-dtu-bulk-actions {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+
+      &.wa-dtu-bulk-actions-top {
+        margin-bottom: 10px;
+      }
+
+      &.wa-dtu-bulk-actions-bottom {
+        margin-top: 10px;
+      }
     }
 
     table.wa-dtu-table {
       border-collapse: collapse;
       width: 100%;
       background-color: white;
+
+      .check-column {
+        label:hover {
+          background: none;
+        }
+      }
 
       tr {
         td, th {
@@ -61,6 +86,11 @@
         tr {
           th {
             background-color: variables.$background_side;
+
+            &.wa-dtu-select-all-wrap {
+              width: 40px;
+              text-align: center;
+            }
 
             &[data-column="is_active"] {
               width: 100px;

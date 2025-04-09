@@ -18,6 +18,13 @@
       cursor: pointer;
       height: 0;
       width: 0;
+
+      &:checked {
+        &:before {
+          content: none;
+          margin: 0;
+        }
+      }
     }
 
     .wa-checkmark {

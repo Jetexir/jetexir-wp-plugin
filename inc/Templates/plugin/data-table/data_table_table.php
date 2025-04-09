@@ -13,6 +13,10 @@ if ( ! isset( $args ) ) {
     <thead>
     <tr>
 		<?php
+		if ( $args['has_bulk_action'] ) {
+			echo '<th class="wa-dtu-select-all-wrap check-column"><label class="wa-checkbox-wrap"><input type="checkbox" class="wa-dtu-select-all"><span class="wa-checkmark"></span></label></th>';
+		}
+
 		foreach ( $args['thead'] as $columnKey => $column ) {
 			$addClass = [];
 			$addAttr  = '';
@@ -46,6 +50,10 @@ if ( ! isset( $args ) ) {
 			?>
             <tr data-id="<?php echo $rowId ?>"<?php echo $row['attributes'] . ( ! $row['is_active'] ? ' data-disabled="true"' : '' ) ?>>
 				<?php
+				if ( $args['has_bulk_action'] ) {
+					echo '<td class="check-column"><label class="wa-checkbox-wrap"><input type="checkbox" class="wa-dtu-row-select" value="' . $rowId . '"><span class="wa-checkmark"></span></label></td>';
+				}
+
 				foreach ( $row['data'] as $data ) {
 					$attributes = ' data-column="' . $data['field'] . '" ';
 					foreach ( $data['attributes'] as $dataName => $dataValues ) {
@@ -72,7 +80,7 @@ if ( ! isset( $args ) ) {
 				if ( ! empty( $args['actions'] ) ) {
 					echo '<div class="wa-dtu-actions">';
 					foreach ( $args['actions'] as $key => $action ) {
-						if ( $action['flags'] === AbstractDataTableUI::ACTION_SINGLE ) {
+						if ( $action['flag'] === AbstractDataTableUI::ACTION_SINGLE ) {
 							$attributes = [];
 							if ( $action['type'] === AbstractDataTableUI::ACTION_EDIT ) {
 								$attributes['data-modal-title']          = $args['modal_edit_title'];

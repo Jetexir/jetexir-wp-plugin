@@ -101,10 +101,22 @@ abstract class AbstractDataTableUI {
 	private int $perPage = 20;
 
 	/**
+	 * @var bool Has bulk action
+	 */
+	private bool $hasBulkAction = false;
+	/**
+	 * @var bool Display top bulk action
+	 */
+	private bool $topBulkAction = true;
+	/**
+	 * @var bool Display bottom bulk action
+	 */
+	private bool $bottomBulkAction = false;
+
+	/**
 	 * @const Row index constant
 	 */
 	public const ROW_INDEX = '__INDEX__';
-
 	/**
 	 * @const Row number constant
 	 */
@@ -118,21 +130,24 @@ abstract class AbstractDataTableUI {
 	 * @const Action single
 	 */
 	public const ACTION_SINGLE = 1;
+	/**
+	 * @const Action single
+	 */
+	public const ACTION_BULK = 2;
 
 	/**
 	 * @const Delete action type
 	 */
 	public const ACTION_DELETE = 'delete';
+	/**
+	 * @const Edit action type
+	 */
+	public const ACTION_EDIT = 'edit';
 
 	/**
 	 * @const Active field
 	 */
 	public const ACTIVE_FIELD = 'is_active';
-
-	/**
-	 * @const Edit action type
-	 */
-	public const ACTION_EDIT = 'edit';
 
 	public function setID( $id ): AbstractDataTableUI {
 		$this->id = $id;
@@ -194,6 +209,18 @@ abstract class AbstractDataTableUI {
 		return $this;
 	}
 
+	public function displayTopBulkAction( $display ): AbstractDataTableUI {
+		$this->topBulkAction = $display;
+
+		return $this;
+	}
+
+	public function displayBottomBulkAction( $display ): AbstractDataTableUI {
+		$this->bottomBulkAction = $display;
+
+		return $this;
+	}
+
 	public function setRows( $data ): AbstractDataTableUI {
 		$this->rows     = $data;
 		$this->rowCount = count( $data );
@@ -201,7 +228,7 @@ abstract class AbstractDataTableUI {
 		return $this;
 	}
 
-	public function getRowCount() {
+	public function getRowCount(): int {
 		return $this->rowCount;
 	}
 
@@ -251,14 +278,18 @@ abstract class AbstractDataTableUI {
 		return $this;
 	}
 
-	public function addAction( $key, $title, $type, $attributes = [], $flags = self::ACTION_SINGLE ): AbstractDataTableUI {
+	public function addAction( $key, $title, $type, $attributes = [], $flag = self::ACTION_SINGLE ): AbstractDataTableUI {
 		$this->actions[ $key ] = [
 			'key'        => $key,
 			'title'      => $title,
 			'type'       => $type,
 			'attributes' => is_array( $attributes ) ? $attributes : [],
-			'flags'      => $flags
+			'flag'       => $flag
 		];
+
+		if ( $flag === self::ACTION_BULK ) {
+			$this->hasBulkAction = true;
+		}
 
 		return $this;
 	}
@@ -378,6 +409,9 @@ abstract class AbstractDataTableUI {
 			'thead'                => $this->getThead(),
 			'tbody'                => $this->getTbody(),
 			'actions'              => $this->actions,
+			'has_bulk_action'      => $this->hasBulkAction,
+			'top_bulk_action'      => $this->topBulkAction,
+			'bottom_bulk_action'   => $this->bottomBulkAction,
 			'attributes'           => $this->attributes,
 			'current_page'         => $this->currentPage,
 			'per_page'             => $this->perPage,
@@ -394,7 +428,7 @@ abstract class AbstractDataTableUI {
 
 	public function renderHTML( $view = null ) {
 		$data     = $this->render();
-		$template = empty( $view ) ? Templates::getPath( 'data_table.php' ) : $view;
+		$template = empty( $view ) ? Templates::getPath( 'data-table/data_table.php' ) : $view;
 		ob_start();
 		Templates::load( $template, $data );
 

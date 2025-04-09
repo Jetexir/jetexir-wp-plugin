@@ -906,6 +906,10 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   height: 0;
   width: 0;
 }
+.woo-assistant-wrap .wa-checkbox-wrap input:checked:before {
+  content: none;
+  margin: 0;
+}
 .woo-assistant-wrap .wa-checkbox-wrap .wa-checkmark {
   display: block;
   height: 18px;
@@ -1711,10 +1715,28 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 .woo-assistant-wrap .wa-data-table-ui .wa-dtu-body {
   position: relative;
 }
+.woo-assistant-wrap .wa-data-table-ui .wa-dtu-body select {
+  max-width: 200px;
+  padding: 4px 14px;
+}
+.woo-assistant-wrap .wa-data-table-ui .wa-dtu-bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.woo-assistant-wrap .wa-data-table-ui .wa-dtu-bulk-actions.wa-dtu-bulk-actions-top {
+  margin-bottom: 10px;
+}
+.woo-assistant-wrap .wa-data-table-ui .wa-dtu-bulk-actions.wa-dtu-bulk-actions-bottom {
+  margin-top: 10px;
+}
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table {
   border-collapse: collapse;
   width: 100%;
   background-color: white;
+}
+.woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table .check-column label:hover {
+  background: none;
 }
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table tr td, .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table tr th {
   padding: 8px;
@@ -1722,6 +1744,10 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 }
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table thead tr th {
   background-color: #F6F5F9;
+}
+.woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table thead tr th.wa-dtu-select-all-wrap {
+  width: 40px;
+  text-align: center;
 }
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table thead tr th[data-column=is_active] {
   width: 100px;
@@ -1895,7 +1921,7 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   position: relative;
   width: auto;
   max-width: 500px;
-  margin: calc(var(--wa-admin-bar-height, 0) + 2em) auto 2em;
+  margin: calc(var(--wa-admin-bar-height, 0) + 5em) auto 2em;
   pointer-events: none;
 }
 .wa-modal.wa-modal-large .wa-modal-dialog {
