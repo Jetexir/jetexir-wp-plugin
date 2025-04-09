@@ -8,6 +8,8 @@ use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Helper;
 use WooAssistant\Helper\HTML;
 use WooAssistant\Helper\Notice;
+use WooAssistant\Helper\Param;
+use WooAssistant\Helper\Sanitizing;
 use WooAssistant\Helper\Templates;
 use WooAssistant\Helper\WordPress;
 use WooAssistant\Interfaces\AddonInterface;
@@ -175,8 +177,36 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			$dataTable = $this->getDataTable();
 
 			wp_send_json_success( [
-				'table'     => $dataTable->renderHTML( Templates::getPath( 'data_table_table.php' ) ),
+				'table'     => $dataTable->renderHTML( Templates::getPath( 'data-table/data_table_table.php' ) ),
 				'row_count' => $dataTable->getRowCount()
+			] );
+
+		} elseif ( $action === 'bulk_action' ) {
+			$bulkAction    = Sanitizing::text( Param::post( 'bulk_action' ) );
+			$rowIDs        = array_map( 'WooAssistant\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
+			$announcements = Settings::get( 'announcement_bar_data', [], self::sectionID );
+
+			foreach ( $announcements as $announcementIndex => $announcement ) {
+				if ( in_array( $announcementIndex, $rowIDs, true ) ) {
+					if ( $bulkAction === 'bulk_delete' ) {
+						unset( $announcements[ $announcementIndex ] );
+
+					} elseif ( $bulkAction === 'bulk_enable' ) {
+						$announcements[ $announcementIndex ]['is_active'] = true;
+
+					} elseif ( $bulkAction === 'bulk_disable' ) {
+						$announcements[ $announcementIndex ]['is_active'] = false;
+					}
+				}
+			}
+
+			$announcements = array_values( $announcements );
+			Settings::save( 'announcement_bar_data', $announcements, self::sectionID );
+			$dataTable = $this->getDataTable();
+
+			wp_send_json_success( [
+				'table'     => $dataTable->renderHTML( Templates::getPath( 'data-table/data_table_table.php' ) ),
+				'row_count' => $dataTable->getRowCount(),
 			] );
 
 		} elseif ( $action === 'add_form' || $action === 'edit' ) {
@@ -236,7 +266,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			$dataTable = $this->getDataTable();
 
 			wp_send_json_success( [
-				'table'     => $dataTable->renderHTML( Templates::getPath( 'data_table_table.php' ) ),
+				'table'     => $dataTable->renderHTML( Templates::getPath( 'data-table/data_table_table.php' ) ),
 				'row_count' => $dataTable->getRowCount(),
 				'message'   => Notice::addAndDisplay( self::sectionID, array(
 					array(
@@ -252,7 +282,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				$dataTable = $this->getDataTable();
 
 				wp_send_json_success( [
-					'table'     => $dataTable->renderHTML( Templates::getPath( 'data_table_table.php' ) ),
+					'table'     => $dataTable->renderHTML( Templates::getPath( 'data-table/data_table_table.php' ) ),
 					'row_count' => $dataTable->getRowCount(),
 					'message'   => Notice::addAndDisplay( self::sectionID, array(
 						array(
@@ -287,6 +317,9 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		          ->addNewButton( __( 'Add new', 'woo-assistant' ) )
 		          ->addAction( 'edit', '<i class="wa-icon-edit"></i>', $dataTable::ACTION_EDIT )
 		          ->addAction( 'delete', '<i class="wa-icon-trash"></i>', $dataTable::ACTION_DELETE )
+		          ->addAction( 'bulk_enable', __( 'Enable', 'woo-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_disable', __( 'Disable', 'woo-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_delete', __( 'Delete', 'woo-assistant' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
 		          ->addColumn( __( 'Title', 'woo-assistant' ), 'title' )
 		          ->addColumn( __( 'ShortCode', 'woo-assistant' ), 'code', function ( $row ) {
 			          return '<code>[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
