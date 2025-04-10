@@ -57,6 +57,9 @@ class DataTableUI {
 	}
 
 	public function printModal(): void {
+		if ( Param::get( 'page' ) !== WOOASSISTANT_PLUGIN_SLUG ) {
+			return;
+		}
 		?>
         <div id="wa-data-table-ui-modal"
              class="wa-data-table-ui-modal wa-modal wa-modal-large wa-fade woo-assistant-wrap"
