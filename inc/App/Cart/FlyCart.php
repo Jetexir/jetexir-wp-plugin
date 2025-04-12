@@ -222,7 +222,7 @@ class FlyCart extends Addon implements AddonInterface {
 			'id'          => $this->addonID,
 			'tag'         => 'a',
 			'title'       => Settings::get( 'fly_cart_title', __( 'Cart', 'woo-assistant' ) ),
-			'icon'        => $this->getBasketIcons( Settings::get( 'fly_cart_icon', 'wa-icon-shopping-cart' ), true ),
+			'icon'        => self::getBasketIcons( Settings::get( 'fly_cart_icon', 'wa-icon-shopping-cart' ), true ),
 			'count_badge' => WooCommerce::getCartItemsCount(),
 			'attributes'  => array(
 				'class'          => 'wa-fly-cart',
@@ -276,7 +276,7 @@ class FlyCart extends Addon implements AddonInterface {
 		return $hide;
 	}
 
-	private function getBasketIcons( $icon = null, $tag = false ) {
+	public static function getBasketIcons( $icon = null, $tag = false ) {
 		$icons = array(
 			'wa-icon-shopping-cart',
 			'wa-icon-shopping-cart1',
@@ -304,7 +304,7 @@ class FlyCart extends Addon implements AddonInterface {
 	}
 
 	public function addSectionSettings( $sections ) {
-		$icons       = $this->getBasketIcons();
+		$icons       = self::getBasketIcons();
 		$basketIcons = [];
 		foreach ( $icons as $icon ) {
 			$basketIcons[ $icon ] = '<i class="' . $icon . '"></i>';
