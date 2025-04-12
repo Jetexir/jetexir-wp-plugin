@@ -36,6 +36,7 @@ class HTML {
 		'postselect',
 		'taxonomyselect',
 		'termselect',
+		'menuselect',
 		'imagesizeselect',
 		'userroleselect',
 		'userselect',
@@ -313,6 +314,22 @@ class HTML {
 		$post = $postTemp;
 
 		return self::select( $data );
+	}
+
+	public static function menuselect( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$defaults = array(
+			'hide_empty' => false,
+			'orderby'    => 'name',
+		);
+
+		$data['args']             = wp_parse_args( $data['args'], $defaults );
+		$data['args']['taxonomy'] = 'nav_menu';
+
+		return self::termselect( $data );
 	}
 
 	public static function range( $data ): string {
@@ -910,6 +927,7 @@ class HTML {
 				'postselect',
 				'taxonomyselect',
 				'termselect',
+				'menuselect',
 			] ) && ( ! isset( $data['args'] ) || ! is_array( $data['args'] ) ) ) {
 			$data['args'] = array();
 		}

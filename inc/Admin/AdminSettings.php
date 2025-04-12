@@ -173,6 +173,7 @@ class AdminSettings {
 		if ( isset( $data['multiple'] ) && $data['multiple'] && empty( $setting['default'] ) && in_array( $setting['type'], [
 				'select',
 				'termselect',
+				'menuselect',
 				'postselect',
 				'imagesizeselect'
 			] ) ) {
@@ -191,6 +192,7 @@ class AdminSettings {
 			if ( ( isset( $setting['multiple'] ) && $setting['multiple'] &&
 			       in_array( $setting['type'], [
 				       'termselect',
+				       'menuselect',
 				       'postselect',
 				       'userselect'
 			       ] ) ) ) {
@@ -216,6 +218,7 @@ class AdminSettings {
 			       in_array( $setting['type'], [
 				       'taxonomyselect',
 				       'termselect',
+				       'menuselect',
 				       'posttypeselect',
 				       'postselect',
 				       'imagesizeselect',
@@ -259,7 +262,7 @@ class AdminSettings {
 			} elseif ( $setting['type'] === 'range' ) {
 				$setting['sanitize'] = 'int';
 
-			} elseif ( in_array( $setting['type'], [ 'postselect', 'termselect', 'userselect' ] ) ) {
+			} elseif ( in_array( $setting['type'], [ 'postselect', 'termselect', 'menuselect', 'userselect' ] ) ) {
 				$setting['sanitize'] = 'absint';
 
 			} elseif ( $setting['type'] === 'addon' ) {
