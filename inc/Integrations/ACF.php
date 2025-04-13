@@ -9,10 +9,7 @@ use WooAssistant\Admin\AdminAssets;
 use WooAssistant\Interfaces\AddonInterface;
 
 class ACF extends Addon implements AddonInterface {
-	public function __construct() {
-		$this->addonID = 'acf';
-		parent::__construct();
-	}
+	public string $addonID = 'acf';
 
 	public function initAction(): void {
 		if ( $this->getSettings( 'add_extra_html', 0 ) ) {
