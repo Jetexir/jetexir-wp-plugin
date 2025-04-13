@@ -13,10 +13,10 @@ use WooAssistant\Settings\Settings;
 
 class ProductRelated extends Addon implements AddonInterface {
 	public string $addonID = 'product-related';
+	public string $currentTab = 'product';
 	private const sectionID = 'related';
 
 	public function initAction(): void {
-		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
 		add_action( 'woo_assistant_submit_settings_form', [ $this, 'clearRelatedCache' ] );
 		add_filter( 'woocommerce_product_related_products_heading', [ $this, 'setTitle' ] );
 		add_filter( 'woocommerce_product_related_posts_shuffle', [ $this, 'setShuffle' ] );

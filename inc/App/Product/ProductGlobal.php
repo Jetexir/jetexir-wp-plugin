@@ -8,10 +8,6 @@ class ProductGlobal {
 	private const sectionID = 'global';
 
 	public function __construct() {
-		add_action( 'init', [ $this, 'initAction' ] );
-	}
-
-	public function initAction(): void {
 		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
 	}
 

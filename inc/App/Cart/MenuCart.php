@@ -9,10 +9,10 @@ use WooAssistant\Settings\Settings;
 
 class MenuCart extends Addon implements AddonInterface {
 	public string $addonID = 'menu-cart';
+	public string $currentTab = 'cart';
 	private static $cart = false;
 
 	public function initAction(): void {
-		add_filter( 'woo_assistant_cart_settings_sections', [ $this, 'addSectionSettings' ] );
 		add_filter( 'wp_nav_menu_items', [ $this, 'addCartToMenu' ], 10, 2 );
 	}
 

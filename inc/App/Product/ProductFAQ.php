@@ -12,12 +12,11 @@ use WooAssistant\Settings\Settings;
 
 class ProductFAQ extends Addon implements AddonInterface {
 	public string $addonID = 'product-faq';
+	public string $currentTab = 'product';
 	private const sectionID = 'faq';
 	private const maxProductFAQs = 10;
 
 	public function initAction(): void {
-		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
-
 		// Admin
 		add_filter( 'woocommerce_product_data_tabs', [ $this, 'adminProductTab' ] );
 		add_filter( 'woocommerce_product_data_panels', [ $this, 'adminProductSettings' ] );

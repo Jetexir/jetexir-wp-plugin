@@ -20,6 +20,7 @@ use WooAssistant\Settings\Settings;
 
 class ProductWishList extends Addon implements AddonInterface {
 	public string $addonID = 'product-wishlist';
+	public string $currentTab = 'product';
 	private const sectionID = 'wishlist';
 	private const buttonShortCode = 'wa_product_wishlist_button';
 	private const wishlistShortcode = 'wa_products_wishlist';
@@ -27,7 +28,6 @@ class ProductWishList extends Addon implements AddonInterface {
 	private const defaultList = 'default';
 
 	public function initAction(): void {
-		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
 		App::addShortcode( self::buttonShortCode, [ $this, 'buttonShortcode' ] );
 		App::addShortcode( self::wishlistShortcode, [ $this, 'wishlistShortcode' ] );
 		add_rewrite_endpoint( 'wishlist', EP_PAGES );

@@ -18,12 +18,12 @@ use WooAssistant\Settings\Settings;
 
 class AnnouncementBarTools extends Addon implements AddonInterface {
 	public string $addonID = 'announcement-bar-tools';
+	public string $currentTab = 'tools';
 	private const sectionID = 'announcement-bar';
 	private const shortCode = 'wa_announcement_bar';
 
 	public function initAction(): void {
 		App::addShortcode( self::shortCode, [ $this, 'announcementBarShortcode' ] );
-		add_filter( 'woo_assistant_tools_settings_sections', [ $this, 'addSectionSettings' ] );
 		add_action( 'woo_assistant_data_table_ui_announcement_bar_action', [ $this, 'dataTableActions' ], 10, 2 );
 		add_filter( 'woo_assistant_tools_settings_display_footer', [ $this, 'displayFooterSettings' ], 10, 2 );
 	}

@@ -15,10 +15,9 @@ use WooAssistant\Settings\Settings;
 
 class FlyCart extends Addon implements AddonInterface {
 	public string $addonID = 'fly-cart';
+	public string $currentTab = 'cart';
 
 	public function initAction(): void {
-		add_filter( 'woo_assistant_cart_settings_sections', [ $this, 'addSectionSettings' ] );
-
 		add_action( 'wp_ajax_woo_assistant_fly_cart_update', [ $this, 'updateCart' ] );
 		add_action( 'wp_ajax_nopriv_woo_assistant_fly_cart_update', [ $this, 'updateCart' ] );
 		add_action( 'wp_ajax_woo_assistant_fly_cart_items_count', [ $this, 'getCartItemCount' ] );

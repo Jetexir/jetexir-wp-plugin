@@ -18,11 +18,11 @@ use WooAssistant\Settings\Settings;
 
 class ProductQuantity extends Addon implements AddonInterface {
 	public string $addonID = 'product-quantity';
+	public string $currentTab = 'product';
 	private static bool $printed = false;
 	private static bool $printStyle = false;
 
 	public function initAction(): void {
-		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
 		add_filter( 'woo_assistant_settings_before_save', [ $this, 'checkSettingsBeforeSave' ], 10, 2 );
 
 		if ( Settings::get( 'product_quantity_tools_enable', false ) ) {

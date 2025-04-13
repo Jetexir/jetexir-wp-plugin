@@ -13,11 +13,11 @@ use WooAssistant\Settings\Settings;
 
 class ProductSocialShare extends Addon implements AddonInterface {
 	public string $addonID = 'product-social-share';
+	public string $currentTab = 'product';
 	private const sectionID = 'social-share';
 	private const shortCode = 'wa_product_share';
 
 	public function initAction(): void {
-		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
 		App::addShortcode( self::shortCode, [ $this, 'shareShortcode' ] );
 
 		$position = Settings::get( 'product_social_share_position', false );

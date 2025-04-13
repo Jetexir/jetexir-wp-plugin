@@ -21,13 +21,13 @@ use WooAssistant\Settings\Settings;
 
 class ProductCompare extends Addon implements AddonInterface {
 	public string $addonID = 'product-compare';
+	public string $currentTab = 'product';
 	private const sectionID = 'compare';
 	private const shortCode = 'wa_products_compare';
 	private const cookieName = 'wc_products_compare';
 	private const maxItems = 4;
 
 	public function initAction(): void {
-		add_filter( 'woo_assistant_product_settings_sections', [ $this, 'addSectionSettings' ] );
 		App::addShortcode( self::shortCode, [ $this, 'compareShortcode' ] );
 		if ( Settings::get( 'product_compare_archive_button', false ) ) {
 			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'addButton' ], 9999 );
