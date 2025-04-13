@@ -16,6 +16,8 @@ abstract class Addon {
 
 	public string $addonID;
 
+	public string $currentTab = '';
+
 	public function __construct() {
 		add_filter( 'woo_assistant_addons', [ $this, 'registerAddon' ] );
 		add_action( 'woo_assistant_admin_init', [ $this, 'registerMenu' ] );
@@ -24,6 +26,14 @@ abstract class Addon {
 		if ( $this->addonID ) {
 			add_filter( 'woo_assistant_' . $this->addonID . '_tab_display_notice', '__return_false' );
 			add_filter( 'woo_assistant_' . $this->addonID . '_tab_content_display_notice', '__return_true' );
+		}
+
+		// Register Plugin hooks
+		if ( $this->currentTab ) {
+			add_filter( 'woo_assistant_' . $this->currentTab . '_settings_sections', [
+				$this,
+				'registerAddSectionSettings'
+			] );
 		}
 
 		// Register WordPress hooks
@@ -38,6 +48,14 @@ abstract class Addon {
 
 		add_filter( 'query_vars', [ $this, 'registerQueryVarsFilter' ] );
 		add_filter( 'woocommerce_account_menu_items', [ $this, 'registerWooAccountMenuItemsFilter' ] );
+	}
+
+	public function registerAddSectionSettings( $sections ): array {
+		if ( method_exists( $this, 'addSectionSettings' ) && $this->isActivated() ) {
+			return $this->addSectionSettings( $sections );
+		}
+
+		return $sections;
 	}
 
 	public function registerQueryVarsFilter( $vars ) {
