@@ -15,6 +15,7 @@ class Product {
 		new ProductSocialShare();
 		new ProductFAQ();
 		new ProductRelated();
+		new ProductCall();
 	}
 
 	/**
