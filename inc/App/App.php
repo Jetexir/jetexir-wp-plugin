@@ -5,6 +5,7 @@ namespace WooAssistant\App;
 defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\App\GlobalSettings\GlobalSettings;
+use WooAssistant\App\Order\Order;
 use WooAssistant\App\Product\Product;
 use WooAssistant\App\Cart\Cart;
 use WooAssistant\App\Tools\Tools;
@@ -14,6 +15,7 @@ class App {
 		new AppAssets();
 		new Tools();
 		new Product();
+		new Order();
 		new Cart();
 		new GlobalSettings();
 		new WooCommerce();

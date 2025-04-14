@@ -204,6 +204,7 @@ class Addons {
 			'recommended'    => __( 'Recommended', 'woo-assistant' ),
 			'cart'           => __( 'Cart', 'woo-assistant' ),
 			'product'        => __( 'Product', 'woo-assistant' ),
+			'order'          => __( 'Order', 'woo-assistant' ),
 			'marketing'      => __( 'Marketing', 'woo-assistant' ),
 			'payments'       => __( 'Payments', 'woo-assistant' ),
 			'merchandising'  => __( 'Merchandising', 'woo-assistant' ),
