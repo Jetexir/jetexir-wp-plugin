@@ -14,7 +14,7 @@ class AdminAssets {
 	}
 
 	public function enqueueScripts(): void {
-		if ( Param::get( 'page' ) === WOOASSISTANT_PLUGIN_SLUG ) {
+		if ( AdminPages::isSettingPage() ) {
 			$pluginVersion = Assets::getVersion();
 			$debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
 

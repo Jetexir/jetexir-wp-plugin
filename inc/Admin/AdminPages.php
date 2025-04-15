@@ -46,7 +46,7 @@ class AdminPages {
 	}
 
 	public function init(): void {
-		if ( Param::get( 'page' ) === WOOASSISTANT_PLUGIN_SLUG ) {
+		if ( self::isSettingPage() ) {
 			do_action( 'woo_assistant_admin_init', self::getActiveTab() );
 		}
 	}
@@ -139,6 +139,10 @@ class AdminPages {
 			'tools'     => __( 'Tools', 'woo-assistant' ),
 			'plugins'   => __( 'Plugins', 'woo-assistant' ),
 		);*/
+	}
+
+	public static function isSettingPage(): bool {
+		return Param::get( 'page' ) === WOOASSISTANT_PLUGIN_SLUG;
 	}
 
 	public static function link( $query ): ?string {

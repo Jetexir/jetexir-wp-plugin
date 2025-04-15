@@ -2,6 +2,7 @@
 
 namespace WooAssistant\AppHelper;
 
+use WooAssistant\Admin\AdminPages;
 use WooAssistant\Admin\AdminSettings;
 use WooAssistant\Helper\HTML;
 use WooAssistant\Helper\Nonce;
@@ -57,7 +58,7 @@ class DataTableUI {
 	}
 
 	public function printModal(): void {
-		if ( Param::get( 'page' ) !== WOOASSISTANT_PLUGIN_SLUG ) {
+		if ( ! AdminPages::isSettingPage() ) {
 			return;
 		}
 		?>
