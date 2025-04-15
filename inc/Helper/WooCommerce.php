@@ -17,7 +17,7 @@ class WooCommerce {
 		return false;
 	}
 
-	function hposEnabled() {
+	public static function hposEnabled() {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) ) {
 			return \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
 		}
@@ -67,6 +67,49 @@ class WooCommerce {
 
 	public static function isCheckout(): bool {
 		return is_checkout();
+	}
+
+	public static function getOrderStatuses(): array {
+		$statuses = wc_get_order_statuses();
+
+		return array_combine(
+			array_map( static fn( $k ) => str_replace( 'wc-', '', $k ), array_keys( $statuses ) ),
+			array_values( $statuses )
+		);
+	}
+
+	public static function changeOrdersStatus( $oldStatus, $newStatus ): int {
+		$ordersChanged = 0;
+		$limit         = 1000;
+		while ( true ) {
+			$orders = wc_get_orders( array(
+				'type'   => 'shop_order',
+				'status' => $oldStatus,
+				'limit'  => $limit,
+				'return' => 'ids',
+			) );
+			if ( empty( $orders ) ) {
+				break;
+			}
+
+			foreach ( $orders as $orderID ) {
+				$order = wc_get_order( $orderID );
+				$order->update_status( $newStatus );
+				$ordersChanged ++;
+			}
+		}
+
+		return $ordersChanged;
+	}
+
+	public static function getPaymentGateways(): array {
+		$list     = [];
+		$gateways = WC()->payment_gateways->get_available_payment_gateways();
+		foreach ($gateways  as $gateway) {
+			$list[ $gateway->id ] = $gateway->settings['title'];
+		}
+
+		return $list;
 	}
 
 	public static function getProducts( $args ) {
