@@ -19,7 +19,6 @@ class OrderStatus extends Addon implements AddonInterface {
 	public string $addonID = 'order-status';
 
 	public string $currentTab = 'order';
-	private const sectionID = 'order-status';
 
 	private const orderStatusDataTableId = 'order_status';
 
@@ -177,7 +176,7 @@ class OrderStatus extends Addon implements AddonInterface {
 	 * @return array
 	 */
 	public function getOrderStatuses( bool $all = false ): array {
-		$entries = Settings::get( self::orderStatusDataTableId, [], self::sectionID );
+		$entries = Settings::get( self::orderStatusDataTableId, [], $this->addonID );
 		$entries = is_array( $entries ) ? $entries : [];
 
 		if ( ! empty( $entries ) ) {
@@ -193,7 +192,7 @@ class OrderStatus extends Addon implements AddonInterface {
 		if ( $action === 'bulk_action' ) {
 			$bulkAction = Sanitizing::text( Param::post( 'bulk_action' ) );
 			$rowIDs     = array_map( 'WooAssistant\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
-			$statuses   = Settings::get( self::orderStatusDataTableId, [], self::sectionID );
+			$statuses   = Settings::get( self::orderStatusDataTableId, [], $this->addonID );
 
 			foreach ( $statuses as $statusIndex => $status ) {
 				if ( in_array( $statusIndex, $rowIDs, true ) ) {
@@ -210,7 +209,7 @@ class OrderStatus extends Addon implements AddonInterface {
 			}
 
 			$statuses = array_values( $statuses );
-			Settings::save( self::orderStatusDataTableId, $statuses, self::sectionID );
+			Settings::save( self::orderStatusDataTableId, $statuses, $this->addonID );
 			$dataTable = $this->getDataTable();
 
 			wp_send_json_success( [
@@ -250,7 +249,7 @@ class OrderStatus extends Addon implements AddonInterface {
 			if ( ! empty( $errorMessage ) ) {
 				wp_send_json_error( [
 					'error'   => 'required-field',
-					'message' => Notice::addAndDisplay( self::sectionID, array(
+					'message' => Notice::addAndDisplay( $this->addonID, array(
 						array(
 							'type'    => 'error',
 							'message' => $errorMessage
@@ -262,13 +261,13 @@ class OrderStatus extends Addon implements AddonInterface {
 			$formData = array_map( 'trim', $formData );
 
 			if ( $entry !== false ) {
-				$entries           = Settings::get( self::orderStatusDataTableId, [], self::sectionID );
+				$entries           = Settings::get( self::orderStatusDataTableId, [], $this->addonID );
 				$entries[ $index ] = $formData;
-				Settings::save( self::orderStatusDataTableId, $entries, self::sectionID );
+				Settings::save( self::orderStatusDataTableId, $entries, $this->addonID );
 				$successMessage = __( 'The order status was successfully saved.', 'woo-assistant' );
 
 			} else {
-				Settings::addToArray( self::orderStatusDataTableId, $formData, self::sectionID, true );
+				Settings::addToArray( self::orderStatusDataTableId, $formData, $this->addonID, true );
 				$successMessage = __( 'Order status added successfully.', 'woo-assistant' );
 			}
 
@@ -277,7 +276,7 @@ class OrderStatus extends Addon implements AddonInterface {
 			wp_send_json_success( [
 				'table'     => $dataTable->renderHTML( Templates::getPath( 'data-table/data_table_table.php' ) ),
 				'row_count' => $dataTable->getRowCount(),
-				'message'   => Notice::addAndDisplay( self::sectionID, array(
+				'message'   => Notice::addAndDisplay( $this->addonID, array(
 					array(
 						'type'    => 'success',
 						'message' => $successMessage,
@@ -286,13 +285,13 @@ class OrderStatus extends Addon implements AddonInterface {
 			] );
 
 		} elseif ( $action === 'delete' ) {
-			if ( Settings::deleteFromArray( self::orderStatusDataTableId, $index, self::sectionID ) ) {
+			if ( Settings::deleteFromArray( self::orderStatusDataTableId, $index, $this->addonID ) ) {
 				$dataTable = $this->getDataTable();
 
 				wp_send_json_success( [
 					'table'     => $dataTable->renderHTML( Templates::getPath( 'data-table/data_table_table.php' ) ),
 					'row_count' => $dataTable->getRowCount(),
-					'message'   => Notice::addAndDisplay( self::sectionID, array(
+					'message'   => Notice::addAndDisplay( $this->addonID, array(
 						array(
 							'type'    => 'success',
 							'message' => __( 'Order status removed!', 'woo-assistant' ),
@@ -303,7 +302,7 @@ class OrderStatus extends Addon implements AddonInterface {
 			} else {
 				wp_send_json_error( [
 					'error'   => 'required-field',
-					'message' => Notice::addAndDisplay( self::sectionID, array(
+					'message' => Notice::addAndDisplay( $this->addonID, array(
 						array(
 							'type'    => 'error',
 							'message' => __( 'Selected item not found!', 'woo-assistant' ),
@@ -315,7 +314,7 @@ class OrderStatus extends Addon implements AddonInterface {
 	}
 
 	private function getByIndex( $index ) {
-		$entries = Settings::get( self::orderStatusDataTableId, [], self::sectionID );
+		$entries = Settings::get( self::orderStatusDataTableId, [], $this->addonID );
 		if ( is_array( $entries ) && ! empty( $entries ) && isset( $entries[ $index ] ) ) {
 			return $entries[ $index ];
 		}
@@ -377,7 +376,7 @@ class OrderStatus extends Addon implements AddonInterface {
 	private function getDataTable(): DataTableUI {
 		$dataTable = new DataTableUI();
 		$dataTable->setID( self::orderStatusDataTableId )
-		          ->setRows( Settings::get( self::orderStatusDataTableId, [], self::sectionID ) )
+		          ->setRows( Settings::get( self::orderStatusDataTableId, [], $this->addonID ) )
 		          ->setIdField( $dataTable::ROW_INDEX )
 		          ->setTitle( __( 'Custom Order Status', 'woo-assistant' ) )
 		          ->modalAddTitle( __( 'Add new order status', 'woo-assistant' ) )
@@ -426,7 +425,7 @@ class OrderStatus extends Addon implements AddonInterface {
 	public function addSectionSettings( $sections ): array {
 		$dataTable = $this->getDataTable();
 
-		$sections[ self::sectionID ] = array(
+		$sections[ $this->addonID ] = array(
 			'title'    => __( 'Order Status', 'woo-assistant' ),
 			'desc'     => __( 'Custom order status', 'woo-assistant' ),
 			'settings' => [
