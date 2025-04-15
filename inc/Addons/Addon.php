@@ -48,6 +48,7 @@ abstract class Addon {
 
 		add_filter( 'query_vars', [ $this, 'registerQueryVarsFilter' ] );
 		add_filter( 'woocommerce_account_menu_items', [ $this, 'registerWooAccountMenuItemsFilter' ] );
+		add_filter( 'admin_body_class', [ $this, 'registerAdminBodyClassFilter' ] );
 	}
 
 	public function registerAddSectionSettings( $sections ): array {
@@ -72,6 +73,14 @@ abstract class Addon {
 		}
 
 		return $items;
+	}
+
+	public function registerAdminBodyClassFilter( $classes ) {
+		if ( method_exists( $this, 'adminBodyClassFilter' ) && $this->isActivated() ) {
+			return $this->adminBodyClassFilter( $classes );
+		}
+
+		return $classes;
 	}
 
 	public function registerWpFooterAction(): void {
