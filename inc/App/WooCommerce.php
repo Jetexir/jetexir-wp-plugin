@@ -2,11 +2,24 @@
 
 namespace WooAssistant\App;
 
+use WooAssistant\Helper\Param;
 use WooAssistant\Helper\Templates;
 
 class WooCommerce {
 	public function __construct() {
 		add_filter( 'woocommerce_locate_template', [ $this, 'locateTemplate' ], 10, 4 );
+		add_filter( 'admin_body_class', [ $this, 'addBodyClass' ] );
+	}
+
+	public function addBodyClass( $classes ) {
+		if ( Param::get( 'page' ) === 'wc-orders' && Param::get( 'action' ) === 'edit' ) {
+			$orderId = Param::get( 'id' );
+			$order   = wc_get_order( $orderId );
+
+			$classes .= 'wc-order-status-' . $order->get_status();
+		}
+
+		return $classes;
 	}
 
 	/**
