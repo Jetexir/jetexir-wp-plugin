@@ -38,6 +38,9 @@
   align-items: center;
   gap: 10px;
 }
+.wa-announcement-bar .wa-announcement-bar-buttons .wa-button {
+  line-height: 1;
+}
 .wa-announcement-bar.wa-announcement-bar-inline {
   border-radius: var(--wa-element-border-radius, 0);
   margin: 20px 0;

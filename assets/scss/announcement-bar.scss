@@ -46,6 +46,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
+
+    .wa-button {
+      line-height: 1;
+    }
   }
 
   &.wa-announcement-bar-inline {
