@@ -550,7 +550,7 @@ class OrderStatus extends Addon implements AddonInterface {
 				array(
 					'order_status_row_colors_start_grid' => array(
 						'id'    => 'order_status_row_colors_start_grid',
-						'title' => __( 'Orders background row color', 'woo-assistant' ),
+						'title' => __( 'Orders row background color', 'woo-assistant' ),
 						'type'  => 'startgrid',
 					)
 				),
