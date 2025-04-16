@@ -9,8 +9,10 @@ use WooAssistant\Admin\AdminPages;
 use WooAssistant\Helper\HTML;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Param;
+use WooAssistant\Helper\PostMeta;
 use WooAssistant\Helper\Sanitizing;
 use WooAssistant\Helper\Templates;
+use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Interfaces\AddonInterface;
 use WooAssistant\Providers\UI\DataTableUI;
 use WooAssistant\Settings\Settings;
@@ -47,6 +49,39 @@ class OrderStatus extends Addon implements AddonInterface {
 
 		// Add order status to reports
 		add_filter( 'woocommerce_reports_order_statuses', [ $this, 'wcReportsOrderStatuses' ] );
+
+		// Change order status
+		add_action( 'woocommerce_thankyou', [ $this, 'changeOrderStatus' ] );
+	}
+
+	public function changeOrderStatus( $orderId ): void {
+		$order   = wc_get_order( $orderId );
+		$changed = WooCommerce::hposEnabled() ? $order->get_meta( '_waos_changed' ) : PostMeta::get( $orderId, '_waos_changed' );
+
+		if ( ! empty( $changed ) ) {
+			return;
+		}
+
+		$paymentMethod = $order->get_payment_method();
+		$status        = Settings::get( 'order_status_payment_' . $paymentMethod, false, $this->addonID );
+		if ( ! $status ) {
+			$status = Settings::get( 'order_status_default', false, $this->addonID );
+		}
+
+		if ( $status && array_key_exists( $status, WooCommerce::getOrderStatuses() ) ) {
+			$order = wc_get_order( $orderId );
+			$order->update_status( $status );
+			$changed = current_time( 'mysql' );
+		}
+
+		if ( $changed ) {
+			if ( WooCommerce::hposEnabled() ) {
+				$order->update_meta_data( '_waos_changed', $changed );
+				$order->save();
+			} else {
+				PostMeta::update( $orderId, '_waos_changed', $changed );
+			}
+		}
 	}
 
 	/**
@@ -157,8 +192,8 @@ class OrderStatus extends Addon implements AddonInterface {
 		return $statuses;
 	}
 
-	public function getStatuses( $addPrefix = false ): array {
-		$entries  = $this->getOrderStatuses();
+	public function getStatuses( $addPrefix = false, $all = false ): array {
+		$entries  = $this->getOrderStatuses( $all );
 		$statuses = [];
 		$prefix   = $addPrefix ? 'wc-' : '';
 		foreach ( $entries as $status ) {
@@ -197,6 +232,7 @@ class OrderStatus extends Addon implements AddonInterface {
 			foreach ( $statuses as $statusIndex => $status ) {
 				if ( in_array( $statusIndex, $rowIDs, true ) ) {
 					if ( $bulkAction === 'bulk_delete' ) {
+						$this->deleteActions( $status['slug'] );
 						unset( $statuses[ $statusIndex ] );
 
 					} elseif ( $bulkAction === 'bulk_enable' ) {
@@ -285,6 +321,11 @@ class OrderStatus extends Addon implements AddonInterface {
 			] );
 
 		} elseif ( $action === 'delete' ) {
+			$entry = $this->getByIndex( $index );
+			if ( $entry ) {
+				$this->deleteActions( $entry['slug'] );
+			}
+
 			if ( Settings::deleteFromArray( self::orderStatusDataTableId, $index, $this->addonID ) ) {
 				$dataTable = $this->getDataTable();
 
@@ -310,6 +351,13 @@ class OrderStatus extends Addon implements AddonInterface {
 					), false ),
 				], 403 );
 			}
+		}
+	}
+
+	private function deleteActions( $status ): void {
+		$fallbackStatus = Settings::get( 'order_status_fallback_delete', 'on-hold', $this->addonID );
+		if ( $fallbackStatus ) {
+			WooCommerce::changeOrdersStatus( $status, $fallbackStatus );
 		}
 	}
 
@@ -368,7 +416,7 @@ class OrderStatus extends Addon implements AddonInterface {
 				'type'          => 'text',
 				'setting_value' => $data['slug'] ?? '',
 				'sanitize'      => 'title',
-				'attributes'    => $slugAttributes
+				//'attributes'    => $slugAttributes
 			)
 		);
 	}
@@ -403,7 +451,7 @@ class OrderStatus extends Addon implements AddonInterface {
 		}
 
 		$styleID = WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID;
-		$styles  = '';
+		$styles  = '#order_data h2{display: inline-block;padding:10px !important;border-radius:5px;}';
 		if ( AdminPages::isSettingPage() ) {
 			$styles .= '.order-status { display: inline-flex; line-height: 2.5em; color: #454545; background: #e5e5e5; border-radius: 4px; border-bottom: 1px solid rgba(0,0,0,.05); margin: -.25em 0; cursor: inherit !important; white-space: nowrap; max-width: 100%; }.order-status > span { margin: 0 1em; overflow: hidden; text-overflow: ellipsis; }';
 		}
@@ -414,6 +462,16 @@ class OrderStatus extends Addon implements AddonInterface {
 			$styles .= '.wc-action-button-edit.' . $status['slug'] . ' {background-color: ' . $status['bg_color'] . ' !important; color: ' . $status['text_color'] . ' !important; }';
 			if ( ! empty( $status['row_bg_color'] ) ) {
 				$styles .= '.wp-list-table.wc-orders-list-table tr.status-' . $status['slug'] . ' {background-color: ' . $status['row_bg_color'] . ';}';
+				$styles .= 'body.wc-order-status-' . $status['slug'] . ' #order_data h2 {background-color: ' . $status['row_bg_color'] . ';}';
+			}
+		}
+
+		$customStatuses = array_keys( $this->getStatuses( false, true ) );
+		$wcStatuses     = WooCommerce::getOrderStatuses();
+		foreach ( $wcStatuses as $slug => $title ) {
+			if ( ! in_array( $slug, $customStatuses, true ) && $color = Settings::get( 'order_status_wc_color_' . $slug, false, $this->addonID ) ) {
+				$styles .= '.wp-list-table.wc-orders-list-table tr.status-' . $slug . ' {background-color: ' . $color . ';}';
+				$styles .= 'body.wc-order-status-' . $slug . ' #order_data h2 {background-color: ' . $color . ';}';
 			}
 		}
 
@@ -423,35 +481,97 @@ class OrderStatus extends Addon implements AddonInterface {
 	}
 
 	public function addSectionSettings( $sections ): array {
-		$dataTable = $this->getDataTable();
+		$dataTable       = $this->getDataTable();
+		$paymentGateways = WooCommerce::getPaymentGateways();
+		$customStatuses  = array_keys( $this->getStatuses( false, true ) );
+		$wcStatuses      = WooCommerce::getOrderStatuses();
+		$statusColors    = [];
+		foreach ( $wcStatuses as $slug => $title ) {
+			if ( ! in_array( $slug, $customStatuses, true ) ) {
+				$statusColors[ 'order_status_wc_color_' . $slug ] = array(
+					'id'       => 'order_status_wc_color_' . $slug,
+					'title'    => $title,
+					'type'     => 'wpColorPicker',
+					'default'  => '',
+					'sanitize' => 'color'
+				);
+			}
+		}
+
+		$settings = [
+			'data_table_ui'                => array(
+				'id'         => self::orderStatusDataTableId,
+				'type'       => 'dataTable',
+				'data_table' => $dataTable->render()
+			),
+			'order_status_start_grid'      => array(
+				'id'    => 'order_status_start_grid',
+				'title' => __( 'Order status', 'woo-assistant' ),
+				'type'  => 'startgrid',
+			),
+			'order_status_default'         => array(
+				'id'                => 'order_status_default',
+				'title'             => __( 'Default order status', 'woo-assistant' ),
+				'type'              => 'orderStatusSelect',
+				'default'           => 0,
+				'option_none'       => 'No changes',
+				'option_none_value' => '',
+				'sanitize'          => 'text'
+			),
+			'order_status_fallback_delete' => array(
+				'id'       => 'order_status_fallback_delete',
+				'title'    => __( 'Fallback delete order status', 'woo-assistant' ),
+				'type'     => 'orderStatusSelect',
+				'default'  => 'on-hold',
+				'sanitize' => 'text'
+			),
+		];
+
+		$paymentGatewayOptions = [];
+		foreach ( $paymentGateways as $gatewayID => $gatewayTitle ) {
+			$paymentGatewayOptions[ 'order_status_payment_' . $gatewayID ] = array(
+				'id'                => 'order_status_payment_' . $gatewayID,
+				'title'             => sprintf( __( 'Default order status for "%s" method', 'woo-assistant' ), $gatewayTitle ),
+				'option_none'       => 'No changes',
+				'option_none_value' => '',
+				'type'              => 'orderStatusSelect',
+				'sanitize'          => 'text'
+			);
+		}
+
+		$settings = array_merge( $settings, $paymentGatewayOptions, array(
+			'order_status_end_grid' => array(
+				'type' => 'endgrid',
+			)
+		) );
+
+		if ( ! empty( $statusColors ) ) {
+			$statusColors = array_merge(
+				array(
+					'order_status_row_colors_start_grid' => array(
+						'id'    => 'order_status_row_colors_start_grid',
+						'title' => __( 'Orders background row color', 'woo-assistant' ),
+						'type'  => 'startgrid',
+					)
+				),
+				$statusColors,
+				array(
+					'order_status_row_colors_end_grid' => array(
+						'type' => 'endgrid',
+					),
+					'order_status_space'               => array(
+						'type' => 'space',
+					),
+				)
+			);
+			$settings     = array_merge( $settings, $statusColors );
+		}
 
 		$sections[ $this->addonID ] = array(
-			'title'    => __( 'Order Status', 'woo-assistant' ),
-			'desc'     => __( 'Custom order status', 'woo-assistant' ),
-			'settings' => [
-				'data_table_ui'            => array(
-					'id'         => self::orderStatusDataTableId,
-					'type'       => 'dataTable',
-					'data_table' => $dataTable->render()
-				),
-				'product_call_start_grid'  => array(
-					'id'    => 'product_social_share_start_grid_2',
-					'title' => __( 'Call for Price', 'woo-assistant' ),
-					'type'  => 'startgrid',
-				),
-				'product_call_empty_price' => array(
-					'id'       => 'product_call_empty_price',
-					'title'    => __( 'Empty price', 'woo-assistant' ),
-					'desc'     => __( 'Display custom text for product with empty price', 'woo-assistant' ),
-					'type'     => 'toggle',
-					'value'    => 1,
-					'default'  => true,
-					'sanitize' => 'bool'
-				),
-				'product_call_end_grid'    => array(
-					'type' => 'endgrid',
-				),
-			]
+			'title'      => __( 'Order Status', 'woo-assistant' ),
+			'desc'       => __( 'Custom order status', 'woo-assistant' ),
+			'options_id' => $this->addonID,
+			'settings'   => $settings
 		);
 
 		return $sections;
