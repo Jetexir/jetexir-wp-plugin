@@ -40,6 +40,7 @@ class HTML {
 		'imagesizeselect',
 		'userroleselect',
 		'userselect',
+		'orderstatusselect',
 		'addon',
 		'wpcolorpicker'
 	];
@@ -332,6 +333,16 @@ class HTML {
 		return self::termselect( $data );
 	}
 
+	public static function orderstatusselect( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$data['options'] = WooCommerce::getOrderStatuses();
+
+		return self::select( $data );
+	}
+
 	public static function range( $data ): string {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
@@ -454,6 +465,14 @@ class HTML {
 
 	public static function hr(): string {
 		return '<hr />';
+	}
+
+	public static function space( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		return '<div style="height: ' . $data['size'] . 'px"></div>';
 	}
 
 	public static function startinlineelements( $data ): string {
@@ -830,6 +849,12 @@ class HTML {
 			if ( $data['type'] === 'startrepeatableelements' ) {
 				if ( isset( $data['move_action'] ) ) {
 					$data['move_action'] = Sanitizing::bool( $data['move_action'] );
+				}
+			}
+
+			if ( $data['type'] === 'space' ) {
+				if ( ! isset( $data['size'] ) ) {
+					$data['size'] = 20;
 				}
 			}
 

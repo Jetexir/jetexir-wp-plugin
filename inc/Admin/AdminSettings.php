@@ -175,7 +175,8 @@ class AdminSettings {
 				'termselect',
 				'menuselect',
 				'postselect',
-				'imagesizeselect'
+				'imagesizeselect',
+				'orderstatusselect',
 			] ) ) {
 			$default = [];
 		}
@@ -189,14 +190,19 @@ class AdminSettings {
 		}
 
 		if ( empty( $setting['sanitize_options'] ) ) {
-			if ( ( isset( $setting['multiple'] ) && $setting['multiple'] &&
-			       in_array( $setting['type'], [
-				       'termselect',
-				       'menuselect',
-				       'postselect',
-				       'userselect'
-			       ] ) ) ) {
-				$setting['sanitize_options'] = 'int';
+			if ( ( isset( $setting['multiple'] ) && $setting['multiple'] ) ) {
+				if ( in_array( $setting['type'], [
+					'termselect',
+					'menuselect',
+					'postselect',
+					'userselect'
+				] ) ) {
+					$setting['sanitize_options'] = 'int';
+				}
+
+				if ( $setting['type'] === 'orderstatusselect' ) {
+					$setting['sanitize_options'] = 'text';
+				}
 			}
 
 			if ( $setting['type'] === 'colorpalette' ) {
@@ -224,6 +230,7 @@ class AdminSettings {
 				       'imagesizeselect',
 				       'userroleselect',
 				       'userselect',
+				       'orderstatusselect',
 				       'select'
 			       ] ) ) ) {
 				$setting['sanitize'] = 'array';
@@ -240,6 +247,7 @@ class AdminSettings {
 				'posttypeselect',
 				'taxonomyselect',
 				'imagesizeselect',
+				'orderstatusselect',
 				'userroleselect'
 			], true ) ) {
 				$setting['sanitize'] = 'text';
