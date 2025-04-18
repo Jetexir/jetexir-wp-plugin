@@ -1824,6 +1824,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 .woo-assistant-wrap #wa-settings-form hr {
   margin-top: 0;
 }
+.woo-assistant-wrap #wa-settings-form .woo-assistant-notices {
+  margin-bottom: 0;
+}
 .woo-assistant-wrap .wa-grid {
   display: grid !important;
   gap: 3rem !important;
