@@ -80,7 +80,10 @@ class WooCommerce {
 
 	public static function getOrderMeta( $orderID, $metaKey, $single = true ) {
 		if ( self::hposEnabled() ) {
-			return wc_get_order( $orderID )->get_meta( $metaKey, $single );
+			$order = wc_get_order( $orderID );
+			if ( $order ) {
+				return $order->get_meta( $metaKey, $single );
+			}
 		}
 
 		return PostMeta::get( $orderID, $metaKey, $single );
