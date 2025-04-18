@@ -120,6 +120,10 @@ class OrderNumber extends Addon implements AddonInterface {
 	 * @return mixed
 	 */
 	public function getOrderNumber( $orderID, $order ) {
+		if ( in_array( $order->get_status(), [ 'draft', 'checkout-draft' ] ) ) {
+			return $orderID;
+		}
+
 		$orderNumber = WooCommerce::getOrderMeta( $order->get_id(), '_wa_order_number' );
 		if ( ! empty( $orderNumber ) ) {
 			return $orderNumber;
