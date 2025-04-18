@@ -4,7 +4,6 @@ namespace WooAssistant\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Interfaces\AdminTabInterface;
 
 class AdminCart implements AdminTabInterface {
