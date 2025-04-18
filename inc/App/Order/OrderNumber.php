@@ -18,31 +18,37 @@ class OrderNumber extends Addon implements AddonInterface {
 	public string $currentTab = 'order';
 
 	public function initAction(): void {
-		add_action( 'woo_assistant_save_settings_success', [ $this, 'updateOrderNumbers' ], 10, 3 );
+		if ( Settings::get( 'order_number_format', '', $this->addonID ) ) {
+			// Update all order numbers
+			add_action( 'woo_assistant_save_settings_success', [ $this, 'updateOrderNumbers' ], 10, 3 );
 
-		// Update order number
-		add_action( 'woocommerce_new_order', [ $this, 'updateOrderNumber' ] );
-		add_action( 'woocommerce_update_order', [ $this, 'updateOrderNumber' ] );
-		add_action( 'woocommerce_process_shop_order_meta', [ $this, 'updateOrderNumber' ] );
-		add_action( 'woocommerce_order_status_changed', [ $this, 'updateOrderNumber' ] );
-		add_action( 'woocommerce_api_create_order', [ $this, 'updateOrderNumber' ] );
+			// Update order number
+			add_action( 'woocommerce_new_order', [ $this, 'updateOrderNumber' ] );
+			add_action( 'woocommerce_update_order', [ $this, 'updateOrderNumber' ] );
+			add_action( 'woocommerce_process_shop_order_meta', [ $this, 'updateOrderNumber' ] );
+			add_action( 'woocommerce_order_status_changed', [ $this, 'updateOrderNumber' ] );
+			add_action( 'woocommerce_api_create_order', [ $this, 'updateOrderNumber' ] );
 
-		// Get order number
-		add_filter( 'woocommerce_order_number', [ $this, 'getOrderNumber' ], PHP_INT_MAX, 2 );
+			// Get order number
+			add_filter( 'woocommerce_order_number', [ $this, 'getOrderNumber' ], PHP_INT_MAX, 2 );
 
-		// Order number search
-		add_filter( 'woocommerce_shop_order_search_fields', [ $this, 'searchByMetaOrderNumber' ] );
-		add_filter( 'woocommerce_order_table_search_query_meta_keys', [ $this, 'searchByMetaOrderNumber' ] );
-		add_filter( 'woocommerce_hpos_admin_search_filters', [ $this, 'hposAddOrderNumberSearchFilter' ] );
-		add_filter( 'woocommerce_hpos_generate_where_for_search_filter', [
-			$this,
-			'hposWhereOrderNumberSearchFilter'
-		], 10, 4 );
+			// Order number search
+			add_filter( 'woocommerce_shop_order_search_fields', [ $this, 'searchByMetaOrderNumber' ] );
+			add_filter( 'woocommerce_order_table_search_query_meta_keys', [ $this, 'searchByMetaOrderNumber' ] );
+			add_filter( 'woocommerce_hpos_admin_search_filters', [ $this, 'hposAddOrderNumberSearchFilter' ] );
+			add_filter( 'woocommerce_hpos_generate_where_for_search_filter', [
+				$this,
+				'hposWhereOrderNumberSearchFilter'
+			], 10, 4 );
 
-		// Order number tracking
-		if ( Settings::get( 'order_number_tracking', true, $this->addonID ) ) {
-			remove_filter( 'woocommerce_shortcode_order_tracking_order_id', 'wc_sanitize_order_id' );
-			add_filter( 'woocommerce_shortcode_order_tracking_order_id', [ $this, 'setOrderTrackingID' ], PHP_INT_MAX );
+			// Order number tracking
+			if ( Settings::get( 'order_number_tracking', true, $this->addonID ) ) {
+				remove_filter( 'woocommerce_shortcode_order_tracking_order_id', 'wc_sanitize_order_id' );
+				add_filter( 'woocommerce_shortcode_order_tracking_order_id', [
+					$this,
+					'setOrderTrackingID'
+				], PHP_INT_MAX );
+			}
 		}
 	}
 
