@@ -78,6 +78,24 @@ class WooCommerce {
 		);
 	}
 
+	public static function getOrderMeta( $orderID, $metaKey, $single = true ) {
+		if ( self::hposEnabled() ) {
+			return wc_get_order( $orderID )->get_meta( $metaKey, $single );
+		}
+
+		return PostMeta::get( $orderID, $metaKey, $single );
+	}
+
+	public static function updateOrderMeta( $orderID, $metaKey, $metaValue ): void {
+		if ( self::hposEnabled() ) {
+			$order = wc_get_order( $orderID );
+			$order->update_meta_data( $metaKey, $metaValue );
+			$order->save();
+		} else {
+			PostMeta::update( $orderID, $metaKey, $metaValue );
+		}
+	}
+
 	public static function changeOrdersStatus( $oldStatus, $newStatus ): int {
 		$ordersChanged = 0;
 		$limit         = 1000;
@@ -105,7 +123,7 @@ class WooCommerce {
 	public static function getPaymentGateways(): array {
 		$list     = [];
 		$gateways = WC()->payment_gateways->get_available_payment_gateways();
-		foreach ($gateways  as $gateway) {
+		foreach ( $gateways as $gateway ) {
 			$list[ $gateway->id ] = $gateway->settings['title'];
 		}
 
