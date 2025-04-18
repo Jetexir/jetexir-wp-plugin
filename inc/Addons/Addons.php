@@ -203,6 +203,7 @@ class Addons {
 		$defaultCats = array(
 			'recommended'    => __( 'Recommended', 'woo-assistant' ),
 			'cart'           => __( 'Cart', 'woo-assistant' ),
+			'checkout'       => __( 'Checkout', 'woo-assistant' ),
 			'product'        => __( 'Product', 'woo-assistant' ),
 			'order'          => __( 'Order', 'woo-assistant' ),
 			'marketing'      => __( 'Marketing', 'woo-assistant' ),

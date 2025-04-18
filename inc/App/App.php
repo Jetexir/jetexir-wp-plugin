@@ -8,6 +8,7 @@ use WooAssistant\App\GlobalSettings\GlobalSettings;
 use WooAssistant\App\Order\Order;
 use WooAssistant\App\Product\Product;
 use WooAssistant\App\Cart\Cart;
+use WooAssistant\App\Checkout\Checkout;
 use WooAssistant\App\Tools\Tools;
 
 class App {
@@ -17,6 +18,7 @@ class App {
 		new Product();
 		new Order();
 		new Cart();
+		new Checkout();
 		new GlobalSettings();
 		new WooCommerce();
 

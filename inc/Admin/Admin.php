@@ -15,6 +15,7 @@ class Admin {
 		new AdminProduct();
 		new AdminOrder();
 		new AdminCart();
+		new AdminCheckout();
 		new AdminGlobal();
 	}
 }
