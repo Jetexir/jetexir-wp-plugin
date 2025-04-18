@@ -55,32 +55,21 @@ class OrderStatus extends Addon implements AddonInterface {
 	}
 
 	public function changeOrderStatus( $orderId ): void {
-		$order   = wc_get_order( $orderId );
-		$changed = WooCommerce::hposEnabled() ? $order->get_meta( '_waos_changed' ) : PostMeta::get( $orderId, '_waos_changed' );
+		$changed = WooCommerce::getOrderMeta( $orderId, '_waos_changed' );
 
 		if ( ! empty( $changed ) ) {
 			return;
 		}
 
-		$paymentMethod = $order->get_payment_method();
-		$status        = Settings::get( 'order_status_payment_' . $paymentMethod, false, $this->addonID );
+		$order  = wc_get_order( $orderId );
+		$status = Settings::get( 'order_status_payment_' . $order->get_payment_method(), false, $this->addonID );
 		if ( ! $status ) {
 			$status = Settings::get( 'order_status_default', false, $this->addonID );
 		}
 
 		if ( $status && array_key_exists( $status, WooCommerce::getOrderStatuses() ) ) {
-			$order = wc_get_order( $orderId );
 			$order->update_status( $status );
-			$changed = current_time( 'mysql' );
-		}
-
-		if ( $changed ) {
-			if ( WooCommerce::hposEnabled() ) {
-				$order->update_meta_data( '_waos_changed', $changed );
-				$order->save();
-			} else {
-				PostMeta::update( $orderId, '_waos_changed', $changed );
-			}
+			WooCommerce::updateOrderMeta( $orderId, '_waos_changed', current_time( 'mysql' ) );
 		}
 	}
 
