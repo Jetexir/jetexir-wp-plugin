@@ -13,6 +13,10 @@ if ( ! isset( $args ) ) {
     <thead>
     <tr>
 		<?php
+		if ( $args['sortable'] ) {
+			echo '<th class="wa-dtu-sortable-column"><i class="wa-icon-move-vertical"></th>';
+		}
+
 		if ( $args['has_bulk_action'] ) {
 			echo '<th class="wa-dtu-select-all-wrap check-column"><label class="wa-checkbox-wrap"><input type="checkbox" class="wa-dtu-select-all"><span class="wa-checkmark"></span></label></th>';
 		}
@@ -36,20 +40,23 @@ if ( ! isset( $args ) ) {
         <th></th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="<?php echo $args['sortable'] ? 'ui-sortable' : '' ?>">
 	<?php
 	if ( empty( $args['tbody'] ) ) {
 		echo '<tr><td colspan="100%">' . __( 'No entries!', 'woo-assistant' ) . '</td></tr>';
 	} else {
-		foreach ( $args['tbody'] as $row ) {
+		foreach ( $args['tbody'] as $index => $row ) {
 			$rowId      = $row['id'];
 			$attributes = '';
 			foreach ( $args['attributes'] as $dataName => $dataValues ) {
 				$attributes .= ' data-' . $dataName . '="' . $dataValues . '"';
 			}
 			?>
-            <tr data-id="<?php echo $rowId ?>"<?php echo $row['attributes'] . ( ! $row['is_active'] ? ' data-disabled="true"' : '' ) ?>>
+            <tr data-id="<?php echo $rowId ?>" <?php echo $row['attributes'] . ( ! $row['is_active'] ? ' data-disabled="true"' : '' ) ?>>
 				<?php
+				if ( $args['sortable'] ) {
+					echo '<td class="wa-dtu-sortable-column sort ui-sortable-handle"><i class="wa-icon-move-vertical"></i><input type="hidden" class="wa-dtu-row-order" name="order[' . $rowId . ']" value="' . $index . '" ></td>';
+				}
 				if ( $args['has_bulk_action'] ) {
 					echo '<td class="check-column"><label class="wa-checkbox-wrap"><input type="checkbox" class="wa-dtu-row-select" value="' . $rowId . '"><span class="wa-checkmark"></span></label></td>';
 				}

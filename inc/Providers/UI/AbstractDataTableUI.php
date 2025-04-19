@@ -114,6 +114,11 @@ abstract class AbstractDataTableUI {
 	private bool $bottomBulkAction = false;
 
 	/**
+	 * @var bool Display bottom bulk action
+	 */
+	private bool $sortable = false;
+
+	/**
 	 * @const Row index constant
 	 */
 	public const ROW_INDEX = '__INDEX__';
@@ -221,9 +226,17 @@ abstract class AbstractDataTableUI {
 		return $this;
 	}
 
+	public function sortable( $enable ): AbstractDataTableUI {
+		$this->sortable = $enable;
+
+		return $this;
+	}
+
 	public function setRows( $data ): AbstractDataTableUI {
-		$this->rows     = $data;
-		$this->rowCount = count( $data );
+		if ( is_array( $data ) ) {
+			$this->rows     = $data;
+			$this->rowCount = count( $data );
+		}
 
 		return $this;
 	}
@@ -419,6 +432,7 @@ abstract class AbstractDataTableUI {
 			'row_count'            => $this->rowCount,
 			'active_field'         => $this->activeFieldValue,
 			'display_active_field' => $this->displayActiveField,
+			'sortable'             => $this->sortable,
 			'modal_add_title'      => empty( $this->modalAddTitle ) ? $this->title : $this->modalAddTitle,
 			'modal_edit_title'     => empty( $this->modalEditTitle ) ? $this->title : $this->modalEditTitle,
 			'modal_add_button'     => empty( $this->modalAddNewButton ) ? __( 'Add new', 'woo-assistant' ) : $this->modalAddNewButton,

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "wooassistant-icon";
-  src: url("../fonts/wooassistant-icon.ttf?es6vre") format("truetype"), url("../fonts/wooassistant-icon.woff?es6vre") format("woff"), url("../fonts/wooassistant-icon.svg?es6vre#wooassistant-icon") format("svg");
+  src: url("../fonts/wooassistant-icon.ttf?4uwdcw") format("truetype"), url("../fonts/wooassistant-icon.woff?4uwdcw") format("woff"), url("../fonts/wooassistant-icon.svg?4uwdcw#wooassistant-icon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -89,6 +89,10 @@
 
 .wa-icon-heart1:before {
   content: "\e92d";
+}
+
+.wa-icon-move-vertical:before {
+  content: "\e94c";
 }
 
 .wa-icon-heart-stroke:before {
@@ -1717,18 +1721,24 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 }
 .woo-assistant-wrap .wa-data-table-ui .wa-dtu-body select {
   max-width: 200px;
+  min-width: 150px;
   padding: 4px 14px;
+}
+.woo-assistant-wrap .wa-data-table-ui .wa-dtu-body > .wa-dtu-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.woo-assistant-wrap .wa-data-table-ui .wa-dtu-body > .wa-dtu-actions.wa-dtu-actions-top {
+  margin-bottom: 10px;
+}
+.woo-assistant-wrap .wa-data-table-ui .wa-dtu-body > .wa-dtu-actions.wa-dtu-actions-bottom {
+  margin-top: 10px;
 }
 .woo-assistant-wrap .wa-data-table-ui .wa-dtu-bulk-actions {
   display: flex;
   align-items: center;
   gap: 3px;
-}
-.woo-assistant-wrap .wa-data-table-ui .wa-dtu-bulk-actions.wa-dtu-bulk-actions-top {
-  margin-bottom: 10px;
-}
-.woo-assistant-wrap .wa-data-table-ui .wa-dtu-bulk-actions.wa-dtu-bulk-actions-bottom {
-  margin-top: 10px;
 }
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table {
   border-collapse: collapse;
@@ -1737,6 +1747,10 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 }
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table .check-column label:hover {
   background: none;
+}
+.woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table .wa-dtu-sortable-column {
+  width: 35px;
+  text-align: center;
 }
 .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table tr td, .woo-assistant-wrap .wa-data-table-ui table.wa-dtu-table tr th {
   padding: 8px;
@@ -1924,7 +1938,7 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   position: relative;
   width: auto;
   max-width: 500px;
-  margin: calc(var(--wa-admin-bar-height, 0) + 5em) auto 2em;
+  margin: calc(var(--wa-admin-bar-height, 0) + 2em) auto 2em;
   pointer-events: none;
 }
 .wa-modal.wa-modal-large .wa-modal-dialog {
@@ -1971,6 +1985,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   position: relative;
   flex: 1 1 auto;
   padding: 15px;
+  min-height: 200px;
+  max-height: calc(100vh - 250px);
+  overflow: auto;
 }
 .wa-modal .wa-modal-footer {
   display: flex;

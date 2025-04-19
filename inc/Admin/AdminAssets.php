@@ -36,6 +36,7 @@ class AdminAssets {
 				Assets::url( 'js-admin/script.min.js' ),
 				[
 					'jquery',
+					'jquery-ui-sortable',
 					WOOASSISTANT_PLUGIN_SLUG . '-dom-drag',
 					//WOOASSISTANT_PLUGIN_SLUG . '-modal'
 				], $pluginVersion, [ 'in_footer' => true ] );

@@ -10,7 +10,8 @@ if ( ! isset( $args ) ) {
 
 ?>
 
-<div id="<?php echo $args['component_id'] ?>" class="wa-data-table-ui"
+<div id="<?php echo $args['component_id'] ?>"
+     class="wa-data-table-ui <?php echo $args['sortable'] ? 'wa-data-table-sortable' : '' ?>"
      data-id="<?php echo ! empty( $args['id'] ) ? $args['id'] : str_replace( 'wa-datatable-', '', $args['component_id'] ) ?>">
     <div class="wa-loader-wrap" style="display: none">
         <div class="wa-loader"></div>
@@ -46,6 +47,11 @@ if ( ! isset( $args ) ) {
 		<?php
 		Templates::load( Templates::getPath( 'data-table/data_table_bulk_action.php' ), array_merge( $args, [ 'bulk_action_position' => 'top' ] ), false );
 		Templates::load( Templates::getPath( 'data-table/data_table_table.php' ), $args );
+
+		if ( $args['sortable'] ) {
+
+		}
+
 		Templates::load( Templates::getPath( 'data-table/data_table_bulk_action.php' ), array_merge( $args, [ 'bulk_action_position' => 'bottom' ] ), false );
 		?>
     </div>
