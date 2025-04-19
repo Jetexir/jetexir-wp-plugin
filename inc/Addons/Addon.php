@@ -192,14 +192,6 @@ abstract class Addon {
 		return $addon;
 	}
 
-	public function getSettingsKey() {
-		return WOOASSISTANT_PLUGIN_KEY . '_' . $this->addonID;
-	}
-
-	public function getSettings( $key = null, $default = null ) {
-		return Settings::get( $key, $default, $this->addonID );
-	}
-
 	public function isActivated(): bool {
 		if ( ! $this->getInfo( 'force_enable', false ) && Settings::get( 'internal_addon_' . $this->addonID, false ) !== 1 ) {
 			return false;
@@ -229,5 +221,33 @@ abstract class Addon {
 		}
 
 		return $canActivate;
+	}
+
+	public function getSettingsKey() {
+		return $this->getInfo( 'settings_key' );
+	}
+
+	public function getSetting( $key = null, $default = null, $useCache = true ) {
+		return Settings::get( $key, $default, $this->getSettingsKey(), $useCache );
+	}
+
+	public function saveSetting( $key, $value ) {
+		return Settings::save( $key, $value, $this->getSettingsKey() );
+	}
+
+	public function savesSetting( $options ) {
+		return Settings::saves( $options, $this->getSettingsKey() );
+	}
+
+	public function deleteSetting( $key ) {
+		return Settings::delete( $key, $this->getSettingsKey() );
+	}
+
+	public function addToArraySetting( $key, $value, $reverse = false ) {
+		return Settings::addToArray( $key, $value, $this->getSettingsKey(), $reverse );
+	}
+
+	public function deleteFromArraySetting( $key, $index ) {
+		return Settings::deleteFromArray( $key, $index, $this->getSettingsKey() );
 	}
 }
