@@ -30,7 +30,7 @@
     position: relative;
     width: auto;
     max-width: 500px;
-    margin: calc(var(--wa-admin-bar-height, 0) + 5em) auto 2em;
+    margin: calc(var(--wa-admin-bar-height, 0) + 2em) auto 2em;
     pointer-events: none;
   }
 
@@ -89,6 +89,9 @@
     position: relative;
     flex: 1 1 auto;
     padding: 15px;
+    min-height: 200px;
+    max-height: calc(100vh - 250px);
+    overflow: auto;
   }
 
   .wa-modal-footer {
