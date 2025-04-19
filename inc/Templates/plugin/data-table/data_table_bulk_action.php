@@ -30,7 +30,7 @@ if ( ! isset( $args ) || ! isset( $args[ $args['bulk_action_position'] . '_bulk_
 	<?php }
 
 	if ( $args['sortable'] ) {
-		echo '<button class="wa-button wa-button-secondary wa-dtu-save-changes" type="button">' . __( 'Save changes', 'woo-assistant' ) . '</button>';
+		echo '<button class="wa-button wa-button-secondary wa-dtu-save-changes" type="button" disabled>' . __( 'Save changes', 'woo-assistant' ) . '</button>';
 	}
     ?>
 </div>
