@@ -16,7 +16,7 @@ use WooAssistant\Settings\Settings;
 
 class AdminSettings {
 	public function __construct() {
-		add_action( 'woo_assistant_submit_settings_form', [ $this, 'saveForm' ] );
+		add_action( 'woo_assistant_submit_settings_form', [ $this, 'saveForm' ], 0 );
 		//add_filter( 'woo_assistant_settings_header_image', [ $this, 'headerImage' ], 0 );
 	}
 
@@ -35,12 +35,12 @@ class AdminSettings {
 			$options        = [];
 			$saveFields     = HTML::saveFields;
 			$currentSection = null;
-			$optionsName    = $settings['options_id'] ?? null;
+			$optionsName    = $settings['settings_key'] ?? null;
 
 			if ( self::isSectionMode( $settings ) ) {
 				$currentSection = self::getActiveSection( $settings );
 				$tabSettings    = $settings['sections'][ $currentSection ]['settings'];
-				$optionsName    = $settings['sections'][ $currentSection ]['options_id'] ?? $optionsName;
+				$optionsName    = $settings['sections'][ $currentSection ]['settings_key'] ?? $optionsName;
 			} else {
 				$tabSettings = $settings['settings'];
 			}
@@ -303,7 +303,7 @@ class AdminSettings {
 	}
 
 	public static function printPage( $currentTab, $settings ): void {
-		$optionsName    = $settings['options_id'] ?? null;
+		$optionsName    = $settings['settings_key'] ?? null;
 		$currentSection = null;
 		self::headerSettings( $currentTab, $settings );
 
@@ -313,7 +313,7 @@ class AdminSettings {
 		if ( self::isSectionMode( $settings ) ) {
 			$currentSection  = self::getActiveSection( $settings );
 			$currentSettings = $settings['sections'][ $currentSection ]['settings'] ?? [];
-			$optionsName     = $settings['sections'][ $currentSection ]['options_id'] ?? $optionsName;
+			$optionsName     = $settings['sections'][ $currentSection ]['settings_key'] ?? $optionsName;
 
 			do_action( 'woo_assistant_section_content', $currentTab, $currentSection, $currentSettings );
 			self::printSettings( $currentSettings, $optionsName );
