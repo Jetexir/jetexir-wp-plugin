@@ -6,10 +6,10 @@ defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Addons\Addon;
 use WooAssistant\Admin\AdminPages;
+use WooAssistant\Helper\Helper;
 use WooAssistant\Helper\HTML;
 use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Param;
-use WooAssistant\Helper\PostMeta;
 use WooAssistant\Helper\Sanitizing;
 use WooAssistant\Helper\Templates;
 use WooAssistant\Helper\WooCommerce;
@@ -242,6 +242,22 @@ class OrderStatus extends Addon implements AddonInterface {
 				'row_count' => $dataTable->getRowCount(),
 			] );
 
+		} elseif ( $action === 'save_changes' ) {
+			$rowOrders = Sanitizing::array( Param::post( 'row_orders' ) );
+			$entries   = $this->getSetting( self::orderStatusDataTableId, [] );
+			$entries   = Helper::reorderArray( $entries, $rowOrders );
+
+			if ( is_array( $entries ) ) {
+				$this->saveSetting( self::orderStatusDataTableId, $entries );
+			}
+
+			$dataTable = $this->getDataTable();
+
+			wp_send_json_success( [
+				'table'     => $dataTable->renderHTML( Templates::getPath( 'data-table/data_table_table.php' ) ),
+				'row_count' => $dataTable->getRowCount(),
+			] );
+
 		} elseif ( $action === 'add_form' || $action === 'edit' ) {
 			$data = [];
 			if ( $index >= 0 && $entry = $this->getByIndex( $index ) ) {
@@ -415,6 +431,7 @@ class OrderStatus extends Addon implements AddonInterface {
 		$dataTable->setID( self::orderStatusDataTableId )
 		          ->setRows( Settings::get( self::orderStatusDataTableId, [], $this->addonID ) )
 		          ->setIdField( $dataTable::ROW_INDEX )
+		          ->sortable( true )
 		          ->setTitle( __( 'Custom Order Status', 'woo-assistant' ) )
 		          ->modalAddTitle( __( 'Add new order status', 'woo-assistant' ) )
 		          ->modalEditTitle( __( 'Edit order status', 'woo-assistant' ) )
