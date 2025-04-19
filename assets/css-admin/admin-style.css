@@ -816,6 +816,16 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   outline-offset: 2px;
   outline: #873eff solid 2px;
 }
+.woo-assistant-wrap .wa-button.wa-button-primary:disabled, .woo-assistant-wrap .wa-button.wa-button-secondary:disabled {
+  background-color: #f3f3f3;
+}
+.woo-assistant-wrap .wa-button.wa-button-primary:disabled:hover, .woo-assistant-wrap .wa-button.wa-button-primary:disabled:focus, .woo-assistant-wrap .wa-button.wa-button-primary:disabled:active, .woo-assistant-wrap .wa-button.wa-button-secondary:disabled:hover, .woo-assistant-wrap .wa-button.wa-button-secondary:disabled:focus, .woo-assistant-wrap .wa-button.wa-button-secondary:disabled:active {
+  background-color: #f3f3f3;
+  outline: none;
+}
+.woo-assistant-wrap .wa-button:disabled {
+  cursor: default;
+}
 .woo-assistant-wrap input[type=text], .woo-assistant-wrap input[type=email], .woo-assistant-wrap input[type=url], .woo-assistant-wrap input[type=tel], .woo-assistant-wrap input[type=number], .woo-assistant-wrap input[type=password], .woo-assistant-wrap input[type=search] {
   background-color: white;
   color: #2B2B2B;

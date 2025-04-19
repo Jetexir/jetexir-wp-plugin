@@ -46,5 +46,20 @@
         outline: variables.$primary solid 2px;
       }
     }
+
+    &.wa-button-primary,  &.wa-button-secondary, {
+      &:disabled {
+        background-color: variables.$gray_light_three;
+
+        &:hover, &:focus, &:active {
+          background-color: variables.$gray_light_three;
+          outline: none;
+        }
+      }
+    }
+
+    &:disabled {
+      cursor: default;
+    }
   }
 }
