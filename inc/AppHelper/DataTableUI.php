@@ -110,7 +110,7 @@ class DataTableUI {
 	public function doAction(): void {
 		if ( Nonce::verify() && current_user_can( 'manage_options' ) ) {
 			$dataTableID = Sanitizing::text( Param::post( 'data_table_id' ) );
-			$rowID       = Sanitizing::int( Param::post( 'row_id' ) );
+			$rowID       = Sanitizing::text( Param::post( 'row_id' ) );
 			$rowAction   = Sanitizing::text( Param::post( 'row_action' ) );
 
 			do_action( 'woo_assistant_data_table_ui_' . $dataTableID . '_action', $rowID, $rowAction );
