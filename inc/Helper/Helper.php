@@ -3,6 +3,23 @@
 namespace WooAssistant\Helper;
 
 class Helper {
+	public static function reorderArray( $array, $orders ) {
+		$reorderArray = [];
+		$orders       = array_map( 'intval', $orders );
+
+		if ( count( array_unique( array_keys( $orders ) ) ) !== count( array_unique( array_values( $orders ) ) ) ) {
+			return false;
+		}
+
+		foreach ( $orders as $index => $order ) {
+			$reorderArray[ $order ] = $array[ $index ];
+		}
+
+		ksort( $reorderArray );
+
+		return $reorderArray;
+	}
+
 	public static function randomString( $length, $smallAlphabet = true, $largeAlphabet = true, $numbers = true ) {
 		$strings = [];
 		if ( $smallAlphabet ) {
