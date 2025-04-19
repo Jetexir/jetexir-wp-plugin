@@ -333,9 +333,9 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		$dataTable = $this->getDataTable();
 
 		$sections[ self::sectionID ] = array(
-			'title'      => __( 'Announcement Bar', 'woo-assistant' ),
-			'options_id' => self::sectionID,
-			'settings'   => array(
+			'title'        => __( 'Announcement Bar', 'woo-assistant' ),
+			'settings_key' => self::sectionID,
+			'settings'     => array(
 				'data_table_ui' => array(
 					'id'         => 'announcement_bar',
 					'type'       => 'dataTable',

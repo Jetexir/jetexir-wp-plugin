@@ -235,10 +235,10 @@ class OrderNumber extends Addon implements AddonInterface {
 
 	public function addSectionSettings( $sections ): array {
 		$sections[ $this->addonID ] = array(
-			'title'      => __( 'Number', 'woo-assistant' ),
-			'desc'       => __( 'Custom order number', 'woo-assistant' ),
-			'options_id' => $this->addonID,
-			'settings'   => array(
+			'title'        => __( 'Number', 'woo-assistant' ),
+			'desc'         => __( 'Custom order number', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => array(
 				'order_number_start_grid'  => array(
 					'title' => __( 'Order number', 'woo-assistant' ),
 					'type'  => 'startgrid',

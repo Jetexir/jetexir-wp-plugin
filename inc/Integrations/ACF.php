@@ -12,7 +12,7 @@ class ACF extends Addon implements AddonInterface {
 	public string $addonID = 'acf';
 
 	public function initAction(): void {
-		if ( $this->getSettings( 'add_extra_html', 0 ) ) {
+		if ( $this->getSetting( 'add_extra_html', 0 ) ) {
 			add_action( 'acf/render_field', [ $this, 'my_acf_render_field' ] );
 		}
 	}
@@ -23,7 +23,7 @@ class ACF extends Addon implements AddonInterface {
 
 	public function settings(): array {
 		return array(
-			'options_id' => $this->addonID,
+			'settings_key' => $this->addonID,
 			'title'      => __( 'ACF', 'woo-assistant' ),
 			'desc'       => __( 'ACF Integration', 'woo-assistant' ),
 			'sections'   => array(

@@ -557,10 +557,10 @@ class OrderStatus extends Addon implements AddonInterface {
 		}
 
 		$sections[ $this->addonID ] = array(
-			'title'      => __( 'Status', 'woo-assistant' ),
-			'desc'       => __( 'Custom order status', 'woo-assistant' ),
-			'options_id' => $this->addonID,
-			'settings'   => $settings
+			'title'        => __( 'Status', 'woo-assistant' ),
+			'desc'         => __( 'Custom order status', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => $settings
 		);
 
 		return $sections;
@@ -573,7 +573,8 @@ class OrderStatus extends Addon implements AddonInterface {
 			'desc'           => __( 'Add custom order statuses to WooCommerce.', 'woo-assistant' ),
 			'tags'           => [ __( 'Order', 'woo-assistant' ) ],
 			'cat'            => 'order',
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 }
