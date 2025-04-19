@@ -16,11 +16,12 @@ class AdminPages {
 	use DebugTrait;
 
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'addMenu' ) );
 		add_action( 'admin_init', [ $this, 'init' ] );
+		add_action( 'init', [ $this, 'checkSubmitForm' ], 0 );
+		add_action( 'admin_menu', array( $this, 'adminMenuInit' ), 0 );
+		add_action( 'admin_menu', array( $this, 'addMenu' ), PHP_INT_MAX );
 		add_action( 'woo_assistant_notice', [ $this, 'displayNotices' ] );
 		add_action( 'woo_assistant_content', [ $this, 'content' ] );
-		add_action( 'woo_assistant_admin_init', [ $this, 'checkSubmitForm' ], 999999 );
 		add_action( 'admin_footer', [ $this, 'flushRewriteRules' ] );
 	}
 
@@ -46,8 +47,14 @@ class AdminPages {
 	}
 
 	public function init(): void {
-		if ( self::isSettingPage() ) {
+		if ( is_admin() && self::isSettingPage() ) {
 			do_action( 'woo_assistant_admin_init', self::getActiveTab() );
+		}
+	}
+
+	public function adminMenuInit(): void {
+		if ( self::isSettingPage() ) {
+			do_action( 'woo_assistant_admin_init_menu', self::getActiveTab() );
 		}
 	}
 
@@ -123,7 +130,7 @@ class AdminPages {
 		return '<a href="' . $link . '" class="menu-item' . ( $current === $tab ? ' menu-item-current' : '' ) . '">' . $title . '</a>';
 	}
 
-	private static function getActiveTab(): string {
+	public static function getActiveTab(): string {
 		$default = 'dashboard';
 		$current = strtolower( Param::get( 'tab', $default ) );
 		$tabs    = array_merge( self::defaultTabs(), array_keys( self::getMenus() ) );
@@ -142,7 +149,7 @@ class AdminPages {
 	}
 
 	public static function isSettingPage(): bool {
-		return Param::get( 'page' ) === WOOASSISTANT_PLUGIN_SLUG;
+		return is_admin() && Param::get( 'page' ) === WOOASSISTANT_PLUGIN_SLUG;
 	}
 
 	public static function link( $query ): ?string {
