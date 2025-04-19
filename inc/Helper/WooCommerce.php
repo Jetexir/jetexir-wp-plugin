@@ -25,6 +25,26 @@ class WooCommerce {
 		return false;
 	}
 
+
+	/**
+	 * Check page has block
+	 * https://stackoverflow.com/a/77950175/3224296
+	 *
+	 * Woocommerce blocks: woocommerce/checkout, woocommerce/cart
+	 *
+	 * @param int $page Page ID
+	 * @param string $block block name
+	 *
+	 * @return bool
+	 */
+	public static function hasBlockInPage( $page, $block ): bool {
+		if ( class_exists( 'WC_Blocks_Utils' ) ) {
+			return \WC_Blocks_Utils::has_block_in_page( $page, $block );
+		}
+
+		return false;
+	}
+
 	public static function currencySymbol() {
 		return get_woocommerce_currency_symbol();
 	}
@@ -240,5 +260,11 @@ class WooCommerce {
 		}
 
 		return apply_filters( 'woo_assistant_attribute_taxonomies', $wcAttributes );
+	}
+
+	public static function getCheckoutFields( $type ): array {
+		$wcCountries = new \WC_Countries();
+
+		return $wcCountries->get_address_fields( $wcCountries->get_base_country(), $type . '_' );
 	}
 }
