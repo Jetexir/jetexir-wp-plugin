@@ -100,16 +100,16 @@ class CheckoutFields extends Addon implements AddonInterface {
 
 		} elseif ( $action === 'add_form' || $action === 'edit' ) {
 			$data = [];
-			if ( $index >= 0 && $entry = $this->getByIndex( $index ) ) {
+			if ( $index >= 0 && $entry = $this->getByIndex( $dataTableID, $index ) ) {
 				$data = $entry;
 			}
 
-			$form = HTML::printFields( $this->getFields( $index, $data ), false );
+			$form = HTML::printFields( $this->getDataTableUiFields( $index, $data ), false );
 
 			wp_send_json_success( [ 'content' => $form ] );
 
 		} elseif ( $action === 'save_form' ) {
-			$formData     = \WooAssistant\AppHelper\DataTableUI::getFormData( $this->getFields() );
+			$formData     = \WooAssistant\AppHelper\DataTableUI::getFormData( $this->getDataTableUiFields() );
 			$errorMessage = '';
 			$entry        = false;
 
@@ -205,7 +205,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 		return false;
 	}
 
-	private function getFields( $index = - 1, $data = [] ): array {
+	private function getDataTableUiFields( $index = - 1, $data = [] ): array {
 		return array(
 			array(
 				'id'            => 'row_id',
@@ -256,7 +256,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 	private function getDataTable( $id ): DataTableUI {
 		$dataTable = new DataTableUI();
 		$dataTable->setID( $id )
-		          ->setRows( $this->getSetting( $id, [] ) )
+		          ->setRows( $this->getRows( $id ) )
 		          ->setIdField( $dataTable::ROW_INDEX )
 		          ->modalAddTitle( __( 'Add new field', 'woo-assistant' ) )
 		          ->modalEditTitle( __( 'Edit field', 'woo-assistant' ) )
@@ -267,10 +267,8 @@ class CheckoutFields extends Addon implements AddonInterface {
 		          ->addAction( 'bulk_enable', __( 'Enable', 'woo-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
 		          ->addAction( 'bulk_disable', __( 'Disable', 'woo-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
 		          ->addAction( 'bulk_delete', __( 'Delete', 'woo-assistant' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
-		          ->addColumn( __( 'Title', 'woo-assistant' ), 'title', function ( $entry ) {
-			          return '<mark class="order-status status-' . $entry['slug'] . '"><span>' . $entry['title'] . '</span></mark>';
-		          }, [ 'is_html' => true ] )
-		          ->addColumn( __( 'Slug', 'woo-assistant' ), 'slug' )
+		          ->addColumn( __( 'Name', 'woo-assistant' ), 'name' )
+		          ->addColumn( __( 'Label', 'woo-assistant' ), 'label' )
 		          ->addColumn( __( 'Status', 'woo-assistant' ), $dataTable::ACTIVE_FIELD );
 
 		if ( $id === 'billing_fields_classic' ) {
@@ -289,20 +287,55 @@ class CheckoutFields extends Addon implements AddonInterface {
 			}
 
 			foreach ( $fields as $key => $value ) {
-				$fields[ $key ]['custom']        = 0;
-				$fields[ $key ]['enabled']       = 1;
-				$fields[ $key ]['show_in_email'] = 1;
-				$fields[ $key ]['show_in_order'] = 1;
+				$fields[ $key ]['is_active']        = true;
+				$fields[ $key ]['custom']           = false;
+				$fields[ $key ]['display_in_email'] = true;
+				$fields[ $key ]['display_in_order'] = true;
 			}
 		}
 
 		return $fields;
 	}
 
+	private function getRows( $id ): array {
+		$rows = $this->getSetting( $id, [] );
+		if ( ! empty( $rows ) ) {
+			return $rows;
+		}
+
+		$rows   = [];
+		$IDs    = explode( '_', $id );
+		$fields = $this->getWooFields( $IDs[0] );
+
+		foreach ( $fields as $name => $field ) {
+			$class  = '';
+			$rows[] = array(
+				'is_active'        => $field['is_active'] ?? false,
+				'name'             => $name,
+				'label'            => $field['label'] ?? '',
+				'placeholder'      => $field['placeholder'] ?? '',
+				'type'             => $field['type'] ?? 'text',
+				'autocomplete'     => $field['autocomplete'] ?? '',
+				'required'         => $field['required'] ?? false,
+				'class'            => $class,
+				'validate'         => $field['validate'] ?? [],
+				'custom'           => $field['custom'] ?? true,
+				'display_in_email' => $field['display_in_email'] ?? false,
+				'display_in_order' => $field['display_in_order'] ?? false,
+			);
+		}
+
+		/*self::dd( $fields );
+		exit();*/
+
+		return $rows;
+	}
+
 	public function addSectionSettings( $sections ): array {
-		$type   = ! $this->getSetting( 'checkout_fields_type', false ) && WooCommerce::hasBlockInPage( wc_get_page_id( 'checkout' ), 'woocommerce/checkout' ) ? 'blocks' : 'classic';
-		$fields = $this->getWooFields( 'billing' );
-		//self::dd($fields);
+		$type = ! $this->getSetting( 'checkout_fields_type', false ) && WooCommerce::hasBlockInPage( wc_get_page_id( 'checkout' ), 'woocommerce/checkout' ) ? 'blocks' : 'classic';
+		/*$fields = $this->getWooFields( 'billing' );
+		self::dd( $fields );
+		exit();*/
 
 		$settings = array(
 			'checkout_fields_type_start_grid' => array(
