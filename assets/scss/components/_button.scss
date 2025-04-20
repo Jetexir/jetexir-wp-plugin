@@ -31,6 +31,10 @@
         outline-offset: 2px;
         outline: variables.$primary solid 2px;
       }
+
+      &:disabled {
+        color: variables.$gray_light_three;
+      }
     }
 
     &.wa-button-secondary {
@@ -47,7 +51,12 @@
       }
     }
 
-    &.wa-button-primary,  &.wa-button-secondary, {
+    &:disabled {
+      color: variables.$gray_light;
+      cursor: default;
+    }
+
+    &.wa-button-primary, &.wa-button-secondary, {
       &:disabled {
         background-color: variables.$gray_light_three;
 
@@ -56,10 +65,6 @@
           outline: none;
         }
       }
-    }
-
-    &:disabled {
-      cursor: default;
     }
   }
 }
