@@ -86,7 +86,7 @@ class HTML {
 		$field = '';
 
 		if ( ! empty( $data['title'] ) ) {
-			$field .= '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
+			$field .= '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . $data['required_text'] . '</label>';
 		}
 
 		$field .= '<textarea name="' . $name . '" id="' . $id . '" class="' . self::getClass( $data, self::prefix . 'field-textarea' ) . '" ' . self::getAttributes( $data ) . '>' . $data['setting_value'] . '</textarea>';
@@ -113,7 +113,7 @@ class HTML {
 		$field = '';
 
 		if ( ! empty( $data['title'] ) ) {
-			$field .= '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
+			$field .= '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . $data['required_text'] . '</label>';
 		}
 
 		$field .= '<input type="' . $data['type'] . '" name="' . $name . '" id="' . $id . '" class="' . self::prefix . 'input-' . $data['type'] . '" value="' . $data['setting_value'] . '" ' . self::getAttributes( $data ) . '>';
@@ -166,7 +166,7 @@ class HTML {
 		$field = '';
 
 		if ( ! empty( $data['title'] ) ) {
-			$field .= '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'select-label">' . $data['title'] . '</label>';
+			$field .= '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'select-label">' . $data['title'] . $data['required_text'] . '</label>';
 		}
 
 		$field .= '<select name="' . $name . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-' . $data['type'] . '" ' . self::getAttributes( $data ) . '>';
@@ -486,7 +486,13 @@ class HTML {
 		$style = isset( $data['wrap_style'] ) ? 'style="' . $data['wrap_style'] . '"' : '';
 
 		// fieldset
-		return '<div id="' . self::prefix . ( empty( $data['id'] ) ? '' : $data['id'] . '-' ) . $type . '-group" class="' . self::getClass( $data, self::prefix . $type . '-group' ) . '" ' . $style . '><legend class="' . self::prefix . 'title">' . $data['title'] . '</legend><div class="' . self::prefix . $type . '-group-options">';
+		$element = '<div id="' . self::prefix . ( empty( $data['id'] ) ? '' : $data['id'] . '-' ) . $type . '-group" class="' . self::getClass( $data, self::prefix . $type . '-group' ) . '" ' . $style . '>';
+		if ( ! empty( $data['title'] ) ) {
+			$element .= '<legend class="' . self::prefix . 'title">' . $data['title'] . '</legend>';
+		}
+		$element .= '<div class="' . self::prefix . $type . '-group-options">';
+
+		return $element;
 	}
 
 	public static function endinlineelements( $data ): string {
@@ -799,7 +805,7 @@ class HTML {
 		$template                  = Templates::getPath( 'data-table/data_table.php' );
 
 		ob_start();
-		Templates::load( $template, $dataTable, false );
+		Templates::load( $template, $dataTable );
 
 		return ob_get_clean();
 	}
@@ -832,6 +838,16 @@ class HTML {
 	 * @return bool|array
 	 */
 	private static function checkData( array $data ) {
+		$data['required_text'] = $data['required_text'] ?? '';
+		if ( $data['required_text'] ) {
+			$requiredText = '*';
+			if ( is_string( $data['required_text'] ) ) {
+				$requiredText = $data['required_text'];
+			}
+
+			$data['required_text'] = ' <abbr class="required" title="' . __( 'Required', 'woo-assistant' ) . '">' . $requiredText . '</abbr>';
+		}
+
 		$attributes = empty( $data['attributes'] ) || ! is_array( $data['attributes'] ) ? [] : $data['attributes'];
 
 		if ( ! in_array( $data['type'], self::saveFields, true ) ) {
