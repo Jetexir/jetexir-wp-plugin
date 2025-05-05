@@ -3,7 +3,7 @@
 namespace WooAssistant\Helper;
 
 class Templates {
-	public static function load( $file, $args = [], $loadOnce = true ): void {
+	public static function load( $file, $args = [], $loadOnce = false ): void {
 		if ( file_exists( $file ) ) {
 			load_template( $file, $loadOnce, $args );
 		}
