@@ -262,9 +262,14 @@ class WooCommerce {
 		return apply_filters( 'woo_assistant_attribute_taxonomies', $wcAttributes );
 	}
 
-	public static function getCheckoutFields( $type ): array {
-		$wcCountries = new \WC_Countries();
+	public static function getCheckoutFields( $type = '' ): array {
+		if ( is_null( WC()->countries ) ) {
+			WC()->countries = new \WC_Countries();
+		}
 
-		return $wcCountries->get_address_fields( $wcCountries->get_base_country(), $type . '_' );
+		return WC()->checkout()->get_checkout_fields( $type );
+
+		//$wcCountries = new \WC_Countries();
+		//return $wcCountries->get_address_fields( $wcCountries->get_base_country(), $type . '_' );
 	}
 }
