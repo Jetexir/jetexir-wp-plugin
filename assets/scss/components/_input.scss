@@ -23,6 +23,11 @@
       //outline-offset: 2px;
       outline: variables.$primary solid 2px;
     }
+
+    &:disabled {
+      color: variables.$gray_light;
+      border-color: color.scale(variables.$input_border_color, $lightness: 40%);
+    }
   }
 
   input[type="number"] {

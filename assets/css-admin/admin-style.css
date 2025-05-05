@@ -849,6 +849,10 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   box-shadow: none;
   outline: #873eff solid 2px;
 }
+.woo-assistant-wrap input[type=text]:disabled, .woo-assistant-wrap input[type=email]:disabled, .woo-assistant-wrap input[type=url]:disabled, .woo-assistant-wrap input[type=tel]:disabled, .woo-assistant-wrap input[type=number]:disabled, .woo-assistant-wrap input[type=password]:disabled, .woo-assistant-wrap input[type=search]:disabled {
+  color: #8A8A8A;
+  border-color: rgb(221.8846153846, 216.5861538462, 241.7538461538);
+}
 .woo-assistant-wrap input[type=number] {
   max-width: 150px;
 }
@@ -1177,6 +1181,10 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 .woo-assistant-wrap select:focus {
   box-shadow: none;
   outline: #873eff solid 2px;
+}
+.woo-assistant-wrap select:disabled {
+  color: #8A8A8A;
+  border-color: rgb(221.8846153846, 216.5861538462, 241.7538461538);
 }
 .woo-assistant-wrap select[multiple]:focus:checked {
   background: #873eff;
