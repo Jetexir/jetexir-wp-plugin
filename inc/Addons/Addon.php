@@ -231,23 +231,23 @@ abstract class Addon {
 		return Settings::get( $key, $default, $this->getSettingsKey(), $useCache );
 	}
 
-	public function saveSetting( $key, $value ) {
+	public function saveSetting( $key, $value ): bool {
 		return Settings::save( $key, $value, $this->getSettingsKey() );
 	}
 
-	public function savesSetting( $options ) {
+	public function savesSetting( $options ): bool {
 		return Settings::saves( $options, $this->getSettingsKey() );
 	}
 
-	public function deleteSetting( $key ) {
+	public function deleteSetting( $key ): bool {
 		return Settings::delete( $key, $this->getSettingsKey() );
 	}
 
-	public function addToArraySetting( $key, $value, $reverse = false ) {
+	public function addToArraySetting( $key, $value, $reverse = false ): bool {
 		return Settings::addToArray( $key, $value, $this->getSettingsKey(), $reverse );
 	}
 
-	public function deleteFromArraySetting( $key, $index ) {
+	public function deleteFromArraySetting( $key, $index ): bool {
 		return Settings::deleteFromArray( $key, $index, $this->getSettingsKey() );
 	}
 }
