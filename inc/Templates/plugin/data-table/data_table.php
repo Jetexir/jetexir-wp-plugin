@@ -45,14 +45,9 @@ if ( ! isset( $args ) ) {
 
     <div class="wa-dtu-body">
 		<?php
-		Templates::load( Templates::getPath( 'data-table/data_table_bulk_action.php' ), array_merge( $args, [ 'bulk_action_position' => 'top' ] ), false );
+		Templates::load( Templates::getPath( 'data-table/data_table_bulk_action.php' ), array_merge( $args, [ 'bulk_action_position' => 'top' ] ) );
 		Templates::load( Templates::getPath( 'data-table/data_table_table.php' ), $args );
-
-		if ( $args['sortable'] ) {
-
-		}
-
-		Templates::load( Templates::getPath( 'data-table/data_table_bulk_action.php' ), array_merge( $args, [ 'bulk_action_position' => 'bottom' ] ), false );
+		Templates::load( Templates::getPath( 'data-table/data_table_bulk_action.php' ), array_merge( $args, [ 'bulk_action_position' => 'bottom' ] ) );
 		?>
     </div>
 </div>
