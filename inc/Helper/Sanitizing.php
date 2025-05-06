@@ -5,6 +5,10 @@ namespace WooAssistant\Helper;
 defined( 'ABSPATH' ) || exit;
 
 class Sanitizing {
+	public static function clean( $value ) {
+		return wc_clean( $value );
+	}
+
 	public static function jsonArray( $value ) {
 		$value = wp_unslash( htmlspecialchars_decode( $value ) );
 		$value = str_replace( "'", '"', $value );

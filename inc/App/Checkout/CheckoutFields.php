@@ -142,7 +142,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 				if ( $field['type'] === 'textarea' ) {
 					$value = Sanitizing::textarea( $data[ $field['name'] ] );
 				} else {
-					$value = wc_clean( $data[ $field['name'] ] );
+					$value = Sanitizing::clean( $data[ $field['name'] ] );
 				}
 
 				WooCommerce::updateOrderMeta( $orderID, '_' . $field['name'], $value );
