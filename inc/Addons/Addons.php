@@ -11,6 +11,7 @@ use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Param;
 use WooAssistant\Helper\Sanitizing;
 use WooAssistant\Helper\Validating;
+use WooAssistant\Helper\WordPress;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -108,7 +109,7 @@ class Addons {
 						$actionTitle = __( 'Activate required addon', 'woo-assistant' );
 
 					} elseif ( isset( $requirePlugin['is_wp_plugin'] ) && $requirePlugin['is_wp_plugin'] ) {
-						$pluginSlug = self::convertToSlug( $requirePluginPath );
+						$pluginSlug = WordPress::pluginPathToSlug( $requirePluginPath );
 
 						$actionLink  = wp_nonce_url(
 							self_admin_url( 'update.php?action=install-addon&addon=' . $pluginSlug ),
@@ -228,20 +229,5 @@ class Addons {
 		}
 
 		return $title;
-	}
-
-	/**
-	 * Converts a plugin filepath to a slug.
-	 *
-	 * @param string $pluginFile The plugin's filepath, relative to the plugins directory.
-	 *
-	 * @return string The plugin's slug.
-	 */
-	protected static function convertToSlug( $pluginFile ): string {
-		if ( 'hello.php' === $pluginFile ) {
-			return 'hello-dolly';
-		}
-
-		return str_contains( $pluginFile, '/' ) ? dirname( $pluginFile ) : str_replace( '.php', '', $pluginFile );
 	}
 }

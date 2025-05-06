@@ -110,4 +110,20 @@ class WordPress {
 	public static function isTag( $tag = '' ): bool {
 		return is_tag( $tag );
 	}
+
+
+	/**
+	 * Converts a plugin filepath to a slug.
+	 *
+	 * @param string $pluginFile The plugin's filepath, relative to the plugins directory.
+	 *
+	 * @return string The plugin's slug.
+	 */
+	public static function pluginPathToSlug( $pluginFile ): string {
+		if ( 'hello.php' === $pluginFile ) {
+			return 'hello-dolly';
+		}
+
+		return str_contains( $pluginFile, '/' ) ? dirname( $pluginFile ) : str_replace( '.php', '', $pluginFile );
+	}
 }
