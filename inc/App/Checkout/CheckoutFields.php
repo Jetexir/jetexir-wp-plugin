@@ -28,8 +28,14 @@ class CheckoutFields extends Addon implements AddonInterface {
 		if ( $this->getSetting( 'checkout_fields_type', 'classic' ) === 'classic' ) {
 			add_filter( 'woocommerce_checkout_fields', [ $this, 'addCustomField' ], 0 );
 			add_action( 'woocommerce_checkout_update_order_meta', [ $this, 'saveCustomField' ], 10, 2 );
+
+			// Add field value to order email
 			add_action( 'woocommerce_email_after_order_table', [ $this, 'addCustomFieldToEmail' ] );
+
+			// Add field value to user order detail
 			add_action( 'woocommerce_order_details_after_order_table', [ $this, 'addCustomFieldToOrderDetails' ] );
+
+			// Display field value in admin order detail
 			add_action( 'woocommerce_admin_order_data_after_billing_address', [ $this, 'addCustomFieldToOrder' ] );
 			add_action( 'woocommerce_admin_order_data_after_shipping_address', [ $this, 'addCustomFieldToOrder' ] );
 			add_action( 'woocommerce_admin_order_data_after_order_details', [ $this, 'addCustomFieldToOrder' ] );
@@ -659,7 +665,18 @@ class CheckoutFields extends Addon implements AddonInterface {
 		);
 
 		if ( $this->getSetting( 'checkout_fields_type', $type ) === 'blocks' ) {
-			$fields = array();
+			$fields = array(
+				'block_type_notice' => array(
+					'id'      => 'order_number_notice',
+					'notices' => array(
+						array(
+							'message' => __( 'Block type is not currently supported.', 'woo-assistant' ),
+							'type'    => 'warning',
+						)
+					),
+					'type'    => 'notice',
+				),
+			);
 
 		} else {
 			$fields = array(
