@@ -38,7 +38,7 @@ class WooCommerce {
 	 * @return bool
 	 */
 	public static function hasBlockInPage( $page, $block ): bool {
-		if ( class_exists( 'WC_Blocks_Utils' ) ) {
+		if ( class_exists( 'WC_Blocks_Utils' ) && method_exists( 'WC_Blocks_Utils', 'has_block_in_page' ) ) {
 			return \WC_Blocks_Utils::has_block_in_page( $page, $block );
 		}
 
@@ -271,5 +271,25 @@ class WooCommerce {
 
 		//$wcCountries = new \WC_Countries();
 		//return $wcCountries->get_address_fields( $wcCountries->get_base_country(), $type . '_' );
+	}
+
+	public static function getVersion() {
+		if ( class_exists( '\Automattic\Jetpack\Constants' ) && method_exists( '\Automattic\Jetpack\Constants', 'get_constant' ) ) {
+			$wc_version = \Automattic\Jetpack\Constants::get_constant( 'WC_VERSION' );
+			if ( $wc_version ) {
+				return $wc_version;
+			}
+		}
+
+		if ( function_exists( 'WC' ) && method_exists( WC(), 'version' ) ) {
+			return WC()->version();
+		}
+
+		if ( defined( 'WC_VERSION' ) ) {
+			return WC_VERSION;
+		}
+
+		// Return null since none of the above worked.
+		return null;
 	}
 }
