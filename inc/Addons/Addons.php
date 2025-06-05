@@ -80,7 +80,7 @@ class Addons {
 			}
 
 			$tags                 = is_array( $addon['tags'] ) ? $addon['tags'] : [];
-			$icon                 = ! empty( $addon['icon'] ) && str_starts_with( $addon['icon'], '<svg' ) !== false ? Assets::setSvgDimensions( $addon['icon'], 50 ) : '';
+			$icon                 = ! empty( $addon['icon'] ) && Assets::isSvgImageString( $addon['icon'] ) ? Assets::setSvgDimensions( $addon['icon'], 50 ) : '';
 			$image                = ! empty( $addon['image'] ) && Validating::isUrl( $addon['image'] ) ? $addon['image'] : '';
 			$imageLink            = ! empty( $addon['image_link'] ) && Validating::isUrl( $addon['image_link'] ) ? $addon['image_link'] : '';
 			$moreInfo             = ! empty( $addon['more_info_link'] ) && Validating::isUrl( $addon['more_info_link'] ) ? $addon['more_info_link'] : '';
