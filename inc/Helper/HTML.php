@@ -41,6 +41,7 @@ class HTML {
 		'userroleselect',
 		'userselect',
 		'orderstatusselect',
+		'currencyselect',
 		'addon',
 		'wpcolorpicker'
 	];
@@ -339,6 +340,21 @@ class HTML {
 		}
 
 		$data['options'] = WooCommerce::getOrderStatuses();
+
+		return self::select( $data );
+	}
+
+	public static function currencyselect( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$options = [];
+		foreach ( get_woocommerce_currencies() as $code => $name ) {
+			$options[ $code ] = esc_html( sprintf( __( '%1$s (%2$s)', 'woocommerce' ), $name, $code ) );
+		}
+
+		$data['options'] = $options;
 
 		return self::select( $data );
 	}

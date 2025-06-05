@@ -177,6 +177,7 @@ class AdminSettings {
 				'postselect',
 				'imagesizeselect',
 				'orderstatusselect',
+				'currencyselect',
 			] ) ) {
 			$default = [];
 		}
@@ -200,7 +201,7 @@ class AdminSettings {
 					$setting['sanitize_options'] = 'int';
 				}
 
-				if ( $setting['type'] === 'orderstatusselect' ) {
+				if ( in_array( $setting['type'], [ 'orderstatusselect', 'currencyselect' ] ) ) {
 					$setting['sanitize_options'] = 'text';
 				}
 			}
@@ -231,6 +232,7 @@ class AdminSettings {
 				       'userroleselect',
 				       'userselect',
 				       'orderstatusselect',
+				       'currencyselect',
 				       'select'
 			       ] ) ) ) {
 				$setting['sanitize'] = 'array';
@@ -248,6 +250,7 @@ class AdminSettings {
 				'taxonomyselect',
 				'imagesizeselect',
 				'orderstatusselect',
+				'currencyselect',
 				'userroleselect'
 			], true ) ) {
 				$setting['sanitize'] = 'text';
