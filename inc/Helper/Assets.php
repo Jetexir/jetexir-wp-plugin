@@ -106,6 +106,14 @@ class Assets {
 		return $imageSizes;
 	}
 
+	public static function isImageString( $string ): bool {
+		return str_starts_with( trim( $string ), '<img' ) !== false;
+	}
+
+	public static function isSvgImageString( $string ): bool {
+		return str_starts_with( trim( $string ), '<svg' ) !== false;
+	}
+
 	public static function setSvgDimensions( $svg, $width, $height = null ): string {
 		if ( is_null( $height ) ) {
 			$height = $width;
