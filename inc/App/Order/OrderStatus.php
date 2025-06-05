@@ -520,7 +520,7 @@ class OrderStatus extends Addon implements AddonInterface {
 				'title'             => __( 'Default order status', 'woo-assistant' ),
 				'type'              => 'orderStatusSelect',
 				'default'           => 0,
-				'option_none'       => 'No changes',
+				'option_none'       => __( 'No changes', 'woo-assistant' ),
 				'option_none_value' => '',
 				'sanitize'          => 'text'
 			),
@@ -538,7 +538,7 @@ class OrderStatus extends Addon implements AddonInterface {
 			$paymentGatewayOptions[ 'order_status_payment_' . $gatewayID ] = array(
 				'id'                => 'order_status_payment_' . $gatewayID,
 				'title'             => sprintf( __( 'Default order status for "%s" method', 'woo-assistant' ), $gatewayTitle ),
-				'option_none'       => 'No changes',
+				'option_none'       => __( 'No changes', 'woo-assistant' ),
 				'option_none_value' => '',
 				'type'              => 'orderStatusSelect',
 				'sanitize'          => 'text'
