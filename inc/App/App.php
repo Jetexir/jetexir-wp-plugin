@@ -10,6 +10,7 @@ use WooAssistant\App\Product\Product;
 use WooAssistant\App\Cart\Cart;
 use WooAssistant\App\Checkout\Checkout;
 use WooAssistant\App\Tools\Tools;
+use WooAssistant\App\WordPress\WordPress;
 
 class App {
 	public function __construct() {
@@ -20,6 +21,7 @@ class App {
 		new Cart();
 		new Checkout();
 		new GlobalSettings();
+		new WordPress();
 		new WooCommerce();
 
 		add_action( 'init', [ $this, 'init' ] );

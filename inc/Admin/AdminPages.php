@@ -10,8 +10,6 @@ use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Param;
 
-defined( 'ABSPATH' ) || die();
-
 class AdminPages {
 	use DebugTrait;
 
@@ -139,7 +137,7 @@ class AdminPages {
 	}
 
 	private static function defaultTabs(): array {
-		return [ 'dashboard', 'product', 'order', 'cart', 'checkout', 'tools', 'addons', 'global' ];
+		return [ 'dashboard', 'product', 'order', 'cart', 'checkout', 'tools', 'addons', 'global', 'wordpress' ];
 
 		/*return array(
 			'dashboard' => __( 'Dashboard', 'woo-assistant' ),
