@@ -373,6 +373,7 @@ class HTML {
 		$id                                           = self::prefix . $data['type'] . '-' . $data['id'];
 		$placeholder                                  = $data['placeholder'] ?? __( 'Select Media(s)', 'woo-assistant' );
 		$selectButton                                 = $data['select_button'] ?? $placeholder;
+		$removeAllButton                              = $data['remove_all_button'] ?? __( 'Remove all media', 'woo-assistant' );
 		$maxNumber                                    = $data['media_max_number'] ?? 1;
 		$data['attributes']['data-title']             = $data['media_title'] ?? __( 'Select or Upload Media', 'woo-assistant' );
 		$data['attributes']['data-button']            = $data['media_button'] ?? __( 'Use this media', 'woo-assistant' );
@@ -456,13 +457,15 @@ class HTML {
 			'button_theme' => 'secondary',
 			'class'        => [ 'wa-media-select' ]
 		) );
-		$field .= self::button( array(
-			'id'          => $data['id'] . '_select',
-			'title'       => __( 'Remove all media', 'woo-assistant' ),
-			'type'        => 'button',
-			'button_type' => 'button',
-			'class'       => [ 'wa-media-remove-all' ]
-		) );
+		if ( $removeAllButton ) {
+			$field .= self::button( array(
+				'id'          => $data['id'] . '_remove_all',
+				'title'       => $removeAllButton,
+				'type'        => 'button',
+				'button_type' => 'button',
+				'class'       => [ 'wa-media-remove-all' ]
+			) );
+		}
 		$field .= '</div>';
 
 		// Placeholder
