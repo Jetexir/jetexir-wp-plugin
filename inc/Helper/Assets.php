@@ -152,4 +152,8 @@ class Assets {
 
 		return $svg;
 	}
+
+	public static function pathCorrection( $path ): string {
+		return str_replace( [ '/', '\\' ], DIRECTORY_SEPARATOR, $path );
+	}
 }
