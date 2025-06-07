@@ -2,6 +2,9 @@
 @use "../utilities/variables";
 
 .wa-media-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   width: 100%;
 
   .wa-media-placeholder {
@@ -99,7 +102,9 @@
     }
 
     .wa-media-buttons {
-      display: flex;
+      display: inline-flex;
+      align-items: center;
+      margin-top: auto;
       gap: 15px;
     }
   }

@@ -2090,6 +2090,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   }
 }
 .wa-media-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   width: 100%;
 }
 .wa-media-wrap .wa-media-placeholder {
@@ -2175,7 +2178,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
   font-size: 0.9em;
 }
 .wa-media-wrap.wa-media-selected .wa-media-buttons {
-  display: flex;
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
   gap: 15px;
 }
 .wa-media-wrap img {
