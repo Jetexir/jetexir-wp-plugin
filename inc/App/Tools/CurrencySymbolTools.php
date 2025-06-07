@@ -44,7 +44,15 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 					'type'    => 'text',
 					'default' => $symbol1
 				),
-				'end_grid_currency_symbol_1'   => array(
+				'currency_media_1'             => array(
+					'id'                       => 'currency_media_1',
+					'title'                    => __( 'SVG Icon', 'woo-assistant' ),
+					'type'                     => 'media',
+					'media_type'               => 'image/svg+xml',
+					'upload_accept_extensions' => 'svg'
+				),
+
+				'end_grid_currency_symbol_1' => array(
 					'type' => 'endgrid',
 				),
 

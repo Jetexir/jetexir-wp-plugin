@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Nonce;
-use WooAssistant\Helper\Param;
 
 class AdminAssets {
 	public function __construct() {
@@ -18,6 +17,7 @@ class AdminAssets {
 			$pluginVersion = Assets::getVersion();
 			$debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
 
+			wp_enqueue_media();
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( 'wp-color-picker' );
 

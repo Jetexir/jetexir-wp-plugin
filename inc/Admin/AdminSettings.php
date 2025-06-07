@@ -251,7 +251,8 @@ class AdminSettings {
 				'imagesizeselect',
 				'orderstatusselect',
 				'currencyselect',
-				'userroleselect'
+				'userroleselect',
+				'media'
 			], true ) ) {
 				$setting['sanitize'] = 'text';
 

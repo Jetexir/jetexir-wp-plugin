@@ -42,6 +42,7 @@ class HTML {
 		'userselect',
 		'orderstatusselect',
 		'currencyselect',
+		'media',
 		'addon',
 		'wpcolorpicker'
 	];
@@ -357,6 +358,119 @@ class HTML {
 		$data['options'] = $options;
 
 		return self::select( $data );
+	}
+
+	public static function media( $data ): string {
+		if ( ! $data = self::checkData( $data ) ) {
+			return '';
+		}
+
+		$field = '';
+		if ( ! empty( $data['title'] ) ) {
+			$field .= '<label class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
+		}
+
+		$id                                           = self::prefix . $data['type'] . '-' . $data['id'];
+		$placeholder                                  = $data['placeholder'] ?? __( 'Select Media(s)', 'woo-assistant' );
+		$selectButton                                 = $data['select_button'] ?? $placeholder;
+		$maxNumber                                    = $data['media_max_number'] ?? 1;
+		$data['attributes']['data-title']             = $data['media_title'] ?? __( 'Select or Upload Media', 'woo-assistant' );
+		$data['attributes']['data-button']            = $data['media_button'] ?? __( 'Use this media', 'woo-assistant' );
+		$data['attributes']['data-type']              = $data['media_type'] ?? ''; // image, video, audio
+		$data['attributes']['data-multi-selection']   = (int) ( $data['upload_multi_selection'] ?? true );
+		$data['attributes']['data-accept-extensions'] = $data['upload_accept_extensions'] ?? '';  // Separate with comma (,), example: pdf,doc,docx
+		$_mediaIDs                                    = explode( ',', $data['setting_value'] );
+		$_mediaIDs                                    = array_filter( $_mediaIDs );
+		$_mediaIDs                                    = array_map( 'intval', $_mediaIDs );
+		$medias                                       = $mediaIDs = [];
+		$counter                                      = 0;
+
+		foreach ( $_mediaIDs as $_mediaID ) {
+			if ( $counter >= $maxNumber ) {
+				break;
+			}
+
+			$media = false;
+
+			if ( wp_attachment_is( 'image', $_mediaID ) ) {
+				$media = wp_get_attachment_thumb_url( $_mediaID );
+			} else {
+				$attachmentThumbnailID = get_post_thumbnail_id( $_mediaID );
+				if ( $attachmentThumbnailID ) {
+					$image = wp_get_attachment_image_src( $attachmentThumbnailID, 'thumbnail', true );
+					if ( is_array( $image ) ) {
+						$media = $image[0];
+					}
+				}
+
+				if ( ! $media ) {
+					$image = wp_get_attachment_image_src( $_mediaID, 'thumbnail', true );
+					if ( is_array( $image ) ) {
+						$media = $image[0];
+					}
+				}
+			}
+
+			if ( $media ) {
+				$medias[ $_mediaID ] = $media;
+				$mediaIDs[]          = $_mediaID;
+				$counter ++;
+			}
+		}
+
+		$field .= '<div id="' . $id . '" class="' . self::getClass( $data, self::prefix . 'media-wrap ' . ( count( $medias ) ? self::prefix . 'media-selected' : '' ) ) . '" ' . self::getAttributes( $data ) . '>';
+		$field .= '<input type="hidden" name="' . self::prefixName . $data['id'] . '" class="' . self::prefix . 'media-value"  value="' . implode( ',', $mediaIDs ) . '">';
+
+		// Image(s)
+		$field .= '<div class="' . self::prefix . 'media-images">';
+		foreach ( $medias as $id => $media ) {
+			$imageTitle = $id . ': ';
+			$title      = wp_get_attachment_caption( $id );
+			if ( empty( $title ) ) {
+				$title = get_the_title( $id );
+			}
+			$imageTitle .= $title;
+
+			$imageType = 'application';
+			if ( wp_attachment_is( 'image', $id ) || wp_attachment_is( 'svg', $id ) ) {
+				$imageType = 'image';
+			} elseif ( wp_attachment_is( 'video', $id ) ) {
+				$imageType = 'video';
+			} elseif ( wp_attachment_is( 'audio', $id ) ) {
+				$imageType = 'audio';
+			}
+
+			$imageTitle .= ' (' . $imageType . ')';
+
+			$field .= '<div class="' . self::prefix . 'media-image" data-id="' . $id . '"><img src="' . ( $media ?: '' ) . '" title="' . $imageTitle . '" alt="image"><span class="' . self::prefix . 'media-image-title">' . $imageTitle . '</span></div>';
+		}
+		$field .= '</div>';
+
+		// Buttons
+		$field .= '<div class="' . self::prefix . 'media-buttons">';
+		$field .= self::button( array(
+			'id'           => $data['id'] . '_select',
+			'title'        => $selectButton,
+			'type'         => 'button',
+			'button_type'  => 'button',
+			'button_theme' => 'secondary',
+			'class'        => [ 'wa-media-select' ]
+		) );
+		$field .= self::button( array(
+			'id'          => $data['id'] . '_select',
+			'title'       => __( 'Remove all media', 'woo-assistant' ),
+			'type'        => 'button',
+			'button_type' => 'button',
+			'class'       => [ 'wa-media-remove-all' ]
+		) );
+		$field .= '</div>';
+
+		// Placeholder
+		$field .= '<div class="' . self::prefix . 'media-placeholder ' . self::prefix . 'media-select">' . $placeholder . '</div>';
+
+		$field .= '</div>';
+
+		return self::wrap( $field, $data );
 	}
 
 	public static function range( $data ): string {
@@ -854,6 +968,12 @@ class HTML {
 	 * @return bool|array
 	 */
 	private static function checkData( array $data ) {
+		if ( ! isset( $data['class'] ) ) {
+			$data['class'] = [];
+		} else {
+			$data['class'] = is_array( $data['class'] ) ? $data['class'] : [ $data['class'] ];
+		}
+
 		$data['required_text'] = $data['required_text'] ?? '';
 		if ( $data['required_text'] ) {
 			$requiredText = '*';
@@ -864,7 +984,7 @@ class HTML {
 			$data['required_text'] = ' <abbr class="required" title="' . __( 'Required', 'woo-assistant' ) . '">' . $requiredText . '</abbr>';
 		}
 
-		$attributes = empty( $data['attributes'] ) || ! is_array( $data['attributes'] ) ? [] : $data['attributes'];
+		$attributes = ! is_array( $data['attributes'] ) || empty( $data['attributes'] ) ? [] : $data['attributes'];
 
 		if ( ! in_array( $data['type'], self::saveFields, true ) ) {
 			if ( $data['type'] === 'image' && filter_var( $data['src'], FILTER_VALIDATE_URL ) ) {
@@ -887,6 +1007,12 @@ class HTML {
 			if ( $data['type'] === 'space' ) {
 				if ( ! isset( $data['size'] ) ) {
 					$data['size'] = 20;
+				}
+			}
+
+			if ( $data['type'] === 'button' ) {
+				if ( isset( $data['button_theme'] ) ) {
+					$data['class'][] = 'wa-button-' . $data['button_theme'];
 				}
 			}
 
@@ -975,6 +1101,17 @@ class HTML {
 			}
 
 			$attributes['data-max-colors'] = (int) $data['max_colors'];
+		}
+
+		if ( $data['type'] === 'media' ) {
+			if ( ! isset( $data['media_max_number'] ) ) {
+				$data['media_max_number'] = 1;
+			}
+			$data['media_max_number'] = (int) $data['media_max_number'];
+			$data['media_max_number'] = max( 1, $data['media_max_number'] );
+			$data['media_max_number'] = min( 18, $data['media_max_number'] );
+
+			$attributes['data-max-number'] = $data['media_max_number'];
 		}
 
 		if ( in_array( $data['type'], [
