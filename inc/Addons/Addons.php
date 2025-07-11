@@ -71,6 +71,9 @@ class Addons {
 		$addons    = apply_filters( 'woo_assistant_addons', array() );
 		$addonList = array();
 		$addonCats = self::getAddonCats();
+		foreach ( array_keys( $addonCats ) as $addonCat ) {
+			$addonList[ $addonCat ] = array();
+		}
 
 		foreach ( $addons as $addon ) {
 			$cat = empty( $addon['cat'] ) || ! array_key_exists( $addon['cat'], $addonCats ) ? 'other' : $addon['cat'];
@@ -190,8 +193,6 @@ class Addons {
 				}
 			}
 		}
-
-		//DebugTrait::dd( $elementList );
 
 		return array(
 			'title'    => __( 'Addons', 'woo-assistant' ),
