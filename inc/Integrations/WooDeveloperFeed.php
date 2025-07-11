@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Addons\Addon;
 use WooAssistant\Helper\FeedReader;
+use WooAssistant\Helper\Templates;
 use WooAssistant\Interfaces\AddonInterface;
 
 class WooDeveloperFeed extends Addon implements AddonInterface {
@@ -15,11 +16,7 @@ class WooDeveloperFeed extends Addon implements AddonInterface {
 		$feedReader = new FeedReader( [ 'url' => 'https://developer.woocommerce.com/feed/' ] );
 		$feedItems  = $feedReader->read()->getFeedLinks();
 
-		echo '<ul class="wa-list-links">';
-		foreach ( $feedItems as $feedItem ) {
-			echo '<li>' . $feedItem . '</li>';
-		}
-		echo '</ul>';
+		Templates::load( Templates::getPath( 'feed-reader/feed_list.php' ), array( 'items' => $feedItems ) );
 	}
 
 	public function info(): array {
@@ -53,7 +50,7 @@ class WooDeveloperFeed extends Addon implements AddonInterface {
 			'icon'           => $svg,
 			'image_link'     => 'https://developer.woocommerce.com',
 			'tags'           => [ __( 'Feed', 'woo-assistant-wc-developer-feed' ) ],
-			'cat'            => 'customizations',
+			'cat'            => 'utility',
 		);
 	}
 }

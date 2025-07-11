@@ -937,10 +937,7 @@ class HTML {
 		$dataTable['component_id'] = self::prefix . $data['type'] . '-' . $data['id'];
 		$template                  = Templates::getPath( 'data-table/data_table.php' );
 
-		ob_start();
-		Templates::load( $template, $dataTable );
-
-		return ob_get_clean();
+		return Templates::load( $template, $dataTable, false, false );
 	}
 
 	public static function printFields( $fields, $echo = true ) {

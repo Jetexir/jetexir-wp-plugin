@@ -65,16 +65,18 @@ class FeedReader {
 					if ( $field === 'datetime' ) {
 						$value = wp_date( $dateFormat . ', ' . $timeFormat, strtotime( $value ) );
 					}
-					$title .= '<span class="wa-feed-' . $field . '">' . $value . '</span>';
+					$title .= Templates::load( Templates::getPath( 'feed-reader/feed_data_row.php' ), array(
+						'field' => $field,
+						'value' => $value
+					), false, false );
 				}
 			}
 
 			if ( ! empty( $title ) ) {
-				if ( in_array( 'link', $fields, true ) ) {
-					$links[] = '<a href="' . $item['link'] . '" class="wa-feed-link" target="_blank">' . $title . '</a>';
-				} else {
-					$links[] = $title;
-				}
+				$links[] = Templates::load( Templates::getPath( 'feed-reader/feed_item.php' ), array(
+					'link'  => in_array( 'link', $fields, true ) ? ( $item['link'] ?? '' ) : '',
+					'title' => $title
+				), false, false );
 			}
 		}
 

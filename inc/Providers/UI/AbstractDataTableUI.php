@@ -443,9 +443,7 @@ abstract class AbstractDataTableUI {
 	public function renderHTML( $view = null ) {
 		$data     = $this->render();
 		$template = empty( $view ) ? Templates::getPath( 'data-table/data_table.php' ) : $view;
-		ob_start();
-		Templates::load( $template, $data );
 
-		return ob_get_clean();
+		return Templates::load( $template, $data, false, false );
 	}
 }
