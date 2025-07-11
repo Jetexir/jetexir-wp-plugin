@@ -7,6 +7,7 @@ defined( 'ABSPATH' ) || exit;
 use WooAssistant\Addons\Addon;
 use WooAssistant\Helper\Param;
 use WooAssistant\Helper\PostMeta;
+use WooAssistant\Helper\Templates;
 use WooAssistant\Interfaces\AddonInterface;
 use WooAssistant\Settings\Settings;
 
@@ -42,22 +43,11 @@ class ProductFAQ extends Addon implements AddonInterface {
 
 		$title = apply_filters( 'woo_assistant_product_faq_tab_title', __( 'FAQs', 'woo-assistant' ) );
 
-		echo '<h2>' . $title . '</h2>';
-
-		if ( ! empty( $FAQs ) ) {
-			echo '<div class="wa-faqs-wrap">';
-			foreach ( $FAQs as $faq ) {
-				if ( empty( $faq['question'] ) || empty( $faq['answer'] ) ) {
-					continue;
-				}
-
-				echo '<div class="wa-faq-item">';
-				echo '<button class="wa-faq-question" type="button">' . $faq['question'] . $this->getIcon( $buttonIcon ) . '</button>';
-				echo '<div class="wa-faq-answer">' . $faq['answer'] . '</div>';
-				echo '</div>';
-			}
-			echo '</div>';
-		}
+		Templates::load( Templates::getPath( 'product-faq/product_faq.php' ), array(
+			'title' => $title,
+			'items' => $FAQs,
+			'icon'  => $this->getIcon( $buttonIcon ),
+		) );
 	}
 
 	private function getIcon( $icon ): string {
