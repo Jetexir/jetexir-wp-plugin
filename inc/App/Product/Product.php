@@ -8,7 +8,6 @@ class Product {
 	public function __construct() {
 		new ProductGlobal();
 		new ProductPriceVariation();
-
 		new ProductCompare();
 		new ProductQuantity();
 		new ProductWishList();
