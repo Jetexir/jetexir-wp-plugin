@@ -93,9 +93,6 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 				'end_grid_currency_symbol_1' => array(
 					'type' => 'endgrid',
 				),
-				'product_compare_sep_1'      => array(
-					'type' => 'hr',
-				),
 			)
 		);
 
