@@ -14,7 +14,9 @@ class WooDeveloperFeed extends Addon implements AddonInterface {
 
 	public function content(): void {
 		$feedReader = new FeedReader( [ 'url' => 'https://developer.woocommerce.com/feed/' ] );
-		$feedItems  = $feedReader->read()->getFeedLinks();
+		$feedItems  = $feedReader->replaceDescText( array(
+			[ 'The post %title% appeared first on The WooCommerce Developer Blog.', '' ]
+		) )->read()->getFeedLinks();
 
 		Templates::load( Templates::getPath( 'feed-reader/feed_list.php' ), array( 'items' => $feedItems ) );
 	}

@@ -11,6 +11,8 @@ class FeedReader {
 	private array $feedItems = [];
 	private \WP_Error $error;
 
+	private $replaceDescText = false;
+
 	public function __construct( $args ) {
 		$this->args = $this->defaultArgs = array(
 			'url'          => '',
@@ -37,6 +39,12 @@ class FeedReader {
 
 	public function getFeedItems(): array {
 		return $this->feedItems;
+	}
+
+	public function replaceDescText( $replaceTexts ): FeedReader {
+		$this->replaceDescText = $replaceTexts;
+
+		return $this;
 	}
 
 	public function getFeedLinks( $fields = null ): array {
@@ -165,6 +173,7 @@ class FeedReader {
 			}
 
 			if ( ! empty( $feedItem ) ) {
+				$feedItem    = $this->replaceText( $feedItem, $this->replaceDescText );
 				$feedItems[] = $feedItem;
 			}
 		}
@@ -175,5 +184,19 @@ class FeedReader {
 		}
 
 		return $this;
+	}
+
+	private function replaceText( $feedItem, $replaceTexts, $field = 'description' ) {
+		if ( is_array( $replaceTexts ) && isset( $feedItem[ $field ] ) ) {
+			foreach ( $replaceTexts as $replaceText ) {
+				if ( isset( $feedItem['title'] ) && str_contains( $replaceText[0], '%title%' ) ) {
+					$replaceText[0] = str_replace( '%title%', $feedItem['title'], $replaceText[0] );
+				}
+
+				$feedItem[ $field ] = trim( str_replace( $replaceText[0], $replaceText[1], $feedItem[ $field ] ) );
+			}
+		}
+
+		return $feedItem;
 	}
 }
