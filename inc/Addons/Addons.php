@@ -204,9 +204,9 @@ class Addons {
 	public static function getAddonCats(): ?array {
 		$defaultCats = array(
 			'recommended'    => __( 'Recommended', 'woo-assistant' ),
+			'product'        => __( 'Product', 'woo-assistant' ),
 			'cart'           => __( 'Cart', 'woo-assistant' ),
 			'checkout'       => __( 'Checkout', 'woo-assistant' ),
-			'product'        => __( 'Product', 'woo-assistant' ),
 			'order'          => __( 'Order', 'woo-assistant' ),
 			'marketing'      => __( 'Marketing', 'woo-assistant' ),
 			'payments'       => __( 'Payments', 'woo-assistant' ),
