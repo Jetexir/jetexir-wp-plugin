@@ -713,7 +713,7 @@ class HTML {
 		}
 
 		$canActivate = isset( $data['can_activate'] ) && $data['can_activate'];
-		$class       = ' ' . ( $data['class'] ?? '' );
+		$class       = self::getclass( $data );
 		if ( ! $canActivate ) {
 			$class .= ' ' . self::prefix . 'addon-inactive';
 		}
