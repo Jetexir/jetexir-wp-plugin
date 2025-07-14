@@ -202,6 +202,11 @@ class Addons {
 	}
 
 	public static function getAddonCats(): ?array {
+		$cats = Cache::get( 'addon_cats', false );
+		if ( is_array( $cats ) ) {
+			return $cats;
+		}
+
 		$defaultCats = array(
 			'recommended'    => __( 'Recommended', 'woo-assistant' ),
 			'product'        => __( 'Product', 'woo-assistant' ),
@@ -221,7 +226,10 @@ class Addons {
 		$cats = apply_filters( 'woo_assistant_addon_cats', array() );
 		$cats = is_array( $cats ) ? $cats : [];
 
-		return array_merge( $defaultCats, $cats, [ 'other' => __( 'Other addons', 'woo-assistant' ) ] );
+		$cats = array_merge( $defaultCats, $cats, [ 'other' => __( 'Other addons', 'woo-assistant' ) ] );
+		Cache::set( 'addon_cats', $cats );
+
+		return $cats;
 	}
 
 	public function changeSubmitButtonTitle( $title, $tab ) {
