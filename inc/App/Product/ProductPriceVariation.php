@@ -8,9 +8,16 @@ use WooAssistant\Settings\Settings;
 
 class ProductPriceVariation extends Addon implements AddonInterface {
 	public string $addonID = 'product-price-variation';
+	public string $currentTab = 'product';
+	public string $currentSection = 'global';
+
+	public function __construct() {
+		parent::__construct();
+
+		add_filter( 'woo_assistant_product_global_settings', [ $this, 'addProductGlobalSettings' ] );
+	}
 
 	public function initAction(): void {
-		add_filter( 'woo_assistant_product_global_settings', [ $this, 'addSectionSettings' ] );
 		add_filter( 'woocommerce_variable_price_html', [ $this, 'getVariablePriceHtml' ], 10, 2 );
 		add_filter( 'woocommerce_reset_variations_link', [ $this, 'removeResetLink' ] );
 	}
@@ -68,7 +75,7 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 		return $price;
 	}
 
-	public function addSectionSettings( $settings ): array {
+	public function addProductGlobalSettings( $settings ): array {
 		$addonSettings = array(
 			'start_grid_product_variation_price' => array(
 				'title' => __( 'Product Variation Prices', 'woo-assistant' ),
