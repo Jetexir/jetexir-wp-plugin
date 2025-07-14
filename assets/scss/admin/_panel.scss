@@ -30,6 +30,7 @@ body.toplevel_page_#{variables.$plugin_key} {
 
     P {
       margin: 0;
+      font-size: 13px;
     }
   }
 
@@ -244,6 +245,21 @@ body.toplevel_page_#{variables.$plugin_key} {
           pointer-events: none;
           opacity: 0.5;
         }
+      }
+    }
+
+    .wa-dashboard-welcome {
+      background-color: variables.$background_light;
+      padding: 20px;
+      font-size: 1.5em;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      border-radius: 10px;
+
+      p {
+        font-size: 15px;
+        color: variables.$gray;
       }
     }
 

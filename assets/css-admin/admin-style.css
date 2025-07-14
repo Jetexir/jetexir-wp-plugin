@@ -499,6 +499,7 @@ body.toplevel_page_woo-assistant .wrap code {
 }
 body.toplevel_page_woo-assistant .wrap P {
   margin: 0;
+  font-size: 13px;
 }
 body.toplevel_page_woo-assistant .woo-assistant-wrap.woo-assistant-wrapper {
   background: white;
@@ -669,6 +670,19 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-footer.wa-settings-foot
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-footer.wa-settings-footer.wa-submit-inactive {
   pointer-events: none;
   opacity: 0.5;
+}
+body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-dashboard-welcome {
+  background-color: rgb(250.5, 250, 252);
+  padding: 20px;
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 10px;
+}
+body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-dashboard-welcome p {
+  font-size: 15px;
+  color: #525252;
 }
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links {
   display: flex;
@@ -1197,6 +1211,29 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a .wa-feed-d
 .woo-assistant-wrap select option:checked {
   background: #873eff;
   color: white;
+}
+.woo-assistant-wrap .wa-dashboard-addons-wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.woo-assistant-wrap .wa-dashboard-addons-wrap a {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid #E6E2F5;
+  background-color: #F6F5F9;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 15px;
+  color: #2B2B2B !important;
+  text-decoration: none;
+}
+.woo-assistant-wrap .wa-dashboard-addons-wrap a:hover, .woo-assistant-wrap .wa-dashboard-addons-wrap a:focus {
+  background-color: rgb(250.5, 250, 252);
+  text-decoration: none !important;
 }
 .woo-assistant-wrap .wa-addons-wrap .wa-heading-2 {
   margin-bottom: 30px;
