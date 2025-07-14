@@ -10,7 +10,7 @@ use WooAssistant\Interfaces\AddonInterface;
 class CurrencySymbolTools extends Addon implements AddonInterface {
 	public string $addonID = 'currency-symbol-tools';
 	public string $currentTab = 'tools';
-	private const sectionID = 'currency-symbol';
+	public string $currentSection = 'currency-symbol';
 
 	public function initAction(): void {
 		add_filter( 'woocommerce_currency_symbol', [ $this, 'changeCurrencySymbol' ], 10, 2 );
@@ -57,7 +57,7 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 		$symbol   = get_woocommerce_currency_symbol( $currency );
 		$symbol   = Assets::isSvgImageString( $symbol ) || Assets::isImageString( $symbol ) ? '' : $symbol;
 
-		$sections[ self::sectionID ] = array(
+		$sections[ $this->currentSection ] = array(
 			'title'        => __( 'Currency Symbol', 'woo-assistant' ),
 			'settings_key' => $this->info()['settings_key'],
 			'settings'     => array(

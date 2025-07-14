@@ -19,6 +19,7 @@ use WooAssistant\Settings\Settings;
 class ProductQuantity extends Addon implements AddonInterface {
 	public string $addonID = 'product-quantity';
 	public string $currentTab = 'product';
+	public string $currentSection = 'quantity';
 	private static bool $printed = false;
 	private static bool $printStyle = false;
 
@@ -697,7 +698,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 	}
 
 	public function addSectionSettings( $sections ): array {
-		$sections['quantity'] = array(
+		$sections[ $this->currentSection ] = array(
 			'title'    => __( 'Quantity', 'woo-assistant' ),
 			'desc'     => __( 'Quantity Customization', 'woo-assistant' ),
 			'settings' => array(

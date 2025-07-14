@@ -14,7 +14,7 @@ use WooAssistant\Settings\Settings;
 class ProductSocialShare extends Addon implements AddonInterface {
 	public string $addonID = 'product-social-share';
 	public string $currentTab = 'product';
-	private const sectionID = 'social-share';
+	public string $currentSection = 'social-share';
 	private const shortCode = 'wa_product_share';
 
 	public function initAction(): void {
@@ -278,7 +278,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 			$socials[ $key ] = $socialNetwork['icon'] . ' ' . $socialNetwork['title'];
 		}
 
-		$sections[ self::sectionID ] = array(
+		$sections[ $this->currentSection ] = array(
 			'title'    => __( 'Share', 'woo-assistant' ),
 			'desc'     => __( 'Product Social Share', 'woo-assistant' ),
 			'settings' => array(

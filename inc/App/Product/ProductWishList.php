@@ -21,7 +21,7 @@ use WooAssistant\Settings\Settings;
 class ProductWishList extends Addon implements AddonInterface {
 	public string $addonID = 'product-wishlist';
 	public string $currentTab = 'product';
-	private const sectionID = 'wishlist';
+	public string $currentSection = 'wishlist';
 	private const buttonShortCode = 'wa_product_wishlist_button';
 	private const wishlistShortcode = 'wa_products_wishlist';
 	private const userMeta = WOOASSISTANT_PLUGIN_KEY . '_wishlist_items';
@@ -678,7 +678,7 @@ class ProductWishList extends Addon implements AddonInterface {
 
 		);
 
-		$sections[ self::sectionID ] = array(
+		$sections[ $this->currentSection ] = array(
 			'title'    => __( 'WishList', 'woo-assistant' ),
 			'desc'     => __( 'Product WishList', 'woo-assistant' ),
 			'settings' => $settings

@@ -19,7 +19,7 @@ use WooAssistant\Settings\Settings;
 class AnnouncementBarTools extends Addon implements AddonInterface {
 	public string $addonID = 'announcement-bar-tools';
 	public string $currentTab = 'tools';
-	private const sectionID = 'announcement-bar';
+	public string $currentSection = 'announcement-bar';
 	private const shortCode = 'wa_announcement_bar';
 
 	public function initAction(): void {
@@ -130,7 +130,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 	}
 
 	public function getAnnouncements( $position = null ): array {
-		$announcements = Settings::get( 'announcement_bar_data', [], self::sectionID );
+		$announcements = Settings::get( 'announcement_bar_data', [], $this->currentSection );
 		$announcements = is_array( $announcements ) ? $announcements : [];
 
 		if ( ! empty( $announcements ) ) {
@@ -143,7 +143,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 	}
 
 	public function displayFooterSettings( $display, $section ): bool {
-		if ( $section === self::sectionID ) {
+		if ( $section === $this->currentSection ) {
 			return false;
 		}
 
@@ -151,7 +151,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 	}
 
 	private function getAnnouncementByCode( $code ) {
-		$announcements = Settings::get( 'announcement_bar_data', [], self::sectionID );
+		$announcements = Settings::get( 'announcement_bar_data', [], $this->currentSection );
 		if ( is_array( $announcements ) && ! empty( $announcements ) ) {
 			foreach ( $announcements as $announcement ) {
 				if ( $announcement['code'] === $code ) {
@@ -164,7 +164,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 	}
 
 	private function getAnnouncementByIndex( $index ) {
-		$announcements = Settings::get( 'announcement_bar_data', [], self::sectionID );
+		$announcements = Settings::get( 'announcement_bar_data', [], $this->currentSection );
 		if ( is_array( $announcements ) && ! empty( $announcements ) && isset( $announcements[ $index ] ) ) {
 			return $announcements[ $index ];
 		}
@@ -184,7 +184,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		} elseif ( $action === 'bulk_action' ) {
 			$bulkAction    = Sanitizing::text( Param::post( 'bulk_action' ) );
 			$rowIDs        = array_map( 'WooAssistant\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
-			$announcements = Settings::get( 'announcement_bar_data', [], self::sectionID );
+			$announcements = Settings::get( 'announcement_bar_data', [], $this->currentSection );
 
 			foreach ( $announcements as $announcementIndex => $announcement ) {
 				if ( in_array( $announcementIndex, $rowIDs, true ) ) {
@@ -201,7 +201,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			}
 
 			$announcements = array_values( $announcements );
-			Settings::save( 'announcement_bar_data', $announcements, self::sectionID );
+			Settings::save( 'announcement_bar_data', $announcements, $this->currentSection );
 			$dataTable = $this->getDataTable();
 
 			wp_send_json_success( [
@@ -241,7 +241,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			if ( ! empty( $errorMessage ) ) {
 				wp_send_json_error( [
 					'error'   => 'required-field',
-					'message' => Notice::addAndDisplay( self::sectionID, array(
+					'message' => Notice::addAndDisplay( $this->currentSection, array(
 						array(
 							'type'    => 'error',
 							'message' => $errorMessage
@@ -251,15 +251,15 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			}
 
 			if ( $announcement !== false ) {
-				$announcements                   = Settings::get( 'announcement_bar_data', [], self::sectionID );
+				$announcements                   = Settings::get( 'announcement_bar_data', [], $this->currentSection );
 				$announcements[ $index ]         = $formData;
 				$announcements[ $index ]['code'] = $announcement['code'];
-				Settings::save( 'announcement_bar_data', $announcements, self::sectionID );
+				Settings::save( 'announcement_bar_data', $announcements, $this->currentSection );
 				$successMessage = __( 'The announcement was successfully saved.', 'woo-assistant' );
 
 			} else {
 				$formData['code'] = Helper::randomString( 6, true, false, true );
-				Settings::addToArray( 'announcement_bar_data', $formData, self::sectionID, true );
+				Settings::addToArray( 'announcement_bar_data', $formData, $this->currentSection, true );
 				$successMessage = __( 'Announcement added successfully.', 'woo-assistant' );
 			}
 
@@ -268,7 +268,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			wp_send_json_success( [
 				'table'     => $dataTable->renderHTML( Templates::getPath( 'data-table/data_table_table.php' ) ),
 				'row_count' => $dataTable->getRowCount(),
-				'message'   => Notice::addAndDisplay( self::sectionID, array(
+				'message'   => Notice::addAndDisplay( $this->currentSection, array(
 					array(
 						'type'    => 'success',
 						'message' => $successMessage,
@@ -278,13 +278,13 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			] );
 
 		} elseif ( $action === 'delete' ) {
-			if ( Settings::deleteFromArray( 'announcement_bar_data', $index, self::sectionID ) ) {
+			if ( Settings::deleteFromArray( 'announcement_bar_data', $index, $this->currentSection ) ) {
 				$dataTable = $this->getDataTable();
 
 				wp_send_json_success( [
 					'table'     => $dataTable->renderHTML( Templates::getPath( 'data-table/data_table_table.php' ) ),
 					'row_count' => $dataTable->getRowCount(),
-					'message'   => Notice::addAndDisplay( self::sectionID, array(
+					'message'   => Notice::addAndDisplay( $this->currentSection, array(
 						array(
 							'type'    => 'success',
 							'message' => __( 'Announcement removed!', 'woo-assistant' ),
@@ -295,7 +295,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			} else {
 				wp_send_json_error( [
 					'error'   => 'required-field',
-					'message' => Notice::addAndDisplay( self::sectionID, array(
+					'message' => Notice::addAndDisplay( $this->currentSection, array(
 						array(
 							'type'    => 'error',
 							'message' => __( 'Selected item not found!', 'woo-assistant' ),
@@ -309,7 +309,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 	private function getDataTable(): DataTableUI {
 		$dataTable = new DataTableUI();
 		$dataTable->setID( 'announcement_bar' )
-		          ->setRows( Settings::get( 'announcement_bar_data', [], self::sectionID ) )
+		          ->setRows( Settings::get( 'announcement_bar_data', [], $this->currentSection ) )
 		          ->setIdField( $dataTable::ROW_INDEX )
 		          ->setTitle( __( 'Announcement Bars', 'woo-assistant' ) )
 		          ->modalAddTitle( __( 'Add new announcement', 'woo-assistant' ) )
@@ -332,9 +332,9 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 	public function addSectionSettings( $sections ) {
 		$dataTable = $this->getDataTable();
 
-		$sections[ self::sectionID ] = array(
+		$sections[ $this->currentSection ] = array(
 			'title'        => __( 'Announcement Bar', 'woo-assistant' ),
-			'settings_key' => self::sectionID,
+			'settings_key' => $this->currentSection,
 			'settings'     => array(
 				'data_table_ui' => array(
 					'id'         => 'announcement_bar',

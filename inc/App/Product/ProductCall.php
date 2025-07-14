@@ -11,7 +11,7 @@ use WooAssistant\Settings\Settings;
 class ProductCall extends Addon implements AddonInterface {
 	public string $addonID = 'product-call';
 	public string $currentTab = 'product';
-	private const sectionID = 'call';
+	public string $currentSection = 'call';
 
 	public function initAction(): void {
 		if ( Settings::get( 'product_call_empty_price', true ) ) {
@@ -133,7 +133,7 @@ class ProductCall extends Addon implements AddonInterface {
 	}
 
 	public function addSectionSettings( $sections ): array {
-		$sections[ self::sectionID ] = array(
+		$sections[ $this->currentSection ] = array(
 			'title'    => __( 'Call', 'woo-assistant' ),
 			'desc'     => __( 'Product Call for Price', 'woo-assistant' ),
 			'settings' => [

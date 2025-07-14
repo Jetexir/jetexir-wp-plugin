@@ -14,7 +14,7 @@ use WooAssistant\Settings\Settings;
 class ProductRelated extends Addon implements AddonInterface {
 	public string $addonID = 'product-related';
 	public string $currentTab = 'product';
-	private const sectionID = 'related';
+	public string $currentSection = 'related';
 
 	public function initAction(): void {
 		add_action( 'woo_assistant_submit_settings_form', [ $this, 'clearRelatedCache' ] );
@@ -519,7 +519,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 		] );
 
-		$sections[ self::sectionID ] = array(
+		$sections[ $this->currentSection ] = array(
 			'title'    => __( 'Related', 'woo-assistant' ),
 			'desc'     => __( 'Related Products', 'woo-assistant' ),
 			'settings' => $settings

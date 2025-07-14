@@ -22,7 +22,7 @@ use WooAssistant\Settings\Settings;
 class ProductCompare extends Addon implements AddonInterface {
 	public string $addonID = 'product-compare';
 	public string $currentTab = 'product';
-	private const sectionID = 'compare';
+	public string $currentSection = 'compare';
 	private const shortCode = 'wa_products_compare';
 	private const cookieName = 'wc_products_compare';
 	private const maxItems = 4;
@@ -461,7 +461,7 @@ class ProductCompare extends Addon implements AddonInterface {
 			'type' => 'endgrid',
 		);
 
-		$sections[ self::sectionID ] = array(
+		$sections[ $this->currentSection ] = array(
 			'title'    => __( 'Compare', 'woo-assistant' ),
 			'desc'     => __( 'Product compare', 'woo-assistant' ),
 			'settings' => $settings
