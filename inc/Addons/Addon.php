@@ -4,7 +4,9 @@ namespace WooAssistant\Addons;
 
 defined( 'ABSPATH' ) || exit;
 
+use WooAssistant\Admin\AdminPages;
 use WooAssistant\Admin\AdminSettings;
+use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Cache;
 use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Settings\Settings;
@@ -18,6 +20,8 @@ abstract class Addon {
 
 	public string $currentTab = '';
 
+	public string $currentSection = '';
+
 	public function __construct() {
 		add_filter( 'woo_assistant_addons', [ $this, 'registerAddon' ] );
 		add_action( 'woo_assistant_admin_init', [ $this, 'registerMenu' ] );
@@ -26,6 +30,7 @@ abstract class Addon {
 		if ( $this->addonID ) {
 			add_filter( 'woo_assistant_' . $this->addonID . '_tab_display_notice', '__return_false' );
 			add_filter( 'woo_assistant_' . $this->addonID . '_tab_content_display_notice', '__return_true' );
+			add_filter( 'woo_assistant_dashboard_addons', [ $this, 'addDashboardLink' ] );
 		}
 
 		// Register Plugin hooks
@@ -169,6 +174,29 @@ abstract class Addon {
 		$menus[ $this->addonID ] = $addon['menu_title'] ?? ( $addon['name'] ?? $addon['title'] );
 
 		return $menus;
+	}
+
+	public function addDashboardLink( $addons ): array {
+		if ( ! $this->isActivated() ) {
+			return $addons;
+		}
+
+		$addon     = $this->getInfo();
+		$addonCats = Addons::getAddonCats();
+		$cat       = empty( $addon['cat'] ) || ! array_key_exists( $addon['cat'], $addonCats ) ? 'other' : $addon['cat'];
+		$icon      = ! empty( $addon['icon'] ) && Assets::isSvgImageString( $addon['icon'] ) ? Assets::setSvgDimensions( $addon['icon'], 50 ) : '';
+
+		$addons[ $cat ][] = [
+			'title' => $addon['name'] ?? $addon['title'],
+			'desc'  => $addon['desc'] ?? '',
+			'link'  => AdminPages::link( [
+				'tab'     => $this->currentTab,
+				'section' => empty( $this->currentSection ) ? $this->addonID : $this->currentSection,
+			] ),
+			'icon'  => $icon,
+		];
+
+		return $addons;
 	}
 
 	public function registerAddon( $addons ) {
