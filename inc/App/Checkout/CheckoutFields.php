@@ -547,6 +547,10 @@ class CheckoutFields extends Addon implements AddonInterface {
 			array(
 				'type' => 'endgrid',
 			),
+			array(
+				'type' => 'space',
+				'size' => 30
+			),
 		);
 	}
 
