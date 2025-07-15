@@ -42,7 +42,7 @@ abstract class Addon {
 		}
 
 		// Register WordPress hooks
-		add_action( 'init', [ $this, 'registerInitAction' ], 0 );
+		add_action( 'init', [ $this, 'registerInitAction' ], 9 );
 		add_action( 'admin_init', [ $this, 'registerAdminInitAction' ] );
 		add_action( 'template_redirect', [ $this, 'registerTemplateRedirectAction' ] );
 		add_action( 'wp', [ $this, 'registerWpAction' ] );
