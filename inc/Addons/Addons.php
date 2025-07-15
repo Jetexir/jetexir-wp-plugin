@@ -160,9 +160,16 @@ class Addons {
 			);
 		}
 
+		foreach ( $addonList as $cat => $addons ) {
+			if ( empty( $addons ) ) {
+				unset( $addonList[ $cat ] );
+			}
+		}
+
 		$elementList = array();
 		if ( count( $addonList ) ) {
 			$lastKey = array_key_last( $addonList );
+
 			foreach ( $addonList as $cat => $addons ) {
 				if ( ! is_array( $addons ) || empty( $addons ) ) {
 					continue;
