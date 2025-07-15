@@ -15,7 +15,7 @@ class AdminPages {
 
 	public function __construct() {
 		add_action( 'admin_init', [ $this, 'init' ] );
-		add_action( 'init', [ $this, 'checkSubmitForm' ], 0 );
+		add_action( 'init', [ $this, 'checkSubmitForm' ], 15 );
 		add_action( 'admin_menu', array( $this, 'adminMenuInit' ), 0 );
 		add_action( 'admin_menu', array( $this, 'addMenu' ), PHP_INT_MAX );
 		add_action( 'woo_assistant_notice', [ $this, 'displayNotices' ] );
