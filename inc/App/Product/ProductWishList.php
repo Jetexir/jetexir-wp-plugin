@@ -16,7 +16,6 @@ use WooAssistant\Helper\UserMeta;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Helper\WordPress;
 use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
 
 class ProductWishList extends Addon implements AddonInterface {
 	public string $addonID = 'product-wishlist';
@@ -33,7 +32,7 @@ class ProductWishList extends Addon implements AddonInterface {
 		add_rewrite_endpoint( 'wishlist', EP_PAGES );
 
 		if ( WordPress::isUserLoggedIn() ) {
-			if ( Settings::get( 'wishlist_page', 0 ) === 0 ) {
+			if ( $this->getSetting( 'wishlist_page', 0 ) === 0 ) {
 				add_action( 'woocommerce_account_wishlist_endpoint', [ $this, 'wishlistEndPointContent' ] );
 			}
 
@@ -41,14 +40,14 @@ class ProductWishList extends Addon implements AddonInterface {
 			add_action( 'wp_ajax_wa_product_wishlist_add_remove', [ $this, 'addRemoveItem' ] );
 			add_action( 'wp_ajax_wa_product_wishlist_remove', [ $this, 'addRemoveItem' ] );
 
-			if ( $position = Settings::get( 'wishlist_product_position', 'after_add_to_cart' ) ) {
+			if ( $position = $this->getSetting( 'wishlist_product_position', 'after_add_to_cart' ) ) {
 				add_action( 'woocommerce_single_product_summary', [
 					$this,
 					'addButton'
 				], $this->getProductPosition( $position ) );
 			}
 
-			if ( $position = Settings::get( 'wishlist_archive_position', 'after_add_to_cart' ) ) {
+			if ( $position = $this->getSetting( 'wishlist_archive_position', 'after_add_to_cart' ) ) {
 				if ( $position === 'before_title' ) {
 					add_action( 'woocommerce_shop_loop_item_title', [ $this, 'addButton' ], 9 );
 
@@ -72,7 +71,7 @@ class ProductWishList extends Addon implements AddonInterface {
 	}
 
 	public function removeWishlistItem( $orderID ): void {
-		if ( ! Settings::get( 'wishlist_auto_remove', false ) || ! WordPress::isUserLoggedIn() ) {
+		if ( ! $this->getSetting( 'wishlist_auto_remove', false ) || ! WordPress::isUserLoggedIn() ) {
 			return;
 		}
 
@@ -140,7 +139,7 @@ class ProductWishList extends Addon implements AddonInterface {
 		if ( Nonce::verify() ) {
 			$productID = Sanitizing::int( Param::post( 'product_id', 0 ) );
 			$list      = self::defaultList; //Sanitizing::text( Param::post( 'list', self::defaultList ) );
-			$max       = Settings::get( 'wishlist_max_items', 10 );
+			$max       = $this->getSetting( 'wishlist_max_items', 10 );
 			$update    = $this->updateStorage( $productID, $list, $max );
 
 			$data = array(
@@ -254,31 +253,31 @@ class ProductWishList extends Addon implements AddonInterface {
 
 	public function addButton(): void {
 		if ( WooCommerce::isProduct() && WordPress::isAction( 'woocommerce_single_product_summary' ) ) {
-			$buttonAppearance = Settings::get( 'wishlist_product_button', 'icon_text' );
+			$buttonAppearance = $this->getSetting( 'wishlist_product_button', 'icon_text' );
 		} else {
-			$buttonAppearance = Settings::get( 'wishlist_archive_button', 'icon' );
+			$buttonAppearance = $this->getSetting( 'wishlist_archive_button', 'icon' );
 		}
 
 		echo $this->buttonShortcode( array(
-			'type'         => Settings::get( 'wishlist_button_type', 'button' ),
-			'icon'         => $this->getButtonIcons( Settings::get( 'wishlist_button_icon', 'wa-icon-heart' ), true ),
-			'text'         => Settings::get( 'wishlist_button_text', __( 'Add to wishlist', 'woo-assistant' ) ),
+			'type'         => $this->getSetting( 'wishlist_button_type', 'button' ),
+			'icon'         => $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'wa-icon-heart' ), true ),
+			'text'         => $this->getSetting( 'wishlist_button_text', __( 'Add to wishlist', 'woo-assistant' ) ),
 			'appearance'   => $buttonAppearance,
-			'remove_text'  => Settings::get( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'woo-assistant' ) ),
-			'browse_text'  => Settings::get( 'wishlist_button_browse_text', __( 'Browse wishlist', 'woo-assistant' ) ),
-			'added_action' => Settings::get( 'wishlist_added_action', 'remove' )
+			'remove_text'  => $this->getSetting( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'woo-assistant' ) ),
+			'browse_text'  => $this->getSetting( 'wishlist_button_browse_text', __( 'Browse wishlist', 'woo-assistant' ) ),
+			'added_action' => $this->getSetting( 'wishlist_added_action', 'remove' )
 		) );
 	}
 
 	public function buttonShortcode( $atts ): string {
 		$atts = shortcode_atts( array(
 			'product_id'    => WooCommerce::getCurrentProductId(),
-			'icon'          => $this->getButtonIcons( Settings::get( 'wishlist_button_icon', 'wa-icon-heart' ), true ),
-			'text'          => Settings::get( 'wishlist_button_text', __( 'Add to wishlist', 'woo-assistant' ) ),
-			'remove_text'   => Settings::get( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'woo-assistant' ) ),
-			'browse_text'   => Settings::get( 'wishlist_button_browse_text', __( 'Browse wishlist', 'woo-assistant' ) ),
-			'added_action'  => Settings::get( 'wishlist_added_action', 'remove' ),
-			'type'          => Settings::get( 'wishlist_button_type', 'button' ),
+			'icon'          => $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'wa-icon-heart' ), true ),
+			'text'          => $this->getSetting( 'wishlist_button_text', __( 'Add to wishlist', 'woo-assistant' ) ),
+			'remove_text'   => $this->getSetting( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'woo-assistant' ) ),
+			'browse_text'   => $this->getSetting( 'wishlist_button_browse_text', __( 'Browse wishlist', 'woo-assistant' ) ),
+			'added_action'  => $this->getSetting( 'wishlist_added_action', 'remove' ),
+			'type'          => $this->getSetting( 'wishlist_button_type', 'button' ),
 			'appearance'    => 'icon_text',
 			'class'         => '',
 			'default_class' => 'on'
@@ -350,7 +349,7 @@ class ProductWishList extends Addon implements AddonInterface {
 		$listItems = array_reverse( $listItems, true );
 		$products  = WooCommerce::getProducts( array(
 			'include' => array_keys( $listItems ),
-			'limit'   => Settings::get( 'wishlist_max_items', 10 ),
+			'limit'   => $this->getSetting( 'wishlist_max_items', 10 ),
 			'status'  => ProductStatus::PUBLISH,
 			'orderby' => 'date',
 			'order'   => 'DESC',
@@ -404,7 +403,7 @@ class ProductWishList extends Addon implements AddonInterface {
 	}
 
 	private function getWishlistPage() {
-		$page = (int) Settings::get( 'wishlist_page', 0 );
+		$page = (int) $this->getSetting( 'wishlist_page', 0 );
 
 		if ( $page === 0 ) {
 			return WooCommerce::url( 'myaccount', 'wishlist' );
@@ -483,7 +482,7 @@ class ProductWishList extends Addon implements AddonInterface {
 	 * @return void
 	 */
 	public function wpEnqueueScriptsAction(): void {
-		$wishlistPage = Settings::get( 'wishlist_page', 0 );
+		$wishlistPage = $this->getSetting( 'wishlist_page', 0 );
 		if ( ! WooCommerce::isWoo() && ! WordPress::isPage( $wishlistPage ) ) {
 			return;
 		}
@@ -500,7 +499,7 @@ class ProductWishList extends Addon implements AddonInterface {
 			[ WOOASSISTANT_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
 		wp_localize_script( WOOASSISTANT_PLUGIN_KEY . '-product-wishlist-script', WOOASSISTANT_PLUGIN_KEYCAP . 'ProductWishlist', array(
-			'maxItems'           => Settings::get( 'wishlist_max_items', 10 ),
+			'maxItems'           => $this->getSetting( 'wishlist_max_items', 10 ),
 			'maxExceededMessage' => __( 'It is not possible to add more than %number% product to the wishlist.', 'woo-assistant' ),
 			'wishlistPage'       => $this->getWishlistPage()
 		) );
@@ -643,7 +642,6 @@ class ProductWishList extends Addon implements AddonInterface {
 				),
 				'default'  => 'remove',
 				'sanitize' => 'text',
-				'desc'     => __( 'Select archive button appearance', 'woo-assistant' )
 			),
 			'wishlist_product_button'     => array(
 				'id'       => 'wishlist_product_button',
@@ -679,9 +677,10 @@ class ProductWishList extends Addon implements AddonInterface {
 		);
 
 		$sections[ $this->currentSection ] = array(
-			'title'    => __( 'WishList', 'woo-assistant' ),
-			'desc'     => __( 'Product WishList', 'woo-assistant' ),
-			'settings' => $settings
+			'title'        => __( 'WishList', 'woo-assistant' ),
+			'desc'         => __( 'Product WishList', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => $settings
 		);
 
 		return $sections;
@@ -697,7 +696,8 @@ class ProductWishList extends Addon implements AddonInterface {
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 }

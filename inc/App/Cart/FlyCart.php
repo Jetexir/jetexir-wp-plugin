@@ -12,7 +12,6 @@ use WooAssistant\Helper\Templates;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Helper\WordPress;
 use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
 
 class FlyCart extends Addon implements AddonInterface {
 	public string $addonID = 'fly-cart';
@@ -31,7 +30,7 @@ class FlyCart extends Addon implements AddonInterface {
 			add_action( 'woo_assistant_site_modals', [ $this, 'printCart' ] );
 			add_action( 'woo_assistant_fly_cart_modal_body', [ $this, 'printCartBody' ] );
 
-			if ( Settings::get( 'fly_cart_overlay_layer', true ) ) {
+			if ( $this->getSetting( 'fly_cart_overlay_layer', true ) ) {
 				add_filter( 'woo_assistant_site_modal_overlay', '__return_true' );
 			}
 		}
@@ -84,18 +83,18 @@ class FlyCart extends Addon implements AddonInterface {
 		ob_start();
 		echo '<div class="wa-loader-wrap" style="display: none"><div class="wa-loader"></div></div>';
 
-		if ( ! WordPress::isAjax() && Settings::get( 'fly_cart_reload_page_load', true ) ) {
+		if ( ! WordPress::isAjax() && $this->getSetting( 'fly_cart_reload_page_load', true ) ) {
 			echo '<p>' . __( 'Loading...', 'woo-assistant' ) . '</p>';
 
 		} else {
 			$cart = WooCommerce::getCart();
 
 			if ( $cart->is_empty() ) {
-				echo '<p>' . Settings::get( 'fly_cart_empty_message', __( 'Your cart is currently empty!', 'woo-assistant' ) ) . '</p>';
+				echo '<p>' . $this->getSetting( 'fly_cart_empty_message', __( 'Your cart is currently empty!', 'woo-assistant' ) ) . '</p>';
 
 			} else {
-				$itemPrice       = Settings::get( 'fly_cart_item_price', 'price' );
-				$quantityButtons = Settings::get( 'fly_cart_quantity_buttons', true );
+				$itemPrice       = $this->getSetting( 'fly_cart_item_price', 'price' );
+				$quantityButtons = $this->getSetting( 'fly_cart_quantity_buttons', true );
 
 				echo '<div class="wa-fly-cart-items wa-product-list-wrap">';
 				$items = $cart->get_cart();
@@ -156,10 +155,10 @@ class FlyCart extends Addon implements AddonInterface {
 
 				echo '</div>';
 
-				if ( Settings::get( 'fly_cart_subtotal', true ) ) {
+				if ( $this->getSetting( 'fly_cart_subtotal', true ) ) {
 					echo '<div class="wa-fly-cart-subtotal wa-fly-cart-meta wa-flex"><span>' . __( 'Subtotal', 'woo-assistant' ) . '</span>' . $cart->get_cart_subtotal() . '</div>';
 				}
-				if ( Settings::get( 'fly_cart_total', true ) ) {
+				if ( $this->getSetting( 'fly_cart_total', true ) ) {
 					echo '<div class="wa-fly-cart-total wa-fly-cart-meta wa-flex"><span>' . __( 'Total', 'woo-assistant' ) . '</span>' . $cart->get_cart_total() . '</div>';
 				}
 			}
@@ -181,8 +180,8 @@ class FlyCart extends Addon implements AddonInterface {
 		$icons[] = array(
 			'id'          => $this->addonID,
 			'tag'         => 'a',
-			'title'       => Settings::get( 'fly_cart_title', __( 'Cart', 'woo-assistant' ) ),
-			'icon'        => self::getBasketIcons( Settings::get( 'fly_cart_icon', 'wa-icon-shopping-cart' ), true ),
+			'title'       => $this->getSetting( 'fly_cart_title', __( 'Cart', 'woo-assistant' ) ),
+			'icon'        => self::getBasketIcons( $this->getSetting( 'fly_cart_icon', 'wa-icon-shopping-cart' ), true ),
 			'count_badge' => WooCommerce::getCartItemsCount(),
 			'attributes'  => array(
 				'class'          => 'wa-fly-cart',
@@ -190,7 +189,7 @@ class FlyCart extends Addon implements AddonInterface {
 				'data-wa-toggle' => 'modal',
 				'data-wa-target' => '#wa-fly-cart-modal'
 			),
-			'position'    => Settings::get( 'fly_cart_position', 'bottom-left' ),
+			'position'    => $this->getSetting( 'fly_cart_position', 'bottom-left' ),
 		);
 
 		return $icons;
@@ -203,27 +202,27 @@ class FlyCart extends Addon implements AddonInterface {
 
 		$hide = false;
 
-		if ( Settings::get( 'fly_cart_hide_on_home', false ) && WordPress::isHome() ) {
+		if ( $this->getSetting( 'fly_cart_hide_on_home', false ) && WordPress::isHome() ) {
 			$hide = true;
 		}
 
-		if ( ! $hide && Settings::get( 'fly_cart_hide_on_blog', false ) && WordPress::isBlog() ) {
+		if ( ! $hide && $this->getSetting( 'fly_cart_hide_on_blog', false ) && WordPress::isBlog() ) {
 			$hide = true;
 		}
 
-		if ( ! $hide && Settings::get( 'fly_cart_hide_on_posts', false ) && WordPress::isSingular( 'post' ) ) {
+		if ( ! $hide && $this->getSetting( 'fly_cart_hide_on_posts', false ) && WordPress::isSingular( 'post' ) ) {
 			$hide = true;
 		}
 
-		if ( ! $hide && Settings::get( 'fly_cart_hide_on_cart', false ) && WooCommerce::isCart() ) {
+		if ( ! $hide && $this->getSetting( 'fly_cart_hide_on_cart', false ) && WooCommerce::isCart() ) {
 			$hide = true;
 		}
 
-		if ( ! $hide && Settings::get( 'fly_cart_hide_on_checkout', false ) && WooCommerce::isCheckout() ) {
+		if ( ! $hide && $this->getSetting( 'fly_cart_hide_on_checkout', false ) && WooCommerce::isCheckout() ) {
 			$hide = true;
 		}
 
-		$pages = Settings::get( 'fly_cart_hide_on_pages', [] );
+		$pages = $this->getSetting( 'fly_cart_hide_on_pages', [] );
 		if ( ! $hide && ! empty( $pages ) && WordPress::isPage( $pages ) ) {
 			$hide = true;
 		}
@@ -270,9 +269,10 @@ class FlyCart extends Addon implements AddonInterface {
 			$basketIcons[ $icon ] = '<i class="' . $icon . '"></i>';
 		}
 		$sections[ $this->addonID ] = array(
-			'title'    => __( 'Fly Cart', 'woo-assistant' ),
-			'desc'     => __( 'Fly Cart', 'woo-assistant' ),
-			'settings' => [
+			'title'        => __( 'Fly Cart', 'woo-assistant' ),
+			'desc'         => __( 'Fly Cart', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => [
 				'fly_cart_start_grid_icon' => array(
 					'id'    => 'fly_cart_start_grid_icon',
 					'title' => __( 'Fly Cart Icon', 'woo-assistant' ),
@@ -497,7 +497,8 @@ class FlyCart extends Addon implements AddonInterface {
 			'tags'           => [ __( 'Cart', 'woo-assistant' ) ],
 			'cat'            => 'cart',
 			'icon'           => $icon,
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 
@@ -514,7 +515,7 @@ class FlyCart extends Addon implements AddonInterface {
 			[ WOOASSISTANT_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
 		wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-fly-cart-script', WOOASSISTANT_PLUGIN_KEYCAP . 'FlyCart', array(
-			'reloadOnLoad' => Sanitizing::int( Settings::get( 'fly_cart_reload_page_load', true ) )
+			'reloadOnLoad' => Sanitizing::int( $this->getSetting( 'fly_cart_reload_page_load', true ) )
 		) );
 	}
 }

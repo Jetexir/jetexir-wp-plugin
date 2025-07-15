@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Addons\Addon;
 use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
 
 class ProductCall extends Addon implements AddonInterface {
 	public string $addonID = 'product-call';
@@ -14,26 +13,26 @@ class ProductCall extends Addon implements AddonInterface {
 	public string $currentSection = 'call';
 
 	public function initAction(): void {
-		if ( Settings::get( 'product_call_empty_price', true ) ) {
+		if ( $this->getSetting( 'product_call_empty_price', true ) ) {
 			add_filter( 'woocommerce_empty_price_html', [ $this, 'emptyPriceText' ], 999999, 2 );
 			add_filter( 'woocommerce_variable_empty_price_html', [ $this, 'emptyPriceText' ], 999999, 2 );
 			add_filter( 'woocommerce_grouped_empty_price_html', [ $this, 'emptyPriceText' ], 999999, 2 );
 			add_filter( 'woocommerce_variation_empty_price_html', [ $this, 'emptyPriceText' ], 999999, 2 );
 		}
 
-		if ( Settings::get( 'product_call_zero_price', true ) ) {
+		if ( $this->getSetting( 'product_call_zero_price', true ) ) {
 			add_filter( 'woocommerce_get_price_html', [ $this, 'zeroPriceText' ], 10, 2 );
 		}
 
-		if ( Settings::get( 'product_call_out_of_stock_price', false ) ) {
+		if ( $this->getSetting( 'product_call_out_of_stock_price', false ) ) {
 			add_filter( 'woocommerce_get_price_html', [ $this, 'outOfStockPriceText' ], 10, 2 );
 		}
 
-		if ( Settings::get( 'product_call_sale_tag', false ) ) {
+		if ( $this->getSetting( 'product_call_sale_tag', false ) ) {
 			add_filter( 'woocommerce_sale_flash', [ $this, 'hideSaleTag' ], 10, 3 );
 		}
 
-		if ( Settings::get( 'product_call_read_more', true ) ) {
+		if ( $this->getSetting( 'product_call_read_more', true ) ) {
 			add_filter( 'woocommerce_product_add_to_cart_text', [ $this, 'changeReadMore' ], 10, 2 );
 		}
 
@@ -45,8 +44,8 @@ class ProductCall extends Addon implements AddonInterface {
 	 * @param \WC_Product $product WC Product
 	 */
 	public function changeReadMore( $text, $product ): string {
-		if ( empty( $product->get_price() ) ) {
-			return Settings::get( 'product_call_text', __( 'Call for Price', 'woo-assistant' ) );
+		if ( empty( $product->get_price() ) || ( ! $product->is_in_stock() && $this->getSetting( 'product_call_out_of_stock_price', false ) ) ) {
+			return $this->getSetting( 'product_call_text', __( 'Call for Price', 'woo-assistant' ) );
 		}
 
 		return $text;
@@ -96,7 +95,7 @@ class ProductCall extends Addon implements AddonInterface {
 	 */
 	public function outOfStockPriceText( $price, $product ): string {
 		if ( ! $product->is_in_stock() ) {
-			return Settings::get( 'product_call_text', __( 'Call for Price', 'woo-assistant' ) );
+			return $this->getSetting( 'product_call_text', __( 'Call for Price', 'woo-assistant' ) );
 		}
 
 		return $price;
@@ -110,7 +109,7 @@ class ProductCall extends Addon implements AddonInterface {
 	 */
 	public function zeroPriceText( $price, $product ): string {
 		if ( $product->get_price() === '0' ) {
-			return Settings::get( 'product_call_text', __( 'Call for Price', 'woo-assistant' ) );
+			return $this->getSetting( 'product_call_text', __( 'Call for Price', 'woo-assistant' ) );
 		}
 
 		return $price;
@@ -123,7 +122,7 @@ class ProductCall extends Addon implements AddonInterface {
 	 * @return string
 	 */
 	public function emptyPriceText( $text, $product ): string {
-		$_text = Settings::get( 'product_call_text', __( 'Call for Price', 'woo-assistant' ) );
+		$_text = $this->getSetting( 'product_call_text', __( 'Call for Price', 'woo-assistant' ) );
 
 		if ( ! empty( $_text ) ) {
 			$text = $_text;
@@ -134,9 +133,10 @@ class ProductCall extends Addon implements AddonInterface {
 
 	public function addSectionSettings( $sections ): array {
 		$sections[ $this->currentSection ] = array(
-			'title'    => __( 'Call', 'woo-assistant' ),
-			'desc'     => __( 'Product Call for Price', 'woo-assistant' ),
-			'settings' => [
+			'title'        => __( 'Call', 'woo-assistant' ),
+			'desc'         => __( 'Product Call for Price', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => [
 				'product_call_start_grid'         => array(
 					'id'    => 'product_social_share_start_grid_2',
 					'title' => __( 'Call for Price', 'woo-assistant' ),
@@ -212,7 +212,8 @@ class ProductCall extends Addon implements AddonInterface {
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 }

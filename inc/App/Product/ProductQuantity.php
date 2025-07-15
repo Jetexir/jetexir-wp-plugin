@@ -26,7 +26,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 	public function initAction(): void {
 		add_filter( 'woo_assistant_settings_before_save', [ $this, 'checkSettingsBeforeSave' ], 10, 2 );
 
-		if ( Settings::get( 'product_quantity_tools_enable', false ) ) {
+		if ( $this->getSetting( 'product_quantity_tools_enable', false ) ) {
 			add_filter( 'woocommerce_add_to_cart_validation', [ $this, 'addToCartValidation' ], 10, 5 );
 			add_filter( 'woocommerce_quantity_input_args', [ $this, 'changeQuantityInputArgs' ], 10, 2 );
 			add_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes',
@@ -41,7 +41,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 
 	public function adminInitAction(): void {
 		// Control min/max/step per product
-		if ( Settings::get( 'product_quantity_tools_enable', false ) && Settings::get( 'product_single_quantity_tools_enable', false ) ) {
+		if ( $this->getSetting( 'product_quantity_tools_enable', false ) && $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
 			add_action( 'woocommerce_process_product_meta', [ $this, 'adminProductSaveMeta' ] );
 			add_action( 'woocommerce_product_options_stock_fields', [ $this, 'addInventoryFields' ] );
 
@@ -51,7 +51,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 	}
 
 	public function templateRedirectAction(): void {
-		if ( Settings::get( 'products_sold_individually', false ) ) {
+		if ( $this->getSetting( 'products_sold_individually', false ) ) {
 			add_filter( 'woocommerce_is_sold_individually', '__return_true', 999 );
 		}
 
@@ -256,10 +256,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$productID   = $variation->get_parent_id();
 		$maxQty      = $productMax = $variationMax = (int) $data['max_qty'];
 		$minQty      = $productMin = $variationMin = (int) $data['min_qty'];
-		$min         = Sanitizing::int( Settings::get( 'quantity_minimum_value', false ) );
-		$max         = Sanitizing::int( Settings::get( 'quantity_maximum_value', false ) );
+		$min         = Sanitizing::int( $this->getSetting( 'quantity_minimum_value', false ) );
+		$max         = Sanitizing::int( $this->getSetting( 'quantity_maximum_value', false ) );
 
-		if ( ! $variation->is_sold_individually() && Settings::get( 'product_single_quantity_tools_enable', false ) ) {
+		if ( ! $variation->is_sold_individually() && $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
 			$_productMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' ) );
 			if ( $_productMin ) {
 				$productMin = $_productMin;
@@ -292,9 +292,9 @@ class ProductQuantity extends Addon implements AddonInterface {
 	 */
 	public function changeQuantityInputStep( $step, $product ) {
 		$step       = (int) $step;
-		$globalStep = $productStep = Sanitizing::int( Settings::get( 'quantity_step_value', false ) );
+		$globalStep = $productStep = Sanitizing::int( $this->getSetting( 'quantity_step_value', false ) );
 
-		if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
+		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
 			$_productStep = Sanitizing::int( PostMeta::get( $product->get_id(), WOOASSISTANT_PLUGIN_KEY . '_product_quantity_step' ) );
 			if ( $_productStep ) {
 				$productStep = $_productStep;
@@ -312,9 +312,9 @@ class ProductQuantity extends Addon implements AddonInterface {
 	 */
 	public function changeQuantityInputMax( $max, $product ) {
 		$max       = (int) $max;
-		$globalMax = $productMax = Sanitizing::int( Settings::get( 'quantity_maximum_value', false ) );
+		$globalMax = $productMax = Sanitizing::int( $this->getSetting( 'quantity_maximum_value', false ) );
 
-		if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
+		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
 			$_variationMax = Sanitizing::int( PostMeta::get( $product->get_id(), WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_max' ) );
 			if ( $_variationMax ) {
 				$productMax = $_variationMax;
@@ -337,9 +337,9 @@ class ProductQuantity extends Addon implements AddonInterface {
 	 */
 	public function changeQuantityInputMin( $min, $product ) {
 		$min       = (int) $min;
-		$globalMin = $productMin = Sanitizing::int( Settings::get( 'quantity_minimum_value', false ) );
+		$globalMin = $productMin = Sanitizing::int( $this->getSetting( 'quantity_minimum_value', false ) );
 
-		if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
+		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
 			$variationMin = Sanitizing::int( PostMeta::get( $product->get_id(), WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min' ) );
 			if ( $variationMin ) {
 				$productMin = $variationMin;
@@ -365,10 +365,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 	 */
 	public function changeQuantityAddToCartLink( $link, $product, $args ): string {
 		$productID = $product->get_id();
-		$min       = Sanitizing::int( Settings::get( 'quantity_minimum_value', false ) );
+		$min       = Sanitizing::int( $this->getSetting( 'quantity_minimum_value', false ) );
 		$quantity  = Sanitizing::int( $args['quantity'] );
 
-		if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
+		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
 			$variationMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min' ) );
 			if ( $variationMin ) {
 				$min = $variationMin;
@@ -407,14 +407,14 @@ class ProductQuantity extends Addon implements AddonInterface {
 
 		$quantities    = WC()->cart->get_cart_item_quantities();
 		$cartProductId = $variationID ?: $productId;
-		$stockQuantity = $globalMax = $productMax = Sanitizing::int( Settings::get( 'quantity_maximum_value', false ) );
+		$stockQuantity = $globalMax = $productMax = Sanitizing::int( $this->getSetting( 'quantity_maximum_value', false ) );
 
 		$cartProduct = WooCommerce::getCartProduct( $productId, $variationID );
 		if ( $cartProduct && $cartProduct['manage_stock'] && $cartProduct['stock_quantity'] > 0 ) {
 			$stockQuantity = $cartProduct['stock_quantity'];
 		}
 
-		if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
+		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
 			$_productMax = Sanitizing::int( PostMeta::get( $productId, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_max' ) );
 			if ( $_productMax ) {
 				$productMax = $_productMax;
@@ -449,10 +449,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 	 */
 	public function changeQuantityAddToCart( $attributes, $product ): array {
 		$productID = $product->get_id();
-		$min       = Sanitizing::int( Settings::get( 'quantity_minimum_value', false ) );
+		$min       = Sanitizing::int( $this->getSetting( 'quantity_minimum_value', false ) );
 		$quantity  = Sanitizing::int( $attributes['data-quantity'] );
 
-		if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
+		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
 			$variationMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min' ) );
 			if ( $variationMin ) {
 				$min = $variationMin;
@@ -482,11 +482,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 			$productID   = $product->get_id();
 			$maxPurchase = $product->get_max_purchase_quantity();
 			$currentVal  = Sanitizing::int( $args['input_value'] );
-			$min         = Sanitizing::int( Settings::get( 'quantity_minimum_value', false ) );
-			$max         = Sanitizing::int( Settings::get( 'quantity_maximum_value', false ) );
-			$step        = Sanitizing::int( Settings::get( 'quantity_step_value', false ) );
+			$min         = Sanitizing::int( $this->getSetting( 'quantity_minimum_value', false ) );
+			$max         = Sanitizing::int( $this->getSetting( 'quantity_maximum_value', false ) );
+			$step        = Sanitizing::int( $this->getSetting( 'quantity_step_value', false ) );
 
-			if ( Settings::get( 'product_single_quantity_tools_enable', false ) ) {
+			if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
 				$productStep = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_step' ) );
 				if ( $productStep ) {
 					$step = $productStep;
@@ -524,8 +524,8 @@ class ProductQuantity extends Addon implements AddonInterface {
 			}
 
 			if (
-				( WooCommerce::isProduct() && Settings::get( 'product_quantity_disabled', false ) ) ||
-				( WooCommerce::isCart() && Settings::get( 'product_cart_quantity_disabled', false ) )
+				( WooCommerce::isProduct() && $this->getSetting( 'product_quantity_disabled', false ) ) ||
+				( WooCommerce::isCart() && $this->getSetting( 'product_cart_quantity_disabled', false ) )
 			) {
 				$args['readonly'] = 'readonly';
 				$args['disabled'] = 'disabled';
@@ -580,7 +580,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$buttonStyle = $buttonHoverStyle = $inputStyle = [];
 
 		// Button default style
-		if ( $value = Settings::get( 'quantity_button_width_height', false ) ) {
+		if ( $value = $this->getSetting( 'quantity_button_width_height', false ) ) {
 			$buttonStyle['display']         = 'inline-flex';
 			$buttonStyle['align-items']     = 'center';
 			$buttonStyle['justify-content'] = 'center';
@@ -602,7 +602,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		}
 
 		// Input style
-		if ( Settings::get( 'quantity_input_style', false ) ) {
+		if ( $this->getSetting( 'quantity_input_style', false ) ) {
 			if ( $enableStyle ) {
 				$inputStyle['border']           = 'var(--wa-input-border-width, 0) solid transparent';
 				$inputStyle['border-radius']    = 'var(--wa-input-border-radius, 0)';
@@ -611,10 +611,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 				$inputStyle['border-color']     = 'var(--wa-input-border-color, initial)';
 			}
 
-			if ( $value = Settings::get( 'quantity_input_width', false ) ) {
+			if ( $value = $this->getSetting( 'quantity_input_width', false ) ) {
 				$inputStyle['width'] = $value;
 			}
-			if ( $value = Settings::get( 'quantity_input_height', false ) ) {
+			if ( $value = $this->getSetting( 'quantity_input_height', false ) ) {
 				$inputStyle['height'] = $value;
 			}
 		}
@@ -640,7 +640,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 	}
 
 	public function beforeQuantityInputField(): void {
-		if ( ! WooCommerce::isProduct() || ! Settings::get( 'quantity_input_plus_minus_button', false ) ) {
+		if ( ! WooCommerce::isProduct() || ! $this->getSetting( 'quantity_input_plus_minus_button', false ) ) {
 			return;
 		}
 
@@ -653,8 +653,8 @@ class ProductQuantity extends Addon implements AddonInterface {
 		self::$printStyle = true;
 
 		if (
-			( WooCommerce::isProduct() && Settings::get( 'product_quantity_disabled', false ) ) ||
-			( WooCommerce::isCart() && Settings::get( 'product_cart_quantity_disabled', false ) )
+			( WooCommerce::isProduct() && $this->getSetting( 'product_quantity_disabled', false ) ) ||
+			( WooCommerce::isCart() && $this->getSetting( 'product_cart_quantity_disabled', false ) )
 		) {
 			return;
 		}
@@ -668,7 +668,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 	}
 
 	public function afterQuantityInputField(): void {
-		if ( ! self::$printed || ! WooCommerce::isProduct() || ! Settings::get( 'quantity_input_plus_minus_button', false ) ) {
+		if ( ! self::$printed || ! WooCommerce::isProduct() || ! $this->getSetting( 'quantity_input_plus_minus_button', false ) ) {
 			return;
 		}
 
@@ -681,7 +681,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 	}
 
 	public function enqueueScripts(): void {
-		$productQuantityDisabled = ( WooCommerce::isProduct() && Settings::get( 'product_quantity_disabled', false ) ) || ( WooCommerce::isCart() && Settings::get( 'product_cart_quantity_disabled', false ) );
+		$productQuantityDisabled = ( WooCommerce::isProduct() && $this->getSetting( 'product_quantity_disabled', false ) ) || ( WooCommerce::isCart() && $this->getSetting( 'product_cart_quantity_disabled', false ) );
 		if ( ! self::$printed && ! $productQuantityDisabled ) {
 			return;
 		}
@@ -692,16 +692,17 @@ class ProductQuantity extends Addon implements AddonInterface {
 			[ WOOASSISTANT_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
 		wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-product-quantity-script', WOOASSISTANT_PLUGIN_KEYCAP . 'ProductQuantity', array(
-			'plusMinusButtons' => Sanitizing::int( self::$printed && Settings::get( 'quantity_input_plus_minus_button', false ) ),
+			'plusMinusButtons' => Sanitizing::int( self::$printed && $this->getSetting( 'quantity_input_plus_minus_button', false ) ),
 			'quantityDisabled' => Sanitizing::int( $productQuantityDisabled )
 		) );
 	}
 
 	public function addSectionSettings( $sections ): array {
 		$sections[ $this->currentSection ] = array(
-			'title'    => __( 'Quantity', 'woo-assistant' ),
-			'desc'     => __( 'Quantity Customization', 'woo-assistant' ),
-			'settings' => array(
+			'title'        => __( 'Quantity', 'woo-assistant' ),
+			'desc'         => __( 'Quantity Customization', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => array(
 				'start_grid_quantity_control'          => array(
 					'title' => __( 'Quantity Control', 'woo-assistant' ),
 					'type'  => 'startGrid',
@@ -763,6 +764,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'id'         => 'quantity_maximum_value',
 					'title'      => __( 'Maximum', 'woo-assistant' ),
 					'type'       => 'number',
+					'default'    => 1000,
 					'attributes' => array(
 						'placeholder' => 'eg: 10',
 						'step'        => 1,
@@ -871,7 +873,8 @@ class ProductQuantity extends Addon implements AddonInterface {
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 }

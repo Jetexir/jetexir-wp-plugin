@@ -9,7 +9,6 @@ use WooAssistant\Helper\Sanitizing;
 use WooAssistant\Helper\Transient;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
 
 class ProductRelated extends Addon implements AddonInterface {
 	public string $addonID = 'product-related';
@@ -24,7 +23,7 @@ class ProductRelated extends Addon implements AddonInterface {
 		add_filter( 'shortcode_atts_related_products', [ $this, 'setOrderByArgs' ] );
 		//add_filter( 'woo_assistant_wc_locate_template', [ $this, 'changeTemplate' ], 10, 2 );
 
-		$mode = Settings::get( 'product_related_mode', 'custom' );
+		$mode = $this->getSetting( 'product_related_mode', 'custom' );
 		if ( $mode === 'disable' ) {
 			add_filter( 'woocommerce_product_related_posts_relate_by_category', '__return_false' );
 			add_filter( 'woocommerce_product_related_posts_relate_by_tag', '__return_false' );
@@ -36,14 +35,14 @@ class ProductRelated extends Addon implements AddonInterface {
 			add_filter( 'woocommerce_product_related_posts_relate_by_brand', [ $this, 'relatedByBrand' ], 10, 2 );
 			add_filter( 'woocommerce_product_related_posts_force_display', '__return_true' );
 			add_filter( 'woocommerce_product_related_posts_query', [ $this, 'changeQuery' ], 9999, 10 );
-			if ( Settings::get( 'product_related_slider', true ) ) {
+			if ( $this->getSetting( 'product_related_slider', true ) ) {
 				add_filter( 'woocommerce_related_products_columns', '__return_false' );
 			}
 		}
 	}
 
 	public function templateRedirectAction(): void {
-		if ( Settings::get( 'product_related_disable_cache', false ) && WooCommerce::isProduct() ) {
+		if ( $this->getSetting( 'product_related_disable_cache', false ) && WooCommerce::isProduct() ) {
 			add_filter( 'pre_transient_wc_related_' . get_the_ID(), static function () {
 				return 0;
 			} );
@@ -64,7 +63,7 @@ class ProductRelated extends Addon implements AddonInterface {
 		if ( ! empty( $attributes ) ) {
 			$attributesIDs = [];
 			foreach ( $attributes as $key => $attribute ) {
-				if ( Settings::get( 'product_related_by_attribute_' . $key, false ) ) {
+				if ( $this->getSetting( 'product_related_by_attribute_' . $key, false ) ) {
 					$taxName      = 'pa_' . $attribute['name'];
 					$attributeIDs = apply_filters( 'woocommerce_product_related_posts_relate_by_' . $taxName, true, $productID ) ? apply_filters( 'woocommerce_get_related_product_' . $taxName . '_terms', wc_get_product_term_ids( $productID, $taxName ), $productID ) : array();
 					if ( ! empty( $attributeIDs ) && is_array( $attributeIDs ) ) {
@@ -90,7 +89,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			',
 		);
 		$excludeTermIDs           = array();
-		$excludeCats              = Settings::get( 'product_related_exclude_cats', [] );
+		$excludeCats              = $this->getSetting( 'product_related_exclude_cats', [] );
 		$productVisibilityTermIDs = wc_get_product_visibility_term_ids();
 
 		if ( ! empty( $excludeCats ) ) {
@@ -123,7 +122,7 @@ class ProductRelated extends Addon implements AddonInterface {
 	}
 
 	public function relatedByBrand( $use, $productID ): bool {
-		if ( Settings::get( 'product_related_by_brand', true ) === false ) {
+		if ( $this->getSetting( 'product_related_by_brand', true ) === false ) {
 			return false;
 		}
 
@@ -131,7 +130,7 @@ class ProductRelated extends Addon implements AddonInterface {
 	}
 
 	public function relatedByTag( $use, $productID ): bool {
-		if ( Settings::get( 'product_related_by_tag', true ) === false ) {
+		if ( $this->getSetting( 'product_related_by_tag', true ) === false ) {
 			return false;
 		}
 
@@ -139,7 +138,7 @@ class ProductRelated extends Addon implements AddonInterface {
 	}
 
 	public function relatedByCategory( $use, $productID ): bool {
-		if ( Settings::get( 'product_related_by_cat', true ) === false ) {
+		if ( $this->getSetting( 'product_related_by_cat', true ) === false ) {
 			return false;
 		}
 
@@ -147,7 +146,7 @@ class ProductRelated extends Addon implements AddonInterface {
 	}
 
 	public function changeTemplate( $waTemplate, $templateName ) {
-		if ( $templateName === 'single-product/related.php' && Settings::get( 'product_related_mode', 'custom' ) === 'custom' ) {
+		if ( $templateName === 'single-product/related.php' && $this->getSetting( 'product_related_mode', 'custom' ) === 'custom' ) {
 			$waTemplate = $templateName;
 		}
 
@@ -155,23 +154,23 @@ class ProductRelated extends Addon implements AddonInterface {
 	}
 
 	public function setOrderByArgs( $args ) {
-		if ( Settings::get( 'product_related_slider', true ) ) {
-			$args['posts_per_page'] = Settings::get( 'product_related_slider_limit', 9 );
+		if ( $this->getSetting( 'product_related_slider', true ) ) {
+			$args['posts_per_page'] = $this->getSetting( 'product_related_slider_limit', 9 );
 			$args['limit']          = $args['posts_per_page'];
 		}
 
-		$args['orderby'] = Settings::get( 'product_related_orderby', 'rand' );
-		$args['order']   = Settings::get( 'product_related_order', 'desc' );
+		$args['orderby'] = $this->getSetting( 'product_related_orderby', 'rand' );
+		$args['order']   = $this->getSetting( 'product_related_order', 'desc' );
 
 		return $args;
 	}
 
 	public function setShuffle( $shuffle ): bool {
-		return Settings::get( 'product_related_orderby', 'rand' ) === 'rand';
+		return $this->getSetting( 'product_related_orderby', 'rand' ) === 'rand';
 	}
 
 	public function setTitle( $title ) {
-		if ( $customTitle = Settings::get( 'product_related_title', __( 'Related products', 'woocommerce' ) ) ) {
+		if ( $customTitle = $this->getSetting( 'product_related_title', __( 'Related products', 'woocommerce' ) ) ) {
 			return $customTitle;
 		}
 
@@ -207,16 +206,16 @@ class ProductRelated extends Addon implements AddonInterface {
 			], $pluginVersion, [ 'in_footer' => true ] );
 
 		wp_localize_script( WOOASSISTANT_PLUGIN_KEY . '-product-related-script', WOOASSISTANT_PLUGIN_KEYCAP . 'ProductRelated', array(
-			'loop'            => Sanitizing::int( Settings::get( 'product_related_slider_loop', true ) ),
-			'center'          => Sanitizing::int( Settings::get( 'product_related_slider_center', false ) ),
-			'dots'            => Sanitizing::int( Settings::get( 'product_related_slider_dots', false ) ),
-			'arrow'           => Sanitizing::int( Settings::get( 'product_related_slider_arrow', true ) ),
-			'autoplay'        => Sanitizing::int( Settings::get( 'product_related_slider_autoplay', false ) ),
-			'autoplayTimeout' => Sanitizing::int( Settings::get( 'product_related_slider_autoplay_timeout', 3000 ) ),
-			'margin'          => Sanitizing::int( Settings::get( 'product_related_slider_margin', 10 ) ),
-			'mobileLimit'     => Sanitizing::int( Settings::get( 'product_related_slider_mobile_limit', 1 ) ),
-			'tabletLimit'     => Sanitizing::int( Settings::get( 'product_related_slider_tablet_limit', 2 ) ),
-			'desktopLimit'    => Sanitizing::int( Settings::get( 'product_related_slider_desktop_limit', 3 ) ),
+			'loop'            => Sanitizing::int( $this->getSetting( 'product_related_slider_loop', true ) ),
+			'center'          => Sanitizing::int( $this->getSetting( 'product_related_slider_center', false ) ),
+			'dots'            => Sanitizing::int( $this->getSetting( 'product_related_slider_dots', false ) ),
+			'arrow'           => Sanitizing::int( $this->getSetting( 'product_related_slider_arrow', true ) ),
+			'autoplay'        => Sanitizing::int( $this->getSetting( 'product_related_slider_autoplay', false ) ),
+			'autoplayTimeout' => Sanitizing::int( $this->getSetting( 'product_related_slider_autoplay_timeout', 4000 ) ),
+			'margin'          => Sanitizing::int( $this->getSetting( 'product_related_slider_margin', 10 ) ),
+			'mobileLimit'     => Sanitizing::int( $this->getSetting( 'product_related_slider_mobile_limit', 1 ) ),
+			'tabletLimit'     => Sanitizing::int( $this->getSetting( 'product_related_slider_tablet_limit', 2 ) ),
+			'desktopLimit'    => Sanitizing::int( $this->getSetting( 'product_related_slider_desktop_limit', 3 ) ),
 		) );
 	}
 
@@ -414,7 +413,7 @@ class ProductRelated extends Addon implements AddonInterface {
 				'title'      => __( 'Slider autoplay timeout', 'woo-assistant' ),
 				'desc'       => __( 'Milliseconds', 'woo-assistant' ),
 				'type'       => 'number',
-				'default'    => 3000,
+				'default'    => 4000,
 				'attributes' => array(
 					'placeholder' => 'eg: 10',
 					'step'        => 1,
@@ -520,9 +519,10 @@ class ProductRelated extends Addon implements AddonInterface {
 		] );
 
 		$sections[ $this->currentSection ] = array(
-			'title'    => __( 'Related', 'woo-assistant' ),
-			'desc'     => __( 'Related Products', 'woo-assistant' ),
-			'settings' => $settings
+			'title'        => __( 'Related', 'woo-assistant' ),
+			'desc'         => __( 'Related Products', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => $settings
 		);
 
 		return $sections;
@@ -538,7 +538,8 @@ class ProductRelated extends Addon implements AddonInterface {
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 }

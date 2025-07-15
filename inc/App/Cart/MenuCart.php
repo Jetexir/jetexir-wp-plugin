@@ -5,7 +5,6 @@ namespace WooAssistant\App\Cart;
 use WooAssistant\Addons\Addon;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
 
 class MenuCart extends Addon implements AddonInterface {
 	public string $addonID = 'menu-cart';
@@ -23,9 +22,9 @@ class MenuCart extends Addon implements AddonInterface {
 	}
 
 	public function addCartToMenu( $items, $args ) {
-		$menus              = Settings::get( 'menu_cart_menus', [] );
-		$hideOnCartCheckout = Settings::get( 'menu_cart_cart_checkout_hide', true );
-		$HideEmpty          = Settings::get( 'menu_cart_display_empty', true );
+		$menus              = $this->getSetting( 'menu_cart_menus', [] );
+		$hideOnCartCheckout = $this->getSetting( 'menu_cart_cart_checkout_hide', true );
+		$HideEmpty          = $this->getSetting( 'menu_cart_display_empty', true );
 
 		if ( $hideOnCartCheckout && ( WooCommerce::isCart() || WooCommerce::isCheckout() ) ) {
 			return $items;
@@ -47,11 +46,11 @@ class MenuCart extends Addon implements AddonInterface {
 	}
 
 	private function getMenuCart( $menuSlug ): string {
-		$icon       = Settings::get( 'menu_cart_icon', 'wa-icon-shopping-cart' );
+		$icon       = $this->getSetting( 'menu_cart_icon', 'wa-icon-shopping-cart' );
 		$icon       = $icon === 'none' ? '' : FlyCart::getBasketIcons( $icon, true );
-		$content    = Settings::get( 'menu_cart_content', 'items-count-price' );
-		$priceType  = Settings::get( 'menu_cart_price_type', 'total' );
-		$link       = Settings::get( 'menu_cart_link', 'cart' );
+		$content    = $this->getSetting( 'menu_cart_content', 'items-count-price' );
+		$priceType  = $this->getSetting( 'menu_cart_price_type', 'total' );
+		$link       = $this->getSetting( 'menu_cart_link', 'cart' );
 		$itemsCount = WooCommerce::getCartItemsCount();
 		$count      = '<span class="wa-menu-cart-count">' . $itemsCount . ' ' . __( 'items', 'woo-assistant' ) . '</span>';
 
@@ -95,9 +94,10 @@ class MenuCart extends Addon implements AddonInterface {
 			$basketIcons[ $icon ] = '<i class="' . $icon . '"></i>';
 		}
 		$sections[ $this->addonID ] = array(
-			'title'    => __( 'Menu Cart', 'woo-assistant' ),
-			'desc'     => __( 'Menu Cart', 'woo-assistant' ),
-			'settings' => [
+			'title'        => __( 'Menu Cart', 'woo-assistant' ),
+			'desc'         => __( 'Menu Cart', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => [
 				'menu_cart_display_start_grid' => array(
 					'id'    => 'fly_cart_start_grid_icon',
 					'title' => __( 'Menu Cart', 'woo-assistant' ),
@@ -203,7 +203,8 @@ class MenuCart extends Addon implements AddonInterface {
 			'tags'           => [ __( 'Cart', 'woo-assistant' ) ],
 			'cat'            => 'cart',
 			'icon'           => $icon,
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 }

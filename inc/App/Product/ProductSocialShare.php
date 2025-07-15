@@ -9,7 +9,6 @@ use WooAssistant\App\App;
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
 
 class ProductSocialShare extends Addon implements AddonInterface {
 	public string $addonID = 'product-social-share';
@@ -19,8 +18,8 @@ class ProductSocialShare extends Addon implements AddonInterface {
 
 	public function initAction(): void {
 		App::addShortcode( self::shortCode, [ $this, 'shareShortcode' ] );
-
-		$position = Settings::get( 'product_social_share_position', false );
+		
+		$position = $this->getSetting( 'product_social_share_position', false );
 
 		if ( $position === 'after_categories' ) {
 			add_action( 'woocommerce_share', [ $this, 'displayLinks' ] );
@@ -34,14 +33,14 @@ class ProductSocialShare extends Addon implements AddonInterface {
 	}
 
 	public function displayLinks(): void {
-		$socials          = implode( ',', Settings::get( 'product_social_share_networks', [] ) );
-		$linkType         = Settings::get( 'product_social_share_link_type', 'long' );
-		$encodeUrl        = Settings::get( 'product_social_share_encode_url', true ) ? 'on' : 'off';
-		$copyClipboard    = Settings::get( 'product_social_share_copy_clipboard', true ) ? 'on' : 'off';
-		$title            = Settings::get( 'product_social_share_title', __( 'Share On:', 'woo-assistant' ) );
-		$buttonAppearance = Settings::get( 'product_social_share_appearance', 'icon' );
-		$buttonShape      = Settings::get( 'product_social_share_shape', 'round' );
-		$buttonSize       = Settings::get( 'product_social_share_button_size', 'default' );
+		$socials          = implode( ',',  $this->getSetting( 'product_social_share_networks', [] ) );
+		$linkType         =  $this->getSetting( 'product_social_share_link_type', 'long' );
+		$encodeUrl        =  $this->getSetting( 'product_social_share_encode_url', true ) ? 'on' : 'off';
+		$copyClipboard    =  $this->getSetting( 'product_social_share_copy_clipboard', true ) ? 'on' : 'off';
+		$title            =  $this->getSetting( 'product_social_share_title', __( 'Share On:', 'woo-assistant' ) );
+		$buttonAppearance =  $this->getSetting( 'product_social_share_appearance', 'icon' );
+		$buttonShape      =  $this->getSetting( 'product_social_share_shape', 'round' );
+		$buttonSize       =  $this->getSetting( 'product_social_share_button_size', 'default' );
 
 		$args = array(
 			'socials'           => $socials,
@@ -230,11 +229,11 @@ class ProductSocialShare extends Addon implements AddonInterface {
 				'title'      => __( 'Bluesky', 'woo-assistant' ),
 				'share_link' => 'https://bsky.app/intent/compose?text=%1$s'
 			],
-			'pocket'    => [
+			/*'pocket'    => [
 				'icon'       => '<i class="wa-icon-pocket"></i>',
 				'title'      => __( 'Pocket', 'woo-assistant' ),
 				'share_link' => 'https://getpocket.com/save?url=%1$s'
-			],
+			],*/
 			'evernote'  => [
 				'icon'       => '<i class="wa-icon-evernote"></i>',
 				'title'      => __( 'Evernote', 'woo-assistant' ),
@@ -279,9 +278,10 @@ class ProductSocialShare extends Addon implements AddonInterface {
 		}
 
 		$sections[ $this->currentSection ] = array(
-			'title'    => __( 'Share', 'woo-assistant' ),
-			'desc'     => __( 'Product Social Share', 'woo-assistant' ),
-			'settings' => array(
+			'title'        => __( 'Share', 'woo-assistant' ),
+			'desc'         => __( 'Product Social Share', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => array(
 				'product_social_share_start_grid_1'        => array(
 					'id'    => 'product_social_share_start_grid_1',
 					'title' => __( 'Product Social Share', 'woo-assistant' ),
@@ -449,7 +449,8 @@ class ProductSocialShare extends Addon implements AddonInterface {
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 }

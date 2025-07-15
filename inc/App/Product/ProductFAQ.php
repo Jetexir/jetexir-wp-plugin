@@ -9,7 +9,6 @@ use WooAssistant\Helper\Param;
 use WooAssistant\Helper\PostMeta;
 use WooAssistant\Helper\Templates;
 use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
 
 class ProductFAQ extends Addon implements AddonInterface {
 	public string $addonID = 'product-faq';
@@ -29,9 +28,9 @@ class ProductFAQ extends Addon implements AddonInterface {
 
 	public function productTabContent(): void {
 		$productID          = get_the_ID();
-		$globalFAQsPosition = Settings::get( 'product_faq_global_position', 'before' );
-		$globalFAQs         = Settings::get( 'product_faq', [] );
-		$buttonIcon         = Settings::get( 'product_faq_button_icon', 'chevron' );
+		$globalFAQsPosition = $this->getSetting( 'product_faq_global_position', 'before' );
+		$globalFAQs         = $this->getSetting( 'product_faq', [] );
+		$buttonIcon         = $this->getSetting( 'product_faq_button_icon', 'chevron' );
 		$productFAQs        = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq' );
 		$productFAQs        = is_array( $productFAQs ) ? $productFAQs : [];
 
@@ -166,9 +165,10 @@ class ProductFAQ extends Addon implements AddonInterface {
 
 	public function addSectionSettings( $sections ) {
 		$sections[ $this->currentSection ] = array(
-			'title'    => __( 'FAQ', 'woo-assistant' ),
-			'desc'     => __( 'Product frequently asked questions', 'woo-assistant' ),
-			'settings' => array(
+			'title'        => __( 'FAQ', 'woo-assistant' ),
+			'desc'         => __( 'Product frequently asked questions', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => array(
 				'product_faq_start_grid_1'    => array(
 					'id'    => 'product_faq_start_grid_1',
 					'title' => __( 'Frequently asked questions', 'woo-assistant' ),
@@ -261,7 +261,8 @@ class ProductFAQ extends Addon implements AddonInterface {
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 }

@@ -17,7 +17,6 @@ use WooAssistant\Helper\Sanitizing;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Helper\WordPress;
 use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
 
 class ProductCompare extends Addon implements AddonInterface {
 	public string $addonID = 'product-compare';
@@ -29,7 +28,7 @@ class ProductCompare extends Addon implements AddonInterface {
 
 	public function initAction(): void {
 		App::addShortcode( self::shortCode, [ $this, 'compareShortcode' ] );
-		if ( Settings::get( 'product_compare_archive_button', false ) ) {
+		if ( $this->getSetting( 'product_compare_archive_button', false ) ) {
 			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'addButton' ], 9999 );
 		}
 		add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'addButton' ], 9999 );
@@ -43,11 +42,11 @@ class ProductCompare extends Addon implements AddonInterface {
 			'image_size' => null,
 		), $atts, self::shortCode );
 
-		$maxItems = (int) ( is_null( $atts['max_items'] ) ? Settings::get( 'product_compare_max_items', 2 ) : $atts['max_items'] );
+		$maxItems = (int) ( is_null( $atts['max_items'] ) ? $this->getSetting( 'product_compare_max_items', 2 ) : $atts['max_items'] );
 		$maxItems = min( $maxItems, self::maxItems );
 
 		$imageSizes = array_keys( Assets::getImageSizes() );
-		$imageSize  = is_null( $atts['image_size'] ) ? Settings::get( 'product_compare_image_size', 'thumbnail' ) : $atts['image_size'];
+		$imageSize  = is_null( $atts['image_size'] ) ? $this->getSetting( 'product_compare_image_size', 'thumbnail' ) : $atts['image_size'];
 		$imageSize  = in_array( $imageSize, $imageSizes, true ) ? $imageSize : '';
 
 		ob_start();
@@ -72,7 +71,7 @@ class ProductCompare extends Addon implements AddonInterface {
 			) );
 
 			if ( count( $products ) ) {
-				$addToCardButton = Settings::get( 'product_compare_add_to_cart_button', false );
+				$addToCardButton = $this->getSetting( 'product_compare_add_to_cart_button', false );
 				$fields          = Product::getFields();
 				$attributes      = WooCommerce::getAttributeTaxonomies();
 				$data            = [ 'count' => count( $products ) ];
@@ -108,7 +107,7 @@ class ProductCompare extends Addon implements AddonInterface {
 						}
 
 						foreach ( $fields as $key => $field ) {
-							if ( Settings::get( 'product_compare_display_field_' . $key, false ) ) {
+							if ( $this->getSetting( 'product_compare_display_field_' . $key, false ) ) {
 								$value = false;
 
 								if ( $key === 'brand' ) {
@@ -145,7 +144,7 @@ class ProductCompare extends Addon implements AddonInterface {
 						}
 
 						foreach ( $attributes as $key => $attribute ) {
-							if ( Settings::get( 'product_compare_display_attribute_' . $key, false ) ) {
+							if ( $this->getSetting( 'product_compare_display_attribute_' . $key, false ) ) {
 								$data['fields'][ $key ]['label']   = $attribute['label'];
 								$data['fields'][ $key ]['value'][] = $product->get_attribute( $attribute['name'] );
 							}
@@ -210,14 +209,14 @@ class ProductCompare extends Addon implements AddonInterface {
 	public function addRemoveItem(): void {
 		if ( Nonce::verify() ) {
 			$productID = Sanitizing::int( Param::post( 'product_id', 0 ) );
-			$max       = Settings::get( 'product_compare_max_items', 2 );
+			$max       = $this->getSetting( 'product_compare_max_items', 2 );
 			$update    = $this->updateStorage( $productID, $max );
 
 			$data = array(
 				'status'   => $update['status'],
 				'count'    => $update['count'],
 				'max'      => (int) $max,
-				'redirect' => $update['status'] === 'max_exceeded' ? get_permalink( Settings::get( 'product_compare_page', 0 ) ) : ''
+				'redirect' => $update['status'] === 'max_exceeded' ? get_permalink( $this->getSetting( 'product_compare_page', 0 ) ) : ''
 			);
 
 			wp_send_json_success( $data );
@@ -273,7 +272,7 @@ class ProductCompare extends Addon implements AddonInterface {
 		$productID = get_the_ID();
 		$exists    = $this->checkExistsItem( $productID );
 		echo '<button type="button" class="button wa-button wa-button-secondary wa-product-compare-button' . ( $exists ? ' wa-button-remove' : '' ) . '" data-id="' . $productID . '" data-action="non">' .
-		     Settings::get( 'product_compare_button_text', __( 'Compare', 'woo-assistant' ) )
+		     $this->getSetting( 'product_compare_button_text', __( 'Compare', 'woo-assistant' ) )
 		     . '</button>';
 	}
 
@@ -309,7 +308,7 @@ class ProductCompare extends Addon implements AddonInterface {
 	 * @return void
 	 */
 	public function wpEnqueueScriptsAction(): void {
-		if ( ! WooCommerce::isWoocommerce() && ! WordPress::isPage( Settings::get( 'product_compare_page', 0 ) ) ) {
+		if ( ! WooCommerce::isWoocommerce() && ! WordPress::isPage( $this->getSetting( 'product_compare_page', 0 ) ) ) {
 			return;
 		}
 
@@ -462,9 +461,10 @@ class ProductCompare extends Addon implements AddonInterface {
 		);
 
 		$sections[ $this->currentSection ] = array(
-			'title'    => __( 'Compare', 'woo-assistant' ),
-			'desc'     => __( 'Product compare', 'woo-assistant' ),
-			'settings' => $settings
+			'title'        => __( 'Compare', 'woo-assistant' ),
+			'desc'         => __( 'Product compare', 'woo-assistant' ),
+			'settings_key' => $this->addonID,
+			'settings'     => $settings
 		);
 
 		return $sections;
@@ -480,7 +480,8 @@ class ProductCompare extends Addon implements AddonInterface {
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 }

@@ -10,7 +10,6 @@ use WooAssistant\Helper\Notice;
 use WooAssistant\Helper\Param;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
 
 class OrderNumber extends Addon implements AddonInterface {
 	public string $addonID = 'order-number';
@@ -18,9 +17,9 @@ class OrderNumber extends Addon implements AddonInterface {
 	public string $currentTab = 'order';
 
 	public function initAction(): void {
-		if ( Settings::get( 'order_number_format', '', $this->addonID ) ) {
+		if ( $this->getSetting( 'order_number_format', '' ) ) {
 			// Update all order numbers
-			add_action( 'woo_assistant_save_settings_success', [ $this, 'updateOrderNumbers' ], 10, 3 );
+			add_action( 'woo_assistant_save_settings_success', [ $this, 'updateOrderNumbers' ], 999999, 3 );
 
 			// Update order number
 			add_action( 'woocommerce_new_order', [ $this, 'updateOrderNumber' ] );
@@ -42,7 +41,7 @@ class OrderNumber extends Addon implements AddonInterface {
 			], 10, 4 );
 
 			// Order number tracking
-			if ( Settings::get( 'order_number_tracking', true, $this->addonID ) ) {
+			if ( $this->getSetting( 'order_number_tracking', true ) ) {
 				remove_filter( 'woocommerce_shortcode_order_tracking_order_id', 'wc_sanitize_order_id' );
 				add_filter( 'woocommerce_shortcode_order_tracking_order_id', [
 					$this,
@@ -143,7 +142,7 @@ class OrderNumber extends Addon implements AddonInterface {
 
 	public function setOrderNumber( $orderID, $reset = false ): void {
 		if ( $reset || empty( WooCommerce::getOrderMeta( $orderID, '_wa_order_number' ) ) ) {
-			$format = Settings::get( 'order_number_format', '', $this->addonID );
+			$format = $this->getSetting( 'order_number_format', '' );
 
 			if ( empty( $format ) ) {
 				return;
@@ -153,10 +152,10 @@ class OrderNumber extends Addon implements AddonInterface {
 				$orderNumber = sprintf( '%u', crc32( $orderID ) );
 
 			} else {
-				$number     = $nextNumber = (int) Settings::get( 'order_number_next', 1, $this->addonID );
-				$length     = (int) Settings::get( 'order_number_length', 0, $this->addonID );
-				$prefix     = Settings::get( 'order_number_prefix', '', $this->addonID );
-				$dateFormat = Settings::get( 'order_number_date_format', '', $this->addonID );
+				$number     = $nextNumber = (int) $this->getSetting( 'order_number_next', 1 );
+				$length     = (int) $this->getSetting( 'order_number_length', 0 );
+				$prefix     = $this->getSetting( 'order_number_prefix', '' );
+				$dateFormat = $this->getSetting( 'order_number_date_format', '' );
 				$orderDate  = false;
 
 				if ( $length > 0 && strlen( $nextNumber ) < $length ) {
@@ -187,7 +186,7 @@ class OrderNumber extends Addon implements AddonInterface {
 					$orderNumber = $number;
 				}
 
-				Settings::save( 'order_number_next', $nextNumber + 1, $this->addonID );
+				$this->saveSetting( 'order_number_next', $nextNumber + 1 );
 			}
 
 			WooCommerce::updateOrderMeta( $orderID, '_wa_order_number', $orderNumber );
@@ -195,11 +194,11 @@ class OrderNumber extends Addon implements AddonInterface {
 	}
 
 	public function updateOrderNumbers( $tab, $section, $options ): void {
-		if ( $tab === $this->currentTab && $section === $this->addonID && Param::post( WOOASSISTANT_INPUT_PREFIX . 'order_number_update' ) && Settings::get( 'order_number_format', '', $this->addonID ) ) {
+		if ( $tab === $this->currentTab && $section === $this->addonID && Param::post( WOOASSISTANT_INPUT_PREFIX . 'order_number_update' ) && $this->getSetting( 'order_number_format', '' ) ) {
 			$limit       = 100;
 			$updateCount = $offset = 0;
-			$start       = (int) Settings::get( 'order_number_start', 1, $this->addonID );
-			Settings::save( 'order_number_next', $start, $this->addonID );
+			$start       = (int) $this->getSetting( 'order_number_start', 1 );
+			$this->saveSetting( 'order_number_next', $start );
 
 			while ( true ) {
 				$orders = wc_get_orders( array(
@@ -217,7 +216,8 @@ class OrderNumber extends Addon implements AddonInterface {
 
 				foreach ( $orders as $orderID ) {
 					$order = wc_get_order( $orderID );
-					if ( in_array( $order->get_status(), [ 'draft', 'checkout-draft' ] ) ) {
+
+					if ( is_bool( $order ) || in_array( $order->get_status(), [ 'draft', 'checkout-draft' ] ) ) {
 						continue;
 					}
 
@@ -369,7 +369,8 @@ class OrderNumber extends Addon implements AddonInterface {
 			'tags'           => [ __( 'Order', 'woo-assistant' ) ],
 			'cat'            => 'order',
 			'icon'           => $icon,
-			'more_info_link' => 'https://parsa.ws'
+			'more_info_link' => 'https://parsa.ws',
+			'settings_key'   => $this->addonID,
 		);
 	}
 }
