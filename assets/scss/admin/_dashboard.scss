@@ -1,0 +1,71 @@
+@use 'sass:color';
+@use "../utilities/variables";
+
+@mixin dashboard {
+  .wa-dashboard-welcome {
+    background-color: variables.$background_light;
+    padding: 20px;
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+
+    p {
+      font-size: 15px;
+      color: variables.$gray;
+    }
+  }
+
+  .wa-dashboard-links-wrap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    a {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      border: 1px solid variables.$border_color;
+      background-color: variables.$background_side;
+      // #F6F5F9
+      background-image: linear-gradient(to right top, #ffffff, #fdfdfe, #fcfbfd, #fafafc, #f8f8fb, #f8f8fb, #f8f8fb, #f8f8fb, #fafafc, #fcfbfd, #fdfdfe, #ffffff);
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 15px;
+      color: variables.$text !important;
+      text-decoration: none;
+
+      &:hover, &:focus {
+        background-color: variables.$background_light;
+        // #F2EEFF
+        background-image: linear-gradient(to right top, #ffffff, #fcfcff, #faf9ff, #f7f5ff, #f5f2ff, #f5f2ff, #f5f2ff, #f5f2ff, #f7f5ff, #faf9ff, #fcfcff, #ffffff);
+        border-color: color.scale(variables.$border_color, $lightness: -5%);;
+        text-decoration: none !important;
+      }
+
+      &.wa-link-type-addons {
+        // #FFF4F4
+        background-image: linear-gradient(to right top, #ffffff, #fefdfe, #fdfbfd, #fef9fb, #fef7f9, #fef7f9, #fef7f9, #fef7f9, #fef9fb, #fdfbfd, #fefdfe, #ffffff);
+
+        &:hover, &:focus {
+          // #FFE9E9
+          background-image: linear-gradient(to right top, #ffffff, #fdfbfe, #fcf7fc, #fdf2f8, #feeef3, #feeef3, #feeef3, #feeef3, #fdf2f8, #fcf7fc, #fdfbfe, #ffffff);
+        }
+      }
+
+      &.wa-link-type-style {
+        // #FFFEEE
+        background-image: linear-gradient(to right top, #ffffff, #fffeff, #fffcfc, #fffbf7, #fffcf3, #fffcf3, #fffcf3, #fffcf3, #fffbf7, #fffcfc, #fffeff, #ffffff);
+
+        &:hover, &:focus {
+          // #FFFDE0
+          background-image: linear-gradient(to right top, #ffffff, #fffcff, #fff9fa, #fff8f1, #fff9e9, #fff9e9, #fff9e9, #fff9e9, #fff8f1, #fff9fa, #fffcff, #ffffff);
+        }
+      }
+    }
+  }
+}

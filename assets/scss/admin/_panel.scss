@@ -1,6 +1,7 @@
 @use 'sass:color';
 @use "../utilities/variables";
 @use "../components/list_links";
+@use "dashboard";
 
 body.toplevel_page_#{variables.$plugin_key} {
   .wrap {
@@ -248,21 +249,7 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .wa-dashboard-welcome {
-      background-color: variables.$background_light;
-      padding: 20px;
-      font-size: 1.5em;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      border-radius: 10px;
-
-      p {
-        font-size: 15px;
-        color: variables.$gray;
-      }
-    }
-
     @include list_links.wa-list-links;
+    @include dashboard.dashboard;
   }
 }

@@ -1,36 +1,6 @@
 @use "../utilities/variables";
 
 @mixin wa-addons {
-  .wa-dashboard-addons-wrap {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-
-    a {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      border: 1px solid variables.$border_color;
-      background-color: variables.$background_side;
-      border-radius: 10px;
-      overflow: hidden;
-      padding: 15px;
-      color: variables.$text !important;
-      text-decoration: none;
-
-      &:hover, &:focus {
-        background-color: variables.$background_light;
-        text-decoration: none !important;
-      }
-
-      span {
-
-      }
-    }
-  }
-
   .wa-addons-wrap {
     .wa-heading-2 {
       margin-bottom: 30px;
@@ -42,7 +12,8 @@
 
     .wa-addons-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, 300px);
+      //grid-template-columns: repeat(auto-fill, 300px);
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
 
@@ -63,8 +34,15 @@
         }
       }
 
+      &:hover, &:focus-within {
+        .wa-image-wrap {
+          background-image: linear-gradient(to right top, #ffffff, #fcfcff, #faf9ff, #f7f5ff, #f5f2ff, #f5f2ff, #f5f2ff, #f5f2ff, #f7f5ff, #faf9ff, #fcfcff, #ffffff);
+        }
+      }
+
       .wa-image-wrap {
         background-color: variables.$background_side;
+        background-image: linear-gradient(to right top, #ffffff, #fdfdfe, #fcfbfd, #fafafc, #f8f8fb, #f8f8fb, #f8f8fb, #f8f8fb, #fafafc, #fcfbfd, #fdfdfe, #ffffff);
         height: 100px;
         display: flex;
         align-items: center;
