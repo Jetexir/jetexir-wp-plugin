@@ -30,7 +30,7 @@ abstract class Addon {
 		if ( $this->addonID ) {
 			add_filter( 'woo_assistant_' . $this->addonID . '_tab_display_notice', '__return_false' );
 			add_filter( 'woo_assistant_' . $this->addonID . '_tab_content_display_notice', '__return_true' );
-			add_filter( 'woo_assistant_dashboard_addons', [ $this, 'addDashboardLink' ] );
+			add_filter( 'woo_assistant_dashboard_addon_links', [ $this, 'addDashboardLink' ] );
 		}
 
 		// Register Plugin hooks
@@ -194,6 +194,7 @@ abstract class Addon {
 				'section' => empty( $this->currentSection ) ? $this->addonID : $this->currentSection,
 			] ),
 			'icon'  => $icon,
+			'type'  => 'addon'
 		];
 
 		return $addons;
