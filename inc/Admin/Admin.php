@@ -16,7 +16,7 @@ class Admin {
 		new AdminOrder();
 		new AdminCart();
 		new AdminCheckout();
-		new AdminGlobal();
 		new AdminWordPress();
+		new AdminGlobal();
 	}
 }
