@@ -984,7 +984,7 @@ class HTML {
 			$data['required_text'] = ' <abbr class="required" title="' . __( 'Required', 'woo-assistant' ) . '">' . $requiredText . '</abbr>';
 		}
 
-		$attributes = ! is_array( $data['attributes'] ) || empty( $data['attributes'] ) ? [] : $data['attributes'];
+		$attributes = empty( $data['attributes'] ) || ! is_array( $data['attributes'] ) ? [] : $data['attributes'];
 
 		if ( ! in_array( $data['type'], self::saveFields, true ) ) {
 			if ( $data['type'] === 'image' && filter_var( $data['src'], FILTER_VALIDATE_URL ) ) {
