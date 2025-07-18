@@ -44,7 +44,7 @@
 
   &.wa-button-secondary {
     color: var(--wa-secondary-button-color, var(--wa-text-color, variables.$dark));
-    background-color: var(--wa-secondary-button-bg-color, variables.$primary);
+    background-color: var(--wa-secondary-button-bg-color, variables.$primary_light);
     border-color: var(--wa-secondary-button-border-color, variables.$woo_purple_50);
 
     &:hover, &:focus, &:active {

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "wooassistant-icon";
-  src: url("../fonts/wooassistant-icon.ttf?es6vre") format("truetype"), url("../fonts/wooassistant-icon.woff?es6vre") format("woff"), url("../fonts/wooassistant-icon.svg?es6vre#wooassistant-icon") format("svg");
+  src: url("../fonts/wooassistant-icon.ttf?4uwdcw") format("truetype"), url("../fonts/wooassistant-icon.woff?4uwdcw") format("woff"), url("../fonts/wooassistant-icon.svg?4uwdcw#wooassistant-icon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -89,6 +89,10 @@
 
 .wa-icon-heart1:before {
   content: "\e92d";
+}
+
+.wa-icon-move-vertical:before {
+  content: "\e94c";
 }
 
 .wa-icon-heart-stroke:before {
@@ -579,7 +583,7 @@ body.rtl.woo-assistant-notices .wa-notice {
   position: relative;
   width: auto;
   max-width: 500px;
-  margin: calc(var(--wa-admin-bar-height, 0) + 5em) auto 2em;
+  margin: calc(var(--wa-admin-bar-height, 0) + 2em) auto 2em;
   pointer-events: none;
 }
 .wa-modal.wa-modal-large .wa-modal-dialog {
@@ -626,6 +630,9 @@ body.rtl.woo-assistant-notices .wa-notice {
   position: relative;
   flex: 1 1 auto;
   padding: 15px;
+  min-height: 200px;
+  max-height: calc(100vh - 250px);
+  overflow: auto;
 }
 .wa-modal .wa-modal-footer {
   display: flex;
@@ -710,7 +717,7 @@ body.rtl.woo-assistant-notices .wa-notice {
 }
 .wa-button.wa-button-secondary {
   color: var(--wa-secondary-button-color, var(--wa-text-color, #2B2B2B));
-  background-color: var(--wa-secondary-button-bg-color, #873eff);
+  background-color: var(--wa-secondary-button-bg-color, #E1CEFF);
   border-color: var(--wa-secondary-button-border-color, #720eec);
 }
 .wa-button.wa-button-secondary:hover, .wa-button.wa-button-secondary:focus, .wa-button.wa-button-secondary:active {
