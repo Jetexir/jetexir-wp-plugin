@@ -589,6 +589,7 @@ class HTML {
 	}
 
 	public static function button( $data ): string {
+		$data['type'] = $data['type'] ?? 'button';
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
 		}
