@@ -396,7 +396,7 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_reload_page_load'             => array(
 					'id'       => 'fly_cart_reload_page_load',
-					'title'    => __( 'Reload the cart', 'woo-assistant' ),
+					'title'    => __( 'Reload cart', 'woo-assistant' ),
 					'desc'     => __( 'Reload the shopping cart after the page opens.', 'woo-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
