@@ -2,6 +2,8 @@
 
 namespace WooAssistant\App\Product;
 
+defined( 'ABSPATH' ) || exit;
+
 use Automattic\WooCommerce\Enums\ProductStatus;
 use WooAssistant\Addons\Addon;
 use WooAssistant\App\App;

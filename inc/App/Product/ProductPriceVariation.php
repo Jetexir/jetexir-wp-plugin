@@ -2,6 +2,8 @@
 
 namespace WooAssistant\App\Product;
 
+defined( 'ABSPATH' ) || exit;
+
 use WooAssistant\Addons\Addon;
 use WooAssistant\Interfaces\AddonInterface;
 use WooAssistant\Settings\Settings;
@@ -78,7 +80,7 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 	public function addProductGlobalSettings( $settings ): array {
 		$addonSettings = array(
 			'start_grid_product_variation_price' => array(
-				'title' => __( 'Product Variation Prices', 'woo-assistant' ),
+				'title' => __( 'Variation Prices', 'woo-assistant' ),
 				'type'  => 'startgrid',
 			),
 
