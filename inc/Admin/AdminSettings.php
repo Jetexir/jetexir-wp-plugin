@@ -339,7 +339,7 @@ class AdminSettings {
 				if ( ! empty( $field['type'] ) && method_exists( HTML::class, strtolower( $field['type'] ) ) ) {
 					if ( isset( $field['force_value'] ) ) {
 						$field['setting_value'] = $field['force_value'];
-					} else {
+					} elseif ( isset( $field['id'] ) ) {
 						$field['setting_value'] = wp_unslash( Settings::get( $field['id'], $field['default'], $optionsName ) );
 					}
 
