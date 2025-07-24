@@ -987,7 +987,7 @@ class HTML {
 
 		$attributes = empty( $data['attributes'] ) || ! is_array( $data['attributes'] ) ? [] : $data['attributes'];
 
-		if ( ! in_array( $data['type'], self::saveFields, true ) ) {
+		if ( isset( $data['type'] ) && ! in_array( $data['type'], self::saveFields, true ) ) {
 			if ( $data['type'] === 'image' && filter_var( $data['src'], FILTER_VALIDATE_URL ) ) {
 				return false;
 			}
