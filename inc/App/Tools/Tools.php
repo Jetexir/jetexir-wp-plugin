@@ -2,6 +2,8 @@
 
 namespace WooAssistant\App\Tools;
 
+defined( 'ABSPATH' ) || exit;
+
 class Tools {
 	public function __construct() {
 		new AnnouncementBarTools();

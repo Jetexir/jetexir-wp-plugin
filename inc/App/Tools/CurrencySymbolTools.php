@@ -2,6 +2,8 @@
 
 namespace WooAssistant\App\Tools;
 
+defined( 'ABSPATH' ) || exit;
+
 use WooAssistant\Addons\Addon;
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Cache;

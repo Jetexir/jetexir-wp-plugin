@@ -2,6 +2,8 @@
 
 namespace WooAssistant\AppHelper;
 
+defined( 'ABSPATH' ) || exit;
+
 class Modal {
 	public function __construct() {
 		add_action( 'wp_footer', [ $this, 'printModal' ] );

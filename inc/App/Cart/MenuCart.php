@@ -2,6 +2,8 @@
 
 namespace WooAssistant\App\Cart;
 
+defined( 'ABSPATH' ) || exit;
+
 use WooAssistant\Addons\Addon;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Interfaces\AddonInterface;

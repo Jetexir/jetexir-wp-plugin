@@ -2,6 +2,8 @@
 
 namespace WooAssistant\App\GlobalSettings;
 
+defined( 'ABSPATH' ) || exit;
+
 class Debug {
 	private const sectionID = 'debug';
 

@@ -2,6 +2,8 @@
 
 namespace WooAssistant\AppHelper;
 
+defined( 'ABSPATH' ) || exit;
+
 use WooAssistant\Admin\AdminPages;
 use WooAssistant\Admin\AdminSettings;
 use WooAssistant\Helper\HTML;

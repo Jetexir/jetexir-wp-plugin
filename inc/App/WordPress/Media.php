@@ -2,9 +2,9 @@
 
 namespace WooAssistant\App\WordPress;
 
-use WooAssistant\Settings\Settings;
-
 defined( 'ABSPATH' ) || exit;
+
+use WooAssistant\Settings\Settings;
 
 class Media {
 	private const sectionID = 'media';

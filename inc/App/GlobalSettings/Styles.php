@@ -2,6 +2,8 @@
 
 namespace WooAssistant\App\GlobalSettings;
 
+defined( 'ABSPATH' ) || exit;
+
 use WooAssistant\Admin\AdminPages;
 use WooAssistant\Enums\Colors;
 use WooAssistant\Helper\Assets;

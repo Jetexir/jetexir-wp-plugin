@@ -2,6 +2,8 @@
 
 namespace WooAssistant\AppHelper;
 
+defined( 'ABSPATH' ) || exit;
+
 class FlyIcons {
 	public function __construct() {
 		add_action( 'admin_footer', [ $this, 'adminIcons' ] );

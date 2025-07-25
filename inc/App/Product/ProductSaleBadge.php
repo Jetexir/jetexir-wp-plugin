@@ -2,6 +2,8 @@
 
 namespace WooAssistant\App\Product;
 
+defined( 'ABSPATH' ) || exit;
+
 use WooAssistant\Addons\Addon;
 use WooAssistant\Interfaces\AddonInterface;
 use WooAssistant\Settings\Settings;

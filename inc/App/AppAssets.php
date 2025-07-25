@@ -2,11 +2,11 @@
 
 namespace WooAssistant\App;
 
+defined( 'ABSPATH' ) || exit;
+
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Nonce;
 use WooAssistant\Helper\WordPress;
-
-defined( 'ABSPATH' ) || exit;
 
 class AppAssets {
 	public function __construct() {

@@ -2,6 +2,8 @@
 
 namespace WooAssistant\App;
 
+defined( 'ABSPATH' ) || exit;
+
 use WooAssistant\Helper\Param;
 use WooAssistant\Helper\Templates;
 
