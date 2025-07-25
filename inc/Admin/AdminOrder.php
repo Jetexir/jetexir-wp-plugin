@@ -38,7 +38,7 @@ class AdminOrder implements AdminTabInterface {
 		if ( self::$settings === null ) {
 			self::$settings = array(
 				'title'    => __( 'Order', 'woo-assistant' ),
-				'desc'     => __( 'Order enhance tools', 'woo-assistant' ),
+				'desc'     => __( 'Tools to enhance your WooCommerce orders', 'woo-assistant' ),
 				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
 			);
 		}

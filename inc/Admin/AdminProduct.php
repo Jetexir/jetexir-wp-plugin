@@ -38,7 +38,7 @@ class AdminProduct implements AdminTabInterface {
 		if ( self::$settings === null ) {
 			self::$settings = array(
 				'title'    => __( 'Product', 'woo-assistant' ),
-				'desc'     => __( 'Product enhance tools', 'woo-assistant' ),
+				'desc'     => __( 'Tools to enhance your WooCommerce products', 'woo-assistant' ),
 				// 'header_image' => AdminAssets::imageUrl( 'header/product-header.png' ),
 				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
 			);

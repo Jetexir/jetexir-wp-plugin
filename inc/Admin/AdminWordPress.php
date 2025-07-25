@@ -57,7 +57,7 @@ class AdminWordPress implements AdminTabInterface {
 		if ( self::$settings === null ) {
 			self::$settings = array(
 				'title'    => __( 'WordPress', 'woo-assistant' ),
-				'desc'     => __( 'WordPress enhance tools', 'woo-assistant' ),
+				'desc'     => __( 'Tools to enhance your WordPress site', 'woo-assistant' ),
 				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
 			);
 		}

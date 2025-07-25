@@ -38,7 +38,7 @@ class AdminCheckout implements AdminTabInterface {
 		if ( self::$settings === null ) {
 			self::$settings = array(
 				'title'    => __( 'Checkout', 'woo-assistant' ),
-				'desc'     => __( 'Checkout enhance tools', 'woo-assistant' ),
+				'desc'     => __( 'Tools to enhance your WooCommerce checkout', 'woo-assistant' ),
 				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
 			);
 		}

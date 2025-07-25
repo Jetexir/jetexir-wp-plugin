@@ -38,7 +38,7 @@ class AdminCart implements AdminTabInterface {
 		if ( self::$settings === null ) {
 			self::$settings = array(
 				'title'    => __( 'Cart', 'woo-assistant' ),
-				'desc'     => __( 'Cart enhance tools', 'woo-assistant' ),
+				'desc'     => __( 'Tools to enhance your WooCommerce cart', 'woo-assistant' ),
 				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
 			);
 		}

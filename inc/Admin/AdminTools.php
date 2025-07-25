@@ -541,7 +541,7 @@ class AdminTools implements AdminTabInterface {
 		if ( self::$settings === null ) {
 			self::$settings = array(
 				'title'    => __( 'Tools', 'woo-assistant' ),
-				'desc'     => __( 'WordPress & WooCommerce tools', 'woo-assistant' ),
+				'desc'     => __( 'Tools for WordPress and WooCommerce', 'woo-assistant' ),
 				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
 			);
 		}
