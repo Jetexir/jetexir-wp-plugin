@@ -107,7 +107,7 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Currency Symbol', 'woo-assistant' ),
-			'desc'           => __( 'Change currency symbol', 'woo-assistant' ),
+			'desc'           => __( 'Modify the currency symbol.', 'woo-assistant' ),
 			'tags'           => [ __( 'Currency', 'woo-assistant' ) ],
 			'cat'            => 'customizations',
 			'icon'           => $icon,

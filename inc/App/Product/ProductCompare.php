@@ -476,7 +476,7 @@ class ProductCompare extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Products Compare', 'woo-assistant' ),
-			'desc'           => __( 'Allows customers to compare products.', 'woo-assistant' ),
+			'desc'           => __( 'Enables customers to compare products.', 'woo-assistant' ),
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,

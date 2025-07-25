@@ -721,7 +721,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Checkout Fields', 'woo-assistant' ),
-			'desc'           => __( 'Customize WooCommerce checkout fields', 'woo-assistant' ),
+			'desc'           => __( 'Customize the checkout fields in WooCommerce.', 'woo-assistant' ),
 			'tags'           => [ __( 'Checkout', 'woo-assistant' ) ],
 			'cat'            => 'checkout',
 			'icon'           => $icon,

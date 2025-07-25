@@ -124,7 +124,7 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Product Sale Badge', 'woo-assistant' ),
-			'desc'           => __( 'Change product sale badge', 'woo-assistant' ),
+			'desc'           => __( 'Customize the product sale badge.', 'woo-assistant' ),
 			'tags'           => [ __( 'Sale', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,

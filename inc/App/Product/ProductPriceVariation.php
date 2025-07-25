@@ -141,7 +141,7 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Product Price Variation', 'woo-assistant' ),
-			'desc'           => __( 'Add advanced settings for WooCommerce variable product prices.', 'woo-assistant' ),
+			'desc'           => __( 'Add advanced settings for WooCommerce variable product pricing.', 'woo-assistant' ),
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,

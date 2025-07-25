@@ -589,7 +589,7 @@ class OrderStatus extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Order Status', 'woo-assistant' ),
-			'desc'           => __( 'Add custom order statuses to WooCommerce.', 'woo-assistant' ),
+			'desc'           => __( 'Add custom order statuses to your WooCommerce store.', 'woo-assistant' ),
 			'tags'           => [ __( 'Order', 'woo-assistant' ) ],
 			'cat'            => 'order',
 			'icon'           => $icon,

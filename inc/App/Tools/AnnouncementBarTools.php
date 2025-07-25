@@ -550,7 +550,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Announcement Bar', 'woo-assistant' ),
-			'desc'           => __( 'Promote sales with multiple announcement bar banner types', 'woo-assistant' ),
+			'desc'           => __( 'Promote sales using multiple announcement bar banner types.', 'woo-assistant' ),
 			'tags'           => [ __( 'Notification', 'woo-assistant' ) ],
 			'cat'            => 'customizations',
 			'icon'           => $icon,

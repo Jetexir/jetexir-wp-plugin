@@ -495,7 +495,7 @@ class FlyCart extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Fly Cart', 'woo-assistant' ),
-			'desc'           => __( 'Float Cart for WooCommerce', 'woo-assistant' ),
+			'desc'           => __( 'Floating Cart for WooCommerce', 'woo-assistant' ),
 			'tags'           => [ __( 'Cart', 'woo-assistant' ) ],
 			'cat'            => 'cart',
 			'icon'           => $icon,

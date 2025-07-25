@@ -257,7 +257,7 @@ class ProductFAQ extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Products FAQ', 'woo-assistant' ),
-			'desc'           => __( 'Add FAQ to product', 'woo-assistant' ),
+			'desc'           => __( 'Add a frequently asked questions (FAQ) section to the product page.', 'woo-assistant' ),
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,

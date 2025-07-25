@@ -365,7 +365,7 @@ class OrderNumber extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Order Number', 'woo-assistant' ),
-			'desc'           => __( 'Add custom order numbers to WooCommerce.', 'woo-assistant' ),
+			'desc'           => __( 'Add custom order numbers to your WooCommerce store.', 'woo-assistant' ),
 			'tags'           => [ __( 'Order', 'woo-assistant' ) ],
 			'cat'            => 'order',
 			'icon'           => $icon,

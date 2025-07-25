@@ -536,7 +536,7 @@ class ProductRelated extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Related Products', 'woo-assistant' ),
-			'desc'           => __( 'Displays custom related products based on category, tag, attribute or product for your WooCommerce store.', 'woo-assistant' ),
+			'desc'           => __( 'Displays custom related products based on category, tags, attributes, or specific products for your WooCommerce store.', 'woo-assistant' ),
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,

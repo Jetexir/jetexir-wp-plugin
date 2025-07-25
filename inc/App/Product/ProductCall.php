@@ -208,7 +208,7 @@ class ProductCall extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Call for price', 'woo-assistant' ),
-			'desc'           => __( 'Add a call button for products that have an empty price field.', 'woo-assistant' ),
+			'desc'           => __( 'Add a Call button for products with no price set.', 'woo-assistant' ),
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,

@@ -694,7 +694,7 @@ class ProductWishList extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Product WishList', 'woo-assistant' ),
-			'desc'           => __( 'Add Wishlist features to your store.', 'woo-assistant' ),
+			'desc'           => __( 'Add wishlist functionality to your store.', 'woo-assistant' ),
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,

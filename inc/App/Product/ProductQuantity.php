@@ -869,7 +869,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Product Quantity', 'woo-assistant' ),
-			'desc'           => __( 'Add plus minus button to quantity field, Control Min/Max/Step of quantity field.', 'woo-assistant' ),
+			'desc'           => __( 'Add plus and minus buttons to the quantity field. Control the minimum, maximum, and step values of the quantity field.', 'woo-assistant' ),
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,

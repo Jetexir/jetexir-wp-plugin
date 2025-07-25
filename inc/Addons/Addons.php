@@ -217,7 +217,7 @@ class Addons {
 
 		return array(
 			'title'    => __( 'Addons', 'woo-assistant' ),
-			'desc'     => __( 'Woo Assistant can integrate with other products, to help you further improve your website. You can enable or disable these integrations below.', 'woo-assistant' ),
+			'desc'     => __( 'Woo Assistant integrates with WooCommerce to help you further enhance your website. You can enable or disable these integrations below.', 'woo-assistant' ),
 			'settings' => $elementList
 		);
 	}

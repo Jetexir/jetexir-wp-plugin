@@ -445,7 +445,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Product Social Share', 'woo-assistant' ),
-			'desc'           => __( 'Display social icons on WooCommerce products', 'woo-assistant' ),
+			'desc'           => __( 'Enable social sharing on WooCommerce product pages.', 'woo-assistant' ),
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,

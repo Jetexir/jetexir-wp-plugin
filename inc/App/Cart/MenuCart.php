@@ -201,7 +201,7 @@ class MenuCart extends Addon implements AddonInterface {
 		return array(
 			'id'             => $this->addonID,
 			'title'          => __( 'Menu Cart', 'woo-assistant' ),
-			'desc'           => __( 'Add cart icon to menu bar', 'woo-assistant' ),
+			'desc'           => __( 'Add a shopping cart icon to the menu bar.', 'woo-assistant' ),
 			'tags'           => [ __( 'Cart', 'woo-assistant' ) ],
 			'cat'            => 'cart',
 			'icon'           => $icon,
