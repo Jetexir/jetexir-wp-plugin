@@ -48,11 +48,13 @@ if ( ! isset( $args ) ) {
 		foreach ( $args['tbody'] as $index => $row ) {
 			$rowId      = $row['id'];
 			$attributes = '';
-			foreach ( $args['attributes'] as $dataName => $dataValues ) {
-				$attributes .= ' data-' . $dataName . '="' . $dataValues . '"';
+			if ( ! empty( $args['attributes'] ) && is_array( $args['attributes'] ) ) {
+				foreach ( $args['attributes'] as $dataName => $dataValues ) {
+					$attributes .= ' data-' . $dataName . '="' . $dataValues . '"';
+				}
 			}
 			?>
-            <tr data-id="<?php echo $rowId ?>" <?php echo $row['attributes'] . ( ! $row['is_active'] ? ' data-disabled="true"' : '' ) ?>>
+            <tr data-id="<?php echo $rowId ?>" <?php echo $attributes . ( ! $row['is_active'] ? ' data-disabled="true"' : '' ) ?>>
 				<?php
 				if ( $args['sortable'] ) {
 					echo '<td class="wa-dtu-sortable-column sort ui-sortable-handle"><i class="wa-icon-move-vertical"></i><input type="hidden" class="wa-dtu-row-order" name="order[' . $rowId . ']" value="' . $index . '" ></td>';
