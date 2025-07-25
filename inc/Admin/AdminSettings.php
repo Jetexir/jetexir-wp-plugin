@@ -336,6 +336,8 @@ class AdminSettings {
 			$settings = self::checkRepeatableSettings( $settings, $optionsName );
 			foreach ( $settings as $key => $field ) {
 				if ( ! empty( $field['type'] ) && method_exists( HTML::class, strtolower( $field['type'] ) ) ) {
+					$field['default'] = $field['default'] ?? null;
+
 					if ( isset( $field['force_value'] ) ) {
 						$field['setting_value'] = $field['force_value'];
 					} elseif ( isset( $field['id'] ) ) {
