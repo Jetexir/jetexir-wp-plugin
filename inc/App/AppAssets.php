@@ -4,7 +4,6 @@ namespace WooAssistant\App;
 
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Nonce;
-use WooAssistant\Helper\Sanitizing;
 use WooAssistant\Helper\WordPress;
 
 defined( 'ABSPATH' ) || exit;

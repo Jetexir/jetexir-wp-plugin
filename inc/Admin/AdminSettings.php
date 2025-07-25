@@ -5,7 +5,6 @@ namespace WooAssistant\Admin;
 defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Helper\Cache;
-use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Helper\Helper;
 use WooAssistant\Helper\HTML;
 use WooAssistant\Helper\Notice;

@@ -11,8 +11,6 @@ use WooAssistant\Helper\Cache;
 use WooAssistant\Helper\DebugTrait;
 use WooAssistant\Settings\Settings;
 
-defined( 'ABSPATH' ) || exit;
-
 abstract class Addon {
 	use DebugTrait;
 
