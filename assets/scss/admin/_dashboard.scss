@@ -47,6 +47,16 @@
         text-decoration: none !important;
       }
 
+      &.wa-link-type-wordpress {
+        // #F4FCFF
+        background-image: linear-gradient(to right top, #ffffff, #fefeff, #fcfdff, #fafdff, #f8fcff, #f8fcff, #f8fcff, #f8fcff, #fafdff, #fcfdff, #fefeff, #ffffff);
+
+        &:hover, &:focus {
+          // #E3F6FD
+          background-image: linear-gradient(to right top, #ffffff, #fcfdff, #f8fbff, #f2f9ff, #ecf8ff, #ecf8ff, #ecf8ff, #ecf8ff, #f2f9ff, #f8fbff, #fcfdff, #ffffff);
+        }
+      }
+
       &.wa-link-type-addons {
         // #FFF4F4
         background-image: linear-gradient(to right top, #ffffff, #fefdfe, #fdfbfd, #fef9fb, #fef7f9, #fef7f9, #fef7f9, #fef7f9, #fef9fb, #fdfbfd, #fefdfe, #ffffff);

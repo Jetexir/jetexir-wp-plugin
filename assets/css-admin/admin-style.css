@@ -756,6 +756,12 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-dashboard-links-wrap a:
   border-color: rgb(214.9038461538, 208.4884615385, 238.9615384615);
   text-decoration: none !important;
 }
+body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-dashboard-links-wrap a.wa-link-type-wordpress {
+  background-image: linear-gradient(to right top, #ffffff, #fefeff, #fcfdff, #fafdff, #f8fcff, #f8fcff, #f8fcff, #f8fcff, #fafdff, #fcfdff, #fefeff, #ffffff);
+}
+body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-dashboard-links-wrap a.wa-link-type-wordpress:hover, body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-dashboard-links-wrap a.wa-link-type-wordpress:focus {
+  background-image: linear-gradient(to right top, #ffffff, #fcfdff, #f8fbff, #f2f9ff, #ecf8ff, #ecf8ff, #ecf8ff, #ecf8ff, #f2f9ff, #f8fbff, #fcfdff, #ffffff);
+}
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-dashboard-links-wrap a.wa-link-type-addons {
   background-image: linear-gradient(to right top, #ffffff, #fefdfe, #fdfbfd, #fef9fb, #fef7f9, #fef7f9, #fef7f9, #fef7f9, #fef9fb, #fdfbfd, #fefdfe, #ffffff);
 }
