@@ -83,14 +83,13 @@ class AdminPages {
                         do_action( 'woo_assistant_start_menus' );
                         $menus    = self::getMenus();
                         $addonSep = false;
-                        echo self::menuItem( __( 'Dashboard', 'woo-assistant' ), 'dashboard' );
-                        foreach ( $menus as $tab => $title ) {
+                        foreach ( $menus as $tab => $menu ) {
                             if ( ! $addonSep && ! in_array( $tab, self::defaultTabs(), true ) ) {
                                 echo '<hr>';
                                 $addonSep = true;
                             }
 
-                            echo self::menuItem( $title, $tab );
+                            echo self::menuItem( $tab, $menu );
                         }
                         do_action( 'woo_assistant_end_menus' );
                         ?>
@@ -121,11 +120,17 @@ class AdminPages {
         }, $settings );*/
     }
 
-    public static function menuItem( $title, $tab, $link = null ): string {
+    public static function menuItem( $tab, $menu, $link = null ): string {
         $current = self::getActiveTab();
         $link    = empty( $link ) ? self::link( [ 'tab' => $tab ] ) : $link;
 
-        return '<a href="' . $link . '" class="menu-item' . ( $current === $tab ? ' menu-item-current' : '' ) . '">' . $title . '</a>';
+        if ( ! is_array( $menu ) || ! isset( $menu['title'] ) ) {
+            return '';
+        }
+
+        $icon = Assets::isSvgImageString( $menu['icon'] ) ? Assets::setSvgDimensions( $menu['icon'], 20 ) : '';
+
+        return '<a href="' . $link . '" class="menu-item' . ( $current === $tab ? ' menu-item-current' : '' ) . '">' . $icon . $menu['title'] . '</a>';
     }
 
     public static function getActiveTab(): string {

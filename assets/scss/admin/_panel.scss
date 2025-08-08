@@ -86,8 +86,10 @@ body.toplevel_page_#{variables.$plugin_key} {
         margin-top: 30px;
 
         .menu-item {
+          display: flex;
+          align-items: center;
+          gap: 5px;
           padding: 10px 12px;
-          display: block;
           border-radius: 10px;
           color: variables.$gray;
           border: 1px solid transparent;
@@ -104,6 +106,10 @@ body.toplevel_page_#{variables.$plugin_key} {
             color: variables.$text;
             background-color: variables.$background_menu;
             border-color: variables.$border_color;
+
+            &:hover, &:active, &:focus {
+              background-color: color.scale(variables.$background_menu, $lightness: 10%);
+            }
           }
         }
       }
