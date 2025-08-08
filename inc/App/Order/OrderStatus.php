@@ -567,6 +567,7 @@ class OrderStatus extends Addon implements AddonInterface {
 					),
 					'order_status_space'               => array(
 						'type' => 'space',
+						'size' => 150
 					),
 				)
 			);
