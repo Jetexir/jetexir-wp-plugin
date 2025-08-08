@@ -5,7 +5,7 @@
 
 body.toplevel_page_#{variables.$plugin_key} {
   .wrap {
-    margin-top: 30px;
+    margin-top: 20px;
     //padding: 15px;
 
     h1 {
@@ -35,6 +35,14 @@ body.toplevel_page_#{variables.$plugin_key} {
     }
   }
 
+  #wpbody-content {
+    padding-bottom: 10px;
+  }
+
+  #wpfooter {
+    display: none;
+  }
+
   .#{variables.$plugin_key}-wrap {
     &.woo-assistant-wrapper {
       background: white;
@@ -45,6 +53,7 @@ body.toplevel_page_#{variables.$plugin_key} {
       overflow: hidden;
       color: variables.$text;
       font-size: 14px;
+      min-height: calc(100vh - 40px - var(--wp-admin--admin-bar--height, 0));
     }
 
     * {
@@ -116,7 +125,27 @@ body.toplevel_page_#{variables.$plugin_key} {
     }
 
     .wa-content {
-      padding: 30px;
+      //padding: 30px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      max-height: calc(100vh - 40px - var(--wp-admin--admin-bar--height, 0));
+      overflow-y: auto;
+
+      > .woo-assistant-notices {
+        padding: 20px 30px;
+        margin-bottom: 0;
+      }
+
+      .wa-content-body {
+        padding: 20px 30px 30px;
+        margin-bottom: auto;
+      }
+
+      > form {
+        padding: 20px 30px 30px;
+        margin-bottom: auto;
+      }
 
       a {
         text-underline-offset: 3px;
@@ -133,7 +162,12 @@ body.toplevel_page_#{variables.$plugin_key} {
     }
 
     .wa-header {
-      overflow: hidden;
+      //overflow: hidden;
+      padding: 20px 30px 0 30px;
+      position: sticky;
+      top: 0;
+      background-color: white;
+      z-index: 20;
 
       .wa-header-title {
         display: flex;
@@ -180,7 +214,7 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
 
       hr {
-        margin: 20px 0;
+        margin: 10px 0;
       }
     }
 
@@ -229,28 +263,28 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
 
       & + hr {
-        margin-top: 25px;
+        margin: 15px 0 0;
       }
     }
 
     .wa-footer {
-      padding: 30px 30px;
-      margin: 30px -30px -30px -30px;
+      padding: 10px 30px;
       background-color: color.adjust(variables.$background_side, $lightness: 1%);
-      //position: sticky;
-      //display: flex;
-      //gap: 10px;
-      //z-index: 10;
 
       &.wa-settings-footer {
         pointer-events: inherit;
-        opacity: 1;
         position: sticky;
         bottom: 0;
+        z-index: 99999;
+        opacity: 0.9;
 
         &.wa-submit-inactive {
           pointer-events: none;
-          opacity: 0.5;
+          opacity: 0.8;
+
+          * {
+            opacity: 0.7;
+          }
         }
       }
     }

@@ -139,7 +139,7 @@ abstract class Addon {
 			add_filter( 'woo_assistant_menus', [ $this, 'addMenu' ] );
 
 			if ( $this->getInfo( 'content_header', false ) ) {
-				add_action( 'woo_assistant_' . $this->addonID . '_tab_content',
+				add_action( 'woo_assistant_' . $this->addonID . '_tab_header',
 					[ $this, 'displayContentHeader' ], - 10 );
 			}
 

@@ -19,7 +19,9 @@ class AdminPages {
         add_action( 'admin_menu', array( $this, 'adminMenuInit' ), 0 );
         add_action( 'admin_menu', array( $this, 'addMenu' ), PHP_INT_MAX );
         add_action( 'woo_assistant_notice', [ $this, 'displayNotices' ] );
-        add_action( 'woo_assistant_content', [ $this, 'content' ] );
+        add_action( 'woo_assistant_header', [ $this, 'pageHeader' ] );
+        add_action( 'woo_assistant_content', [ $this, 'pageContent' ] );
+        add_action( 'woo_assistant_footer', [ $this, 'pageFooter' ] );
         add_action( 'admin_footer', [ $this, 'flushRewriteRules' ] );
     }
 
@@ -36,12 +38,27 @@ class AdminPages {
         }
     }
 
-    public function content( $currentTab ): void {
+    public function pageHeader( $currentTab ): void {
+        AdminSettings::headerSettings( $currentTab, AdminSettings::getSettings( $currentTab ) );
+    }
+
+    public function pageContent( $currentTab ): void {
         $settings = AdminSettings::getSettings( $currentTab );
 
         if ( $settings && apply_filters( 'woo_assistant_display_tab_settings', true, $currentTab ) ) {
             AdminSettings::printPage( $currentTab, $settings );
         }
+    }
+
+    public function pageFooter( $currentTab ): void {
+        $settings = AdminSettings::getSettings( $currentTab );
+        if ( empty( $settings ) ) {
+            return;
+        }
+
+        $currentSection = AdminSettings::getActiveSection( $settings );
+        $currentSection = $currentSection ?: null;
+        AdminSettings::footerSettings( $currentTab, $currentSection );
     }
 
     public function init(): void {
@@ -75,7 +92,7 @@ class AdminPages {
         $currentTab = self::getActiveTab();
         ?>
         <div class="wrap ">
-            <div class="woo-assistant-wrap woo-assistant-wrapper">
+            <div class="woo-assistant-wrap woo-assistant-<?php echo $currentTab ?>-wrap woo-assistant-wrapper">
                 <div class="wa-sidebar">
                     <img src="<?php echo $logo ?>" alt="Logo" class="wa-logo">
                     <div class="menu-items">
@@ -95,8 +112,13 @@ class AdminPages {
                         ?>
                     </div>
                 </div>
-                <div class="wa-content">
+                <div class="wa-content wa-<?php echo $currentTab ?>-content">
                     <?php
+                    // Display tab header
+                    do_action( 'woo_assistant_' . $currentTab . '_tab_header' );
+                    do_action( 'woo_assistant_header', $currentTab );
+
+                    echo '<div class="wa-content-body">';
                     // Display notice
                     do_action( 'woo_assistant_notice', $currentTab );
                     do_action( 'woo_assistant_' . $currentTab . '_tab_notice' );
@@ -104,6 +126,11 @@ class AdminPages {
                     // Display tab content
                     do_action( 'woo_assistant_' . $currentTab . '_tab_content' );
                     do_action( 'woo_assistant_content', $currentTab );
+                    echo '</div>';
+
+                    // Display tab footer
+                    do_action( 'woo_assistant_' . $currentTab . '_tab_footer' );
+                    do_action( 'woo_assistant_footer', $currentTab );
                     ?>
                 </div>
             </div>
