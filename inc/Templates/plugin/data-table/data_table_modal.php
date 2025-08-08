@@ -26,21 +26,21 @@ defined( 'ABSPATH' ) or die();
             </form>
 
             <div class="wa-modal-footer">
-				<?php
-				echo HTML::toggle( array(
-					'type'          => 'toggle',
-					'title'         => __( 'Active', 'woo-assistant' ),
-					'id'            => 'dtu-row-active',
-					'value'         => 1,
-					'setting_value' => 1
-				) );
-				?>
+                <?php
+                echo HTML::toggle( array(
+                        'type'          => 'toggle',
+                        'title'         => __( 'Active', 'woo-assistant' ),
+                        'id'            => 'dtu-row-active',
+                        'value'         => 1,
+                        'setting_value' => 1
+                ) );
+                ?>
                 <div class="wa-modal-buttons">
                     <button class="wa-button wa-button-secondary" data-wa-dismiss="modal" type="button">
-						<?php _e( 'Close', 'woo-assistant' ) ?>
+                        <?php _e( 'Close', 'woo-assistant' ) ?>
                     </button>
                     <button class="wa-button wa-button-primary" type="button">
-						<?php _e( 'Add', 'woo-assistant' ) ?>
+                        <?php _e( 'Add', 'woo-assistant' ) ?>
                     </button>
                 </div>
             </div>

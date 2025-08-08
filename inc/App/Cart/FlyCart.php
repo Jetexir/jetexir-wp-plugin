@@ -198,7 +198,7 @@ class FlyCart extends Addon implements AddonInterface {
 	}
 
 	private function checkHide(): bool {
-		if ( Cache::get( 'fly_cart_hide' ) ) {
+		if ( Cache::get( 'fly_cart_hide', false ) ) {
 			return true;
 		}
 
@@ -230,7 +230,6 @@ class FlyCart extends Addon implements AddonInterface {
 		}
 
 		$hide = apply_filters( 'woo_assistant_fly_cart_hide', $hide );
-
 
 		Cache::set( 'fly_cart_hide', $hide );
 

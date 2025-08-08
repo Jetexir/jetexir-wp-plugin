@@ -18,7 +18,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 
 	public function initAction(): void {
 		App::addShortcode( self::shortCode, [ $this, 'shareShortcode' ] );
-		
+
 		$position = $this->getSetting( 'product_social_share_position', false );
 
 		if ( $position === 'after_categories' ) {
@@ -33,14 +33,14 @@ class ProductSocialShare extends Addon implements AddonInterface {
 	}
 
 	public function displayLinks(): void {
-		$socials          = implode( ',',  $this->getSetting( 'product_social_share_networks', [] ) );
-		$linkType         =  $this->getSetting( 'product_social_share_link_type', 'long' );
-		$encodeUrl        =  $this->getSetting( 'product_social_share_encode_url', true ) ? 'on' : 'off';
-		$copyClipboard    =  $this->getSetting( 'product_social_share_copy_clipboard', true ) ? 'on' : 'off';
-		$title            =  $this->getSetting( 'product_social_share_title', __( 'Share On:', 'woo-assistant' ) );
-		$buttonAppearance =  $this->getSetting( 'product_social_share_appearance', 'icon' );
-		$buttonShape      =  $this->getSetting( 'product_social_share_shape', 'round' );
-		$buttonSize       =  $this->getSetting( 'product_social_share_button_size', 'default' );
+		$socials          = implode( ',', $this->getSetting( 'product_social_share_networks', [] ) );
+		$linkType         = $this->getSetting( 'product_social_share_link_type', 'long' );
+		$encodeUrl        = $this->getSetting( 'product_social_share_encode_url', true ) ? 'on' : 'off';
+		$copyClipboard    = $this->getSetting( 'product_social_share_copy_clipboard', true ) ? 'on' : 'off';
+		$title            = $this->getSetting( 'product_social_share_title', __( 'Share On:', 'woo-assistant' ) );
+		$buttonAppearance = $this->getSetting( 'product_social_share_appearance', 'icon' );
+		$buttonShape      = $this->getSetting( 'product_social_share_shape', 'round' );
+		$buttonSize       = $this->getSetting( 'product_social_share_button_size', 'default' );
 
 		$args = array(
 			'socials'           => $socials,

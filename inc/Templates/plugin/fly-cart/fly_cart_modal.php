@@ -17,31 +17,31 @@ defined( 'ABSPATH' ) or die();
                         aria-label="<?php _e( 'Close', 'woo-assistant' ) ?>"></button>
             </div>
             <div class="wa-modal-body">
-				<?php do_action( 'woo_assistant_fly_cart_modal_body' ); ?>
+                <?php do_action( 'woo_assistant_fly_cart_modal_body' ); ?>
             </div>
 
-			<?php
-			$cart     = Settings::get( 'fly_cart_cart_button_enable', true ) && ! WooCommerce::isCart();
-			$checkout = Settings::get( 'fly_cart_checkout_button_enable', true ) && ! WooCommerce::isCheckout();
+            <?php
+            $cart     = Settings::get( 'fly_cart_cart_button_enable', true ) && ! WooCommerce::isCart();
+            $checkout = Settings::get( 'fly_cart_checkout_button_enable', true ) && ! WooCommerce::isCheckout();
 
-			if ( $cart || $checkout ) {
-				echo '<div class="wa-modal-footer">';
+            if ( $cart || $checkout ) {
+                echo '<div class="wa-modal-footer">';
 
-				if ( $cart ) {
-					echo '<a href="' . wc_get_cart_url() . '" type="button" class="wa-button wa-button-secondary">' .
-					     Settings::get( 'fly_cart_cart_button', __( 'Cart', 'woo-assistant' ) )
-					     . '</a>';
-				}
+                if ( $cart ) {
+                    echo '<a href="' . wc_get_cart_url() . '" type="button" class="wa-button wa-button-secondary">' .
+                         Settings::get( 'fly_cart_cart_button', __( 'Cart', 'woo-assistant' ) )
+                         . '</a>';
+                }
 
-				if ( $checkout ) {
-					echo '<a href="' . wc_get_checkout_url() . '" type="button" class="wa-button wa-button-primary">' .
-					     Settings::get( 'fly_cart_checkout_button', __( 'Checkout', 'woo-assistant' ) )
-					     . '</a>';
-				}
+                if ( $checkout ) {
+                    echo '<a href="' . wc_get_checkout_url() . '" type="button" class="wa-button wa-button-primary">' .
+                         Settings::get( 'fly_cart_checkout_button', __( 'Checkout', 'woo-assistant' ) )
+                         . '</a>';
+                }
 
-				echo '</div>';
-			}
-			?>
+                echo '</div>';
+            }
+            ?>
         </div>
     </div>
 </div>
