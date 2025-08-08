@@ -568,7 +568,7 @@ class HTML {
 		}
 		$field = '<label class="' . self::prefix . 'checkbox-wrap">' .
 		         '<input type="checkbox" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" value="' . $data['value'] . '"  ' . checked( $data['setting_value'] == $data['value'], true, false ) . self::getAttributes( $data ) . '>' .
-		         '<span class="' . self::prefix . 'checkmark"></span><span class="' . self::prefix . 'title">' . $data['title'] . '</span></label>';
+		         '<span class="' . self::prefix . 'checkmark"></span>' . ( ! empty( $data['title'] ) ? '<span class="' . self::prefix . 'title">' . $data['title'] . '</span>' : '' ) . '</label>';
 
 		return self::wrap( $field, $data );
 	}
