@@ -107,7 +107,7 @@ class Addons {
             $image                = ! empty( $addon['image'] ) && Validating::isUrl( $addon['image'] ) ? $addon['image'] : '';
             $imageLink            = ! empty( $addon['image_link'] ) && Validating::isUrl( $addon['image_link'] ) ? $addon['image_link'] : '';
             $moreInfo             = ! empty( $addon['more_info_link'] ) && Validating::isUrl( $addon['more_info_link'] ) ? $addon['more_info_link'] : '';
-            $forceEnable          = Sanitizing::bool( $addon['force_enable'] );
+            $forceEnable          = Sanitizing::bool( $addon['force_enable'] ?? false );
             $canActivate          = empty( $addon['requires_plugins'] );
             $requirePluginsActive = 0;
             $actionLink           = '';
