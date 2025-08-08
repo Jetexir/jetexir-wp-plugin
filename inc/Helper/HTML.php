@@ -594,7 +594,7 @@ class HTML {
 			return '';
 		}
 
-		return '<button id="' . self::prefix . $data['id'] . '-button" class="' . self::getClass( $data, self::prefix . 'button ' . self::prefix . 'button-' . $data['button_type'] ) . '" type="' . $data['button_type'] . '">' . $data['title'] . '</button>';
+		return '<button id="' . self::prefix . $data['id'] . '-button" class="' . self::getClass( $data, self::prefix . 'button ' . self::prefix . 'button-' . $data['button_type'] ) . '" type="' . $data['button_type'] . '" ' . self::getAttributes( $data ) . '>' . $data['title'] . '</button>';
 	}
 
 	public static function hr(): string {
