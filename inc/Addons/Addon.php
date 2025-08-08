@@ -168,8 +168,12 @@ abstract class Addon {
 	}
 
 	public function addMenu( $menus ) {
-		$addon                   = $this->getInfo();
-		$menus[ $this->addonID ] = $addon['menu_title'] ?? ( $addon['name'] ?? $addon['title'] );
+		$addon = $this->getInfo();
+
+		$menus[ $this->addonID ] = array(
+			'title' => $addon['menu_title'] ?? ( $addon['name'] ?? $addon['title'] ),
+			'icon'  => $addon['menu_icon'] ?? ( $addon['icon'] ?? '' )
+		);
 
 		return $menus;
 	}
