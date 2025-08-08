@@ -57,7 +57,7 @@ class Addons {
 
     public function addRefreshNotice( $tab ): void {
         if ( $tab === self::tab && Cache::get( 'settings_saved' ) ) {
-            Notice::add( self::tab, 'For initial addons hook, page refreshed.', 'warning' );
+            Notice::add( self::tab, __( 'To load the add-on initial hooks, the page refreshes.', 'woo-assistant' ), 'warning' );
             $url = AdminPages::link( [ 'tab' => self::tab, 'addons-refreshed' => true ] );
             ?>
             <script>
