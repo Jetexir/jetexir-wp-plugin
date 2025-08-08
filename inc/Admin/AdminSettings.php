@@ -14,6 +14,8 @@ use WooAssistant\Helper\Validating;
 use WooAssistant\Settings\Settings;
 
 class AdminSettings {
+	private static $settings = [];
+
 	public function __construct() {
 		add_action( 'woo_assistant_submit_settings_form', [ $this, 'saveForm' ], 0 );
 		//add_filter( 'woo_assistant_settings_header_image', [ $this, 'headerImage' ], 0 );
@@ -292,7 +294,11 @@ class AdminSettings {
 	}
 
 	public static function getSettings( $tab ) {
-		return apply_filters( 'woo_assistant_' . $tab . '_settings', [] );
+		if ( ! isset( self::$settings[ $tab ] ) ) {
+			self::$settings[ $tab ] = apply_filters( 'woo_assistant_' . $tab . '_settings', [] );
+		}
+
+		return self::$settings[ $tab ];
 	}
 
 	public static function allSettings( $tab = null ) {
@@ -308,11 +314,10 @@ class AdminSettings {
 	public static function printPage( $currentTab, $settings ): void {
 		$optionsName    = $settings['settings_key'] ?? null;
 		$currentSection = null;
-		self::headerSettings( $currentTab, $settings );
 
+		//echo '<div class="wa-content-body">';
 		echo '<form method="post" id="wa-settings-form">';
 		wp_nonce_field( 'settings_submit_' . $currentTab, '_form_nonce' );
-
 		if ( self::isSectionMode( $settings ) ) {
 			$currentSection  = self::getActiveSection( $settings );
 			$currentSettings = $settings['sections'][ $currentSection ]['settings'] ?? [];
@@ -324,11 +329,8 @@ class AdminSettings {
 			$currentSettings = $settings['settings'] ?? [];
 			self::printSettings( $currentSettings, $optionsName );
 		}
-
-		if ( ! empty( $currentSettings ) ) {
-			self::footerSettings( $currentTab, $currentSection );
-		}
 		echo '</form>';
+		//echo '</div>';
 	}
 
 	private static function printSettings( $settings, $optionsName ): void {
@@ -447,7 +449,7 @@ class AdminSettings {
 		}
 	}
 
-	private static function footerSettings( $currentTab, $currentSection ): void {
+	public static function footerSettings( $currentTab, $currentSection ): void {
 		if ( ! apply_filters( 'woo_assistant_settings_display_footer', true, $currentTab, $currentSection ) || ! apply_filters( 'woo_assistant_' . $currentTab . '_settings_display_footer', true, $currentSection ) ) {
 			return;
 		}
@@ -459,6 +461,9 @@ class AdminSettings {
 			'title'       => apply_filters( 'woo_assistant_settings_submit_button_title', __( 'Save changes', 'woo-assistant' ), $currentTab ),
 			'button_type' => 'submit',
 			'class'       => 'wa-button-primary',
+			'attributes'  => [
+				'form' => 'wa-settings-form'
+			]
 		] );
 
 		if ( apply_filters( 'woo_assistant_' . $currentTab . '_settings_display_reset_button', true ) ) {
@@ -466,6 +471,9 @@ class AdminSettings {
 				'id'          => 'settings-reset',
 				'title'       => apply_filters( 'woo_assistant_settings_reset_button_title', __( 'Discard changes', 'woo-assistant' ), $currentTab ),
 				'button_type' => 'reset',
+				'attributes'  => [
+					'form' => 'wa-settings-form'
+				]
 			] );
 		}
 		echo '</footer>';
@@ -511,6 +519,17 @@ class AdminSettings {
 		return array_filter( $sections );
 	}
 
+	public static function getCurrentSettings( $settings ) {
+		if ( self::isSectionMode( $settings ) ) {
+			$currentSection  = self::getActiveSection( $settings );
+			$currentSettings = $settings['sections'][ $currentSection ]['settings'] ?? [];
+		} else {
+			$currentSettings = $settings['settings'] ?? [];
+		}
+
+		return $currentSettings;
+	}
+
 	public static function getActiveSection( $settings ) {
 		if ( empty( $settings['sections'] ) ) {
 			return false;
@@ -525,6 +544,6 @@ class AdminSettings {
 	}
 
 	private static function isSectionMode( $settings ): bool {
-		return is_array( $settings['sections'] ) && ! empty( $settings['sections'] );
+		return ! empty( $settings['sections'] ) && is_array( $settings['sections'] );
 	}
 }
