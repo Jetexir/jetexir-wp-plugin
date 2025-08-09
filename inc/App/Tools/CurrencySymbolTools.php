@@ -43,7 +43,7 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
 					if ( $file ) {
 						$file = file_get_contents( Assets::pathCorrection( $file ) );
-						$file = Assets::setSvgDimensions( $file, 14 );
+						$file = Assets::setSvgDimensions( $file, $this->getSetting( 'currency_media_size', 14 ) );
 						Cache::set( $cacheKey, $file );
 
 						return $file;
@@ -62,7 +62,7 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
 	public function addInlineStyles(): void {
 		if ( $this->getSetting( 'price_currency_style', true ) ) {
-			$styles = '.woocommerce-Price-amount bdi{display: flex;align-items: center;gap: 3px;line-height: 1.2;}';
+			$styles = '.woocommerce-Price-amount bdi{display: inline-flex;align-items: center;gap: 3px;line-height: 1.2;}';
 			wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style', false );
 			wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style' );
 			wp_add_inline_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style', $styles );
@@ -105,6 +105,21 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 					'type'                     => 'media',
 					'media_type'               => 'image/svg+xml',
 					'upload_accept_extensions' => 'svg'
+				),
+
+				'currency_media_size' => array(
+					'id'         => 'currency_media_size',
+					'title'      => __( 'SVG media size', 'woo-assistant' ),
+					'desc'       => __( 'Pixel', 'woo-assistant' ),
+					'type'       => 'number',
+					'default'    => 14,
+					'attributes' => array(
+						'placeholder' => 'eg: 14',
+						'step'        => 1,
+						'min'         => 10,
+						'max'         => 50,
+					),
+					'sanitize'   => 'int'
 				),
 
 				'price_currency_style' => [
