@@ -13,9 +13,9 @@ class Admin {
 		new AdminDashboard();
 		new AdminTools();
 		new AdminProduct();
-		new AdminOrder();
 		new AdminCart();
 		new AdminCheckout();
+		new AdminOrder();
 		new AdminWordPress();
 		new AdminGlobal();
 	}
