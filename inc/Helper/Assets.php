@@ -114,13 +114,27 @@ class Assets {
 		return str_starts_with( trim( $string ), '<svg' ) !== false;
 	}
 
-	public static function setSvgDimensions( $svg, $width, $height = null ): string {
+	public static function cleanSvgImageString( $svg ): string {
+		$svg = Strip::removeHtmlComments( $svg );
+		$svg = Strip::removeHtmlDoctype( $svg );
+
+		$svg = trim( $svg );
+		$svg = str_replace( "\n", '', $svg );
+		$svg = trim( $svg );
+
+		return $svg;
+	}
+
+	public static function setSvgDimensions( $svg, $width, $height = null, $cleaner = true ): string {
 		if ( is_null( $height ) ) {
 			$height = $width;
 		}
 
-		$svg = trim( $svg );
-		if ( ! empty( $svg ) && str_starts_with( $svg, '<svg' ) !== false ) {
+		if ( $cleaner ) {
+			$svg = self::cleanSvgImageString( $svg );
+		}
+
+		if ( ! empty( $svg ) && self::isSvgImageString( $svg ) ) {
 			$openingTag = $openTag = substr( $svg, 0, mb_strpos( $svg, '>' ) + 1 );
 			$svgWidth   = $svgHeight = null;
 			if ( $openingTag ) {
