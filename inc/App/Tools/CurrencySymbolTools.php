@@ -7,6 +7,7 @@ defined( 'ABSPATH' ) || exit;
 use WooAssistant\Addons\Addon;
 use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Cache;
+use WooAssistant\Helper\Param;
 use WooAssistant\Interfaces\AddonInterface;
 
 class CurrencySymbolTools extends Addon implements AddonInterface {
@@ -19,6 +20,10 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 	}
 
 	public function changeCurrencySymbol( $symbol, $code ) {
+		if ( 'wc-settings' === Param::get( 'page' ) && 'general' === Param::get( 'tab', 'general' ) && is_admin() ) {
+			return $symbol;
+		}
+
 		for ( $i = 1; $i <= 3; $i ++ ) {
 			$currency = $this->getSetting( 'currency_' . $i, '' );
 
