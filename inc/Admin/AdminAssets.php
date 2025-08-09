@@ -48,6 +48,7 @@ class AdminAssets {
 				'ajaxNonce'        => Nonce::create(),
 				'removeText'       => __( 'Remove', 'woo-assistant' ),
 				'dtuConfirmDelete' => __( 'Are you sure you want to delete this item(s)?', 'woo-assistant' ),
+				'copyText'        => __( 'Click to copy this text.', 'woo-assistant' ),
 			) );
 		}
 	}

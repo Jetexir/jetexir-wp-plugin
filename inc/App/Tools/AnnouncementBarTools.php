@@ -323,7 +323,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		          ->addAction( 'bulk_delete', __( 'Delete', 'woo-assistant' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
 		          ->addColumn( __( 'Title', 'woo-assistant' ), 'title' )
 		          ->addColumn( __( 'ShortCode', 'woo-assistant' ), 'code', function ( $row ) {
-			          return '<code>[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
+			          return '<code class="wa-copy-text" title="'.__('Copy shortcode','woo-assistant').'">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
 		          }, [ 'is_html' => true ] )
 		          ->addColumn( __( 'Status', 'woo-assistant' ), $dataTable::ACTIVE_FIELD );
 

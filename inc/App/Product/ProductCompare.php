@@ -360,7 +360,7 @@ class ProductCompare extends Addon implements AddonInterface {
                         'default'           => 0,
                         'option_none'       => '---',
                         'option_none_value' => '',
-                        'desc'              => wp_sprintf( __( 'Insert shortcode in the compare page %s', 'woo-assistant' ), '<code>[wa_products_compare]</code>' )
+                        'desc'              => wp_sprintf( __( 'Insert shortcode in the compare page %s', 'woo-assistant' ), '<code class="wa-copy-text">[wa_products_compare]</code>' )
                 ),
                 'product_compare_max_items'          => array(
                         'id'      => 'product_compare_max_items',

@@ -27,6 +27,24 @@ body.toplevel_page_#{variables.$plugin_key} {
       background-color: variables.$background_side;
       border-radius: 2px;
       padding: 5px;
+
+      &.wa-copy-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+
+        &:before {
+          content: "";
+          font-family: "wooassistant-icon" !important;
+          color: color.scale(variables.$meta, $lightness: 30%);
+        }
+
+        &.wa-text-copied {
+          &:before {
+            color: variables.$primary
+          }
+        }
+      }
     }
 
     P {
@@ -290,7 +308,21 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
+    .wa-copy-text {
+      cursor: pointer;
+
+      &.wa-text-copied {
+        animation: waBlinkText 250ms step-start 0s infinite;
+      }
+    }
+
     @include list_links.wa-list-links;
     @include dashboard.dashboard;
+  }
+}
+
+@keyframes waBlinkText {
+  50% {
+    opacity: 0.5;
   }
 }

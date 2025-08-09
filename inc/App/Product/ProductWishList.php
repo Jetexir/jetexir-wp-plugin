@@ -529,7 +529,7 @@ class ProductWishList extends Addon implements AddonInterface {
 				'default'           => 0,
 				'option_none'       => __( 'Add tab to "My account" page', 'woo-assistant' ),
 				'option_none_value' => 0,
-				'desc'              => wp_sprintf( __( 'Insert shortcode in the custom wishlist page %s', 'woo-assistant' ), '<code>[' . self::wishlistShortcode . ']</code>' )
+				'desc'              => wp_sprintf( __( 'Insert shortcode in the custom wishlist page %s', 'woo-assistant' ), '<code  class="wa-copy-text">[' . self::wishlistShortcode . ']</code>' )
 			),
 			'wishlist_max_items'          => array(
 				'id'         => 'wishlist_max_items',

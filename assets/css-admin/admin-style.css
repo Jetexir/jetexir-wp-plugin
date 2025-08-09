@@ -497,6 +497,19 @@ body.toplevel_page_woo-assistant .wrap code {
   border-radius: 2px;
   padding: 5px;
 }
+body.toplevel_page_woo-assistant .wrap code.wa-copy-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+body.toplevel_page_woo-assistant .wrap code.wa-copy-text:before {
+  content: "\e912";
+  font-family: "wooassistant-icon" !important;
+  color: rgb(133.9, 133.9, 133.9);
+}
+body.toplevel_page_woo-assistant .wrap code.wa-copy-text.wa-text-copied:before {
+  color: #873eff;
+}
 body.toplevel_page_woo-assistant .wrap P {
   margin: 0;
   font-size: 13px;
@@ -707,6 +720,12 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-footer.wa-settings-foot
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-footer.wa-settings-footer.wa-submit-inactive * {
   opacity: 0.7;
 }
+body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-copy-text {
+  cursor: pointer;
+}
+body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-copy-text.wa-text-copied {
+  animation: waBlinkText 250ms step-start 0s infinite;
+}
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links {
   display: flex;
   flex-direction: column;
@@ -811,6 +830,11 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-dashboard-links-wrap a.
   background-image: linear-gradient(to right top, #ffffff, #fffcff, #fff9fa, #fff8f1, #fff9e9, #fff9e9, #fff9e9, #fff9e9, #fff8f1, #fff9fa, #fffcff, #ffffff);
 }
 
+@keyframes waBlinkText {
+  50% {
+    opacity: 0.5;
+  }
+}
 .woo-assistant-wrap {
   position: relative;
 }

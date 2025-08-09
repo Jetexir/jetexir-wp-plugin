@@ -633,6 +633,8 @@ jQuery(document).ready(function ($) {
                 }
             });
         });
+
+        waCopyTextInit();
     }
 
     // Data Table UI save rows changes
@@ -1012,4 +1014,31 @@ jQuery(document).ready(function ($) {
     });
 
     waMediaInit();
+
+
+    /**
+     * Copy text
+     * */
+    function waCopyTextInit() {
+        let waCopyText = $('.wa-copy-text');
+        if (navigator.clipboard) {
+            waCopyText.each(function () {
+                if ($(this).attr('title') === undefined)
+                    $(this).attr('title', WooAssistant.copyText);
+            })
+            waCopyText.unbind('click').on('click', function () {
+                let waCopyTextElm = $(this),
+                    waTextForCopy = waCopyTextElm.attr('data-text') !== undefined ? waCopyTextElm.attr('data-text') : waCopyTextElm.text();
+                navigator.clipboard.writeText(waTextForCopy);
+                waCopyTextElm.addClass('wa-text-copied');
+
+                setTimeout(function () {
+                    waCopyTextElm.removeClass('wa-text-copied');
+                }, 500);
+            });
+        } else {
+            waCopyText.removeClass('wa-copy-text');
+        }
+    }
+    waCopyTextInit();
 });

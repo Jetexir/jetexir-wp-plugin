@@ -300,7 +300,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 					'option_none_value' => '',
 					'default'           => 'after_categories',
 					'sanitize'          => 'text',
-					'desc'              => sprintf( __( 'You can display social share with %s shortcode.', 'woo-assistant' ), '<code>[wa_product_share]</code>' )
+					'desc'              => sprintf( __( 'You can display social share with %s shortcode.', 'woo-assistant' ), '<code class="wa-copy-text">[wa_product_share]</code>' )
 				),
 				'product_social_share_link_type_start'     => array(
 					'id'    => 'product_social_share_link_type_start',
