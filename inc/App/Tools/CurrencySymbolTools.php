@@ -17,6 +17,7 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
 	public function initAction(): void {
 		add_filter( 'woocommerce_currency_symbol', [ $this, 'changeCurrencySymbol' ], 10, 2 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'addInlineStyles' ], 0 );
 	}
 
 	public function changeCurrencySymbol( $symbol, $code ) {
@@ -59,6 +60,15 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 		return $symbol;
 	}
 
+	public function addInlineStyles(): void {
+		if ( $this->getSetting( 'price_currency_style', true ) ) {
+			$styles = '.woocommerce-Price-amount bdi{display: flex;align-items: center;gap: 3px;line-height: 1.2;}';
+			wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style', false );
+			wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style' );
+			wp_add_inline_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style', $styles );
+		}
+	}
+
 	public function addSectionSettings( $sections ) {
 		$currency = get_option( 'woocommerce_currency', 'USD' );
 		$symbol   = get_woocommerce_currency_symbol( $currency );
@@ -96,6 +106,16 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 					'media_type'               => 'image/svg+xml',
 					'upload_accept_extensions' => 'svg'
 				),
+
+				'price_currency_style' => [
+					'id'       => 'price_currency_style',
+					'title'    => __( 'Price style', 'woo-assistant' ),
+					'type'     => 'toggle',
+					'value'    => 1,
+					'default'  => true,
+					'desc'     => __( 'Try fix price with currency symbol style', 'woo-assistant' ),
+					'sanitize' => 'bool'
+				],
 
 				'end_grid_currency_symbol_1' => array(
 					'type' => 'endgrid',
