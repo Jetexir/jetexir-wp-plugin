@@ -276,10 +276,11 @@ abstract class AbstractDataTableUI {
 
 	public function addColumn( $name, $field, $columnData = null, $args = [] ): AbstractDataTableUI {
 		$defaultArgs = [
-			'is_sortable' => false,
-			'is_shown'    => true,
-			'type'        => 'text',
-			'is_html'     => false
+			'is_sortable'    => false,
+			'is_shown'       => true,
+			'type'           => 'text',
+			'is_html'        => false,
+			'hide_on_mobile' => false,
 		];
 
 		$args['name']        = $name;
@@ -315,11 +316,12 @@ abstract class AbstractDataTableUI {
 				continue;
 			}
 
-			$thead[] = [
+			$thead[ $column['field'] ] = [
 				'name'           => $column['name'],
 				'field'          => $column['field'],
 				'is_sortable'    => $column['is_sortable'],
-				'order_by_field' => $column['is_sortable'] ? $column['order_by_field'] : false
+				'order_by_field' => $column['is_sortable'] ? $column['order_by_field'] : false,
+				'hide_on_mobile' => $column['hide_on_mobile'],
 			];
 		}
 

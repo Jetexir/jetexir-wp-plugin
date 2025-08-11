@@ -444,7 +444,7 @@ class OrderStatus extends Addon implements AddonInterface {
 		          ->addColumn( __( 'Title', 'woo-assistant' ), 'title', function ( $entry ) {
 			          return '<mark class="order-status status-' . $entry['slug'] . '"><span>' . $entry['title'] . '</span></mark>';
 		          }, [ 'is_html' => true ] )
-		          ->addColumn( __( 'Slug', 'woo-assistant' ), 'slug' )
+		          ->addColumn( __( 'Slug', 'woo-assistant' ), 'slug', null, [ 'hide_on_mobile' => true ] )
 		          ->addColumn( __( 'Status', 'woo-assistant' ), $dataTable::ACTIVE_FIELD );
 
 		return $dataTable;

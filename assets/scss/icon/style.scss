@@ -3,9 +3,9 @@
 @font-face {
   font-family: '#{$icomoon-font-family}';
   src:
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?4uwdcw') format('truetype'),
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?4uwdcw') format('woff'),
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?4uwdcw##{$icomoon-font-family}') format('svg');
+          url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?20wdh9') format('truetype'),
+          url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?20wdh9') format('woff'),
+          url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?20wdh9##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,6 +26,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.wa-icon-menu {
+  &:before {
+    content: $wa-icon-menu;
+  }
+}
 .wa-icon-magic-wand {
   &:before {
     content: $wa-icon-magic-wand;
@@ -409,11 +414,6 @@
 .wa-icon-email {
   &:before {
     content: $wa-icon-email;
-  }
-}
-.wa-icon-pocket {
-  &:before {
-    content: $wa-icon-pocket;
   }
 }
 .wa-icon-reddit {

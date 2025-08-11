@@ -93,8 +93,13 @@ class AdminPages {
         ?>
         <div class="wrap ">
             <div class="woo-assistant-wrap woo-assistant-<?php echo $currentTab ?>-wrap woo-assistant-wrapper">
-                <div class="wa-sidebar">
-                    <img src="<?php echo $logo ?>" alt="Logo" class="wa-logo">
+                <div class="wa-sidebar" id="wa-sidebar">
+                    <div class="wa-sidebar-head">
+                        <img src="<?php echo $logo ?>" alt="Logo" class="wa-logo">
+                        <a href="#" class="wa-hide-sidebar" id="wa-hide-sidebar">
+                            <i class="wa-icon-close"></i>
+                        </a>
+                    </div>
                     <div class="menu-items">
                         <?php
                         do_action( 'woo_assistant_start_menus' );
@@ -112,7 +117,12 @@ class AdminPages {
                         ?>
                     </div>
                 </div>
-                <div class="wa-content wa-<?php echo $currentTab ?>-content">
+                <div class="wa-display-sidebar">
+                    <a href="#" id="wa-display-sidebar">
+                        <i class="wa-icon-menu"></i>
+                    </a>
+                </div>
+                <div class="wa-content wa-<?php echo $currentTab ?>-content" id="wa-content-wrap">
                     <?php
                     // Display tab header
                     do_action( 'woo_assistant_' . $currentTab . '_tab_header' );
@@ -157,7 +167,7 @@ class AdminPages {
 
         $icon = Assets::isSvgImageString( $menu['icon'] ) ? Assets::setSvgDimensions( $menu['icon'], 20 ) : '';
 
-        return '<a href="' . $link . '" class="menu-item' . ( $current === $tab ? ' menu-item-current' : '' ) . '">' . $icon . $menu['title'] . '</a>';
+        return '<a href="' . $link . '" class="menu-item' . ( $current === $tab ? ' menu-item-current' : '' ) . '">' . $icon . '<span>' . $menu['title'] . '</span></a>';
     }
 
     public static function getActiveTab(): string {

@@ -323,8 +323,8 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		          ->addAction( 'bulk_delete', __( 'Delete', 'woo-assistant' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
 		          ->addColumn( __( 'Title', 'woo-assistant' ), 'title' )
 		          ->addColumn( __( 'ShortCode', 'woo-assistant' ), 'code', function ( $row ) {
-			          return '<code class="wa-copy-text" title="'.__('Copy shortcode','woo-assistant').'">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
-		          }, [ 'is_html' => true ] )
+			          return '<code class="wa-copy-text" title="' . __( 'Copy shortcode', 'woo-assistant' ) . '">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
+		          }, [ 'is_html' => true, 'hide_on_mobile' => true ] )
 		          ->addColumn( __( 'Status', 'woo-assistant' ), $dataTable::ACTIVE_FIELD );
 
 		return $dataTable;
@@ -359,6 +359,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			array(
 				'id'            => 'title',
 				'title'         => __( 'Title', 'woo-assistant' ),
+				'desc'          => isset( $data['code'] ) && $data['code'] ? wp_sprintf( __( 'Announcement Bar shortcode: %s', 'woo-assistant' ), '<code class="wa-copy-text">[' . self::shortCode . ' code="' . $data['code'] . ']</code>' ) : '',
 				'placeholder'   => __( 'Announcement title', 'woo-assistant' ),
 				'type'          => 'text',
 				'setting_value' => $data['title'] ?? ''

@@ -24,6 +24,9 @@ if ( ! isset( $args ) ) {
         foreach ( $args['thead'] as $columnKey => $column ) {
             $addClass = [];
             $addAttr  = '';
+            if ( $column['hide_on_mobile'] ) {
+                $addClass[] = 'wa-dtu-col-hide-on-mobile';
+            }
             if ( $column['is_sortable'] ) {
                 $addClass[] = 'is_sortable';
 
@@ -69,6 +72,12 @@ if ( ! isset( $args ) ) {
                         $attributes .= ' data-' . $dataName . '="' . $dataValues . '"';
                     }
 
+                    $addClass = [];
+                    if ( isset( $args['thead'][ $data['field'] ]['hide_on_mobile'] ) && $args['thead'][ $data['field'] ]['hide_on_mobile'] ) {
+                        $addClass[] = 'wa-dtu-col-hide-on-mobile';
+                    }
+                    $addClass = empty( $addClass ) ? '' : ' class="' . implode( ' ', $addClass ) . '"';
+
                     if ( $data['field'] === AbstractDataTableUI::ACTIVE_FIELD &&
                          in_array( $data['content'], [ '1', '0' ], true ) ) {
                         $data['content'] = \WooAssistant\Helper\HTML::toggle( array(
@@ -82,7 +91,7 @@ if ( ! isset( $args ) ) {
                         ) );
                     }
 
-                    echo '<td' . $attributes . '>' . $data['content'] . '</td>';
+                    echo '<td ' . $addClass . ' ' . $attributes . '>' . $data['content'] . '</td>';
                 }
 
                 echo '<td class="wa-dtu-actions-wrap">';

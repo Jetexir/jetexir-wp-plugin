@@ -437,7 +437,7 @@ class AdminSettings {
 			echo '<p class="wa-description">' . $settings['desc'] . '</p>';
 		}
 		echo '</div>';
-		echo '<hr class="wa-header-separator"/>';
+		//echo '<hr class="wa-header-separator"/>';
 		echo '<div class="wa-header-links">';
 		self::printSections( $currentTab, $settings );
 		echo '</div>';
@@ -503,7 +503,7 @@ class AdminSettings {
 				echo '<p class="wa-description">' . $sections[ $currentSection ]['desc'] . '</p>';
 			}
 
-			echo '</div><hr />';
+			echo '</div>';
 		}
 	}
 

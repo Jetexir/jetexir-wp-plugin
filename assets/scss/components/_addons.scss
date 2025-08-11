@@ -4,6 +4,7 @@
   .wa-addons-wrap {
     .wa-heading-2 {
       margin-bottom: 30px;
+      font-weight: 600;
     }
 
     + hr {
@@ -13,7 +14,7 @@
     .wa-addons-grid {
       display: grid;
       //grid-template-columns: repeat(auto-fill, 300px);
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(250px, 0.5fr));
       gap: 20px;
     }
 
@@ -24,6 +25,7 @@
       border: 1px solid variables.$border_color;
       border-radius: 10px;
       overflow: hidden;
+      // max-width: 600px;
 
       &.wa-addon-inactive {
         .wa-image-wrap {
@@ -120,6 +122,7 @@
           align-items: center;
           flex-direction: row-reverse;
           justify-content: space-between;
+          max-width: 100%;
         }
 
         .wa-action-link {

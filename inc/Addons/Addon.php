@@ -188,13 +188,21 @@ abstract class Addon {
 		$cat       = empty( $addon['cat'] ) || ! array_key_exists( $addon['cat'], $addonCats ) ? 'other' : $addon['cat'];
 		$icon      = ! empty( $addon['icon'] ) && Assets::isSvgImageString( $addon['icon'] ) ? Assets::setSvgDimensions( $addon['icon'], 50 ) : '';
 
+		if ( $this->getInfo( 'has_page', false ) ) {
+			$link = AdminPages::link( [
+				'tab' => $this->addonID
+			] );
+		} else {
+			$link = AdminPages::link( [
+				'tab'     => $this->currentTab,
+				'section' => empty( $this->currentSection ) ? $this->addonID : $this->currentSection,
+			] );
+		}
+
 		$addons[ $cat ][] = [
 			'title' => $addon['name'] ?? $addon['title'],
 			'desc'  => $addon['desc'] ?? '',
-			'link'  => AdminPages::link( [
-				'tab'     => $this->currentTab,
-				'section' => empty( $this->currentSection ) ? $this->addonID : $this->currentSection,
-			] ),
+			'link'  => $link,
 			'icon'  => $icon,
 			'type'  => 'addon'
 		];

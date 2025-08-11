@@ -570,7 +570,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 		          ->addAction( 'bulk_disable', __( 'Disable', 'woo-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
 		          ->addAction( 'bulk_delete', __( 'Delete', 'woo-assistant' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
 		          ->addColumn( __( 'Name', 'woo-assistant' ), 'name' )
-		          ->addColumn( __( 'Label', 'woo-assistant' ), 'label' )
+		          ->addColumn( __( 'Label', 'woo-assistant' ), 'label', null, [ 'hide_on_mobile' => true ] )
 		          ->addColumn( __( 'Status', 'woo-assistant' ), $dataTable::ACTIVE_FIELD );
 
 		if ( $id === 'billing_fields_classic' ) {
