@@ -8,7 +8,7 @@
  * Text Domain:             woo-assistant
  * Domain Path:             /i18n/languages/
  * Requires Plugins:        woocommerce
- * Requires at least:       6.6
+ * Requires at least:       6.7
  * Requires PHP:            7.4
  */
 
