@@ -115,14 +115,14 @@ class Assets {
 	}
 
 	public static function cleanSvgImageString( $svg ): string {
+		$svg = Sanitizing::svg( $svg );
 		$svg = Strip::removeHtmlComments( $svg );
 		$svg = Strip::removeHtmlDoctype( $svg );
 
 		$svg = trim( $svg );
 		$svg = str_replace( "\n", '', $svg );
-		$svg = trim( $svg );
 
-		return $svg;
+		return trim( $svg );
 	}
 
 	public static function setSvgDimensions( $svg, $width, $height = null, $cleaner = true ): string {
