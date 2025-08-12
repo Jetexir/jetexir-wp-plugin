@@ -2,9 +2,18 @@
 
 namespace WooAssistant\Helper;
 
+use enshrined\svgSanitize\Sanitizer;
+
 defined( 'ABSPATH' ) || exit;
 
 class Sanitizing {
+	public static function svg( $svg ) {
+		$Sanitizer = new Sanitizer();
+		$Sanitizer->removeXMLTag( true );
+
+		return $Sanitizer->sanitize( $svg );
+	}
+
 	public static function clean( $value ) {
 		return wc_clean( $value );
 	}
