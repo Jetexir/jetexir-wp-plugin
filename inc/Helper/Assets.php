@@ -110,7 +110,11 @@ class Assets {
 		return str_starts_with( trim( $string ), '<img' ) !== false;
 	}
 
-	public static function isSvgImageString( $string ): bool {
+	public static function isSvgImageString( $string, $cleaner = true ): bool {
+		if ( $cleaner ) {
+			$string = self::cleanSvgImageString( $string );
+		}
+
 		return str_starts_with( trim( $string ), '<svg' ) !== false;
 	}
 
