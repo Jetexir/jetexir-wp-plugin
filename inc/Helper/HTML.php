@@ -742,7 +742,7 @@ class HTML {
 		}
 
 
-		$addon .= '</div><div class="' . self::prefix . 'title-desc"><h3 class="' . self::prefix . 'title">' . $data['title'] . '</h3>' .
+		$addon .= '</div><div class="' . self::prefix . 'title-desc"><strong class="' . self::prefix . 'title">' . $data['title'] . '</strong>' .
 		          ( ! empty( $data['desc'] ) ? '<p class="' . self::prefix . 'desc">' . $data['desc'] . '</p>' : '' ) .
 		          ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link">' . self::chevronRightIcon . __( 'More info','woo-assistant' ) . '</a>' : '' ) .
 		          '</div><div class="' . self::prefix . 'action-wrap">';

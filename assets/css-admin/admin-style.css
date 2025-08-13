@@ -1032,6 +1032,7 @@ body.rtl.woo-assistant-notices .wa-notice {
 }
 .woo-assistant-wrap .wa-addons-wrap .wa-addon-wrap .wa-title-desc .wa-title {
   margin: 0;
+  font-weight: 600;
 }
 .woo-assistant-wrap .wa-addons-wrap .wa-addon-wrap .wa-title-desc .wa-desc {
   color: #525252;
