@@ -100,7 +100,7 @@ class Assets {
 		$imageSizes = [];
 
 		foreach ( $sizes as $value ) {
-			$imageSizes[ $value ] = ucwords( str_replace( '_', ' ', $value ) );
+			$imageSizes[ $value ] = __( ucwords( str_replace( '_', ' ', $value ) ), 'woo-assistant' );
 		}
 
 		return $imageSizes;
