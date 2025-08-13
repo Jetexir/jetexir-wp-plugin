@@ -249,8 +249,8 @@ class ProductRelated extends Addon implements AddonInterface {
 				'id'          => 'product_related_title',
 				'title'       => __( 'Title', 'woo-assistant' ),
 				'type'        => 'text',
-				'default'     => __( 'Related Products', 'woocommerce' ),
-				'placeholder' => __( 'Related Products', 'woocommerce' )
+				'default'     => __( 'Related Products', 'woo-assistant' ),
+				'placeholder' => __( 'Related Products', 'woo-assistant' )
 			),
 			'product_related_orderby'    => array(
 				'id'                => 'product_related_orderby',

@@ -170,10 +170,11 @@ class ProductCall extends Addon implements AddonInterface {
 					'sanitize' => 'bool'
 				),
 				'product_call_text'               => array(
-					'id'      => 'product_call_text',
-					'title'   => __( 'Text', 'woo-assistant' ),
-					'type'    => 'text',
-					'default' => __( 'Call for Price', 'woo-assistant' )
+					'id'          => 'product_call_text',
+					'title'       => __( 'Text', 'woo-assistant' ),
+					'type'        => 'text',
+					'default'     => __( 'Call for Price', 'woo-assistant' ),
+					'placeholder' => __( 'Call for Price', 'woo-assistant' ),
 				),
 				'product_call_read_more'          => array(
 					'id'       => 'product_call_read_more',
