@@ -44,14 +44,14 @@ class WooDeveloperFeed extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Woo Developer Feed', 'woo-assistant-wc-developer-feed' ),
-			'desc'           => __( 'WooCommerce Developer Blog RSS Feed', 'woo-assistant-wc-developer-feed' ),
+			'title'          => __( 'Woo Developer Feed', 'woo-assistant' ),
+			'desc'           => __( 'WooCommerce Developer Blog RSS Feed', 'woo-assistant' ),
 			'has_page'       => true,
 			'force_enable'   => false,
 			'content_header' => true,
 			'icon'           => $svg,
 			'image_link'     => 'https://developer.woocommerce.com',
-			'tags'           => [ __( 'Feed', 'woo-assistant-wc-developer-feed' ) ],
+			'tags'           => [ __( 'Feed', 'woo-assistant' ) ],
 			'cat'            => 'utility',
 		);
 	}
