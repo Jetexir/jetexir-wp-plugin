@@ -744,7 +744,7 @@ class HTML {
 
 		$addon .= '</div><div class="' . self::prefix . 'title-desc"><strong class="' . self::prefix . 'title">' . $data['title'] . '</strong>' .
 		          ( ! empty( $data['desc'] ) ? '<p class="' . self::prefix . 'desc">' . $data['desc'] . '</p>' : '' ) .
-		          ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link">' . self::chevronRightIcon . __( 'More info','woo-assistant' ) . '</a>' : '' ) .
+		          ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="wa-icon-chevron-right"></i><span>' . __( 'More info', 'woo-assistant' ) . '</span></a>' : '' ) .
 		          '</div><div class="' . self::prefix . 'action-wrap">';
 
 		if ( $canActivate ) {
