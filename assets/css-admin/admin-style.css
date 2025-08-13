@@ -2389,6 +2389,11 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-dashboard-links-wrap a.
   background-image: linear-gradient(to right top, #ffffff, #fffcff, #fff9fa, #fff8f1, #fff9e9, #fff9e9, #fff9e9, #fff9e9, #fff8f1, #fff9fa, #fffcff, #ffffff);
 }
 
+@keyframes waBlinkText {
+  50% {
+    opacity: 0.5;
+  }
+}
 @media only screen and (max-width: 1200px) {
   body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-grid {
     gap: 1rem !important;
@@ -2474,11 +2479,6 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-dashboard-links-wrap a.
   .wa-modal .wa-modal-body .wa-field-wrap .wa-field-head {
     flex-direction: column;
     align-items: flex-start;
-  }
-}
-@keyframes waBlinkText {
-  50% {
-    opacity: 0.5;
   }
 }
 

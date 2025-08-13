@@ -2,7 +2,6 @@
 @use "../utilities/variables";
 @use "../components/list_links";
 @use "dashboard";
-@use "responsive";
 
 body {
   &.wa-mobile-sidebar-active {
@@ -406,8 +405,6 @@ body.toplevel_page_#{variables.$plugin_key} {
     @include dashboard.dashboard;
   }
 }
-
-@include responsive.responsive;
 
 @keyframes waBlinkText {
   50% {
