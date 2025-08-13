@@ -1,0 +1,48 @@
+@use 'sass:color';
+@use "../utilities/variables";
+
+html[dir="rtl"] {
+  body.toplevel_page_#{variables.$plugin_key} {
+    .#{variables.$plugin_key}-wrap {
+      select:not([multiple]) {
+        background-position-x: 10px;
+        background-position-x: left 10px;
+      }
+
+      .wa-radio-wrap .wa-checkmark::after {
+        left: inherit;
+        right: 3px;
+      }
+
+      .wa-repeatable .wa-repeatable-fields-wrap .wa-repeatable-actions {
+        right: inherit;
+        left: 10px;
+      }
+
+      .wa-display-sidebar {
+        a {
+          -webkit-transform: scale(-1, -1);
+          -moz-transform: scale(-1, -1);
+          -o-transform: scale(-1, -1);
+          transform: scale(-1, -1);
+        }
+      }
+
+      .wa-sidebar.wa-mobile-sidebar {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+      }
+    }
+  }
+
+  @media only screen and (max-width: 783px) {
+    body.toplevel_page_#{variables.$plugin_key} {
+      .#{variables.$plugin_key}-wrap {
+        .wa-sidebar {
+          -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+        }
+      }
+    }
+  }
+}
