@@ -79,7 +79,7 @@ class DataTableUI {
 
 			wp_send_json_error( [
 				'error'   => 'not-action',
-				'message' => __( 'Not registered action for this data table: ', 'woo-assistant' ) . $dataTableID,
+				'message' => __( 'Not registered action for this data table:', 'woo-assistant' ) . ' ' . $dataTableID,
 			], 403 );
 		}
 

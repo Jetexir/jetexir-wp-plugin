@@ -245,7 +245,7 @@ class OrderNumber extends Addon implements AddonInterface {
 				),
 				'order_number_format'      => array(
 					'id'                => 'order_number_format',
-					'title'             => __( 'Order numbers format', 'woo-assistant' ),
+					'title'             => __( 'Order number format', 'woo-assistant' ),
 					'type'              => 'select',
 					'options'           => array(
 						'sequential'             => __( 'Sequential number', 'woo-assistant' ),

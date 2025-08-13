@@ -553,7 +553,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 			}*/
 
 			if ( $_max != $max ) {
-				Notice::add( $tab, __( 'The maximum value changed based on the minimum and step.', 'woo-assistant' ), 'warning' );
+				Notice::add( $tab, __( 'The maximum value changes based on the minimum and step.', 'woo-assistant' ), 'warning' );
 			}
 
 			$options['quantity_maximum_value'] = $max;
@@ -790,7 +790,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
-					'desc'     => __( 'Manage Minimum/Maximum/Step Quantity per Product', 'woo-assistant' ),
+					'desc'     => __( 'Manage Minimum/Maximum/Step per Product', 'woo-assistant' ),
 					'sanitize' => 'bool'
 				),
 				'end_grid_quantity_min_max'            => array(

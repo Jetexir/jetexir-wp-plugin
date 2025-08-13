@@ -481,7 +481,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 			array(
 				'id'            => 'class',
 				'title'         => __( 'CSS Class', 'woo-assistant' ),
-				'desc'          => __( 'Separated with space', 'woo-assistant' ),
+				'desc'          => __( 'Separate with space', 'woo-assistant' ),
 				'type'          => 'text',
 				'setting_value' => is_array( $data['class'] ) ? implode( ' ', $data['class'] ) : 'form-row-wide',
 			),

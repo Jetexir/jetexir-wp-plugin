@@ -576,7 +576,7 @@ class OrderStatus extends Addon implements AddonInterface {
 
 		$sections[ $this->addonID ] = array(
 			'title'        => __( 'Status', 'woo-assistant' ),
-			'desc'         => __( 'Custom order status', 'woo-assistant' ),
+			'desc'         => __( 'Custom Order Status', 'woo-assistant' ),
 			'settings_key' => $this->addonID,
 			'settings'     => $settings
 		);

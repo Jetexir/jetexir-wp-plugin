@@ -161,7 +161,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 		return array(
 			'x'         => [
 				'icon'       => '<i class="wa-icon-x-twitter"></i>',
-				'title'      => __( 'Twitter', 'woo-assistant' ),
+				'title'      => __( 'X', 'woo-assistant' ),
 				'share_link' => 'https://twitter.com/intent/tweet?url=%1$s',
 			],
 			'facebook'  => [
@@ -375,11 +375,12 @@ class ProductSocialShare extends Addon implements AddonInterface {
 					'type'  => 'startgrid',
 				),
 				'product_social_share_title'               => array(
-					'id'      => 'product_social_share_title',
-					'title'   => __( 'Title', 'woo-assistant' ),
-					'type'    => 'text',
-					'default' => __( 'Share On:', 'woo-assistant' ),
-					'desc'    => __( 'Display title before social icons.', 'woo-assistant' )
+					'id'          => 'product_social_share_title',
+					'title'       => __( 'Title', 'woo-assistant' ),
+					'type'        => 'text',
+					'default'     => __( 'Share On:', 'woo-assistant' ),
+					'placeholder' => __( 'Share On:', 'woo-assistant' ),
+					'desc'        => __( 'Display title before social icons', 'woo-assistant' )
 				),
 				'product_social_share_appearance'          => array(
 					'id'       => 'product_social_share_appearance',

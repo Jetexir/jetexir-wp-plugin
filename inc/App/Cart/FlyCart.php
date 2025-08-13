@@ -308,7 +308,7 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_empty_message'   => array(
 					'id'      => 'fly_cart_empty_message',
-					'title'   => __( 'Empty message', 'woo-assistant' ),
+					'title'   => __( 'Empty shopping cart message', 'woo-assistant' ),
 					'type'    => 'text',
 					'default' => __( 'Your cart is currently empty!', 'woo-assistant' )
 				),

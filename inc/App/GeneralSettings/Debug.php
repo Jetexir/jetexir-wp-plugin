@@ -19,7 +19,7 @@ class Debug {
 			),
 			'debug_enable'            => array(
 				'id'       => 'debug_enable',
-				'title'    => __( 'Enable Debug', 'woo-assistant' ),
+				'title'    => __( 'Enable debug mode', 'woo-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,

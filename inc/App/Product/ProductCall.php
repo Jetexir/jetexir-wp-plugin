@@ -134,7 +134,7 @@ class ProductCall extends Addon implements AddonInterface {
 	public function addSectionSettings( $sections ): array {
 		$sections[ $this->currentSection ] = array(
 			'title'        => __( 'Call', 'woo-assistant' ),
-			'desc'         => __( 'Product Call for Price', 'woo-assistant' ),
+			'desc'         => __( 'Call for product price', 'woo-assistant' ),
 			'settings_key' => $this->addonID,
 			'settings'     => [
 				'product_call_start_grid'         => array(

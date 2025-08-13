@@ -172,7 +172,7 @@ class ProductRelated extends Addon implements AddonInterface {
 	}
 
 	public function setTitle( $title ) {
-		if ( $customTitle = $this->getSetting( 'product_related_title', __( 'Related products', 'woocommerce' ) ) ) {
+		if ( $customTitle = $this->getSetting( 'product_related_title', __( 'Related Products', 'woocommerce' ) ) ) {
 			return $customTitle;
 		}
 
@@ -249,8 +249,8 @@ class ProductRelated extends Addon implements AddonInterface {
 				'id'          => 'product_related_title',
 				'title'       => __( 'Title', 'woo-assistant' ),
 				'type'        => 'text',
-				'default'     => __( 'Related products', 'woocommerce' ),
-				'placeholder' => __( 'Related products', 'woocommerce' )
+				'default'     => __( 'Related Products', 'woocommerce' ),
+				'placeholder' => __( 'Related Products', 'woocommerce' )
 			),
 			'product_related_orderby'    => array(
 				'id'                => 'product_related_orderby',
@@ -309,7 +309,7 @@ class ProductRelated extends Addon implements AddonInterface {
 				'default'           => 0,
 				'option_none'       => '---',
 				'option_none_value' => '',
-				'desc'              => __( 'Select categories excluded from related products', 'woo-assistant' ),
+				'desc'              => __( 'Choose the categories to exclude from the related products section.', 'woo-assistant' ),
 				'sanitize'          => 'array',
 				'sanitize_options'  => 'int',
 				'attributes'        => array(
@@ -359,8 +359,8 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 			'product_related_slider'                  => [
 				'id'       => 'product_related_slider',
-				'title'    => __( 'Enable slider', 'woo-assistant' ),
-				'desc'     => __( 'Enabling sliders on related products', 'woo-assistant' ),
+				'title'    => __( 'Activate the slider', 'woo-assistant' ),
+				'desc'     => __( 'Activate slider for the related products section', 'woo-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
@@ -425,7 +425,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 			'product_related_slider_margin'           => array(
 				'id'         => 'product_related_slider_margin',
-				'title'      => __( 'Slider item margin', 'woo-assistant' ),
+				'title'      => __( 'Slide margin', 'woo-assistant' ),
 				'type'       => 'number',
 				'default'    => 10,
 				'attributes' => array(

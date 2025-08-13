@@ -516,7 +516,7 @@ class ProductWishList extends Addon implements AddonInterface {
 
 		$settings = array(
 			'start_grid_wishlist_general' => array(
-				'title' => __( 'Product Wishlist', 'woo-assistant' ),
+				'title' => __( 'Products Wishlist', 'woo-assistant' ),
 				'type'  => 'startGrid',
 			),
 			'wishlist_page'               => array(
@@ -636,7 +636,8 @@ class ProductWishList extends Addon implements AddonInterface {
 			),
 			'wishlist_added_action'       => array(
 				'id'       => 'wishlist_added_action',
-				'title'    => __( 'Action product added', 'woo-assistant' ),
+				'title'    => __( 'Action after adding the product', 'woo-assistant' ),
+				'desc'    => __( 'Specify the action to perform following product addition', 'woo-assistant' ),
 				'type'     => 'select',
 				'options'  => array(
 					'open_page' => __( 'Open wishlist page', 'woo-assistant' ),
@@ -680,7 +681,7 @@ class ProductWishList extends Addon implements AddonInterface {
 
 		$sections[ $this->currentSection ] = array(
 			'title'        => __( 'WishList', 'woo-assistant' ),
-			'desc'         => __( 'Product WishList', 'woo-assistant' ),
+			'desc'         => __( 'Products WishList', 'woo-assistant' ),
 			'settings_key' => $this->addonID,
 			'settings'     => $settings
 		);
@@ -693,7 +694,7 @@ class ProductWishList extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Product WishList', 'woo-assistant' ),
+			'title'          => __( 'Products WishList', 'woo-assistant' ),
 			'desc'           => __( 'Add wishlist functionality to your store.', 'woo-assistant' ),
 			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
 			'cat'            => 'product',

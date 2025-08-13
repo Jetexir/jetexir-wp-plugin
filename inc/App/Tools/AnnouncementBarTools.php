@@ -429,7 +429,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				'id'            => 'post_ids',
 				'title'         => __( 'Single post/page/product', 'woo-assistant' ),
 				'placeholder'   => '1,25,87',
-				'desc'          => __( 'Insert post, page, product IDs, Separated with comma.', 'woo-assistant' ),
+				'desc'          => __( 'Enter the post, page, or product IDs, separated by commas.', 'woo-assistant' ),
 				'type'          => 'text',
 				'setting_value' => $data['post_ids'] ?? ''
 			),
@@ -482,7 +482,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'bg_color_type',
-				'title'         => __( 'Solid', 'woo-assistant' ),
+				'title'         => __( 'Solid color', 'woo-assistant' ),
 				'type'          => 'radio',
 				'default'       => 'solid',
 				'value'         => 'solid',
@@ -491,7 +491,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'bg_color_type',
-				'title'         => __( 'Gradient', 'woo-assistant' ),
+				'title'         => __( 'Gradient color', 'woo-assistant' ),
 				'type'          => 'radio',
 				'default'       => 'solid',
 				'value'         => 'gradient',
