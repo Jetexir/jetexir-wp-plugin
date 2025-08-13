@@ -4,7 +4,7 @@
  * Description:             WooCommerce Assistant
  * Version:                 1.0
  * Author:                  Parsa Kafi
- * Author URI:              http://parsa.ws
+ * Author URI:              https://parsa.ws
  * Text Domain:             woo-assistant
  * Domain Path:             /i18n/languages/
  * Requires Plugins:        woocommerce
