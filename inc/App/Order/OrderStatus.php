@@ -119,7 +119,7 @@ class OrderStatus extends Addon implements AddonInterface {
 				$actions['status']['actions'] = array_merge( $actions['status']['actions'], $statusActions );
 			} else {
 				$actions['status'] = array(
-					'group'   => __( 'Change status: ', 'woocommerce' ),
+					'group'   => __( 'Change status:', 'woocommerce' ) . ' ',
 					'actions' => $statusActions,
 				);
 			}

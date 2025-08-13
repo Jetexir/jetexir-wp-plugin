@@ -105,7 +105,7 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
-				'desc'     => __( 'Enable it to display "From" before Minimum Price.', 'woo-assistant' ),
+				'desc'     => __( 'Activate this feature to show "From" prior to the Minimum Price.', 'woo-assistant' ),
 				'sanitize' => 'bool'
 			],
 			'variation_price_add_up_to' => [
@@ -114,7 +114,7 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
-				'desc'     => __( 'Enable it to display "Up To" before Maximum Price.', 'woo-assistant' ),
+				'desc'     => __( 'Activate this option to present "Up To" before the Maximum Price.', 'woo-assistant' ),
 				'sanitize' => 'bool'
 			],
 			'variation_hide_reset_link' => array(
@@ -123,7 +123,7 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
-				'desc'     => __( 'Remove "Clear" link on single product page. ', 'woo-assistant' ),
+				'desc'     => __( 'Remove "Clear" link on single product page.', 'woo-assistant' ),
 				'sanitize' => 'bool'
 			),
 

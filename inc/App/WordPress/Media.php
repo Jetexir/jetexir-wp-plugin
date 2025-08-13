@@ -54,7 +54,7 @@ class Media {
 	public function addSectionSettings( array $sections ): array {
 		$settings = [
 			'start_grid_svg' => array(
-				'title' => __( 'SVG', 'woo-assistant' ),
+				'title' => 'SVG',
 				'type'  => 'startGrid',
 			),
 			'svg_enable'     => array(
