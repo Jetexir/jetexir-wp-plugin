@@ -352,7 +352,7 @@ class HTML {
 
 		$options = [];
 		foreach ( get_woocommerce_currencies() as $code => $name ) {
-			$options[ $code ] = esc_html( sprintf( __( '%1$s (%2$s)', 'woocommerce' ), $name, $code ) );
+			$options[ $code ] = esc_html( sprintf( '%1$s (%2$s)', $name, $code ) );
 		}
 
 		$data['options'] = $options;
