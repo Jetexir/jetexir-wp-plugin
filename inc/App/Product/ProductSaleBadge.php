@@ -16,7 +16,7 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 	public function __construct() {
 		parent::__construct();
 
-		add_filter( 'woo_assistant_product_global_settings', [ $this, 'addProductGlobalSettings' ] );
+		add_filter( 'woo_assistant_product_general_settings', [ $this, 'addProductGeneralSettings' ] );
 	}
 
 	public function initAction(): void {
@@ -89,7 +89,7 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 		return $saleText;
 	}
 
-	public function addProductGlobalSettings( $settings ): array {
+	public function addProductGeneralSettings( $settings ): array {
 		$addonSettings = array(
 			'start_grid_product_sale_badge' => array(
 				'title' => __( 'Sale Badge', 'woo-assistant' ),

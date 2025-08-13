@@ -1,10 +1,10 @@
 <?php
 
-namespace WooAssistant\App\GlobalSettings;
+namespace WooAssistant\App\GeneralSettings;
 
 defined( 'ABSPATH' ) || exit;
 
-class GlobalSettings {
+class GeneralSettings {
 	public function __construct() {
 		new Styles();
 		new Debug();

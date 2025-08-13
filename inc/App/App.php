@@ -4,7 +4,7 @@ namespace WooAssistant\App;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\App\GlobalSettings\GlobalSettings;
+use WooAssistant\App\GeneralSettings\GeneralSettings;
 use WooAssistant\App\Order\Order;
 use WooAssistant\App\Product\Product;
 use WooAssistant\App\Cart\Cart;
@@ -20,7 +20,7 @@ class App {
 		new Order();
 		new Cart();
 		new Checkout();
-		new GlobalSettings();
+		new GeneralSettings();
 		new WordPress();
 		new WooCommerce();
 

@@ -11,12 +11,12 @@ use WooAssistant\Settings\Settings;
 class ProductPriceVariation extends Addon implements AddonInterface {
 	public string $addonID = 'product-price-variation';
 	public string $currentTab = 'product';
-	public string $currentSection = 'global';
+	public string $currentSection = 'general';
 
 	public function __construct() {
 		parent::__construct();
 
-		add_filter( 'woo_assistant_product_global_settings', [ $this, 'addProductGlobalSettings' ] );
+		add_filter( 'woo_assistant_product_general_settings', [ $this, 'addProductGeneralSettings' ] );
 	}
 
 	public function initAction(): void {
@@ -77,7 +77,7 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 		return $price;
 	}
 
-	public function addProductGlobalSettings( $settings ): array {
+	public function addProductGeneralSettings( $settings ): array {
 		$addonSettings = array(
 			'start_grid_product_variation_price' => array(
 				'title' => __( 'Variation Prices', 'woo-assistant' ),

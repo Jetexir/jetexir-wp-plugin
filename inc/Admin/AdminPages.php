@@ -179,7 +179,7 @@ class AdminPages {
     }
 
     private static function defaultTabs(): array {
-        return [ 'dashboard', 'product', 'order', 'cart', 'checkout', 'tools', 'addons', 'global', 'wordpress' ];
+        return [ 'dashboard', 'product', 'order', 'cart', 'checkout', 'tools', 'addons', 'general', 'wordpress' ];
     }
 
     public static function isSettingPage(): bool {

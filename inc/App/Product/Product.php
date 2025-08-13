@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 class Product {
 	public function __construct() {
-		new ProductGlobal();
+		new ProductGeneral();
 		new ProductSaleBadge();
 		new ProductPriceVariation();
 		new ProductCompare();

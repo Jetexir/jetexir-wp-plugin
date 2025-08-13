@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\App\GlobalSettings;
+namespace WooAssistant\App\GeneralSettings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -8,7 +8,7 @@ class Debug {
 	private const sectionID = 'debug';
 
 	public function __construct() {
-		add_filter( 'woo_assistant_global_settings_sections', [ $this, 'addSectionSettings' ] );
+		add_filter( 'woo_assistant_general_settings_sections', [ $this, 'addSectionSettings' ] );
 	}
 
 	public function addSectionSettings( array $sections ): array {
