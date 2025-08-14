@@ -1,6 +1,6 @@
 @font-face {
   font-family: "wooassistant-icon";
-  src: url("../fonts/wooassistant-icon.ttf?4uwdcw") format("truetype"), url("../fonts/wooassistant-icon.woff?4uwdcw") format("woff"), url("../fonts/wooassistant-icon.svg?4uwdcw#wooassistant-icon") format("svg");
+  src: url("../fonts/wooassistant-icon.ttf?20wdh9") format("truetype"), url("../fonts/wooassistant-icon.woff?20wdh9") format("woff"), url("../fonts/wooassistant-icon.svg?20wdh9#wooassistant-icon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -17,6 +17,10 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.wa-icon-menu:before {
+  content: "\e90c";
 }
 
 .wa-icon-magic-wand:before {
@@ -325,10 +329,6 @@
 
 .wa-icon-email:before {
   content: "\e910";
-}
-
-.wa-icon-pocket:before {
-  content: "\e90c";
 }
 
 .wa-icon-reddit:before {
@@ -703,12 +703,12 @@ body.rtl.woo-assistant-notices .wa-notice {
 }
 .wa-button.wa-button-primary {
   color: var(--wa-button-color, var(--wa-text-color, #2B2B2B));
-  background-color: var(--wa-button-bg-color, #873eff);
+  background-color: var(--wa-button-bg-color, #E1CEFF);
   border-color: var(--wa-button-border-color, #720eec);
 }
 .wa-button.wa-button-primary:hover, .wa-button.wa-button-primary:focus, .wa-button.wa-button-primary:active {
   color: var(--wa-button-hover-color, var(--wa-text-color, #2B2B2B));
-  background-color: var(--wa-button-hover-bg-color, rgb(125.1450777202, 46.15, 255));
+  background-color: var(--wa-button-hover-bg-color, rgb(210.887755102, 182.95, 255));
   border-color: var(--wa-button-hover-border-color, #720eec);
 }
 .wa-button.wa-button-primary:focus, .wa-button.wa-button-primary:active {
@@ -717,17 +717,17 @@ body.rtl.woo-assistant-notices .wa-notice {
 }
 .wa-button.wa-button-secondary {
   color: var(--wa-secondary-button-color, var(--wa-text-color, #2B2B2B));
-  background-color: var(--wa-secondary-button-bg-color, #E1CEFF);
+  background-color: var(--wa-secondary-button-bg-color, #f3f3f3);
   border-color: var(--wa-secondary-button-border-color, #720eec);
 }
 .wa-button.wa-button-secondary:hover, .wa-button.wa-button-secondary:focus, .wa-button.wa-button-secondary:active {
   color: var(--wa-secondary-button-hover-color, var(--wa-text-color, #2B2B2B));
-  background-color: var(--wa-secondary-button-hover-bg-color, rgb(125.1450777202, 46.15, 255));
-  border-color: var(--wa-secondary-button-hover-border-color, #720eec);
+  background-color: var(--wa-secondary-button-hover-bg-color, rgb(230.85, 230.85, 230.85));
+  border-color: var(--wa-secondary-button-hover-border-color, #D3D3D3);
 }
 .wa-button.wa-button-secondary:focus, .wa-button.wa-button-secondary:active {
   outline-offset: 2px;
-  outline: var(--wa-secondary-button-hover-border-color, #720eec) solid 2px;
+  outline: var(--wa-secondary-button-hover-border-color, #D3D3D3) solid 2px;
 }
 
 /*
