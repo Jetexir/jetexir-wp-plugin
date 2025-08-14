@@ -3,6 +3,10 @@
 namespace WooAssistant\Helper;
 
 class WooCommerce {
+	public static function isComingSoon() {
+		return wc_string_to_bool( get_option( 'woocommerce_coming_soon' ) );
+	}
+
 	public static function url( $page, $endpoint = 'dashboard' ) {
 		if ( $page === 'cart' ) {
 			return wc_get_cart_url();
