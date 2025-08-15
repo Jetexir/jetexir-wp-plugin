@@ -1,0 +1,24 @@
+name: Built Branch and Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: "Create Release"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: alleyinteractive/action-release@develop
+
+inputs:
+  draft:
+    description: 'Specify whether to create a draft release.'
+    default: 'true'
+  skip-npm-install:
+    description: 'Specify whether to skip the npm install step.'
+    default: 'true'
