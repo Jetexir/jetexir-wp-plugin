@@ -68,7 +68,7 @@ class Styles {
 		$sep    = WOOASSISTANT_DEBUG_MODE ? "\n\t\t\t" : '';
 		$styles = implode( $sep, $properties ) . $sep . ":root{" . $sep . "\t" . implode( $sep . "\t", $variables ) . "$sep}\n";
 
-		wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-general-inline-style', false );
+		wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-general-inline-style', false, [], Assets::getVersion() );
 		wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-general-inline-style' );
 		wp_add_inline_style( WOOASSISTANT_PLUGIN_SLUG . '-general-inline-style', $styles );
 	}
