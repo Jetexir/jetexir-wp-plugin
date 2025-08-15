@@ -22,6 +22,7 @@ use WooAssistant\App\App;
 use WooAssistant\AppHelper\AppHelper;
 use WooAssistant\Integrations\Integrations;
 use WooAssistant\Settings\Settings;
+use WooAssistant\Flow\Install;
 
 final class WooAssistant {
 	public function __construct() {
@@ -81,3 +82,4 @@ final class WooAssistant {
 }
 
 new WooAssistant();
+register_activation_hook( __FILE__, array( Install::class, 'run' ) );
