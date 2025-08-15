@@ -5,6 +5,7 @@ namespace WooAssistant\App\Cart;
 defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Addons\Addon;
+use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Interfaces\AddonInterface;
 
@@ -18,9 +19,13 @@ class MenuCart extends Addon implements AddonInterface {
 	}
 
 	public function wpEnqueueScriptsAction(): void {
-		wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-menu-cart', false );
+		if ( ! $this->getSetting( 'menu_cart_load_styles', true ) ) {
+			return;
+		}
+
+		wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-menu-cart', false, [], Assets::getVersion() );
 		wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-menu-cart' );
-		wp_add_inline_style( WOOASSISTANT_PLUGIN_SLUG . '-menu-cart', '.wa-menu-cart a{display: flex !important;column-gap: 5px;align-items: center;}' );
+		wp_add_inline_style( WOOASSISTANT_PLUGIN_SLUG . '-menu-cart', '.wa-menu-cart a{display: inline-flex !important;column-gap: 5px;align-items: center;}' );
 	}
 
 	public function addCartToMenu( $items, $args ) {
@@ -130,6 +135,15 @@ class MenuCart extends Addon implements AddonInterface {
 				'menu_cart_cart_checkout_hide' => array(
 					'id'       => 'menu_cart_cart_checkout_hide',
 					'title'    => __( 'Hide on cart & checkout page', 'woo-assistant' ),
+					'type'     => 'toggle',
+					'value'    => 1,
+					'default'  => true,
+					'sanitize' => 'bool'
+				),
+				'menu_cart_load_styles'        => array(
+					'id'       => 'menu_cart_load_styles',
+					'title'    => __( 'Add menu styles', 'woo-assistant' ),
+					'desc'     => __( 'Styles to better display the menu', 'woo-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
