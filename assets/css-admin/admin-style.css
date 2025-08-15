@@ -1040,6 +1040,7 @@ body.rtl.woo-assistant-notices .wa-notice {
 .woo-assistant-wrap .wa-addons-wrap .wa-addon-wrap .wa-title-desc .wa-more-info-link {
   display: inline-flex;
   align-items: center;
+  justify-content: start;
   margin-top: auto;
 }
 .woo-assistant-wrap .wa-addons-wrap .wa-addon-wrap .wa-title-desc .wa-more-info-link svg {
@@ -1077,7 +1078,7 @@ body.rtl.woo-assistant-notices .wa-notice {
   position: relative;
 }
 .woo-assistant-wrap .wp-picker-container.wp-picker-active .button {
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 .woo-assistant-wrap .wp-picker-container.wp-picker-active .wp-picker-input-wrap {
   display: inline-flex;
@@ -2043,7 +2044,7 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap a {
   color: #873eff;
 }
 body.toplevel_page_woo-assistant .woo-assistant-wrap a:hover {
-  color: rgb(115.2901554404, 30.3, 255);
+  color: rgb(71.9409326425, 0, 190.2);
 }
 body.toplevel_page_woo-assistant .woo-assistant-wrap a:focus {
   box-shadow: none;
@@ -2312,7 +2313,7 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a:hover {
 }
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a:hover .wa-feed-title {
   text-decoration: underline;
-  color: rgb(115.2901554404, 30.3, 255);
+  color: rgb(71.9409326425, 0, 190.2);
 }
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-list-links a > span {
   display: block;
@@ -2502,6 +2503,15 @@ html[dir=rtl] body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-display-s
 html[dir=rtl] body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-sidebar.wa-mobile-sidebar {
   -webkit-transform: translateX(0);
   transform: translateX(0);
+}
+html[dir=rtl] body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-addon-wrap .wa-title-desc .wa-more-info-link {
+  flex-direction: row-reverse;
+  text-decoration: none;
+  align-items: normal;
+}
+html[dir=rtl] body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-addon-wrap .wa-title-desc .wa-more-info-link i {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 @media only screen and (max-width: 783px) {
   html[dir=rtl] body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-sidebar {

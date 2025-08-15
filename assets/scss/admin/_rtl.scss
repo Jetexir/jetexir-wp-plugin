@@ -32,6 +32,21 @@ html[dir="rtl"] {
         -webkit-transform: translateX(0);
         transform: translateX(0);
       }
+
+      .wa-addon-wrap {
+        .wa-title-desc {
+          .wa-more-info-link {
+            flex-direction: row-reverse;
+            text-decoration: none;
+            align-items: normal;
+
+            i {
+              -webkit-transform: rotate(180deg);
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
     }
   }
 
