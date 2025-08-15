@@ -14,11 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: alleyinteractive/action-release@develop
-
-inputs:
-  draft:
-    description: 'Specify whether to create a draft release.'
-    default: 'true'
-  skip-npm-install:
-    description: 'Specify whether to skip the npm install step.'
-    default: 'true'
+        with:
+          draft: 'true'
+          skip-npm-install: 'true'
