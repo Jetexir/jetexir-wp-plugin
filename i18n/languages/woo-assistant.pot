@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Woo Assistant\n"
-"POT-Creation-Date: 2025-08-14 03:39+0330\n"
+"POT-Creation-Date: 2025-08-16 00:56+0330\n"
 "PO-Revision-Date: 2025-08-13 00:02+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,8 +30,8 @@ msgid "Shipping"
 msgstr ""
 
 #: i18n/strings.php:5 inc/Addons/Addons.php:242 inc/Admin/AdminOrder.php:33
-#: inc/Admin/AdminOrder.php:50 inc/App/Order/OrderNumber.php:369
-#: inc/App/Order/OrderStatus.php:594
+#: inc/Admin/AdminOrder.php:50 inc/App/Order/OrderNumber.php:375
+#: inc/App/Order/OrderStatus.php:601
 msgid "Order"
 msgstr ""
 
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Medium Large"
 msgstr ""
 
-#: i18n/strings.php:12 inc/App/Product/ProductSocialShare.php:425
+#: i18n/strings.php:12 inc/App/Product/ProductSocialShare.php:427
 msgid "Large"
 msgstr ""
 
@@ -115,30 +115,30 @@ msgstr ""
 
 #: inc/Addons/Addons.php:239 inc/Admin/AdminProduct.php:31
 #: inc/Admin/AdminProduct.php:48 inc/App/Product/ProductCall.php:213
-#: inc/App/Product/ProductCompare.php:480 inc/App/Product/ProductFAQ.php:261
+#: inc/App/Product/ProductCompare.php:485 inc/App/Product/ProductFAQ.php:262
 #: inc/App/Product/ProductPriceVariation.php:145
-#: inc/App/Product/ProductQuantity.php:873
+#: inc/App/Product/ProductQuantity.php:872
 #: inc/App/Product/ProductRelated.php:540
-#: inc/App/Product/ProductSocialShare.php:450
-#: inc/App/Product/ProductWishList.php:699
-#: inc/App/Tools/AnnouncementBarTools.php:448
+#: inc/App/Product/ProductSocialShare.php:452
+#: inc/App/Product/ProductWishList.php:703
+#: inc/App/Tools/AnnouncementBarTools.php:453
 msgid "Product"
 msgstr ""
 
 #: inc/Addons/Addons.php:240 inc/Admin/AdminCart.php:27
-#: inc/Admin/AdminCart.php:44 inc/App/Cart/FlyCart.php:185
-#: inc/App/Cart/FlyCart.php:307 inc/App/Cart/FlyCart.php:373
-#: inc/App/Cart/FlyCart.php:453 inc/App/Cart/FlyCart.php:498
-#: inc/App/Cart/MenuCart.php:205 inc/App/Tools/AnnouncementBarTools.php:445
+#: inc/Admin/AdminCart.php:44 inc/App/Cart/FlyCart.php:191
+#: inc/App/Cart/FlyCart.php:313 inc/App/Cart/FlyCart.php:379
+#: inc/App/Cart/FlyCart.php:459 inc/App/Cart/FlyCart.php:504
+#: inc/App/Cart/MenuCart.php:219 inc/App/Tools/AnnouncementBarTools.php:450
 #: inc/Templates/plugin/fly-cart/fly_cart_modal.php:15
 #: inc/Templates/plugin/fly-cart/fly_cart_modal.php:32
 msgid "Cart"
 msgstr ""
 
 #: inc/Addons/Addons.php:241 inc/Admin/AdminCheckout.php:27
-#: inc/Admin/AdminCheckout.php:44 inc/App/Cart/FlyCart.php:393
-#: inc/App/Cart/FlyCart.php:462 inc/App/Checkout/CheckoutFields.php:725
-#: inc/App/Tools/AnnouncementBarTools.php:446
+#: inc/Admin/AdminCheckout.php:44 inc/App/Cart/FlyCart.php:399
+#: inc/App/Cart/FlyCart.php:468 inc/App/Checkout/CheckoutFields.php:732
+#: inc/App/Tools/AnnouncementBarTools.php:451
 #: inc/Templates/plugin/fly-cart/fly_cart_modal.php:38
 msgid "Checkout"
 msgstr ""
@@ -179,8 +179,8 @@ msgstr ""
 msgid "Save active addons"
 msgstr ""
 
-#: inc/Admin/AdminAssets.php:49 inc/App/Cart/FlyCart.php:152
-#: inc/App/Product/ProductWishList.php:393
+#: inc/Admin/AdminAssets.php:49 inc/App/Cart/FlyCart.php:156
+#: inc/App/Product/ProductWishList.php:396
 msgid "Remove"
 msgstr ""
 
@@ -240,20 +240,20 @@ msgstr ""
 msgid "Tools to enhance your WooCommerce products"
 msgstr ""
 
-#: inc/Admin/AdminSettings.php:90
+#: inc/Admin/AdminSettings.php:92
 msgid "Settings saved."
 msgstr ""
 
-#: inc/Admin/AdminSettings.php:93
+#: inc/Admin/AdminSettings.php:95
 msgid "Error saving settings!"
 msgstr ""
 
-#: inc/Admin/AdminSettings.php:461 inc/Providers/UI/AbstractDataTableUI.php:441
-#: inc/Templates/plugin/data-table/data_table_bulk_action.php:33
+#: inc/Admin/AdminSettings.php:466 inc/Providers/UI/AbstractDataTableUI.php:441
+#: inc/Templates/plugin/data-table/data_table_bulk_action.php:34
 msgid "Save changes"
 msgstr ""
 
-#: inc/Admin/AdminSettings.php:472
+#: inc/Admin/AdminSettings.php:478
 msgid "Discard changes"
 msgstr ""
 
@@ -282,443 +282,456 @@ msgstr ""
 msgid "Your site does not have SSL support, For example: https://example.com"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:50 inc/App/Cart/FlyCart.php:77
-#: inc/App/Product/ProductCompare.php:227
+#: inc/App/Cart/FlyCart.php:51 inc/App/Cart/FlyCart.php:78
+#: inc/App/Product/ProductCompare.php:231
 #: inc/App/Product/ProductWishList.php:160 inc/AppHelper/DataTableUI.php:88
 msgid "Security code is not valid, page will be refreshed."
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:89
+#: inc/App/Cart/FlyCart.php:90
 msgid "Loading..."
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:95 inc/App/Cart/FlyCart.php:313
+#: inc/App/Cart/FlyCart.php:96 inc/App/Cart/FlyCart.php:319
 msgid "Your cart is currently empty!"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:130 inc/App/Product/ProductQuantity.php:666
+#: inc/App/Cart/FlyCart.php:134 inc/App/Product/ProductQuantity.php:669
 msgid "Reduce quantity"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:147 inc/App/Product/ProductQuantity.php:679
+#: inc/App/Cart/FlyCart.php:151 inc/App/Product/ProductQuantity.php:682
 msgid "Increase quantity"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:161 inc/App/Cart/FlyCart.php:330
-#: inc/App/Cart/FlyCart.php:345 inc/App/Cart/MenuCart.php:172
+#: inc/App/Cart/FlyCart.php:166 inc/App/Cart/FlyCart.php:336
+#: inc/App/Cart/FlyCart.php:351 inc/App/Cart/MenuCart.php:186
 msgid "Subtotal"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:164 inc/App/Cart/FlyCart.php:353
-#: inc/App/Cart/MenuCart.php:171
+#: inc/App/Cart/FlyCart.php:170 inc/App/Cart/FlyCart.php:359
+#: inc/App/Cart/MenuCart.php:185
 msgid "Total"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:273 inc/App/Cart/FlyCart.php:274
-#: inc/App/Cart/FlyCart.php:496
+#: inc/App/Cart/FlyCart.php:279 inc/App/Cart/FlyCart.php:280
+#: inc/App/Cart/FlyCart.php:502
 msgid "Fly Cart"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:279
+#: inc/App/Cart/FlyCart.php:285
 msgid "Fly Cart Icon"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:284 inc/App/Product/ProductSocialShare.php:292
-#: inc/App/Tools/AnnouncementBarTools.php:415
+#: inc/App/Cart/FlyCart.php:290 inc/App/Product/ProductSocialShare.php:293
+#: inc/App/Tools/AnnouncementBarTools.php:420
 msgid "Position"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:287
+#: inc/App/Cart/FlyCart.php:293
 msgid "Top Left"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:288
+#: inc/App/Cart/FlyCart.php:294
 msgid "Top Right"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:289
+#: inc/App/Cart/FlyCart.php:295
 msgid "Bottom Left"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:290
+#: inc/App/Cart/FlyCart.php:296
 msgid "Bottom Right"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:297 inc/App/Cart/MenuCart.php:148
-#: inc/App/Product/ProductSocialShare.php:390
-#: inc/App/Product/ProductWishList.php:654
-#: inc/App/Product/ProductWishList.php:667
+#: inc/App/Cart/FlyCart.php:303 inc/App/Cart/MenuCart.php:162
+#: inc/App/Product/ProductSocialShare.php:392
+#: inc/App/Product/ProductWishList.php:658
+#: inc/App/Product/ProductWishList.php:671
 msgid "Icon"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:305 inc/App/Order/OrderStatus.php:277
-#: inc/App/Order/OrderStatus.php:411 inc/App/Order/OrderStatus.php:444
+#: inc/App/Cart/FlyCart.php:311 inc/App/Order/OrderStatus.php:282
+#: inc/App/Order/OrderStatus.php:417 inc/App/Order/OrderStatus.php:450
 #: inc/App/Product/ProductRelated.php:250
-#: inc/App/Product/ProductSocialShare.php:379
-#: inc/App/Tools/AnnouncementBarTools.php:229
-#: inc/App/Tools/AnnouncementBarTools.php:324
-#: inc/App/Tools/AnnouncementBarTools.php:361
+#: inc/App/Product/ProductSocialShare.php:381
+#: inc/App/Tools/AnnouncementBarTools.php:232
+#: inc/App/Tools/AnnouncementBarTools.php:328
+#: inc/App/Tools/AnnouncementBarTools.php:365
 msgid "Title"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:311
+#: inc/App/Cart/FlyCart.php:317
 msgid "Empty shopping cart message"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:321
+#: inc/App/Cart/FlyCart.php:327
 msgid "Cart Modal"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:326
+#: inc/App/Cart/FlyCart.php:332
 msgid "Item price"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:329 inc/App/Cart/MenuCart.php:160
+#: inc/App/Cart/FlyCart.php:335 inc/App/Cart/MenuCart.php:174
 #: inc/App/Product/Product.php:28 inc/App/Product/ProductRelated.php:265
 msgid "Price"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:337
+#: inc/App/Cart/FlyCart.php:343
 msgid "Quantity plus/minus buttons"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:360
+#: inc/App/Cart/FlyCart.php:366
 msgid "Cart button"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:380
+#: inc/App/Cart/FlyCart.php:386
 msgid "Checkout button"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:400
+#: inc/App/Cart/FlyCart.php:406
 msgid "Reload cart"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:401
+#: inc/App/Cart/FlyCart.php:407
 msgid "Reload the shopping cart after the page opens."
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:409
+#: inc/App/Cart/FlyCart.php:415
 msgid "Overlay layer"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:421
+#: inc/App/Cart/FlyCart.php:427
 msgid "Hide on"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:426 inc/App/Tools/AnnouncementBarTools.php:443
+#: inc/App/Cart/FlyCart.php:432 inc/App/Tools/AnnouncementBarTools.php:448
 msgid "Home"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:427
+#: inc/App/Cart/FlyCart.php:433
 msgid "Hide on Home page"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:435 inc/App/Tools/AnnouncementBarTools.php:444
+#: inc/App/Cart/FlyCart.php:441 inc/App/Tools/AnnouncementBarTools.php:449
 msgid "Blog"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:436
+#: inc/App/Cart/FlyCart.php:442
 msgid "Hide on Blog page"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:444
+#: inc/App/Cart/FlyCart.php:450
 msgid "Posts"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:445
+#: inc/App/Cart/FlyCart.php:451
 msgid "Hide on Posts"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:454
+#: inc/App/Cart/FlyCart.php:460
 msgid "Hide on Cart page"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:463
+#: inc/App/Cart/FlyCart.php:469
 msgid "Hide on Checkout page"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:471
+#: inc/App/Cart/FlyCart.php:477
 msgid "Hide on Pages"
 msgstr ""
 
-#: inc/App/Cart/FlyCart.php:497
+#: inc/App/Cart/FlyCart.php:503
 msgid "Floating Cart for WooCommerce"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:57
+#: inc/App/Cart/MenuCart.php:62
 msgid "items"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:85 inc/App/Cart/MenuCart.php:99
-#: inc/App/Cart/MenuCart.php:100 inc/App/Cart/MenuCart.php:105
-#: inc/App/Cart/MenuCart.php:203
+#: inc/App/Cart/MenuCart.php:90 inc/App/Cart/MenuCart.php:104
+#: inc/App/Cart/MenuCart.php:105 inc/App/Cart/MenuCart.php:110
+#: inc/App/Cart/MenuCart.php:217
 msgid "Menu Cart"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:110
+#: inc/App/Cart/MenuCart.php:115
 msgid "Select the menu(s) to display the Menu Cart"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:124
+#: inc/App/Cart/MenuCart.php:129
 msgid "Hide empty cart"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:132
+#: inc/App/Cart/MenuCart.php:137
 msgid "Hide on cart & checkout page"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:143
+#: inc/App/Cart/MenuCart.php:145
+msgid "Add menu styles"
+msgstr ""
+
+#: inc/App/Cart/MenuCart.php:146
+msgid "Styles to better display the menu"
+msgstr ""
+
+#: inc/App/Cart/MenuCart.php:157
 msgid "Menu Cart content"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:156
+#: inc/App/Cart/MenuCart.php:170
 msgid "Menu content"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:159
+#: inc/App/Cart/MenuCart.php:173
 msgid "Items count"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:161
+#: inc/App/Cart/MenuCart.php:175
 msgid "Items count and price"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:168
+#: inc/App/Cart/MenuCart.php:182
 msgid "Price type"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:179
+#: inc/App/Cart/MenuCart.php:193
 msgid "Link to"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:182
+#: inc/App/Cart/MenuCart.php:196
 msgid "Display Fly Cart modal"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:183
+#: inc/App/Cart/MenuCart.php:197
 msgid "Cart page"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:184
+#: inc/App/Cart/MenuCart.php:198
 msgid "Checkout page"
 msgstr ""
 
-#: inc/App/Cart/MenuCart.php:204
+#: inc/App/Cart/MenuCart.php:218
 msgid "Add a shopping cart icon to the menu bar."
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:303
+#: inc/App/Checkout/CheckoutFields.php:309
 msgid "Field not found!"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:319 inc/App/Order/OrderStatus.php:277
-#: inc/App/Order/OrderStatus.php:279 inc/App/Tools/AnnouncementBarTools.php:229
-#: inc/App/Tools/AnnouncementBarTools.php:231
+#. translators: %s: Field name
+#. translators: %s: Title
+#. translators: %s: Slug
+#. translators: %s: Title
+#. translators: %s: Text
+#: inc/App/Checkout/CheckoutFields.php:326 inc/App/Order/OrderStatus.php:282
+#: inc/App/Order/OrderStatus.php:285 inc/App/Tools/AnnouncementBarTools.php:232
+#: inc/App/Tools/AnnouncementBarTools.php:235
 #, php-format
 msgid "%s field is empty!"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:319
-#: inc/App/Checkout/CheckoutFields.php:455
-#: inc/App/Checkout/CheckoutFields.php:572
+#: inc/App/Checkout/CheckoutFields.php:326
+#: inc/App/Checkout/CheckoutFields.php:462
+#: inc/App/Checkout/CheckoutFields.php:579
 msgid "Name"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:353
+#: inc/App/Checkout/CheckoutFields.php:360
 msgid "The field was successfully saved."
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:357
+#: inc/App/Checkout/CheckoutFields.php:364
 msgid "Field added successfully."
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:383 inc/App/Order/OrderStatus.php:343
+#: inc/App/Checkout/CheckoutFields.php:390 inc/App/Order/OrderStatus.php:349
 msgid "Order status removed!"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:394 inc/App/Order/OrderStatus.php:354
-#: inc/App/Tools/AnnouncementBarTools.php:302
+#: inc/App/Checkout/CheckoutFields.php:401 inc/App/Order/OrderStatus.php:360
+#: inc/App/Tools/AnnouncementBarTools.php:306
 msgid "Selected item not found!"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:413 inc/App/Product/ProductCall.php:174
-#: inc/App/Product/ProductSocialShare.php:391
-#: inc/App/Product/ProductWishList.php:655
-#: inc/App/Product/ProductWishList.php:668
-#: inc/App/Tools/AnnouncementBarTools.php:231
-#: inc/App/Tools/AnnouncementBarTools.php:369
+#: inc/App/Checkout/CheckoutFields.php:420 inc/App/Product/ProductCall.php:174
+#: inc/App/Product/ProductSocialShare.php:393
+#: inc/App/Product/ProductWishList.php:659
+#: inc/App/Product/ProductWishList.php:672
+#: inc/App/Tools/AnnouncementBarTools.php:235
+#: inc/App/Tools/AnnouncementBarTools.php:374
 msgid "Text"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:414
-#: inc/App/Checkout/CheckoutFields.php:498 inc/App/Order/OrderNumber.php:238
+#: inc/App/Checkout/CheckoutFields.php:421
+#: inc/App/Checkout/CheckoutFields.php:505 inc/App/Order/OrderNumber.php:244
 msgid "Number"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:415
+#: inc/App/Checkout/CheckoutFields.php:422
 msgid "Password"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:416
-#: inc/App/Checkout/CheckoutFields.php:499
-#: inc/App/Product/ProductSocialShare.php:249
+#: inc/App/Checkout/CheckoutFields.php:423
+#: inc/App/Checkout/CheckoutFields.php:506
+#: inc/App/Product/ProductSocialShare.php:250
 msgid "Email"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:417
-#: inc/App/Checkout/CheckoutFields.php:501
+#: inc/App/Checkout/CheckoutFields.php:424
+#: inc/App/Checkout/CheckoutFields.php:508
 msgid "Phone"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:418
-#: inc/App/Checkout/CheckoutFields.php:500
+#: inc/App/Checkout/CheckoutFields.php:425
+#: inc/App/Checkout/CheckoutFields.php:507
 msgid "URL"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:419
+#: inc/App/Checkout/CheckoutFields.php:426
 msgid "Hidden"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:420
+#: inc/App/Checkout/CheckoutFields.php:427
 msgid "Textarea"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:444
-#: inc/App/Product/ProductWishList.php:602 inc/Helper/HTML.php:851
+#: inc/App/Checkout/CheckoutFields.php:451
+#: inc/App/Product/ProductWishList.php:606 inc/Helper/HTML.php:851
 msgid "Type"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:456 inc/App/Order/OrderStatus.php:419
+#: inc/App/Checkout/CheckoutFields.php:463 inc/App/Order/OrderStatus.php:425
 msgid "Use english alphabetic characters"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:465
-#: inc/App/Checkout/CheckoutFields.php:573
+#: inc/App/Checkout/CheckoutFields.php:472
+#: inc/App/Checkout/CheckoutFields.php:580
 msgid "Label"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:471
+#: inc/App/Checkout/CheckoutFields.php:478
 msgid "Placeholder"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:477
+#: inc/App/Checkout/CheckoutFields.php:484
 msgid "Default Value"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:483
+#: inc/App/Checkout/CheckoutFields.php:490
 msgid "CSS Class"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:484
+#: inc/App/Checkout/CheckoutFields.php:491
 msgid "Separate with space"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:490
+#: inc/App/Checkout/CheckoutFields.php:497
 msgid "Validation"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:502
+#: inc/App/Checkout/CheckoutFields.php:509
 msgid "Postcode"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:503
+#: inc/App/Checkout/CheckoutFields.php:510
 msgid "State"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:515
+#: inc/App/Checkout/CheckoutFields.php:522
 msgid "Display"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:520 inc/Helper/HTML.php:985
+#: inc/App/Checkout/CheckoutFields.php:527 inc/Helper/HTML.php:986
 msgid "Required"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:529
+#: inc/App/Checkout/CheckoutFields.php:536
 msgid "Display in Emails"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:539
+#: inc/App/Checkout/CheckoutFields.php:546
 msgid "Display in Order Detail Pages"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:562
+#: inc/App/Checkout/CheckoutFields.php:569
 msgid "Add new field"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:563
+#: inc/App/Checkout/CheckoutFields.php:570
 msgid "Edit field"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:564 inc/App/Order/OrderStatus.php:438
-#: inc/App/Tools/AnnouncementBarTools.php:318
+#: inc/App/Checkout/CheckoutFields.php:571 inc/App/Order/OrderStatus.php:444
+#: inc/App/Tools/AnnouncementBarTools.php:322
 #: inc/Providers/UI/AbstractDataTableUI.php:440
 #: inc/Templates/plugin/data-table/data_table_modal.php:17
 msgid "Add new"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:569 inc/App/Order/OrderStatus.php:441
-#: inc/App/Tools/AnnouncementBarTools.php:321
+#: inc/App/Checkout/CheckoutFields.php:576 inc/App/Order/OrderStatus.php:447
+#: inc/App/Tools/AnnouncementBarTools.php:325
 msgid "Enable"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:570 inc/App/Order/OrderStatus.php:442
-#: inc/App/Tools/AnnouncementBarTools.php:322
+#: inc/App/Checkout/CheckoutFields.php:577 inc/App/Order/OrderStatus.php:448
+#: inc/App/Tools/AnnouncementBarTools.php:326
 msgid "Disable"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:571 inc/App/Order/OrderStatus.php:443
-#: inc/App/Tools/AnnouncementBarTools.php:323
+#: inc/App/Checkout/CheckoutFields.php:578 inc/App/Order/OrderStatus.php:449
+#: inc/App/Tools/AnnouncementBarTools.php:327
 msgid "Delete"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:574 inc/App/Order/OrderStatus.php:448
-#: inc/App/Order/OrderStatus.php:578 inc/App/Tools/AnnouncementBarTools.php:328
+#: inc/App/Checkout/CheckoutFields.php:581 inc/App/Order/OrderStatus.php:454
+#: inc/App/Order/OrderStatus.php:585 inc/App/Tools/AnnouncementBarTools.php:332
 msgid "Status"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:577
+#: inc/App/Checkout/CheckoutFields.php:584
 msgid "Billing Fields"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:579
+#: inc/App/Checkout/CheckoutFields.php:586
 msgid "Shipping Fields"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:581
+#: inc/App/Checkout/CheckoutFields.php:588
 msgid "Order Fields"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:651
-#: inc/App/Checkout/CheckoutFields.php:723
+#: inc/App/Checkout/CheckoutFields.php:658
+#: inc/App/Checkout/CheckoutFields.php:730
 msgid "Checkout Fields"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:656
+#: inc/App/Checkout/CheckoutFields.php:663
 msgid "Checkout page type"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:660
+#: inc/App/Checkout/CheckoutFields.php:667
 msgid "Classic"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:661
+#: inc/App/Checkout/CheckoutFields.php:668
 msgid "Blocks"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:677
+#: inc/App/Checkout/CheckoutFields.php:684
 msgid "Block type is not currently supported."
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:708
+#: inc/App/Checkout/CheckoutFields.php:715
 msgid "Fields"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:709
+#: inc/App/Checkout/CheckoutFields.php:716
 msgid "Checkout fields manager"
 msgstr ""
 
-#: inc/App/Checkout/CheckoutFields.php:724
+#: inc/App/Checkout/CheckoutFields.php:731
 msgid "Customize the checkout fields in WooCommerce."
 msgstr ""
 
@@ -773,8 +786,8 @@ msgstr ""
 #: inc/App/GeneralSettings/Styles.php:189
 #: inc/App/GeneralSettings/Styles.php:405
 #: inc/App/GeneralSettings/Styles.php:547
-#: inc/App/GeneralSettings/Styles.php:763 inc/App/Order/OrderStatus.php:390
-#: inc/App/Tools/AnnouncementBarTools.php:474
+#: inc/App/GeneralSettings/Styles.php:763 inc/App/Order/OrderStatus.php:396
+#: inc/App/Tools/AnnouncementBarTools.php:479
 msgid "Text color"
 msgstr ""
 
@@ -782,7 +795,7 @@ msgstr ""
 #: inc/App/GeneralSettings/Styles.php:239
 #: inc/App/GeneralSettings/Styles.php:430
 #: inc/App/GeneralSettings/Styles.php:597
-#: inc/App/GeneralSettings/Styles.php:813 inc/App/Order/OrderStatus.php:397
+#: inc/App/GeneralSettings/Styles.php:813 inc/App/Order/OrderStatus.php:403
 msgid "Background color"
 msgstr ""
 
@@ -845,196 +858,200 @@ msgstr ""
 msgid "General Styles"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:69 inc/App/Order/OrderNumber.php:367
+#: inc/App/Order/OrderNumber.php:71 inc/App/Order/OrderNumber.php:373
 msgid "Order Number"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:232
+#. translators: %d: Order number updated count
+#: inc/App/Order/OrderNumber.php:238
 #, php-format
 msgid "%d Order numbers updated."
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:239
+#: inc/App/Order/OrderNumber.php:245
 msgid "Custom order number"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:243
+#: inc/App/Order/OrderNumber.php:249
 msgid "Order number"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:248
+#: inc/App/Order/OrderNumber.php:254
 msgid "Order number format"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:251
+#: inc/App/Order/OrderNumber.php:257
 msgid "Sequential number"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:252
+#: inc/App/Order/OrderNumber.php:258
 msgid "Prefix + Sequential number"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:253
+#: inc/App/Order/OrderNumber.php:259
 msgid "Date + Sequential number"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:254
+#: inc/App/Order/OrderNumber.php:260
 msgid "Prefix + Date + Sequential number"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:255
+#: inc/App/Order/OrderNumber.php:261
 msgid "Pseudorandom - crc32 Hash (max 10 digits)"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:257
+#: inc/App/Order/OrderNumber.php:263
 msgid "Order ID"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:264
+#: inc/App/Order/OrderNumber.php:270
 msgid "Order number length"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:265
+#: inc/App/Order/OrderNumber.php:271
 msgid ""
 "Minimum length of number (zeros add to the left). This changes the order "
 "number length for all orders. Set to 5 for 00001, leave as 0 to disable."
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:278
+#: inc/App/Order/OrderNumber.php:284
 msgid "Prefix"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:279
+#: inc/App/Order/OrderNumber.php:285
 msgid "Prefix will be appended at the beginning of the order number."
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:285
+#: inc/App/Order/OrderNumber.php:291
 msgid "Date format"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:286
+#: inc/App/Order/OrderNumber.php:292
 msgid ""
 "Date will be appended at the beginning of the order number or after prefix."
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:292
+#: inc/App/Order/OrderNumber.php:298
 msgid "Start Number"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:293 inc/App/Order/OrderNumber.php:306
+#: inc/App/Order/OrderNumber.php:299 inc/App/Order/OrderNumber.php:312
 msgid "Use in \"Sequential Number\" methods"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:305
+#: inc/App/Order/OrderNumber.php:311
 msgid "Next Number"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:317
+#: inc/App/Order/OrderNumber.php:323
 msgid "Order tracking by custom number"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:331
+#: inc/App/Order/OrderNumber.php:337
 msgid "Apply for all orders"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:338
+#: inc/App/Order/OrderNumber.php:344
 msgid "Update all order numbers based on the new settings."
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:346
+#: inc/App/Order/OrderNumber.php:352
 msgid "Update all order numbers"
 msgstr ""
 
-#: inc/App/Order/OrderNumber.php:368
+#: inc/App/Order/OrderNumber.php:374
 msgid "Add custom order numbers to your WooCommerce store."
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:91
+#. translators: %s: Order status name
+#: inc/App/Order/OrderStatus.php:92
 #, php-format
 msgid "Change status to %s"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:111 inc/App/Order/OrderStatus.php:143
+#. translators: %s: Order status name
+#: inc/App/Order/OrderStatus.php:113 inc/App/Order/OrderStatus.php:146
 #, php-format
 msgid "Change order status to %s"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:122
+#: inc/App/Order/OrderStatus.php:124
 msgid "Change status:"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:279 inc/App/Order/OrderStatus.php:418
-#: inc/App/Order/OrderStatus.php:447
+#: inc/App/Order/OrderStatus.php:285 inc/App/Order/OrderStatus.php:424
+#: inc/App/Order/OrderStatus.php:453
 msgid "Slug"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:286
+#: inc/App/Order/OrderStatus.php:292
 msgid "Order status not found!"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:308
+#: inc/App/Order/OrderStatus.php:314
 msgid "The order status was successfully saved."
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:312
+#: inc/App/Order/OrderStatus.php:318
 msgid "Order status added successfully."
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:404
+#: inc/App/Order/OrderStatus.php:410
 msgid "Row background color"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:412
+#: inc/App/Order/OrderStatus.php:418
 msgid "Status title"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:420
+#: inc/App/Order/OrderStatus.php:426
 msgid "Status slug"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:435 inc/App/Order/OrderStatus.php:579
+#: inc/App/Order/OrderStatus.php:441 inc/App/Order/OrderStatus.php:586
 msgid "Custom Order Status"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:436
+#: inc/App/Order/OrderStatus.php:442
 msgid "Add new order status"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:437
+#: inc/App/Order/OrderStatus.php:443
 msgid "Edit order status"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:515
+#: inc/App/Order/OrderStatus.php:521
 msgid "Order status"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:520
+#: inc/App/Order/OrderStatus.php:526
 msgid "Default order status"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:523 inc/App/Order/OrderStatus.php:541
+#: inc/App/Order/OrderStatus.php:529 inc/App/Order/OrderStatus.php:548
 #: inc/App/Tools/CurrencySymbolTools.php:90
 msgid "No changes"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:529
+#: inc/App/Order/OrderStatus.php:535
 msgid "Fallback delete order status"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:540
+#. translators: %s: Payment gateway title
+#: inc/App/Order/OrderStatus.php:547
 #, php-format
 msgid "Default order status for \"%s\" method"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:559
+#: inc/App/Order/OrderStatus.php:566
 msgid "Orders row background color"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:592
+#: inc/App/Order/OrderStatus.php:599
 msgid "Order Status"
 msgstr ""
 
-#: inc/App/Order/OrderStatus.php:593
+#: inc/App/Order/OrderStatus.php:600
 msgid "Add custom order statuses to your WooCommerce store."
 msgstr ""
 
@@ -1121,7 +1138,7 @@ msgstr ""
 msgid "Add a Call button for products with no price set."
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:60 inc/App/Product/ProductCompare.php:195
+#: inc/App/Product/ProductCompare.php:60 inc/App/Product/ProductCompare.php:199
 msgid "Your product compare list is empty"
 msgstr ""
 
@@ -1129,92 +1146,93 @@ msgstr ""
 msgid "In stock"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:275
-#: inc/App/Product/ProductCompare.php:341
-#: inc/App/Product/ProductCompare.php:464
+#: inc/App/Product/ProductCompare.php:279
+#: inc/App/Product/ProductCompare.php:345
+#: inc/App/Product/ProductCompare.php:469
 msgid "Compare"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:327
+#: inc/App/Product/ProductCompare.php:331
 msgid "It is not possible to add more than %number% product to the comparison."
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:334
+#: inc/App/Product/ProductCompare.php:338
 msgid "Product Compare"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:339
+#: inc/App/Product/ProductCompare.php:343
 msgid "Button Text"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:342
+#: inc/App/Product/ProductCompare.php:346
 msgid "Compare button text"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:346
+#: inc/App/Product/ProductCompare.php:350
 msgid "Archive compare button"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:350
+#: inc/App/Product/ProductCompare.php:354
 msgid "Display compare button in WooCommerce archive pages"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:355
+#: inc/App/Product/ProductCompare.php:359
 msgid "Compare page"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:363
+#. translators: %s: Shortcode
+#: inc/App/Product/ProductCompare.php:368
 #, php-format
 msgid "Insert shortcode in the compare page %s"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:367
+#: inc/App/Product/ProductCompare.php:372
 msgid "Max product items"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:371
+#: inc/App/Product/ProductCompare.php:376
 msgid "Select max product items for comparing."
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:375
+#: inc/App/Product/ProductCompare.php:380
 msgid "Image size"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:383
+#: inc/App/Product/ProductCompare.php:388
 msgid "Select product image size"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:387
+#: inc/App/Product/ProductCompare.php:392
 msgid "Add to cart button"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:391
+#: inc/App/Product/ProductCompare.php:396
 msgid "Display add to cart button in product compare page"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:403
+#: inc/App/Product/ProductCompare.php:408
 msgid "Product fields"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:429
+#: inc/App/Product/ProductCompare.php:434
 msgid "Product attributes"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:439
+#: inc/App/Product/ProductCompare.php:444
 msgid ""
 "Your product attributes is empty, Add attribute in \"Products > Attributes\" "
 "menu."
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:465
+#: inc/App/Product/ProductCompare.php:470
 msgid "Product compare"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:478
+#: inc/App/Product/ProductCompare.php:483
 msgid "Products Compare"
 msgstr ""
 
-#: inc/App/Product/ProductCompare.php:479
+#: inc/App/Product/ProductCompare.php:484
 msgid "Enables customers to compare products."
 msgstr ""
 
@@ -1223,66 +1241,66 @@ msgstr ""
 msgid "FAQs"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:129
+#: inc/App/Product/ProductFAQ.php:130
 msgid "Enable Product FAQ"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:134
+#: inc/App/Product/ProductFAQ.php:135
 msgid "Product FAQs"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:141 inc/App/Product/ProductFAQ.php:143
-#: inc/App/Product/ProductFAQ.php:224 inc/App/Product/ProductFAQ.php:225
+#: inc/App/Product/ProductFAQ.php:142 inc/App/Product/ProductFAQ.php:144
+#: inc/App/Product/ProductFAQ.php:225 inc/App/Product/ProductFAQ.php:226
 msgid "Question"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:150 inc/App/Product/ProductFAQ.php:152
-#: inc/App/Product/ProductFAQ.php:230 inc/App/Product/ProductFAQ.php:234
+#: inc/App/Product/ProductFAQ.php:151 inc/App/Product/ProductFAQ.php:153
+#: inc/App/Product/ProductFAQ.php:231 inc/App/Product/ProductFAQ.php:235
 msgid "Answer"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:168 inc/App/Product/ProductFAQ.php:219
+#: inc/App/Product/ProductFAQ.php:169 inc/App/Product/ProductFAQ.php:220
 msgid "FAQ"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:169
+#: inc/App/Product/ProductFAQ.php:170
 msgid "Product frequently asked questions"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:174
+#: inc/App/Product/ProductFAQ.php:175
 msgid "Frequently asked questions"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:179
+#: inc/App/Product/ProductFAQ.php:180
 msgid "Global FAQ position"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:182
+#: inc/App/Product/ProductFAQ.php:183
 msgid "Before Product FAQs"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:183
+#: inc/App/Product/ProductFAQ.php:184
 msgid "After Product FAQs"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:190 inc/App/Product/ProductWishList.php:613
+#: inc/App/Product/ProductFAQ.php:191 inc/App/Product/ProductWishList.php:617
 msgid "Button icon"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:208 inc/App/Product/ProductFAQ.php:213
+#: inc/App/Product/ProductFAQ.php:209 inc/App/Product/ProductFAQ.php:214
 msgid "Global FAQs"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:242
-#: inc/Templates/plugin/data-table/data_table_modal.php:43
+#: inc/App/Product/ProductFAQ.php:243
+#: inc/Templates/plugin/data-table/data_table_modal.php:44
 msgid "Add"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:259
+#: inc/App/Product/ProductFAQ.php:260
 msgid "Products FAQ"
 msgstr ""
 
-#: inc/App/Product/ProductFAQ.php:260
+#: inc/App/Product/ProductFAQ.php:261
 msgid "Add a frequently asked questions (FAQ) section to the product page."
 msgstr ""
 
@@ -1355,7 +1373,7 @@ msgid "Add advanced settings for WooCommerce variable product pricing."
 msgstr ""
 
 #: inc/App/Product/ProductQuantity.php:100
-#: inc/App/Product/ProductQuantity.php:192
+#: inc/App/Product/ProductQuantity.php:194
 msgid "Minimum Quantity"
 msgstr ""
 
@@ -1364,7 +1382,7 @@ msgid "Enter minimum quantity for this product"
 msgstr ""
 
 #: inc/App/Product/ProductQuantity.php:114
-#: inc/App/Product/ProductQuantity.php:208
+#: inc/App/Product/ProductQuantity.php:210
 msgid "Maximum Quantity"
 msgstr ""
 
@@ -1373,7 +1391,7 @@ msgid "Enter maximum quantity for this product"
 msgstr ""
 
 #: inc/App/Product/ProductQuantity.php:128
-#: inc/App/Product/ProductQuantity.php:224
+#: inc/App/Product/ProductQuantity.php:226
 msgid "Quantity Step"
 msgstr ""
 
@@ -1381,112 +1399,112 @@ msgstr ""
 msgid "Enter quantity step for this product"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:195
+#: inc/App/Product/ProductQuantity.php:197
 msgid "Enter minimum quantity for this product variation"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:211
+#: inc/App/Product/ProductQuantity.php:213
 msgid "Enter maximum quantity for this product variation"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:227
+#: inc/App/Product/ProductQuantity.php:229
 msgid "Enter quantity step for this product variation"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:434
+#: inc/App/Product/ProductQuantity.php:436
 msgid ""
 "You have reached the maximum number of items in your cart for this product."
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:556
+#: inc/App/Product/ProductQuantity.php:558
 msgid "The maximum value changes based on the minimum and step."
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:702
+#: inc/App/Product/ProductQuantity.php:705
 msgid "Quantity"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:703
+#: inc/App/Product/ProductQuantity.php:706
 msgid "Quantity Customization"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:707
+#: inc/App/Product/ProductQuantity.php:710
 msgid "Quantity Control"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:712
+#: inc/App/Product/ProductQuantity.php:715
 msgid "Disable on Single Product"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:716
+#: inc/App/Product/ProductQuantity.php:719
 msgid "Disable Quantity Field for All Products"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:721
+#: inc/App/Product/ProductQuantity.php:724
 msgid "Disable on Cart Page"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:729
+#: inc/App/Product/ProductQuantity.php:732
 msgid "Set \"Sold individually\" for All Products"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:739
+#: inc/App/Product/ProductQuantity.php:742
 msgid "Min/Max/Step"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:744
+#: inc/App/Product/ProductQuantity.php:747
 msgid "Enable quantity manager"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:748
+#: inc/App/Product/ProductQuantity.php:751
 msgid "Enable Minimum/Maximum/Step Quantity for all Products"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:753
+#: inc/App/Product/ProductQuantity.php:756
 msgid "Minimum"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:765
+#: inc/App/Product/ProductQuantity.php:768
 msgid "Maximum"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:777
+#: inc/App/Product/ProductQuantity.php:780
 msgid "Step"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:789
+#: inc/App/Product/ProductQuantity.php:792
 msgid "Enable quantity manager per Product"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:793
+#: inc/App/Product/ProductQuantity.php:796
 msgid "Manage Minimum/Maximum/Step per Product"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:803
+#: inc/App/Product/ProductQuantity.php:806
 msgid "Plus/Minus button"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:808
+#: inc/App/Product/ProductQuantity.php:811
 msgid "Enable Plus/Minus"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:812
+#: inc/App/Product/ProductQuantity.php:815
 msgid "Add Plus/Minus buttons to Quantity input"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:817
+#: inc/App/Product/ProductQuantity.php:820
 msgid "Button width/height"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:830
+#: inc/App/Product/ProductQuantity.php:831
 msgid "Input Box"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:835
+#: inc/App/Product/ProductQuantity.php:836
 msgid "Enable quantity input style"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:843
+#: inc/App/Product/ProductQuantity.php:844
 msgid "Width"
 msgstr ""
 
@@ -1494,11 +1512,11 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:871
+#: inc/App/Product/ProductQuantity.php:870
 msgid "Product Quantity"
 msgstr ""
 
-#: inc/App/Product/ProductQuantity.php:872
+#: inc/App/Product/ProductQuantity.php:871
 msgid ""
 "Add plus and minus buttons to the quantity field. Control the minimum, "
 "maximum, and step values of the quantity field."
@@ -1578,7 +1596,7 @@ msgid "Display related products by"
 msgstr ""
 
 #: inc/App/Product/ProductRelated.php:294
-#: inc/App/Tools/AnnouncementBarTools.php:452
+#: inc/App/Tools/AnnouncementBarTools.php:457
 msgid "Category"
 msgstr ""
 
@@ -1591,7 +1609,7 @@ msgid "Choose the categories to exclude from the related products section."
 msgstr ""
 
 #: inc/App/Product/ProductRelated.php:321
-#: inc/App/Tools/AnnouncementBarTools.php:453
+#: inc/App/Tools/AnnouncementBarTools.php:458
 msgid "Tag"
 msgstr ""
 
@@ -1732,182 +1750,183 @@ msgid "Customize the product sale badge."
 msgstr ""
 
 #: inc/App/Product/ProductSocialShare.php:40
-#: inc/App/Product/ProductSocialShare.php:66
-#: inc/App/Product/ProductSocialShare.php:381
-#: inc/App/Product/ProductSocialShare.php:382
+#: inc/App/Product/ProductSocialShare.php:67
+#: inc/App/Product/ProductSocialShare.php:383
+#: inc/App/Product/ProductSocialShare.php:384
 msgid "Share On:"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:143
+#: inc/App/Product/ProductSocialShare.php:144
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:164
+#: inc/App/Product/ProductSocialShare.php:165
 msgid "X"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:169
+#: inc/App/Product/ProductSocialShare.php:170
 msgid "Facebook"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:174
+#: inc/App/Product/ProductSocialShare.php:175
 msgid "Linkedin"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:179
+#: inc/App/Product/ProductSocialShare.php:180
 msgid "Telegram"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:184
+#: inc/App/Product/ProductSocialShare.php:185
 msgid "WhatsApp"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:189
+#: inc/App/Product/ProductSocialShare.php:190
 msgid "Pinterest"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:194
+#: inc/App/Product/ProductSocialShare.php:195
 msgid "Tumblr"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:199
+#: inc/App/Product/ProductSocialShare.php:200
 msgid "VK"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:204
+#: inc/App/Product/ProductSocialShare.php:205
 msgid "Viber"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:209
+#: inc/App/Product/ProductSocialShare.php:210
 msgid "Reddit"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:214
+#: inc/App/Product/ProductSocialShare.php:215
 msgid "Xing"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:219
+#: inc/App/Product/ProductSocialShare.php:220
 msgid "Weibo"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:224
+#: inc/App/Product/ProductSocialShare.php:225
 msgid "Mastodon"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:229
+#: inc/App/Product/ProductSocialShare.php:230
 msgid "Bluesky"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:239
+#: inc/App/Product/ProductSocialShare.php:240
 msgid "Evernote"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:244
+#: inc/App/Product/ProductSocialShare.php:245
 msgid "Yahoo"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:281
+#: inc/App/Product/ProductSocialShare.php:282
 msgid "Share"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:282
-#: inc/App/Product/ProductSocialShare.php:287
-#: inc/App/Product/ProductSocialShare.php:448
+#: inc/App/Product/ProductSocialShare.php:283
+#: inc/App/Product/ProductSocialShare.php:288
+#: inc/App/Product/ProductSocialShare.php:450
 msgid "Product Social Share"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:295
+#: inc/App/Product/ProductSocialShare.php:296
 msgid "After product title"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:296
+#: inc/App/Product/ProductSocialShare.php:297
 msgid "After product price"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:297
+#: inc/App/Product/ProductSocialShare.php:298
 msgid "After product categories"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:303
+#. translators: %s: Shortcode
+#: inc/App/Product/ProductSocialShare.php:305
 #, php-format
 msgid "You can display social share with %s shortcode."
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:307
+#: inc/App/Product/ProductSocialShare.php:309
 msgid "Link type"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:312
+#: inc/App/Product/ProductSocialShare.php:314
 msgid "Long link"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:320
+#: inc/App/Product/ProductSocialShare.php:322
 msgid "Short link"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:331
+#: inc/App/Product/ProductSocialShare.php:333
 msgid "Encode URL"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:345
+#: inc/App/Product/ProductSocialShare.php:347
 msgid "Social networks"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:350
+#: inc/App/Product/ProductSocialShare.php:352
 msgid "Select Social Networks"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:360
+#: inc/App/Product/ProductSocialShare.php:362
 msgid "Enable \"Copy to Clipboard\""
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:374
+#: inc/App/Product/ProductSocialShare.php:376
 msgid "Appearance"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:383
+#: inc/App/Product/ProductSocialShare.php:385
 msgid "Display title before social icons"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:387
+#: inc/App/Product/ProductSocialShare.php:389
 msgid "Button Appearance"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:392
-#: inc/App/Product/ProductWishList.php:656
-#: inc/App/Product/ProductWishList.php:669
+#: inc/App/Product/ProductSocialShare.php:394
+#: inc/App/Product/ProductWishList.php:660
+#: inc/App/Product/ProductWishList.php:673
 msgid "Icon with text"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:396
+#: inc/App/Product/ProductSocialShare.php:398
 msgid "Select social share icon appearance"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:400
+#: inc/App/Product/ProductSocialShare.php:402
 msgid "Button Shape"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:403
+#: inc/App/Product/ProductSocialShare.php:405
 msgid "Round"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:404
+#: inc/App/Product/ProductSocialShare.php:406
 msgid "Square"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:405
+#: inc/App/Product/ProductSocialShare.php:407
 msgid "Rounded Corner"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:412
+#: inc/App/Product/ProductSocialShare.php:414
 msgid "Button Size"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:417
+#: inc/App/Product/ProductSocialShare.php:419
 msgid "Default"
 msgstr ""
 
-#: inc/App/Product/ProductSocialShare.php:449
+#: inc/App/Product/ProductSocialShare.php:451
 msgid "Enable social sharing on WooCommerce product pages."
 msgstr ""
 
@@ -1915,362 +1934,364 @@ msgstr ""
 msgid "Wishlist"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:266
-#: inc/App/Product/ProductWishList.php:278
-#: inc/App/Product/ProductWishList.php:623
-msgid "Add to wishlist"
-msgstr ""
-
-#: inc/App/Product/ProductWishList.php:268
+#: inc/App/Product/ProductWishList.php:267
 #: inc/App/Product/ProductWishList.php:279
-#: inc/App/Product/ProductWishList.php:629
-#: inc/App/Product/ProductWishList.php:644
-msgid "Remove from wishlist"
+#: inc/App/Product/ProductWishList.php:627
+msgid "Add to wishlist"
 msgstr ""
 
 #: inc/App/Product/ProductWishList.php:269
 #: inc/App/Product/ProductWishList.php:280
-#: inc/App/Product/ProductWishList.php:635
+#: inc/App/Product/ProductWishList.php:633
+#: inc/App/Product/ProductWishList.php:648
+msgid "Remove from wishlist"
+msgstr ""
+
+#: inc/App/Product/ProductWishList.php:270
+#: inc/App/Product/ProductWishList.php:281
+#: inc/App/Product/ProductWishList.php:639
 msgid "Browse wishlist"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:342
+#: inc/App/Product/ProductWishList.php:343
 msgid "Your wishlist is empty."
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:505
+#: inc/App/Product/ProductWishList.php:508
 msgid "It is not possible to add more than %number% product to the wishlist."
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:519
+#: inc/App/Product/ProductWishList.php:522
 msgid "Products Wishlist"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:524
+#: inc/App/Product/ProductWishList.php:527
 msgid "Wishlist page"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:530
+#: inc/App/Product/ProductWishList.php:533
 msgid "Add tab to \"My account\" page"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:532
+#. translators: %s: Shortcode
+#: inc/App/Product/ProductWishList.php:536
 #, php-format
 msgid "Insert shortcode in the custom wishlist page %s"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:536
+#: inc/App/Product/ProductWishList.php:540
 msgid "Max items"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:537
+#: inc/App/Product/ProductWishList.php:541
 msgid "Max wishlist items per user"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:550
+#: inc/App/Product/ProductWishList.php:554
 msgid "Auto remove"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:554
+#: inc/App/Product/ProductWishList.php:558
 msgid "Auto remove product from the wishlist after create order."
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:559
+#: inc/App/Product/ProductWishList.php:563
 msgid "Position on single page"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:562
-#: inc/App/Product/ProductWishList.php:581
+#: inc/App/Product/ProductWishList.php:566
+#: inc/App/Product/ProductWishList.php:585
 msgid "Before title"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:563
-#: inc/App/Product/ProductWishList.php:582
+#: inc/App/Product/ProductWishList.php:567
+#: inc/App/Product/ProductWishList.php:586
 msgid "After title"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:564
-#: inc/App/Product/ProductWishList.php:583
+#: inc/App/Product/ProductWishList.php:568
+#: inc/App/Product/ProductWishList.php:587
 msgid "After rating"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:565
-#: inc/App/Product/ProductWishList.php:584
+#: inc/App/Product/ProductWishList.php:569
+#: inc/App/Product/ProductWishList.php:588
 msgid "After price"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:566
+#: inc/App/Product/ProductWishList.php:570
 msgid "After excerpt"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:567
-#: inc/App/Product/ProductWishList.php:585
+#: inc/App/Product/ProductWishList.php:571
+#: inc/App/Product/ProductWishList.php:589
 msgid "Before add to cart button"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:568
-#: inc/App/Product/ProductWishList.php:586
+#: inc/App/Product/ProductWishList.php:572
+#: inc/App/Product/ProductWishList.php:590
 msgid "After add to cart button"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:569
+#: inc/App/Product/ProductWishList.php:573
 msgid "After meta"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:570
+#: inc/App/Product/ProductWishList.php:574
 msgid "After sharing"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:572
-#: inc/App/Product/ProductWishList.php:588
+#: inc/App/Product/ProductWishList.php:576
+#: inc/App/Product/ProductWishList.php:592
 msgid "Hide"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:578
+#: inc/App/Product/ProductWishList.php:582
 msgid "Position on archive page"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:597
-#: inc/App/Product/ProductWishList.php:605
+#: inc/App/Product/ProductWishList.php:601
+#: inc/App/Product/ProductWishList.php:609
 msgid "Button"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:606
+#: inc/App/Product/ProductWishList.php:610
 msgid "Link"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:621
+#: inc/App/Product/ProductWishList.php:625
 msgid "Button text"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:627
+#: inc/App/Product/ProductWishList.php:631
 msgid "Remove button text"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:633
+#: inc/App/Product/ProductWishList.php:637
 msgid "Browse button text"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:639
+#: inc/App/Product/ProductWishList.php:643
 msgid "Action after adding the product"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:640
+#: inc/App/Product/ProductWishList.php:644
 msgid "Specify the action to perform following product addition"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:643
+#: inc/App/Product/ProductWishList.php:647
 msgid "Open wishlist page"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:651
+#: inc/App/Product/ProductWishList.php:655
 msgid "Product appearance"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:660
+#: inc/App/Product/ProductWishList.php:664
 msgid "Select single product button appearance"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:664
+#: inc/App/Product/ProductWishList.php:668
 msgid "Archive appearance"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:673
+#: inc/App/Product/ProductWishList.php:677
 msgid "Select archive button appearance"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:683
+#: inc/App/Product/ProductWishList.php:687
 msgid "WishList"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:684
-#: inc/App/Product/ProductWishList.php:697
+#: inc/App/Product/ProductWishList.php:688
+#: inc/App/Product/ProductWishList.php:701
 msgid "Products WishList"
 msgstr ""
 
-#: inc/App/Product/ProductWishList.php:698
+#: inc/App/Product/ProductWishList.php:702
 msgid "Add wishlist functionality to your store."
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:238
+#: inc/App/Tools/AnnouncementBarTools.php:242
 msgid "Announcement not found!"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:259
+#: inc/App/Tools/AnnouncementBarTools.php:263
 msgid "The announcement was successfully saved."
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:264
+#: inc/App/Tools/AnnouncementBarTools.php:268
 msgid "Announcement added successfully."
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:291
+#: inc/App/Tools/AnnouncementBarTools.php:295
 msgid "Announcement removed!"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:315
+#: inc/App/Tools/AnnouncementBarTools.php:319
 msgid "Announcement Bars"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:316
+#: inc/App/Tools/AnnouncementBarTools.php:320
 msgid "Add new announcement"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:317
+#: inc/App/Tools/AnnouncementBarTools.php:321
 msgid "Edit announcement"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:325
+#: inc/App/Tools/AnnouncementBarTools.php:329
 msgid "ShortCode"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:326
+#: inc/App/Tools/AnnouncementBarTools.php:330
 msgid "Copy shortcode"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:337
-#: inc/App/Tools/AnnouncementBarTools.php:553
+#: inc/App/Tools/AnnouncementBarTools.php:341
+#: inc/App/Tools/AnnouncementBarTools.php:558
 msgid "Announcement Bar"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:362
+#. translators: %s: Shortcode
+#: inc/App/Tools/AnnouncementBarTools.php:367
 #, php-format
 msgid "Announcement Bar shortcode: %s"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:363
+#: inc/App/Tools/AnnouncementBarTools.php:368
 msgid "Announcement title"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:370
+#: inc/App/Tools/AnnouncementBarTools.php:375
 msgid "Announcement text"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:379
+#: inc/App/Tools/AnnouncementBarTools.php:384
 msgid "Primary button"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:380
+#: inc/App/Tools/AnnouncementBarTools.php:385
 msgid "Primary button text"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:381
+#: inc/App/Tools/AnnouncementBarTools.php:386
 msgid "If you leave the field blank, the announcement bar will be linked."
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:387
+#: inc/App/Tools/AnnouncementBarTools.php:392
 msgid "Primary link"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:388
+#: inc/App/Tools/AnnouncementBarTools.php:393
 msgid "Primary button link"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:394
+#: inc/App/Tools/AnnouncementBarTools.php:399
 msgid "Secondary button"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:395
+#: inc/App/Tools/AnnouncementBarTools.php:400
 msgid "Secondary button text"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:401
+#: inc/App/Tools/AnnouncementBarTools.php:406
 msgid "Secondary link"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:402
+#: inc/App/Tools/AnnouncementBarTools.php:407
 msgid "Secondary button link"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:410
+#: inc/App/Tools/AnnouncementBarTools.php:415
 msgid "Display on"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:418
+#: inc/App/Tools/AnnouncementBarTools.php:423
 msgid "Top"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:419
+#: inc/App/Tools/AnnouncementBarTools.php:424
 msgid "Sticky on top"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:420
+#: inc/App/Tools/AnnouncementBarTools.php:425
 msgid "Sticky on bottom"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:430
+#: inc/App/Tools/AnnouncementBarTools.php:435
 msgid "Single post/page/product"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:432
+#: inc/App/Tools/AnnouncementBarTools.php:437
 msgid "Enter the post, page, or product IDs, separated by commas."
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:438
+#: inc/App/Tools/AnnouncementBarTools.php:443
 msgid "Select page types"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:442
+#: inc/App/Tools/AnnouncementBarTools.php:447
 msgid "All pages"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:447
+#: inc/App/Tools/AnnouncementBarTools.php:452
 msgid "Shop"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:449
+#: inc/App/Tools/AnnouncementBarTools.php:454
 msgid "Product category"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:450
+#: inc/App/Tools/AnnouncementBarTools.php:455
 msgid "Product tag"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:451
+#: inc/App/Tools/AnnouncementBarTools.php:456
 msgid "Product taxonomy"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:454
+#: inc/App/Tools/AnnouncementBarTools.php:459
 msgid "Page"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:455
+#: inc/App/Tools/AnnouncementBarTools.php:460
 msgid "Post"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:456
+#: inc/App/Tools/AnnouncementBarTools.php:461
 msgid "All single post types"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:469
+#: inc/App/Tools/AnnouncementBarTools.php:474
 msgid "Style"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:480
+#: inc/App/Tools/AnnouncementBarTools.php:485
 msgid "Background color type"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:485
+#: inc/App/Tools/AnnouncementBarTools.php:490
 msgid "Solid color"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:494
+#: inc/App/Tools/AnnouncementBarTools.php:499
 msgid "Gradient color"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:506
+#: inc/App/Tools/AnnouncementBarTools.php:511
 msgid "Background solid color"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:513
+#: inc/App/Tools/AnnouncementBarTools.php:518
 msgid "Background gradient color"
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:554
+#: inc/App/Tools/AnnouncementBarTools.php:559
 msgid "Promote sales using multiple announcement bar banner types."
 msgstr ""
 
-#: inc/App/Tools/AnnouncementBarTools.php:555
+#: inc/App/Tools/AnnouncementBarTools.php:560
 msgid "Notification"
 msgstr ""
 
@@ -2409,17 +2430,17 @@ msgstr ""
 msgid "Select bulk action"
 msgstr ""
 
-#: inc/Templates/plugin/data-table/data_table_bulk_action.php:28
+#: inc/Templates/plugin/data-table/data_table_bulk_action.php:29
 msgid "Apply"
 msgstr ""
 
 #: inc/Templates/plugin/data-table/data_table_modal.php:19
-#: inc/Templates/plugin/data-table/data_table_modal.php:40
+#: inc/Templates/plugin/data-table/data_table_modal.php:41
 #: inc/Templates/plugin/fly-cart/fly_cart_modal.php:17
 msgid "Close"
 msgstr ""
 
-#: inc/Templates/plugin/data-table/data_table_modal.php:32
+#: inc/Templates/plugin/data-table/data_table_modal.php:33
 msgid "Active"
 msgstr ""
 
