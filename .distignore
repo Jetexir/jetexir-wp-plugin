@@ -1,4 +1,5 @@
 .github
+.gitignore
 node_modules
 webpack-css.config.js
 webpack.config.js
