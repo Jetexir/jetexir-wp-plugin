@@ -29,7 +29,7 @@ class Addons {
         add_filter( 'woo_assistant_settings_submit_button_title', [ $this, 'changeSubmitButtonTitle' ], 10, 2 );
         add_filter( 'woo_assistant_save_settings_success_message', [ $this, 'saveMessage' ], 10, 2 );
         add_filter( 'woo_assistant_dashboard_custom_links', [ $this, 'addDashboardLink' ] );
-        add_action( 'woo_assistant_notice', [ $this, 'addRefreshNotice' ] );
+        add_action( 'woo_assistant_admin_init', [ $this, 'addRefreshNotice' ], 25 );
         add_action( 'admin_init', [ $this, 'flushRewriteRules' ] );
     }
 
