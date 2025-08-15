@@ -22,6 +22,7 @@
     }
   ],
   "require": {
+    "php": ">=7.4",
     "enshrined/svg-sanitize": "^0.21.0"
   },
   "require-dev": {
