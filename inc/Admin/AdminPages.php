@@ -33,7 +33,7 @@ class AdminPages {
 
     public function checkSubmitForm(): void {
         $tab = self::getActiveTab();
-        if ( check_admin_referer( 'settings_submit_' . $tab, '_form_nonce' ) ) {
+        if ( isset( $_POST['_form_nonce'] ) && check_admin_referer( 'settings_submit_' . $tab, '_form_nonce' ) ) {
             do_action( 'woo_assistant_submit_settings_form', $tab );
         }
     }
