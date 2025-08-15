@@ -60,10 +60,10 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 
 			if ( $minPrice !== $maxPrice ) {
 				if ( $type === 'min' ) {
-					$price = ( $addFrom ? __( 'From', 'woo-assistant' ) : '' ) . ' ' . wc_price( $minPrice );
+					$price = ( $addFrom ? __( 'From', 'wc-assistant' ) : '' ) . ' ' . wc_price( $minPrice );
 
 				} elseif ( $type === 'max' ) {
-					$price = ( $addUpTo ? __( 'Up To', 'woo-assistant' ) : '' ) . ' ' . wc_price( $maxPrice );
+					$price = ( $addUpTo ? __( 'Up To', 'wc-assistant' ) : '' ) . ' ' . wc_price( $maxPrice );
 
 				} elseif ( $type === 'max_to_min' ) {
 					$price = wc_format_price_range( $maxPrice, $minPrice );
@@ -80,19 +80,19 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 	public function addProductGeneralSettings( $settings ): array {
 		$addonSettings = array(
 			'start_grid_product_variation_price' => array(
-				'title' => __( 'Variation Prices', 'woo-assistant' ),
+				'title' => __( 'Variation Prices', 'wc-assistant' ),
 				'type'  => 'startgrid',
 			),
 
 			'variation_price_type'      => array(
 				'id'                => 'variation_price_type',
-				'title'             => __( 'Variation price type', 'woo-assistant' ),
+				'title'             => __( 'Variation price type', 'wc-assistant' ),
 				'type'              => 'select',
 				'options'           => array(
-					'min'        => __( 'Minimum Price', 'woo-assistant' ),
-					'max'        => __( 'Maximum Price', 'woo-assistant' ),
-					'min_to_max' => __( 'Minimum to Maximum Price', 'woo-assistant' ),
-					'max_to_min' => __( 'Maximum to Minimum Price', 'woo-assistant' ),
+					'min'        => __( 'Minimum Price', 'wc-assistant' ),
+					'max'        => __( 'Maximum Price', 'wc-assistant' ),
+					'min_to_max' => __( 'Minimum to Maximum Price', 'wc-assistant' ),
+					'max_to_min' => __( 'Maximum to Minimum Price', 'wc-assistant' ),
 				),
 				'option_none'       => '---',
 				'option_none_value' => '',
@@ -101,29 +101,29 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 			),
 			'variation_price_add_from'  => [
 				'id'       => 'variation_price_add_from',
-				'title'    => __( 'Add From', 'woo-assistant' ),
+				'title'    => __( 'Add From', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
-				'desc'     => __( 'Activate this feature to show "From" prior to the Minimum Price.', 'woo-assistant' ),
+				'desc'     => __( 'Activate this feature to show "From" prior to the Minimum Price.', 'wc-assistant' ),
 				'sanitize' => 'bool'
 			],
 			'variation_price_add_up_to' => [
 				'id'       => 'variation_price_add_up_to',
-				'title'    => __( 'Add Up To', 'woo-assistant' ),
+				'title'    => __( 'Add Up To', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
-				'desc'     => __( 'Activate this option to present "Up To" before the Maximum Price.', 'woo-assistant' ),
+				'desc'     => __( 'Activate this option to present "Up To" before the Maximum Price.', 'wc-assistant' ),
 				'sanitize' => 'bool'
 			],
 			'variation_hide_reset_link' => array(
 				'id'       => 'variation_hide_reset_link',
-				'title'    => __( 'Hide Reset Link', 'woo-assistant' ),
+				'title'    => __( 'Hide Reset Link', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
-				'desc'     => __( 'Remove "Clear" link on single product page.', 'woo-assistant' ),
+				'desc'     => __( 'Remove "Clear" link on single product page.', 'wc-assistant' ),
 				'sanitize' => 'bool'
 			),
 
@@ -140,9 +140,9 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Product Price Variation', 'woo-assistant' ),
-			'desc'           => __( 'Add advanced settings for WooCommerce variable product pricing.', 'woo-assistant' ),
-			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
+			'title'          => __( 'Product Price Variation', 'wc-assistant' ),
+			'desc'           => __( 'Add advanced settings for WooCommerce variable product pricing.', 'wc-assistant' ),
+			'tags'           => [ __( 'Product', 'wc-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws'

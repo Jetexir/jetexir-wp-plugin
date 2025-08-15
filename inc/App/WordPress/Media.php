@@ -59,11 +59,11 @@ class Media {
 			),
 			'svg_enable'     => array(
 				'id'       => 'svg_enable',
-				'title'    => __( 'Enable SVG support', 'woo-assistant' ),
+				'title'    => __( 'Enable SVG support', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
-				'desc'     => __( 'Allows upload SVG Files into your Media library', 'woo-assistant' ),
+				'desc'     => __( 'Allows upload SVG Files into your Media library', 'wc-assistant' ),
 				'sanitize' => 'bool'
 			),
 			'end_grid_svg'   => array(
@@ -72,8 +72,8 @@ class Media {
 		];
 
 		$sections[ self::sectionID ] = array(
-			'title'    => __( 'Media', 'woo-assistant' ),
-			'desc'     => __( 'Media Settings', 'woo-assistant' ),
+			'title'    => __( 'Media', 'wc-assistant' ),
+			'desc'     => __( 'Media Settings', 'wc-assistant' ),
 			'settings' => $settings
 		);
 

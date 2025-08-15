@@ -46,7 +46,7 @@ if ( ! isset( $args ) ) {
     <tbody class="<?php echo $args['sortable'] ? 'ui-sortable' : '' ?>">
     <?php
     if ( empty( $args['tbody'] ) ) {
-        echo '<tr><td colspan="100%">' . esc_html__( 'No entries!', 'woo-assistant' ) . '</td></tr>';
+        echo '<tr><td colspan="100%">' . esc_html__( 'No entries!', 'wc-assistant' ) . '</td></tr>';
     } else {
         foreach ( $args['tbody'] as $index => $row ) {
             $rowId      = $row['id'];

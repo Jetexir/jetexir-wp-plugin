@@ -5,7 +5,7 @@
  * Version:                 1.0
  * Author:                  Parsa Kafi
  * Author URI:              https://parsa.ws
- * Text Domain:             woo-assistant
+ * Text Domain:             wc-assistant
  * Domain Path:             /i18n/languages/
  * Requires Plugins:        woocommerce
  * Requires at least:       6.7

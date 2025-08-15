@@ -229,17 +229,17 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 			if ( empty( $formData['title'] ) ) {
 				/* translators: %s: Title */
-				$errorMessage = sprintf( __( '%s field is empty!', 'woo-assistant' ), __( 'Title', 'woo-assistant' ) );
+				$errorMessage = sprintf( __( '%s field is empty!', 'wc-assistant' ), __( 'Title', 'wc-assistant' ) );
 			} elseif ( empty( $formData['text'] ) ) {
 				/* translators: %s: Text */
-				$errorMessage = sprintf( __( '%s field is empty!', 'woo-assistant' ), __( 'Text', 'woo-assistant' ) );
+				$errorMessage = sprintf( __( '%s field is empty!', 'wc-assistant' ), __( 'Text', 'wc-assistant' ) );
 			}
 
 			if ( $index >= 0 ) {
 				$announcement = $this->getAnnouncementByIndex( $index );
 
 				if ( $announcement === false ) {
-					$errorMessage = __( 'Announcement not found!', 'woo-assistant' );
+					$errorMessage = __( 'Announcement not found!', 'wc-assistant' );
 				}
 			}
 
@@ -260,12 +260,12 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				$announcements[ $index ]         = $formData;
 				$announcements[ $index ]['code'] = $announcement['code'];
 				$this->saveSetting( 'announcement_bar_data', $announcements );
-				$successMessage = __( 'The announcement was successfully saved.', 'woo-assistant' );
+				$successMessage = __( 'The announcement was successfully saved.', 'wc-assistant' );
 
 			} else {
 				$formData['code'] = Helper::randomString( 6, true, false, true );
 				$this->addToArraySetting( 'announcement_bar_data', $formData, true );
-				$successMessage = __( 'Announcement added successfully.', 'woo-assistant' );
+				$successMessage = __( 'Announcement added successfully.', 'wc-assistant' );
 			}
 
 			$dataTable = $this->getDataTable();
@@ -292,7 +292,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 					'message'   => Notice::addAndDisplay( $this->currentSection, array(
 						array(
 							'type'    => 'success',
-							'message' => __( 'Announcement removed!', 'woo-assistant' ),
+							'message' => __( 'Announcement removed!', 'wc-assistant' ),
 						)
 					), false ),
 				] );
@@ -303,7 +303,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 					'message' => Notice::addAndDisplay( $this->currentSection, array(
 						array(
 							'type'    => 'error',
-							'message' => __( 'Selected item not found!', 'woo-assistant' ),
+							'message' => __( 'Selected item not found!', 'wc-assistant' ),
 						)
 					), false ),
 				], 403 );
@@ -316,20 +316,20 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		$dataTable->setID( 'announcement_bar' )
 		          ->setRows( $this->getSetting( 'announcement_bar_data', [] ) )
 		          ->setIdField( $dataTable::ROW_INDEX )
-		          ->setTitle( __( 'Announcement Bars', 'woo-assistant' ) )
-		          ->modalAddTitle( __( 'Add new announcement', 'woo-assistant' ) )
-		          ->modalEditTitle( __( 'Edit announcement', 'woo-assistant' ) )
-		          ->addNewButton( __( 'Add new', 'woo-assistant' ) )
+		          ->setTitle( __( 'Announcement Bars', 'wc-assistant' ) )
+		          ->modalAddTitle( __( 'Add new announcement', 'wc-assistant' ) )
+		          ->modalEditTitle( __( 'Edit announcement', 'wc-assistant' ) )
+		          ->addNewButton( __( 'Add new', 'wc-assistant' ) )
 		          ->addAction( 'edit', '<i class="wa-icon-edit"></i>', $dataTable::ACTION_EDIT )
 		          ->addAction( 'delete', '<i class="wa-icon-trash"></i>', $dataTable::ACTION_DELETE )
-		          ->addAction( 'bulk_enable', __( 'Enable', 'woo-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-		          ->addAction( 'bulk_disable', __( 'Disable', 'woo-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-		          ->addAction( 'bulk_delete', __( 'Delete', 'woo-assistant' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
-		          ->addColumn( __( 'Title', 'woo-assistant' ), 'title' )
-		          ->addColumn( __( 'ShortCode', 'woo-assistant' ), 'code', function ( $row ) {
-			          return '<code class="wa-copy-text" title="' . __( 'Copy shortcode', 'woo-assistant' ) . '">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
+		          ->addAction( 'bulk_enable', __( 'Enable', 'wc-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_disable', __( 'Disable', 'wc-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_delete', __( 'Delete', 'wc-assistant' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
+		          ->addColumn( __( 'Title', 'wc-assistant' ), 'title' )
+		          ->addColumn( __( 'ShortCode', 'wc-assistant' ), 'code', function ( $row ) {
+			          return '<code class="wa-copy-text" title="' . __( 'Copy shortcode', 'wc-assistant' ) . '">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
 		          }, [ 'is_html' => true, 'hide_on_mobile' => true ] )
-		          ->addColumn( __( 'Status', 'woo-assistant' ), $dataTable::ACTIVE_FIELD );
+		          ->addColumn( __( 'Status', 'wc-assistant' ), $dataTable::ACTIVE_FIELD );
 
 		return $dataTable;
 	}
@@ -338,7 +338,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		$dataTable = $this->getDataTable();
 
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Announcement Bar', 'woo-assistant' ),
+			'title'        => __( 'Announcement Bar', 'wc-assistant' ),
 			'settings_key' => $this->currentSection,
 			'settings'     => array(
 				'data_table_ui' => array(
@@ -362,17 +362,17 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'title',
-				'title'         => __( 'Title', 'woo-assistant' ),
+				'title'         => __( 'Title', 'wc-assistant' ),
 				/* translators: %s: Shortcode */
-				'desc'          => isset( $data['code'] ) && $data['code'] ? wp_sprintf( __( 'Announcement Bar shortcode: %s', 'woo-assistant' ), '<code class="wa-copy-text">[' . self::shortCode . ' code="' . $data['code'] . ']</code>' ) : '',
-				'placeholder'   => __( 'Announcement title', 'woo-assistant' ),
+				'desc'          => isset( $data['code'] ) && $data['code'] ? wp_sprintf( __( 'Announcement Bar shortcode: %s', 'wc-assistant' ), '<code class="wa-copy-text">[' . self::shortCode . ' code="' . $data['code'] . ']</code>' ) : '',
+				'placeholder'   => __( 'Announcement title', 'wc-assistant' ),
 				'type'          => 'text',
 				'setting_value' => $data['title'] ?? ''
 			),
 			array(
 				'id'            => 'text',
-				'title'         => __( 'Text', 'woo-assistant' ),
-				'placeholder'   => __( 'Announcement text', 'woo-assistant' ),
+				'title'         => __( 'Text', 'wc-assistant' ),
+				'placeholder'   => __( 'Announcement text', 'wc-assistant' ),
 				'type'          => 'textarea',
 				'attributes'    => array(
 					'resize' => 'none'
@@ -381,30 +381,30 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'primary_button',
-				'title'         => __( 'Primary button', 'woo-assistant' ),
-				'placeholder'   => __( 'Primary button text', 'woo-assistant' ),
-				'desc'          => __( 'If you leave the field blank, the announcement bar will be linked.', 'woo-assistant' ),
+				'title'         => __( 'Primary button', 'wc-assistant' ),
+				'placeholder'   => __( 'Primary button text', 'wc-assistant' ),
+				'desc'          => __( 'If you leave the field blank, the announcement bar will be linked.', 'wc-assistant' ),
 				'type'          => 'text',
 				'setting_value' => $data['primary_button'] ?? ''
 			),
 			array(
 				'id'            => 'primary_button_url',
-				'title'         => __( 'Primary link', 'woo-assistant' ),
-				'placeholder'   => __( 'Primary button link', 'woo-assistant' ),
+				'title'         => __( 'Primary link', 'wc-assistant' ),
+				'placeholder'   => __( 'Primary button link', 'wc-assistant' ),
 				'type'          => 'url',
 				'setting_value' => $data['primary_button_url'] ?? ''
 			),
 			array(
 				'id'            => 'secondary_button',
-				'title'         => __( 'Secondary button', 'woo-assistant' ),
-				'placeholder'   => __( 'Secondary button text', 'woo-assistant' ),
+				'title'         => __( 'Secondary button', 'wc-assistant' ),
+				'placeholder'   => __( 'Secondary button text', 'wc-assistant' ),
 				'type'          => 'text',
 				'setting_value' => $data['secondary_button'] ?? ''
 			),
 			array(
 				'id'            => 'secondary_button_url',
-				'title'         => __( 'Secondary link', 'woo-assistant' ),
-				'placeholder'   => __( 'Secondary button link', 'woo-assistant' ),
+				'title'         => __( 'Secondary link', 'wc-assistant' ),
+				'placeholder'   => __( 'Secondary button link', 'wc-assistant' ),
 				'type'          => 'url',
 				'setting_value' => $data['secondary_button_url'] ?? ''
 			),
@@ -412,17 +412,17 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				'type' => 'hr',
 			),
 			array(
-				'title' => __( 'Display on', 'woo-assistant' ),
+				'title' => __( 'Display on', 'wc-assistant' ),
 				'type'  => 'startgrid',
 			),
 			array(
 				'id'                => 'position',
-				'title'             => __( 'Position', 'woo-assistant' ),
+				'title'             => __( 'Position', 'wc-assistant' ),
 				'type'              => 'select',
 				'options'           => array(
-					'top'           => __( 'Top', 'woo-assistant' ),
-					'sticky-top'    => __( 'Sticky on top', 'woo-assistant' ),
-					'sticky-bottom' => __( 'Sticky on bottom', 'woo-assistant' ),
+					'top'           => __( 'Top', 'wc-assistant' ),
+					'sticky-top'    => __( 'Sticky on top', 'wc-assistant' ),
+					'sticky-bottom' => __( 'Sticky on bottom', 'wc-assistant' ),
 				),
 				'option_none'       => 'Use shortcode',
 				'option_none_value' => '',
@@ -432,33 +432,33 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'post_ids',
-				'title'         => __( 'Single post/page/product', 'woo-assistant' ),
+				'title'         => __( 'Single post/page/product', 'wc-assistant' ),
 				'placeholder'   => '1,25,87',
-				'desc'          => __( 'Enter the post, page, or product IDs, separated by commas.', 'woo-assistant' ),
+				'desc'          => __( 'Enter the post, page, or product IDs, separated by commas.', 'wc-assistant' ),
 				'type'          => 'text',
 				'setting_value' => $data['post_ids'] ?? ''
 			),
 			array(
 				'id'               => 'display_on',
-				'title'            => __( 'Select page types', 'woo-assistant' ),
+				'title'            => __( 'Select page types', 'wc-assistant' ),
 				'type'             => 'checkboxInline',
 				'setting_value'    => $data['display_on'] ?? [ 'all' ],
 				'options'          => array(
-					'all'              => __( 'All pages', 'woo-assistant' ),
-					'home'             => __( 'Home', 'woo-assistant' ),
-					'blog'             => __( 'Blog', 'woo-assistant' ),
-					'cart'             => __( 'Cart', 'woo-assistant' ),
-					'checkout'         => __( 'Checkout', 'woo-assistant' ),
-					'shop'             => __( 'Shop', 'woo-assistant' ),
-					'product'          => __( 'Product', 'woo-assistant' ),
-					'product-category' => __( 'Product category', 'woo-assistant' ),
-					'product-tag'      => __( 'Product tag', 'woo-assistant' ),
-					'product-taxonomy' => __( 'Product taxonomy', 'woo-assistant' ),
-					'category'         => __( 'Category', 'woo-assistant' ),
-					'tag'              => __( 'Tag', 'woo-assistant' ),
-					'page'             => __( 'Page', 'woo-assistant' ),
-					'post'             => __( 'Post', 'woo-assistant' ),
-					'singular'         => __( 'All single post types', 'woo-assistant' ),
+					'all'              => __( 'All pages', 'wc-assistant' ),
+					'home'             => __( 'Home', 'wc-assistant' ),
+					'blog'             => __( 'Blog', 'wc-assistant' ),
+					'cart'             => __( 'Cart', 'wc-assistant' ),
+					'checkout'         => __( 'Checkout', 'wc-assistant' ),
+					'shop'             => __( 'Shop', 'wc-assistant' ),
+					'product'          => __( 'Product', 'wc-assistant' ),
+					'product-category' => __( 'Product category', 'wc-assistant' ),
+					'product-tag'      => __( 'Product tag', 'wc-assistant' ),
+					'product-taxonomy' => __( 'Product taxonomy', 'wc-assistant' ),
+					'category'         => __( 'Category', 'wc-assistant' ),
+					'tag'              => __( 'Tag', 'wc-assistant' ),
+					'page'             => __( 'Page', 'wc-assistant' ),
+					'post'             => __( 'Post', 'wc-assistant' ),
+					'singular'         => __( 'All single post types', 'wc-assistant' ),
 				),
 				'not_equal'        => true,
 				'sanitize'         => 'array',
@@ -471,23 +471,23 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				'type' => 'hr',
 			),
 			array(
-				'title' => __( 'Style', 'woo-assistant' ),
+				'title' => __( 'Style', 'wc-assistant' ),
 				'type'  => 'startgrid',
 			),
 			array(
 				'id'            => 'text_color',
-				'title'         => __( 'Text color', 'woo-assistant' ),
+				'title'         => __( 'Text color', 'wc-assistant' ),
 				'type'          => 'wpColorPicker',
 				'sanitize'      => 'color',
 				'setting_value' => $data['text_color'] ?? '#333'
 			),
 			array(
-				'title' => __( 'Background color type', 'woo-assistant' ),
+				'title' => __( 'Background color type', 'wc-assistant' ),
 				'type'  => 'startInlineElements',
 			),
 			array(
 				'id'            => 'bg_color_type',
-				'title'         => __( 'Solid color', 'woo-assistant' ),
+				'title'         => __( 'Solid color', 'wc-assistant' ),
 				'type'          => 'radio',
 				'default'       => 'solid',
 				'value'         => 'solid',
@@ -496,7 +496,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'bg_color_type',
-				'title'         => __( 'Gradient color', 'woo-assistant' ),
+				'title'         => __( 'Gradient color', 'wc-assistant' ),
 				'type'          => 'radio',
 				'default'       => 'solid',
 				'value'         => 'gradient',
@@ -508,14 +508,14 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'bg_color_solid',
-				'title'         => __( 'Background solid color', 'woo-assistant' ),
+				'title'         => __( 'Background solid color', 'wc-assistant' ),
 				'type'          => 'wpColorPicker',
 				'setting_value' => $data['bg_color_solid'] ?? '#ebe5ff',
 				'sanitize'      => 'color'
 			),
 			array(
 				'id'            => 'bg_color_gradient',
-				'title'         => __( 'Background gradient color', 'woo-assistant' ),
+				'title'         => __( 'Background gradient color', 'wc-assistant' ),
 				'type'          => 'gradientColorPicker',
 				'addable'       => true,
 				'removable'     => true,
@@ -555,9 +555,9 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Announcement Bar', 'woo-assistant' ),
-			'desc'           => __( 'Promote sales using multiple announcement bar banner types.', 'woo-assistant' ),
-			'tags'           => [ __( 'Notification', 'woo-assistant' ) ],
+			'title'          => __( 'Announcement Bar', 'wc-assistant' ),
+			'desc'           => __( 'Promote sales using multiple announcement bar banner types.', 'wc-assistant' ),
+			'tags'           => [ __( 'Notification', 'wc-assistant' ) ],
 			'cat'            => 'customizations',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

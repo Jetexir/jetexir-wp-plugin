@@ -30,7 +30,7 @@ class AdminOrder implements AdminTabInterface {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$menus[ self::tab ] = array(
-				'title' => __( 'Order', 'woo-assistant' ),
+				'title' => __( 'Order', 'wc-assistant' ),
 				'icon'  => self::icon
 			);
 		}
@@ -47,8 +47,8 @@ class AdminOrder implements AdminTabInterface {
 	public function settings(): array {
 		if ( self::$settings === null ) {
 			self::$settings = array(
-				'title'    => __( 'Order', 'woo-assistant' ),
-				'desc'     => __( 'Tools to enhance your WooCommerce orders', 'woo-assistant' ),
+				'title'    => __( 'Order', 'wc-assistant' ),
+				'desc'     => __( 'Tools to enhance your WooCommerce orders', 'wc-assistant' ),
 				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
 			);
 		}

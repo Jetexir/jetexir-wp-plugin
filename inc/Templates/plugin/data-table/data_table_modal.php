@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) or die();
         <div class="wa-modal-content">
             <div class="wa-modal-header">
                         <span class="wa-modal-title"
-                              id="waDataTableUiModalLabel"><?php esc_html_e( 'Add new', 'woo-assistant' ) ?></span>
+                              id="waDataTableUiModalLabel"><?php esc_html_e( 'Add new', 'wc-assistant' ) ?></span>
                 <button type="button" class="wa-button wa-button-close" data-wa-dismiss="modal"
-                        aria-label="<?php esc_html_e( 'Close', 'woo-assistant' ) ?>"></button>
+                        aria-label="<?php esc_html_e( 'Close', 'wc-assistant' ) ?>"></button>
             </div>
             <div class="wa-modal-message"></div>
             <form class="wa-modal-body">
@@ -30,7 +30,7 @@ defined( 'ABSPATH' ) or die();
                 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo HTML::toggle( array(
                         'type'          => 'toggle',
-                        'title'         => esc_html__( 'Active', 'woo-assistant' ),
+                        'title'         => esc_html__( 'Active', 'wc-assistant' ),
                         'id'            => 'dtu-row-active',
                         'value'         => 1,
                         'setting_value' => 1
@@ -38,10 +38,10 @@ defined( 'ABSPATH' ) or die();
                 ?>
                 <div class="wa-modal-buttons">
                     <button class="wa-button wa-button-secondary" data-wa-dismiss="modal" type="button">
-                        <?php esc_html_e( 'Close', 'woo-assistant' ) ?>
+                        <?php esc_html_e( 'Close', 'wc-assistant' ) ?>
                     </button>
                     <button class="wa-button wa-button-primary" type="button">
-                        <?php esc_html_e( 'Add', 'woo-assistant' ) ?>
+                        <?php esc_html_e( 'Add', 'wc-assistant' ) ?>
                     </button>
                 </div>
             </div>

@@ -25,12 +25,12 @@ class Product {
 	 */
 	public static function getFields(): array {
 		return array(
-			'price'      => __( 'Price', 'woo-assistant' ),
-			'stock'      => __( 'Stock', 'woo-assistant' ),
-			'rating'     => __( 'Rating', 'woo-assistant' ),
-			'brand'      => __( 'Brand', 'woo-assistant' ),
-			'dimensions' => __( 'Dimensions', 'woo-assistant' ),
-			'weight'     => __( 'Weight', 'woo-assistant' ),
+			'price'      => __( 'Price', 'wc-assistant' ),
+			'stock'      => __( 'Stock', 'wc-assistant' ),
+			'rating'     => __( 'Rating', 'wc-assistant' ),
+			'brand'      => __( 'Brand', 'wc-assistant' ),
+			'dimensions' => __( 'Dimensions', 'wc-assistant' ),
+			'weight'     => __( 'Weight', 'wc-assistant' ),
 		);
 	}
 }

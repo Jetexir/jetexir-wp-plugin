@@ -89,10 +89,10 @@ class AdminSettings {
 
 				if ( $saved ) {
 					Cache::set( 'settings_saved', true );
-					Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_success_message', __( 'Settings saved.', 'woo-assistant' ), $tab ), 'success' );
+					Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_success_message', __( 'Settings saved.', 'wc-assistant' ), $tab ), 'success' );
 					do_action( 'woo_assistant_save_settings_success', $tab, $currentSection, $options );
 				} else {
-					Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_error_message', __( 'Error saving settings!', 'woo-assistant' ), $tab ), 'error' );
+					Notice::add( $tab, apply_filters( 'woo_assistant_save_settings_error_message', __( 'Error saving settings!', 'wc-assistant' ), $tab ), 'error' );
 				}
 			}
 		}
@@ -463,7 +463,7 @@ class AdminSettings {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo HTML::button( [
 			'id'          => 'settings-submit',
-			'title'       => esc_html( apply_filters( 'woo_assistant_settings_submit_button_title', __( 'Save changes', 'woo-assistant' ), $currentTab ) ),
+			'title'       => esc_html( apply_filters( 'woo_assistant_settings_submit_button_title', __( 'Save changes', 'wc-assistant' ), $currentTab ) ),
 			'button_type' => 'submit',
 			'class'       => 'wa-button-primary',
 			'attributes'  => [
@@ -475,7 +475,7 @@ class AdminSettings {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo HTML::button( [
 				'id'          => 'settings-reset',
-				'title'       => esc_html( apply_filters( 'woo_assistant_settings_reset_button_title', __( 'Discard changes', 'woo-assistant' ), $currentTab ) ),
+				'title'       => esc_html( apply_filters( 'woo_assistant_settings_reset_button_title', __( 'Discard changes', 'wc-assistant' ), $currentTab ) ),
 				'button_type' => 'reset',
 				'attributes'  => [
 					'form' => 'wa-settings-form'

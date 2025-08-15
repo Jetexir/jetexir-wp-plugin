@@ -101,7 +101,7 @@ class Assets {
 
 		foreach ( $sizes as $value ) {
 			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-			$imageSizes[ $value ] = __( ucwords( str_replace( '_', ' ', $value ) ), 'woo-assistant' );
+			$imageSizes[ $value ] = __( ucwords( str_replace( '_', ' ', $value ) ), 'wc-assistant' );
 		}
 
 		return $imageSizes;

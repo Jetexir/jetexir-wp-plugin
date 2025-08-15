@@ -14,16 +14,16 @@ class Debug {
 	public function addSectionSettings( array $sections ): array {
 		$settings = [
 			'start_grid_debug_enable' => array(
-				'title' => __( 'Debugging', 'woo-assistant' ),
+				'title' => __( 'Debugging', 'wc-assistant' ),
 				'type'  => 'startGrid',
 			),
 			'debug_enable'            => array(
 				'id'       => 'debug_enable',
-				'title'    => __( 'Enable debug mode', 'woo-assistant' ),
+				'title'    => __( 'Enable debug mode', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
-				'desc'     => __( 'By enabling this option, the uncompressed version of the JS and CSS files will be loaded.', 'woo-assistant' ),
+				'desc'     => __( 'By enabling this option, the uncompressed version of the JS and CSS files will be loaded.', 'wc-assistant' ),
 				'sanitize' => 'bool'
 			),
 			'end_grid_debug_enable'   => array(
@@ -32,8 +32,8 @@ class Debug {
 		];
 
 		$sections[ self::sectionID ] = array(
-			'title'    => __( 'Debug', 'woo-assistant' ),
-			'desc'     => __( 'Debug Settings', 'woo-assistant' ),
+			'title'    => __( 'Debug', 'wc-assistant' ),
+			'desc'     => __( 'Debug Settings', 'wc-assistant' ),
 			'settings' => $settings
 		);
 

@@ -48,7 +48,7 @@ class FlyCart extends Addon implements AddonInterface {
 
 		wp_send_json_error( [
 			'error'   => 'nonce-invalid',
-			'message' => __( 'Security code is not valid, page will be refreshed.', 'woo-assistant' ),
+			'message' => __( 'Security code is not valid, page will be refreshed.', 'wc-assistant' ),
 			'refresh' => true
 		], 403 );
 	}
@@ -75,7 +75,7 @@ class FlyCart extends Addon implements AddonInterface {
 
 		wp_send_json_error( [
 			'error'   => 'nonce-invalid',
-			'message' => __( 'Security code is not valid, page will be refreshed.', 'woo-assistant' ),
+			'message' => __( 'Security code is not valid, page will be refreshed.', 'wc-assistant' ),
 			'refresh' => true
 		], 403 );
 	}
@@ -87,13 +87,13 @@ class FlyCart extends Addon implements AddonInterface {
 		echo '<div class="wa-loader-wrap" style="display: none"><div class="wa-loader"></div></div>';
 
 		if ( ! WordPress::isAjax() && $this->getSetting( 'fly_cart_reload_page_load', true ) ) {
-			echo '<p>' . esc_html__( 'Loading...', 'woo-assistant' ) . '</p>';
+			echo '<p>' . esc_html__( 'Loading...', 'wc-assistant' ) . '</p>';
 
 		} else {
 			$cart = WooCommerce::getCart();
 
 			if ( $cart->is_empty() ) {
-				echo '<p>' . esc_html( $this->getSetting( 'fly_cart_empty_message', __( 'Your cart is currently empty!', 'woo-assistant' ) ) ) . '</p>';
+				echo '<p>' . esc_html( $this->getSetting( 'fly_cart_empty_message', __( 'Your cart is currently empty!', 'wc-assistant' ) ) ) . '</p>';
 
 			} else {
 				$itemPrice       = $this->getSetting( 'fly_cart_item_price', 'price' );
@@ -131,7 +131,7 @@ class FlyCart extends Addon implements AddonInterface {
 
 					echo '<div class="wa-fly-cart-item-quantity ' . ( $buttons ? 'wa-fly-cart-item-quantity-buttons wa-appearance-text-field' : '' ) . '">';
 					if ( $buttons ) {
-						echo '<button type="button" data-action="minus" aria-label="' . esc_html__( 'Reduce quantity', 'woo-assistant' ) . '">-</button>';
+						echo '<button type="button" data-action="minus" aria-label="' . esc_html__( 'Reduce quantity', 'wc-assistant' ) . '">-</button>';
 					}
 
 					if ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() ) {
@@ -148,12 +148,12 @@ class FlyCart extends Addon implements AddonInterface {
 					}
 
 					if ( $buttons ) {
-						echo '<button type="button" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'woo-assistant' ) . '">+</button>';
+						echo '<button type="button" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'wc-assistant' ) . '">+</button>';
 					}
 
 					echo '</div>';
 
-					echo '<a href="#" class="wa-fly-cart-item-remove wa-flex wa-product-item-remove" ><i class="wa-icon-cross"></i> ' . esc_html__( 'Remove', 'woo-assistant' ) . '</a>';
+					echo '<a href="#" class="wa-fly-cart-item-remove wa-flex wa-product-item-remove" ><i class="wa-icon-cross"></i> ' . esc_html__( 'Remove', 'wc-assistant' ) . '</a>';
 					echo '</div>';
 
 					echo '</div>';
@@ -163,11 +163,11 @@ class FlyCart extends Addon implements AddonInterface {
 
 				if ( $this->getSetting( 'fly_cart_subtotal', true ) ) {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo '<div class="wa-fly-cart-subtotal wa-fly-cart-meta wa-flex"><span>' . esc_html__( 'Subtotal', 'woo-assistant' ) . '</span>' . $cart->get_cart_subtotal() . '</div>';
+					echo '<div class="wa-fly-cart-subtotal wa-fly-cart-meta wa-flex"><span>' . esc_html__( 'Subtotal', 'wc-assistant' ) . '</span>' . $cart->get_cart_subtotal() . '</div>';
 				}
 				if ( $this->getSetting( 'fly_cart_total', true ) ) {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo '<div class="wa-fly-cart-total wa-fly-cart-meta wa-flex"><span>' . esc_html__( 'Total', 'woo-assistant' ) . '</span>' . $cart->get_cart_total() . '</div>';
+					echo '<div class="wa-fly-cart-total wa-fly-cart-meta wa-flex"><span>' . esc_html__( 'Total', 'wc-assistant' ) . '</span>' . $cart->get_cart_total() . '</div>';
 				}
 			}
 		}
@@ -188,7 +188,7 @@ class FlyCart extends Addon implements AddonInterface {
 		$icons[] = array(
 			'id'          => $this->addonID,
 			'tag'         => 'a',
-			'title'       => $this->getSetting( 'fly_cart_title', __( 'Cart', 'woo-assistant' ) ),
+			'title'       => $this->getSetting( 'fly_cart_title', __( 'Cart', 'wc-assistant' ) ),
 			'icon'        => self::getBasketIcons( $this->getSetting( 'fly_cart_icon', 'wa-icon-shopping-cart' ), true ),
 			'count_badge' => WooCommerce::getCartItemsCount(),
 			'attributes'  => array(
@@ -276,31 +276,31 @@ class FlyCart extends Addon implements AddonInterface {
 			$basketIcons[ $icon ] = '<i class="' . $icon . '"></i>';
 		}
 		$sections[ $this->addonID ] = array(
-			'title'        => __( 'Fly Cart', 'woo-assistant' ),
-			'desc'         => __( 'Fly Cart', 'woo-assistant' ),
+			'title'        => __( 'Fly Cart', 'wc-assistant' ),
+			'desc'         => __( 'Fly Cart', 'wc-assistant' ),
 			'settings_key' => $this->addonID,
 			'settings'     => [
 				'fly_cart_start_grid_icon' => array(
 					'id'    => 'fly_cart_start_grid_icon',
-					'title' => __( 'Fly Cart Icon', 'woo-assistant' ),
+					'title' => __( 'Fly Cart Icon', 'wc-assistant' ),
 					'type'  => 'startGrid',
 				),
 				'fly_cart_position'        => array(
 					'id'       => 'fly_cart_position',
-					'title'    => __( 'Position', 'woo-assistant' ),
+					'title'    => __( 'Position', 'wc-assistant' ),
 					'type'     => 'select',
 					'options'  => array(
-						'top-left'     => __( 'Top Left', 'woo-assistant' ),
-						'top-right'    => __( 'Top Right', 'woo-assistant' ),
-						'bottom-left'  => __( 'Bottom Left', 'woo-assistant' ),
-						'bottom-right' => __( 'Bottom Right', 'woo-assistant' ),
+						'top-left'     => __( 'Top Left', 'wc-assistant' ),
+						'top-right'    => __( 'Top Right', 'wc-assistant' ),
+						'bottom-left'  => __( 'Bottom Left', 'wc-assistant' ),
+						'bottom-right' => __( 'Bottom Right', 'wc-assistant' ),
 					),
 					'default'  => 'bottom-left',
 					'sanitize' => 'text'
 				),
 				'fly_cart_icon'            => array(
 					'id'       => 'fly_cart_icon',
-					'title'    => __( 'Icon', 'woo-assistant' ),
+					'title'    => __( 'Icon', 'wc-assistant' ),
 					'type'     => 'radioInline',
 					'default'  => 'wa-icon-shopping-cart',
 					'options'  => $basketIcons,
@@ -308,15 +308,15 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_title'           => array(
 					'id'      => 'fly_cart_title',
-					'title'   => __( 'Title', 'woo-assistant' ),
+					'title'   => __( 'Title', 'wc-assistant' ),
 					'type'    => 'text',
-					'default' => __( 'Cart', 'woo-assistant' )
+					'default' => __( 'Cart', 'wc-assistant' )
 				),
 				'fly_cart_empty_message'   => array(
 					'id'      => 'fly_cart_empty_message',
-					'title'   => __( 'Empty shopping cart message', 'woo-assistant' ),
+					'title'   => __( 'Empty shopping cart message', 'wc-assistant' ),
 					'type'    => 'text',
-					'default' => __( 'Your cart is currently empty!', 'woo-assistant' )
+					'default' => __( 'Your cart is currently empty!', 'wc-assistant' )
 				),
 				'fly_cart_end_grid_icon'   => array(
 					'type' => 'endGrid',
@@ -324,23 +324,23 @@ class FlyCart extends Addon implements AddonInterface {
 
 				'fly_cart_start_grid_modal'         => array(
 					'id'    => 'fly_cart_start_grid_modal',
-					'title' => __( 'Cart Modal', 'woo-assistant' ),
+					'title' => __( 'Cart Modal', 'wc-assistant' ),
 					'type'  => 'startGrid',
 				),
 				'fly_cart_item_price'               => array(
 					'id'       => 'fly_cart_item_price',
-					'title'    => __( 'Item price', 'woo-assistant' ),
+					'title'    => __( 'Item price', 'wc-assistant' ),
 					'type'     => 'select',
 					'options'  => array(
-						'price'    => __( 'Price', 'woo-assistant' ),
-						'subtotal' => __( 'Subtotal', 'woo-assistant' ),
+						'price'    => __( 'Price', 'wc-assistant' ),
+						'subtotal' => __( 'Subtotal', 'wc-assistant' ),
 					),
 					'default'  => 'price',
 					'sanitize' => 'text'
 				),
 				'fly_cart_quantity_buttons'         => array(
 					'id'       => 'fly_cart_quantity_buttons',
-					'title'    => __( 'Quantity plus/minus buttons', 'woo-assistant' ),
+					'title'    => __( 'Quantity plus/minus buttons', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -348,7 +348,7 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_subtotal'                 => array(
 					'id'       => 'fly_cart_subtotal',
-					'title'    => __( 'Subtotal', 'woo-assistant' ),
+					'title'    => __( 'Subtotal', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -356,14 +356,14 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_total'                    => array(
 					'id'       => 'fly_cart_total',
-					'title'    => __( 'Total', 'woo-assistant' ),
+					'title'    => __( 'Total', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
 					'sanitize' => 'bool'
 				),
 				'start_inline_elements_cart_button' => array(
-					'title' => __( 'Cart button', 'woo-assistant' ),
+					'title' => __( 'Cart button', 'wc-assistant' ),
 					'type'  => 'startInlineElements',
 				),
 				'fly_cart_cart_button_enable'       => array(
@@ -376,14 +376,14 @@ class FlyCart extends Addon implements AddonInterface {
 				'fly_cart_cart_button'              => array(
 					'id'      => 'fly_cart_cart_button',
 					'type'    => 'text',
-					'default' => __( 'Cart', 'woo-assistant' )
+					'default' => __( 'Cart', 'wc-assistant' )
 				),
 				'end_inline_elements_cart_button'   => array(
 					'type' => 'endInlineElements',
 				),
 
 				'start_inline_elements_checkout_button' => array(
-					'title' => __( 'Checkout button', 'woo-assistant' ),
+					'title' => __( 'Checkout button', 'wc-assistant' ),
 					'type'  => 'startInlineElements',
 				),
 				'fly_cart_checkout_button_enable'       => array(
@@ -396,15 +396,15 @@ class FlyCart extends Addon implements AddonInterface {
 				'fly_cart_checkout_button'              => array(
 					'id'      => 'fly_cart_checkout_button',
 					'type'    => 'text',
-					'default' => __( 'Checkout', 'woo-assistant' )
+					'default' => __( 'Checkout', 'wc-assistant' )
 				),
 				'end_inline_elements_checkout_button'   => array(
 					'type' => 'endInlineElements',
 				),
 				'fly_cart_reload_page_load'             => array(
 					'id'       => 'fly_cart_reload_page_load',
-					'title'    => __( 'Reload cart', 'woo-assistant' ),
-					'desc'     => __( 'Reload the shopping cart after the page opens.', 'woo-assistant' ),
+					'title'    => __( 'Reload cart', 'wc-assistant' ),
+					'desc'     => __( 'Reload the shopping cart after the page opens.', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -412,7 +412,7 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_overlay_layer'                => array(
 					'id'       => 'fly_cart_overlay_layer',
-					'title'    => __( 'Overlay layer', 'woo-assistant' ),
+					'title'    => __( 'Overlay layer', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -424,13 +424,13 @@ class FlyCart extends Addon implements AddonInterface {
 
 				'fly_cart_start_grid_hide'  => array(
 					'id'    => 'fly_cart_start_grid_icon',
-					'title' => __( 'Hide on', 'woo-assistant' ),
+					'title' => __( 'Hide on', 'wc-assistant' ),
 					'type'  => 'startGrid',
 				),
 				'fly_cart_hide_on_home'     => array(
 					'id'       => 'fly_cart_hide_on_home',
-					'title'    => __( 'Home', 'woo-assistant' ),
-					'desc'     => __( 'Hide on Home page', 'woo-assistant' ),
+					'title'    => __( 'Home', 'wc-assistant' ),
+					'desc'     => __( 'Hide on Home page', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -438,8 +438,8 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_hide_on_blog'     => array(
 					'id'       => 'fly_cart_hide_on_blog',
-					'title'    => __( 'Blog', 'woo-assistant' ),
-					'desc'     => __( 'Hide on Blog page', 'woo-assistant' ),
+					'title'    => __( 'Blog', 'wc-assistant' ),
+					'desc'     => __( 'Hide on Blog page', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -447,8 +447,8 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_hide_on_posts'    => array(
 					'id'       => 'fly_cart_hide_on_posts',
-					'title'    => __( 'Posts', 'woo-assistant' ),
-					'desc'     => __( 'Hide on Posts', 'woo-assistant' ),
+					'title'    => __( 'Posts', 'wc-assistant' ),
+					'desc'     => __( 'Hide on Posts', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -456,8 +456,8 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_hide_on_cart'     => array(
 					'id'       => 'fly_cart_hide_on_cart',
-					'title'    => __( 'Cart', 'woo-assistant' ),
-					'desc'     => __( 'Hide on Cart page', 'woo-assistant' ),
+					'title'    => __( 'Cart', 'wc-assistant' ),
+					'desc'     => __( 'Hide on Cart page', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -465,8 +465,8 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_hide_on_checkout' => array(
 					'id'       => 'fly_cart_hide_on_checkout',
-					'title'    => __( 'Checkout', 'woo-assistant' ),
-					'desc'     => __( 'Hide on Checkout page', 'woo-assistant' ),
+					'title'    => __( 'Checkout', 'wc-assistant' ),
+					'desc'     => __( 'Hide on Checkout page', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -474,7 +474,7 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_hide_on_pages'    => array(
 					'id'                => 'fly_cart_hide_on_pages',
-					'title'             => __( 'Hide on Pages', 'woo-assistant' ),
+					'title'             => __( 'Hide on Pages', 'wc-assistant' ),
 					'type'              => 'postSelect',
 					'args'              => array(
 						'post_type' => 'page'
@@ -499,9 +499,9 @@ class FlyCart extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Fly Cart', 'woo-assistant' ),
-			'desc'           => __( 'Floating Cart for WooCommerce', 'woo-assistant' ),
-			'tags'           => [ __( 'Cart', 'woo-assistant' ) ],
+			'title'          => __( 'Fly Cart', 'wc-assistant' ),
+			'desc'           => __( 'Floating Cart for WooCommerce', 'wc-assistant' ),
+			'tags'           => [ __( 'Cart', 'wc-assistant' ) ],
 			'cat'            => 'cart',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

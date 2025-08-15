@@ -14,7 +14,7 @@ if ( ! isset( $args ) || ! isset( $args[ $args['bulk_action_position'] . '_bulk_
         ?>
         <div class="wa-dtu-bulk-actions wa-dtu-bulk-actions-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
             <label for="bulk-action-selector-<?php echo esc_html( $args['bulk_action_position'] ) ?>"
-                   class="screen-reader-text"><?php esc_html_e( 'Select bulk action', 'woo-assistant' ) ?></label>
+                   class="screen-reader-text"><?php esc_html_e( 'Select bulk action', 'wc-assistant' ) ?></label>
             <select name="action" id="bulk-action-selector-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
                 <option value="">---</option>
                 <?php
@@ -26,12 +26,12 @@ if ( ! isset( $args ) || ! isset( $args[ $args['bulk_action_position'] . '_bulk_
                 ?>
             </select>
             <button class="wa-button wa-button-secondary"
-                    type="button"><?php esc_html_e( 'Apply', 'woo-assistant' ) ?></button>
+                    type="button"><?php esc_html_e( 'Apply', 'wc-assistant' ) ?></button>
         </div>
     <?php }
 
     if ( $args['sortable'] ) {
-        echo '<button class="wa-button wa-button-secondary wa-dtu-save-changes" type="button" disabled>' . esc_html__( 'Save changes', 'woo-assistant' ) . '</button>';
+        echo '<button class="wa-button wa-button-secondary wa-dtu-save-changes" type="button" disabled>' . esc_html__( 'Save changes', 'wc-assistant' ) . '</button>';
     }
     ?>
 </div>

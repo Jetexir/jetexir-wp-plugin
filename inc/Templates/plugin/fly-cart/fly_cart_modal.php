@@ -12,9 +12,9 @@ defined( 'ABSPATH' ) or die();
         <div class="wa-modal-content">
             <div class="wa-modal-header">
                         <span class="wa-modal-title"
-                              id="flyCartModalLabel"><?php esc_html_e( 'Cart', 'woo-assistant' ) ?></span>
+                              id="flyCartModalLabel"><?php esc_html_e( 'Cart', 'wc-assistant' ) ?></span>
                 <button type="button" class="wa-button wa-button-close" data-wa-dismiss="modal"
-                        aria-label="<?php esc_html_e( 'Close', 'woo-assistant' ) ?>"></button>
+                        aria-label="<?php esc_html_e( 'Close', 'wc-assistant' ) ?>"></button>
             </div>
             <div class="wa-modal-body">
                 <?php do_action( 'woo_assistant_fly_cart_modal_body' ); ?>
@@ -29,13 +29,13 @@ defined( 'ABSPATH' ) or die();
 
                 if ( $cart ) {
                     echo '<a href="' . esc_url_raw( wc_get_cart_url() ) . '" type="button" class="wa-button wa-button-secondary">' .
-                         esc_html( Settings::get( 'fly_cart_cart_button', __( 'Cart', 'woo-assistant' ) ) )
+                         esc_html( Settings::get( 'fly_cart_cart_button', __( 'Cart', 'wc-assistant' ) ) )
                          . '</a>';
                 }
 
                 if ( $checkout ) {
                     echo '<a href="' . esc_url_raw( wc_get_checkout_url() ) . '" type="button" class="wa-button wa-button-primary">' .
-                         esc_html( Settings::get( 'fly_cart_checkout_button', __( 'Checkout', 'woo-assistant' ) ) )
+                         esc_html( Settings::get( 'fly_cart_checkout_button', __( 'Checkout', 'wc-assistant' ) ) )
                          . '</a>';
                 }
 

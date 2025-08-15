@@ -31,7 +31,7 @@ class AdminTools implements AdminTabInterface {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$menus[ self::tab ] = array(
-				'title' => __( 'Tools', 'woo-assistant' ),
+				'title' => __( 'Tools', 'wc-assistant' ),
 				'icon'  => self::icon
 			);
 		}
@@ -48,8 +48,8 @@ class AdminTools implements AdminTabInterface {
 	public function settings(): array {
 		if ( self::$settings === null ) {
 			self::$settings = array(
-				'title'    => __( 'Tools', 'woo-assistant' ),
-				'desc'     => __( 'Tools for WordPress and WooCommerce', 'woo-assistant' ),
+				'title'    => __( 'Tools', 'wc-assistant' ),
+				'desc'     => __( 'Tools for WordPress and WooCommerce', 'wc-assistant' ),
 				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
 			);
 		}

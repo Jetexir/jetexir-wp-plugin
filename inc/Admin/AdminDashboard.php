@@ -26,7 +26,7 @@ class AdminDashboard implements AdminTabInterface {
 
 	public function addMenu( $menus ) {
 		$menus[ self::tab ] = array(
-			'title' => __( 'Dashboard', 'woo-assistant' ),
+			'title' => __( 'Dashboard', 'wc-assistant' ),
 			'icon'  => self::icon
 		);
 
@@ -34,7 +34,7 @@ class AdminDashboard implements AdminTabInterface {
 	}
 
 	public function notice(): void {
-		Notice::add( self::tab, __( 'Welcome to Woo Assistant!', 'woo-assistant' ), 'default' );
+		Notice::add( self::tab, __( 'Welcome to Woo Assistant!', 'wc-assistant' ), 'default' );
 	}
 
 	public function content(): void {
@@ -44,8 +44,8 @@ class AdminDashboard implements AdminTabInterface {
 		);
 
 		if ( empty( $dashboardTypeLinks['addons'] ) ) {
-			$message = '<strong>' . __( 'Hello', 'woo-assistant' ) . ', ' . User::getData( 'display_name' ) . '!</strong>';
-			$message .= '<p>' . __( 'Woo Assistant is here to help you sell more in your store. To get started, go to the Addons tab and activate the required addons.', 'woo-assistant' ) . '</p>';
+			$message = '<strong>' . __( 'Hello', 'wc-assistant' ) . ', ' . User::getData( 'display_name' ) . '!</strong>';
+			$message .= '<p>' . __( 'Woo Assistant is here to help you sell more in your store. To get started, go to the Addons tab and activate the required addons.', 'wc-assistant' ) . '</p>';
 
 			echo '<div class="wa-dashboard-welcome">' . wp_kses( $message, [ 'strong' => [], 'p' => [] ] ) . '</div>';
 		}

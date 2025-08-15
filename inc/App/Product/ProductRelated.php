@@ -172,7 +172,7 @@ class ProductRelated extends Addon implements AddonInterface {
 	}
 
 	public function setTitle( $title ) {
-		if ( $customTitle = $this->getSetting( 'product_related_title', __( 'Related Products', 'woo-assistant' ) ) ) {
+		if ( $customTitle = $this->getSetting( 'product_related_title', __( 'Related Products', 'wc-assistant' ) ) ) {
 			return $customTitle;
 		}
 
@@ -230,53 +230,53 @@ class ProductRelated extends Addon implements AddonInterface {
 	public function addSectionSettings( $sections ): array {
 		$settings = array(
 			'start_grid_product_related' => array(
-				'title' => __( 'Related Products', 'woo-assistant' ),
+				'title' => __( 'Related Products', 'wc-assistant' ),
 				'type'  => 'startgrid',
 			),
 			'product_related_mode'       => array(
 				'id'       => 'product_related_mode',
-				'title'    => __( 'Mode', 'woo-assistant' ),
+				'title'    => __( 'Mode', 'wc-assistant' ),
 				'type'     => 'select',
 				'options'  => array(
-					'custom'  => __( 'Custom related products', 'woo-assistant' ),
-					'default' => __( 'Use WooCommerce built-in related products', 'woo-assistant' ),
-					'disable' => __( 'Disable related products', 'woo-assistant' ),
+					'custom'  => __( 'Custom related products', 'wc-assistant' ),
+					'default' => __( 'Use WooCommerce built-in related products', 'wc-assistant' ),
+					'disable' => __( 'Disable related products', 'wc-assistant' ),
 				),
 				'default'  => 'custom',
 				'sanitize' => 'text'
 			),
 			'product_related_title'      => array(
 				'id'          => 'product_related_title',
-				'title'       => __( 'Title', 'woo-assistant' ),
+				'title'       => __( 'Title', 'wc-assistant' ),
 				'type'        => 'text',
-				'default'     => __( 'Related Products', 'woo-assistant' ),
-				'placeholder' => __( 'Related Products', 'woo-assistant' )
+				'default'     => __( 'Related Products', 'wc-assistant' ),
+				'placeholder' => __( 'Related Products', 'wc-assistant' )
 			),
 			'product_related_orderby'    => array(
 				'id'                => 'product_related_orderby',
-				'title'             => __( 'Sort by', 'woo-assistant' ),
+				'title'             => __( 'Sort by', 'wc-assistant' ),
 				'type'              => 'select',
 				'options'           => array(
-					'title'      => __( 'Product title', 'woo-assistant' ),
-					'id'         => __( 'ID', 'woo-assistant' ),
-					'date'       => __( 'Date', 'woo-assistant' ),
-					'modified'   => __( 'Last modified', 'woo-assistant' ),
-					'menu_order' => __( 'Menu order', 'woo-assistant' ),
-					'price'      => __( 'Price', 'woo-assistant' ),
-					'none'       => __( 'None', 'woo-assistant' ),
+					'title'      => __( 'Product title', 'wc-assistant' ),
+					'id'         => __( 'ID', 'wc-assistant' ),
+					'date'       => __( 'Date', 'wc-assistant' ),
+					'modified'   => __( 'Last modified', 'wc-assistant' ),
+					'menu_order' => __( 'Menu order', 'wc-assistant' ),
+					'price'      => __( 'Price', 'wc-assistant' ),
+					'none'       => __( 'None', 'wc-assistant' ),
 				),
-				'option_none'       => __( 'Random', 'woo-assistant' ),
+				'option_none'       => __( 'Random', 'wc-assistant' ),
 				'option_none_value' => 'rand',
 				'default'           => 'rand',
 				'sanitize'          => 'text'
 			),
 			'product_related_order'      => array(
 				'id'       => 'product_related_order',
-				'title'    => __( 'Sort order', 'woo-assistant' ),
+				'title'    => __( 'Sort order', 'wc-assistant' ),
 				'type'     => 'select',
 				'options'  => array(
-					'asc'  => __( 'Ascending', 'woo-assistant' ),
-					'desc' => __( 'Descending', 'woo-assistant' ),
+					'asc'  => __( 'Ascending', 'wc-assistant' ),
+					'desc' => __( 'Descending', 'wc-assistant' ),
 				),
 				'default'  => 'asc',
 				'sanitize' => 'text'
@@ -286,12 +286,12 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 
 			'start_grid_product_related_custom' => array(
-				'title' => __( 'Display related products by', 'woo-assistant' ),
+				'title' => __( 'Display related products by', 'wc-assistant' ),
 				'type'  => 'startgrid',
 			),
 			'product_related_by_cat'            => [
 				'id'       => 'product_related_by_cat',
-				'title'    => __( 'Category', 'woo-assistant' ),
+				'title'    => __( 'Category', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
@@ -299,7 +299,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			],
 			'product_related_exclude_cats'      => array(
 				'id'                => 'product_related_exclude_cats',
-				'title'             => __( 'Exclude categories', 'woo-assistant' ),
+				'title'             => __( 'Exclude categories', 'wc-assistant' ),
 				'type'              => 'termSelect',
 				'args'              => array(
 					'taxonomy'   => 'product_cat',
@@ -309,7 +309,7 @@ class ProductRelated extends Addon implements AddonInterface {
 				'default'           => 0,
 				'option_none'       => '---',
 				'option_none_value' => '',
-				'desc'              => __( 'Choose the categories to exclude from the related products section.', 'woo-assistant' ),
+				'desc'              => __( 'Choose the categories to exclude from the related products section.', 'wc-assistant' ),
 				'sanitize'          => 'array',
 				'sanitize_options'  => 'int',
 				'attributes'        => array(
@@ -318,7 +318,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 			'product_related_by_tag'            => [
 				'id'       => 'product_related_by_tag',
-				'title'    => __( 'Tag', 'woo-assistant' ),
+				'title'    => __( 'Tag', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
@@ -326,7 +326,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			],
 			'product_related_by_brand'          => [
 				'id'       => 'product_related_by_brand',
-				'title'    => __( 'Brand', 'woo-assistant' ),
+				'title'    => __( 'Brand', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
@@ -354,13 +354,13 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 
 			'start_grid_product_related_slider'       => array(
-				'title' => __( 'Slider', 'woo-assistant' ),
+				'title' => __( 'Slider', 'wc-assistant' ),
 				'type'  => 'startgrid',
 			),
 			'product_related_slider'                  => [
 				'id'       => 'product_related_slider',
-				'title'    => __( 'Activate the slider', 'woo-assistant' ),
-				'desc'     => __( 'Activate slider for the related products section', 'woo-assistant' ),
+				'title'    => __( 'Activate the slider', 'wc-assistant' ),
+				'desc'     => __( 'Activate slider for the related products section', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
@@ -368,8 +368,8 @@ class ProductRelated extends Addon implements AddonInterface {
 			],
 			'product_related_slider_loop'             => [
 				'id'       => 'product_related_slider_loop',
-				'title'    => __( 'Slider loop', 'woo-assistant' ),
-				'desc'     => __( 'Enabling slider loop', 'woo-assistant' ),
+				'title'    => __( 'Slider loop', 'wc-assistant' ),
+				'desc'     => __( 'Enabling slider loop', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
@@ -377,8 +377,8 @@ class ProductRelated extends Addon implements AddonInterface {
 			],
 			'product_related_slider_center'           => [
 				'id'       => 'product_related_slider_center',
-				'title'    => __( 'Slider center', 'woo-assistant' ),
-				'desc'     => __( 'Enabling slider center', 'woo-assistant' ),
+				'title'    => __( 'Slider center', 'wc-assistant' ),
+				'desc'     => __( 'Enabling slider center', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
@@ -386,8 +386,8 @@ class ProductRelated extends Addon implements AddonInterface {
 			],
 			'product_related_slider_dots'             => [
 				'id'       => 'product_related_slider_dots',
-				'title'    => __( 'Slider dots navigation', 'woo-assistant' ),
-				'desc'     => __( 'Enabling slider dots navigation', 'woo-assistant' ),
+				'title'    => __( 'Slider dots navigation', 'wc-assistant' ),
+				'desc'     => __( 'Enabling slider dots navigation', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
@@ -395,8 +395,8 @@ class ProductRelated extends Addon implements AddonInterface {
 			],
 			'product_related_slider_arrow'            => [
 				'id'       => 'product_related_slider_arrow',
-				'title'    => __( 'Slider arrow navigation', 'woo-assistant' ),
-				'desc'     => __( 'Enabling slider arrow navigation', 'woo-assistant' ),
+				'title'    => __( 'Slider arrow navigation', 'wc-assistant' ),
+				'desc'     => __( 'Enabling slider arrow navigation', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
@@ -404,7 +404,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			],
 			'product_related_slider_autoplay'         => [
 				'id'       => 'product_related_slider_autoplay',
-				'title'    => __( 'Slider autoplay', 'woo-assistant' ),
+				'title'    => __( 'Slider autoplay', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
@@ -412,8 +412,8 @@ class ProductRelated extends Addon implements AddonInterface {
 			],
 			'product_related_slider_autoplay_timeout' => array(
 				'id'         => 'product_related_slider_autoplay_timeout',
-				'title'      => __( 'Slider autoplay timeout', 'woo-assistant' ),
-				'desc'       => __( 'Milliseconds', 'woo-assistant' ),
+				'title'      => __( 'Slider autoplay timeout', 'wc-assistant' ),
+				'desc'       => __( 'Milliseconds', 'wc-assistant' ),
 				'type'       => 'number',
 				'default'    => 4000,
 				'attributes' => array(
@@ -425,7 +425,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 			'product_related_slider_margin'           => array(
 				'id'         => 'product_related_slider_margin',
-				'title'      => __( 'Slide margin', 'woo-assistant' ),
+				'title'      => __( 'Slide margin', 'wc-assistant' ),
 				'type'       => 'number',
 				'default'    => 10,
 				'attributes' => array(
@@ -438,7 +438,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 			'product_related_slider_limit'            => array(
 				'id'         => 'product_related_slider_limit',
-				'title'      => __( 'Number of products', 'woo-assistant' ),
+				'title'      => __( 'Number of products', 'wc-assistant' ),
 				'type'       => 'number',
 				'default'    => 9,
 				'attributes' => array(
@@ -451,7 +451,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 			'product_related_slider_mobile_limit'     => array(
 				'id'         => 'product_related_slider_mobile_limit',
-				'title'      => __( 'Number of products in mobile view', 'woo-assistant' ),
+				'title'      => __( 'Number of products in mobile view', 'wc-assistant' ),
 				'type'       => 'number',
 				'default'    => 1,
 				'attributes' => array(
@@ -464,7 +464,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 			'product_related_slider_tablet_limit'     => array(
 				'id'         => 'product_related_slider_tablet_limit',
-				'title'      => __( 'Number of products in tablet view', 'woo-assistant' ),
+				'title'      => __( 'Number of products in tablet view', 'wc-assistant' ),
 				'type'       => 'number',
 				'default'    => 2,
 				'attributes' => array(
@@ -477,7 +477,7 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 			'product_related_slider_desktop_limit'    => array(
 				'id'         => 'product_related_slider_desktop_limit',
-				'title'      => __( 'Number of products in desktop view', 'woo-assistant' ),
+				'title'      => __( 'Number of products in desktop view', 'wc-assistant' ),
 				'type'       => 'number',
 				'default'    => 3,
 				'attributes' => array(
@@ -493,13 +493,13 @@ class ProductRelated extends Addon implements AddonInterface {
 			),
 
 			'start_grid_product_related_cache' => array(
-				'title' => __( 'Cache', 'woo-assistant' ),
+				'title' => __( 'Cache', 'wc-assistant' ),
 				'type'  => 'startgrid',
 			),
 			'product_related_disable_cache'    => [
 				'id'       => 'product_related_disable_cache',
-				'title'    => __( 'Disable cache', 'woo-assistant' ),
-				'desc'     => __( 'Disable WooCommerce related products cache', 'woo-assistant' ),
+				'title'    => __( 'Disable cache', 'wc-assistant' ),
+				'desc'     => __( 'Disable WooCommerce related products cache', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
@@ -507,8 +507,8 @@ class ProductRelated extends Addon implements AddonInterface {
 			],
 			'product_related_delete_wc_cache'  => [
 				'id'       => 'product_related_delete_wc_cache',
-				'title'    => __( 'Delete related products cache', 'woo-assistant' ),
-				'desc'     => __( 'Delete all related products cache (Not saved)', 'woo-assistant' ),
+				'title'    => __( 'Delete related products cache', 'wc-assistant' ),
+				'desc'     => __( 'Delete all related products cache (Not saved)', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
@@ -521,8 +521,8 @@ class ProductRelated extends Addon implements AddonInterface {
 		] );
 
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Related', 'woo-assistant' ),
-			'desc'         => __( 'Related Products', 'woo-assistant' ),
+			'title'        => __( 'Related', 'wc-assistant' ),
+			'desc'         => __( 'Related Products', 'wc-assistant' ),
 			'settings_key' => $this->addonID,
 			'settings'     => $settings
 		);
@@ -535,9 +535,9 @@ class ProductRelated extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Related Products', 'woo-assistant' ),
-			'desc'           => __( 'Displays custom related products based on category, tags, attributes, or specific products for your WooCommerce store.', 'woo-assistant' ),
-			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
+			'title'          => __( 'Related Products', 'wc-assistant' ),
+			'desc'           => __( 'Displays custom related products based on category, tags, attributes, or specific products for your WooCommerce store.', 'wc-assistant' ),
+			'tags'           => [ __( 'Product', 'wc-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

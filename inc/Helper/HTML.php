@@ -371,12 +371,12 @@ class HTML {
 		}
 
 		$id                                           = self::prefix . $data['type'] . '-' . $data['id'];
-		$placeholder                                  = $data['placeholder'] ?? __( 'Select Media(s)', 'woo-assistant' );
+		$placeholder                                  = $data['placeholder'] ?? __( 'Select Media(s)', 'wc-assistant' );
 		$selectButton                                 = $data['select_button'] ?? $placeholder;
-		$removeAllButton                              = $data['remove_all_button'] ?? __( 'Remove all media', 'woo-assistant' );
+		$removeAllButton                              = $data['remove_all_button'] ?? __( 'Remove all media', 'wc-assistant' );
 		$maxNumber                                    = $data['media_max_number'] ?? 1;
-		$data['attributes']['data-title']             = $data['media_title'] ?? __( 'Select or Upload Media', 'woo-assistant' );
-		$data['attributes']['data-button']            = $data['media_button'] ?? __( 'Use this media', 'woo-assistant' );
+		$data['attributes']['data-title']             = $data['media_title'] ?? __( 'Select or Upload Media', 'wc-assistant' );
+		$data['attributes']['data-button']            = $data['media_button'] ?? __( 'Use this media', 'wc-assistant' );
 		$data['attributes']['data-type']              = $data['media_type'] ?? ''; // image, video, audio
 		$data['attributes']['data-multi-selection']   = (int) ( $data['upload_multi_selection'] ?? true );
 		$data['attributes']['data-accept-extensions'] = $data['upload_accept_extensions'] ?? '';  // Separate with comma (,), example: pdf,doc,docx
@@ -744,7 +744,7 @@ class HTML {
 
 		$addon .= '</div><div class="' . self::prefix . 'title-desc"><strong class="' . self::prefix . 'title">' . $data['title'] . '</strong>' .
 		          ( ! empty( $data['desc'] ) ? '<p class="' . self::prefix . 'desc">' . $data['desc'] . '</p>' : '' ) .
-		          ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="wa-icon-chevron-right"></i><span>' . __( 'More info', 'woo-assistant' ) . '</span></a>' : '' ) .
+		          ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="wa-icon-chevron-right"></i><span>' . __( 'More info', 'wc-assistant' ) . '</span></a>' : '' ) .
 		          '</div><div class="' . self::prefix . 'action-wrap">';
 
 		if ( $canActivate ) {
@@ -840,7 +840,7 @@ class HTML {
 
 		$field .= self::wpcolorpicker( array(
 			'id'            => $data['id'] . '_color_picker',
-			'title'         => __( 'Color', 'woo-assistant' ),
+			'title'         => __( 'Color', 'wc-assistant' ),
 			'type'          => 'wpcolorpicker',
 			'class'         => 'wa-gradient-select-color',
 			'setting_value' => $firstColor,
@@ -848,33 +848,33 @@ class HTML {
 
 		$field .= self::radioinline( array(
 			'id'            => $data['id'] . '_type',
-			'title'         => __( 'Type', 'woo-assistant' ),
+			'title'         => __( 'Type', 'wc-assistant' ),
 			'type'          => 'radioinline',
 			'setting_value' => $function,
 			'not_equal'     => true,
 			'class'         => 'wa-gradient-color-type',
 			'options'       => array(
-				'linear-gradient' => __( 'Linear', 'woo-assistant' ),
-				'radial-gradient' => __( 'Radial', 'woo-assistant' ),
+				'linear-gradient' => __( 'Linear', 'wc-assistant' ),
+				'radial-gradient' => __( 'Radial', 'wc-assistant' ),
 			)
 		) );
 
 		$field .= self::radioinline( array(
 			'id'            => $data['id'] . '_shape',
-			'title'         => __( 'Shape', 'woo-assistant' ),
+			'title'         => __( 'Shape', 'wc-assistant' ),
 			'type'          => 'radioinline',
 			'setting_value' => $shape,
 			'class'         => 'wa-gradient-color-shape wa-gradient-color-variant',
 			'wrap_style'    => $function !== 'radial-gradient' ? 'display:none' : '',
 			'options'       => array(
-				'ellipse' => __( 'Ellipse', 'woo-assistant' ),
-				'circle'  => __( 'Circle', 'woo-assistant' ),
+				'ellipse' => __( 'Ellipse', 'wc-assistant' ),
+				'circle'  => __( 'Circle', 'wc-assistant' ),
 			)
 		) );
 
 		$field .= self::range( array(
 			'id'            => $data['id'] . '_range',
-			'title'         => __( 'Rotation °', 'woo-assistant' ),
+			'title'         => __( 'Rotation °', 'wc-assistant' ),
 			'type'          => 'range',
 			'setting_value' => $rotate,
 			'display_value' => true,
@@ -983,7 +983,7 @@ class HTML {
 				$requiredText = $data['required_text'];
 			}
 
-			$data['required_text'] = ' <abbr class="required" title="' . __( 'Required', 'woo-assistant' ) . '">' . $requiredText . '</abbr>';
+			$data['required_text'] = ' <abbr class="required" title="' . __( 'Required', 'wc-assistant' ) . '">' . $requiredText . '</abbr>';
 		}
 
 		$attributes = empty( $data['attributes'] ) || ! is_array( $data['attributes'] ) ? [] : $data['attributes'];

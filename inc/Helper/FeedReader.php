@@ -120,7 +120,7 @@ class FeedReader {
 		}
 
 		if ( ! $feed->get_item_quantity() ) {
-			$this->error = new \WP_Error( 'feed_empty', __( 'Feed is empty.', 'woo-assistant' ), $this->args );
+			$this->error = new \WP_Error( 'feed_empty', __( 'Feed is empty.', 'wc-assistant' ), $this->args );
 			$feed->__destruct();
 			unset( $feed );
 
@@ -146,7 +146,7 @@ class FeedReader {
 			if ( in_array( 'title', $this->args['fields'], true ) ) {
 				$title = esc_html( trim( wp_strip_all_tags( $item->get_title() ) ) );
 				if ( empty( $title ) ) {
-					$title = __( 'Untitled', 'woo-assistant' );
+					$title = __( 'Untitled', 'wc-assistant' );
 				}
 
 				$feedItem['title'] = $title;

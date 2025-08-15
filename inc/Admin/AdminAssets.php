@@ -46,9 +46,9 @@ class AdminAssets {
 			wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-admin', WOOASSISTANT_PLUGIN_KEYCAP, array(
 				'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
 				'ajaxNonce'        => Nonce::create(),
-				'removeText'       => __( 'Remove', 'woo-assistant' ),
-				'dtuConfirmDelete' => __( 'Are you sure you want to delete this item(s)?', 'woo-assistant' ),
-				'copyText'        => __( 'Click to copy this text.', 'woo-assistant' ),
+				'removeText'       => __( 'Remove', 'wc-assistant' ),
+				'dtuConfirmDelete' => __( 'Are you sure you want to delete this item(s)?', 'wc-assistant' ),
+				'copyText'        => __( 'Click to copy this text.', 'wc-assistant' ),
 			) );
 		}
 	}

@@ -35,8 +35,8 @@ class Addons {
 
     public function addDashboardLink( $links ) {
         $links[] = [
-                'title' => __( 'Addons', 'woo-assistant' ),
-                'desc'  => __( 'Woo Assistant Addons', 'woo-assistant' ),
+                'title' => __( 'Addons', 'wc-assistant' ),
+                'desc'  => __( 'Woo Assistant Addons', 'wc-assistant' ),
                 'link'  => AdminPages::link( [
                         'tab' => self::tab
                 ] ),
@@ -57,7 +57,7 @@ class Addons {
 
     public function addRefreshNotice( $tab ): void {
         if ( $tab === self::tab && Cache::get( 'settings_saved' ) ) {
-            Notice::add( self::tab, __( 'To load the add-on initial hooks, the page refreshes.', 'woo-assistant' ), 'warning' );
+            Notice::add( self::tab, __( 'To load the add-on initial hooks, the page refreshes.', 'wc-assistant' ), 'warning' );
             ?>
             <script>
                 setTimeout(function () {
@@ -72,7 +72,7 @@ class Addons {
 
     public function addMenu( $menus ) {
         $menus[ self::tab ] = array(
-                'title' => __( 'Addons', 'woo-assistant' ),
+                'title' => __( 'Addons', 'wc-assistant' ),
                 'icon'  => self::menuIcon
         );
 
@@ -81,7 +81,7 @@ class Addons {
 
     public function saveMessage( $message, $tab ) {
         if ( $tab === self::tab ) {
-            $message = __( 'Addons settings saved.', 'woo-assistant' );
+            $message = __( 'Addons settings saved.', 'wc-assistant' );
         }
 
         return $message;
@@ -111,7 +111,7 @@ class Addons {
             $canActivate          = empty( $addon['requires_plugins'] );
             $requirePluginsActive = 0;
             $actionLink           = '';
-            $actionTitle          = __( 'Enable addon', 'woo-assistant' );
+            $actionTitle          = __( 'Enable addon', 'wc-assistant' );
 
             if ( ! $canActivate && ! empty( $addon['requires_plugins'] ) && is_array( $addon['requires_plugins'] ) ) {
                 foreach ( $addon['requires_plugins'] as $requirePluginPath => $requirePlugin ) {
@@ -129,7 +129,7 @@ class Addons {
                                 self_admin_url( 'addons.php?action=activate&addon=' . $requirePluginPath ),
                                 'activate-plugin_' . $requirePluginPath
                         );
-                        $actionTitle = __( 'Activate required addon', 'woo-assistant' );
+                        $actionTitle = __( 'Activate required addon', 'wc-assistant' );
 
                     } elseif ( isset( $requirePlugin['is_wp_plugin'] ) && $requirePlugin['is_wp_plugin'] ) {
                         $pluginSlug = WordPress::pluginPathToSlug( $requirePluginPath );
@@ -138,11 +138,11 @@ class Addons {
                                 self_admin_url( 'update.php?action=install-addon&addon=' . $pluginSlug ),
                                 'install-plugin_' . $pluginSlug
                         );
-                        $actionTitle = __( 'Install required addon', 'woo-assistant' );
+                        $actionTitle = __( 'Install required addon', 'wc-assistant' );
 
                     } elseif ( ! empty( $requirePlugin['plugin_link'] ) && Validating::isUrl( $requirePlugin['plugin_link'] ) ) {
                         $actionLink  = $requirePlugin['plugin_link'];
-                        $actionTitle = isset( $requirePlugin['is_free'] ) && $requirePlugin['is_free'] ? __( 'Download required addon', 'woo-assistant' ) : __( 'Buy required addon', 'woo-assistant' );
+                        $actionTitle = isset( $requirePlugin['is_free'] ) && $requirePlugin['is_free'] ? __( 'Download required addon', 'wc-assistant' ) : __( 'Buy required addon', 'wc-assistant' );
 
                     }
 
@@ -222,8 +222,8 @@ class Addons {
         }
 
         return array(
-                'title'    => __( 'Addons', 'woo-assistant' ),
-                'desc'     => __( 'Woo Assistant integrates with WooCommerce to help you further enhance your website. You can enable or disable these integrations below.', 'woo-assistant' ),
+                'title'    => __( 'Addons', 'wc-assistant' ),
+                'desc'     => __( 'Woo Assistant integrates with WooCommerce to help you further enhance your website. You can enable or disable these integrations below.', 'wc-assistant' ),
                 'settings' => $elementList
         );
     }
@@ -235,25 +235,25 @@ class Addons {
         }
 
         $defaultCats = array(
-                'recommended'    => __( 'Recommended', 'woo-assistant' ),
-                'product'        => __( 'Product', 'woo-assistant' ),
-                'cart'           => __( 'Cart', 'woo-assistant' ),
-                'checkout'       => __( 'Checkout', 'woo-assistant' ),
-                'order'          => __( 'Order', 'woo-assistant' ),
-                'marketing'      => __( 'Marketing', 'woo-assistant' ),
-                'payments'       => __( 'Payments', 'woo-assistant' ),
-                'merchandising'  => __( 'Merchandising', 'woo-assistant' ),
-                'shipping'       => __( 'Shipping', 'woo-assistant' ),
-                'customizations' => __( 'Customizations', 'woo-assistant' ),
-                'conversion'     => __( 'Conversion', 'woo-assistant' ),
-                'seo'            => __( 'SEO', 'woo-assistant' ),
-                'utility'        => __( 'Utility', 'woo-assistant' ),
+                'recommended'    => __( 'Recommended', 'wc-assistant' ),
+                'product'        => __( 'Product', 'wc-assistant' ),
+                'cart'           => __( 'Cart', 'wc-assistant' ),
+                'checkout'       => __( 'Checkout', 'wc-assistant' ),
+                'order'          => __( 'Order', 'wc-assistant' ),
+                'marketing'      => __( 'Marketing', 'wc-assistant' ),
+                'payments'       => __( 'Payments', 'wc-assistant' ),
+                'merchandising'  => __( 'Merchandising', 'wc-assistant' ),
+                'shipping'       => __( 'Shipping', 'wc-assistant' ),
+                'customizations' => __( 'Customizations', 'wc-assistant' ),
+                'conversion'     => __( 'Conversion', 'wc-assistant' ),
+                'seo'            => __( 'SEO', 'wc-assistant' ),
+                'utility'        => __( 'Utility', 'wc-assistant' ),
         );
 
         $cats = apply_filters( 'woo_assistant_addon_cats', array() );
         $cats = is_array( $cats ) ? $cats : [];
 
-        $cats = array_merge( $defaultCats, $cats, [ 'other' => __( 'Other addons', 'woo-assistant' ) ] );
+        $cats = array_merge( $defaultCats, $cats, [ 'other' => __( 'Other addons', 'wc-assistant' ) ] );
         Cache::set( 'addon_cats', $cats );
 
         return $cats;
@@ -261,7 +261,7 @@ class Addons {
 
     public function changeSubmitButtonTitle( $title, $tab ) {
         if ( $tab === self::tab ) {
-            $title = __( 'Save active addons', 'woo-assistant' );
+            $title = __( 'Save active addons', 'wc-assistant' );
         }
 
         return $title;

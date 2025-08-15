@@ -1,15 +1,15 @@
 <?php
 // Dynamic strings
-__( 'Billing', 'woo-assistant' );
-__( 'Shipping', 'woo-assistant' );
-__( 'Order', 'woo-assistant' );
+__( 'Billing', 'wc-assistant' );
+__( 'Shipping', 'wc-assistant' );
+__( 'Order', 'wc-assistant' );
 
 // Image sizes
-__( 'Full', 'woo-assistant' );
-__( 'Thumbnail', 'woo-assistant' );
-__( 'Medium', 'woo-assistant' );
-__( 'Medium Large', 'woo-assistant' );
-__( 'Large', 'woo-assistant' );
-__( 'Woocommerce Thumbnail', 'woo-assistant' );
-__( 'Woocommerce Single', 'woo-assistant' );
-__( 'Woocommerce Gallery Thumbnail', 'woo-assistant' );
+__( 'Full', 'wc-assistant' );
+__( 'Thumbnail', 'wc-assistant' );
+__( 'Medium', 'wc-assistant' );
+__( 'Medium Large', 'wc-assistant' );
+__( 'Large', 'wc-assistant' );
+__( 'Woocommerce Thumbnail', 'wc-assistant' );
+__( 'Woocommerce Single', 'wc-assistant' );
+__( 'Woocommerce Gallery Thumbnail', 'wc-assistant' );

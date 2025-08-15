@@ -28,8 +28,8 @@ class AdminWordPress implements AdminTabInterface {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$links[] = [
-				'title' => __( 'WordPress', 'woo-assistant' ),
-				'desc'  => __( 'WordPress customize options', 'woo-assistant' ),
+				'title' => __( 'WordPress', 'wc-assistant' ),
+				'desc'  => __( 'WordPress customize options', 'wc-assistant' ),
 				'link'  => AdminPages::link( [
 					'tab' => self::tab
 				] ),
@@ -45,7 +45,7 @@ class AdminWordPress implements AdminTabInterface {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$menus[ self::tab ] = array(
-				'title' => __( 'WordPress', 'woo-assistant' ),
+				'title' => __( 'WordPress', 'wc-assistant' ),
 				'icon'  => self::menuIcon
 			);
 		}
@@ -62,8 +62,8 @@ class AdminWordPress implements AdminTabInterface {
 	public function settings(): array {
 		if ( self::$settings === null ) {
 			self::$settings = array(
-				'title'    => __( 'WordPress', 'woo-assistant' ),
-				'desc'     => __( 'Tools to enhance your WordPress site', 'woo-assistant' ),
+				'title'    => __( 'WordPress', 'wc-assistant' ),
+				'desc'     => __( 'Tools to enhance your WordPress site', 'wc-assistant' ),
 				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
 			);
 		}

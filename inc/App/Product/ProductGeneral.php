@@ -19,8 +19,8 @@ class ProductGeneral {
 		}
 
 		$sections[ self::sectionID ] = array(
-			'title'    => __( 'General', 'woo-assistant' ),
-			'desc'     => __( 'Product general settings', 'woo-assistant' ),
+			'title'    => __( 'General', 'wc-assistant' ),
+			'desc'     => __( 'Product general settings', 'wc-assistant' ),
 			'settings' => $settings
 		);
 

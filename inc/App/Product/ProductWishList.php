@@ -119,7 +119,7 @@ class ProductWishList extends Addon implements AddonInterface {
 	}
 
 	public function wooAccountMenuItemsFilter( $items ): array {
-		$menuItems = [ 'wishlist' => __( 'Wishlist', 'woo-assistant' ) ];
+		$menuItems = [ 'wishlist' => __( 'Wishlist', 'wc-assistant' ) ];
 
 		if ( isset( $items['customer-logout'] ) ) {
 			$index = array_search( 'customer-logout', array_keys( $items ), true );
@@ -157,7 +157,7 @@ class ProductWishList extends Addon implements AddonInterface {
 
 		wp_send_json_error( [
 			'error'   => 'nonce-invalid',
-			'message' => __( 'Security code is not valid, page will be refreshed.', 'woo-assistant' ),
+			'message' => __( 'Security code is not valid, page will be refreshed.', 'wc-assistant' ),
 			'refresh' => true
 		], 403 );
 	}
@@ -264,10 +264,10 @@ class ProductWishList extends Addon implements AddonInterface {
 		echo $this->buttonShortcode( array(
 			'type'         => esc_html( $this->getSetting( 'wishlist_button_type', 'button' ) ),
 			'icon'         => wp_kses_post( $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'wa-icon-heart' ), true ) ),
-			'text'         => esc_html( $this->getSetting( 'wishlist_button_text', __( 'Add to wishlist', 'woo-assistant' ) ) ),
+			'text'         => esc_html( $this->getSetting( 'wishlist_button_text', __( 'Add to wishlist', 'wc-assistant' ) ) ),
 			'appearance'   => esc_html( $buttonAppearance ),
-			'remove_text'  => esc_html( $this->getSetting( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'woo-assistant' ) ) ),
-			'browse_text'  => esc_html( $this->getSetting( 'wishlist_button_browse_text', __( 'Browse wishlist', 'woo-assistant' ) ) ),
+			'remove_text'  => esc_html( $this->getSetting( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'wc-assistant' ) ) ),
+			'browse_text'  => esc_html( $this->getSetting( 'wishlist_button_browse_text', __( 'Browse wishlist', 'wc-assistant' ) ) ),
 			'added_action' => esc_html( $this->getSetting( 'wishlist_added_action', 'remove' ) )
 		) );
 	}
@@ -276,9 +276,9 @@ class ProductWishList extends Addon implements AddonInterface {
 		$atts = shortcode_atts( array(
 			'product_id'    => WooCommerce::getCurrentProductId(),
 			'icon'          => $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'wa-icon-heart' ), true ),
-			'text'          => $this->getSetting( 'wishlist_button_text', __( 'Add to wishlist', 'woo-assistant' ) ),
-			'remove_text'   => $this->getSetting( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'woo-assistant' ) ),
-			'browse_text'   => $this->getSetting( 'wishlist_button_browse_text', __( 'Browse wishlist', 'woo-assistant' ) ),
+			'text'          => $this->getSetting( 'wishlist_button_text', __( 'Add to wishlist', 'wc-assistant' ) ),
+			'remove_text'   => $this->getSetting( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'wc-assistant' ) ),
+			'browse_text'   => $this->getSetting( 'wishlist_button_browse_text', __( 'Browse wishlist', 'wc-assistant' ) ),
 			'added_action'  => $this->getSetting( 'wishlist_added_action', 'remove' ),
 			'type'          => $this->getSetting( 'wishlist_button_type', 'button' ),
 			'appearance'    => 'icon_text',
@@ -340,7 +340,7 @@ class ProductWishList extends Addon implements AddonInterface {
 		$emptyNotice = Notice::addAndDisplay( 'product-compare', array(
 			array(
 				'type'    => 'info',
-				'message' => __( 'Your wishlist is empty.', 'woo-assistant' ),
+				'message' => __( 'Your wishlist is empty.', 'wc-assistant' ),
 			)
 		), false );
 		$listItems   = self::getListItems( $atts['list'], $atts['user_id'] );
@@ -393,7 +393,7 @@ class ProductWishList extends Addon implements AddonInterface {
 				echo '<div class="wa-product-item-actions">';
 				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo WooCommerce::getAddToCartButton( $product );
-				echo '<a href="#" class="wa-product-item-remove wa-flex wa-product-wishlist-remove" data-wa-product-remove-action="wa_product_wishlist_remove" data-product-id="' . esc_html( $productID ) . '"><i class="wa-icon-cross"></i> ' . esc_html__( 'Remove', 'woo-assistant' ) . '</a>';
+				echo '<a href="#" class="wa-product-item-remove wa-flex wa-product-wishlist-remove" data-wa-product-remove-action="wa_product_wishlist_remove" data-product-id="' . esc_html( $productID ) . '"><i class="wa-icon-cross"></i> ' . esc_html__( 'Remove', 'wc-assistant' ) . '</a>';
 				echo '</div>';
 
 				echo '</div>';
@@ -505,7 +505,7 @@ class ProductWishList extends Addon implements AddonInterface {
 
 		wp_localize_script( WOOASSISTANT_PLUGIN_KEY . '-product-wishlist-script', WOOASSISTANT_PLUGIN_KEYCAP . 'ProductWishlist', array(
 			'maxItems'           => $this->getSetting( 'wishlist_max_items', 10 ),
-			'maxExceededMessage' => __( 'It is not possible to add more than %number% product to the wishlist.', 'woo-assistant' ),
+			'maxExceededMessage' => __( 'It is not possible to add more than %number% product to the wishlist.', 'wc-assistant' ),
 			'wishlistPage'       => $this->getWishlistPage()
 		) );
 	}
@@ -519,26 +519,26 @@ class ProductWishList extends Addon implements AddonInterface {
 
 		$settings = array(
 			'start_grid_wishlist_general' => array(
-				'title' => __( 'Products Wishlist', 'woo-assistant' ),
+				'title' => __( 'Products Wishlist', 'wc-assistant' ),
 				'type'  => 'startGrid',
 			),
 			'wishlist_page'               => array(
 				'id'                => 'wishlist_page',
-				'title'             => __( 'Wishlist page', 'woo-assistant' ),
+				'title'             => __( 'Wishlist page', 'wc-assistant' ),
 				'type'              => 'postSelect',
 				'args'              => array(
 					'post_type' => 'page'
 				),
 				'default'           => 0,
-				'option_none'       => __( 'Add tab to "My account" page', 'woo-assistant' ),
+				'option_none'       => __( 'Add tab to "My account" page', 'wc-assistant' ),
 				'option_none_value' => 0,
 				/* translators: %s: Shortcode */
-				'desc'              => wp_sprintf( __( 'Insert shortcode in the custom wishlist page %s', 'woo-assistant' ), '<code  class="wa-copy-text">[' . self::wishlistShortcode . ']</code>' )
+				'desc'              => wp_sprintf( __( 'Insert shortcode in the custom wishlist page %s', 'wc-assistant' ), '<code  class="wa-copy-text">[' . self::wishlistShortcode . ']</code>' )
 			),
 			'wishlist_max_items'          => array(
 				'id'         => 'wishlist_max_items',
-				'title'      => __( 'Max items', 'woo-assistant' ),
-				'desc'       => __( 'Max wishlist items per user', 'woo-assistant' ),
+				'title'      => __( 'Max items', 'wc-assistant' ),
+				'desc'       => __( 'Max wishlist items per user', 'wc-assistant' ),
 				'type'       => 'number',
 				'default'    => 10,
 				'attributes' => array(
@@ -551,45 +551,45 @@ class ProductWishList extends Addon implements AddonInterface {
 			),
 			'wishlist_auto_remove'        => array(
 				'id'       => 'wishlist_auto_remove',
-				'title'    => __( 'Auto remove', 'woo-assistant' ),
+				'title'    => __( 'Auto remove', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
-				'desc'     => __( 'Auto remove product from the wishlist after create order.', 'woo-assistant' ),
+				'desc'     => __( 'Auto remove product from the wishlist after create order.', 'wc-assistant' ),
 				'sanitize' => 'bool'
 			),
 			'wishlist_product_position'   => array(
 				'id'          => 'wishlist_product_position',
-				'title'       => __( 'Position on single page', 'woo-assistant' ),
+				'title'       => __( 'Position on single page', 'wc-assistant' ),
 				'type'        => 'select',
 				'options'     => array(
-					'before_title'       => __( 'Before title', 'woo-assistant' ),
-					'after_title'        => __( 'After title', 'woo-assistant' ),
-					'after_rating'       => __( 'After rating', 'woo-assistant' ),
-					'after_price'        => __( 'After price', 'woo-assistant' ),
-					'after_excerpt'      => __( 'After excerpt', 'woo-assistant' ),
-					'before_add_to_cart' => __( 'Before add to cart button', 'woo-assistant' ),
-					'after_add_to_cart'  => __( 'After add to cart button', 'woo-assistant' ),
-					'after_meta'         => __( 'After meta', 'woo-assistant' ),
-					'after_sharing'      => __( 'After sharing', 'woo-assistant' ),
+					'before_title'       => __( 'Before title', 'wc-assistant' ),
+					'after_title'        => __( 'After title', 'wc-assistant' ),
+					'after_rating'       => __( 'After rating', 'wc-assistant' ),
+					'after_price'        => __( 'After price', 'wc-assistant' ),
+					'after_excerpt'      => __( 'After excerpt', 'wc-assistant' ),
+					'before_add_to_cart' => __( 'Before add to cart button', 'wc-assistant' ),
+					'after_add_to_cart'  => __( 'After add to cart button', 'wc-assistant' ),
+					'after_meta'         => __( 'After meta', 'wc-assistant' ),
+					'after_sharing'      => __( 'After sharing', 'wc-assistant' ),
 				),
-				'option_none' => __( 'Hide', 'woo-assistant' ),
+				'option_none' => __( 'Hide', 'wc-assistant' ),
 				'default'     => 'after_add_to_cart',
 				'sanitize'    => 'text',
 			),
 			'wishlist_archive_position'   => array(
 				'id'          => 'wishlist_archive_position',
-				'title'       => __( 'Position on archive page', 'woo-assistant' ),
+				'title'       => __( 'Position on archive page', 'wc-assistant' ),
 				'type'        => 'select',
 				'options'     => array(
-					'before_title'       => __( 'Before title', 'woo-assistant' ),
-					'after_title'        => __( 'After title', 'woo-assistant' ),
-					'after_rating'       => __( 'After rating', 'woo-assistant' ),
-					'after_price'        => __( 'After price', 'woo-assistant' ),
-					'before_add_to_cart' => __( 'Before add to cart button', 'woo-assistant' ),
-					'after_add_to_cart'  => __( 'After add to cart button', 'woo-assistant' ),
+					'before_title'       => __( 'Before title', 'wc-assistant' ),
+					'after_title'        => __( 'After title', 'wc-assistant' ),
+					'after_rating'       => __( 'After rating', 'wc-assistant' ),
+					'after_price'        => __( 'After price', 'wc-assistant' ),
+					'before_add_to_cart' => __( 'Before add to cart button', 'wc-assistant' ),
+					'after_add_to_cart'  => __( 'After add to cart button', 'wc-assistant' ),
 				),
-				'option_none' => __( 'Hide', 'woo-assistant' ),
+				'option_none' => __( 'Hide', 'wc-assistant' ),
 				'default'     => 'after_add_to_cart',
 				'sanitize'    => 'text',
 			),
@@ -598,23 +598,23 @@ class ProductWishList extends Addon implements AddonInterface {
 			),
 
 			'start_grid_wishlist_button'  => array(
-				'title' => __( 'Button', 'woo-assistant' ),
+				'title' => __( 'Button', 'wc-assistant' ),
 				'type'  => 'startGrid',
 			),
 			'wishlist_button_type'        => array(
 				'id'       => 'wishlist_button_type',
-				'title'    => __( 'Type', 'woo-assistant' ),
+				'title'    => __( 'Type', 'wc-assistant' ),
 				'type'     => 'select',
 				'options'  => array(
-					'button' => __( 'Button', 'woo-assistant' ),
-					'a'      => __( 'Link', 'woo-assistant' ),
+					'button' => __( 'Button', 'wc-assistant' ),
+					'a'      => __( 'Link', 'wc-assistant' ),
 				),
 				'default'  => 'button',
 				'sanitize' => 'text',
 			),
 			'wishlist_button_icon'        => array(
 				'id'       => 'wishlist_button_icon',
-				'title'    => __( 'Button icon', 'woo-assistant' ),
+				'title'    => __( 'Button icon', 'wc-assistant' ),
 				'type'     => 'radioInline',
 				'default'  => 'wa-icon-heart',
 				'options'  => $buttonIcons,
@@ -622,59 +622,59 @@ class ProductWishList extends Addon implements AddonInterface {
 			),
 			'wishlist_button_text'        => array(
 				'id'      => 'wishlist_button_text',
-				'title'   => __( 'Button text', 'woo-assistant' ),
+				'title'   => __( 'Button text', 'wc-assistant' ),
 				'type'    => 'text',
-				'default' => __( 'Add to wishlist', 'woo-assistant' ),
+				'default' => __( 'Add to wishlist', 'wc-assistant' ),
 			),
 			'wishlist_button_remove_text' => array(
 				'id'      => 'wishlist_button_remove_text',
-				'title'   => __( 'Remove button text', 'woo-assistant' ),
+				'title'   => __( 'Remove button text', 'wc-assistant' ),
 				'type'    => 'text',
-				'default' => __( 'Remove from wishlist', 'woo-assistant' ),
+				'default' => __( 'Remove from wishlist', 'wc-assistant' ),
 			),
 			'wishlist_button_browse_text' => array(
 				'id'      => 'wishlist_button_browse_text',
-				'title'   => __( 'Browse button text', 'woo-assistant' ),
+				'title'   => __( 'Browse button text', 'wc-assistant' ),
 				'type'    => 'text',
-				'default' => __( 'Browse wishlist', 'woo-assistant' ),
+				'default' => __( 'Browse wishlist', 'wc-assistant' ),
 			),
 			'wishlist_added_action'       => array(
 				'id'       => 'wishlist_added_action',
-				'title'    => __( 'Action after adding the product', 'woo-assistant' ),
-				'desc'     => __( 'Specify the action to perform following product addition', 'woo-assistant' ),
+				'title'    => __( 'Action after adding the product', 'wc-assistant' ),
+				'desc'     => __( 'Specify the action to perform following product addition', 'wc-assistant' ),
 				'type'     => 'select',
 				'options'  => array(
-					'open_page' => __( 'Open wishlist page', 'woo-assistant' ),
-					'remove'    => __( 'Remove from wishlist', 'woo-assistant' ),
+					'open_page' => __( 'Open wishlist page', 'wc-assistant' ),
+					'remove'    => __( 'Remove from wishlist', 'wc-assistant' ),
 				),
 				'default'  => 'remove',
 				'sanitize' => 'text',
 			),
 			'wishlist_product_button'     => array(
 				'id'       => 'wishlist_product_button',
-				'title'    => __( 'Product appearance', 'woo-assistant' ),
+				'title'    => __( 'Product appearance', 'wc-assistant' ),
 				'type'     => 'select',
 				'options'  => array(
-					'icon'      => __( 'Icon', 'woo-assistant' ),
-					'text'      => __( 'Text', 'woo-assistant' ),
-					'icon_text' => __( 'Icon with text', 'woo-assistant' ),
+					'icon'      => __( 'Icon', 'wc-assistant' ),
+					'text'      => __( 'Text', 'wc-assistant' ),
+					'icon_text' => __( 'Icon with text', 'wc-assistant' ),
 				),
 				'default'  => 'icon_text',
 				'sanitize' => 'text',
-				'desc'     => __( 'Select single product button appearance', 'woo-assistant' )
+				'desc'     => __( 'Select single product button appearance', 'wc-assistant' )
 			),
 			'wishlist_archive_button'     => array(
 				'id'       => 'wishlist_archive_button',
-				'title'    => __( 'Archive appearance', 'woo-assistant' ),
+				'title'    => __( 'Archive appearance', 'wc-assistant' ),
 				'type'     => 'select',
 				'options'  => array(
-					'icon'      => __( 'Icon', 'woo-assistant' ),
-					'text'      => __( 'Text', 'woo-assistant' ),
-					'icon_text' => __( 'Icon with text', 'woo-assistant' ),
+					'icon'      => __( 'Icon', 'wc-assistant' ),
+					'text'      => __( 'Text', 'wc-assistant' ),
+					'icon_text' => __( 'Icon with text', 'wc-assistant' ),
 				),
 				'default'  => 'icon',
 				'sanitize' => 'text',
-				'desc'     => __( 'Select archive button appearance', 'woo-assistant' )
+				'desc'     => __( 'Select archive button appearance', 'wc-assistant' )
 			),
 			'end_grid_wishlist_button'    => array(
 				'type' => 'endgrid',
@@ -684,8 +684,8 @@ class ProductWishList extends Addon implements AddonInterface {
 		);
 
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'WishList', 'woo-assistant' ),
-			'desc'         => __( 'Products WishList', 'woo-assistant' ),
+			'title'        => __( 'WishList', 'wc-assistant' ),
+			'desc'         => __( 'Products WishList', 'wc-assistant' ),
 			'settings_key' => $this->addonID,
 			'settings'     => $settings
 		);
@@ -698,9 +698,9 @@ class ProductWishList extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Products WishList', 'woo-assistant' ),
-			'desc'           => __( 'Add wishlist functionality to your store.', 'woo-assistant' ),
-			'tags'           => [ __( 'Product', 'woo-assistant' ) ],
+			'title'          => __( 'Products WishList', 'wc-assistant' ),
+			'desc'           => __( 'Add wishlist functionality to your store.', 'wc-assistant' ),
+			'tags'           => [ __( 'Product', 'wc-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

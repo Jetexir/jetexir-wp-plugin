@@ -92,23 +92,23 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 	public function addProductGeneralSettings( $settings ): array {
 		$addonSettings = array(
 			'start_grid_product_sale_badge' => array(
-				'title' => __( 'Sale Badge', 'woo-assistant' ),
+				'title' => __( 'Sale Badge', 'wc-assistant' ),
 				'type'  => 'startgrid',
 			),
 			'product_sale_badge_text'       => array(
 				'id'          => 'product_sale_badge_text',
-				'title'       => __( 'Sale Badge text', 'woo-assistant' ),
+				'title'       => __( 'Sale Badge text', 'wc-assistant' ),
 				'type'        => 'text',
-				'default'     => __( 'Sale', 'woo-assistant' ),
-				'placeholder' => __( 'Sale', 'woo-assistant' ),
+				'default'     => __( 'Sale', 'wc-assistant' ),
+				'placeholder' => __( 'Sale', 'wc-assistant' ),
 			),
 			'product_sale_badge_percentage' => [
 				'id'       => 'product_sale_badge_percentage',
-				'title'    => __( 'Discount percentage', 'woo-assistant' ),
+				'title'    => __( 'Discount percentage', 'wc-assistant' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
-				'desc'     => __( 'Display discount percentage as sale badge', 'woo-assistant' ),
+				'desc'     => __( 'Display discount percentage as sale badge', 'wc-assistant' ),
 				'sanitize' => 'bool'
 			],
 			'end_grid_product_sale_badge'   => array(
@@ -124,9 +124,9 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Product Sale Badge', 'woo-assistant' ),
-			'desc'           => __( 'Customize the product sale badge.', 'woo-assistant' ),
-			'tags'           => [ __( 'Sale', 'woo-assistant' ) ],
+			'title'          => __( 'Product Sale Badge', 'wc-assistant' ),
+			'desc'           => __( 'Customize the product sale badge.', 'wc-assistant' ),
+			'tags'           => [ __( 'Sale', 'wc-assistant' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws'

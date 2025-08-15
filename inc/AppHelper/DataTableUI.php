@@ -79,13 +79,13 @@ class DataTableUI {
 
 			wp_send_json_error( [
 				'error'   => 'not-action',
-				'message' => __( 'Not registered action for this data table:', 'woo-assistant' ) . ' ' . $dataTableID,
+				'message' => __( 'Not registered action for this data table:', 'wc-assistant' ) . ' ' . $dataTableID,
 			], 403 );
 		}
 
 		wp_send_json_error( [
 			'error'   => 'nonce-invalid',
-			'message' => __( 'Security code is not valid, page will be refreshed.', 'woo-assistant' ),
+			'message' => __( 'Security code is not valid, page will be refreshed.', 'wc-assistant' ),
 			'refresh' => true
 		], 403 );
 	}

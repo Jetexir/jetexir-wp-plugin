@@ -59,7 +59,7 @@ class MenuCart extends Addon implements AddonInterface {
 		$priceType  = $this->getSetting( 'menu_cart_price_type', 'total' );
 		$link       = $this->getSetting( 'menu_cart_link', 'cart' );
 		$itemsCount = WooCommerce::getCartItemsCount();
-		$count      = '<span class="wa-menu-cart-count">' . $itemsCount . ' ' . __( 'items', 'woo-assistant' ) . '</span>';
+		$count      = '<span class="wa-menu-cart-count">' . $itemsCount . ' ' . __( 'items', 'wc-assistant' ) . '</span>';
 
 		if ( $priceType === 'subtotal' ) {
 			$price = WooCommerce::getCartSubTotal();
@@ -87,7 +87,7 @@ class MenuCart extends Addon implements AddonInterface {
 		}
 
 		$output = '<li id="wa-menu-cart-' . $menuSlug . '" class="menu-item wa-menu-cart" >';
-		$output .= '<a href="' . $url . '" aria-label="' . __( 'Menu Cart', 'woo-assistant' ) . '" ' . $attr . '>';
+		$output .= '<a href="' . $url . '" aria-label="' . __( 'Menu Cart', 'wc-assistant' ) . '" ' . $attr . '>';
 		$output .= $icon . $content;
 		$output .= '</a></li>';
 
@@ -101,18 +101,18 @@ class MenuCart extends Addon implements AddonInterface {
 			$basketIcons[ $icon ] = '<i class="' . $icon . '"></i>';
 		}
 		$sections[ $this->addonID ] = array(
-			'title'        => __( 'Menu Cart', 'woo-assistant' ),
-			'desc'         => __( 'Menu Cart', 'woo-assistant' ),
+			'title'        => __( 'Menu Cart', 'wc-assistant' ),
+			'desc'         => __( 'Menu Cart', 'wc-assistant' ),
 			'settings_key' => $this->addonID,
 			'settings'     => [
 				'menu_cart_display_start_grid' => array(
 					'id'    => 'fly_cart_start_grid_icon',
-					'title' => __( 'Menu Cart', 'woo-assistant' ),
+					'title' => __( 'Menu Cart', 'wc-assistant' ),
 					'type'  => 'startGrid',
 				),
 				'menu_cart_menus'              => array(
 					'id'                => 'menu_cart_menus',
-					'title'             => __( 'Select the menu(s) to display the Menu Cart', 'woo-assistant' ),
+					'title'             => __( 'Select the menu(s) to display the Menu Cart', 'wc-assistant' ),
 					'type'              => 'menuSelect',
 					'multiple'          => true,
 					'default'           => 0,
@@ -126,7 +126,7 @@ class MenuCart extends Addon implements AddonInterface {
 				),
 				'menu_cart_display_empty'      => array(
 					'id'       => 'menu_cart_display_empty',
-					'title'    => __( 'Hide empty cart', 'woo-assistant' ),
+					'title'    => __( 'Hide empty cart', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -134,7 +134,7 @@ class MenuCart extends Addon implements AddonInterface {
 				),
 				'menu_cart_cart_checkout_hide' => array(
 					'id'       => 'menu_cart_cart_checkout_hide',
-					'title'    => __( 'Hide on cart & checkout page', 'woo-assistant' ),
+					'title'    => __( 'Hide on cart & checkout page', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -142,8 +142,8 @@ class MenuCart extends Addon implements AddonInterface {
 				),
 				'menu_cart_load_styles'        => array(
 					'id'       => 'menu_cart_load_styles',
-					'title'    => __( 'Add menu styles', 'woo-assistant' ),
-					'desc'     => __( 'Styles to better display the menu', 'woo-assistant' ),
+					'title'    => __( 'Add menu styles', 'wc-assistant' ),
+					'desc'     => __( 'Styles to better display the menu', 'wc-assistant' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -154,12 +154,12 @@ class MenuCart extends Addon implements AddonInterface {
 				),
 				'menu_cart_content_start_grid' => array(
 					'id'    => 'fly_cart_start_grid_icon',
-					'title' => __( 'Menu Cart content', 'woo-assistant' ),
+					'title' => __( 'Menu Cart content', 'wc-assistant' ),
 					'type'  => 'startGrid',
 				),
 				'menu_cart_icon'               => array(
 					'id'       => 'menu_cart_icon',
-					'title'    => __( 'Icon', 'woo-assistant' ),
+					'title'    => __( 'Icon', 'wc-assistant' ),
 					'type'     => 'radioInline',
 					'default'  => 'wa-icon-shopping-cart',
 					'options'  => $basketIcons,
@@ -167,35 +167,35 @@ class MenuCart extends Addon implements AddonInterface {
 				),
 				'menu_cart_content'            => array(
 					'id'       => 'menu_cart_content',
-					'title'    => __( 'Menu content', 'woo-assistant' ),
+					'title'    => __( 'Menu content', 'wc-assistant' ),
 					'type'     => 'select',
 					'options'  => array(
-						'count'       => __( 'Items count', 'woo-assistant' ),
-						'price'       => __( 'Price', 'woo-assistant' ),
-						'count-price' => __( 'Items count and price', 'woo-assistant' ),
+						'count'       => __( 'Items count', 'wc-assistant' ),
+						'price'       => __( 'Price', 'wc-assistant' ),
+						'count-price' => __( 'Items count and price', 'wc-assistant' ),
 					),
 					'default'  => 'count-price',
 					'sanitize' => 'text'
 				),
 				'menu_cart_price_type'         => array(
 					'id'       => 'menu_cart_price_type',
-					'title'    => __( 'Price type', 'woo-assistant' ),
+					'title'    => __( 'Price type', 'wc-assistant' ),
 					'type'     => 'select',
 					'options'  => array(
-						'total'    => __( 'Total', 'woo-assistant' ),
-						'subtotal' => __( 'Subtotal', 'woo-assistant' ),
+						'total'    => __( 'Total', 'wc-assistant' ),
+						'subtotal' => __( 'Subtotal', 'wc-assistant' ),
 					),
 					'default'  => 'total',
 					'sanitize' => 'text'
 				),
 				'menu_cart_link'               => array(
 					'id'       => 'menu_cart_link',
-					'title'    => __( 'Link to', 'woo-assistant' ),
+					'title'    => __( 'Link to', 'wc-assistant' ),
 					'type'     => 'select',
 					'options'  => array(
-						'fly-cart-modal' => __( 'Display Fly Cart modal', 'woo-assistant' ),
-						'cart'           => __( 'Cart page', 'woo-assistant' ),
-						'checkout'       => __( 'Checkout page', 'woo-assistant' ),
+						'fly-cart-modal' => __( 'Display Fly Cart modal', 'wc-assistant' ),
+						'cart'           => __( 'Cart page', 'wc-assistant' ),
+						'checkout'       => __( 'Checkout page', 'wc-assistant' ),
 					),
 					'default'  => 'cart',
 					'sanitize' => 'text'
@@ -214,9 +214,9 @@ class MenuCart extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Menu Cart', 'woo-assistant' ),
-			'desc'           => __( 'Add a shopping cart icon to the menu bar.', 'woo-assistant' ),
-			'tags'           => [ __( 'Cart', 'woo-assistant' ) ],
+			'title'          => __( 'Menu Cart', 'wc-assistant' ),
+			'desc'           => __( 'Add a shopping cart icon to the menu bar.', 'wc-assistant' ),
+			'tags'           => [ __( 'Cart', 'wc-assistant' ) ],
 			'cat'            => 'cart',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',
