@@ -4,6 +4,7 @@ node_modules
 webpack-css.config.js
 webpack.config.js
 README.md
+CHANGELOG.md
 package.json
 package-lock.json
 composer.json
