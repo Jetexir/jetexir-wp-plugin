@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:             Woo Assistant
+ * Plugin Name:             WC Assistant
  * Description:             WooCommerce Assistant
  * Version:                 1.0
  * Author:                  Parsa Kafi
