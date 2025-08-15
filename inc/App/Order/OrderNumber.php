@@ -57,7 +57,9 @@ class OrderNumber extends Addon implements AddonInterface {
 		if ( $searchFilter === 'order_number' ) {
 			$orderTable = $query->get_table_name( 'orders' );
 			$metaTable  = $query->get_table_name( 'meta' );
-			$where      = $wpdb->prepare( "`$orderTable`.id in (SELECT order_id FROM `$metaTable` WHERE meta_key = %s AND meta_value LIKE %s)",
+			$where      = $wpdb->prepare( "`%s`.id in (SELECT order_id FROM `%s` WHERE meta_key = %s AND meta_value LIKE %s)",
+				$orderTable,
+				$metaTable,
 				'_wa_order_number',
 				'%' . $wpdb->esc_like( $searchTerm ) . '%' );
 		}
@@ -84,6 +86,7 @@ class OrderNumber extends Addon implements AddonInterface {
 				'type'       => 'shop_order',
 				'limit'      => 1,
 				'return'     => 'ids',
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				'meta_query' => [
 					[
 						'key'        => '_wa_order_number',
@@ -98,7 +101,9 @@ class OrderNumber extends Addon implements AddonInterface {
 				'post_status'    => 'any',
 				'fields'         => 'ids',
 				'posts_per_page' => 1,
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 				'meta_key'       => '_wa_order_number',
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 				'meta_value'     => $orderID,
 			) );
 		}
@@ -229,6 +234,7 @@ class OrderNumber extends Addon implements AddonInterface {
 				$offset += $limit;
 			}
 
+			/* translators: %d: Order number updated count */
 			Notice::add( $tab, sprintf( __( '%d Order numbers updated.', 'woo-assistant' ), $updateCount ), 'info' );
 		}
 	}

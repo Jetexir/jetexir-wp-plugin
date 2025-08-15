@@ -13,7 +13,7 @@ class Cookie {
 	 * @return mixed|null
 	 */
 	public static function get( $key, $default = null ) {
-		return $_COOKIE[ $key ] ?? $default;
+		return sanitize_text_field( wp_unslash( $_COOKIE[ $key ] ?? $default ) );
 	}
 
 	/**

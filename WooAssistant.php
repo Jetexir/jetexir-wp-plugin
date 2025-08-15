@@ -10,6 +10,7 @@
  * Requires Plugins:        woocommerce
  * Requires at least:       6.7
  * Requires PHP:            7.4
+ * License:                 GPLv3
  */
 
 namespace WooAssistant;

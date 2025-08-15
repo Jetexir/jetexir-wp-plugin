@@ -10,9 +10,9 @@ if ( ! isset( $args ) ) {
 
 ?>
 
-<div id="<?php echo $args['component_id'] ?>"
+<div id="<?php echo esc_html( $args['component_id'] ) ?>"
      class="wa-data-table-ui <?php echo $args['sortable'] ? 'wa-data-table-sortable' : '' ?>"
-     data-id="<?php echo ! empty( $args['id'] ) ? $args['id'] : str_replace( 'wa-datatable-', '', $args['component_id'] ) ?>">
+     data-id="<?php echo esc_html( ! empty( $args['id'] ) ? $args['id'] : str_replace( 'wa-datatable-', '', $args['component_id'] ) ) ?>">
     <div class="wa-loader-wrap" style="display: none">
         <div class="wa-loader"></div>
     </div>
@@ -23,7 +23,7 @@ if ( ! isset( $args ) ) {
             echo '<div class="wa-dtu-title-wrap">';
 
             if ( ! empty( $args['row_count'] ) ) {
-                echo '<span class="wa-badge wa-dtu-row-count">' . $args['row_count'] . '</span>';
+                echo '<span class="wa-badge wa-dtu-row-count">' . esc_html( $args['row_count'] ) . '</span>';
             }
             if ( ! empty( $args['title'] ) ) {
                 echo '<div class="wa-dtu-title">';
@@ -37,7 +37,7 @@ if ( ! isset( $args ) ) {
         }
 
         if ( ! empty( $args['add_new_button'] ) ) {
-            echo '<button class="wa-button wa-button-primary wa-dtu-add-new" data-modal-title="' . $args['modal_add_title'] . '" data-primary-button-text="' . $args['modal_add_button'] . '" data-display-active-field="' . ( (int) $args['display_active_field'] ) . '" data-active-field="' . ( (int) $args['active_field'] ) . '" data-wa-toggle="modal" data-wa-target="#wa-data-table-ui-modal" type="button">' . $args['add_new_button'] . '</button>';
+            echo '<button class="wa-button wa-button-primary wa-dtu-add-new" data-modal-title="' . esc_html( $args['modal_add_title'] ) . '" data-primary-button-text="' . esc_html( $args['modal_add_button'] ) . '" data-display-active-field="' . ( (int) $args['display_active_field'] ) . '" data-active-field="' . ( (int) $args['active_field'] ) . '" data-wa-toggle="modal" data-wa-target="#wa-data-table-ui-modal" type="button">' . esc_html( $args['add_new_button'] ) . '</button>';
         }
         echo '</div>';
     }

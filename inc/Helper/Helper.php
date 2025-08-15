@@ -63,9 +63,9 @@ class Helper {
 	public static function urlToKey( string $url, $hostOnly = false ) {
 		if ( Validating::isUrl( $url ) ) {
 			if ( $hostOnly ) {
-				$url = parse_url( $url, PHP_URL_HOST );
+				$url = wp_parse_url( $url, PHP_URL_HOST );
 			} else {
-				$url = parse_url( $url, PHP_URL_HOST ) . parse_url( $url, PHP_URL_PATH );
+				$url = wp_parse_url( $url, PHP_URL_HOST ) . wp_parse_url( $url, PHP_URL_PATH );
 				$url = trim( $url, '/' );
 			}
 

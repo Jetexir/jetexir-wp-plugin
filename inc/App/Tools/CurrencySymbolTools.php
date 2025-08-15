@@ -63,7 +63,7 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 	public function addInlineStyles(): void {
 		if ( $this->getSetting( 'price_currency_style', true ) ) {
 			$styles = '.woocommerce-Price-amount bdi{display: inline-flex;align-items: center;gap: 3px;line-height: 1.2;}';
-			wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style', false );
+			wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style', false, [], Assets::getVersion() );
 			wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style' );
 			wp_add_inline_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style', $styles );
 		}

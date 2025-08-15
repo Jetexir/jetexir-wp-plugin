@@ -60,6 +60,8 @@ class AdminSettings {
 
 					$default = self::getSettingDefault( $setting );
 					if ( in_array( $setting['type'], [ 'checkbox', 'toggle' ] ) ) {
+						// PHPCS ignore reason: Nonce check is already happening before this logic in `AdminPages` class.
+						// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 						$value = isset( $_POST[ WOOASSISTANT_INPUT_PREFIX . $setting['id'] ] ) ? Param::post( WOOASSISTANT_INPUT_PREFIX . $setting['id'], $default ) : false;
 					} else {
 						$value = Param::post( WOOASSISTANT_INPUT_PREFIX . $setting['id'], $default );
@@ -347,6 +349,8 @@ class AdminSettings {
 					}
 
 					$field['type'] = strtolower( $field['type'] );
+
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo HTML::{$field['type']}( $field );
 				}
 			}
@@ -431,10 +435,10 @@ class AdminSettings {
 		$headerImage    = ! empty( $headerImage ) && Validating::isUrl( $headerImage ) ? $headerImage : false;
 
 		echo '<header id="wa-settings-header" class="wa-header ' . ( $headerImage ? 'wa-has-header-image' : '' ) . '">';
-		echo '<div class="wa-header-title" style="' . ( $headerImage ? 'background-image: url(' . $headerImage . ');' : '' ) . '">';
-		echo '<h1>' . $settings['title'] . '</h1>';
+		echo '<div class="wa-header-title" style="' . ( $headerImage ? 'background-image: url(' . esc_url_raw( $headerImage ) . ');' : '' ) . '">';
+		echo '<h1>' . esc_html( $settings['title'] ) . '</h1>';
 		if ( ! empty( $settings['desc'] ) ) {
-			echo '<p class="wa-description">' . $settings['desc'] . '</p>';
+			echo '<p class="wa-description">' . esc_html( $settings['desc'] ) . '</p>';
 		}
 		echo '</div>';
 		//echo '<hr class="wa-header-separator"/>';
@@ -456,9 +460,10 @@ class AdminSettings {
 
 		echo '<footer id="wa-settings-footer" class="wa-footer wa-settings-footer">';
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo HTML::button( [
 			'id'          => 'settings-submit',
-			'title'       => apply_filters( 'woo_assistant_settings_submit_button_title', __( 'Save changes', 'woo-assistant' ), $currentTab ),
+			'title'       => esc_html( apply_filters( 'woo_assistant_settings_submit_button_title', __( 'Save changes', 'woo-assistant' ), $currentTab ) ),
 			'button_type' => 'submit',
 			'class'       => 'wa-button-primary',
 			'attributes'  => [
@@ -467,9 +472,10 @@ class AdminSettings {
 		] );
 
 		if ( apply_filters( 'woo_assistant_' . $currentTab . '_settings_display_reset_button', true ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo HTML::button( [
 				'id'          => 'settings-reset',
-				'title'       => apply_filters( 'woo_assistant_settings_reset_button_title', __( 'Discard changes', 'woo-assistant' ), $currentTab ),
+				'title'       => esc_html( apply_filters( 'woo_assistant_settings_reset_button_title', __( 'Discard changes', 'woo-assistant' ), $currentTab ) ),
 				'button_type' => 'reset',
 				'attributes'  => [
 					'form' => 'wa-settings-form'
@@ -491,16 +497,16 @@ class AdminSettings {
 			echo '<div class="wa-section-links"><ul>';
 			foreach ( $sections as $key => $section ) {
 				echo '<li>';
-				echo '<a href="' . AdminPages::link( [
+				echo '<a href="' . esc_url_raw( AdminPages::link( [
 						'tab'     => $currentTab,
 						'section' => $key
-					] ) . '" title="' . $section['desc'] . '" class="wa-section-link' . ( $key === $currentSection ? ' wa-section-link-current' : '' ) . '">' . $section['title'] . '</a>';
+					] ) ) . '" title="' . esc_html( $section['desc'] ) . '" class="wa-section-link' . ( $key === $currentSection ? ' wa-section-link-current' : '' ) . '">' . esc_html( $section['title'] ) . '</a>';
 				echo '</li>';
 			}
 			echo '</ul>';
 
 			if ( ! empty( $sections[ $currentSection ]['desc'] ) && apply_filters( 'woo_assistant_display_section_description', false, $currentTab, $currentSection ) ) {
-				echo '<p class="wa-description">' . $sections[ $currentSection ]['desc'] . '</p>';
+				echo '<p class="wa-description">' . esc_html( $sections[ $currentSection ]['desc'] ) . '</p>';
 			}
 
 			echo '</div>';

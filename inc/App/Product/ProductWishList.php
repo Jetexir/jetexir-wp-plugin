@@ -260,14 +260,15 @@ class ProductWishList extends Addon implements AddonInterface {
 			$buttonAppearance = $this->getSetting( 'wishlist_archive_button', 'icon' );
 		}
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $this->buttonShortcode( array(
-			'type'         => $this->getSetting( 'wishlist_button_type', 'button' ),
-			'icon'         => $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'wa-icon-heart' ), true ),
-			'text'         => $this->getSetting( 'wishlist_button_text', __( 'Add to wishlist', 'woo-assistant' ) ),
-			'appearance'   => $buttonAppearance,
-			'remove_text'  => $this->getSetting( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'woo-assistant' ) ),
-			'browse_text'  => $this->getSetting( 'wishlist_button_browse_text', __( 'Browse wishlist', 'woo-assistant' ) ),
-			'added_action' => $this->getSetting( 'wishlist_added_action', 'remove' )
+			'type'         => esc_html( $this->getSetting( 'wishlist_button_type', 'button' ) ),
+			'icon'         => wp_kses_post( $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'wa-icon-heart' ), true ) ),
+			'text'         => esc_html( $this->getSetting( 'wishlist_button_text', __( 'Add to wishlist', 'woo-assistant' ) ) ),
+			'appearance'   => esc_html( $buttonAppearance ),
+			'remove_text'  => esc_html( $this->getSetting( 'wishlist_button_remove_text', __( 'Remove from wishlist', 'woo-assistant' ) ) ),
+			'browse_text'  => esc_html( $this->getSetting( 'wishlist_button_browse_text', __( 'Browse wishlist', 'woo-assistant' ) ) ),
+			'added_action' => esc_html( $this->getSetting( 'wishlist_added_action', 'remove' ) )
 		) );
 	}
 
@@ -368,7 +369,7 @@ class ProductWishList extends Addon implements AddonInterface {
 		ob_start();
 		echo '<div class="wa-product-list-wrap wa-product-wishlist-wrap">';
 		echo '<div class="wa-loader-wrap" style="display: none"><div class="wa-loader"></div></div>';
-		echo '<div class="wa-product-list-notice" style="display: none">' . $emptyNotice . '</div>';
+		echo '<div class="wa-product-list-notice" style="display: none">' . esc_html( $emptyNotice ) . '</div>';
 
 		foreach ( $listItems as $productID => $data ) {
 			if ( isset( $products[ $productID ] ) ) {
@@ -376,21 +377,23 @@ class ProductWishList extends Addon implements AddonInterface {
 				$productLink = $product->get_permalink();
 				$name        = wp_strip_all_tags( $product->get_name() );
 
-				echo '<div class="wa-product-item-wrap wa-product-wishlist-item" data-product-id="' . $productID . '">';
+				echo '<div class="wa-product-item-wrap wa-product-wishlist-item" data-product-id="' . esc_html( $productID ) . '">';
 
 				// Image
-				echo '<a href="' . $productLink . '" target="_blank" class="wa-product-item-image wa-wishlist-item-image">' . $product->get_image() . '</a>';
+				echo '<a href="' . esc_url_raw( $productLink ) . '" target="_blank" class="wa-product-item-image wa-wishlist-item-image">' . wp_kses_post( $product->get_image() ) . '</a>';
 
 				// Info (Name, Date, Price)
 				echo '<div class="wa-product-item-info">';
-				echo '<a href="' . $productLink . '" target="_blank" class="wa-product-item-title">' . $name . '</a>';
+				echo '<a href="' . esc_url_raw( $productLink ) . '" target="_blank" class="wa-product-item-title">' . esc_html( $name ) . '</a>';
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<div class="wa-product-item-price wa-product-item-meta">' . $product->get_price_html() . '</div>';
-				echo '<div class="wa-product-item-date wa-product-item-meta">' . wp_date( $dateFormat, $data['timestamp'] ) . '</div>';
+				echo '<div class="wa-product-item-date wa-product-item-meta">' . esc_html( wp_date( $dateFormat, $data['timestamp'] ) ) . '</div>';
 				echo '</div>';
 
 				echo '<div class="wa-product-item-actions">';
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo WooCommerce::getAddToCartButton( $product );
-				echo '<a href="#" class="wa-product-item-remove wa-flex wa-product-wishlist-remove" data-wa-product-remove-action="wa_product_wishlist_remove" data-product-id="' . $productID . '"><i class="wa-icon-cross"></i> ' . __( 'Remove', 'woo-assistant' ) . '</a>';
+				echo '<a href="#" class="wa-product-item-remove wa-flex wa-product-wishlist-remove" data-wa-product-remove-action="wa_product_wishlist_remove" data-product-id="' . esc_html( $productID ) . '"><i class="wa-icon-cross"></i> ' . esc_html__( 'Remove', 'woo-assistant' ) . '</a>';
 				echo '</div>';
 
 				echo '</div>';
@@ -529,6 +532,7 @@ class ProductWishList extends Addon implements AddonInterface {
 				'default'           => 0,
 				'option_none'       => __( 'Add tab to "My account" page', 'woo-assistant' ),
 				'option_none_value' => 0,
+				/* translators: %s: Shortcode */
 				'desc'              => wp_sprintf( __( 'Insert shortcode in the custom wishlist page %s', 'woo-assistant' ), '<code  class="wa-copy-text">[' . self::wishlistShortcode . ']</code>' )
 			),
 			'wishlist_max_items'          => array(
@@ -637,7 +641,7 @@ class ProductWishList extends Addon implements AddonInterface {
 			'wishlist_added_action'       => array(
 				'id'       => 'wishlist_added_action',
 				'title'    => __( 'Action after adding the product', 'woo-assistant' ),
-				'desc'    => __( 'Specify the action to perform following product addition', 'woo-assistant' ),
+				'desc'     => __( 'Specify the action to perform following product addition', 'woo-assistant' ),
 				'type'     => 'select',
 				'options'  => array(
 					'open_page' => __( 'Open wishlist page', 'woo-assistant' ),

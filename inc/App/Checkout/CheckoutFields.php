@@ -65,7 +65,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 				$value = implode( ', ', $value );
 			}
 
-			echo '<p class="form-field form-field-wide"><strong>' . $field['label'] . ':</strong> ' . $value . '</p>';
+			echo '<p class="form-field form-field-wide"><strong>' . esc_html( $field['label'] ) . ':</strong> ' . esc_html( $value ) . '</p>';
 		}
 	}
 
@@ -87,15 +87,18 @@ class CheckoutFields extends Addon implements AddonInterface {
 					$value = implode( ', ', $value );
 				}
 
-				$fieldsOutput .= '<tr><th>' . $field['label'] . '</th><td>' . $value . '</td></tr>';
+				$fieldsOutput .= '<tr><th>' . $field['label'] . '</th><td>' . esc_html( $value ) . '</td></tr>';
 			}
 
 			if ( ! empty( $fieldsOutput ) ) {
-				$output .= '<tr><td colspan="2">' . __( ucfirst( $section ), 'woo-assistant' ) . '</td></tr>' . $fieldsOutput;
+				$sectionLabel = ucfirst( $section );
+				// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+				$output .= '<tr><td colspan="2">' . __( $sectionLabel, 'woo-assistant' ) . '</td></tr>' . $fieldsOutput;
 			}
 		}
 
 		if ( ! empty( $output ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<table class="woocommerce-table shop_table order_details has-background wa-checkout-fields-order-meta">' . $output . '</table>';
 		}
 	}
@@ -117,15 +120,18 @@ class CheckoutFields extends Addon implements AddonInterface {
 					$value = implode( ', ', $value );
 				}
 
-				$fieldsOutput .= '<tr><th>' . $field['label'] . '</th><td>' . $value . '</td></tr>';
+				$fieldsOutput .= '<tr><th>' . $field['label'] . '</th><td>' . esc_html( $value ) . '</td></tr>';
 			}
 
 			if ( ! empty( $fieldsOutput ) ) {
-				$output .= '<tr><td colspan="2">' . __( ucfirst( $section ), 'woo-assistant' ) . '</td></tr>' . $fieldsOutput;
+				$sectionLabel = ucfirst( $section );
+				// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+				$output .= '<tr><td colspan="2">' . __( $sectionLabel, 'woo-assistant' ) . '</td></tr>' . $fieldsOutput;
 			}
 		}
 
 		if ( ! empty( $output ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<table style="color:#525252;border:1px solid #e5e5e5;width:100%;vertical-align:middle;margin-bottom: 30px;">' . $output . '</table>';
 		}
 	}
@@ -316,6 +322,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 			}
 
 			if ( empty( $errorMessage ) && empty( $formData['name'] ) ) {
+				/* translators: %s: Field name */
 				$errorMessage = sprintf( __( '%s field is empty!', 'woo-assistant' ), __( 'Name', 'woo-assistant' ) );
 			}
 

@@ -140,13 +140,13 @@ class FeedReader {
 				while ( ! empty( $link ) && stristr( $link, 'http' ) !== $link ) {
 					$link = substr( $link, 1 );
 				}
-				$feedItem['link'] = esc_url( strip_tags( $link ) );
+				$feedItem['link'] = esc_url_raw( wp_strip_all_tags( $link ) );
 			}
 
 			if ( in_array( 'title', $this->args['fields'], true ) ) {
-				$title = esc_html( trim( strip_tags( $item->get_title() ) ) );
+				$title = esc_html( trim( wp_strip_all_tags( $item->get_title() ) ) );
 				if ( empty( $title ) ) {
-					$title = __( 'Untitled' );
+					$title = __( 'Untitled', 'woo-assistant' );
 				}
 
 				$feedItem['title'] = $title;
@@ -167,7 +167,7 @@ class FeedReader {
 				$author = $item->get_author();
 				if ( is_object( $author ) ) {
 					$author = $author->get_name();
-					$author = esc_html( strip_tags( $author ) );
+					$author = esc_html( wp_strip_all_tags( $author ) );
 				}
 				$feedItem['author'] = $author;
 			}

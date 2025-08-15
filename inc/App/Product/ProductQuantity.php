@@ -147,6 +147,8 @@ class ProductQuantity extends Addon implements AddonInterface {
 	}
 
 	public function adminVariationSaveMeta( $variationID, $i ): void {
+		// PHPCS ignore reason: Nonce check is already happening before this logic in `AdminPages` class.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		if ( ! isset( $_POST[ WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_min' ][ $i ] ) ) {
 			return;
 		}
@@ -431,7 +433,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$quantities[ $cartProductId ] = isset( $quantities[ $cartProductId ] ) ? $quantities[ $cartProductId ] + $quantity : $quantity;
 		$max                          = min( $stockQuantity, $globalMax, $productMax );
 		if ( $quantities[ $cartProductId ] > $max ) {
-			wc_add_notice( __( 'You have reached the maximum number of items in your cart for this product.', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'You have reached the maximum number of items in your cart for this product.', 'woo-assistant' ), 'error' );
 
 			return false;
 		}
@@ -635,6 +637,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		}
 
 		if ( ! empty( $style ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<style>' . $style . '</style>' . "\n";
 		}
 	}
@@ -663,7 +666,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 
 		if ( $displayButton ) {
 			self::$printed = true;
-			echo '<button type="button" class="wa-button wa-button-change-quantity" data-action="minus" aria-label="' . __( 'Reduce quantity', 'woo-assistant' ) . '">-</button>';
+			echo '<button type="button" class="wa-button wa-button-change-quantity" data-action="minus" aria-label="' . esc_html__( 'Reduce quantity', 'woo-assistant' ) . '">-</button>';
 		}
 	}
 
@@ -676,7 +679,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$displayButton = apply_filters( 'woo_assistant_quantity_input_display_plus_minus', true, $productID );
 
 		if ( $displayButton ) {
-			echo '<button type="button" class="wa-button wa-button-change-quantity" data-action="plus" aria-label="' . __( 'Increase quantity', 'woo-assistant' ) . '">+</button>';
+			echo '<button type="button" class="wa-button wa-button-change-quantity" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'woo-assistant' ) . '">+</button>';
 		}
 	}
 
@@ -813,13 +816,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'sanitize' => 'bool'
 				),
 				'quantity_button_width_height'         => array(
-					'id'         => 'quantity_button_width_height',
-					'title'      => __( 'Button width/height', 'woo-assistant' ),
-					'type'       => 'text',
-					'default'    => '30px',
-					'attributes' => array(
-						'placeholder' => 'eg: 30px'
-					)
+					'id'          => 'quantity_button_width_height',
+					'title'       => __( 'Button width/height', 'woo-assistant' ),
+					'type'        => 'text',
+					'default'     => '40px',
+					'placeholder' => '40px'
 				),
 
 				'end_grid_quantity_input1' => array(
@@ -839,20 +840,18 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'sanitize' => 'bool'
 				),
 				'quantity_input_width'       => array(
-					'id'         => 'quantity_input_width',
-					'title'      => __( 'Width', 'woo-assistant' ),
-					'type'       => 'text',
-					'attributes' => array(
-						'placeholder' => 'eg: 50px'
-					)
+					'id'          => 'quantity_input_width',
+					'title'       => __( 'Width', 'woo-assistant' ),
+					'type'        => 'text',
+					'default'     => '40px',
+					'placeholder' => '40px'
 				),
 				'quantity_input_height'      => array(
-					'id'         => 'quantity_input_height',
-					'title'      => __( 'Height', 'woo-assistant' ),
-					'type'       => 'text',
-					'attributes' => array(
-						'placeholder' => 'eg: 30px'
-					)
+					'id'          => 'quantity_input_height',
+					'title'       => __( 'Height', 'woo-assistant' ),
+					'type'        => 'text',
+					'default'     => '40px',
+					'placeholder' => '40px'
 				),
 				'end_grid_quantity_input5'   => array(
 					'type' => 'endGrid',

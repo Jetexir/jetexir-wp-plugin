@@ -6,7 +6,7 @@ if ( ! isset( $args ) ) {
 }
 
 if ( empty( $args['link'] ) ) {
-	echo $args['title'];
+	echo wp_kses_post( $args['title'] );
 } else {
-	echo '<a href="' . $args['link'] . '" class="wa-feed-link" target="_blank">' . $args['title'] . '</a>';
+	echo '<a href="' . esc_url_raw( $args['link'] ) . '" class="wa-feed-link" target="_blank">' . wp_kses_post( $args['title'] ) . '</a>';
 }

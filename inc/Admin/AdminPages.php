@@ -92,10 +92,10 @@ class AdminPages {
         $currentTab = self::getActiveTab();
         ?>
         <div class="wrap ">
-            <div class="woo-assistant-wrap woo-assistant-<?php echo $currentTab ?>-wrap woo-assistant-wrapper">
+            <div class="woo-assistant-wrap woo-assistant-<?php echo esc_html( $currentTab ) ?>-wrap woo-assistant-wrapper">
                 <div class="wa-sidebar" id="wa-sidebar">
                     <div class="wa-sidebar-head">
-                        <img src="<?php echo $logo ?>" alt="Logo" class="wa-logo">
+                        <img src="<?php echo esc_url_raw( $logo ) ?>" alt="Logo" class="wa-logo">
                         <a href="#" class="wa-hide-sidebar" id="wa-hide-sidebar">
                             <i class="wa-icon-close"></i>
                         </a>
@@ -111,6 +111,7 @@ class AdminPages {
                                 $addonSep = true;
                             }
 
+                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             echo self::menuItem( $tab, $menu );
                         }
                         do_action( 'woo_assistant_end_menus' );
@@ -122,7 +123,7 @@ class AdminPages {
                         <i class="wa-icon-menu"></i>
                     </a>
                 </div>
-                <div class="wa-content wa-<?php echo $currentTab ?>-content" id="wa-content-wrap">
+                <div class="wa-content wa-<?php echo esc_html( $currentTab ) ?>-content" id="wa-content-wrap">
                     <?php
                     // Display tab header
                     do_action( 'woo_assistant_' . $currentTab . '_tab_header' );
@@ -167,7 +168,7 @@ class AdminPages {
 
         $icon = Assets::isSvgImageString( $menu['icon'] ) ? Assets::setSvgDimensions( $menu['icon'], 20 ) : '';
 
-        return '<a href="' . $link . '" class="menu-item' . ( $current === $tab ? ' menu-item-current' : '' ) . '">' . $icon . '<span>' . $menu['title'] . '</span></a>';
+        return '<a href="' . esc_url_raw( $link ) . '" class="menu-item' . ( $current === $tab ? ' menu-item-current' : '' ) . '">' . $icon . '<span>' . esc_html( $menu['title'] ) . '</span></a>';
     }
 
     public static function getActiveTab(): string {

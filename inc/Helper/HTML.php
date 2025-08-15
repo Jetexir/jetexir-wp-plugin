@@ -313,7 +313,7 @@ class HTML {
 		$postTitles      = wp_list_pluck( $postsQuery->posts, 'post_title' );
 		$data['options'] = array_combine( $postIds, $postTitles );
 
-		wp_reset_query();
+		wp_reset_postdata();
 		$post = $postTemp;
 
 		return self::select( $data );
@@ -955,6 +955,7 @@ class HTML {
 		}
 
 		if ( $echo ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $output;
 		} else {
 			return $output;

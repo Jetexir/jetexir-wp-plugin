@@ -53,10 +53,11 @@ class ProductSocialShare extends Addon implements AddonInterface {
 			'button_size'       => $buttonSize,
 		);
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $this->shareShortcode( $args );
 	}
 
-	public function shareShortcode( $atts ) {
+	public function shareShortcode( $atts ): string {
 		$atts = shortcode_atts( array(
 			'product_id'        => get_the_ID(),
 			'socials'           => 'x,facebook,linkedin,telegram,whatsapp',
@@ -106,7 +107,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 		];
 
 		$productLink = $linkType === 'long' ? get_permalink( $productId ) : wp_get_shortlink( $productId );
-		$productLink = $encodeUrl ? urlencode( esc_url( $productLink ) ) : esc_url( $productLink );
+		$productLink = $encodeUrl ? urlencode( $productLink ) : $productLink;
 
 		$wrap = '<div class="wa-product-share-wrapper">';
 		if ( ! empty( $title ) ) {
@@ -300,6 +301,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 					'option_none_value' => '',
 					'default'           => 'after_categories',
 					'sanitize'          => 'text',
+					/* translators: %s: Shortcode */
 					'desc'              => sprintf( __( 'You can display social share with %s shortcode.', 'woo-assistant' ), '<code class="wa-copy-text">[wa_product_share]</code>' )
 				),
 				'product_social_share_link_type_start'     => array(

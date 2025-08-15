@@ -31,7 +31,7 @@ class FlyIcons {
 			foreach ( $positionIcons as $position => $icons ) {
 				$icons     = implode( '', $icons );
 				$positions = explode( '-', $position );
-				echo '<div id="wa-fly-icons-' . $position . '" class="wa-fly-icons wa-fly-icons-' . $position . ' wa-fly-icons-' . $positions[0] . ' wa-fly-icons-' . $positions[1] . '">' . $icons . '</div>';
+				echo '<div id="wa-fly-icons-' . esc_html( $position ) . '" class="wa-fly-icons wa-fly-icons-' . esc_html( $position ) . ' wa-fly-icons-' . esc_html( $positions[0] ) . ' wa-fly-icons-' . esc_html( $positions[1] ) . '">' . wp_kses_post( $icons ) . '</div>';
 			}
 		}
 	}

@@ -60,10 +60,10 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 
 			if ( $minPrice !== $maxPrice ) {
 				if ( $type === 'min' ) {
-					$price = ( $addFrom ? __( 'From', 'variation-price-display' ) : '' ) . ' ' . wc_price( $minPrice );
+					$price = ( $addFrom ? __( 'From', 'woo-assistant' ) : '' ) . ' ' . wc_price( $minPrice );
 
 				} elseif ( $type === 'max' ) {
-					$price = ( $addUpTo ? __( 'Up To', 'variation-price-display' ) : '' ) . ' ' . wc_price( $maxPrice );
+					$price = ( $addUpTo ? __( 'Up To', 'woo-assistant' ) : '' ) . ' ' . wc_price( $maxPrice );
 
 				} elseif ( $type === 'max_to_min' ) {
 					$price = wc_format_price_range( $maxPrice, $minPrice );

@@ -16,6 +16,6 @@ class Validating {
 	}
 
 	public static function isExternalLink( $url ): bool {
-		return self::isUrl( $url ) && parse_url( get_bloginfo( 'url' ), PHP_URL_HOST ) !== parse_url( $url, PHP_URL_HOST );
+		return self::isUrl( $url ) && wp_parse_url( get_bloginfo( 'url' ), PHP_URL_HOST ) !== wp_parse_url( $url, PHP_URL_HOST );
 	}
 }

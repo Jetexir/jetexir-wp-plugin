@@ -76,7 +76,7 @@ class ProductCompare extends Addon implements AddonInterface {
                 $attributes      = WooCommerce::getAttributeTaxonomies();
                 $data            = [ 'count' => count( $products ) ];
                 ?>
-                <div class="wa-product-compare-wrapper wa-product-compare-cols-<?php echo $data['count'] ?>">
+                <div class="wa-product-compare-wrapper wa-product-compare-cols-<?php echo esc_html( $data['count'] ) ?>">
                     <?php
                     /**
                      * \WC_Product $product
@@ -93,7 +93,7 @@ class ProductCompare extends Addon implements AddonInterface {
                         if ( ! $product->is_visible() ) {
                             $data['title'][] = esc_html( $product->get_name() );
                         } else {
-                            $data['title'][] = wp_sprintf( '<a href="%s">%s</a>', esc_url( $product->get_permalink() ),
+                            $data['title'][] = wp_sprintf( '<a href="%s">%s</a>', esc_url_raw( $product->get_permalink() ),
                                     esc_html( $product->get_name() ) );
                         }
 
@@ -156,10 +156,13 @@ class ProductCompare extends Addon implements AddonInterface {
                     foreach ( $data['title'] as $i => $title ) {
                         $i = (int) $i;
                         echo '<div class="wa-product-compare-col">';
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         echo $data['removeButton'][ $i ];
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         echo $data['images'][ $i ];
-                        echo $title;
+                        echo wp_kses_post( $title );
                         if ( ! empty( $data['addToCard'][ $i ] ) ) {
+                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             echo '<div class="wa-product-compare-add-to-card">' . $data['addToCard'][ $i ] . '</div>';
                         }
                         echo '</div>';
@@ -174,11 +177,12 @@ class ProductCompare extends Addon implements AddonInterface {
                         }
 
                         echo '<div class="wa-product-compare-field-title">';
-                        echo $field['label'];
+                        echo esc_html( $field['label'] );
                         echo '</div>';
-                        echo '<div class="wa-product-compare-row wa-product-compare-row-field wa-product-compare-row-' . $key . '">';
+                        echo '<div class="wa-product-compare-row wa-product-compare-row-field wa-product-compare-row-' . esc_html( $key ) . '">';
                         foreach ( $field['value'] as $value ) {
                             echo '<div class="wa-product-compare-col">';
+                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             echo empty( $value ) ? '---' : $value;
                             echo '</div>';
                         }
@@ -271,8 +275,8 @@ class ProductCompare extends Addon implements AddonInterface {
     public function addButton(): void {
         $productID = get_the_ID();
         $exists    = $this->checkExistsItem( $productID );
-        echo '<button type="button" class="button wa-button wa-button-secondary wa-product-compare-button' . ( $exists ? ' wa-button-remove' : '' ) . '" data-id="' . $productID . '" data-action="non">' .
-             $this->getSetting( 'product_compare_button_text', __( 'Compare', 'woo-assistant' ) )
+        echo '<button type="button" class="button wa-button wa-button-secondary wa-product-compare-button' . ( $exists ? ' wa-button-remove' : '' ) . '" data-id="' . esc_html( $productID ) . '" data-action="non">' .
+             esc_html( $this->getSetting( 'product_compare_button_text', __( 'Compare', 'woo-assistant' ) ) )
              . '</button>';
     }
 
@@ -360,6 +364,7 @@ class ProductCompare extends Addon implements AddonInterface {
                         'default'           => 0,
                         'option_none'       => '---',
                         'option_none_value' => '',
+                    /* translators: %s: Shortcode */
                         'desc'              => wp_sprintf( __( 'Insert shortcode in the compare page %s', 'woo-assistant' ), '<code class="wa-copy-text">[wa_products_compare]</code>' )
                 ),
                 'product_compare_max_items'          => array(

@@ -51,6 +51,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 		foreach ( $announcements as $announcement ) {
 			if ( $this->checkDisplay( $announcement ) ) {
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo $this->getAnnouncement( $announcement );
 			}
 		}
@@ -61,6 +62,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 		foreach ( $announcements as $announcement ) {
 			if ( $this->checkDisplay( $announcement ) ) {
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo $this->getAnnouncement( $announcement );
 			}
 		}
@@ -114,7 +116,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 		$output = '<' . $tag . ( $tag === 'a' ? ' href="' . $announcement['primary_button_url'] . '"' : '' ) . ' id="wa-announcement-bar-' . $announcement['code'] . '" class="wa-announcement-bar' . ( $position ? ' wa-announcement-bar-fixed wa-announcement-bar-' . $announcement['position'] : ' wa-announcement-bar-inline' ) . ( ! $withButtons ? ' wa-announcement-bar-center' : '' ) . '" style="' . $style . '">';
 		$output .= '<span class="wa-announcement-bar-container">';
-		$output .= '<span class="wa-announcement-bar-text">' . $announcement['text'] . '</span>';
+		$output .= '<span class="wa-announcement-bar-text">' . esc_html( $announcement['text'] ) . '</span>';
 		if ( $withButtons ) {
 			$output .= '<span class="wa-announcement-bar-buttons">';
 			if ( ! empty( $announcement['primary_button'] ) && ! empty( $announcement['primary_button_url'] ) ) {
@@ -226,8 +228,10 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			$announcement = false;
 
 			if ( empty( $formData['title'] ) ) {
+				/* translators: %s: Title */
 				$errorMessage = sprintf( __( '%s field is empty!', 'woo-assistant' ), __( 'Title', 'woo-assistant' ) );
 			} elseif ( empty( $formData['text'] ) ) {
+				/* translators: %s: Text */
 				$errorMessage = sprintf( __( '%s field is empty!', 'woo-assistant' ), __( 'Text', 'woo-assistant' ) );
 			}
 
@@ -359,6 +363,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			array(
 				'id'            => 'title',
 				'title'         => __( 'Title', 'woo-assistant' ),
+				/* translators: %s: Shortcode */
 				'desc'          => isset( $data['code'] ) && $data['code'] ? wp_sprintf( __( 'Announcement Bar shortcode: %s', 'woo-assistant' ), '<code class="wa-copy-text">[' . self::shortCode . ' code="' . $data['code'] . ']</code>' ) : '',
 				'placeholder'   => __( 'Announcement title', 'woo-assistant' ),
 				'type'          => 'text',

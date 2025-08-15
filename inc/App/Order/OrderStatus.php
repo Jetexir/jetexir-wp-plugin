@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use WooAssistant\Addons\Addon;
 use WooAssistant\Admin\AdminPages;
+use WooAssistant\Helper\Assets;
 use WooAssistant\Helper\Helper;
 use WooAssistant\Helper\HTML;
 use WooAssistant\Helper\Notice;
@@ -88,6 +89,7 @@ class OrderStatus extends Addon implements AddonInterface {
 
 	public function wcAddOrderBulkActions( $actions ) {
 		foreach ( $this->getStatuses() as $slug => $title ) {
+			/* translators: %s: Order status name */
 			$actions[ 'mark_' . $slug ] = sprintf( __( 'Change status to %s', 'woo-assistant' ), $title );
 		}
 
@@ -108,6 +110,7 @@ class OrderStatus extends Addon implements AddonInterface {
 				$statusActions[ $slug ] = array(
 					'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=' . $slug . '&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
 					'name'   => $title,
+					/* translators: %s: Order status name */
 					'title'  => sprintf( __( 'Change order status to %s', 'woo-assistant' ), $title ),
 					'action' => $slug,
 				);
@@ -119,7 +122,7 @@ class OrderStatus extends Addon implements AddonInterface {
 				$actions['status']['actions'] = array_merge( $actions['status']['actions'], $statusActions );
 			} else {
 				$actions['status'] = array(
-					'group'   => __( 'Change status:', 'woocommerce' ) . ' ',
+					'group'   => __( 'Change status:', 'woo-assistant' ) . ' ',
 					'actions' => $statusActions,
 				);
 			}
@@ -140,6 +143,7 @@ class OrderStatus extends Addon implements AddonInterface {
 				$actions[ $slug ] = array(
 					'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=' . $slug . '&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
 					'name'   => $title,
+					/* translators: %s: Order status name */
 					'title'  => sprintf( __( 'Change order status to %s', 'woo-assistant' ), $title ),
 					'action' => 'edit ' . $slug,
 				);
@@ -174,7 +178,8 @@ class OrderStatus extends Addon implements AddonInterface {
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( "$title <span class='count'>(%s)</span>", "$title <span class='count'>(%s)</span>" )
+				// phpcs:ignore WordPress.WP.I18n.InterpolatedVariablePlural, WordPress.WP.I18n.InterpolatedVariableSingular
+				'label_count'               => _n_noop( "$title <span class='count'>(%s)</span>", "$title <span class='count'>(%s)</span>", 'woo-assistant' ),
 			);
 		}
 
@@ -274,8 +279,10 @@ class OrderStatus extends Addon implements AddonInterface {
 			$entry        = false;
 
 			if ( empty( $formData['title'] ) ) {
+				/* translators: %s: Title */
 				$errorMessage = sprintf( __( '%s field is empty!', 'woo-assistant' ), __( 'Title', 'woo-assistant' ) );
 			} elseif ( empty( $formData['slug'] ) ) {
+				/* translators: %s: Slug */
 				$errorMessage = sprintf( __( '%s field is empty!', 'woo-assistant' ), __( 'Slug', 'woo-assistant' ) );
 			}
 
@@ -481,7 +488,7 @@ class OrderStatus extends Addon implements AddonInterface {
 			}
 		}
 
-		wp_register_style( $styleID, false );
+		wp_register_style( $styleID, false, [], Assets::getVersion() );
 		wp_enqueue_style( $styleID );
 		wp_add_inline_style( $styleID, $styles );
 	}
@@ -537,6 +544,7 @@ class OrderStatus extends Addon implements AddonInterface {
 		foreach ( $paymentGateways as $gatewayID => $gatewayTitle ) {
 			$paymentGatewayOptions[ 'order_status_payment_' . $gatewayID ] = array(
 				'id'                => 'order_status_payment_' . $gatewayID,
+				/* translators: %s: Payment gateway title */
 				'title'             => sprintf( __( 'Default order status for "%s" method', 'woo-assistant' ), $gatewayTitle ),
 				'option_none'       => __( 'No changes', 'woo-assistant' ),
 				'option_none_value' => '',

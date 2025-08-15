@@ -119,7 +119,8 @@ class ProductFAQ extends Addon implements AddonInterface {
         $FAQs      = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq' );
         $FAQs      = is_array( $FAQs ) ? $FAQs : [];
         ?>
-        <div id="<?php echo WOOASSISTANT_PLUGIN_KEY . '_faq_control' ?>" class="panel woocommerce_options_panel"
+        <div id="<?php echo esc_html( WOOASSISTANT_PLUGIN_KEY ) . '_faq_control' ?>"
+             class="panel woocommerce_options_panel"
              style="display: none">
             <div class="options_group">
                 <?php
@@ -131,7 +132,7 @@ class ProductFAQ extends Addon implements AddonInterface {
                         'cbvalue' => 1
                 ) );
 
-                echo '<p><strong>' . __( 'Product FAQs', 'woo-assistant' ) . '</strong></p>';
+                echo '<p><strong>' . esc_html__( 'Product FAQs', 'woo-assistant' ) . '</strong></p>';
 
                 for ( $i = 1; $i <= self::maxProductFAQs; $i ++ ) {
                     $index = $i - 1;

@@ -58,12 +58,12 @@ class Addons {
     public function addRefreshNotice( $tab ): void {
         if ( $tab === self::tab && Cache::get( 'settings_saved' ) ) {
             Notice::add( self::tab, __( 'To load the add-on initial hooks, the page refreshes.', 'woo-assistant' ), 'warning' );
-            $url = AdminPages::link( [ 'tab' => self::tab, 'addons-refreshed' => true ] );
             ?>
             <script>
                 setTimeout(function () {
-                    // window.location.reload(true);
-                    window.location.href = '<?php echo $url ?>';
+                    window.location.href = '<?php
+                            echo esc_url_raw( AdminPages::link( [ 'tab' => self::tab, 'addons-refreshed' => true ] ) )
+                            ?>';
                 }, 5000)
             </script>
             <?php

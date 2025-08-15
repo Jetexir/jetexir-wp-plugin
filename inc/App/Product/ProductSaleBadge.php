@@ -99,8 +99,8 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 				'id'          => 'product_sale_badge_text',
 				'title'       => __( 'Sale Badge text', 'woo-assistant' ),
 				'type'        => 'text',
-				'default'     => __( 'Sale', 'woocommerce' ),
-				'placeholder' => __( 'Sale', 'woocommerce' ),
+				'default'     => __( 'Sale', 'woo-assistant' ),
+				'placeholder' => __( 'Sale', 'woo-assistant' ),
 			),
 			'product_sale_badge_percentage' => [
 				'id'       => 'product_sale_badge_percentage',

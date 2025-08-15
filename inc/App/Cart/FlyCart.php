@@ -10,6 +10,7 @@ use WooAssistant\Helper\Cache;
 use WooAssistant\Helper\Nonce;
 use WooAssistant\Helper\Param;
 use WooAssistant\Helper\Sanitizing;
+use WooAssistant\Helper\Strip;
 use WooAssistant\Helper\Templates;
 use WooAssistant\Helper\WooCommerce;
 use WooAssistant\Helper\WordPress;
@@ -86,13 +87,13 @@ class FlyCart extends Addon implements AddonInterface {
 		echo '<div class="wa-loader-wrap" style="display: none"><div class="wa-loader"></div></div>';
 
 		if ( ! WordPress::isAjax() && $this->getSetting( 'fly_cart_reload_page_load', true ) ) {
-			echo '<p>' . __( 'Loading...', 'woo-assistant' ) . '</p>';
+			echo '<p>' . esc_html__( 'Loading...', 'woo-assistant' ) . '</p>';
 
 		} else {
 			$cart = WooCommerce::getCart();
 
 			if ( $cart->is_empty() ) {
-				echo '<p>' . $this->getSetting( 'fly_cart_empty_message', __( 'Your cart is currently empty!', 'woo-assistant' ) ) . '</p>';
+				echo '<p>' . esc_html( $this->getSetting( 'fly_cart_empty_message', __( 'Your cart is currently empty!', 'woo-assistant' ) ) ) . '</p>';
 
 			} else {
 				$itemPrice       = $this->getSetting( 'fly_cart_item_price', 'price' );
@@ -111,14 +112,17 @@ class FlyCart extends Addon implements AddonInterface {
 					$maxValue    = apply_filters( 'woocommerce_quantity_input_max', $_product->get_max_purchase_quantity(), $_product );
 					$buttons     = $quantityButtons && ! ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() );
 
-					echo '<div class="wa-fly-cart-item wa-product-item-wrap" data-item-key="' . $itemKey . '" data-product-id="' . $productID . '">';
-					echo '<a href="' . $productLink . '" class="wa-fly-cart-item-image wa-product-item-image">' . $_product->get_image() . '</a>';
+					echo '<div class="wa-fly-cart-item wa-product-item-wrap" data-item-key="' . esc_html( $itemKey ) . '" data-product-id="' . esc_html( $productID ) . '">';
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo '<a href="' . esc_url_raw( $productLink ) . '" class="wa-fly-cart-item-image wa-product-item-image">' . Strip::kses( $_product->get_image() ) . '</a>';
 
 					echo '<div class="wa-fly-cart-item-info wa-product-item-info">';
-					echo '<a href="' . $productLink . '" class="wa-fly-cart-item-title wa-product-item-title">' . $name . '</a>';
+					echo '<a href="' . esc_url_raw( $productLink ) . '" class="wa-fly-cart-item-title wa-product-item-title">' . esc_html( $name ) . '</a>';
 					if ( $itemPrice === 'price' ) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo sprintf( '<div class="wa-fly-cart-item-price wa-product-item-price">%s</div>', $_product->get_price_html() );
 					} elseif ( $itemPrice === 'subtotal' ) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo sprintf( '<div class="wa-fly-cart-item-price wa-product-item-price">%s</div>', WC()->cart->get_product_subtotal( $_product, $item->quantity ) );
 					}
 					echo '</div>';
@@ -127,11 +131,11 @@ class FlyCart extends Addon implements AddonInterface {
 
 					echo '<div class="wa-fly-cart-item-quantity ' . ( $buttons ? 'wa-fly-cart-item-quantity-buttons wa-appearance-text-field' : '' ) . '">';
 					if ( $buttons ) {
-						echo '<button type="button" data-action="minus" aria-label="' . __( 'Reduce quantity', 'woo-assistant' ) . '">-</button>';
+						echo '<button type="button" data-action="minus" aria-label="' . esc_html__( 'Reduce quantity', 'woo-assistant' ) . '">-</button>';
 					}
 
 					if ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() ) {
-						echo '<span class="wa-fly-cart-item-quantity-value">' . $item->quantity . '</span>';
+						echo '<span class="wa-fly-cart-item-quantity-value">' . esc_html( $item->quantity ) . '</span>';
 					} else {
 						add_filter( 'woo_assistant_quantity_input_display_plus_minus', '__return_false' );
 						$quantity = isset( $item->quantity ) ? wc_stock_amount( $item->quantity ) : $_product->get_min_purchase_quantity();
@@ -144,12 +148,12 @@ class FlyCart extends Addon implements AddonInterface {
 					}
 
 					if ( $buttons ) {
-						echo '<button type="button" data-action="plus" aria-label="' . __( 'Increase quantity', 'woo-assistant' ) . '">+</button>';
+						echo '<button type="button" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'woo-assistant' ) . '">+</button>';
 					}
 
 					echo '</div>';
 
-					echo '<a href="#" class="wa-fly-cart-item-remove wa-flex wa-product-item-remove" ><i class="wa-icon-cross"></i> ' . __( 'Remove', 'woo-assistant' ) . '</a>';
+					echo '<a href="#" class="wa-fly-cart-item-remove wa-flex wa-product-item-remove" ><i class="wa-icon-cross"></i> ' . esc_html__( 'Remove', 'woo-assistant' ) . '</a>';
 					echo '</div>';
 
 					echo '</div>';
@@ -158,10 +162,12 @@ class FlyCart extends Addon implements AddonInterface {
 				echo '</div>';
 
 				if ( $this->getSetting( 'fly_cart_subtotal', true ) ) {
-					echo '<div class="wa-fly-cart-subtotal wa-fly-cart-meta wa-flex"><span>' . __( 'Subtotal', 'woo-assistant' ) . '</span>' . $cart->get_cart_subtotal() . '</div>';
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo '<div class="wa-fly-cart-subtotal wa-fly-cart-meta wa-flex"><span>' . esc_html__( 'Subtotal', 'woo-assistant' ) . '</span>' . $cart->get_cart_subtotal() . '</div>';
 				}
 				if ( $this->getSetting( 'fly_cart_total', true ) ) {
-					echo '<div class="wa-fly-cart-total wa-fly-cart-meta wa-flex"><span>' . __( 'Total', 'woo-assistant' ) . '</span>' . $cart->get_cart_total() . '</div>';
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo '<div class="wa-fly-cart-total wa-fly-cart-meta wa-flex"><span>' . esc_html__( 'Total', 'woo-assistant' ) . '</span>' . $cart->get_cart_total() . '</div>';
 				}
 			}
 		}

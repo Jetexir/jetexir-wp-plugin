@@ -82,7 +82,7 @@ class Assets {
 	}
 
 	public static function getVersion(): string {
-		return WOOASSISTANT_PLUGIN_VERSION . ( WOOASSISTANT_DEBUG_MODE && defined( 'WP_DEVELOPMENT_MODE' ) && WP_DEVELOPMENT_MODE === 'plugin' ? time() : '' );
+		return WOOASSISTANT_PLUGIN_VERSION . ( WOOASSISTANT_DEBUG_MODE || wp_is_development_mode( 'plugin' ) ? time() : '' );
 	}
 
 	public static function url( $path ): string {
@@ -100,6 +100,7 @@ class Assets {
 		$imageSizes = [];
 
 		foreach ( $sizes as $value ) {
+			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
 			$imageSizes[ $value ] = __( ucwords( str_replace( '_', ' ', $value ) ), 'woo-assistant' );
 		}
 

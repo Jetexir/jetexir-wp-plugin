@@ -7,6 +7,7 @@ if ( ! isset( $args ) ) {
 
 echo '<ul class="wa-list-links">';
 foreach ( $args['items'] as $feedItem ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo '<li>' . $feedItem . '</li>';
 }
 echo '</ul>';

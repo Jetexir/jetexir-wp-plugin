@@ -5,4 +5,4 @@ if ( ! isset( $args ) ) {
 	return;
 }
 
-echo '<span class="wa-feed-' . $args['field'] . '">' . $args['value'] . '</span>';
+echo '<span class="wa-feed-' . esc_html( $args['field'] ) . '">' . wp_kses_post( $args['value'] ) . '</span>';

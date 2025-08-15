@@ -48,6 +48,7 @@ class Transient {
 
 		$time = $deleteExpired ? time() : strtotime( '+100 years' );
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->query(
 			$wpdb->prepare(
 				"DELETE a, b FROM {$wpdb->options} a, {$wpdb->options} b
@@ -63,6 +64,7 @@ class Transient {
 
 		if ( ! is_multisite() ) {
 			// Single site stores site transients in the options table.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->query(
 				$wpdb->prepare(
 					"DELETE a, b FROM {$wpdb->options} a, {$wpdb->options} b
@@ -77,6 +79,7 @@ class Transient {
 			);
 		} elseif ( is_multisite() && is_main_site() && is_main_network() ) {
 			// Multisite stores site transients in the sitemeta table.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->query(
 				$wpdb->prepare(
 					"DELETE a, b FROM {$wpdb->sitemeta} a, {$wpdb->sitemeta} b

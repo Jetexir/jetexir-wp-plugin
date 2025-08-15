@@ -20,7 +20,9 @@ class Param {
 	 * @return mixed
 	 */
 	public static function get( $id, $default = false, $filter = FILTER_DEFAULT, $flag = [] ) {
-		return isset( $_GET[ $id ] ) ? filter_var( $_GET[ $id ], $filter, $flag ) : $default;
+		// PHPCS ignore reason: Nonce check is already happening before this logic in `AdminPages` class.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
+		return isset( $_GET[ $id ] ) ? filter_var( wp_unslash( $_GET[ $id ] ), $filter, $flag ) : $default;
 	}
 
 	/**
@@ -34,7 +36,11 @@ class Param {
 	 * @return mixed
 	 */
 	public static function post( $id, $default = false, $filter = FILTER_DEFAULT, $flag = [] ) {
+		// PHPCS ignore reason: Nonce check is already happening before this logic in `AdminPages` class.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST[ $id ] ) ) {
+			// PHPCS ignore reason: Sanitize posted data with `Sanitizing` class
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			return is_array( $_POST[ $id ] ) ? filter_var_array( $_POST[ $id ], $filter ) : filter_var( $_POST[ $id ], $filter, $flag );
 		}
 
@@ -52,7 +58,9 @@ class Param {
 	 * @return mixed
 	 */
 	public static function request( $id, $default = false, $filter = FILTER_DEFAULT, $flag = [] ) {
-		return isset( $_REQUEST[ $id ] ) ? filter_var( $_REQUEST[ $id ], $filter, $flag ) : $default;
+		// PHPCS ignore reason: Nonce check is already happening before this logic in `AdminPages` class.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
+		return isset( $_REQUEST[ $id ] ) ? filter_var( wp_unslash( $_REQUEST[ $id ] ), $filter, $flag ) : $default;
 	}
 
 	/**
@@ -66,7 +74,7 @@ class Param {
 	 * @return mixed
 	 */
 	public static function server( $id, $default = false, $filter = FILTER_DEFAULT, $flag = [] ) {
-		return isset( $_SERVER[ $id ] ) ? filter_var( $_SERVER[ $id ], $filter, $flag ) : $default;
+		return isset( $_SERVER[ $id ] ) ? filter_var( wp_unslash( $_SERVER[ $id ] ), $filter, $flag ) : $default;
 	}
 
 	/**

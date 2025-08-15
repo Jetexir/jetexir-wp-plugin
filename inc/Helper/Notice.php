@@ -50,6 +50,7 @@ class Notice {
 		}
 
 		if ( $echo ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $noticeWrap;
 		} else {
 			return $noticeWrap;

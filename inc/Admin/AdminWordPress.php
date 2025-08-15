@@ -28,7 +28,7 @@ class AdminWordPress implements AdminTabInterface {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$links[] = [
-				'title' => __( 'WordPress' ),
+				'title' => __( 'WordPress', 'woo-assistant' ),
 				'desc'  => __( 'WordPress customize options', 'woo-assistant' ),
 				'link'  => AdminPages::link( [
 					'tab' => self::tab

@@ -47,14 +47,15 @@ class AdminDashboard implements AdminTabInterface {
 			$message = '<strong>' . __( 'Hello', 'woo-assistant' ) . ', ' . User::getData( 'display_name' ) . '!</strong>';
 			$message .= '<p>' . __( 'Woo Assistant is here to help you sell more in your store. To get started, go to the Addons tab and activate the required addons.', 'woo-assistant' ) . '</p>';
 
-			echo '<div class="wa-dashboard-welcome">' . $message . '</div>';
+			echo '<div class="wa-dashboard-welcome">' . wp_kses( $message, [ 'strong' => [], 'p' => [] ] ) . '</div>';
 		}
 
 		echo '<div class="wa-dashboard-links-wrap">';
 		foreach ( $dashboardTypeLinks as $dashboardLinks ) {
 			foreach ( $dashboardLinks as $link ) {
 				$icon = ! empty( $link['icon'] ) && Assets::isSvgImageString( $link['icon'] ) ? Assets::setSvgDimensions( $link['icon'], 50 ) : '';
-				echo '<a href="' . $link['link'] . '" title="' . $link['desc'] . '" class="wa-link-type-' . $link['type'] . '">' . $icon . '<span>' . $link['title'] . '</span></a>';
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<a href="' . esc_url_raw( $link['link'] ) . '" title="' . esc_html( $link['desc'] ) . '" class="wa-link-type-' . esc_html( $link['type'] ) . '">' . $icon . '<span>' . esc_html( $link['title'] ) . '</span></a>';
 			}
 		}
 		echo '</div>';

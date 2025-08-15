@@ -172,7 +172,7 @@ class ProductRelated extends Addon implements AddonInterface {
 	}
 
 	public function setTitle( $title ) {
-		if ( $customTitle = $this->getSetting( 'product_related_title', __( 'Related Products', 'woocommerce' ) ) ) {
+		if ( $customTitle = $this->getSetting( 'product_related_title', __( 'Related Products', 'woo-assistant' ) ) ) {
 			return $customTitle;
 		}
 

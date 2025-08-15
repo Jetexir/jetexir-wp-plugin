@@ -5,7 +5,7 @@ if ( ! isset( $args ) ) {
 	return;
 }
 
-echo '<h2>' . $args['title'] . '</h2>';
+echo '<h2>' . esc_html( $args['title'] ) . '</h2>';
 
 if ( ! empty( $args['items'] ) ) {
 	echo '<div class="wa-faqs-wrap">';
@@ -15,8 +15,8 @@ if ( ! empty( $args['items'] ) ) {
 		}
 
 		echo '<div class="wa-faq-item">';
-		echo '<button class="wa-faq-question" type="button">' . $faq['question'] . $args['icon'] . '</button>';
-		echo '<div class="wa-faq-answer">' . $faq['answer'] . '</div>';
+		echo '<button class="wa-faq-question" type="button">' . wp_kses_post( $faq['question'] . $args['icon'] ) . '</button>';
+		echo '<div class="wa-faq-answer">' . wp_kses_post( $faq['answer'] ) . '</div>';
 		echo '</div>';
 	}
 	echo '</div>';
