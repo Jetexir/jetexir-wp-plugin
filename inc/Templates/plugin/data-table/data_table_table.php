@@ -116,7 +116,7 @@ if ( ! isset( $args ) ) {
                                     type="button" <?php
                             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             echo $attributes ?>>
-                                <?php echo esc_html( $action['title'] ) ?>
+                                <?php echo wp_kses_post( $action['title'] ) ?>
                             </button>
                         <?php }
                     }
