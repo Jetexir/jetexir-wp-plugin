@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Woo Assistant\n"
-"POT-Creation-Date: 2025-08-16 01:20+0330\n"
-"PO-Revision-Date: 2025-08-16 01:20+0330\n"
+"POT-Creation-Date: 2025-08-17 01:58+0330\n"
+"PO-Revision-Date: 2025-08-17 01:58+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -234,7 +234,6 @@ msgstr "تنظیمات عمومی"
 msgid "Tools to enhance your WooCommerce orders"
 msgstr "ابزارهایی برای بهبود سفارشات ووکامرس شما"
 
-#. Plugin Name of the plugin/theme
 #: inc/Admin/AdminPages.php:86
 msgid "Woo Assistant"
 msgstr "دستیار ووکامرس"
@@ -258,7 +257,7 @@ msgstr "ذخیره تغییرات"
 
 #: inc/Admin/AdminSettings.php:478
 msgid "Discard changes"
-msgstr "تغییرات را نادیده بگیرید"
+msgstr "حذف تغییرات"
 
 #: inc/Admin/AdminTools.php:34 inc/Admin/AdminTools.php:51
 msgid "Tools"
@@ -373,8 +372,8 @@ msgid "Cart Modal"
 msgstr "سبد خرید نمایی"
 
 #: inc/App/Cart/FlyCart.php:332
-msgid "Item price"
-msgstr "قیمت کالا"
+msgid "Product price"
+msgstr "قیمت محصولات"
 
 #: inc/App/Cart/FlyCart.php:335 inc/App/Cart/MenuCart.php:174
 #: inc/App/Product/Product.php:28 inc/App/Product/ProductRelated.php:265
@@ -451,7 +450,7 @@ msgstr "سبد خرید شناور برای ووکامرس"
 
 #: inc/App/Cart/MenuCart.php:62
 msgid "items"
-msgstr "موردها"
+msgstr "موارد"
 
 #: inc/App/Cart/MenuCart.php:90 inc/App/Cart/MenuCart.php:104
 #: inc/App/Cart/MenuCart.php:105 inc/App/Cart/MenuCart.php:110
@@ -488,12 +487,12 @@ msgid "Menu content"
 msgstr "محتوای فهرست"
 
 #: inc/App/Cart/MenuCart.php:173
-msgid "Items count"
-msgstr "تعداد موردها"
+msgid "Products count"
+msgstr "تعداد محصولات"
 
 #: inc/App/Cart/MenuCart.php:175
-msgid "Items count and price"
-msgstr "تعداد اقلام و قیمت"
+msgid "Products count and price"
+msgstr "تعداد محصولات و قیمت"
 
 #: inc/App/Cart/MenuCart.php:182
 msgid "Price type"
@@ -2448,6 +2447,10 @@ msgstr "فعال"
 msgid "No entries!"
 msgstr "بدون ورودی!"
 
+#. Plugin Name of the plugin/theme
+msgid "WC Assistant"
+msgstr "دستیار ووکامرس"
+
 #. Description of the plugin/theme
 msgid "WooCommerce Assistant"
 msgstr "دستیار ووکامرس"
@@ -2459,6 +2462,12 @@ msgstr "پارسا کافی"
 #. Author URI of the plugin/theme
 msgid "https://parsa.ws"
 msgstr "https://parsa.ws"
+
+#~ msgid "Items count"
+#~ msgstr "تعداد موارد"
+
+#~ msgid "Item price"
+#~ msgstr "قیمت مورد"
 
 #~ msgid "Solid"
 #~ msgstr "جامد"

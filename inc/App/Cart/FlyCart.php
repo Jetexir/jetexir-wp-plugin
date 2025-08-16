@@ -329,7 +329,7 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_item_price'               => array(
 					'id'       => 'fly_cart_item_price',
-					'title'    => __( 'Item price', 'wc-assistant' ),
+					'title'    => __( 'Product price', 'wc-assistant' ),
 					'type'     => 'select',
 					'options'  => array(
 						'price'    => __( 'Price', 'wc-assistant' ),

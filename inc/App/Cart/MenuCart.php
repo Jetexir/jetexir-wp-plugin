@@ -170,9 +170,9 @@ class MenuCart extends Addon implements AddonInterface {
 					'title'    => __( 'Menu content', 'wc-assistant' ),
 					'type'     => 'select',
 					'options'  => array(
-						'count'       => __( 'Items count', 'wc-assistant' ),
+						'count'       => __( 'Products count', 'wc-assistant' ),
 						'price'       => __( 'Price', 'wc-assistant' ),
-						'count-price' => __( 'Items count and price', 'wc-assistant' ),
+						'count-price' => __( 'Products count and price', 'wc-assistant' ),
 					),
 					'default'  => 'count-price',
 					'sanitize' => 'text'
