@@ -12,3 +12,5 @@ composer.lock
 assets/scss
 assets/js-admin-src
 assets/js-src
+assets/css/*.css.map
+assets/css-admin/*.css.map
