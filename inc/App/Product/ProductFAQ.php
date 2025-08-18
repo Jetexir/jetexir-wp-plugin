@@ -49,6 +49,34 @@ class ProductFAQ extends Addon implements AddonInterface {
         ) );
     }
 
+    public function productTab( $tabs ) {
+        $productID = wc_get_product()->get_id();
+        $enable    = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq_enable' );
+        $enable    = $enable === '' ? 1 : (int) $enable;
+        if ( $enable === 0 || ! $this->productHasFAQs( $productID ) ) {
+            return $tabs;
+        }
+
+        $tabs['wa_product_faq'] = array(
+                'title'    => apply_filters( 'woo_assistant_product_faq_tab_title', __( 'FAQs', 'wc-assistant' ) ),
+                'priority' => 50,
+                'callback' => [ $this, 'productTabContent' ],
+        );
+
+        return $tabs;
+    }
+
+    private function productHasFAQs( $productID ): bool {
+        $globalFAQs = $this->getSetting( 'product_faq', [] );
+        if ( is_array( $globalFAQs ) && count( $globalFAQs ) ) {
+            return true;
+        }
+
+        $productFAQs = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq' );
+
+        return is_array( $productFAQs ) && count( $productFAQs );
+    }
+
     private function getIcon( $icon ): string {
         if ( $icon === 'chevron' ) {
             return '<i class="wa-icon-chevron-down"></i>';
@@ -67,22 +95,6 @@ class ProductFAQ extends Addon implements AddonInterface {
         }
 
         return '';
-    }
-
-    public function productTab( $tabs ) {
-        $enable = PostMeta::get( wc_get_product()->get_id(), WOOASSISTANT_INPUT_PREFIX . 'product_faq_enable' );
-        $enable = $enable === '' ? 1 : (int) $enable;
-        if ( $enable === 0 ) {
-            return $tabs;
-        }
-
-        $tabs['docs'] = array(
-                'title'    => apply_filters( 'woo_assistant_product_faq_tab_title', __( 'FAQs', 'wc-assistant' ) ),
-                'priority' => 50,
-                'callback' => [ $this, 'productTabContent' ],
-        );
-
-        return $tabs;
     }
 
     public function adminProductSaveMeta( $productID ): void {
