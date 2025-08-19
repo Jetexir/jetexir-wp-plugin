@@ -16,6 +16,7 @@ class Product {
 		new ProductFAQ();
 		new ProductRelated();
 		new ProductCall();
+		new ProductSaleProgressBar();
 	}
 
 	/**
