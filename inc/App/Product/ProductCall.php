@@ -138,7 +138,7 @@ class ProductCall extends Addon implements AddonInterface {
 			'settings_key' => $this->addonID,
 			'settings'     => [
 				'product_call_start_grid'         => array(
-					'id'    => 'product_social_share_start_grid_2',
+					'id'    => 'product_call_start_grid',
 					'title' => __( 'Call for Price', 'wc-assistant' ),
 					'type'  => 'startgrid',
 				),
