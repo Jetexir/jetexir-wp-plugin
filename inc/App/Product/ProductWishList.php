@@ -46,7 +46,7 @@ class ProductWishList extends Addon implements AddonInterface {
 				add_action( 'woocommerce_single_product_summary', [
 					$this,
 					'addButton'
-				], $this->getProductPosition( $position ) );
+				], WooCommerce::getProductPositionPriority( $position ) );
 			}
 
 			if ( $position = $this->getSetting( 'wishlist_archive_position', 'after_add_to_cart' ) ) {
@@ -415,29 +415,6 @@ class ProductWishList extends Addon implements AddonInterface {
 		}
 
 		return get_permalink( $page );
-	}
-
-	private function getProductPosition( $position ): int {
-		switch ( $position ) {
-			case 'before_title':
-				return 1;
-			case 'after_title':
-				return 6;
-			case 'after_rating':
-				return 11;
-			case 'after_price':
-				return 13;
-			case 'after_excerpt':
-				return 21;
-			case 'before_add_to_cart':
-				return 29;
-			case 'after_meta':
-				return 41;
-			case 'after_sharing':
-				return 51;
-			default:
-				return 31; // after_add_to_cart
-		}
 	}
 
 	private function getButtonIcons( $icon = null, $tag = false ) {

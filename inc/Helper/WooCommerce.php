@@ -7,6 +7,29 @@ class WooCommerce {
 		return wc_string_to_bool( get_option( 'woocommerce_coming_soon' ) );
 	}
 
+	public static function getProductPositionPriority( $position ): int {
+		switch ( $position ) {
+			case 'before_title':
+				return 1;
+			case 'after_title':
+				return 6;
+			case 'after_rating':
+				return 11;
+			case 'after_price':
+				return 13;
+			case 'after_excerpt':
+				return 21;
+			case 'before_add_to_cart':
+				return 29;
+			case 'after_meta':
+				return 41;
+			case 'after_sharing':
+				return 51;
+			default:
+				return 31; // after_add_to_cart
+		}
+	}
+
 	public static function url( $page, $endpoint = 'dashboard' ) {
 		if ( $page === 'cart' ) {
 			return wc_get_cart_url();
