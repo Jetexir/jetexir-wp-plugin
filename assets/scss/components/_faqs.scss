@@ -10,7 +10,7 @@
     border: 1.5px solid var(--wa-element-border-color, variables.$border_color);
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: var(--wa-element-border-radius, 0);
     overflow: hidden;
     transition: all 0.3s ease;
 
