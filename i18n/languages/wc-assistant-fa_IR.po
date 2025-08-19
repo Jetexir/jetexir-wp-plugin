@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Woo Assistant\n"
-"POT-Creation-Date: 2025-08-17 01:58+0330\n"
-"PO-Revision-Date: 2025-08-17 01:58+0330\n"
+"POT-Creation-Date: 2025-08-19 14:29+0330\n"
+"PO-Revision-Date: 2025-08-19 14:29+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -117,11 +117,12 @@ msgstr "توصیه شده"
 
 #: inc/Addons/Addons.php:239 inc/Admin/AdminProduct.php:31
 #: inc/Admin/AdminProduct.php:48 inc/App/Product/ProductCall.php:213
-#: inc/App/Product/ProductCompare.php:485 inc/App/Product/ProductFAQ.php:262
+#: inc/App/Product/ProductCompare.php:485 inc/App/Product/ProductFAQ.php:274
 #: inc/App/Product/ProductPriceVariation.php:145
 #: inc/App/Product/ProductQuantity.php:872 inc/App/Product/ProductRelated.php:540
+#: inc/App/Product/ProductSaleProgressBar.php:214
 #: inc/App/Product/ProductSocialShare.php:452
-#: inc/App/Product/ProductWishList.php:703
+#: inc/App/Product/ProductWishList.php:680
 #: inc/App/Tools/AnnouncementBarTools.php:453
 msgid "Product"
 msgstr "محصول"
@@ -222,7 +223,7 @@ msgstr ""
 "به تب افزونه‌ها بروید و افزونه‌های مورد نیاز را فعال کنید."
 
 #: inc/Admin/AdminGeneral.php:26 inc/Admin/AdminGeneral.php:41
-#: inc/App/GeneralSettings/Styles.php:98 inc/App/Product/ProductGeneral.php:22
+#: inc/App/General/Styles.php:98 inc/App/Product/ProductGeneral.php:22
 msgid "General"
 msgstr "عمومی"
 
@@ -348,8 +349,8 @@ msgstr "پایین راست"
 
 #: inc/App/Cart/FlyCart.php:303 inc/App/Cart/MenuCart.php:162
 #: inc/App/Product/ProductSocialShare.php:392
-#: inc/App/Product/ProductWishList.php:658
-#: inc/App/Product/ProductWishList.php:671
+#: inc/App/Product/ProductWishList.php:635
+#: inc/App/Product/ProductWishList.php:648
 msgid "Icon"
 msgstr "آیکن"
 
@@ -376,7 +377,7 @@ msgid "Product price"
 msgstr "قیمت محصولات"
 
 #: inc/App/Cart/FlyCart.php:335 inc/App/Cart/MenuCart.php:174
-#: inc/App/Product/Product.php:28 inc/App/Product/ProductRelated.php:265
+#: inc/App/Product/Product.php:29 inc/App/Product/ProductRelated.php:265
 msgid "Price"
 msgstr "قیمت"
 
@@ -559,8 +560,8 @@ msgstr "مورد انتخاب شده یافت نشد!"
 
 #: inc/App/Checkout/CheckoutFields.php:420 inc/App/Product/ProductCall.php:174
 #: inc/App/Product/ProductSocialShare.php:393
-#: inc/App/Product/ProductWishList.php:659
-#: inc/App/Product/ProductWishList.php:672
+#: inc/App/Product/ProductWishList.php:636
+#: inc/App/Product/ProductWishList.php:649
 #: inc/App/Tools/AnnouncementBarTools.php:235
 #: inc/App/Tools/AnnouncementBarTools.php:374
 msgid "Text"
@@ -600,7 +601,7 @@ msgid "Textarea"
 msgstr "متن چند سطر"
 
 #: inc/App/Checkout/CheckoutFields.php:451
-#: inc/App/Product/ProductWishList.php:606 inc/Helper/HTML.php:851
+#: inc/App/Product/ProductWishList.php:583 inc/Helper/HTML.php:851
 msgid "Type"
 msgstr "نوع"
 
@@ -737,114 +738,114 @@ msgstr "مدیریت فیلدهای پرداخت"
 msgid "Customize the checkout fields in WooCommerce."
 msgstr "سفارشی‌سازی فیلدهای پرداخت در ووکامرس."
 
-#: inc/App/GeneralSettings/Debug.php:17
+#: inc/App/General/Debug.php:17
 msgid "Debugging"
 msgstr "اشکال‌زدایی"
 
-#: inc/App/GeneralSettings/Debug.php:22
+#: inc/App/General/Debug.php:22
 msgid "Enable debug mode"
 msgstr "فعال کردن حالت اشکال‌زدایی"
 
-#: inc/App/GeneralSettings/Debug.php:26
+#: inc/App/General/Debug.php:26
 msgid ""
 "By enabling this option, the uncompressed version of the JS and CSS files will "
 "be loaded."
 msgstr "با فعال کردن این گزینه، نسخه فشرده نشده فایل‌های JS و CSS بارگذاری می‌شود."
 
-#: inc/App/GeneralSettings/Debug.php:35
+#: inc/App/General/Debug.php:35
 msgid "Debug"
 msgstr "اشکال‌یابی"
 
-#: inc/App/GeneralSettings/Debug.php:36
+#: inc/App/General/Debug.php:36
 msgid "Debug Settings"
 msgstr "تنظیمات اشکال‌یابی"
 
-#: inc/App/GeneralSettings/Styles.php:23
+#: inc/App/General/Styles.php:23
 msgid "Plugin Styles"
 msgstr "سبک‌های افزونه"
 
-#: inc/App/GeneralSettings/Styles.php:24
+#: inc/App/General/Styles.php:24
 msgid "General plugin styles"
 msgstr "سبک‌های عمومی افزونه"
 
-#: inc/App/GeneralSettings/Styles.php:79 inc/App/GeneralSettings/Styles.php:972
+#: inc/App/General/Styles.php:79 inc/App/General/Styles.php:972
 msgid "Styles"
 msgstr "سبک‌ها"
 
-#: inc/App/GeneralSettings/Styles.php:84
+#: inc/App/General/Styles.php:84
 msgid "Enable Styles"
 msgstr "فعال کردن سبک‌ها"
 
-#: inc/App/GeneralSettings/Styles.php:88
+#: inc/App/General/Styles.php:88
 msgid ""
 "If you want to change elements based on the theme style, disable this option."
 msgstr ""
 "اگر می‌خواهید عناصر را براساس سبک قالب تغییر دهید، این گزینه را غیرفعال کنید."
 
-#: inc/App/GeneralSettings/Styles.php:103
+#: inc/App/General/Styles.php:103
 msgid "Primary color"
 msgstr "رنگ اصلی"
 
-#: inc/App/GeneralSettings/Styles.php:128 inc/App/GeneralSettings/Styles.php:189
-#: inc/App/GeneralSettings/Styles.php:405 inc/App/GeneralSettings/Styles.php:547
-#: inc/App/GeneralSettings/Styles.php:763 inc/App/Order/OrderStatus.php:397
+#: inc/App/General/Styles.php:128 inc/App/General/Styles.php:189
+#: inc/App/General/Styles.php:405 inc/App/General/Styles.php:547
+#: inc/App/General/Styles.php:763 inc/App/Order/OrderStatus.php:397
 #: inc/App/Tools/AnnouncementBarTools.php:479
 msgid "Text color"
 msgstr "رنگ متن"
 
-#: inc/App/GeneralSettings/Styles.php:153 inc/App/GeneralSettings/Styles.php:239
-#: inc/App/GeneralSettings/Styles.php:430 inc/App/GeneralSettings/Styles.php:597
-#: inc/App/GeneralSettings/Styles.php:813 inc/App/Order/OrderStatus.php:404
+#: inc/App/General/Styles.php:153 inc/App/General/Styles.php:239
+#: inc/App/General/Styles.php:430 inc/App/General/Styles.php:597
+#: inc/App/General/Styles.php:813 inc/App/Order/OrderStatus.php:404
 msgid "Background color"
 msgstr "رنگ زمینه"
 
-#: inc/App/GeneralSettings/Styles.php:184
+#: inc/App/General/Styles.php:184
 msgid "Elements"
 msgstr "عناصر"
 
-#: inc/App/GeneralSettings/Styles.php:214 inc/App/GeneralSettings/Styles.php:572
-#: inc/App/GeneralSettings/Styles.php:788
+#: inc/App/General/Styles.php:214 inc/App/General/Styles.php:572
+#: inc/App/General/Styles.php:788
 msgid "Hover text color"
 msgstr "رنگ متن بالا آمدن موس"
 
-#: inc/App/GeneralSettings/Styles.php:264 inc/App/GeneralSettings/Styles.php:622
-#: inc/App/GeneralSettings/Styles.php:838
+#: inc/App/General/Styles.php:264 inc/App/General/Styles.php:622
+#: inc/App/General/Styles.php:838
 msgid "Hover background color"
 msgstr "رنگ پس‌زمینه بالا آمدن موس"
 
-#: inc/App/GeneralSettings/Styles.php:289 inc/App/GeneralSettings/Styles.php:455
-#: inc/App/GeneralSettings/Styles.php:647 inc/App/GeneralSettings/Styles.php:863
+#: inc/App/General/Styles.php:289 inc/App/General/Styles.php:455
+#: inc/App/General/Styles.php:647 inc/App/General/Styles.php:863
 msgid "Border color"
 msgstr "رنگ حاشیه"
 
-#: inc/App/GeneralSettings/Styles.php:314 inc/App/GeneralSettings/Styles.php:672
-#: inc/App/GeneralSettings/Styles.php:888
+#: inc/App/General/Styles.php:314 inc/App/General/Styles.php:672
+#: inc/App/General/Styles.php:888
 msgid "Hover border color"
 msgstr "رنگ حاشیه بالا آمدن موس"
 
-#: inc/App/GeneralSettings/Styles.php:339 inc/App/GeneralSettings/Styles.php:480
-#: inc/App/GeneralSettings/Styles.php:697 inc/App/GeneralSettings/Styles.php:913
+#: inc/App/General/Styles.php:339 inc/App/General/Styles.php:480
+#: inc/App/General/Styles.php:697 inc/App/General/Styles.php:913
 msgid "Border radius"
 msgstr "شعاع حاشیه"
 
-#: inc/App/GeneralSettings/Styles.php:366 inc/App/GeneralSettings/Styles.php:507
-#: inc/App/GeneralSettings/Styles.php:724 inc/App/GeneralSettings/Styles.php:940
+#: inc/App/General/Styles.php:366 inc/App/General/Styles.php:507
+#: inc/App/General/Styles.php:724 inc/App/General/Styles.php:940
 msgid "Border width"
 msgstr "عرض حاشیه"
 
-#: inc/App/GeneralSettings/Styles.php:400
+#: inc/App/General/Styles.php:400
 msgid "Input box"
 msgstr "جعبه ورودی"
 
-#: inc/App/GeneralSettings/Styles.php:542
+#: inc/App/General/Styles.php:542
 msgid "Primary Button"
 msgstr "دکمه اصلی"
 
-#: inc/App/GeneralSettings/Styles.php:758
+#: inc/App/General/Styles.php:758
 msgid "Secondary Button"
 msgstr "دکمه دومی"
 
-#: inc/App/GeneralSettings/Styles.php:973
+#: inc/App/General/Styles.php:973
 msgid "General Styles"
 msgstr "سبک‌های عمومی"
 
@@ -1048,23 +1049,23 @@ msgstr "وضعیت سفارش"
 msgid "Add custom order statuses to your WooCommerce store."
 msgstr "وضعیت‌های سفارش سفارشی را به فروشگاه ووکامرس خود اضافه کنید."
 
-#: inc/App/Product/Product.php:29
+#: inc/App/Product/Product.php:30
 msgid "Stock"
 msgstr "موجودی"
 
-#: inc/App/Product/Product.php:30
+#: inc/App/Product/Product.php:31
 msgid "Rating"
 msgstr "امتیاز"
 
-#: inc/App/Product/Product.php:31 inc/App/Product/ProductRelated.php:329
+#: inc/App/Product/Product.php:32 inc/App/Product/ProductRelated.php:329
 msgid "Brand"
 msgstr "برند"
 
-#: inc/App/Product/Product.php:32
+#: inc/App/Product/Product.php:33
 msgid "Dimensions"
 msgstr "ابعاد"
 
-#: inc/App/Product/Product.php:33
+#: inc/App/Product/Product.php:34
 msgid "Weight"
 msgstr "وزن"
 
@@ -1229,71 +1230,71 @@ msgstr "مقایسه محصولات"
 msgid "Enables customers to compare products."
 msgstr "امکان مقایسه محصولات را برای مشتریان فراهم می‌کند."
 
-#: inc/App/Product/ProductFAQ.php:43 inc/App/Product/ProductFAQ.php:80
-#: inc/App/Product/ProductFAQ.php:108
+#: inc/App/Product/ProductFAQ.php:43 inc/App/Product/ProductFAQ.php:61
+#: inc/App/Product/ProductFAQ.php:120
 msgid "FAQs"
 msgstr "پرسش‌های متداول"
 
-#: inc/App/Product/ProductFAQ.php:130
+#: inc/App/Product/ProductFAQ.php:142
 msgid "Enable Product FAQ"
 msgstr "فعال‌سازی پرسش‌های متداول محصول"
 
-#: inc/App/Product/ProductFAQ.php:135
+#: inc/App/Product/ProductFAQ.php:147
 msgid "Product FAQs"
 msgstr "پرسش‌های متداول محصول"
 
-#: inc/App/Product/ProductFAQ.php:142 inc/App/Product/ProductFAQ.php:144
-#: inc/App/Product/ProductFAQ.php:225 inc/App/Product/ProductFAQ.php:226
+#: inc/App/Product/ProductFAQ.php:154 inc/App/Product/ProductFAQ.php:156
+#: inc/App/Product/ProductFAQ.php:237 inc/App/Product/ProductFAQ.php:238
 msgid "Question"
 msgstr "پرسش"
 
-#: inc/App/Product/ProductFAQ.php:151 inc/App/Product/ProductFAQ.php:153
-#: inc/App/Product/ProductFAQ.php:231 inc/App/Product/ProductFAQ.php:235
+#: inc/App/Product/ProductFAQ.php:163 inc/App/Product/ProductFAQ.php:165
+#: inc/App/Product/ProductFAQ.php:243 inc/App/Product/ProductFAQ.php:247
 msgid "Answer"
 msgstr "پاسخ"
 
-#: inc/App/Product/ProductFAQ.php:169 inc/App/Product/ProductFAQ.php:220
+#: inc/App/Product/ProductFAQ.php:181 inc/App/Product/ProductFAQ.php:232
 msgid "FAQ"
 msgstr "پرسش متداول"
 
-#: inc/App/Product/ProductFAQ.php:170
+#: inc/App/Product/ProductFAQ.php:182
 msgid "Product frequently asked questions"
 msgstr "پرسش‌های متداول محصول"
 
-#: inc/App/Product/ProductFAQ.php:175
+#: inc/App/Product/ProductFAQ.php:187
 msgid "Frequently asked questions"
 msgstr "پرسش‌های متداول"
 
-#: inc/App/Product/ProductFAQ.php:180
+#: inc/App/Product/ProductFAQ.php:192
 msgid "Global FAQ position"
 msgstr "موقعیت پرسش‌های متداول عمومی"
 
-#: inc/App/Product/ProductFAQ.php:183
+#: inc/App/Product/ProductFAQ.php:195
 msgid "Before Product FAQs"
 msgstr "قبل از پرسش‌های متداول محصول"
 
-#: inc/App/Product/ProductFAQ.php:184
+#: inc/App/Product/ProductFAQ.php:196
 msgid "After Product FAQs"
 msgstr "بعد از پرسش‌های متداول محصول"
 
-#: inc/App/Product/ProductFAQ.php:191 inc/App/Product/ProductWishList.php:617
+#: inc/App/Product/ProductFAQ.php:203 inc/App/Product/ProductWishList.php:594
 msgid "Button icon"
 msgstr "آیکن دکمه"
 
-#: inc/App/Product/ProductFAQ.php:209 inc/App/Product/ProductFAQ.php:214
+#: inc/App/Product/ProductFAQ.php:221 inc/App/Product/ProductFAQ.php:226
 msgid "Global FAQs"
 msgstr "پرسش‌های متداول عمومی"
 
-#: inc/App/Product/ProductFAQ.php:243
+#: inc/App/Product/ProductFAQ.php:255
 #: inc/Templates/plugin/data-table/data_table_modal.php:44
 msgid "Add"
 msgstr "افزودن"
 
-#: inc/App/Product/ProductFAQ.php:260
+#: inc/App/Product/ProductFAQ.php:272
 msgid "Products FAQ"
 msgstr "پرسش‌های متداول محصول"
 
-#: inc/App/Product/ProductFAQ.php:261
+#: inc/App/Product/ProductFAQ.php:273
 msgid "Add a frequently asked questions (FAQ) section to the product page."
 msgstr "بخش پرسش‌های متداول (FAQ) را به صفحه محصول اضافه کنید."
 
@@ -1743,6 +1744,139 @@ msgstr "نشان فروش محصول"
 msgid "Customize the product sale badge."
 msgstr "نشان فروش محصول را سفارشی کنید."
 
+#: inc/App/Product/ProductSaleProgressBar.php:25
+msgid ""
+"At present, this functionality is exclusively available for simple products"
+msgstr "در حال حاضر، این قابلیت منحصراً برای محصولات ساده در دسترس است."
+
+#: inc/App/Product/ProductSaleProgressBar.php:61
+#: inc/App/Product/ProductSaleProgressBar.php:119
+#: inc/App/Product/ProductSaleProgressBar.php:120
+msgid "Sold"
+msgstr "فروخته شده"
+
+#: inc/App/Product/ProductSaleProgressBar.php:63
+#: inc/App/Product/ProductSaleProgressBar.php:126
+#: inc/App/Product/ProductSaleProgressBar.php:127
+msgid "Remaining"
+msgstr "باقی‌مانده"
+
+#: inc/App/Product/ProductSaleProgressBar.php:92
+msgid "Sale progress bar quantity"
+msgstr "مقدار نوار پیشرفت فروش"
+
+#: inc/App/Product/ProductSaleProgressBar.php:94
+msgid ""
+"Please enter the starting quantity of product, The entered value must be "
+"greater than the quantity value."
+msgstr ""
+"لطفا تعداد اولیه محصول را وارد کنید، مقدار وارد شده باید بیشتر از مقدار تعداد "
+"باشد."
+
+#: inc/App/Product/ProductSaleProgressBar.php:106
+#: inc/App/Product/ProductSaleProgressBar.php:112
+#: inc/App/Product/ProductSaleProgressBar.php:212
+msgid "Sale progress bar"
+msgstr "نوار پیشرفت فروش"
+
+#: inc/App/Product/ProductSaleProgressBar.php:107
+msgid "Product sale progress bar"
+msgstr "نوار پیشرفت فروش محصول"
+
+#: inc/App/Product/ProductSaleProgressBar.php:117
+msgid "Sold title"
+msgstr "عنوان فروخته شده"
+
+#: inc/App/Product/ProductSaleProgressBar.php:124
+msgid "Remaining product title"
+msgstr "عنوان محصولات باقی‌مانده"
+
+#: inc/App/Product/ProductSaleProgressBar.php:131
+#: inc/App/Product/ProductWishList.php:540
+msgid "Position on single page"
+msgstr "موقعیت در تک صفحه"
+
+#: inc/App/Product/ProductSaleProgressBar.php:134
+#: inc/App/Product/ProductWishList.php:543
+#: inc/App/Product/ProductWishList.php:562
+msgid "Before title"
+msgstr "قبل از عنوان"
+
+#: inc/App/Product/ProductSaleProgressBar.php:135
+#: inc/App/Product/ProductWishList.php:544
+#: inc/App/Product/ProductWishList.php:563
+msgid "After title"
+msgstr "بعد از عنوان"
+
+#: inc/App/Product/ProductSaleProgressBar.php:136
+#: inc/App/Product/ProductWishList.php:545
+#: inc/App/Product/ProductWishList.php:564
+msgid "After rating"
+msgstr "بعد از امتیازدهی"
+
+#: inc/App/Product/ProductSaleProgressBar.php:137
+#: inc/App/Product/ProductWishList.php:546
+#: inc/App/Product/ProductWishList.php:565
+msgid "After price"
+msgstr "بعد از قیمت"
+
+#: inc/App/Product/ProductSaleProgressBar.php:138
+#: inc/App/Product/ProductWishList.php:547
+msgid "After excerpt"
+msgstr "بعد از خلاصه"
+
+#: inc/App/Product/ProductSaleProgressBar.php:139
+#: inc/App/Product/ProductWishList.php:548
+#: inc/App/Product/ProductWishList.php:566
+msgid "Before add to cart button"
+msgstr "قبل از دکمه افزودن به سبد خرید"
+
+#: inc/App/Product/ProductSaleProgressBar.php:140
+#: inc/App/Product/ProductWishList.php:549
+#: inc/App/Product/ProductWishList.php:567
+msgid "After add to cart button"
+msgstr "بعد از دکمه افزودن به سبد خرید"
+
+#: inc/App/Product/ProductSaleProgressBar.php:141
+#: inc/App/Product/ProductWishList.php:550
+msgid "After meta"
+msgstr "بعد از متا"
+
+#: inc/App/Product/ProductSaleProgressBar.php:142
+#: inc/App/Product/ProductWishList.php:551
+msgid "After sharing"
+msgstr "بعد از اشتراک‌گذاری"
+
+#: inc/App/Product/ProductSaleProgressBar.php:144
+#: inc/App/Product/ProductWishList.php:553
+#: inc/App/Product/ProductWishList.php:569
+msgid "Hide"
+msgstr "پنهان کردن"
+
+#: inc/App/Product/ProductSaleProgressBar.php:153
+#: inc/App/Tools/AnnouncementBarTools.php:474
+msgid "Style"
+msgstr "سبک"
+
+#: inc/App/Product/ProductSaleProgressBar.php:158
+msgid "Progress bar background color"
+msgstr "رنگ زمینه نوار پیشرفت"
+
+#: inc/App/Product/ProductSaleProgressBar.php:165
+msgid "Progress bar height"
+msgstr "ارتفاع نوار پیشرفت"
+
+#: inc/App/Product/ProductSaleProgressBar.php:166
+#: inc/App/Tools/CurrencySymbolTools.php:113
+msgid "Pixel"
+msgstr "پیکسل"
+
+#: inc/App/Product/ProductSaleProgressBar.php:213
+#, fuzzy
+#| msgid "Enables customers to compare products."
+msgid "Sales progress bar for products"
+msgstr "امکان مقایسه محصولات را برای مشتریان فراهم می‌کند."
+
 #: inc/App/Product/ProductSocialShare.php:40
 #: inc/App/Product/ProductSocialShare.php:67
 #: inc/App/Product/ProductSocialShare.php:383
@@ -1889,8 +2023,8 @@ msgid "Button Appearance"
 msgstr "ظاهر دکمه"
 
 #: inc/App/Product/ProductSocialShare.php:394
-#: inc/App/Product/ProductWishList.php:660
-#: inc/App/Product/ProductWishList.php:673
+#: inc/App/Product/ProductWishList.php:637
+#: inc/App/Product/ProductWishList.php:650
 msgid "Icon with text"
 msgstr "آیکن با متن"
 
@@ -1932,20 +2066,20 @@ msgstr "فهرست علاقه‌مندی‌ها"
 
 #: inc/App/Product/ProductWishList.php:267
 #: inc/App/Product/ProductWishList.php:279
-#: inc/App/Product/ProductWishList.php:627
+#: inc/App/Product/ProductWishList.php:604
 msgid "Add to wishlist"
 msgstr "افزودن به علاقه‌مندی‌ها"
 
 #: inc/App/Product/ProductWishList.php:269
 #: inc/App/Product/ProductWishList.php:280
-#: inc/App/Product/ProductWishList.php:633
-#: inc/App/Product/ProductWishList.php:648
+#: inc/App/Product/ProductWishList.php:610
+#: inc/App/Product/ProductWishList.php:625
 msgid "Remove from wishlist"
 msgstr "حذف از علاقه‌مندی‌ها"
 
 #: inc/App/Product/ProductWishList.php:270
 #: inc/App/Product/ProductWishList.php:281
-#: inc/App/Product/ProductWishList.php:639
+#: inc/App/Product/ProductWishList.php:616
 msgid "Browse wishlist"
 msgstr "مشاهده علاقه‌مندی‌ها"
 
@@ -1953,160 +2087,109 @@ msgstr "مشاهده علاقه‌مندی‌ها"
 msgid "Your wishlist is empty."
 msgstr "لیست آرزوهای شما خالی است."
 
-#: inc/App/Product/ProductWishList.php:508
+#: inc/App/Product/ProductWishList.php:485
 msgid "It is not possible to add more than %number% product to the wishlist."
 msgstr "امکان افزودن بیش از %number% محصول به لیست علاقه‌مندی‌ها وجود ندارد."
 
-#: inc/App/Product/ProductWishList.php:522
+#: inc/App/Product/ProductWishList.php:499
 msgid "Products Wishlist"
 msgstr "محصولات مورد علاقه"
 
-#: inc/App/Product/ProductWishList.php:527
+#: inc/App/Product/ProductWishList.php:504
 msgid "Wishlist page"
 msgstr "صفحه علاقه‌مندی‌ها"
 
-#: inc/App/Product/ProductWishList.php:533
+#: inc/App/Product/ProductWishList.php:510
 msgid "Add tab to \"My account\" page"
 msgstr "افزودن تب به صفحه «حساب من»"
 
 #. translators: %s: Shortcode
-#: inc/App/Product/ProductWishList.php:536
+#: inc/App/Product/ProductWishList.php:513
 #, php-format
 msgid "Insert shortcode in the custom wishlist page %s"
 msgstr "کد کوتاه را در صفحه فهرست دلخواه سفارشی وارد کنید %s"
 
-#: inc/App/Product/ProductWishList.php:540
+#: inc/App/Product/ProductWishList.php:517
 msgid "Max items"
 msgstr "حداکثر موارد"
 
-#: inc/App/Product/ProductWishList.php:541
+#: inc/App/Product/ProductWishList.php:518
 msgid "Max wishlist items per user"
 msgstr "حداکثر موارد لیست علاقه‌مندی‌ها برای هر کاربر"
 
-#: inc/App/Product/ProductWishList.php:554
+#: inc/App/Product/ProductWishList.php:531
 msgid "Auto remove"
 msgstr "حذف خودکار"
 
-#: inc/App/Product/ProductWishList.php:558
+#: inc/App/Product/ProductWishList.php:535
 msgid "Auto remove product from the wishlist after create order."
 msgstr "حذف خودکار محصول از فهرست علاقه‌مندی‌ها پس از ایجاد سفارش."
 
-#: inc/App/Product/ProductWishList.php:563
-msgid "Position on single page"
-msgstr "موقعیت در تک صفحه"
-
-#: inc/App/Product/ProductWishList.php:566
-#: inc/App/Product/ProductWishList.php:585
-msgid "Before title"
-msgstr "قبل از عنوان"
-
-#: inc/App/Product/ProductWishList.php:567
-#: inc/App/Product/ProductWishList.php:586
-msgid "After title"
-msgstr "بعد از عنوان"
-
-#: inc/App/Product/ProductWishList.php:568
-#: inc/App/Product/ProductWishList.php:587
-msgid "After rating"
-msgstr "بعد از امتیازدهی"
-
-#: inc/App/Product/ProductWishList.php:569
-#: inc/App/Product/ProductWishList.php:588
-msgid "After price"
-msgstr "بعد از قیمت"
-
-#: inc/App/Product/ProductWishList.php:570
-msgid "After excerpt"
-msgstr "بعد از خلاصه"
-
-#: inc/App/Product/ProductWishList.php:571
-#: inc/App/Product/ProductWishList.php:589
-msgid "Before add to cart button"
-msgstr "قبل از دکمه افزودن به سبد خرید"
-
-#: inc/App/Product/ProductWishList.php:572
-#: inc/App/Product/ProductWishList.php:590
-msgid "After add to cart button"
-msgstr "بعد از دکمه افزودن به سبد خرید"
-
-#: inc/App/Product/ProductWishList.php:573
-msgid "After meta"
-msgstr "بعد از متا"
-
-#: inc/App/Product/ProductWishList.php:574
-msgid "After sharing"
-msgstr "بعد از اشتراک‌گذاری"
-
-#: inc/App/Product/ProductWishList.php:576
-#: inc/App/Product/ProductWishList.php:592
-msgid "Hide"
-msgstr "پنهان کردن"
-
-#: inc/App/Product/ProductWishList.php:582
+#: inc/App/Product/ProductWishList.php:559
 msgid "Position on archive page"
 msgstr "موقعیت در صفحه بایگانی"
 
-#: inc/App/Product/ProductWishList.php:601
-#: inc/App/Product/ProductWishList.php:609
+#: inc/App/Product/ProductWishList.php:578
+#: inc/App/Product/ProductWishList.php:586
 msgid "Button"
 msgstr "دکمه"
 
-#: inc/App/Product/ProductWishList.php:610
+#: inc/App/Product/ProductWishList.php:587
 msgid "Link"
 msgstr "پیوند"
 
-#: inc/App/Product/ProductWishList.php:625
+#: inc/App/Product/ProductWishList.php:602
 msgid "Button text"
 msgstr "متن دکمه"
 
-#: inc/App/Product/ProductWishList.php:631
+#: inc/App/Product/ProductWishList.php:608
 msgid "Remove button text"
 msgstr "متن دکمه حذف"
 
-#: inc/App/Product/ProductWishList.php:637
+#: inc/App/Product/ProductWishList.php:614
 msgid "Browse button text"
 msgstr "متن دکمه مرور"
 
-#: inc/App/Product/ProductWishList.php:643
+#: inc/App/Product/ProductWishList.php:620
 msgid "Action after adding the product"
 msgstr "عمل پس از افزودن محصول"
 
-#: inc/App/Product/ProductWishList.php:644
+#: inc/App/Product/ProductWishList.php:621
 msgid "Specify the action to perform following product addition"
 msgstr ""
 "عملی را که باید پس از افزودن محصول انجام شود، مشخص کنیدعملی را که باید پس از "
 "افزودن محصول انجام شود، مشخص کنید"
 
-#: inc/App/Product/ProductWishList.php:647
+#: inc/App/Product/ProductWishList.php:624
 msgid "Open wishlist page"
 msgstr "باز کردن صفحه فهرست علاقه‌مندی‌ها"
 
-#: inc/App/Product/ProductWishList.php:655
+#: inc/App/Product/ProductWishList.php:632
 msgid "Product appearance"
 msgstr "ظاهر محصول"
 
-#: inc/App/Product/ProductWishList.php:664
+#: inc/App/Product/ProductWishList.php:641
 msgid "Select single product button appearance"
 msgstr "انتخاب ظاهر دکمه تک محصول"
 
-#: inc/App/Product/ProductWishList.php:668
+#: inc/App/Product/ProductWishList.php:645
 msgid "Archive appearance"
 msgstr "ظاهر بایگانی"
 
-#: inc/App/Product/ProductWishList.php:677
+#: inc/App/Product/ProductWishList.php:654
 msgid "Select archive button appearance"
 msgstr "انتخاب ظاهر دکمه بایگانی"
 
-#: inc/App/Product/ProductWishList.php:687
+#: inc/App/Product/ProductWishList.php:664
 msgid "WishList"
 msgstr "فهرست علاقه‌مندی‌ها"
 
-#: inc/App/Product/ProductWishList.php:688
-#: inc/App/Product/ProductWishList.php:701
+#: inc/App/Product/ProductWishList.php:665
+#: inc/App/Product/ProductWishList.php:678
 msgid "Products WishList"
 msgstr "محصولات مورد علاقه"
 
-#: inc/App/Product/ProductWishList.php:702
+#: inc/App/Product/ProductWishList.php:679
 msgid "Add wishlist functionality to your store."
 msgstr "قابلیت فهرست علاقه‌مندی‌ها را به فروشگاه خود اضافه کنید."
 
@@ -2262,10 +2345,6 @@ msgstr "نوشته"
 msgid "All single post types"
 msgstr "همه انواع نوشته تکی"
 
-#: inc/App/Tools/AnnouncementBarTools.php:474
-msgid "Style"
-msgstr "سبک"
-
 #: inc/App/Tools/AnnouncementBarTools.php:485
 msgid "Background color type"
 msgstr "نوع رنگ پس زمینه"
@@ -2320,10 +2399,6 @@ msgstr "انتخاب SVG"
 #: inc/App/Tools/CurrencySymbolTools.php:112
 msgid "SVG media size"
 msgstr "اندازه رسانه SVG"
-
-#: inc/App/Tools/CurrencySymbolTools.php:113
-msgid "Pixel"
-msgstr "پیکسل"
 
 #: inc/App/Tools/CurrencySymbolTools.php:127
 msgid "Price style"
