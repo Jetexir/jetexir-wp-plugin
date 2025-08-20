@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Woo Assistant\n"
-"POT-Creation-Date: 2025-08-19 14:29+0330\n"
+"POT-Creation-Date: 2025-08-20 12:27+0330\n"
 "PO-Revision-Date: 2025-08-13 00:02+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -119,7 +119,7 @@ msgstr ""
 #: inc/App/Product/ProductPriceVariation.php:145
 #: inc/App/Product/ProductQuantity.php:872
 #: inc/App/Product/ProductRelated.php:540
-#: inc/App/Product/ProductSaleProgressBar.php:214
+#: inc/App/Product/ProductSaleProgressBar.php:215
 #: inc/App/Product/ProductSocialShare.php:452
 #: inc/App/Product/ProductWishList.php:680
 #: inc/App/Tools/AnnouncementBarTools.php:453
@@ -180,16 +180,16 @@ msgstr ""
 msgid "Save active addons"
 msgstr ""
 
-#: inc/Admin/AdminAssets.php:49 inc/App/Cart/FlyCart.php:156
+#: inc/Admin/AdminAssets.php:52 inc/App/Cart/FlyCart.php:156
 #: inc/App/Product/ProductWishList.php:396
 msgid "Remove"
 msgstr ""
 
-#: inc/Admin/AdminAssets.php:50
+#: inc/Admin/AdminAssets.php:53
 msgid "Are you sure you want to delete this item(s)?"
 msgstr ""
 
-#: inc/Admin/AdminAssets.php:51
+#: inc/Admin/AdminAssets.php:54
 msgid "Click to copy this text."
 msgstr ""
 
@@ -1736,132 +1736,132 @@ msgstr ""
 msgid "Customize the product sale badge."
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:25
+#: inc/App/Product/ProductSaleProgressBar.php:24
 msgid ""
 "At present, this functionality is exclusively available for simple products"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:61
-#: inc/App/Product/ProductSaleProgressBar.php:119
-#: inc/App/Product/ProductSaleProgressBar.php:120
+#: inc/App/Product/ProductSaleProgressBar.php:59
+#: inc/App/Product/ProductSaleProgressBar.php:117
+#: inc/App/Product/ProductSaleProgressBar.php:118
 msgid "Sold"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:63
-#: inc/App/Product/ProductSaleProgressBar.php:126
-#: inc/App/Product/ProductSaleProgressBar.php:127
+#: inc/App/Product/ProductSaleProgressBar.php:61
+#: inc/App/Product/ProductSaleProgressBar.php:124
+#: inc/App/Product/ProductSaleProgressBar.php:125
 msgid "Remaining"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:92
+#: inc/App/Product/ProductSaleProgressBar.php:90
 msgid "Sale progress bar quantity"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:94
+#: inc/App/Product/ProductSaleProgressBar.php:92
 msgid ""
 "Please enter the starting quantity of product, The entered value must be "
 "greater than the quantity value."
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:106
-#: inc/App/Product/ProductSaleProgressBar.php:112
-#: inc/App/Product/ProductSaleProgressBar.php:212
+#: inc/App/Product/ProductSaleProgressBar.php:104
+#: inc/App/Product/ProductSaleProgressBar.php:110
+#: inc/App/Product/ProductSaleProgressBar.php:213
 msgid "Sale progress bar"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:107
+#: inc/App/Product/ProductSaleProgressBar.php:105
 msgid "Product sale progress bar"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:117
+#: inc/App/Product/ProductSaleProgressBar.php:115
 msgid "Sold title"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:124
+#: inc/App/Product/ProductSaleProgressBar.php:122
 msgid "Remaining product title"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:131
+#: inc/App/Product/ProductSaleProgressBar.php:129
 #: inc/App/Product/ProductWishList.php:540
 msgid "Position on single page"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:134
+#: inc/App/Product/ProductSaleProgressBar.php:132
 #: inc/App/Product/ProductWishList.php:543
 #: inc/App/Product/ProductWishList.php:562
 msgid "Before title"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:135
+#: inc/App/Product/ProductSaleProgressBar.php:133
 #: inc/App/Product/ProductWishList.php:544
 #: inc/App/Product/ProductWishList.php:563
 msgid "After title"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:136
+#: inc/App/Product/ProductSaleProgressBar.php:134
 #: inc/App/Product/ProductWishList.php:545
 #: inc/App/Product/ProductWishList.php:564
 msgid "After rating"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:137
+#: inc/App/Product/ProductSaleProgressBar.php:135
 #: inc/App/Product/ProductWishList.php:546
 #: inc/App/Product/ProductWishList.php:565
 msgid "After price"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:138
+#: inc/App/Product/ProductSaleProgressBar.php:136
 #: inc/App/Product/ProductWishList.php:547
 msgid "After excerpt"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:139
+#: inc/App/Product/ProductSaleProgressBar.php:137
 #: inc/App/Product/ProductWishList.php:548
 #: inc/App/Product/ProductWishList.php:566
 msgid "Before add to cart button"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:140
+#: inc/App/Product/ProductSaleProgressBar.php:138
 #: inc/App/Product/ProductWishList.php:549
 #: inc/App/Product/ProductWishList.php:567
 msgid "After add to cart button"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:141
+#: inc/App/Product/ProductSaleProgressBar.php:139
 #: inc/App/Product/ProductWishList.php:550
 msgid "After meta"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:142
+#: inc/App/Product/ProductSaleProgressBar.php:140
 #: inc/App/Product/ProductWishList.php:551
 msgid "After sharing"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:144
+#: inc/App/Product/ProductSaleProgressBar.php:142
 #: inc/App/Product/ProductWishList.php:553
 #: inc/App/Product/ProductWishList.php:569
 msgid "Hide"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:153
+#: inc/App/Product/ProductSaleProgressBar.php:151
 #: inc/App/Tools/AnnouncementBarTools.php:474
 msgid "Style"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:158
+#: inc/App/Product/ProductSaleProgressBar.php:156
 msgid "Progress bar background color"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:165
+#: inc/App/Product/ProductSaleProgressBar.php:163
 msgid "Progress bar height"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:166
+#: inc/App/Product/ProductSaleProgressBar.php:164
 #: inc/App/Tools/CurrencySymbolTools.php:113
 msgid "Pixel"
 msgstr ""
 
-#: inc/App/Product/ProductSaleProgressBar.php:213
+#: inc/App/Product/ProductSaleProgressBar.php:214
 msgid "Sales progress bar for products"
 msgstr ""
 

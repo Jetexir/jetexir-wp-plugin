@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Woo Assistant\n"
-"POT-Creation-Date: 2025-08-19 14:29+0330\n"
-"PO-Revision-Date: 2025-08-19 14:29+0330\n"
+"POT-Creation-Date: 2025-08-20 12:27+0330\n"
+"PO-Revision-Date: 2025-08-20 12:28+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -120,7 +120,7 @@ msgstr "توصیه شده"
 #: inc/App/Product/ProductCompare.php:485 inc/App/Product/ProductFAQ.php:274
 #: inc/App/Product/ProductPriceVariation.php:145
 #: inc/App/Product/ProductQuantity.php:872 inc/App/Product/ProductRelated.php:540
-#: inc/App/Product/ProductSaleProgressBar.php:214
+#: inc/App/Product/ProductSaleProgressBar.php:215
 #: inc/App/Product/ProductSocialShare.php:452
 #: inc/App/Product/ProductWishList.php:680
 #: inc/App/Tools/AnnouncementBarTools.php:453
@@ -181,16 +181,16 @@ msgstr "افزونه‌های دیگر"
 msgid "Save active addons"
 msgstr "ذخیره افزونه‌های فعال"
 
-#: inc/Admin/AdminAssets.php:49 inc/App/Cart/FlyCart.php:156
+#: inc/Admin/AdminAssets.php:52 inc/App/Cart/FlyCart.php:156
 #: inc/App/Product/ProductWishList.php:396
 msgid "Remove"
 msgstr "حذف"
 
-#: inc/Admin/AdminAssets.php:50
+#: inc/Admin/AdminAssets.php:53
 msgid "Are you sure you want to delete this item(s)?"
 msgstr "آیا مطمئن هستید که می‌خواهید این مورد(ها) را حذف کنید؟"
 
-#: inc/Admin/AdminAssets.php:51
+#: inc/Admin/AdminAssets.php:54
 msgid "Click to copy this text."
 msgstr "برای کپی کردن این متن کلیک کنید."
 
@@ -1744,28 +1744,28 @@ msgstr "نشان فروش محصول"
 msgid "Customize the product sale badge."
 msgstr "نشان فروش محصول را سفارشی کنید."
 
-#: inc/App/Product/ProductSaleProgressBar.php:25
+#: inc/App/Product/ProductSaleProgressBar.php:24
 msgid ""
 "At present, this functionality is exclusively available for simple products"
 msgstr "در حال حاضر، این قابلیت منحصراً برای محصولات ساده در دسترس است."
 
-#: inc/App/Product/ProductSaleProgressBar.php:61
-#: inc/App/Product/ProductSaleProgressBar.php:119
-#: inc/App/Product/ProductSaleProgressBar.php:120
+#: inc/App/Product/ProductSaleProgressBar.php:59
+#: inc/App/Product/ProductSaleProgressBar.php:117
+#: inc/App/Product/ProductSaleProgressBar.php:118
 msgid "Sold"
 msgstr "فروخته شده"
 
-#: inc/App/Product/ProductSaleProgressBar.php:63
-#: inc/App/Product/ProductSaleProgressBar.php:126
-#: inc/App/Product/ProductSaleProgressBar.php:127
+#: inc/App/Product/ProductSaleProgressBar.php:61
+#: inc/App/Product/ProductSaleProgressBar.php:124
+#: inc/App/Product/ProductSaleProgressBar.php:125
 msgid "Remaining"
 msgstr "باقی‌مانده"
 
-#: inc/App/Product/ProductSaleProgressBar.php:92
+#: inc/App/Product/ProductSaleProgressBar.php:90
 msgid "Sale progress bar quantity"
 msgstr "مقدار نوار پیشرفت فروش"
 
-#: inc/App/Product/ProductSaleProgressBar.php:94
+#: inc/App/Product/ProductSaleProgressBar.php:92
 msgid ""
 "Please enter the starting quantity of product, The entered value must be "
 "greater than the quantity value."
@@ -1773,109 +1773,107 @@ msgstr ""
 "لطفا تعداد اولیه محصول را وارد کنید، مقدار وارد شده باید بیشتر از مقدار تعداد "
 "باشد."
 
-#: inc/App/Product/ProductSaleProgressBar.php:106
-#: inc/App/Product/ProductSaleProgressBar.php:112
-#: inc/App/Product/ProductSaleProgressBar.php:212
+#: inc/App/Product/ProductSaleProgressBar.php:104
+#: inc/App/Product/ProductSaleProgressBar.php:110
+#: inc/App/Product/ProductSaleProgressBar.php:213
 msgid "Sale progress bar"
 msgstr "نوار پیشرفت فروش"
 
-#: inc/App/Product/ProductSaleProgressBar.php:107
+#: inc/App/Product/ProductSaleProgressBar.php:105
 msgid "Product sale progress bar"
 msgstr "نوار پیشرفت فروش محصول"
 
-#: inc/App/Product/ProductSaleProgressBar.php:117
+#: inc/App/Product/ProductSaleProgressBar.php:115
 msgid "Sold title"
 msgstr "عنوان فروخته شده"
 
-#: inc/App/Product/ProductSaleProgressBar.php:124
+#: inc/App/Product/ProductSaleProgressBar.php:122
 msgid "Remaining product title"
 msgstr "عنوان محصولات باقی‌مانده"
 
-#: inc/App/Product/ProductSaleProgressBar.php:131
+#: inc/App/Product/ProductSaleProgressBar.php:129
 #: inc/App/Product/ProductWishList.php:540
 msgid "Position on single page"
 msgstr "موقعیت در تک صفحه"
 
-#: inc/App/Product/ProductSaleProgressBar.php:134
+#: inc/App/Product/ProductSaleProgressBar.php:132
 #: inc/App/Product/ProductWishList.php:543
 #: inc/App/Product/ProductWishList.php:562
 msgid "Before title"
 msgstr "قبل از عنوان"
 
-#: inc/App/Product/ProductSaleProgressBar.php:135
+#: inc/App/Product/ProductSaleProgressBar.php:133
 #: inc/App/Product/ProductWishList.php:544
 #: inc/App/Product/ProductWishList.php:563
 msgid "After title"
 msgstr "بعد از عنوان"
 
-#: inc/App/Product/ProductSaleProgressBar.php:136
+#: inc/App/Product/ProductSaleProgressBar.php:134
 #: inc/App/Product/ProductWishList.php:545
 #: inc/App/Product/ProductWishList.php:564
 msgid "After rating"
 msgstr "بعد از امتیازدهی"
 
-#: inc/App/Product/ProductSaleProgressBar.php:137
+#: inc/App/Product/ProductSaleProgressBar.php:135
 #: inc/App/Product/ProductWishList.php:546
 #: inc/App/Product/ProductWishList.php:565
 msgid "After price"
 msgstr "بعد از قیمت"
 
-#: inc/App/Product/ProductSaleProgressBar.php:138
+#: inc/App/Product/ProductSaleProgressBar.php:136
 #: inc/App/Product/ProductWishList.php:547
 msgid "After excerpt"
 msgstr "بعد از خلاصه"
 
-#: inc/App/Product/ProductSaleProgressBar.php:139
+#: inc/App/Product/ProductSaleProgressBar.php:137
 #: inc/App/Product/ProductWishList.php:548
 #: inc/App/Product/ProductWishList.php:566
 msgid "Before add to cart button"
 msgstr "قبل از دکمه افزودن به سبد خرید"
 
-#: inc/App/Product/ProductSaleProgressBar.php:140
+#: inc/App/Product/ProductSaleProgressBar.php:138
 #: inc/App/Product/ProductWishList.php:549
 #: inc/App/Product/ProductWishList.php:567
 msgid "After add to cart button"
 msgstr "بعد از دکمه افزودن به سبد خرید"
 
-#: inc/App/Product/ProductSaleProgressBar.php:141
+#: inc/App/Product/ProductSaleProgressBar.php:139
 #: inc/App/Product/ProductWishList.php:550
 msgid "After meta"
 msgstr "بعد از متا"
 
-#: inc/App/Product/ProductSaleProgressBar.php:142
+#: inc/App/Product/ProductSaleProgressBar.php:140
 #: inc/App/Product/ProductWishList.php:551
 msgid "After sharing"
 msgstr "بعد از اشتراک‌گذاری"
 
-#: inc/App/Product/ProductSaleProgressBar.php:144
+#: inc/App/Product/ProductSaleProgressBar.php:142
 #: inc/App/Product/ProductWishList.php:553
 #: inc/App/Product/ProductWishList.php:569
 msgid "Hide"
 msgstr "پنهان کردن"
 
-#: inc/App/Product/ProductSaleProgressBar.php:153
+#: inc/App/Product/ProductSaleProgressBar.php:151
 #: inc/App/Tools/AnnouncementBarTools.php:474
 msgid "Style"
 msgstr "سبک"
 
-#: inc/App/Product/ProductSaleProgressBar.php:158
+#: inc/App/Product/ProductSaleProgressBar.php:156
 msgid "Progress bar background color"
 msgstr "رنگ زمینه نوار پیشرفت"
 
-#: inc/App/Product/ProductSaleProgressBar.php:165
+#: inc/App/Product/ProductSaleProgressBar.php:163
 msgid "Progress bar height"
 msgstr "ارتفاع نوار پیشرفت"
 
-#: inc/App/Product/ProductSaleProgressBar.php:166
+#: inc/App/Product/ProductSaleProgressBar.php:164
 #: inc/App/Tools/CurrencySymbolTools.php:113
 msgid "Pixel"
 msgstr "پیکسل"
 
-#: inc/App/Product/ProductSaleProgressBar.php:213
-#, fuzzy
-#| msgid "Enables customers to compare products."
+#: inc/App/Product/ProductSaleProgressBar.php:214
 msgid "Sales progress bar for products"
-msgstr "امکان مقایسه محصولات را برای مشتریان فراهم می‌کند."
+msgstr "نوار پیشرفت فروش برای محصولات"
 
 #: inc/App/Product/ProductSocialShare.php:40
 #: inc/App/Product/ProductSocialShare.php:67
