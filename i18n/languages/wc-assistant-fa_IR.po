@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Woo Assistant\n"
-"POT-Creation-Date: 2025-08-20 12:27+0330\n"
-"PO-Revision-Date: 2025-08-20 12:28+0330\n"
+"POT-Creation-Date: 2025-08-29 16:34+0330\n"
+"PO-Revision-Date: 2025-08-29 16:35+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -159,7 +159,7 @@ msgstr "فروش کالا"
 
 #: inc/Addons/Addons.php:247
 msgid "Customizations"
-msgstr "Personalizatsion"
+msgstr "شخصی‌سازی"
 
 #: inc/Addons/Addons.php:248
 msgid "Conversion"
@@ -171,7 +171,7 @@ msgstr "سئو"
 
 #: inc/Addons/Addons.php:250
 msgid "Utility"
-msgstr "سودمندی"
+msgstr "سودمند"
 
 #: inc/Addons/Addons.php:256
 msgid "Other addons"
