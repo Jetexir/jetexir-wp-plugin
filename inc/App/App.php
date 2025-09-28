@@ -24,7 +24,7 @@ class App {
 		new WordPress();
 		new WooCommerce();
 
-		add_action( 'init', [ $this, 'init' ] );
+		add_action( 'init', [ $this, 'init' ], 0 );
 	}
 
 	public function init(): void {
