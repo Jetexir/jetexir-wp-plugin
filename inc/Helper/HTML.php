@@ -567,6 +567,7 @@ class HTML {
 			return '';
 		}
 		$field = '<label class="' . self::prefix . 'checkbox-wrap">' .
+		         '<input type="hidden" name="' . self::prefixName . $data['id'] . '" value="' . $data['unchecked_value'] . '">' .
 		         '<input type="checkbox" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" value="' . $data['value'] . '"  ' . checked( $data['setting_value'] == $data['value'], true, false ) . self::getAttributes( $data ) . '>' .
 		         '<span class="' . self::prefix . 'checkmark"></span>' . ( ! empty( $data['title'] ) ? '<span class="' . self::prefix . 'title">' . $data['title'] . '</span>' : '' ) . '</label>';
 
@@ -579,6 +580,7 @@ class HTML {
 		}
 
 		$field = '<label class="' . self::prefix . 'toggle">' .
+		         '<input type="hidden" name="' . self::prefixName . $data['id'] . '" value="' . $data['unchecked_value'] . '">' .
 		         '<input type="checkbox" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . 'toggle-' . $data['id'] . '" value="' . $data['value'] . '" ' . checked( $data['setting_value'] == $data['value'], true, false ) . self::getAttributes( $data ) . '>' .
 		         '<span class="' . self::prefix . 'toggle-slider" type="button"><span class="' . self::prefix . 'toggle-handle">' . self::checkIcon . self::crossIcon . '</span></span></label>';
 		if ( ! empty( $data['title'] ) ) {
@@ -1069,6 +1071,15 @@ class HTML {
 		if ( in_array( $data['type'], [ 'select', 'radioinline', 'checkboxinline', 'colorpalette' ] )
 		     && ( ! isset( $data['options'] ) || ! is_array( $data['options'] ) ) ) {
 			$data['options'] = array();
+		}
+
+		if ( in_array( $data['type'], [ 'checkbox', 'toggle' ] ) ) {
+			if ( ! isset( $data['value'] ) ) {
+				$data['value'] = 1;
+			}
+			if ( ! isset( $data['unchecked_value'] ) ) {
+				$data['unchecked_value'] = 0;
+			}
 		}
 
 		if ( $data['type'] === 'colorpalette' ) {
