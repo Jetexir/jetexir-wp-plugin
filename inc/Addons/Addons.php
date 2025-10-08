@@ -126,7 +126,7 @@ class Addons {
 
                     } elseif ( $fileExists ) {
                         $actionLink  = wp_nonce_url(
-                                self_admin_url( 'addons.php?action=activate&addon=' . $requirePluginPath ),
+                                self_admin_url( 'plugins.php?action=activate&plugin=' . $requirePluginPath ),
                                 'activate-plugin_' . $requirePluginPath
                         );
                         $actionTitle = __( 'Activate required addon', 'wc-assistant' );
@@ -135,7 +135,7 @@ class Addons {
                         $pluginSlug = WordPress::pluginPathToSlug( $requirePluginPath );
 
                         $actionLink  = wp_nonce_url(
-                                self_admin_url( 'update.php?action=install-addon&addon=' . $pluginSlug ),
+                                self_admin_url( 'update.php?action=install-plugin&plugin=' . $pluginSlug ),
                                 'install-plugin_' . $pluginSlug
                         );
                         $actionTitle = __( 'Install required addon', 'wc-assistant' );
