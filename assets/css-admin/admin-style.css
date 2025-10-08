@@ -2214,6 +2214,9 @@ body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-header-links {
   margin-top: 20px;
   background-color: white;
 }
+body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-header-links:empty {
+  display: none;
+}
 body.toplevel_page_woo-assistant .woo-assistant-wrap .wa-section-links {
   text-transform: uppercase;
 }

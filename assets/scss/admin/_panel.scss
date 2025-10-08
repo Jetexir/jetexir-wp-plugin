@@ -311,6 +311,10 @@ body.toplevel_page_#{variables.$plugin_key} {
     .wa-header-links {
       margin-top: 20px;
       background-color: white;
+
+      &:empty {
+        display: none;
+      }
     }
 
     .wa-section-links {
