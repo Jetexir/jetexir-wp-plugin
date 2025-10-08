@@ -3,7 +3,7 @@
 namespace WooAssistant\Helper;
 
 class WooCommerce {
-	public static function isComingSoon() {
+	public static function isComingSoon(): bool {
 		return wc_string_to_bool( get_option( 'woocommerce_coming_soon' ) );
 	}
 
