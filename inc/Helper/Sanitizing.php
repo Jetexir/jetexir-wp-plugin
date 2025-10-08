@@ -18,7 +18,7 @@ class Sanitizing {
 		return wc_clean( $value );
 	}
 
-	public static function jsonArray( $value ) {
+	public static function jsonArray( $value ): array {
 		$value = wp_unslash( htmlspecialchars_decode( $value ) );
 		$value = str_replace( "'", '"', $value );
 		if ( ! JSON::validate( $value ) ) {
