@@ -18,8 +18,8 @@ class User {
 
 		if ( is_null( $field ) ) {
 			return $user;
-		} else {
-			return $user->$field;
 		}
+
+		return $user->$field ?? '';
 	}
 }
