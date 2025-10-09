@@ -24,7 +24,7 @@ use AssistantForWooCommerce\App\App;
 use AssistantForWooCommerce\AppHelper\AppHelper;
 use AssistantForWooCommerce\Integrations\Integrations;
 use AssistantForWooCommerce\Settings\Settings;
-use AssistantForWooCommerce\Flow\Install;
+use AssistantForWooCommerce\Plugin\Install;
 
 final class AssistantForWooCommerce {
 	public function __construct() {
