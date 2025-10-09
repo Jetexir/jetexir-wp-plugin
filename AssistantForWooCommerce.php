@@ -23,6 +23,7 @@ use AssistantForWooCommerce\Admin\Admin;
 use AssistantForWooCommerce\App\App;
 use AssistantForWooCommerce\AppHelper\AppHelper;
 use AssistantForWooCommerce\Integrations\Integrations;
+use AssistantForWooCommerce\Plugin\Plugin;
 use AssistantForWooCommerce\Settings\Settings;
 use AssistantForWooCommerce\Plugin\Install;
 
@@ -39,7 +40,7 @@ final class AssistantForWooCommerce {
 	 * @return void
 	 */
 	private function define(): void {
-		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY','assistant_for_woocommerce' );
+		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY', 'assistant_for_woocommerce' );
 		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG', 'assistant-for-woocommerce' );
 		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP', 'AssistantForWooCommerce' );
 		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_FILE_PATH', __FILE__ );
@@ -75,6 +76,7 @@ final class AssistantForWooCommerce {
 	private function instance(): void {
 		define( 'ASSISTANTFORWOOCOMMERCE_DEBUG_MODE', Settings::get( 'debug_mode', false ) );
 
+		new Plugin();
 		new Admin();
 		new Addons();
 		new Integrations();
