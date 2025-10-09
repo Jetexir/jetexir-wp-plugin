@@ -59,11 +59,11 @@ class Media {
 			),
 			'svg_enable'     => array(
 				'id'       => 'svg_enable',
-				'title'    => __( 'Enable SVG support', 'assistant-for-woocommerce' ),
+				'title'    => esc_html__( 'Enable SVG support', 'assistant-for-woocommerce' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
-				'desc'     => __( 'Allows upload SVG Files into your Media library', 'assistant-for-woocommerce' ),
+				'desc'     => esc_html__( 'Allows upload SVG Files into your Media library', 'assistant-for-woocommerce' ),
 				'sanitize' => 'bool'
 			),
 			'end_grid_svg'   => array(
@@ -72,8 +72,8 @@ class Media {
 		];
 
 		$sections[ self::sectionID ] = array(
-			'title'    => __( 'Media', 'assistant-for-woocommerce' ),
-			'desc'     => __( 'Media Settings', 'assistant-for-woocommerce' ),
+			'title'    => esc_html__( 'Media', 'assistant-for-woocommerce' ),
+			'desc'     => esc_html__( 'Media Settings', 'assistant-for-woocommerce' ),
 			'settings' => $settings
 		);
 

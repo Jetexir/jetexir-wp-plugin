@@ -28,8 +28,8 @@ class AdminWordPress implements AdminTabInterface {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$links[] = [
-				'title' => __( 'WordPress', 'assistant-for-woocommerce' ),
-				'desc'  => __( 'WordPress customize options', 'assistant-for-woocommerce' ),
+				'title' => esc_html__( 'WordPress', 'assistant-for-woocommerce' ),
+				'desc'  => esc_html__( 'WordPress customize options', 'assistant-for-woocommerce' ),
 				'link'  => AdminPages::link( [
 					'tab' => self::tab
 				] ),
@@ -45,7 +45,7 @@ class AdminWordPress implements AdminTabInterface {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$menus[ self::tab ] = array(
-				'title' => __( 'WordPress', 'assistant-for-woocommerce' ),
+				'title' => esc_html__( 'WordPress', 'assistant-for-woocommerce' ),
 				'icon'  => self::menuIcon
 			);
 		}
@@ -62,8 +62,8 @@ class AdminWordPress implements AdminTabInterface {
 	public function settings(): array {
 		if ( self::$settings === null ) {
 			self::$settings = array(
-				'title'    => __( 'WordPress', 'assistant-for-woocommerce' ),
-				'desc'     => __( 'Tools to enhance your WordPress site', 'assistant-for-woocommerce' ),
+				'title'    => esc_html__( 'WordPress', 'assistant-for-woocommerce' ),
+				'desc'     => esc_html__( 'Tools to enhance your WordPress site', 'assistant-for-woocommerce' ),
 				'sections' => apply_filters( 'assistant_for_woocommerce_' . self::tab . '_settings_sections', [] )
 			);
 		}

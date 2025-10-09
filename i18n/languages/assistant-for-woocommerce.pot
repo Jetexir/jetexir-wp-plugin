@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Assistant for WooCommerce\n"
-"POT-Creation-Date: 2025-10-09 15:39+0330\n"
+"POT-Creation-Date: 2025-10-10 00:57+0330\n"
 "PO-Revision-Date: 2025-08-13 00:02+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -233,7 +233,7 @@ msgid "Assistant for WooCommerce"
 msgstr ""
 
 #: inc/Admin/AdminPages.php:86
-msgid "Woo Assistant"
+msgid "Assistant"
 msgstr ""
 
 #: inc/Admin/AdminProduct.php:49
@@ -723,25 +723,29 @@ msgstr ""
 msgid "Customize the checkout fields in WooCommerce."
 msgstr ""
 
-#: inc/App/General/Debug.php:17
+#: inc/App/General/Debug.php:20
+msgid "Debug mode is enabled!"
+msgstr ""
+
+#: inc/App/General/Debug.php:27
 msgid "Debugging"
 msgstr ""
 
-#: inc/App/General/Debug.php:22
+#: inc/App/General/Debug.php:32
 msgid "Enable debug mode"
 msgstr ""
 
-#: inc/App/General/Debug.php:26
+#: inc/App/General/Debug.php:36
 msgid ""
 "By enabling this option, the uncompressed version of the JS and CSS files will be "
 "loaded."
 msgstr ""
 
-#: inc/App/General/Debug.php:35
+#: inc/App/General/Debug.php:45
 msgid "Debug"
 msgstr ""
 
-#: inc/App/General/Debug.php:36
+#: inc/App/General/Debug.php:46
 msgid "Debug Settings"
 msgstr ""
 

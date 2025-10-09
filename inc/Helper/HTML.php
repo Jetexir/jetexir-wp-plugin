@@ -371,12 +371,12 @@ class HTML {
 		}
 
 		$id                                           = self::prefix . $data['type'] . '-' . $data['id'];
-		$placeholder                                  = $data['placeholder'] ?? __( 'Select Media(s)', 'assistant-for-woocommerce' );
+		$placeholder                                  = $data['placeholder'] ?? esc_html__( 'Select Media(s)', 'assistant-for-woocommerce' );
 		$selectButton                                 = $data['select_button'] ?? $placeholder;
-		$removeAllButton                              = $data['remove_all_button'] ?? __( 'Remove all media', 'assistant-for-woocommerce' );
+		$removeAllButton                              = $data['remove_all_button'] ?? esc_html__( 'Remove all media', 'assistant-for-woocommerce' );
 		$maxNumber                                    = $data['media_max_number'] ?? 1;
-		$data['attributes']['data-title']             = $data['media_title'] ?? __( 'Select or Upload Media', 'assistant-for-woocommerce' );
-		$data['attributes']['data-button']            = $data['media_button'] ?? __( 'Use this media', 'assistant-for-woocommerce' );
+		$data['attributes']['data-title']             = $data['media_title'] ?? esc_html__( 'Select or Upload Media', 'assistant-for-woocommerce' );
+		$data['attributes']['data-button']            = $data['media_button'] ?? esc_html__( 'Use this media', 'assistant-for-woocommerce' );
 		$data['attributes']['data-type']              = $data['media_type'] ?? ''; // image, video, audio
 		$data['attributes']['data-multi-selection']   = (int) ( $data['upload_multi_selection'] ?? true );
 		$data['attributes']['data-accept-extensions'] = $data['upload_accept_extensions'] ?? '';  // Separate with comma (,), example: pdf,doc,docx
@@ -746,7 +746,7 @@ class HTML {
 
 		$addon .= '</div><div class="' . self::prefix . 'title-desc"><strong class="' . self::prefix . 'title">' . $data['title'] . '</strong>' .
 		          ( ! empty( $data['desc'] ) ? '<p class="' . self::prefix . 'desc">' . $data['desc'] . '</p>' : '' ) .
-		          ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="asfowoo-icon-chevron-right"></i><span>' . __( 'More info', 'assistant-for-woocommerce' ) . '</span></a>' : '' ) .
+		          ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="asfowoo-icon-chevron-right"></i><span>' . esc_html__( 'More info', 'assistant-for-woocommerce' ) . '</span></a>' : '' ) .
 		          '</div><div class="' . self::prefix . 'action-wrap">';
 
 		if ( $canActivate ) {
@@ -842,7 +842,7 @@ class HTML {
 
 		$field .= self::wpcolorpicker( array(
 			'id'            => $data['id'] . '_color_picker',
-			'title'         => __( 'Color', 'assistant-for-woocommerce' ),
+			'title'         => esc_html__( 'Color', 'assistant-for-woocommerce' ),
 			'type'          => 'wpcolorpicker',
 			'class'         => 'asfowoo-gradient-select-color',
 			'setting_value' => $firstColor,
@@ -850,33 +850,33 @@ class HTML {
 
 		$field .= self::radioinline( array(
 			'id'            => $data['id'] . '_type',
-			'title'         => __( 'Type', 'assistant-for-woocommerce' ),
+			'title'         => esc_html__( 'Type', 'assistant-for-woocommerce' ),
 			'type'          => 'radioinline',
 			'setting_value' => $function,
 			'not_equal'     => true,
 			'class'         => 'asfowoo-gradient-color-type',
 			'options'       => array(
-				'linear-gradient' => __( 'Linear', 'assistant-for-woocommerce' ),
-				'radial-gradient' => __( 'Radial', 'assistant-for-woocommerce' ),
+				'linear-gradient' => esc_html__( 'Linear', 'assistant-for-woocommerce' ),
+				'radial-gradient' => esc_html__( 'Radial', 'assistant-for-woocommerce' ),
 			)
 		) );
 
 		$field .= self::radioinline( array(
 			'id'            => $data['id'] . '_shape',
-			'title'         => __( 'Shape', 'assistant-for-woocommerce' ),
+			'title'         => esc_html__( 'Shape', 'assistant-for-woocommerce' ),
 			'type'          => 'radioinline',
 			'setting_value' => $shape,
 			'class'         => 'asfowoo-gradient-color-shape asfowoo-gradient-color-variant',
 			'wrap_style'    => $function !== 'radial-gradient' ? 'display:none' : '',
 			'options'       => array(
-				'ellipse' => __( 'Ellipse', 'assistant-for-woocommerce' ),
-				'circle'  => __( 'Circle', 'assistant-for-woocommerce' ),
+				'ellipse' => esc_html__( 'Ellipse', 'assistant-for-woocommerce' ),
+				'circle'  => esc_html__( 'Circle', 'assistant-for-woocommerce' ),
 			)
 		) );
 
 		$field .= self::range( array(
 			'id'            => $data['id'] . '_range',
-			'title'         => __( 'Rotation °', 'assistant-for-woocommerce' ),
+			'title'         => esc_html__( 'Rotation °', 'assistant-for-woocommerce' ),
 			'type'          => 'range',
 			'setting_value' => $rotate,
 			'display_value' => true,
@@ -985,7 +985,7 @@ class HTML {
 				$requiredText = $data['required_text'];
 			}
 
-			$data['required_text'] = ' <abbr class="required" title="' . __( 'Required', 'assistant-for-woocommerce' ) . '">' . $requiredText . '</abbr>';
+			$data['required_text'] = ' <abbr class="required" title="' . esc_html__( 'Required', 'assistant-for-woocommerce' ) . '">' . $requiredText . '</abbr>';
 		}
 
 		$attributes = empty( $data['attributes'] ) || ! is_array( $data['attributes'] ) ? [] : $data['attributes'];
@@ -1157,7 +1157,7 @@ class HTML {
 
 		if ( ! empty( $data['attributes'] ) && is_array( $data['attributes'] ) ) {
 			foreach ( $data['attributes'] as $key => $value ) {
-				$attributes .= ' ' . $key . '="' . $value . '"';
+				$attributes .= ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
 			}
 		}
 
@@ -1171,6 +1171,6 @@ class HTML {
 			$class .= ' ' . ( is_array( $data['class'] ) ? implode( ' ', $data['class'] ) : $data['class'] );
 		}
 
-		return $class;
+		return esc_attr( $class );
 	}
 }

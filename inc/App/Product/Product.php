@@ -26,12 +26,12 @@ class Product {
 	 */
 	public static function getFields(): array {
 		return array(
-			'price'      => __( 'Price', 'assistant-for-woocommerce' ),
-			'stock'      => __( 'Stock', 'assistant-for-woocommerce' ),
-			'rating'     => __( 'Rating', 'assistant-for-woocommerce' ),
-			'brand'      => __( 'Brand', 'assistant-for-woocommerce' ),
-			'dimensions' => __( 'Dimensions', 'assistant-for-woocommerce' ),
-			'weight'     => __( 'Weight', 'assistant-for-woocommerce' ),
+			'price'      => esc_html__( 'Price', 'assistant-for-woocommerce' ),
+			'stock'      => esc_html__( 'Stock', 'assistant-for-woocommerce' ),
+			'rating'     => esc_html__( 'Rating', 'assistant-for-woocommerce' ),
+			'brand'      => esc_html__( 'Brand', 'assistant-for-woocommerce' ),
+			'dimensions' => esc_html__( 'Dimensions', 'assistant-for-woocommerce' ),
+			'weight'     => esc_html__( 'Weight', 'assistant-for-woocommerce' ),
 		);
 	}
 }

@@ -75,32 +75,32 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 		$symbol   = Assets::isSvgImageString( $symbol ) || Assets::isImageString( $symbol ) ? '' : $symbol;
 
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Currency Symbol', 'assistant-for-woocommerce' ),
+			'title'        => esc_html__( 'Currency Symbol', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->info()['settings_key'],
 			'settings'     => array(
 				'start_grid_currency_symbol_1' => array(
-					'title' => __( 'Currency Symbol', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Currency Symbol', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'currency_1'                   => array(
 					'id'                => 'currency_1',
-					'title'             => __( 'Currency', 'assistant-for-woocommerce' ),
+					'title'             => esc_html__( 'Currency', 'assistant-for-woocommerce' ),
 					'type'              => 'currencySelect',
 					'default'           => $currency,
-					'option_none'       => __( 'No changes', 'assistant-for-woocommerce' ),
+					'option_none'       => esc_html__( 'No changes', 'assistant-for-woocommerce' ),
 					'option_none_value' => '',
 					'sanitize'          => 'text'
 				),
 				'currency_symbol_1'            => array(
 					'id'      => 'currency_symbol_1',
-					'title'   => __( 'Symbol', 'assistant-for-woocommerce' ),
+					'title'   => esc_html__( 'Symbol', 'assistant-for-woocommerce' ),
 					'type'    => 'text',
 					'default' => $symbol
 				),
 				'currency_media_1'             => array(
 					'id'                       => 'currency_media_1',
-					'title'                    => __( 'SVG Icon', 'assistant-for-woocommerce' ),
-					'select_button'            => __( 'Select SVG', 'assistant-for-woocommerce' ),
+					'title'                    => esc_html__( 'SVG Icon', 'assistant-for-woocommerce' ),
+					'select_button'            => esc_html__( 'Select SVG', 'assistant-for-woocommerce' ),
 					'remove_all_button'        => false,
 					'type'                     => 'media',
 					'media_type'               => 'image/svg+xml',
@@ -109,8 +109,8 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
 				'currency_media_size' => array(
 					'id'         => 'currency_media_size',
-					'title'      => __( 'SVG media size', 'assistant-for-woocommerce' ),
-					'desc'       => __( 'Pixel', 'assistant-for-woocommerce' ),
+					'title'      => esc_html__( 'SVG media size', 'assistant-for-woocommerce' ),
+					'desc'       => esc_html__( 'Pixel', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 14,
 					'attributes' => array(
@@ -124,11 +124,11 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
 				'price_currency_style' => [
 					'id'       => 'price_currency_style',
-					'title'    => __( 'Price style', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Price style', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
-					'desc'     => __( 'Styling the price along with the currency symbol', 'assistant-for-woocommerce' ),
+					'desc'     => esc_html__( 'Styling the price along with the currency symbol', 'assistant-for-woocommerce' ),
 					'sanitize' => 'bool'
 				],
 
@@ -146,9 +146,9 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Currency Symbol', 'assistant-for-woocommerce' ),
-			'desc'           => __( 'Change the currency symbol', 'assistant-for-woocommerce' ),
-			'tags'           => [ __( 'Currency', 'assistant-for-woocommerce' ) ],
+			'title'          => esc_html__( 'Currency Symbol', 'assistant-for-woocommerce' ),
+			'desc'           => esc_html__( 'Change the currency symbol', 'assistant-for-woocommerce' ),
+			'tags'           => [ esc_html__( 'Currency', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'customizations',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

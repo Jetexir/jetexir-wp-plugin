@@ -24,7 +24,7 @@ class AdminCart implements AdminTabInterface {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$menus[ self::tab ] = array(
-				'title' => __( 'Cart', 'assistant-for-woocommerce' ),
+				'title' => esc_html__( 'Cart', 'assistant-for-woocommerce' ),
 				'icon'  => self::icon
 			);
 		}
@@ -41,8 +41,8 @@ class AdminCart implements AdminTabInterface {
 	public function settings(): array {
 		if ( self::$settings === null ) {
 			self::$settings = array(
-				'title'    => __( 'Cart', 'assistant-for-woocommerce' ),
-				'desc'     => __( 'Tools to enhance your WooCommerce cart', 'assistant-for-woocommerce' ),
+				'title'    => esc_html__( 'Cart', 'assistant-for-woocommerce' ),
+				'desc'     => esc_html__( 'Tools to enhance your WooCommerce cart', 'assistant-for-woocommerce' ),
 				'sections' => apply_filters( 'assistant_for_woocommerce_' . self::tab . '_settings_sections', [] )
 			);
 		}

@@ -92,23 +92,23 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 	public function addProductGeneralSettings( $settings ): array {
 		$addonSettings = array(
 			'start_grid_product_sale_badge' => array(
-				'title' => __( 'Sale Badge', 'assistant-for-woocommerce' ),
+				'title' => esc_html__( 'Sale Badge', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 			'product_sale_badge_text'       => array(
 				'id'          => 'product_sale_badge_text',
-				'title'       => __( 'Sale Badge text', 'assistant-for-woocommerce' ),
+				'title'       => esc_html__( 'Sale Badge text', 'assistant-for-woocommerce' ),
 				'type'        => 'text',
-				'default'     => __( 'Sale', 'assistant-for-woocommerce' ),
-				'placeholder' => __( 'Sale', 'assistant-for-woocommerce' ),
+				'default'     => esc_html__( 'Sale', 'assistant-for-woocommerce' ),
+				'placeholder' => esc_html__( 'Sale', 'assistant-for-woocommerce' ),
 			),
 			'product_sale_badge_percentage' => [
 				'id'       => 'product_sale_badge_percentage',
-				'title'    => __( 'Discount percentage', 'assistant-for-woocommerce' ),
+				'title'    => esc_html__( 'Discount percentage', 'assistant-for-woocommerce' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
-				'desc'     => __( 'Display discount percentage as sale badge', 'assistant-for-woocommerce' ),
+				'desc'     => esc_html__( 'Display discount percentage as sale badge', 'assistant-for-woocommerce' ),
 				'sanitize' => 'bool'
 			],
 			'end_grid_product_sale_badge'   => array(
@@ -124,9 +124,9 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Product Sale Badge', 'assistant-for-woocommerce' ),
-			'desc'           => __( 'Customize the product sale badge.', 'assistant-for-woocommerce' ),
-			'tags'           => [ __( 'Sale', 'assistant-for-woocommerce' ) ],
+			'title'          => esc_html__( 'Product Sale Badge', 'assistant-for-woocommerce' ),
+			'desc'           => esc_html__( 'Customize the product sale badge.', 'assistant-for-woocommerce' ),
+			'tags'           => [ esc_html__( 'Sale', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws'

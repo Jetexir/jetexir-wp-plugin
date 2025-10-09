@@ -40,7 +40,7 @@ class ProductFAQ extends Addon implements AddonInterface {
             $FAQs = array_merge( $productFAQs, $globalFAQs );
         }
 
-        $title = apply_filters( 'assistant_for_woocommerce_product_faq_tab_title', __( 'FAQs', 'assistant-for-woocommerce' ) );
+        $title = apply_filters( 'assistant_for_woocommerce_product_faq_tab_title', esc_html__( 'FAQs', 'assistant-for-woocommerce' ) );
 
         Templates::load( Templates::getPath( 'product-faq/product_faq.php' ), array(
                 'title' => $title,
@@ -58,7 +58,7 @@ class ProductFAQ extends Addon implements AddonInterface {
         }
 
         $tabs['asfowoo_product_faq'] = array(
-                'title'    => apply_filters( 'assistant_for_woocommerce_product_faq_tab_title', __( 'FAQs', 'assistant-for-woocommerce' ) ),
+                'title'    => apply_filters( 'assistant_for_woocommerce_product_faq_tab_title', esc_html__( 'FAQs', 'assistant-for-woocommerce' ) ),
                 'priority' => 50,
                 'callback' => [ $this, 'productTabContent' ],
         );
@@ -117,7 +117,7 @@ class ProductFAQ extends Addon implements AddonInterface {
 
     public function adminProductTab( $tabs ) {
         $tabs[ ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_faq_control' ] = array(
-                'label'  => __( 'FAQs', 'assistant-for-woocommerce' ),
+                'label'  => esc_html__( 'FAQs', 'assistant-for-woocommerce' ),
                 'target' => ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_faq_control'
         );
 
@@ -139,7 +139,7 @@ class ProductFAQ extends Addon implements AddonInterface {
                 woocommerce_wp_checkbox( array(
                         'id'      => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable',
                         'name'    => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable',
-                        'label'   => __( 'Enable Product FAQ', 'assistant-for-woocommerce' ),
+                        'label'   => esc_html__( 'Enable Product FAQ', 'assistant-for-woocommerce' ),
                         'value'   => $enable === 1 ? 1 : 0,
                         'cbvalue' => 1
                 ) );
@@ -151,18 +151,18 @@ class ProductFAQ extends Addon implements AddonInterface {
                     woocommerce_wp_text_input( array(
                             'id'          => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_question_' . $index,
                             'name'        => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq[' . $index . '][question]',
-                            'label'       => __( 'Question', 'assistant-for-woocommerce' ) . ' ' . $i,
+                            'label'       => esc_html__( 'Question', 'assistant-for-woocommerce' ) . ' ' . $i,
                             'type'        => 'text',
-                            'placeholder' => __( 'Question', 'assistant-for-woocommerce' ),
+                            'placeholder' => esc_html__( 'Question', 'assistant-for-woocommerce' ),
                             'value'       => $FAQs[ $index ]['question'] ?? '',
                     ) );
 
                     woocommerce_wp_textarea_input( array(
                             'id'          => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_answer_' . $index,
                             'name'        => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq[' . $index . '][answer]',
-                            'label'       => __( 'Answer', 'assistant-for-woocommerce' ) . ' ' . $i,
+                            'label'       => esc_html__( 'Answer', 'assistant-for-woocommerce' ) . ' ' . $i,
                             'rows'        => 3,
-                            'placeholder' => __( 'Answer', 'assistant-for-woocommerce' ),
+                            'placeholder' => esc_html__( 'Answer', 'assistant-for-woocommerce' ),
                             'value'       => $FAQs[ $index ]['answer'] ?? '',
                     ) );
 
@@ -178,29 +178,29 @@ class ProductFAQ extends Addon implements AddonInterface {
 
     public function addSectionSettings( $sections ) {
         $sections[ $this->currentSection ] = array(
-                'title'        => __( 'FAQ', 'assistant-for-woocommerce' ),
-                'desc'         => __( 'Product frequently asked questions', 'assistant-for-woocommerce' ),
+                'title'        => esc_html__( 'FAQ', 'assistant-for-woocommerce' ),
+                'desc'         => esc_html__( 'Product frequently asked questions', 'assistant-for-woocommerce' ),
                 'settings_key' => $this->addonID,
                 'settings'     => array(
                         'product_faq_start_grid_1'    => array(
                                 'id'    => 'product_faq_start_grid_1',
-                                'title' => __( 'Frequently asked questions', 'assistant-for-woocommerce' ),
+                                'title' => esc_html__( 'Frequently asked questions', 'assistant-for-woocommerce' ),
                                 'type'  => 'startgrid',
                         ),
                         'product_faq_global_position' => array(
                                 'id'       => 'product_faq_global_position',
-                                'title'    => __( 'Global FAQ position', 'assistant-for-woocommerce' ),
+                                'title'    => esc_html__( 'Global FAQ position', 'assistant-for-woocommerce' ),
                                 'type'     => 'select',
                                 'options'  => array(
-                                        'before' => __( 'Before Product FAQs', 'assistant-for-woocommerce' ),
-                                        'after'  => __( 'After Product FAQs', 'assistant-for-woocommerce' ),
+                                        'before' => esc_html__( 'Before Product FAQs', 'assistant-for-woocommerce' ),
+                                        'after'  => esc_html__( 'After Product FAQs', 'assistant-for-woocommerce' ),
                                 ),
                                 'default'  => 'before',
                                 'sanitize' => 'text'
                         ),
                         'product_faq_button_icon'     => array(
                                 'id'       => 'product_faq_button_icon',
-                                'title'    => __( 'Button icon', 'assistant-for-woocommerce' ),
+                                'title'    => esc_html__( 'Button icon', 'assistant-for-woocommerce' ),
                                 'type'     => 'radioInline',
                                 'default'  => 'chevron',
                                 'options'  => array(
@@ -218,33 +218,33 @@ class ProductFAQ extends Addon implements AddonInterface {
 
                         'product_faq_start_grid_3'              => array(
                                 'id'    => 'product_faq_start_grid_3',
-                                'title' => __( 'Global FAQs', 'assistant-for-woocommerce' ),
+                                'title' => esc_html__( 'Global FAQs', 'assistant-for-woocommerce' ),
                                 'type'  => 'startgrid',
                         ),
                         'product_faq_start_repeatable'          => array(
                                 'id'         => 'product_faq_start_repeatable',
-                                'title'      => __( 'Global FAQs', 'assistant-for-woocommerce' ),
+                                'title'      => esc_html__( 'Global FAQs', 'assistant-for-woocommerce' ),
                                 'max_repeat' => 10,
                                 'type'       => 'startRepeatable',
                         ),
                         'product_faq_start_repeatable_elements' => array(
                                 'id'    => 'product_faq',
-                                'title' => __( 'FAQ', 'assistant-for-woocommerce' ),
+                                'title' => esc_html__( 'FAQ', 'assistant-for-woocommerce' ),
                                 'type'  => 'startRepeatableElements',
                         ),
                         'product_faq_question'                  => array(
                                 'id'          => 'product_faq_question',
-                                'title'       => __( 'Question', 'assistant-for-woocommerce' ),
-                                'placeholder' => __( 'Question', 'assistant-for-woocommerce' ),
+                                'title'       => esc_html__( 'Question', 'assistant-for-woocommerce' ),
+                                'placeholder' => esc_html__( 'Question', 'assistant-for-woocommerce' ),
                                 'type'        => 'text'
                         ),
                         'product_faq_answer'                    => array(
                                 'id'         => 'product_faq_answer',
-                                'title'      => __( 'Answer', 'assistant-for-woocommerce' ),
+                                'title'      => esc_html__( 'Answer', 'assistant-for-woocommerce' ),
                                 'type'       => 'textarea',
                                 'attributes' => array(
                                         'rows'        => 2,
-                                        'placeholder' => __( 'Answer', 'assistant-for-woocommerce' ),
+                                        'placeholder' => esc_html__( 'Answer', 'assistant-for-woocommerce' ),
                                         'resize'      => 'none'
                                 )
                         ),
@@ -252,7 +252,7 @@ class ProductFAQ extends Addon implements AddonInterface {
                                 'type' => 'endRepeatableElements',
                         ),
                         'product_faq_end_repeatable'            => array(
-                                'add_text' => __( 'Add', 'assistant-for-woocommerce' ),
+                                'add_text' => esc_html__( 'Add', 'assistant-for-woocommerce' ),
                                 'type'     => 'endRepeatable',
                         ),
                         'product_faq_end_grid_3'                => array(
@@ -269,9 +269,9 @@ class ProductFAQ extends Addon implements AddonInterface {
 
         return array(
                 'id'             => $this->addonID,
-                'title'          => __( 'Products FAQ', 'assistant-for-woocommerce' ),
-                'desc'           => __( 'Add a frequently asked questions (FAQ) section to the product page.', 'assistant-for-woocommerce' ),
-                'tags'           => [ __( 'Product', 'assistant-for-woocommerce' ) ],
+                'title'          => esc_html__( 'Products FAQ', 'assistant-for-woocommerce' ),
+                'desc'           => esc_html__( 'Add a frequently asked questions (FAQ) section to the product page.', 'assistant-for-woocommerce' ),
+                'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
                 'cat'            => 'product',
                 'icon'           => $icon,
                 'more_info_link' => 'https://parsa.ws',

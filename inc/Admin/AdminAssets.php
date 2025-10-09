@@ -49,9 +49,9 @@ class AdminAssets {
 		wp_localize_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-admin', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP, array(
 			'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
 			'ajaxNonce'        => Nonce::create(),
-			'removeText'       => __( 'Remove', 'assistant-for-woocommerce' ),
-			'dtuConfirmDelete' => __( 'Are you sure you want to delete this item(s)?', 'assistant-for-woocommerce' ),
-			'copyText'         => __( 'Click to copy this text.', 'assistant-for-woocommerce' ),
+			'removeText'       => esc_html__( 'Remove', 'assistant-for-woocommerce' ),
+			'dtuConfirmDelete' => esc_html__( 'Are you sure you want to delete this item(s)?', 'assistant-for-woocommerce' ),
+			'copyText'         => esc_html__( 'Click to copy this text.', 'assistant-for-woocommerce' ),
 		) );
 	}
 

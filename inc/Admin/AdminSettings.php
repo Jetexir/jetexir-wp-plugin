@@ -89,10 +89,10 @@ class AdminSettings {
 
 				if ( $saved ) {
 					Cache::set( 'settings_saved', true );
-					Notice::add( $tab, apply_filters( 'assistant_for_woocommerce_save_settings_success_message', __( 'Settings saved.', 'assistant-for-woocommerce' ), $tab ), 'success' );
+					Notice::add( $tab, apply_filters( 'assistant_for_woocommerce_save_settings_success_message', esc_html__( 'Settings saved.', 'assistant-for-woocommerce' ), $tab ), 'success' );
 					do_action( 'assistant_for_woocommerce_save_settings_success', $tab, $currentSection, $options );
 				} else {
-					Notice::add( $tab, apply_filters( 'assistant_for_woocommerce_save_settings_error_message', __( 'Error saving settings!', 'assistant-for-woocommerce' ), $tab ), 'error' );
+					Notice::add( $tab, apply_filters( 'assistant_for_woocommerce_save_settings_error_message', esc_html__( 'Error saving settings!', 'assistant-for-woocommerce' ), $tab ), 'error' );
 				}
 			}
 		}
@@ -435,7 +435,7 @@ class AdminSettings {
 		$headerImage    = ! empty( $headerImage ) && Validating::isUrl( $headerImage ) ? $headerImage : false;
 
 		echo '<header id="asfowoo-settings-header" class="asfowoo-header ' . ( $headerImage ? 'asfowoo-has-header-image' : '' ) . '">';
-		echo '<div class="asfowoo-header-title" style="' . ( $headerImage ? 'background-image: url(' . esc_url_raw( $headerImage ) . ');' : '' ) . '">';
+		echo '<div class="asfowoo-header-title" style="' . ( $headerImage ? 'background-image: url(' . esc_url( $headerImage ) . ');' : '' ) . '">';
 		echo '<h1>' . esc_html( $settings['title'] ) . '</h1>';
 		if ( ! empty( $settings['desc'] ) ) {
 			echo '<p class="asfowoo-description">' . esc_html( $settings['desc'] ) . '</p>';
@@ -463,7 +463,7 @@ class AdminSettings {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo HTML::button( [
 			'id'          => 'settings-submit',
-			'title'       => esc_html( apply_filters( 'assistant_for_woocommerce_settings_submit_button_title', __( 'Save changes', 'assistant-for-woocommerce' ), $currentTab ) ),
+			'title'       => esc_html( apply_filters( 'assistant_for_woocommerce_settings_submit_button_title', esc_html__( 'Save changes', 'assistant-for-woocommerce' ), $currentTab ) ),
 			'button_type' => 'submit',
 			'class'       => 'asfowoo-button-primary',
 			'attributes'  => [
@@ -475,7 +475,7 @@ class AdminSettings {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo HTML::button( [
 				'id'          => 'settings-reset',
-				'title'       => esc_html( apply_filters( 'assistant_for_woocommerce_settings_reset_button_title', __( 'Discard changes', 'assistant-for-woocommerce' ), $currentTab ) ),
+				'title'       => esc_html( apply_filters( 'assistant_for_woocommerce_settings_reset_button_title', esc_html__( 'Discard changes', 'assistant-for-woocommerce' ), $currentTab ) ),
 				'button_type' => 'reset',
 				'attributes'  => [
 					'form' => 'asfowoo-settings-form'
@@ -497,7 +497,7 @@ class AdminSettings {
 			echo '<div class="asfowoo-section-links"><ul>';
 			foreach ( $sections as $key => $section ) {
 				echo '<li>';
-				echo '<a href="' . esc_url_raw( AdminPages::link( [
+				echo '<a href="' . esc_url( AdminPages::link( [
 						'tab'     => $currentTab,
 						'section' => $key
 					] ) ) . '" title="' . esc_html( $section['desc'] ) . '" class="asfowoo-section-link' . ( $key === $currentSection ? ' asfowoo-section-link-current' : '' ) . '">' . esc_html( $section['title'] ) . '</a>';

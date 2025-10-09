@@ -93,7 +93,7 @@ class OrderStatus extends Addon implements AddonInterface {
 	public function wcAddOrderBulkActions( $actions ) {
 		foreach ( $this->getStatuses() as $slug => $title ) {
 			/* translators: %s: Order status name */
-			$actions[ 'mark_' . $slug ] = sprintf( __( 'Change status to %s', 'assistant-for-woocommerce' ), $title );
+			$actions[ 'mark_' . $slug ] = sprintf( esc_html__( 'Change status to %s', 'assistant-for-woocommerce' ), $title );
 		}
 
 		return $actions;
@@ -114,7 +114,7 @@ class OrderStatus extends Addon implements AddonInterface {
 					'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=' . $slug . '&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
 					'name'   => $title,
 					/* translators: %s: Order status name */
-					'title'  => sprintf( __( 'Change order status to %s', 'assistant-for-woocommerce' ), $title ),
+					'title'  => sprintf( esc_html__( 'Change order status to %s', 'assistant-for-woocommerce' ), $title ),
 					'action' => $slug,
 				);
 			}
@@ -125,7 +125,7 @@ class OrderStatus extends Addon implements AddonInterface {
 				$actions['status']['actions'] = array_merge( $actions['status']['actions'], $statusActions );
 			} else {
 				$actions['status'] = array(
-					'group'   => __( 'Change status:', 'assistant-for-woocommerce' ) . ' ',
+					'group'   => esc_html__( 'Change status:', 'assistant-for-woocommerce' ) . ' ',
 					'actions' => $statusActions,
 				);
 			}
@@ -147,7 +147,7 @@ class OrderStatus extends Addon implements AddonInterface {
 					'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=' . $slug . '&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
 					'name'   => $title,
 					/* translators: %s: Order status name */
-					'title'  => sprintf( __( 'Change order status to %s', 'assistant-for-woocommerce' ), $title ),
+					'title'  => sprintf( esc_html__( 'Change order status to %s', 'assistant-for-woocommerce' ), $title ),
 					'action' => 'edit ' . $slug,
 				);
 			}
@@ -283,17 +283,17 @@ class OrderStatus extends Addon implements AddonInterface {
 
 			if ( empty( $formData['title'] ) ) {
 				/* translators: %s: Title */
-				$errorMessage = sprintf( __( '%s field is empty!', 'assistant-for-woocommerce' ), __( 'Title', 'assistant-for-woocommerce' ) );
+				$errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Title', 'assistant-for-woocommerce' ) );
 			} elseif ( empty( $formData['slug'] ) ) {
 				/* translators: %s: Slug */
-				$errorMessage = sprintf( __( '%s field is empty!', 'assistant-for-woocommerce' ), __( 'Slug', 'assistant-for-woocommerce' ) );
+				$errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Slug', 'assistant-for-woocommerce' ) );
 			}
 
 			if ( $index >= 0 ) {
 				$entry = $this->getByIndex( $index );
 
 				if ( $entry === false ) {
-					$errorMessage = __( 'Order status not found!', 'assistant-for-woocommerce' );
+					$errorMessage = esc_html__( 'Order status not found!', 'assistant-for-woocommerce' );
 				}
 			}
 
@@ -315,11 +315,11 @@ class OrderStatus extends Addon implements AddonInterface {
 				$entries           = Settings::get( self::orderStatusDataTableId, [], $this->addonID );
 				$entries[ $index ] = $formData;
 				Settings::save( self::orderStatusDataTableId, $entries, $this->addonID );
-				$successMessage = __( 'The order status was successfully saved.', 'assistant-for-woocommerce' );
+				$successMessage = esc_html__( 'The order status was successfully saved.', 'assistant-for-woocommerce' );
 
 			} else {
 				Settings::addToArray( self::orderStatusDataTableId, $formData, $this->addonID, true );
-				$successMessage = __( 'Order status added successfully.', 'assistant-for-woocommerce' );
+				$successMessage = esc_html__( 'Order status added successfully.', 'assistant-for-woocommerce' );
 			}
 
 			$dataTable = $this->getDataTable();
@@ -350,7 +350,7 @@ class OrderStatus extends Addon implements AddonInterface {
 					'message'   => Notice::addAndDisplay( $this->addonID, array(
 						array(
 							'type'    => 'success',
-							'message' => __( 'Order status removed!', 'assistant-for-woocommerce' ),
+							'message' => esc_html__( 'Order status removed!', 'assistant-for-woocommerce' ),
 						)
 					), false ),
 				] );
@@ -361,7 +361,7 @@ class OrderStatus extends Addon implements AddonInterface {
 					'message' => Notice::addAndDisplay( $this->addonID, array(
 						array(
 							'type'    => 'error',
-							'message' => __( 'Selected item not found!', 'assistant-for-woocommerce' ),
+							'message' => esc_html__( 'Selected item not found!', 'assistant-for-woocommerce' ),
 						)
 					), false ),
 				], 403 );
@@ -397,37 +397,37 @@ class OrderStatus extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'text_color',
-				'title'         => __( 'Text color', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Text color', 'assistant-for-woocommerce' ),
 				'type'          => 'wpColorPicker',
 				'setting_value' => $data['text_color'] ?? '#333',
 				'sanitize'      => 'color'
 			),
 			array(
 				'id'            => 'bg_color',
-				'title'         => __( 'Background color', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Background color', 'assistant-for-woocommerce' ),
 				'type'          => 'wpColorPicker',
 				'setting_value' => $data['bg_color'] ?? '#ebe5ff',
 				'sanitize'      => 'color'
 			),
 			array(
 				'id'            => 'row_bg_color',
-				'title'         => __( 'Row background color', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Row background color', 'assistant-for-woocommerce' ),
 				'type'          => 'wpColorPicker',
 				'setting_value' => $data['row_bg_color'] ?? '',
 				'sanitize'      => 'color'
 			),
 			array(
 				'id'            => 'title',
-				'title'         => __( 'Title', 'assistant-for-woocommerce' ),
-				'placeholder'   => __( 'Status title', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Title', 'assistant-for-woocommerce' ),
+				'placeholder'   => esc_html__( 'Status title', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['title'] ?? '',
 			),
 			array(
 				'id'            => 'slug',
-				'title'         => __( 'Slug', 'assistant-for-woocommerce' ),
-				'desc'          => __( 'Use english alphabetic characters', 'assistant-for-woocommerce' ),
-				'placeholder'   => __( 'Status slug', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Slug', 'assistant-for-woocommerce' ),
+				'desc'          => esc_html__( 'Use english alphabetic characters', 'assistant-for-woocommerce' ),
+				'placeholder'   => esc_html__( 'Status slug', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['slug'] ?? '',
 				'sanitize'      => 'title',
@@ -442,20 +442,20 @@ class OrderStatus extends Addon implements AddonInterface {
 		          ->setRows( Settings::get( self::orderStatusDataTableId, [], $this->addonID ) )
 		          ->setIdField( $dataTable::ROW_INDEX )
 		          ->sortable( true )
-		          ->setTitle( __( 'Custom Order Status', 'assistant-for-woocommerce' ) )
-		          ->modalAddTitle( __( 'Add new order status', 'assistant-for-woocommerce' ) )
-		          ->modalEditTitle( __( 'Edit order status', 'assistant-for-woocommerce' ) )
-		          ->addNewButton( __( 'Add new', 'assistant-for-woocommerce' ) )
+		          ->setTitle( esc_html__( 'Custom Order Status', 'assistant-for-woocommerce' ) )
+		          ->modalAddTitle( esc_html__( 'Add new order status', 'assistant-for-woocommerce' ) )
+		          ->modalEditTitle( esc_html__( 'Edit order status', 'assistant-for-woocommerce' ) )
+		          ->addNewButton( esc_html__( 'Add new', 'assistant-for-woocommerce' ) )
 		          ->addAction( 'edit', '<i class="asfowoo-icon-edit"></i>', $dataTable::ACTION_EDIT )
 		          ->addAction( 'delete', '<i class="asfowoo-icon-trash"></i>', $dataTable::ACTION_DELETE )
-		          ->addAction( 'bulk_enable', __( 'Enable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-		          ->addAction( 'bulk_disable', __( 'Disable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-		          ->addAction( 'bulk_delete', __( 'Delete', 'assistant-for-woocommerce' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
-		          ->addColumn( __( 'Title', 'assistant-for-woocommerce' ), 'title', function ( $entry ) {
+		          ->addAction( 'bulk_enable', esc_html__( 'Enable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_disable', esc_html__( 'Disable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_delete', esc_html__( 'Delete', 'assistant-for-woocommerce' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
+		          ->addColumn( esc_html__( 'Title', 'assistant-for-woocommerce' ), 'title', function ( $entry ) {
 			          return '<mark class="order-status status-' . $entry['slug'] . '"><span>' . $entry['title'] . '</span></mark>';
 		          }, [ 'is_html' => true ] )
-		          ->addColumn( __( 'Slug', 'assistant-for-woocommerce' ), 'slug', null, [ 'hide_on_mobile' => true ] )
-		          ->addColumn( __( 'Status', 'assistant-for-woocommerce' ), $dataTable::ACTIVE_FIELD );
+		          ->addColumn( esc_html__( 'Slug', 'assistant-for-woocommerce' ), 'slug', null, [ 'hide_on_mobile' => true ] )
+		          ->addColumn( esc_html__( 'Status', 'assistant-for-woocommerce' ), $dataTable::ACTIVE_FIELD );
 
 		return $dataTable;
 	}
@@ -522,21 +522,21 @@ class OrderStatus extends Addon implements AddonInterface {
 			),
 			'order_status_start_grid'      => array(
 				'id'    => 'order_status_start_grid',
-				'title' => __( 'Order status', 'assistant-for-woocommerce' ),
+				'title' => esc_html__( 'Order status', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 			'order_status_default'         => array(
 				'id'                => 'order_status_default',
-				'title'             => __( 'Default order status', 'assistant-for-woocommerce' ),
+				'title'             => esc_html__( 'Default order status', 'assistant-for-woocommerce' ),
 				'type'              => 'orderStatusSelect',
 				'default'           => 0,
-				'option_none'       => __( 'No changes', 'assistant-for-woocommerce' ),
+				'option_none'       => esc_html__( 'No changes', 'assistant-for-woocommerce' ),
 				'option_none_value' => '',
 				'sanitize'          => 'text'
 			),
 			'order_status_fallback_delete' => array(
 				'id'       => 'order_status_fallback_delete',
-				'title'    => __( 'Fallback delete order status', 'assistant-for-woocommerce' ),
+				'title'    => esc_html__( 'Fallback delete order status', 'assistant-for-woocommerce' ),
 				'type'     => 'orderStatusSelect',
 				'default'  => 'on-hold',
 				'sanitize' => 'text'
@@ -548,8 +548,8 @@ class OrderStatus extends Addon implements AddonInterface {
 			$paymentGatewayOptions[ 'order_status_payment_' . $gatewayID ] = array(
 				'id'                => 'order_status_payment_' . $gatewayID,
 				/* translators: %s: Payment gateway title */
-				'title'             => sprintf( __( 'Default order status for "%s" method', 'assistant-for-woocommerce' ), $gatewayTitle ),
-				'option_none'       => __( 'No changes', 'assistant-for-woocommerce' ),
+				'title'             => sprintf( esc_html__( 'Default order status for "%s" method', 'assistant-for-woocommerce' ), $gatewayTitle ),
+				'option_none'       => esc_html__( 'No changes', 'assistant-for-woocommerce' ),
 				'option_none_value' => '',
 				'type'              => 'orderStatusSelect',
 				'sanitize'          => 'text'
@@ -567,7 +567,7 @@ class OrderStatus extends Addon implements AddonInterface {
 				array(
 					'order_status_row_colors_start_grid' => array(
 						'id'    => 'order_status_row_colors_start_grid',
-						'title' => __( 'Orders row background color', 'assistant-for-woocommerce' ),
+						'title' => esc_html__( 'Orders row background color', 'assistant-for-woocommerce' ),
 						'type'  => 'startgrid',
 					)
 				),
@@ -586,8 +586,8 @@ class OrderStatus extends Addon implements AddonInterface {
 		}
 
 		$sections[ $this->addonID ] = array(
-			'title'        => __( 'Status', 'assistant-for-woocommerce' ),
-			'desc'         => __( 'Custom Order Status', 'assistant-for-woocommerce' ),
+			'title'        => esc_html__( 'Status', 'assistant-for-woocommerce' ),
+			'desc'         => esc_html__( 'Custom Order Status', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->addonID,
 			'settings'     => $settings
 		);
@@ -600,9 +600,9 @@ class OrderStatus extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Order Status', 'assistant-for-woocommerce' ),
-			'desc'           => __( 'Add custom order statuses to your WooCommerce store.', 'assistant-for-woocommerce' ),
-			'tags'           => [ __( 'Order', 'assistant-for-woocommerce' ) ],
+			'title'          => esc_html__( 'Order Status', 'assistant-for-woocommerce' ),
+			'desc'           => esc_html__( 'Add custom order statuses to your WooCommerce store.', 'assistant-for-woocommerce' ),
+			'tags'           => [ esc_html__( 'Order', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'order',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

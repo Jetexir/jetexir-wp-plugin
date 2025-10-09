@@ -83,19 +83,19 @@ class AdminPages {
     public function addMenu(): void {
         $icon = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1OCIgaGVpZ2h0PSIyNiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTExLjczMiAyNC44NzNjMi42ODUgMCA0Ljg0LTEuMzIxIDYuNDYzLTQuMzZsMy42MTMtNi43Mzd2NS43MTRjMCAzLjM2OCAyLjE4NyA1LjM4MyA1LjU2NyA1LjM4MyAyLjY1MiAwIDQuNjA3LTEuMTU2IDYuNDk2LTQuMzZMNDIuMTkgNi41MWMxLjgyMy0zLjA3MS41My01LjM4My0zLjQ4LTUuMzgzLTIuMTU0IDAtMy41NDYuNjk0LTQuODA2IDMuMDM5bC01LjczMyAxMC43MzNWNS4zNTRjMC0yLjg0LTEuMzU5LTQuMjI3LTMuODc4LTQuMjI3LTEuOTg4IDAtMy41OC44NTktNC44MDUgMy4yMzdsLTUuNDAzIDEwLjUzNVY1LjQ1NGMwLTMuMDM5LTEuMjU5LTQuMzI3LTQuMzA4LTQuMzI3aC02LjIzQzEuMTkyIDEuMTI3IDAgMi4yMTcgMCA0LjIzMnMxLjI2IDMuMTcgMy41NDYgMy4xN2gyLjU1MnYxMi4wNTVjMCAzLjQwMSAyLjI4NyA1LjQxNiA1LjYzNCA1LjQxNk01Ni41OCA4LjIxOWwxLjM2NyAxMi43NWMuNDU1IDMuNjQzLTIuMSA0LjA5OC0zLjkxIDQuMDk4LTIuMjk0IDAtMy41MzItMS4yNzctMy41MzItMy44OTFWMTIuMzlsLTUuMjIxIDkuODhjLTEuMTQ3IDIuMTU5LTIuNDE1IDIuNzk3LTQuMzc3IDIuNzk3LTMuNjUyIDAtNC44My0yLjEyOC0zLjE3LTQuOTU1bDcuNTc3LTEyLjg5QzQ3LjAzNCA0LjI3NCA0OC4wOS45MzMgNTAuNTA1LjkzM2MzLjA3OSAwIDUuNjIgMy42NDMgNi4wNzUgNy4yODYiLz48L3N2Zz4=';
 
-        add_menu_page( __( 'Assistant for WooCommerce', 'assistant-for-woocommerce' ), __( 'Assistant', 'assistant-for-woocommerce' ), 'manage_options', ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG,
+        add_menu_page( esc_html__( 'Assistant for WooCommerce', 'assistant-for-woocommerce' ), esc_html__( 'Assistant', 'assistant-for-woocommerce' ), 'manage_options', ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG,
                 [ $this, 'mainPage' ], $icon, '55.5' );
     }
 
     public function mainPage(): void {
-        $logo       = Assets::url( 'images/assistant-for-woocommerce.svg' );
         $currentTab = self::getActiveTab();
         ?>
         <div class="wrap ">
             <div class="assistant-for-woocommerce-wrap assistant-for-woocommerce-<?php echo esc_html( $currentTab ) ?>-wrap assistant-for-woocommerce-wrapper">
                 <div class="asfowoo-sidebar" id="asfowoo-sidebar">
                     <div class="asfowoo-sidebar-head">
-                        <img src="<?php echo esc_url_raw( $logo ) ?>" alt="Logo" class="asfowoo-logo">
+                        <img src="<?php echo Assets::url( 'images/assistant-for-woocommerce.svg' ) ?>" alt="Logo"
+                             class="asfowoo-logo">
                         <a href="#" class="asfowoo-hide-sidebar" id="asfowoo-hide-sidebar">
                             <i class="asfowoo-icon-close"></i>
                         </a>
@@ -169,7 +169,7 @@ class AdminPages {
 
         $icon = Assets::isSvgImageString( $menu['icon'] ) ? Assets::setSvgDimensions( $menu['icon'], 20 ) : '';
 
-        return '<a href="' . esc_url_raw( $link ) . '" class="menu-item' . ( $current === $tab ? ' menu-item-current' : '' ) . '">' . $icon . '<span>' . esc_html( $menu['title'] ) . '</span></a>';
+        return '<a href="' . esc_url( $link ) . '" class="menu-item' . ( $current === $tab ? ' menu-item-current' : '' ) . '">' . $icon . '<span>' . esc_html( $menu['title'] ) . '</span></a>';
     }
 
     public static function getActiveTab(): string {

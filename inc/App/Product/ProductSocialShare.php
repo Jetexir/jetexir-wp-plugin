@@ -37,7 +37,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 		$linkType         = $this->getSetting( 'product_social_share_link_type', 'long' );
 		$encodeUrl        = $this->getSetting( 'product_social_share_encode_url', true ) ? 'on' : 'off';
 		$copyClipboard    = $this->getSetting( 'product_social_share_copy_clipboard', true ) ? 'on' : 'off';
-		$title            = $this->getSetting( 'product_social_share_title', __( 'Share On:', 'assistant-for-woocommerce' ) );
+		$title            = $this->getSetting( 'product_social_share_title', esc_html__( 'Share On:', 'assistant-for-woocommerce' ) );
 		$buttonAppearance = $this->getSetting( 'product_social_share_appearance', 'icon' );
 		$buttonShape      = $this->getSetting( 'product_social_share_shape', 'round' );
 		$buttonSize       = $this->getSetting( 'product_social_share_button_size', 'default' );
@@ -64,7 +64,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 			'copy_clipboard'    => 'on',
 			'link_type'         => 'long',
 			'encode_url'        => 'on',
-			'title'             => __( 'Share On:', 'assistant-for-woocommerce' ),
+			'title'             => esc_html__( 'Share On:', 'assistant-for-woocommerce' ),
 			'button_appearance' => 'icon',
 			'button_shape'      => 'round',
 			'button_size'       => 'default',
@@ -141,7 +141,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 			$linkClass[]       = 'asfowoo-copy-text';
 			$linkClass[]       = 'asfowoo-product-share-copy';
 			$copyClipboardIcon = '<i class="asfowoo-icon-file_copy"></i>';
-			$copyClipboardText = apply_filters( 'assistant_for_woocommerce_copy_clipboard_text', __( 'Copy to Clipboard', 'assistant-for-woocommerce' ) );
+			$copyClipboardText = apply_filters( 'assistant_for_woocommerce_copy_clipboard_text', esc_html__( 'Copy to Clipboard', 'assistant-for-woocommerce' ) );
 			if ( $buttonAppearance === 'icon' ) {
 				$copyText = $copyClipboardIcon;
 			} else if ( $buttonAppearance === 'text' ) {
@@ -162,92 +162,92 @@ class ProductSocialShare extends Addon implements AddonInterface {
 		return array(
 			'x'         => [
 				'icon'       => '<i class="asfowoo-icon-x-twitter"></i>',
-				'title'      => __( 'X', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'X', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://twitter.com/intent/tweet?url=%1$s',
 			],
 			'facebook'  => [
 				'icon'       => '<i class="asfowoo-icon-facebook"></i>',
-				'title'      => __( 'Facebook', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Facebook', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://www.facebook.com/sharer/sharer.php?u=%1$s'
 			],
 			'linkedin'  => [
 				'icon'       => '<i class="asfowoo-icon-linkedin"></i>',
-				'title'      => __( 'Linkedin', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Linkedin', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://www.linkedin.com/shareArticle?mini=true&url=%1$s',
 			],
 			'telegram'  => [
 				'icon'       => '<i class="asfowoo-icon-telegram"></i>',
-				'title'      => __( 'Telegram', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Telegram', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://t.me/share/url?url=%1$s',
 			],
 			'whatsapp'  => [
 				'icon'       => '<i class="asfowoo-icon-whatsapp"></i>',
-				'title'      => __( 'WhatsApp', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'WhatsApp', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://api.whatsapp.com/send?text=%1$s',
 			],
 			'pinterest' => [
 				'icon'       => '<i class="asfowoo-icon-pinterest"></i>',
-				'title'      => __( 'Pinterest', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Pinterest', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://pinterest.com/pin/create/button/?url=%1$s',
 			],
 			'tumblr'    => [
 				'icon'       => '<i class="asfowoo-icon-tumblr"></i>',
-				'title'      => __( 'Tumblr', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Tumblr', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://www.tumblr.com/widgets/share/tool?posttype=link&canonicalUrl=%1$s',
 			],
 			'vk'        => [
 				'icon'       => '<i class="asfowoo-icon-vk"></i>',
-				'title'      => __( 'VK', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'VK', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://vk.com/share.php?url=%1$s'
 			],
 			'viber'     => [
 				'icon'       => '<i class="asfowoo-icon-viber"></i>',
-				'title'      => __( 'Viber', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Viber', 'assistant-for-woocommerce' ),
 				'share_link' => 'viber://forward?text=%1$s',
 			],
 			'reddit'    => [
 				'icon'       => '<i class="asfowoo-icon-reddit"></i>',
-				'title'      => __( 'Reddit', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Reddit', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://reddit.com/submit?url=%1$s'
 			],
 			'xing'      => [
 				'icon'       => '<i class="asfowoo-icon-xing"></i>',
-				'title'      => __( 'Xing', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Xing', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://www.xing.com/app/user?op=share&url=%1$s'
 			],
 			'weibo'     => [
 				'icon'       => '<i class="asfowoo-icon-weibo"></i>',
-				'title'      => __( 'Weibo', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Weibo', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://service.weibo.com/share/share.php?url=%1$s'
 			],
 			'mastodon'  => [
 				'icon'       => '<i class="asfowoo-icon-mastodon"></i>',
-				'title'      => __( 'Mastodon', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Mastodon', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://mastodonshare.com/?url=%1$s'
 			],
 			'bluesky'   => [
 				'icon'       => '<i class="asfowoo-icon-bluesky"></i>',
-				'title'      => __( 'Bluesky', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Bluesky', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://bsky.app/intent/compose?text=%1$s'
 			],
 			/*'pocket'    => [
 				'icon'       => '<i class="asfowoo-icon-pocket"></i>',
-				'title'      => __( 'Pocket', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Pocket', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://getpocket.com/save?url=%1$s'
 			],*/
 			'evernote'  => [
 				'icon'       => '<i class="asfowoo-icon-evernote"></i>',
-				'title'      => __( 'Evernote', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Evernote', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://www.evernote.com/clip.action?url=%1$s'
 			],
 			'yahoo'     => [
 				'icon'       => '<i class="asfowoo-icon-yahoo"></i>',
-				'title'      => __( 'Yahoo', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Yahoo', 'assistant-for-woocommerce' ),
 				'share_link' => 'https://compose.mail.yahoo.com/?body=%1$s'
 			],
 			'email'     => [
 				'icon'       => '<i class="asfowoo-icon-email"></i>',
-				'title'      => __( 'Email', 'assistant-for-woocommerce' ),
+				'title'      => esc_html__( 'Email', 'assistant-for-woocommerce' ),
 				'share_link' => 'mailto:%2$s?subject=%3$s&body=%1$s'
 			],
 		);
@@ -279,39 +279,39 @@ class ProductSocialShare extends Addon implements AddonInterface {
 		}
 
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Share', 'assistant-for-woocommerce' ),
-			'desc'         => __( 'Product Social Share', 'assistant-for-woocommerce' ),
+			'title'        => esc_html__( 'Share', 'assistant-for-woocommerce' ),
+			'desc'         => esc_html__( 'Product Social Share', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->addonID,
 			'settings'     => array(
 				'product_social_share_start_grid_1'        => array(
 					'id'    => 'product_social_share_start_grid_1',
-					'title' => __( 'Product Social Share', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Product Social Share', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'product_social_share_position'            => array(
 					'id'                => 'product_social_share_position',
-					'title'             => __( 'Position', 'assistant-for-woocommerce' ),
+					'title'             => esc_html__( 'Position', 'assistant-for-woocommerce' ),
 					'type'              => 'select',
 					'options'           => array(
-						'after_title'      => __( 'After product title', 'assistant-for-woocommerce' ),
-						'after_price'      => __( 'After product price', 'assistant-for-woocommerce' ),
-						'after_categories' => __( 'After product categories', 'assistant-for-woocommerce' ),
+						'after_title'      => esc_html__( 'After product title', 'assistant-for-woocommerce' ),
+						'after_price'      => esc_html__( 'After product price', 'assistant-for-woocommerce' ),
+						'after_categories' => esc_html__( 'After product categories', 'assistant-for-woocommerce' ),
 					),
 					'option_none'       => '---',
 					'option_none_value' => '',
 					'default'           => 'after_categories',
 					'sanitize'          => 'text',
 					/* translators: %s: Shortcode */
-					'desc'              => sprintf( __( 'You can display social share with %s shortcode.', 'assistant-for-woocommerce' ), '<code class="asfowoo-copy-text">[asfowoo_product_share]</code>' )
+					'desc'              => sprintf( esc_html__( 'You can display social share with %s shortcode.', 'assistant-for-woocommerce' ), '<code class="asfowoo-copy-text">[asfowoo_product_share]</code>' )
 				),
 				'product_social_share_link_type_start'     => array(
 					'id'    => 'product_social_share_link_type_start',
-					'title' => __( 'Link type', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Link type', 'assistant-for-woocommerce' ),
 					'type'  => 'startInlineElements',
 				),
 				'product_social_share_link_type_long'      => array(
 					'id'       => 'product_social_share_link_type',
-					'title'    => __( 'Long link', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Long link', 'assistant-for-woocommerce' ),
 					'type'     => 'radio',
 					'default'  => 'long',
 					'value'    => 'long',
@@ -319,7 +319,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 				),
 				'product_social_share_link_type_short'     => array(
 					'id'       => 'product_social_share_link_type',
-					'title'    => __( 'Short link', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Short link', 'assistant-for-woocommerce' ),
 					'type'     => 'radio',
 					'default'  => 'long',
 					'value'    => 'short',
@@ -330,7 +330,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 				),
 				'product_social_share_encode_url'          => array(
 					'id'       => 'product_social_share_encode_url',
-					'title'    => __( 'Encode URL', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Encode URL', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -344,12 +344,12 @@ class ProductSocialShare extends Addon implements AddonInterface {
 				),
 				'product_social_share_start_grid_2'        => array(
 					'id'    => 'product_social_share_start_grid_2',
-					'title' => __( 'Social networks', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Social networks', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'product_social_share_networks'            => array(
 					'id'               => 'product_social_share_networks',
-					'title'            => __( 'Select Social Networks', 'assistant-for-woocommerce' ),
+					'title'            => esc_html__( 'Select Social Networks', 'assistant-for-woocommerce' ),
 					'type'             => 'checkboxInline',
 					'default'          => [ 'x', 'facebook', 'linkedin', 'telegram', 'whatsapp' ],
 					'options'          => $socials,
@@ -359,7 +359,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 				),
 				'product_social_share_copy_clipboard'      => array(
 					'id'       => 'product_social_share_copy_clipboard',
-					'title'    => __( 'Enable "Copy to Clipboard"', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Enable "Copy to Clipboard"', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -373,50 +373,50 @@ class ProductSocialShare extends Addon implements AddonInterface {
 				),
 				'product_social_share_start_grid_3'        => array(
 					'id'    => 'product_social_share_start_grid_2',
-					'title' => __( 'Appearance', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Appearance', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'product_social_share_title'               => array(
 					'id'          => 'product_social_share_title',
-					'title'       => __( 'Title', 'assistant-for-woocommerce' ),
+					'title'       => esc_html__( 'Title', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
-					'default'     => __( 'Share On:', 'assistant-for-woocommerce' ),
-					'placeholder' => __( 'Share On:', 'assistant-for-woocommerce' ),
-					'desc'        => __( 'Display title before social icons', 'assistant-for-woocommerce' )
+					'default'     => esc_html__( 'Share On:', 'assistant-for-woocommerce' ),
+					'placeholder' => esc_html__( 'Share On:', 'assistant-for-woocommerce' ),
+					'desc'        => esc_html__( 'Display title before social icons', 'assistant-for-woocommerce' )
 				),
 				'product_social_share_appearance'          => array(
 					'id'       => 'product_social_share_appearance',
-					'title'    => __( 'Button Appearance', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Button Appearance', 'assistant-for-woocommerce' ),
 					'type'     => 'select',
 					'options'  => array(
-						'icon'      => __( 'Icon', 'assistant-for-woocommerce' ),
-						'text'      => __( 'Text', 'assistant-for-woocommerce' ),
-						'icon_text' => __( 'Icon with text', 'assistant-for-woocommerce' ),
+						'icon'      => esc_html__( 'Icon', 'assistant-for-woocommerce' ),
+						'text'      => esc_html__( 'Text', 'assistant-for-woocommerce' ),
+						'icon_text' => esc_html__( 'Icon with text', 'assistant-for-woocommerce' ),
 					),
 					'default'  => 'icon',
 					'sanitize' => 'text',
-					'desc'     => __( 'Select social share icon appearance', 'assistant-for-woocommerce' )
+					'desc'     => esc_html__( 'Select social share icon appearance', 'assistant-for-woocommerce' )
 				),
 				'product_social_share_shape'               => array(
 					'id'       => 'product_social_share_shape',
-					'title'    => __( 'Button Shape', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Button Shape', 'assistant-for-woocommerce' ),
 					'type'     => 'select',
 					'options'  => array(
-						'round'          => __( 'Round', 'assistant-for-woocommerce' ),
-						'square'         => __( 'Square', 'assistant-for-woocommerce' ),
-						'rounded_corner' => __( 'Rounded Corner', 'assistant-for-woocommerce' ),
+						'round'          => esc_html__( 'Round', 'assistant-for-woocommerce' ),
+						'square'         => esc_html__( 'Square', 'assistant-for-woocommerce' ),
+						'rounded_corner' => esc_html__( 'Rounded Corner', 'assistant-for-woocommerce' ),
 					),
 					'default'  => 'round',
 					'sanitize' => 'text',
 				),
 				'product_social_share_button_size_start'   => array(
 					'id'    => 'product_social_share_button_size_start',
-					'title' => __( 'Button Size', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Button Size', 'assistant-for-woocommerce' ),
 					'type'  => 'startInlineElements',
 				),
 				'product_social_share_button_size_default' => array(
 					'id'       => 'product_social_share_button_size',
-					'title'    => __( 'Default', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Default', 'assistant-for-woocommerce' ),
 					'type'     => 'radio',
 					'default'  => 'default',
 					'value'    => 'default',
@@ -424,7 +424,7 @@ class ProductSocialShare extends Addon implements AddonInterface {
 				),
 				'product_social_share_button_size_large'   => array(
 					'id'       => 'product_social_share_button_size',
-					'title'    => __( 'Large', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Large', 'assistant-for-woocommerce' ),
 					'type'     => 'radio',
 					'default'  => 'default',
 					'value'    => 'large',
@@ -447,9 +447,9 @@ class ProductSocialShare extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Product Social Share', 'assistant-for-woocommerce' ),
-			'desc'           => __( 'Enable social sharing on WooCommerce product pages.', 'assistant-for-woocommerce' ),
-			'tags'           => [ __( 'Product', 'assistant-for-woocommerce' ) ],
+			'title'          => esc_html__( 'Product Social Share', 'assistant-for-woocommerce' ),
+			'desc'           => esc_html__( 'Enable social sharing on WooCommerce product pages.', 'assistant-for-woocommerce' ),
+			'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

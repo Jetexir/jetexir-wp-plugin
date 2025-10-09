@@ -24,7 +24,7 @@ class AdminCheckout implements AdminTabInterface {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$menus[ self::tab ] = array(
-				'title' => __( 'Checkout', 'assistant-for-woocommerce' ),
+				'title' => esc_html__( 'Checkout', 'assistant-for-woocommerce' ),
 				'icon'  => self::icon
 			);
 		}
@@ -41,8 +41,8 @@ class AdminCheckout implements AdminTabInterface {
 	public function settings(): array {
 		if ( self::$settings === null ) {
 			self::$settings = array(
-				'title'    => __( 'Checkout', 'assistant-for-woocommerce' ),
-				'desc'     => __( 'Tools to enhance your WooCommerce checkout', 'assistant-for-woocommerce' ),
+				'title'    => esc_html__( 'Checkout', 'assistant-for-woocommerce' ),
+				'desc'     => esc_html__( 'Tools to enhance your WooCommerce checkout', 'assistant-for-woocommerce' ),
 				'sections' => apply_filters( 'assistant_for_woocommerce_' . self::tab . '_settings_sections', [] )
 			);
 		}

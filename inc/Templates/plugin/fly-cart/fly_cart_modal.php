@@ -28,14 +28,14 @@ defined( 'ABSPATH' ) or die();
                 echo '<div class="asfowoo-modal-footer">';
 
                 if ( $cart ) {
-                    echo '<a href="' . esc_url_raw( wc_get_cart_url() ) . '" type="button" class="asfowoo-button asfowoo-button-secondary">' .
-                         esc_html( Settings::get( 'fly_cart_cart_button', __( 'Cart', 'assistant-for-woocommerce' ) ) )
+                    echo '<a href="' . esc_url( wc_get_cart_url() ) . '" type="button" class="asfowoo-button asfowoo-button-secondary">' .
+                         esc_html( Settings::get( 'fly_cart_cart_button', esc_html__( 'Cart', 'assistant-for-woocommerce' ) ) )
                          . '</a>';
                 }
 
                 if ( $checkout ) {
-                    echo '<a href="' . esc_url_raw( wc_get_checkout_url() ) . '" type="button" class="asfowoo-button asfowoo-button-primary">' .
-                         esc_html( Settings::get( 'fly_cart_checkout_button', __( 'Checkout', 'assistant-for-woocommerce' ) ) )
+                    echo '<a href="' . esc_url( wc_get_checkout_url() ) . '" type="button" class="asfowoo-button asfowoo-button-primary">' .
+                         esc_html( Settings::get( 'fly_cart_checkout_button', esc_html__( 'Checkout', 'assistant-for-woocommerce' ) ) )
                          . '</a>';
                 }
 

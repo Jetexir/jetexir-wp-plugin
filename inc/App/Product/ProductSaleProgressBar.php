@@ -21,7 +21,7 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
 	public function adminInitAction(): void {
 		if ( AdminPages::isSettingPage() && Param::get( 'section' ) === $this->currentSection ) {
-			Notice::add( $this->currentTab, __( 'At present, this functionality is exclusively available for simple products.', 'assistant-for-woocommerce' ), 'warning' );
+			Notice::add( $this->currentTab, esc_html__( 'At present, this functionality is exclusively available for simple products.', 'assistant-for-woocommerce' ), 'warning' );
 		}
 	}
 
@@ -56,9 +56,9 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 		$soldPercent = (int) ( 100 / $saleProgressBarStock ) * $sold;
 
 		Templates::load( Templates::getPath( 'sale-progress-bar/progress_bar.php' ), array(
-			'sold_title'            => $this->getSetting( 'product_sale_progress_bar_sold_title', __( 'Sold', 'assistant-for-woocommerce' ) ),
+			'sold_title'            => $this->getSetting( 'product_sale_progress_bar_sold_title', esc_html__( 'Sold', 'assistant-for-woocommerce' ) ),
 			'sold'                  => $sold,
-			'remaining_title'       => $this->getSetting( 'product_sale_progress_bar_remaining_title', __( 'Remaining', 'assistant-for-woocommerce' ) ),
+			'remaining_title'       => $this->getSetting( 'product_sale_progress_bar_remaining_title', esc_html__( 'Remaining', 'assistant-for-woocommerce' ) ),
 			'stock'                 => $stock,
 			'sold_percent'          => $soldPercent,
 			'progress_bar_bg_color' => $this->getSetting( 'product_sale_progress_bar_bg_color', Colors::primary ),
@@ -87,9 +87,9 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 			array(
 				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'sale_progress_bar_stock',
 				'value'             => wc_stock_amount( $value ),
-				'label'             => __( 'Sale progress bar quantity', 'assistant-for-woocommerce' ),
+				'label'             => esc_html__( 'Sale progress bar quantity', 'assistant-for-woocommerce' ),
 				'desc_tip'          => true,
-				'description'       => __( 'Please enter the starting quantity of product, The entered value must be greater than the quantity value.', 'assistant-for-woocommerce' ),
+				'description'       => esc_html__( 'Please enter the starting quantity of product, The entered value must be greater than the quantity value.', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'custom_attributes' => array(
 					'step' => 'any',
@@ -101,45 +101,45 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
 	public function addSectionSettings( $sections ): array {
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Sale progress bar', 'assistant-for-woocommerce' ),
-			'desc'         => __( 'Product sale progress bar', 'assistant-for-woocommerce' ),
+			'title'        => esc_html__( 'Sale progress bar', 'assistant-for-woocommerce' ),
+			'desc'         => esc_html__( 'Product sale progress bar', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->addonID,
 			'settings'     => [
 				'product_sale_progress_bar_start_grid'      => array(
 					'id'    => 'product_sale_progress_bar_start_grid',
-					'title' => __( 'Sale progress bar', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Sale progress bar', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'product_sale_progress_bar_sold_title'      => array(
 					'id'          => 'product_sale_progress_bar_sold_title',
-					'title'       => __( 'Sold title', 'assistant-for-woocommerce' ),
+					'title'       => esc_html__( 'Sold title', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
-					'default'     => __( 'Sold', 'assistant-for-woocommerce' ),
-					'placeholder' => __( 'Sold', 'assistant-for-woocommerce' ),
+					'default'     => esc_html__( 'Sold', 'assistant-for-woocommerce' ),
+					'placeholder' => esc_html__( 'Sold', 'assistant-for-woocommerce' ),
 				),
 				'product_sale_progress_bar_remaining_title' => array(
 					'id'          => 'product_sale_progress_bar_remaining_title',
-					'title'       => __( 'Remaining product title', 'assistant-for-woocommerce' ),
+					'title'       => esc_html__( 'Remaining product title', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
-					'default'     => __( 'Remaining', 'assistant-for-woocommerce' ),
-					'placeholder' => __( 'Remaining', 'assistant-for-woocommerce' ),
+					'default'     => esc_html__( 'Remaining', 'assistant-for-woocommerce' ),
+					'placeholder' => esc_html__( 'Remaining', 'assistant-for-woocommerce' ),
 				),
 				'product_sale_progress_bar_position'        => array(
 					'id'          => 'product_sale_progress_bar_position',
-					'title'       => __( 'Position on single page', 'assistant-for-woocommerce' ),
+					'title'       => esc_html__( 'Position on single page', 'assistant-for-woocommerce' ),
 					'type'        => 'select',
 					'options'     => array(
-						'before_title'       => __( 'Before title', 'assistant-for-woocommerce' ),
-						'after_title'        => __( 'After title', 'assistant-for-woocommerce' ),
-						'after_rating'       => __( 'After rating', 'assistant-for-woocommerce' ),
-						'after_price'        => __( 'After price', 'assistant-for-woocommerce' ),
-						'after_excerpt'      => __( 'After excerpt', 'assistant-for-woocommerce' ),
-						'before_add_to_cart' => __( 'Before add to cart button', 'assistant-for-woocommerce' ),
-						'after_add_to_cart'  => __( 'After add to cart button', 'assistant-for-woocommerce' ),
-						'after_meta'         => __( 'After meta', 'assistant-for-woocommerce' ),
-						'after_sharing'      => __( 'After sharing', 'assistant-for-woocommerce' ),
+						'before_title'       => esc_html__( 'Before title', 'assistant-for-woocommerce' ),
+						'after_title'        => esc_html__( 'After title', 'assistant-for-woocommerce' ),
+						'after_rating'       => esc_html__( 'After rating', 'assistant-for-woocommerce' ),
+						'after_price'        => esc_html__( 'After price', 'assistant-for-woocommerce' ),
+						'after_excerpt'      => esc_html__( 'After excerpt', 'assistant-for-woocommerce' ),
+						'before_add_to_cart' => esc_html__( 'Before add to cart button', 'assistant-for-woocommerce' ),
+						'after_add_to_cart'  => esc_html__( 'After add to cart button', 'assistant-for-woocommerce' ),
+						'after_meta'         => esc_html__( 'After meta', 'assistant-for-woocommerce' ),
+						'after_sharing'      => esc_html__( 'After sharing', 'assistant-for-woocommerce' ),
 					),
-					'option_none' => __( 'Hide', 'assistant-for-woocommerce' ),
+					'option_none' => esc_html__( 'Hide', 'assistant-for-woocommerce' ),
 					'default'     => 'after_title',
 					'sanitize'    => 'text',
 				),
@@ -148,20 +148,20 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 				),
 				'product_sale_progress_bar_start_grid_2'    => array(
 					'id'    => 'product_sale_progress_bar_start_grid_2',
-					'title' => __( 'Style', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Style', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'product_sale_progress_bar_bg_color'        => array(
 					'id'       => 'product_sale_progress_bar_bg_color',
-					'title'    => __( 'Progress bar background color', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Progress bar background color', 'assistant-for-woocommerce' ),
 					'type'     => 'wpColorPicker',
 					'default'  => Colors::primary,
 					'sanitize' => 'color'
 				),
 				'product_sale_progress_bar_height'          => array(
 					'id'         => 'product_sale_progress_bar_height',
-					'title'      => __( 'Progress bar height', 'assistant-for-woocommerce' ),
-					'desc'       => __( 'Pixel', 'assistant-for-woocommerce' ),
+					'title'      => esc_html__( 'Progress bar height', 'assistant-for-woocommerce' ),
+					'desc'       => esc_html__( 'Pixel', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 10,
 					'attributes' => array(
@@ -210,9 +210,9 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Sale progress bar', 'assistant-for-woocommerce' ),
-			'desc'           => __( 'Sales progress bar for products', 'assistant-for-woocommerce' ),
-			'tags'           => [ __( 'Product', 'assistant-for-woocommerce' ) ],
+			'title'          => esc_html__( 'Sale progress bar', 'assistant-for-woocommerce' ),
+			'desc'           => esc_html__( 'Sales progress bar for products', 'assistant-for-woocommerce' ),
+			'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

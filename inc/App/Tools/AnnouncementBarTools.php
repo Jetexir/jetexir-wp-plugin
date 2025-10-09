@@ -235,17 +235,17 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 			if ( empty( $formData['title'] ) ) {
 				/* translators: %s: Title */
-				$errorMessage = sprintf( __( '%s field is empty!', 'assistant-for-woocommerce' ), __( 'Title', 'assistant-for-woocommerce' ) );
+				$errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Title', 'assistant-for-woocommerce' ) );
 			} elseif ( empty( $formData['text'] ) ) {
 				/* translators: %s: Text */
-				$errorMessage = sprintf( __( '%s field is empty!', 'assistant-for-woocommerce' ), __( 'Text', 'assistant-for-woocommerce' ) );
+				$errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Text', 'assistant-for-woocommerce' ) );
 			}
 
 			if ( $index >= 0 ) {
 				$announcement = $this->getAnnouncementByIndex( $index );
 
 				if ( $announcement === false ) {
-					$errorMessage = __( 'Announcement not found!', 'assistant-for-woocommerce' );
+					$errorMessage = esc_html__( 'Announcement not found!', 'assistant-for-woocommerce' );
 				}
 			}
 
@@ -266,12 +266,12 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				$announcements[ $index ]         = $formData;
 				$announcements[ $index ]['code'] = $announcement['code'];
 				$this->saveSetting( 'announcement_bar_data', $announcements );
-				$successMessage = __( 'The announcement was successfully saved.', 'assistant-for-woocommerce' );
+				$successMessage = esc_html__( 'The announcement was successfully saved.', 'assistant-for-woocommerce' );
 
 			} else {
 				$formData['code'] = Helper::randomString( 6, true, false, true );
 				$this->addToArraySetting( 'announcement_bar_data', $formData, true );
-				$successMessage = __( 'Announcement added successfully.', 'assistant-for-woocommerce' );
+				$successMessage = esc_html__( 'Announcement added successfully.', 'assistant-for-woocommerce' );
 			}
 
 			$dataTable = $this->getDataTable();
@@ -298,7 +298,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 					'message'   => Notice::addAndDisplay( $this->currentSection, array(
 						array(
 							'type'    => 'success',
-							'message' => __( 'Announcement removed!', 'assistant-for-woocommerce' ),
+							'message' => esc_html__( 'Announcement removed!', 'assistant-for-woocommerce' ),
 						)
 					), false ),
 				] );
@@ -309,7 +309,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 					'message' => Notice::addAndDisplay( $this->currentSection, array(
 						array(
 							'type'    => 'error',
-							'message' => __( 'Selected item not found!', 'assistant-for-woocommerce' ),
+							'message' => esc_html__( 'Selected item not found!', 'assistant-for-woocommerce' ),
 						)
 					), false ),
 				], 403 );
@@ -322,20 +322,20 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		$dataTable->setID( 'announcement_bar' )
 		          ->setRows( $this->getSetting( 'announcement_bar_data', [] ) )
 		          ->setIdField( $dataTable::ROW_INDEX )
-		          ->setTitle( __( 'Announcement Bars', 'assistant-for-woocommerce' ) )
-		          ->modalAddTitle( __( 'Add new announcement', 'assistant-for-woocommerce' ) )
-		          ->modalEditTitle( __( 'Edit announcement', 'assistant-for-woocommerce' ) )
-		          ->addNewButton( __( 'Add new', 'assistant-for-woocommerce' ) )
+		          ->setTitle( esc_html__( 'Announcement Bars', 'assistant-for-woocommerce' ) )
+		          ->modalAddTitle( esc_html__( 'Add new announcement', 'assistant-for-woocommerce' ) )
+		          ->modalEditTitle( esc_html__( 'Edit announcement', 'assistant-for-woocommerce' ) )
+		          ->addNewButton( esc_html__( 'Add new', 'assistant-for-woocommerce' ) )
 		          ->addAction( 'edit', '<i class="asfowoo-icon-edit"></i>', $dataTable::ACTION_EDIT )
 		          ->addAction( 'delete', '<i class="asfowoo-icon-trash"></i>', $dataTable::ACTION_DELETE )
-		          ->addAction( 'bulk_enable', __( 'Enable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-		          ->addAction( 'bulk_disable', __( 'Disable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-		          ->addAction( 'bulk_delete', __( 'Delete', 'assistant-for-woocommerce' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
-		          ->addColumn( __( 'Title', 'assistant-for-woocommerce' ), 'title' )
-		          ->addColumn( __( 'ShortCode', 'assistant-for-woocommerce' ), 'code', function ( $row ) {
-			          return '<code class="asfowoo-copy-text" title="' . __( 'Copy shortcode', 'assistant-for-woocommerce' ) . '">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
+		          ->addAction( 'bulk_enable', esc_html__( 'Enable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_disable', esc_html__( 'Disable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_delete', esc_html__( 'Delete', 'assistant-for-woocommerce' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
+		          ->addColumn( esc_html__( 'Title', 'assistant-for-woocommerce' ), 'title' )
+		          ->addColumn( esc_html__( 'ShortCode', 'assistant-for-woocommerce' ), 'code', function ( $row ) {
+			          return '<code class="asfowoo-copy-text" title="' . esc_html__( 'Copy shortcode', 'assistant-for-woocommerce' ) . '">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
 		          }, [ 'is_html' => true, 'hide_on_mobile' => true ] )
-		          ->addColumn( __( 'Status', 'assistant-for-woocommerce' ), $dataTable::ACTIVE_FIELD );
+		          ->addColumn( esc_html__( 'Status', 'assistant-for-woocommerce' ), $dataTable::ACTIVE_FIELD );
 
 		return $dataTable;
 	}
@@ -344,7 +344,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		$dataTable = $this->getDataTable();
 
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Announcement Bar', 'assistant-for-woocommerce' ),
+			'title'        => esc_html__( 'Announcement Bar', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->currentSection,
 			'settings'     => array(
 				'data_table_ui' => array(
@@ -368,17 +368,17 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'title',
-				'title'         => __( 'Title', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Title', 'assistant-for-woocommerce' ),
 				/* translators: %s: Shortcode */
-				'desc'          => isset( $data['code'] ) && $data['code'] ? wp_sprintf( __( 'Announcement Bar shortcode: %s', 'assistant-for-woocommerce' ), '<code class="asfowoo-copy-text">[' . self::shortCode . ' code="' . $data['code'] . ']</code>' ) : '',
-				'placeholder'   => __( 'Announcement title', 'assistant-for-woocommerce' ),
+				'desc'          => isset( $data['code'] ) && $data['code'] ? wp_sprintf( esc_html__( 'Announcement Bar shortcode: %s', 'assistant-for-woocommerce' ), '<code class="asfowoo-copy-text">[' . self::shortCode . ' code="' . $data['code'] . ']</code>' ) : '',
+				'placeholder'   => esc_html__( 'Announcement title', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['title'] ?? ''
 			),
 			array(
 				'id'            => 'text',
-				'title'         => __( 'Text', 'assistant-for-woocommerce' ),
-				'placeholder'   => __( 'Announcement text', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Text', 'assistant-for-woocommerce' ),
+				'placeholder'   => esc_html__( 'Announcement text', 'assistant-for-woocommerce' ),
 				'type'          => 'textarea',
 				'attributes'    => array(
 					'resize' => 'none'
@@ -387,30 +387,30 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'primary_button',
-				'title'         => __( 'Primary button', 'assistant-for-woocommerce' ),
-				'placeholder'   => __( 'Primary button text', 'assistant-for-woocommerce' ),
-				'desc'          => __( 'If you leave the field blank, the announcement bar will be linked.', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Primary button', 'assistant-for-woocommerce' ),
+				'placeholder'   => esc_html__( 'Primary button text', 'assistant-for-woocommerce' ),
+				'desc'          => esc_html__( 'If you leave the field blank, the announcement bar will be linked.', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['primary_button'] ?? ''
 			),
 			array(
 				'id'            => 'primary_button_url',
-				'title'         => __( 'Primary link', 'assistant-for-woocommerce' ),
-				'placeholder'   => __( 'Primary button link', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Primary link', 'assistant-for-woocommerce' ),
+				'placeholder'   => esc_html__( 'Primary button link', 'assistant-for-woocommerce' ),
 				'type'          => 'url',
 				'setting_value' => $data['primary_button_url'] ?? ''
 			),
 			array(
 				'id'            => 'secondary_button',
-				'title'         => __( 'Secondary button', 'assistant-for-woocommerce' ),
-				'placeholder'   => __( 'Secondary button text', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Secondary button', 'assistant-for-woocommerce' ),
+				'placeholder'   => esc_html__( 'Secondary button text', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['secondary_button'] ?? ''
 			),
 			array(
 				'id'            => 'secondary_button_url',
-				'title'         => __( 'Secondary link', 'assistant-for-woocommerce' ),
-				'placeholder'   => __( 'Secondary button link', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Secondary link', 'assistant-for-woocommerce' ),
+				'placeholder'   => esc_html__( 'Secondary button link', 'assistant-for-woocommerce' ),
 				'type'          => 'url',
 				'setting_value' => $data['secondary_button_url'] ?? ''
 			),
@@ -418,17 +418,17 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				'type' => 'hr',
 			),
 			array(
-				'title' => __( 'Display on', 'assistant-for-woocommerce' ),
+				'title' => esc_html__( 'Display on', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 			array(
 				'id'                => 'position',
-				'title'             => __( 'Position', 'assistant-for-woocommerce' ),
+				'title'             => esc_html__( 'Position', 'assistant-for-woocommerce' ),
 				'type'              => 'select',
 				'options'           => array(
-					'top'           => __( 'Top', 'assistant-for-woocommerce' ),
-					'sticky-top'    => __( 'Sticky on top', 'assistant-for-woocommerce' ),
-					'sticky-bottom' => __( 'Sticky on bottom', 'assistant-for-woocommerce' ),
+					'top'           => esc_html__( 'Top', 'assistant-for-woocommerce' ),
+					'sticky-top'    => esc_html__( 'Sticky on top', 'assistant-for-woocommerce' ),
+					'sticky-bottom' => esc_html__( 'Sticky on bottom', 'assistant-for-woocommerce' ),
 				),
 				'option_none'       => 'Use shortcode',
 				'option_none_value' => '',
@@ -438,33 +438,33 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'post_ids',
-				'title'         => __( 'Single post/page/product', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Single post/page/product', 'assistant-for-woocommerce' ),
 				'placeholder'   => '1,25,87',
-				'desc'          => __( 'Enter the post, page, or product IDs, separated by commas.', 'assistant-for-woocommerce' ),
+				'desc'          => esc_html__( 'Enter the post, page, or product IDs, separated by commas.', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['post_ids'] ?? ''
 			),
 			array(
 				'id'               => 'display_on',
-				'title'            => __( 'Select page types', 'assistant-for-woocommerce' ),
+				'title'            => esc_html__( 'Select page types', 'assistant-for-woocommerce' ),
 				'type'             => 'checkboxInline',
 				'setting_value'    => $data['display_on'] ?? [ 'all' ],
 				'options'          => array(
-					'all'              => __( 'All pages', 'assistant-for-woocommerce' ),
-					'home'             => __( 'Home', 'assistant-for-woocommerce' ),
-					'blog'             => __( 'Blog', 'assistant-for-woocommerce' ),
-					'cart'             => __( 'Cart', 'assistant-for-woocommerce' ),
-					'checkout'         => __( 'Checkout', 'assistant-for-woocommerce' ),
-					'shop'             => __( 'Shop', 'assistant-for-woocommerce' ),
-					'product'          => __( 'Product', 'assistant-for-woocommerce' ),
-					'product-category' => __( 'Product category', 'assistant-for-woocommerce' ),
-					'product-tag'      => __( 'Product tag', 'assistant-for-woocommerce' ),
-					'product-taxonomy' => __( 'Product taxonomy', 'assistant-for-woocommerce' ),
-					'category'         => __( 'Category', 'assistant-for-woocommerce' ),
-					'tag'              => __( 'Tag', 'assistant-for-woocommerce' ),
-					'page'             => __( 'Page', 'assistant-for-woocommerce' ),
-					'post'             => __( 'Post', 'assistant-for-woocommerce' ),
-					'singular'         => __( 'All single post types', 'assistant-for-woocommerce' ),
+					'all'              => esc_html__( 'All pages', 'assistant-for-woocommerce' ),
+					'home'             => esc_html__( 'Home', 'assistant-for-woocommerce' ),
+					'blog'             => esc_html__( 'Blog', 'assistant-for-woocommerce' ),
+					'cart'             => esc_html__( 'Cart', 'assistant-for-woocommerce' ),
+					'checkout'         => esc_html__( 'Checkout', 'assistant-for-woocommerce' ),
+					'shop'             => esc_html__( 'Shop', 'assistant-for-woocommerce' ),
+					'product'          => esc_html__( 'Product', 'assistant-for-woocommerce' ),
+					'product-category' => esc_html__( 'Product category', 'assistant-for-woocommerce' ),
+					'product-tag'      => esc_html__( 'Product tag', 'assistant-for-woocommerce' ),
+					'product-taxonomy' => esc_html__( 'Product taxonomy', 'assistant-for-woocommerce' ),
+					'category'         => esc_html__( 'Category', 'assistant-for-woocommerce' ),
+					'tag'              => esc_html__( 'Tag', 'assistant-for-woocommerce' ),
+					'page'             => esc_html__( 'Page', 'assistant-for-woocommerce' ),
+					'post'             => esc_html__( 'Post', 'assistant-for-woocommerce' ),
+					'singular'         => esc_html__( 'All single post types', 'assistant-for-woocommerce' ),
 				),
 				'not_equal'        => true,
 				'sanitize'         => 'array',
@@ -477,23 +477,23 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				'type' => 'hr',
 			),
 			array(
-				'title' => __( 'Style', 'assistant-for-woocommerce' ),
+				'title' => esc_html__( 'Style', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 			array(
 				'id'            => 'text_color',
-				'title'         => __( 'Text color', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Text color', 'assistant-for-woocommerce' ),
 				'type'          => 'wpColorPicker',
 				'sanitize'      => 'color',
 				'setting_value' => $data['text_color'] ?? '#333'
 			),
 			array(
-				'title' => __( 'Background color type', 'assistant-for-woocommerce' ),
+				'title' => esc_html__( 'Background color type', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			array(
 				'id'            => 'bg_color_type',
-				'title'         => __( 'Solid color', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Solid color', 'assistant-for-woocommerce' ),
 				'type'          => 'radio',
 				'default'       => 'solid',
 				'value'         => 'solid',
@@ -502,7 +502,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'bg_color_type',
-				'title'         => __( 'Gradient color', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Gradient color', 'assistant-for-woocommerce' ),
 				'type'          => 'radio',
 				'default'       => 'solid',
 				'value'         => 'gradient',
@@ -514,14 +514,14 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'bg_color_solid',
-				'title'         => __( 'Background solid color', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Background solid color', 'assistant-for-woocommerce' ),
 				'type'          => 'wpColorPicker',
 				'setting_value' => $data['bg_color_solid'] ?? '#ebe5ff',
 				'sanitize'      => 'color'
 			),
 			array(
 				'id'            => 'bg_color_gradient',
-				'title'         => __( 'Background gradient color', 'assistant-for-woocommerce' ),
+				'title'         => esc_html__( 'Background gradient color', 'assistant-for-woocommerce' ),
 				'type'          => 'gradientColorPicker',
 				'addable'       => true,
 				'removable'     => true,
@@ -561,9 +561,9 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Announcement Bar', 'assistant-for-woocommerce' ),
-			'desc'           => __( 'Promote sales using multiple announcement bar banner types.', 'assistant-for-woocommerce' ),
-			'tags'           => [ __( 'Notification', 'assistant-for-woocommerce' ) ],
+			'title'          => esc_html__( 'Announcement Bar', 'assistant-for-woocommerce' ),
+			'desc'           => esc_html__( 'Promote sales using multiple announcement bar banner types.', 'assistant-for-woocommerce' ),
+			'tags'           => [ esc_html__( 'Notification', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'customizations',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

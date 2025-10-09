@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Assistant for WooCommerce\n"
-"POT-Creation-Date: 2025-10-09 18:54+0330\n"
-"PO-Revision-Date: 2025-10-10 00:10+0330\n"
+"POT-Creation-Date: 2025-10-10 00:57+0330\n"
+"PO-Revision-Date: 2025-10-10 00:57+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -104,11 +104,11 @@ msgstr "خرید افزونه مورد نیاز"
 
 #: inc/Addons/Addons.php:229
 msgid ""
-"Assistant for WooCommerce integrates with WooCommerce to help you further enhance "
-"your website. You can enable or disable these integrations below."
+"Assistant for WooCommerce integrates with WooCommerce to help you further "
+"enhance your website. You can enable or disable these integrations below."
 msgstr ""
-"دستیار ووکامرس با ووکامرس ادغام می‌شود تا به شما در بهبود بیشتر وب‌سایتتان کمک کند. "
-"می‌توانید این ادغام‌ها را در زیر فعال یا غیرفعال کنید."
+"دستیار ووکامرس با ووکامرس ادغام می‌شود تا به شما در بهبود بیشتر وب‌سایتتان کمک "
+"کند. می‌توانید این ادغام‌ها را در زیر فعال یا غیرفعال کنید."
 
 #: inc/Addons/Addons.php:241
 msgid "Recommended"
@@ -126,11 +126,11 @@ msgstr "توصیه شده"
 msgid "Product"
 msgstr "محصول"
 
-#: inc/Addons/Addons.php:243 inc/Admin/AdminCart.php:27 inc/Admin/AdminCart.php:44
-#: inc/App/Cart/FlyCart.php:191 inc/App/Cart/FlyCart.php:313
-#: inc/App/Cart/FlyCart.php:379 inc/App/Cart/FlyCart.php:459
-#: inc/App/Cart/FlyCart.php:504 inc/App/Cart/MenuCart.php:219
-#: inc/App/Tools/AnnouncementBarTools.php:456
+#: inc/Addons/Addons.php:243 inc/Admin/AdminCart.php:27
+#: inc/Admin/AdminCart.php:44 inc/App/Cart/FlyCart.php:191
+#: inc/App/Cart/FlyCart.php:313 inc/App/Cart/FlyCart.php:379
+#: inc/App/Cart/FlyCart.php:459 inc/App/Cart/FlyCart.php:504
+#: inc/App/Cart/MenuCart.php:219 inc/App/Tools/AnnouncementBarTools.php:456
 #: inc/Templates/plugin/fly-cart/fly_cart_modal.php:15
 #: inc/Templates/plugin/fly-cart/fly_cart_modal.php:32
 msgid "Cart"
@@ -218,8 +218,8 @@ msgid ""
 "Assistant for WooCommerce is here to help you sell more in your store. To get "
 "started, go to the Addons tab and activate the required addons."
 msgstr ""
-"دستیار ووکامرس اینجاست تا به شما در فروش بیشتر فروشگاهتان کمک کند. برای شروع، به "
-"تب افزونه‌ها بروید و افزونه‌های مورد نیاز را فعال کنید."
+"دستیار ووکامرس اینجاست تا به شما در فروش بیشتر فروشگاهتان کمک کند. برای شروع، "
+"به تب افزونه‌ها بروید و افزونه‌های مورد نیاز را فعال کنید."
 
 #: inc/Admin/AdminGeneral.php:26 inc/Admin/AdminGeneral.php:41
 #: inc/App/General/Styles.php:98 inc/App/Product/ProductGeneral.php:22
@@ -353,13 +353,15 @@ msgstr "پایین راست"
 
 #: inc/App/Cart/FlyCart.php:303 inc/App/Cart/MenuCart.php:162
 #: inc/App/Product/ProductSocialShare.php:392
-#: inc/App/Product/ProductWishList.php:635 inc/App/Product/ProductWishList.php:648
+#: inc/App/Product/ProductWishList.php:635
+#: inc/App/Product/ProductWishList.php:648
 msgid "Icon"
 msgstr "آیکن"
 
 #: inc/App/Cart/FlyCart.php:311 inc/App/Order/OrderStatus.php:286
 #: inc/App/Order/OrderStatus.php:421 inc/App/Order/OrderStatus.php:454
-#: inc/App/Product/ProductRelated.php:250 inc/App/Product/ProductSocialShare.php:381
+#: inc/App/Product/ProductRelated.php:250
+#: inc/App/Product/ProductSocialShare.php:381
 #: inc/App/Tools/AnnouncementBarTools.php:238
 #: inc/App/Tools/AnnouncementBarTools.php:334
 #: inc/App/Tools/AnnouncementBarTools.php:371
@@ -537,7 +539,8 @@ msgstr "فیلد یافت نشد!"
 msgid "%s field is empty!"
 msgstr "%s فیلد خالی است!"
 
-#: inc/App/Checkout/CheckoutFields.php:326 inc/App/Checkout/CheckoutFields.php:462
+#: inc/App/Checkout/CheckoutFields.php:326
+#: inc/App/Checkout/CheckoutFields.php:462
 #: inc/App/Checkout/CheckoutFields.php:579
 msgid "Name"
 msgstr "نام"
@@ -561,14 +564,15 @@ msgstr "مورد انتخاب شده یافت نشد!"
 
 #: inc/App/Checkout/CheckoutFields.php:420 inc/App/Product/ProductCall.php:174
 #: inc/App/Product/ProductSocialShare.php:393
-#: inc/App/Product/ProductWishList.php:636 inc/App/Product/ProductWishList.php:649
+#: inc/App/Product/ProductWishList.php:636
+#: inc/App/Product/ProductWishList.php:649
 #: inc/App/Tools/AnnouncementBarTools.php:241
 #: inc/App/Tools/AnnouncementBarTools.php:380
 msgid "Text"
 msgstr "متن"
 
-#: inc/App/Checkout/CheckoutFields.php:421 inc/App/Checkout/CheckoutFields.php:505
-#: inc/App/Order/OrderNumber.php:244
+#: inc/App/Checkout/CheckoutFields.php:421
+#: inc/App/Checkout/CheckoutFields.php:505 inc/App/Order/OrderNumber.php:244
 msgid "Number"
 msgstr "شماره"
 
@@ -576,16 +580,19 @@ msgstr "شماره"
 msgid "Password"
 msgstr "رمز عبور"
 
-#: inc/App/Checkout/CheckoutFields.php:423 inc/App/Checkout/CheckoutFields.php:506
+#: inc/App/Checkout/CheckoutFields.php:423
+#: inc/App/Checkout/CheckoutFields.php:506
 #: inc/App/Product/ProductSocialShare.php:250
 msgid "Email"
 msgstr "ایمیل"
 
-#: inc/App/Checkout/CheckoutFields.php:424 inc/App/Checkout/CheckoutFields.php:508
+#: inc/App/Checkout/CheckoutFields.php:424
+#: inc/App/Checkout/CheckoutFields.php:508
 msgid "Phone"
 msgstr "تلفن"
 
-#: inc/App/Checkout/CheckoutFields.php:425 inc/App/Checkout/CheckoutFields.php:507
+#: inc/App/Checkout/CheckoutFields.php:425
+#: inc/App/Checkout/CheckoutFields.php:507
 msgid "URL"
 msgstr "آدرس وب"
 
@@ -597,8 +604,8 @@ msgstr "پنهان"
 msgid "Textarea"
 msgstr "متن چند سطر"
 
-#: inc/App/Checkout/CheckoutFields.php:451 inc/App/Product/ProductWishList.php:583
-#: inc/Helper/HTML.php:853
+#: inc/App/Checkout/CheckoutFields.php:451
+#: inc/App/Product/ProductWishList.php:583 inc/Helper/HTML.php:853
 msgid "Type"
 msgstr "نوع"
 
@@ -606,7 +613,8 @@ msgstr "نوع"
 msgid "Use english alphabetic characters"
 msgstr "از حروف الفبای انگلیسی استفاده کنید"
 
-#: inc/App/Checkout/CheckoutFields.php:472 inc/App/Checkout/CheckoutFields.php:580
+#: inc/App/Checkout/CheckoutFields.php:472
+#: inc/App/Checkout/CheckoutFields.php:580
 msgid "Label"
 msgstr "برچسب"
 
@@ -701,7 +709,8 @@ msgstr "فیلدهای حمل و نقل"
 msgid "Order Fields"
 msgstr "فیلدهای سفارش"
 
-#: inc/App/Checkout/CheckoutFields.php:658 inc/App/Checkout/CheckoutFields.php:730
+#: inc/App/Checkout/CheckoutFields.php:658
+#: inc/App/Checkout/CheckoutFields.php:730
 msgid "Checkout Fields"
 msgstr "فیلدهای پرداخت"
 
@@ -747,8 +756,8 @@ msgstr "فعال کردن حالت اشکال‌زدایی"
 
 #: inc/App/General/Debug.php:36
 msgid ""
-"By enabling this option, the uncompressed version of the JS and CSS files will be "
-"loaded."
+"By enabling this option, the uncompressed version of the JS and CSS files will "
+"be loaded."
 msgstr "با فعال کردن این گزینه، نسخه فشرده نشده فایل‌های JS و CSS بارگذاری می‌شود."
 
 #: inc/App/General/Debug.php:45
@@ -900,11 +909,12 @@ msgstr "طول شماره سفارش"
 
 #: inc/App/Order/OrderNumber.php:271
 msgid ""
-"Minimum length of number (zeros add to the left). This changes the order number "
-"length for all orders. Set to 5 for 00001, leave as 0 to disable."
+"Minimum length of number (zeros add to the left). This changes the order "
+"number length for all orders. Set to 5 for 00001, leave as 0 to disable."
 msgstr ""
 "حداقل طول شماره (صفرها به سمت چپ جمع می‌شوند). این، طول شماره سفارش را برای همه "
-"سفارش‌ها تغییر می‌دهد. برای ۰۰۰۰۱ روی ۵ تنظیم کنید، برای غیرفعال کردن ۰ را بگذارید."
+"سفارش‌ها تغییر می‌دهد. برای ۰۰۰۰۱ روی ۵ تنظیم کنید، برای غیرفعال کردن ۰ را "
+"بگذارید."
 
 #: inc/App/Order/OrderNumber.php:284
 msgid "Prefix"
@@ -919,7 +929,8 @@ msgid "Date format"
 msgstr "قالب تاریخ"
 
 #: inc/App/Order/OrderNumber.php:292
-msgid "Date will be appended at the beginning of the order number or after prefix."
+msgid ""
+"Date will be appended at the beginning of the order number or after prefix."
 msgstr "تاریخ در ابتدای شماره سفارش یا بعد از پیشوند اضافه می‌شود."
 
 #: inc/App/Order/OrderNumber.php:298
@@ -1210,7 +1221,8 @@ msgstr "ویژگی‌های محصول"
 
 #: inc/App/Product/ProductCompare.php:444
 msgid ""
-"Your product attributes is empty, Add attribute in \"Products > Attributes\" menu."
+"Your product attributes is empty, Add attribute in \"Products > Attributes\" "
+"menu."
 msgstr ""
 "ویژگی‌های محصول شما خالی است، ویژگی را در منوی «محصولات > ویژگی‌ها» اضافه کنید."
 
@@ -1362,7 +1374,8 @@ msgstr "تنوع قیمت محصول"
 msgid "Add advanced settings for WooCommerce variable product pricing."
 msgstr "تنظیمات پیشرفته برای قیمت‌گذاری متغیر محصولات ووکامرس اضافه کنید."
 
-#: inc/App/Product/ProductQuantity.php:100 inc/App/Product/ProductQuantity.php:194
+#: inc/App/Product/ProductQuantity.php:100
+#: inc/App/Product/ProductQuantity.php:194
 msgid "Minimum Quantity"
 msgstr "حداقل مقدار"
 
@@ -1370,7 +1383,8 @@ msgstr "حداقل مقدار"
 msgid "Enter minimum quantity for this product"
 msgstr "حداقل مقدار برای این محصول را وارد کنید"
 
-#: inc/App/Product/ProductQuantity.php:114 inc/App/Product/ProductQuantity.php:210
+#: inc/App/Product/ProductQuantity.php:114
+#: inc/App/Product/ProductQuantity.php:210
 msgid "Maximum Quantity"
 msgstr "حداکثر مقدار"
 
@@ -1378,7 +1392,8 @@ msgstr "حداکثر مقدار"
 msgid "Enter maximum quantity for this product"
 msgstr "حداکثر مقدار برای این محصول را وارد کنید"
 
-#: inc/App/Product/ProductQuantity.php:128 inc/App/Product/ProductQuantity.php:226
+#: inc/App/Product/ProductQuantity.php:128
+#: inc/App/Product/ProductQuantity.php:226
 msgid "Quantity Step"
 msgstr "گام مقدار"
 
@@ -1399,7 +1414,8 @@ msgid "Enter quantity step for this product variation"
 msgstr "مقدار گام برای این تنوع محصول را وارد کنید"
 
 #: inc/App/Product/ProductQuantity.php:436
-msgid "You have reached the maximum number of items in your cart for this product."
+msgid ""
+"You have reached the maximum number of items in your cart for this product."
 msgstr "شما به حداکثر تعداد اقلام موجود در سبد خرید خود برای این محصول رسیده‌اید."
 
 #: inc/App/Product/ProductQuantity.php:558
@@ -1504,8 +1520,8 @@ msgstr "تعداد محصول"
 
 #: inc/App/Product/ProductQuantity.php:871
 msgid ""
-"Add plus and minus buttons to the quantity field. Control the minimum, maximum, "
-"and step values of the quantity field."
+"Add plus and minus buttons to the quantity field. Control the minimum, "
+"maximum, and step values of the quantity field."
 msgstr ""
 "دکمه‌های افزایش و کاهش را به فیلد مقدار اضافه کنید. مقادیر حداقل، حداکثر و گام "
 "فیلد مقدار را کنترل کنید."
@@ -1580,7 +1596,8 @@ msgstr "نزولی"
 msgid "Display related products by"
 msgstr "نمايش محصولات مرتبط براساس"
 
-#: inc/App/Product/ProductRelated.php:294 inc/App/Tools/AnnouncementBarTools.php:463
+#: inc/App/Product/ProductRelated.php:294
+#: inc/App/Tools/AnnouncementBarTools.php:463
 msgid "Category"
 msgstr "دسته‌بندی"
 
@@ -1592,7 +1609,8 @@ msgstr "مستثنی کردن دسته‌ها"
 msgid "Choose the categories to exclude from the related products section."
 msgstr "دسته‌هایی را که می‌خواهید از بخش محصولات مرتبط حذف کنید، انتخاب کنید."
 
-#: inc/App/Product/ProductRelated.php:321 inc/App/Tools/AnnouncementBarTools.php:464
+#: inc/App/Product/ProductRelated.php:321
+#: inc/App/Tools/AnnouncementBarTools.php:464
 msgid "Tag"
 msgstr "برچسب"
 
@@ -1698,8 +1716,8 @@ msgstr "مرتبط"
 
 #: inc/App/Product/ProductRelated.php:539
 msgid ""
-"Displays custom related products based on category, tags, attributes, or specific "
-"products for your WooCommerce store."
+"Displays custom related products based on category, tags, attributes, or "
+"specific products for your WooCommerce store."
 msgstr ""
 "محصولات مرتبط سفارشی را براساس دسته‌بندی، برچسب‌ها، ویژگی‌ها یا محصولات خاص برای "
 "فروشگاه ووکامرس شما نمایش می‌دهد."
@@ -1712,7 +1730,8 @@ msgstr "نشان فروش"
 msgid "Sale Badge text"
 msgstr "متن نشان فروش"
 
-#: inc/App/Product/ProductSaleBadge.php:102 inc/App/Product/ProductSaleBadge.php:103
+#: inc/App/Product/ProductSaleBadge.php:102
+#: inc/App/Product/ProductSaleBadge.php:103
 #: inc/App/Product/ProductSaleBadge.php:129
 msgid "Sale"
 msgstr "فروش"
@@ -1734,7 +1753,8 @@ msgid "Customize the product sale badge."
 msgstr "نشان فروش محصول را سفارشی کنید."
 
 #: inc/App/Product/ProductSaleProgressBar.php:24
-msgid "At present, this functionality is exclusively available for simple products."
+msgid ""
+"At present, this functionality is exclusively available for simple products."
 msgstr "در حال حاضر، این قابلیت منحصراً برای محصولات ساده در دسترس است."
 
 #: inc/App/Product/ProductSaleProgressBar.php:59
@@ -1755,8 +1775,8 @@ msgstr "مقدار نوار پیشرفت فروش"
 
 #: inc/App/Product/ProductSaleProgressBar.php:92
 msgid ""
-"Please enter the starting quantity of product, The entered value must be greater "
-"than the quantity value."
+"Please enter the starting quantity of product, The entered value must be "
+"greater than the quantity value."
 msgstr ""
 "لطفا تعداد اولیه محصول را وارد کنید، مقدار وارد شده باید بیشتر از مقدار تعداد "
 "باشد."
@@ -1785,22 +1805,26 @@ msgid "Position on single page"
 msgstr "موقعیت در تک صفحه"
 
 #: inc/App/Product/ProductSaleProgressBar.php:132
-#: inc/App/Product/ProductWishList.php:543 inc/App/Product/ProductWishList.php:562
+#: inc/App/Product/ProductWishList.php:543
+#: inc/App/Product/ProductWishList.php:562
 msgid "Before title"
 msgstr "قبل از عنوان"
 
 #: inc/App/Product/ProductSaleProgressBar.php:133
-#: inc/App/Product/ProductWishList.php:544 inc/App/Product/ProductWishList.php:563
+#: inc/App/Product/ProductWishList.php:544
+#: inc/App/Product/ProductWishList.php:563
 msgid "After title"
 msgstr "بعد از عنوان"
 
 #: inc/App/Product/ProductSaleProgressBar.php:134
-#: inc/App/Product/ProductWishList.php:545 inc/App/Product/ProductWishList.php:564
+#: inc/App/Product/ProductWishList.php:545
+#: inc/App/Product/ProductWishList.php:564
 msgid "After rating"
 msgstr "بعد از امتیازدهی"
 
 #: inc/App/Product/ProductSaleProgressBar.php:135
-#: inc/App/Product/ProductWishList.php:546 inc/App/Product/ProductWishList.php:565
+#: inc/App/Product/ProductWishList.php:546
+#: inc/App/Product/ProductWishList.php:565
 msgid "After price"
 msgstr "بعد از قیمت"
 
@@ -1810,12 +1834,14 @@ msgid "After excerpt"
 msgstr "بعد از خلاصه"
 
 #: inc/App/Product/ProductSaleProgressBar.php:137
-#: inc/App/Product/ProductWishList.php:548 inc/App/Product/ProductWishList.php:566
+#: inc/App/Product/ProductWishList.php:548
+#: inc/App/Product/ProductWishList.php:566
 msgid "Before add to cart button"
 msgstr "قبل از دکمه افزودن به سبد خرید"
 
 #: inc/App/Product/ProductSaleProgressBar.php:138
-#: inc/App/Product/ProductWishList.php:549 inc/App/Product/ProductWishList.php:567
+#: inc/App/Product/ProductWishList.php:549
+#: inc/App/Product/ProductWishList.php:567
 msgid "After add to cart button"
 msgstr "بعد از دکمه افزودن به سبد خرید"
 
@@ -1830,7 +1856,8 @@ msgid "After sharing"
 msgstr "بعد از اشتراک‌گذاری"
 
 #: inc/App/Product/ProductSaleProgressBar.php:142
-#: inc/App/Product/ProductWishList.php:553 inc/App/Product/ProductWishList.php:569
+#: inc/App/Product/ProductWishList.php:553
+#: inc/App/Product/ProductWishList.php:569
 msgid "Hide"
 msgstr "پنهان کردن"
 
@@ -2002,7 +2029,8 @@ msgid "Button Appearance"
 msgstr "ظاهر دکمه"
 
 #: inc/App/Product/ProductSocialShare.php:394
-#: inc/App/Product/ProductWishList.php:637 inc/App/Product/ProductWishList.php:650
+#: inc/App/Product/ProductWishList.php:637
+#: inc/App/Product/ProductWishList.php:650
 msgid "Icon with text"
 msgstr "آیکن با متن"
 
@@ -2042,17 +2070,21 @@ msgstr "فعال کردن اشتراک‌گذاری شبکه‌های اجتما
 msgid "Wishlist"
 msgstr "فهرست علاقه‌مندی‌ها"
 
-#: inc/App/Product/ProductWishList.php:267 inc/App/Product/ProductWishList.php:279
+#: inc/App/Product/ProductWishList.php:267
+#: inc/App/Product/ProductWishList.php:279
 #: inc/App/Product/ProductWishList.php:604
 msgid "Add to wishlist"
 msgstr "افزودن به علاقه‌مندی‌ها"
 
-#: inc/App/Product/ProductWishList.php:269 inc/App/Product/ProductWishList.php:280
-#: inc/App/Product/ProductWishList.php:610 inc/App/Product/ProductWishList.php:625
+#: inc/App/Product/ProductWishList.php:269
+#: inc/App/Product/ProductWishList.php:280
+#: inc/App/Product/ProductWishList.php:610
+#: inc/App/Product/ProductWishList.php:625
 msgid "Remove from wishlist"
 msgstr "حذف از علاقه‌مندی‌ها"
 
-#: inc/App/Product/ProductWishList.php:270 inc/App/Product/ProductWishList.php:281
+#: inc/App/Product/ProductWishList.php:270
+#: inc/App/Product/ProductWishList.php:281
 #: inc/App/Product/ProductWishList.php:616
 msgid "Browse wishlist"
 msgstr "مشاهده علاقه‌مندی‌ها"
@@ -2103,7 +2135,8 @@ msgstr "حذف خودکار محصول از فهرست علاقه‌مندی‌�
 msgid "Position on archive page"
 msgstr "موقعیت در صفحه بایگانی"
 
-#: inc/App/Product/ProductWishList.php:578 inc/App/Product/ProductWishList.php:586
+#: inc/App/Product/ProductWishList.php:578
+#: inc/App/Product/ProductWishList.php:586
 msgid "Button"
 msgstr "دکمه"
 
@@ -2157,7 +2190,8 @@ msgstr "انتخاب ظاهر دکمه بایگانی"
 msgid "WishList"
 msgstr "فهرست علاقه‌مندی‌ها"
 
-#: inc/App/Product/ProductWishList.php:665 inc/App/Product/ProductWishList.php:678
+#: inc/App/Product/ProductWishList.php:665
+#: inc/App/Product/ProductWishList.php:678
 msgid "Products WishList"
 msgstr "محصولات مورد علاقه"
 
@@ -2278,7 +2312,8 @@ msgstr "نوشته/صفحه/محصول تکی"
 
 #: inc/App/Tools/AnnouncementBarTools.php:443
 msgid "Enter the post, page, or product IDs, separated by commas."
-msgstr "شناسه‌های نوشته، صفحه یا محصول را وارد کنید، آنها را با کاما از هم جدا کنید."
+msgstr ""
+"شناسه‌های نوشته، صفحه یا محصول را وارد کنید، آنها را با کاما از هم جدا کنید."
 
 #: inc/App/Tools/AnnouncementBarTools.php:449
 msgid "Select page types"
@@ -2344,7 +2379,8 @@ msgstr "با استفاده از انواع مختلف بنرهای نوار ا�
 msgid "Notification"
 msgstr "اعلان"
 
-#: inc/App/Tools/CurrencySymbolTools.php:78 inc/App/Tools/CurrencySymbolTools.php:82
+#: inc/App/Tools/CurrencySymbolTools.php:78
+#: inc/App/Tools/CurrencySymbolTools.php:82
 #: inc/App/Tools/CurrencySymbolTools.php:149
 msgid "Currency Symbol"
 msgstr "نماد ارز"
@@ -2493,7 +2529,8 @@ msgid "No entries!"
 msgstr "بدون ورودی!"
 
 #. Description of the plugin/theme
-msgid "Assistant for WooCommerce, First plugin you need for your WooCommerce store."
+msgid ""
+"Assistant for WooCommerce, First plugin you need for your WooCommerce store."
 msgstr "دستیار ووکامرس، اولین افزونه‌ای که برای فروشگاه ووکامرسی خود نیاز دارید."
 
 #. Author of the plugin/theme

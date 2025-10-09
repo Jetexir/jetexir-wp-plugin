@@ -29,7 +29,7 @@ class AppAssets {
 		wp_localize_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-global', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP, array(
 			'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 			'ajaxNonce' => Nonce::create(),
-			'sslError'  => __( 'Your site does not have SSL support, For example: https://example.com', 'assistant-for-woocommerce' ),
+			'sslError'  => esc_html__( 'Your site does not have SSL support, For example: https://example.com', 'assistant-for-woocommerce' ),
 			'pageName'  => WordPress::getPageName(),
 			'direction' => WordPress::isRTL() ? 'rtl' : 'ltr',
 		) );

@@ -26,7 +26,7 @@ class AdminDashboard implements AdminTabInterface {
 
 	public function addMenu( $menus ) {
 		$menus[ self::tab ] = array(
-			'title' => __( 'Dashboard', 'assistant-for-woocommerce' ),
+			'title' => esc_html__( 'Dashboard', 'assistant-for-woocommerce' ),
 			'icon'  => self::icon
 		);
 
@@ -34,7 +34,7 @@ class AdminDashboard implements AdminTabInterface {
 	}
 
 	public function notice(): void {
-		Notice::add( self::tab, __( 'Welcome to Assistant for WooCommerce!', 'assistant-for-woocommerce' ), 'default' );
+		Notice::add( self::tab, esc_html__( 'Welcome to Assistant for WooCommerce!', 'assistant-for-woocommerce' ), 'default' );
 	}
 
 	public function content(): void {
@@ -44,8 +44,8 @@ class AdminDashboard implements AdminTabInterface {
 		);
 
 		if ( empty( $dashboardTypeLinks['addons'] ) ) {
-			$message = '<strong>' . __( 'Hello', 'assistant-for-woocommerce' ) . ', ' . User::getData( 'display_name' ) . '!</strong>';
-			$message .= '<p>' . __( 'Assistant for WooCommerce is here to help you sell more in your store. To get started, go to the Addons tab and activate the required addons.', 'assistant-for-woocommerce' ) . '</p>';
+			$message = '<strong>' . esc_html__( 'Hello', 'assistant-for-woocommerce' ) . ', ' . User::getData( 'display_name' ) . '!</strong>';
+			$message .= '<p>' . esc_html__( 'Assistant for WooCommerce is here to help you sell more in your store. To get started, go to the Addons tab and activate the required addons.', 'assistant-for-woocommerce' ) . '</p>';
 
 			echo '<div class="asfowoo-dashboard-welcome">' . wp_kses( $message, [
 					'strong' => [],
@@ -58,7 +58,7 @@ class AdminDashboard implements AdminTabInterface {
 			foreach ( $dashboardLinks as $link ) {
 				$icon = ! empty( $link['icon'] ) && Assets::isSvgImageString( $link['icon'] ) ? Assets::setSvgDimensions( $link['icon'], 50 ) : '';
 				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo '<a href="' . esc_url_raw( $link['link'] ) . '" title="' . esc_html( $link['desc'] ) . '" class="asfowoo-link-type-' . esc_html( $link['type'] ) . '">' . $icon . '<span>' . esc_html( $link['title'] ) . '</span></a>';
+				echo '<a href="' . esc_url( $link['link'] ) . '" title="' . esc_html( $link['desc'] ) . '" class="asfowoo-link-type-' . esc_html( $link['type'] ) . '">' . $icon . '<span>' . esc_html( $link['title'] ) . '</span></a>';
 			}
 		}
 		echo '</div>';

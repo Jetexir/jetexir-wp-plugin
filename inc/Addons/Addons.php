@@ -38,8 +38,8 @@ class Addons {
 
     public function addDashboardLink( $links ) {
         $links[] = [
-                'title' => __( 'Addons', 'assistant-for-woocommerce' ),
-                'desc'  => __( 'Assistant for WooCommerce Addons', 'assistant-for-woocommerce' ),
+                'title' => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
+                'desc'  => esc_html__( 'Assistant for WooCommerce Addons', 'assistant-for-woocommerce' ),
                 'link'  => AdminPages::link( [
                         'tab' => self::tab
                 ] ),
@@ -60,12 +60,12 @@ class Addons {
 
     public function addRefreshNotice( $tab ): void {
         if ( $tab === self::tab && Cache::get( 'settings_saved' ) ) {
-            Notice::add( self::tab, __( 'To load the add-on initial hooks, the page refreshes.', 'assistant-for-woocommerce' ), 'warning' );
+            Notice::add( self::tab, esc_html__( 'To load the add-on initial hooks, the page refreshes.', 'assistant-for-woocommerce' ), 'warning' );
             ?>
             <script>
                 setTimeout(function () {
                     window.location.href = '<?php
-                            echo esc_url_raw( AdminPages::link( [ 'tab' => self::tab, 'addons-refreshed' => true ] ) )
+                            echo AdminPages::link( [ 'tab' => self::tab, 'addons-refreshed' => true ] )
                             ?>';
                 }, 5000)
             </script>
@@ -75,7 +75,7 @@ class Addons {
 
     public function addMenu( $menus ) {
         $menus[ self::tab ] = array(
-                'title' => __( 'Addons', 'assistant-for-woocommerce' ),
+                'title' => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
                 'icon'  => self::menuIcon
         );
 
@@ -84,7 +84,7 @@ class Addons {
 
     public function saveMessage( $message, $tab ) {
         if ( $tab === self::tab ) {
-            $message = __( 'Addons settings saved.', 'assistant-for-woocommerce' );
+            $message = esc_html__( 'Addons settings saved.', 'assistant-for-woocommerce' );
         }
 
         return $message;
@@ -114,7 +114,7 @@ class Addons {
             $canActivate          = empty( $addon['requires_plugins'] );
             $requirePluginsActive = 0;
             $actionLink           = '';
-            $actionTitle          = __( 'Enable addon', 'assistant-for-woocommerce' );
+            $actionTitle          = esc_html__( 'Enable addon', 'assistant-for-woocommerce' );
 
             if ( ! $canActivate && ! empty( $addon['requires_plugins'] ) && is_array( $addon['requires_plugins'] ) ) {
                 foreach ( $addon['requires_plugins'] as $requirePluginPath => $requirePlugin ) {
@@ -132,7 +132,7 @@ class Addons {
                                 self_admin_url( 'plugins.php?action=activate&plugin=' . $requirePluginPath ),
                                 'activate-plugin_' . $requirePluginPath
                         );
-                        $actionTitle = __( 'Activate required addon', 'assistant-for-woocommerce' );
+                        $actionTitle = esc_html__( 'Activate required addon', 'assistant-for-woocommerce' );
 
                     } elseif ( isset( $requirePlugin['is_wp_plugin'] ) && $requirePlugin['is_wp_plugin'] ) {
                         $pluginSlug = WordPress::pluginPathToSlug( $requirePluginPath );
@@ -141,11 +141,11 @@ class Addons {
                                 self_admin_url( 'update.php?action=install-plugin&plugin=' . $pluginSlug ),
                                 'install-plugin_' . $pluginSlug
                         );
-                        $actionTitle = __( 'Install required addon', 'assistant-for-woocommerce' );
+                        $actionTitle = esc_html__( 'Install required addon', 'assistant-for-woocommerce' );
 
                     } elseif ( ! empty( $requirePlugin['plugin_link'] ) && Validating::isUrl( $requirePlugin['plugin_link'] ) ) {
                         $actionLink  = $requirePlugin['plugin_link'];
-                        $actionTitle = isset( $requirePlugin['is_free'] ) && $requirePlugin['is_free'] ? __( 'Download required addon', 'assistant-for-woocommerce' ) : __( 'Buy required addon', 'assistant-for-woocommerce' );
+                        $actionTitle = isset( $requirePlugin['is_free'] ) && $requirePlugin['is_free'] ? esc_html__( 'Download required addon', 'assistant-for-woocommerce' ) : esc_html__( 'Buy required addon', 'assistant-for-woocommerce' );
 
                     }
 
@@ -225,8 +225,8 @@ class Addons {
         }
 
         return array(
-                'title'    => __( 'Addons', 'assistant-for-woocommerce' ),
-                'desc'     => __( 'Assistant for WooCommerce integrates with WooCommerce to help you further enhance your website. You can enable or disable these integrations below.', 'assistant-for-woocommerce' ),
+                'title'    => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
+                'desc'     => esc_html__( 'Assistant for WooCommerce integrates with WooCommerce to help you further enhance your website. You can enable or disable these integrations below.', 'assistant-for-woocommerce' ),
                 'settings' => $elementList
         );
     }
@@ -238,25 +238,25 @@ class Addons {
         }
 
         $defaultCats = array(
-                'recommended'    => __( 'Recommended', 'assistant-for-woocommerce' ),
-                'product'        => __( 'Product', 'assistant-for-woocommerce' ),
-                'cart'           => __( 'Cart', 'assistant-for-woocommerce' ),
-                'checkout'       => __( 'Checkout', 'assistant-for-woocommerce' ),
-                'order'          => __( 'Order', 'assistant-for-woocommerce' ),
-                'marketing'      => __( 'Marketing', 'assistant-for-woocommerce' ),
-                'payments'       => __( 'Payments', 'assistant-for-woocommerce' ),
-                'merchandising'  => __( 'Merchandising', 'assistant-for-woocommerce' ),
-                'shipping'       => __( 'Shipping', 'assistant-for-woocommerce' ),
-                'customizations' => __( 'Customizations', 'assistant-for-woocommerce' ),
-                'conversion'     => __( 'Conversion', 'assistant-for-woocommerce' ),
-                'seo'            => __( 'SEO', 'assistant-for-woocommerce' ),
-                'utility'        => __( 'Utility', 'assistant-for-woocommerce' ),
+                'recommended'    => esc_html__( 'Recommended', 'assistant-for-woocommerce' ),
+                'product'        => esc_html__( 'Product', 'assistant-for-woocommerce' ),
+                'cart'           => esc_html__( 'Cart', 'assistant-for-woocommerce' ),
+                'checkout'       => esc_html__( 'Checkout', 'assistant-for-woocommerce' ),
+                'order'          => esc_html__( 'Order', 'assistant-for-woocommerce' ),
+                'marketing'      => esc_html__( 'Marketing', 'assistant-for-woocommerce' ),
+                'payments'       => esc_html__( 'Payments', 'assistant-for-woocommerce' ),
+                'merchandising'  => esc_html__( 'Merchandising', 'assistant-for-woocommerce' ),
+                'shipping'       => esc_html__( 'Shipping', 'assistant-for-woocommerce' ),
+                'customizations' => esc_html__( 'Customizations', 'assistant-for-woocommerce' ),
+                'conversion'     => esc_html__( 'Conversion', 'assistant-for-woocommerce' ),
+                'seo'            => esc_html__( 'SEO', 'assistant-for-woocommerce' ),
+                'utility'        => esc_html__( 'Utility', 'assistant-for-woocommerce' ),
         );
 
         $cats = apply_filters( 'assistant_for_woocommerce_addon_cats', array() );
         $cats = is_array( $cats ) ? $cats : [];
 
-        $cats = array_merge( $defaultCats, $cats, [ 'other' => __( 'Other addons', 'assistant-for-woocommerce' ) ] );
+        $cats = array_merge( $defaultCats, $cats, [ 'other' => esc_html__( 'Other addons', 'assistant-for-woocommerce' ) ] );
         Cache::set( 'addon_cats', $cats );
 
         return $cats;
@@ -264,7 +264,7 @@ class Addons {
 
     public function changeSubmitButtonTitle( $title, $tab ) {
         if ( $tab === self::tab ) {
-            $title = __( 'Save active addons', 'assistant-for-woocommerce' );
+            $title = esc_html__( 'Save active addons', 'assistant-for-woocommerce' );
         }
 
         return $title;

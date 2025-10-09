@@ -97,10 +97,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 			array(
 				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_min',
 				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_min',
-				'label'             => __( 'Minimum Quantity', 'assistant-for-woocommerce' ),
+				'label'             => esc_html__( 'Minimum Quantity', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter minimum quantity for this product', 'assistant-for-woocommerce' ),
+				'description'       => esc_html__( 'Enter minimum quantity for this product', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 1',
 				'custom_attributes' => array(
@@ -111,10 +111,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 			array(
 				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_max',
 				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_max',
-				'label'             => __( 'Maximum Quantity', 'assistant-for-woocommerce' ),
+				'label'             => esc_html__( 'Maximum Quantity', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter maximum quantity for this product', 'assistant-for-woocommerce' ),
+				'description'       => esc_html__( 'Enter maximum quantity for this product', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 10',
 				'custom_attributes' => array(
@@ -125,10 +125,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 			array(
 				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_step',
 				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_step',
-				'label'             => __( 'Quantity Step', 'assistant-for-woocommerce' ),
+				'label'             => esc_html__( 'Quantity Step', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter quantity step for this product', 'assistant-for-woocommerce' ),
+				'description'       => esc_html__( 'Enter quantity step for this product', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 1',
 				'custom_attributes' => array(
@@ -191,10 +191,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 			array(
 				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_min[' . $loop . ']',
 				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_min[' . $loop . ']',
-				'label'             => __( 'Minimum Quantity', 'assistant-for-woocommerce' ),
+				'label'             => esc_html__( 'Minimum Quantity', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter minimum quantity for this product variation', 'assistant-for-woocommerce' ),
+				'description'       => esc_html__( 'Enter minimum quantity for this product variation', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 1',
 				'custom_attributes' => array(
@@ -207,10 +207,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 			array(
 				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_max[' . $loop . ']',
 				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_max[' . $loop . ']',
-				'label'             => __( 'Maximum Quantity', 'assistant-for-woocommerce' ),
+				'label'             => esc_html__( 'Maximum Quantity', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter maximum quantity for this product variation', 'assistant-for-woocommerce' ),
+				'description'       => esc_html__( 'Enter maximum quantity for this product variation', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 10',
 				'custom_attributes' => array(
@@ -223,10 +223,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 			array(
 				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_step[' . $loop . ']',
 				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_step[' . $loop . ']',
-				'label'             => __( 'Quantity Step', 'assistant-for-woocommerce' ),
+				'label'             => esc_html__( 'Quantity Step', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter quantity step for this product variation', 'assistant-for-woocommerce' ),
+				'description'       => esc_html__( 'Enter quantity step for this product variation', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 1',
 				'custom_attributes' => array(
@@ -433,7 +433,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$quantities[ $cartProductId ] = isset( $quantities[ $cartProductId ] ) ? $quantities[ $cartProductId ] + $quantity : $quantity;
 		$max                          = min( $stockQuantity, $globalMax, $productMax );
 		if ( $quantities[ $cartProductId ] > $max ) {
-			wc_add_notice( __( 'You have reached the maximum number of items in your cart for this product.', 'assistant-for-woocommerce' ), 'error' );
+			wc_add_notice( esc_html__( 'You have reached the maximum number of items in your cart for this product.', 'assistant-for-woocommerce' ), 'error' );
 
 			return false;
 		}
@@ -555,7 +555,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 			}*/
 
 			if ( $_max != $max ) {
-				Notice::add( $tab, __( 'The maximum value changes based on the minimum and step.', 'assistant-for-woocommerce' ), 'warning' );
+				Notice::add( $tab, esc_html__( 'The maximum value changes based on the minimum and step.', 'assistant-for-woocommerce' ), 'warning' );
 			}
 
 			$options['quantity_maximum_value'] = $max;
@@ -702,26 +702,26 @@ class ProductQuantity extends Addon implements AddonInterface {
 
 	public function addSectionSettings( $sections ): array {
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Quantity', 'assistant-for-woocommerce' ),
-			'desc'         => __( 'Quantity Customization', 'assistant-for-woocommerce' ),
+			'title'        => esc_html__( 'Quantity', 'assistant-for-woocommerce' ),
+			'desc'         => esc_html__( 'Quantity Customization', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->addonID,
 			'settings'     => array(
 				'start_grid_quantity_control'          => array(
-					'title' => __( 'Quantity Control', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Quantity Control', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'product_quantity_disabled'            => array(
 					'id'       => 'product_quantity_disabled',
-					'title'    => __( 'Disable on Single Product', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Disable on Single Product', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
-					'desc'     => __( 'Disable Quantity Field for All Products', 'assistant-for-woocommerce' ),
+					'desc'     => esc_html__( 'Disable Quantity Field for All Products', 'assistant-for-woocommerce' ),
 					'sanitize' => 'bool'
 				),
 				'product_cart_quantity_disabled'       => array(
 					'id'       => 'product_cart_quantity_disabled',
-					'title'    => __( 'Disable on Cart Page', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Disable on Cart Page', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -729,7 +729,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 				'products_sold_individually'           => array(
 					'id'       => 'products_sold_individually',
-					'title'    => __( 'Set "Sold individually" for All Products', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Set "Sold individually" for All Products', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -739,21 +739,21 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'type' => 'endGrid',
 				),
 				'start_grid_quantity_min_max'          => array(
-					'title' => __( 'Min/Max/Step', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Min/Max/Step', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'product_quantity_tools_enable'        => array(
 					'id'       => 'product_quantity_tools_enable',
-					'title'    => __( 'Enable quantity manager', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Enable quantity manager', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
-					'desc'     => __( 'Enable Minimum/Maximum/Step Quantity for all Products', 'assistant-for-woocommerce' ),
+					'desc'     => esc_html__( 'Enable Minimum/Maximum/Step Quantity for all Products', 'assistant-for-woocommerce' ),
 					'sanitize' => 'bool'
 				),
 				'quantity_minimum_value'               => array(
 					'id'         => 'quantity_minimum_value',
-					'title'      => __( 'Minimum', 'assistant-for-woocommerce' ),
+					'title'      => esc_html__( 'Minimum', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 1,
 					'attributes' => array(
@@ -765,7 +765,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 				'quantity_maximum_value'               => array(
 					'id'         => 'quantity_maximum_value',
-					'title'      => __( 'Maximum', 'assistant-for-woocommerce' ),
+					'title'      => esc_html__( 'Maximum', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 1000,
 					'attributes' => array(
@@ -777,7 +777,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 				'quantity_step_value'                  => array(
 					'id'         => 'quantity_step_value',
-					'title'      => __( 'Step', 'assistant-for-woocommerce' ),
+					'title'      => esc_html__( 'Step', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 1,
 					'attributes' => array(
@@ -789,11 +789,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 				'product_single_quantity_tools_enable' => array(
 					'id'       => 'product_single_quantity_tools_enable',
-					'title'    => __( 'Enable quantity manager per Product', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Enable quantity manager per Product', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
-					'desc'     => __( 'Manage Minimum/Maximum/Step per Product', 'assistant-for-woocommerce' ),
+					'desc'     => esc_html__( 'Manage Minimum/Maximum/Step per Product', 'assistant-for-woocommerce' ),
 					'sanitize' => 'bool'
 				),
 				'end_grid_quantity_min_max'            => array(
@@ -803,21 +803,21 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'type' => 'hr',
 				),
 				'start_grid_quantity_input1'           => array(
-					'title' => __( 'Plus/Minus button', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Plus/Minus button', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'quantity_input_plus_minus_button'     => array(
 					'id'       => 'quantity_input_plus_minus_button',
-					'title'    => __( 'Enable Plus/Minus', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Enable Plus/Minus', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
-					'desc'     => __( 'Add Plus/Minus buttons to Quantity input', 'assistant-for-woocommerce' ),
+					'desc'     => esc_html__( 'Add Plus/Minus buttons to Quantity input', 'assistant-for-woocommerce' ),
 					'sanitize' => 'bool'
 				),
 				'quantity_button_width_height'         => array(
 					'id'          => 'quantity_button_width_height',
-					'title'       => __( 'Button width/height', 'assistant-for-woocommerce' ),
+					'title'       => esc_html__( 'Button width/height', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
 					'default'     => '40px',
 					'placeholder' => '40px'
@@ -828,12 +828,12 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 
 				'start_grid_quantity_input5' => array(
-					'title' => __( 'Input Box', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Input Box', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'quantity_input_style'       => array(
 					'id'       => 'quantity_input_style',
-					'title'    => __( 'Enable quantity input style', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Enable quantity input style', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -841,14 +841,14 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 				'quantity_input_width'       => array(
 					'id'          => 'quantity_input_width',
-					'title'       => __( 'Width', 'assistant-for-woocommerce' ),
+					'title'       => esc_html__( 'Width', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
 					'default'     => '40px',
 					'placeholder' => '40px'
 				),
 				'quantity_input_height'      => array(
 					'id'          => 'quantity_input_height',
-					'title'       => __( 'Height', 'assistant-for-woocommerce' ),
+					'title'       => esc_html__( 'Height', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
 					'default'     => '40px',
 					'placeholder' => '40px'
@@ -867,9 +867,9 @@ class ProductQuantity extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Product Quantity', 'assistant-for-woocommerce' ),
-			'desc'           => __( 'Add plus and minus buttons to the quantity field. Control the minimum, maximum, and step values of the quantity field.', 'assistant-for-woocommerce' ),
-			'tags'           => [ __( 'Product', 'assistant-for-woocommerce' ) ],
+			'title'          => esc_html__( 'Product Quantity', 'assistant-for-woocommerce' ),
+			'desc'           => esc_html__( 'Add plus and minus buttons to the quantity field. Control the minimum, maximum, and step values of the quantity field.', 'assistant-for-woocommerce' ),
+			'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

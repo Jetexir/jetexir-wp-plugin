@@ -19,8 +19,8 @@ class ProductGeneral {
 		}
 
 		$sections[ self::sectionID ] = array(
-			'title'    => __( 'General', 'assistant-for-woocommerce' ),
-			'desc'     => __( 'Product general settings', 'assistant-for-woocommerce' ),
+			'title'    => esc_html__( 'General', 'assistant-for-woocommerce' ),
+			'desc'     => esc_html__( 'Product general settings', 'assistant-for-woocommerce' ),
 			'settings' => $settings
 		);
 

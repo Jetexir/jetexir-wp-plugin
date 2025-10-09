@@ -59,7 +59,7 @@ class MenuCart extends Addon implements AddonInterface {
 		$priceType  = $this->getSetting( 'menu_cart_price_type', 'total' );
 		$link       = $this->getSetting( 'menu_cart_link', 'cart' );
 		$itemsCount = WooCommerce::getCartItemsCount();
-		$count      = '<span class="asfowoo-menu-cart-count">' . $itemsCount . ' ' . __( 'items', 'assistant-for-woocommerce' ) . '</span>';
+		$count      = '<span class="asfowoo-menu-cart-count">' . $itemsCount . ' ' . esc_html__( 'items', 'assistant-for-woocommerce' ) . '</span>';
 
 		if ( $priceType === 'subtotal' ) {
 			$price = WooCommerce::getCartSubTotal();
@@ -87,7 +87,7 @@ class MenuCart extends Addon implements AddonInterface {
 		}
 
 		$output = '<li id="asfowoo-menu-cart-' . $menuSlug . '" class="menu-item asfowoo-menu-cart" >';
-		$output .= '<a href="' . $url . '" aria-label="' . __( 'Menu Cart', 'assistant-for-woocommerce' ) . '" ' . $attr . '>';
+		$output .= '<a href="' . $url . '" aria-label="' . esc_html__( 'Menu Cart', 'assistant-for-woocommerce' ) . '" ' . $attr . '>';
 		$output .= $icon . $content;
 		$output .= '</a></li>';
 
@@ -101,18 +101,18 @@ class MenuCart extends Addon implements AddonInterface {
 			$basketIcons[ $icon ] = '<i class="' . $icon . '"></i>';
 		}
 		$sections[ $this->addonID ] = array(
-			'title'        => __( 'Menu Cart', 'assistant-for-woocommerce' ),
-			'desc'         => __( 'Menu Cart', 'assistant-for-woocommerce' ),
+			'title'        => esc_html__( 'Menu Cart', 'assistant-for-woocommerce' ),
+			'desc'         => esc_html__( 'Menu Cart', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->addonID,
 			'settings'     => [
 				'menu_cart_display_start_grid' => array(
 					'id'    => 'fly_cart_start_grid_icon',
-					'title' => __( 'Menu Cart', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Menu Cart', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'menu_cart_menus'              => array(
 					'id'                => 'menu_cart_menus',
-					'title'             => __( 'Select the menu(s) to display the Menu Cart', 'assistant-for-woocommerce' ),
+					'title'             => esc_html__( 'Select the menu(s) to display the Menu Cart', 'assistant-for-woocommerce' ),
 					'type'              => 'menuSelect',
 					'multiple'          => true,
 					'default'           => 0,
@@ -126,7 +126,7 @@ class MenuCart extends Addon implements AddonInterface {
 				),
 				'menu_cart_display_empty'      => array(
 					'id'       => 'menu_cart_display_empty',
-					'title'    => __( 'Hide empty cart', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Hide empty cart', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -134,7 +134,7 @@ class MenuCart extends Addon implements AddonInterface {
 				),
 				'menu_cart_cart_checkout_hide' => array(
 					'id'       => 'menu_cart_cart_checkout_hide',
-					'title'    => __( 'Hide on cart & checkout page', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Hide on cart & checkout page', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -142,8 +142,8 @@ class MenuCart extends Addon implements AddonInterface {
 				),
 				'menu_cart_load_styles'        => array(
 					'id'       => 'menu_cart_load_styles',
-					'title'    => __( 'Add menu styles', 'assistant-for-woocommerce' ),
-					'desc'     => __( 'Styles to better display the menu', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Add menu styles', 'assistant-for-woocommerce' ),
+					'desc'     => esc_html__( 'Styles to better display the menu', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -154,12 +154,12 @@ class MenuCart extends Addon implements AddonInterface {
 				),
 				'menu_cart_content_start_grid' => array(
 					'id'    => 'fly_cart_start_grid_icon',
-					'title' => __( 'Menu Cart content', 'assistant-for-woocommerce' ),
+					'title' => esc_html__( 'Menu Cart content', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'menu_cart_icon'               => array(
 					'id'       => 'menu_cart_icon',
-					'title'    => __( 'Icon', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Icon', 'assistant-for-woocommerce' ),
 					'type'     => 'radioInline',
 					'default'  => 'asfowoo-icon-shopping-cart',
 					'options'  => $basketIcons,
@@ -167,35 +167,35 @@ class MenuCart extends Addon implements AddonInterface {
 				),
 				'menu_cart_content'            => array(
 					'id'       => 'menu_cart_content',
-					'title'    => __( 'Menu content', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Menu content', 'assistant-for-woocommerce' ),
 					'type'     => 'select',
 					'options'  => array(
-						'count'       => __( 'Products count', 'assistant-for-woocommerce' ),
-						'price'       => __( 'Price', 'assistant-for-woocommerce' ),
-						'count-price' => __( 'Products count and price', 'assistant-for-woocommerce' ),
+						'count'       => esc_html__( 'Products count', 'assistant-for-woocommerce' ),
+						'price'       => esc_html__( 'Price', 'assistant-for-woocommerce' ),
+						'count-price' => esc_html__( 'Products count and price', 'assistant-for-woocommerce' ),
 					),
 					'default'  => 'count-price',
 					'sanitize' => 'text'
 				),
 				'menu_cart_price_type'         => array(
 					'id'       => 'menu_cart_price_type',
-					'title'    => __( 'Price type', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Price type', 'assistant-for-woocommerce' ),
 					'type'     => 'select',
 					'options'  => array(
-						'total'    => __( 'Total', 'assistant-for-woocommerce' ),
-						'subtotal' => __( 'Subtotal', 'assistant-for-woocommerce' ),
+						'total'    => esc_html__( 'Total', 'assistant-for-woocommerce' ),
+						'subtotal' => esc_html__( 'Subtotal', 'assistant-for-woocommerce' ),
 					),
 					'default'  => 'total',
 					'sanitize' => 'text'
 				),
 				'menu_cart_link'               => array(
 					'id'       => 'menu_cart_link',
-					'title'    => __( 'Link to', 'assistant-for-woocommerce' ),
+					'title'    => esc_html__( 'Link to', 'assistant-for-woocommerce' ),
 					'type'     => 'select',
 					'options'  => array(
-						'fly-cart-modal' => __( 'Display Fly Cart modal', 'assistant-for-woocommerce' ),
-						'cart'           => __( 'Cart page', 'assistant-for-woocommerce' ),
-						'checkout'       => __( 'Checkout page', 'assistant-for-woocommerce' ),
+						'fly-cart-modal' => esc_html__( 'Display Fly Cart modal', 'assistant-for-woocommerce' ),
+						'cart'           => esc_html__( 'Cart page', 'assistant-for-woocommerce' ),
+						'checkout'       => esc_html__( 'Checkout page', 'assistant-for-woocommerce' ),
 					),
 					'default'  => 'cart',
 					'sanitize' => 'text'
@@ -214,9 +214,9 @@ class MenuCart extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Menu Cart', 'assistant-for-woocommerce' ),
-			'desc'           => __( 'Add a shopping cart icon to the menu bar.', 'assistant-for-woocommerce' ),
-			'tags'           => [ __( 'Cart', 'assistant-for-woocommerce' ) ],
+			'title'          => esc_html__( 'Menu Cart', 'assistant-for-woocommerce' ),
+			'desc'           => esc_html__( 'Add a shopping cart icon to the menu bar.', 'assistant-for-woocommerce' ),
+			'tags'           => [ esc_html__( 'Cart', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'cart',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

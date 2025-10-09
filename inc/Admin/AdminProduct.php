@@ -28,7 +28,7 @@ class AdminProduct implements AdminTabInterface {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$menus[ self::tab ] = array(
-				'title' => __( 'Product', 'assistant-for-woocommerce' ),
+				'title' => esc_html__( 'Product', 'assistant-for-woocommerce' ),
 				'icon'  => self::icon
 			);
 		}
@@ -45,8 +45,8 @@ class AdminProduct implements AdminTabInterface {
 	public function settings(): array {
 		if ( self::$settings === null ) {
 			self::$settings = array(
-				'title'    => __( 'Product', 'assistant-for-woocommerce' ),
-				'desc'     => __( 'Tools to enhance your WooCommerce products', 'assistant-for-woocommerce' ),
+				'title'    => esc_html__( 'Product', 'assistant-for-woocommerce' ),
+				'desc'     => esc_html__( 'Tools to enhance your WooCommerce products', 'assistant-for-woocommerce' ),
 				// 'header_image' => AdminAssets::imageUrl( 'header/product-header.png' ),
 				'sections' => apply_filters( 'assistant_for_woocommerce_' . self::tab . '_settings_sections', [] )
 			);

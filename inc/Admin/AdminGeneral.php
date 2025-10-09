@@ -23,7 +23,7 @@ class AdminGeneral implements AdminTabInterface {
 
 	public function addMenu( $menus ) {
 		$menus[ self::tab ] = array(
-			'title' => __( 'General', 'assistant-for-woocommerce' ),
+			'title' => esc_html__( 'General', 'assistant-for-woocommerce' ),
 			'icon'  => self::icon
 		);
 
@@ -38,8 +38,8 @@ class AdminGeneral implements AdminTabInterface {
 
 	public function settings(): array {
 		return array(
-			'title'    => __( 'General', 'assistant-for-woocommerce' ),
-			'desc'     => __( 'General Settings', 'assistant-for-woocommerce' ),
+			'title'    => esc_html__( 'General', 'assistant-for-woocommerce' ),
+			'desc'     => esc_html__( 'General Settings', 'assistant-for-woocommerce' ),
 			'sections' => apply_filters( 'assistant_for_woocommerce_' . self::tab . '_settings_sections', [] )
 		);
 	}
