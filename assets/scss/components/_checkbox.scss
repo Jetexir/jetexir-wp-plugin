@@ -1,8 +1,8 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-@mixin wa-checkbox {
-  .wa-checkbox-wrap {
+@mixin asfowoo-checkbox {
+  .asfowoo-checkbox-wrap {
     position: relative;
     cursor: pointer;
     -webkit-user-select: none;
@@ -27,7 +27,7 @@
       }
     }
 
-    .wa-checkmark {
+    .asfowoo-checkmark {
       display: block;
       height: 18px;
       width: 18px;
@@ -51,31 +51,31 @@
       }
     }
 
-    &:hover input:not(:checked) ~ .wa-checkmark {
+    &:hover input:not(:checked) ~ .asfowoo-checkmark {
       background-color: color.scale(variables.$background_input, $lightness: -2%);
     }
 
-    input:checked ~ .wa-checkmark {
+    input:checked ~ .asfowoo-checkmark {
       background-color: variables.$primary;
     }
 
-    input:checked ~ .wa-checkmark:after {
+    input:checked ~ .asfowoo-checkmark:after {
       display: block;
     }
 
-    input:focus + .wa-checkmark {
+    input:focus + .asfowoo-checkmark {
       box-shadow: 0 0 0 2px variables.$primary;
     }
 
-    input[disabled] + .wa-checkmark {
+    input[disabled] + .asfowoo-checkmark {
       opacity: 0.7;
     }
 
-    /*input[disabled] + .wa-checkmark {
+    /*input[disabled] + .asfowoo-checkmark {
       background-color: variables.$gray_light_two;
     }
 
-    input[disabled]:checked + .wa-checkmark {
+    input[disabled]:checked + .asfowoo-checkmark {
       background-color: variables.$gray_light;
     }*/
   }

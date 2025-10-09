@@ -1,8 +1,8 @@
 <?php
 
-namespace WooAssistant\Providers\UI;
+namespace AssistantForWooCommerce\Providers\UI;
 
-use WooAssistant\Helper\Templates;
+use AssistantForWooCommerce\Helper\Templates;
 
 abstract class AbstractDataTableUI {
 	/**
@@ -437,8 +437,8 @@ abstract class AbstractDataTableUI {
 			'sortable'             => $this->sortable,
 			'modal_add_title'      => empty( $this->modalAddTitle ) ? $this->title : $this->modalAddTitle,
 			'modal_edit_title'     => empty( $this->modalEditTitle ) ? $this->title : $this->modalEditTitle,
-			'modal_add_button'     => empty( $this->modalAddNewButton ) ? __( 'Add new', 'wc-assistant' ) : $this->modalAddNewButton,
-			'modal_edit_button'    => empty( $this->modalEditButton ) ? __( 'Save changes', 'wc-assistant' ) : $this->modalEditButton,
+			'modal_add_button'     => empty( $this->modalAddNewButton ) ? __( 'Add new', 'assistant-for-woocommerce' ) : $this->modalAddNewButton,
+			'modal_edit_button'    => empty( $this->modalEditButton ) ? __( 'Save changes', 'assistant-for-woocommerce' ) : $this->modalEditButton,
 		);
 	}
 

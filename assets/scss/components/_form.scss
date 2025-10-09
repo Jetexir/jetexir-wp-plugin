@@ -17,22 +17,22 @@
 .#{variables.$plugin_key}-wrap {
   position: relative;
 
-  @include toggle.wa-toggle;
-  @include button.wa-button;
-  @include input.wa-input;
-  @include textarea.wa-textarea;
-  @include checkbox.wa-checkbox;
-  @include radio.wa-radio;
-  @include range.wa-range;
-  @include select.wa-select;
-  @include addons.wa-addons;
-  @include wp.wa-wp;
-  @include repeatable.wa-repeatable;
-  @include color_palette.wa-color-palette;
-  @include gradient_color_picker.wa-gradient-color-picker;
-  @include data_table_ui.wa-data-table-ui;
+  @include toggle.asfowoo-toggle;
+  @include button.asfowoo-button;
+  @include input.asfowoo-input;
+  @include textarea.asfowoo-textarea;
+  @include checkbox.asfowoo-checkbox;
+  @include radio.asfowoo-radio;
+  @include range.asfowoo-range;
+  @include select.asfowoo-select;
+  @include addons.asfowoo-addons;
+  @include wp.asfowoo-wp;
+  @include repeatable.asfowoo-repeatable;
+  @include color_palette.asfowoo-color-palette;
+  @include gradient_color_picker.asfowoo-gradient-color-picker;
+  @include data_table_ui.asfowoo-data-table-ui;
 
-  #wa-settings-form {
+  #asfowoo-settings-form {
     //height: 100% !important;
     display: flex;
     flex-direction: column;
@@ -45,26 +45,26 @@
       margin-top: 0;
     }
 
-    .woo-assistant-notices {
+    .assistant-for-woocommerce-notices {
       margin-bottom: 0;
     }
   }
 
-  .wa-grid {
+  .asfowoo-grid {
     display: grid !important;
     gap: 3rem !important;
   }
 
-  .wa-grid-cols-2 {
+  .asfowoo-grid-cols-2 {
     grid-template-columns: 200px auto !important;
   }
 
-  .wa-field-wrap {
+  .asfowoo-field-wrap {
     display: flex;
     flex-direction: column;
     gap: 10px;
 
-    .wa-field-head {
+    .asfowoo-field-head {
       display: flex;
       column-gap: 20px;
       row-gap: 10px;
@@ -73,25 +73,25 @@
     }
   }
 
-  .wa-fields-wrap {
+  .asfowoo-fields-wrap {
     display: flex;
     flex-direction: column;
     gap: 30px;
 
-    .wa-field-wrap {
-      .wa-field-head {
+    .asfowoo-field-wrap {
+      .asfowoo-field-head {
         flex-direction: column;
         align-items: start;
       }
 
-      &.wa-field-toggle {
-        .wa-field-head {
+      &.asfowoo-field-toggle {
+        .asfowoo-field-head {
           flex-direction: row-reverse;
           justify-content: space-between;
         }
       }
 
-      &.wa-appearance-text-field {
+      &.asfowoo-appearance-text-field {
         input[type="number"] {
           -webkit-appearance: none;
           -moz-appearance: textfield;
@@ -100,12 +100,12 @@
       }
     }
 
-    :is( .wa-inline-elements-group, .wa-radio-group, .wa-checkbox-group) {
+    :is( .asfowoo-inline-elements-group, .asfowoo-radio-group, .asfowoo-checkbox-group) {
       legend {
         margin-bottom: 1em;
       }
 
-      :is(.wa-inline-elements-group-options, .wa-radio-group-options, .wa-checkbox-group-options) {
+      :is(.asfowoo-inline-elements-group-options, .asfowoo-radio-group-options, .asfowoo-checkbox-group-options) {
         display: flex;
         align-items: center;
         flex-direction: row;

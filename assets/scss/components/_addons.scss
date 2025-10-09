@@ -1,8 +1,8 @@
 @use "../utilities/variables";
 
-@mixin wa-addons {
-  .wa-addons-wrap {
-    .wa-heading-2 {
+@mixin asfowoo-addons {
+  .asfowoo-addons-wrap {
+    .asfowoo-heading-2 {
       margin-bottom: 30px;
       font-weight: 600;
     }
@@ -11,14 +11,14 @@
       margin: 30px 0 !important;
     }
 
-    .wa-addons-grid {
+    .asfowoo-addons-grid {
       display: grid;
       //grid-template-columns: repeat(auto-fill, 300px);
       grid-template-columns: repeat(auto-fit, minmax(250px, 0.5fr));
       gap: 20px;
     }
 
-    .wa-addon-wrap {
+    .asfowoo-addon-wrap {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -27,8 +27,8 @@
       overflow: hidden;
       // max-width: 600px;
 
-      &.wa-addon-inactive {
-        .wa-image-wrap {
+      &.asfowoo-addon-inactive {
+        .asfowoo-image-wrap {
           img, svg {
             opacity: 0.5;
             filter: grayscale(80%);
@@ -37,12 +37,12 @@
       }
 
       &:hover, &:focus-within {
-        .wa-image-wrap {
+        .asfowoo-image-wrap {
           background-image: linear-gradient(to right top, #ffffff, #fcfcff, #faf9ff, #f7f5ff, #f5f2ff, #f5f2ff, #f5f2ff, #f5f2ff, #f7f5ff, #faf9ff, #fcfcff, #ffffff);
         }
       }
 
-      .wa-image-wrap {
+      .asfowoo-image-wrap {
         background-color: variables.$background_side;
         background-image: linear-gradient(to right top, #ffffff, #fdfdfe, #fcfbfd, #fafafc, #f8f8fb, #f8f8fb, #f8f8fb, #f8f8fb, #fafafc, #fcfbfd, #fdfdfe, #ffffff);
         height: 100px;
@@ -51,7 +51,7 @@
         justify-content: center;
         position: relative;
 
-        .wa-tag {
+        .asfowoo-tag {
           position: absolute;
           right: 5px;
           top: 5px;
@@ -64,7 +64,7 @@
           cursor: default;
         }
 
-        .wa-image-link {
+        .asfowoo-image-link {
           width: 100%;
           height: 100%;
           display: flex;
@@ -72,7 +72,7 @@
           justify-content: center;
         }
 
-        .wa-image {
+        .asfowoo-image {
           object-fit: cover;
           width: 100%;
           height: 100%;
@@ -84,23 +84,23 @@
         }
       }
 
-      .wa-title-desc {
+      .asfowoo-title-desc {
         display: flex;
         flex-direction: column;
         gap: 10px;
         padding: 20px 15px;
         height: 170px;
 
-        .wa-title {
+        .asfowoo-title {
           margin: 0;
           font-weight: 600;
         }
 
-        .wa-desc {
+        .asfowoo-desc {
           color: variables.$meta;
         }
 
-        .wa-more-info-link {
+        .asfowoo-more-info-link {
           display: inline-flex;
           align-items: baseline;
           justify-content: start;
@@ -112,14 +112,14 @@
         }
       }
 
-      .wa-action-wrap {
+      .asfowoo-action-wrap {
         align-self: flex-end;
         width: 100%;
         padding: 20px 15px;
         background-color: variables.$background_side;
         margin-top: auto;
 
-        .wa-field-head {
+        .asfowoo-field-head {
           display: flex;
           align-items: center;
           flex-direction: row-reverse;
@@ -127,7 +127,7 @@
           max-width: 100%;
         }
 
-        .wa-action-link {
+        .asfowoo-action-link {
           display: block;
           text-align: center;
           background-color: white;

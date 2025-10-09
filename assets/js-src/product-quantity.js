@@ -2,12 +2,12 @@ jQuery(document).ready(function ($) {
     const waWcCart = $('form.cart');
 
     if (waWcCart.length > 0) {
-        waWcCart.addClass('wa-quantity-input-plus-minus');
-        waWcCart.addClass('wa-appearance-text-field');
+        waWcCart.addClass('asfowoo-quantity-input-plus-minus');
+        waWcCart.addClass('asfowoo-appearance-text-field');
     }
 
-    if (WooAssistantProductQuantity.plusMinusButtons === '1') {
-        $('.wa-button-change-quantity').on('click', function () {
+    if (AssistantForWooCommerceProductQuantity.plusMinusButtons === '1') {
+        $('.asfowoo-button-change-quantity').on('click', function () {
             let qtyCurrentVal,
                 parentDiv = $(this).closest('.quantity'),
                 waQuantityInput = parentDiv.find('input[name="quantity"]'),
@@ -38,7 +38,7 @@ jQuery(document).ready(function ($) {
     }
 
     setTimeout(function () {
-        if (WooAssistantProductQuantity.quantityDisabled === '1') {
+        if (AssistantForWooCommerceProductQuantity.quantityDisabled === '1') {
             waWcCart.find('input[name="quantity"]').prop('disabled', true);
             $('.wc-block-components-quantity-selector__input').prop('disabled', true);
             $('.wc-block-components-quantity-selector__button').prop('disabled', true);

@@ -1,10 +1,10 @@
 <?php
 
-namespace WooAssistant\Admin;
+namespace AssistantForWooCommerce\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Interfaces\AdminTabInterface;
+use AssistantForWooCommerce\Interfaces\AdminTabInterface;
 
 class AdminOrder implements AdminTabInterface {
 	public const tab = 'order';
@@ -19,18 +19,18 @@ class AdminOrder implements AdminTabInterface {
 	private static ?array $settings = null;
 
 	public function __construct() {
-		add_filter( 'woo_assistant_menus', [ $this, 'addMenu' ] );
-		add_filter( 'woo_assistant_' . self::tab . '_settings', [ $this, 'settings' ] );
-		add_filter( 'woo_assistant_settings', [ $this, 'allSettings' ] );
-		add_filter( 'woo_assistant_' . self::tab . '_tab_display_notice', '__return_false' );
-		add_filter( 'woo_assistant_' . self::tab . '_tab_content_display_notice', '__return_true' );
+		add_filter( 'assistant_for_woocommerce_menus', [ $this, 'addMenu' ] );
+		add_filter( 'assistant_for_woocommerce_' . self::tab . '_settings', [ $this, 'settings' ] );
+		add_filter( 'assistant_for_woocommerce_settings', [ $this, 'allSettings' ] );
+		add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_display_notice', '__return_false' );
+		add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_content_display_notice', '__return_true' );
 	}
 
 	public function addMenu( $menus ) {
 		$settings = $this->settings();
 		if ( ! empty( $settings['sections'] ) ) {
 			$menus[ self::tab ] = array(
-				'title' => __( 'Order', 'wc-assistant' ),
+				'title' => __( 'Order', 'assistant-for-woocommerce' ),
 				'icon'  => self::icon
 			);
 		}
@@ -47,9 +47,9 @@ class AdminOrder implements AdminTabInterface {
 	public function settings(): array {
 		if ( self::$settings === null ) {
 			self::$settings = array(
-				'title'    => __( 'Order', 'wc-assistant' ),
-				'desc'     => __( 'Tools to enhance your WooCommerce orders', 'wc-assistant' ),
-				'sections' => apply_filters( 'woo_assistant_' . self::tab . '_settings_sections', [] )
+				'title'    => __( 'Order', 'assistant-for-woocommerce' ),
+				'desc'     => __( 'Tools to enhance your WooCommerce orders', 'assistant-for-woocommerce' ),
+				'sections' => apply_filters( 'assistant_for_woocommerce_' . self::tab . '_settings_sections', [] )
 			);
 		}
 

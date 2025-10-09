@@ -1,13 +1,25 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-.#{variables.$plugin_key}-notices {
+.#{variables.$plugin_key}-wrap {
+  .asfowoo-content {
+    > .asfowoo-notices {
+      padding: 20px 30px 0 30px;
+    }
+
+    > .asfowoo-notices + .asfowoo-notices {
+      padding-top: 0;
+    }
+  }
+}
+
+.asfowoo-notices {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 
-  .wa-notice {
+  .asfowoo-notice {
     color: variables.$default;
     background-color: variables.$default_light;
     border-radius: 10px;
@@ -40,7 +52,7 @@
       background-color: color.scale(variables.$default_light, $lightness: -5%);
     }
 
-    &.wa-notice-info {
+    &.asfowoo-notice-info {
       color: variables.$info;
       background-color: variables.$info_light;
 
@@ -50,7 +62,7 @@
       }
     }
 
-    &.wa-notice-success {
+    &.asfowoo-notice-success {
       color: variables.$success;
       background-color: variables.$success_light;
 
@@ -60,7 +72,7 @@
       }
     }
 
-    &.wa-notice-warning {
+    &.asfowoo-notice-warning {
       color: variables.$warning;
       background-color: variables.$warning_light;
 
@@ -70,7 +82,7 @@
       }
     }
 
-    &.wa-notice-error {
+    &.asfowoo-notice-error {
       color: variables.$error;
       background-color: variables.$error_light;
 
@@ -83,7 +95,7 @@
 }
 
 body.rtl.#{variables.$plugin_key}-notices {
-  .wa-notice {
+  .asfowoo-notice {
     letter-spacing: normal;
   }
 }

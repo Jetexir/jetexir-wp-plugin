@@ -1,15 +1,15 @@
 <?php
 
-namespace WooAssistant\App\Order;
+namespace AssistantForWooCommerce\App\Order;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Addons\Addon;
-use WooAssistant\Helper\Helper;
-use WooAssistant\Helper\Notice;
-use WooAssistant\Helper\Param;
-use WooAssistant\Helper\WooCommerce;
-use WooAssistant\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\Helper\Helper;
+use AssistantForWooCommerce\Helper\Notice;
+use AssistantForWooCommerce\Helper\Param;
+use AssistantForWooCommerce\Helper\WooCommerce;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class OrderNumber extends Addon implements AddonInterface {
 	public string $addonID = 'order-number';
@@ -19,7 +19,7 @@ class OrderNumber extends Addon implements AddonInterface {
 	public function initAction(): void {
 		if ( $this->getSetting( 'order_number_format', '' ) ) {
 			// Update all order numbers
-			add_action( 'woo_assistant_save_settings_success', [ $this, 'updateOrderNumbers' ], 999999, 3 );
+			add_action( 'assistant_for_woocommerce_save_settings_success', [ $this, 'updateOrderNumbers' ], 999999, 3 );
 
 			// Update order number
 			add_action( 'woocommerce_new_order', [ $this, 'updateOrderNumber' ] );
@@ -60,7 +60,7 @@ class OrderNumber extends Addon implements AddonInterface {
 			$where      = $wpdb->prepare( "`%s`.id in (SELECT order_id FROM `%s` WHERE meta_key = %s AND meta_value LIKE %s)",
 				$orderTable,
 				$metaTable,
-				'_wa_order_number',
+				'_asfowoo_order_number',
 				'%' . $wpdb->esc_like( $searchTerm ) . '%' );
 		}
 
@@ -68,11 +68,11 @@ class OrderNumber extends Addon implements AddonInterface {
 	}
 
 	public function hposAddOrderNumberSearchFilter( $options ): array {
-		return Helper::arrayInsertAfter( $options, 1, [ 'order_number' => __( 'Order Number', 'wc-assistant' ) ] );
+		return Helper::arrayInsertAfter( $options, 1, [ 'order_number' => __( 'Order Number', 'assistant-for-woocommerce' ) ] );
 	}
 
 	public function searchByMetaOrderNumber( $metaKeys ) {
-		$metaKeys[] = '_wa_order_number';
+		$metaKeys[] = '_asfowoo_order_number';
 
 		return $metaKeys;
 	}
@@ -89,7 +89,7 @@ class OrderNumber extends Addon implements AddonInterface {
 				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				'meta_query' => [
 					[
-						'key'        => '_wa_order_number',
+						'key'        => '_asfowoo_order_number',
 						'value'      => $orderID,
 						'comparison' => '='
 					],
@@ -102,7 +102,7 @@ class OrderNumber extends Addon implements AddonInterface {
 				'fields'         => 'ids',
 				'posts_per_page' => 1,
 				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				'meta_key'       => '_wa_order_number',
+				'meta_key'       => '_asfowoo_order_number',
 				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 				'meta_value'     => $orderID,
 			) );
@@ -128,7 +128,7 @@ class OrderNumber extends Addon implements AddonInterface {
 			return $orderID;
 		}
 
-		$orderNumber = WooCommerce::getOrderMeta( $order->get_id(), '_wa_order_number' );
+		$orderNumber = WooCommerce::getOrderMeta( $order->get_id(), '_asfowoo_order_number' );
 		if ( ! empty( $orderNumber ) ) {
 			return $orderNumber;
 		}
@@ -146,7 +146,7 @@ class OrderNumber extends Addon implements AddonInterface {
 	}
 
 	public function setOrderNumber( $orderID, $reset = false ): void {
-		if ( $reset || empty( WooCommerce::getOrderMeta( $orderID, '_wa_order_number' ) ) ) {
+		if ( $reset || empty( WooCommerce::getOrderMeta( $orderID, '_asfowoo_order_number' ) ) ) {
 			$format = $this->getSetting( 'order_number_format', '' );
 
 			if ( empty( $format ) ) {
@@ -194,12 +194,12 @@ class OrderNumber extends Addon implements AddonInterface {
 				$this->saveSetting( 'order_number_next', $nextNumber + 1 );
 			}
 
-			WooCommerce::updateOrderMeta( $orderID, '_wa_order_number', $orderNumber );
+			WooCommerce::updateOrderMeta( $orderID, '_asfowoo_order_number', $orderNumber );
 		}
 	}
 
 	public function updateOrderNumbers( $tab, $section, $options ): void {
-		if ( $tab === $this->currentTab && $section === $this->addonID && Param::post( WOOASSISTANT_INPUT_PREFIX . 'order_number_update' ) && $this->getSetting( 'order_number_format', '' ) ) {
+		if ( $tab === $this->currentTab && $section === $this->addonID && Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'order_number_update' ) && $this->getSetting( 'order_number_format', '' ) ) {
 			$limit       = 100;
 			$updateCount = $offset = 0;
 			$start       = (int) $this->getSetting( 'order_number_start', 1 );
@@ -235,40 +235,40 @@ class OrderNumber extends Addon implements AddonInterface {
 			}
 
 			/* translators: %d: Order number updated count */
-			Notice::add( $tab, sprintf( __( '%d Order numbers updated.', 'wc-assistant' ), $updateCount ), 'info' );
+			Notice::add( $tab, sprintf( __( '%d Order numbers updated.', 'assistant-for-woocommerce' ), $updateCount ), 'info' );
 		}
 	}
 
 	public function addSectionSettings( $sections ): array {
 		$sections[ $this->addonID ] = array(
-			'title'        => __( 'Number', 'wc-assistant' ),
-			'desc'         => __( 'Custom order number', 'wc-assistant' ),
+			'title'        => __( 'Number', 'assistant-for-woocommerce' ),
+			'desc'         => __( 'Custom order number', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->addonID,
 			'settings'     => array(
 				'order_number_start_grid'  => array(
-					'title' => __( 'Order number', 'wc-assistant' ),
+					'title' => __( 'Order number', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'order_number_format'      => array(
 					'id'                => 'order_number_format',
-					'title'             => __( 'Order number format', 'wc-assistant' ),
+					'title'             => __( 'Order number format', 'assistant-for-woocommerce' ),
 					'type'              => 'select',
 					'options'           => array(
-						'sequential'             => __( 'Sequential number', 'wc-assistant' ),
-						'prefix_sequential'      => __( 'Prefix + Sequential number', 'wc-assistant' ),
-						'date_sequential'        => __( 'Date + Sequential number', 'wc-assistant' ),
-						'prefix_date_sequential' => __( 'Prefix + Date + Sequential number', 'wc-assistant' ),
-						'hash_crc32'             => __( 'Pseudorandom - crc32 Hash (max 10 digits)', 'wc-assistant' ),
+						'sequential'             => __( 'Sequential number', 'assistant-for-woocommerce' ),
+						'prefix_sequential'      => __( 'Prefix + Sequential number', 'assistant-for-woocommerce' ),
+						'date_sequential'        => __( 'Date + Sequential number', 'assistant-for-woocommerce' ),
+						'prefix_date_sequential' => __( 'Prefix + Date + Sequential number', 'assistant-for-woocommerce' ),
+						'hash_crc32'             => __( 'Pseudorandom - crc32 Hash (max 10 digits)', 'assistant-for-woocommerce' ),
 					),
-					'option_none'       => __( 'Order ID', 'wc-assistant' ),
+					'option_none'       => __( 'Order ID', 'assistant-for-woocommerce' ),
 					'option_none_value' => '',
 					'default'           => '',
 					'sanitize'          => 'text'
 				),
 				'order_number_length'      => array(
 					'id'         => 'order_number_length',
-					'title'      => __( 'Order number length', 'wc-assistant' ),
-					'desc'       => __( 'Minimum length of number (zeros add to the left). This changes the order number length for all orders. Set to 5 for 00001, leave as 0 to disable.', 'wc-assistant' ),
+					'title'      => __( 'Order number length', 'assistant-for-woocommerce' ),
+					'desc'       => __( 'Minimum length of number (zeros add to the left). This changes the order number length for all orders. Set to 5 for 00001, leave as 0 to disable.', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 0,
 					'attributes' => array(
@@ -281,22 +281,22 @@ class OrderNumber extends Addon implements AddonInterface {
 				),
 				'order_number_prefix'      => array(
 					'id'      => 'order_number_prefix',
-					'title'   => __( 'Prefix', 'wc-assistant' ),
-					'desc'    => __( 'Prefix will be appended at the beginning of the order number.', 'wc-assistant' ),
+					'title'   => __( 'Prefix', 'assistant-for-woocommerce' ),
+					'desc'    => __( 'Prefix will be appended at the beginning of the order number.', 'assistant-for-woocommerce' ),
 					'type'    => 'text',
-					'default' => 'wa',
+					'default' => 'afw',
 				),
 				'order_number_date_format' => array(
 					'id'      => 'order_number_date_format',
-					'title'   => __( 'Date format', 'wc-assistant' ),
-					'desc'    => __( 'Date will be appended at the beginning of the order number or after prefix.', 'wc-assistant' ),
+					'title'   => __( 'Date format', 'assistant-for-woocommerce' ),
+					'desc'    => __( 'Date will be appended at the beginning of the order number or after prefix.', 'assistant-for-woocommerce' ),
 					'type'    => 'text',
 					'default' => 'Ymd',
 				),
 				'order_number_start'       => array(
 					'id'         => 'order_number_start',
-					'title'      => __( 'Start Number', 'wc-assistant' ),
-					'desc'       => __( 'Use in "Sequential Number" methods', 'wc-assistant' ),
+					'title'      => __( 'Start Number', 'assistant-for-woocommerce' ),
+					'desc'       => __( 'Use in "Sequential Number" methods', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 1,
 					'attributes' => array(
@@ -308,8 +308,8 @@ class OrderNumber extends Addon implements AddonInterface {
 				),
 				'order_number_next'        => array(
 					'id'         => 'order_number_next',
-					'title'      => __( 'Next Number', 'wc-assistant' ),
-					'desc'       => __( 'Use in "Sequential Number" methods', 'wc-assistant' ),
+					'title'      => __( 'Next Number', 'assistant-for-woocommerce' ),
+					'desc'       => __( 'Use in "Sequential Number" methods', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 1,
 					'save'       => false,
@@ -320,7 +320,7 @@ class OrderNumber extends Addon implements AddonInterface {
 				),
 				'order_number_tracking'    => [
 					'id'       => 'order_number_tracking',
-					'title'    => __( 'Order tracking by custom number', 'wc-assistant' ),
+					'title'    => __( 'Order tracking by custom number', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -334,14 +334,14 @@ class OrderNumber extends Addon implements AddonInterface {
 					'type' => 'hr',
 				),
 				'order_number_update_start_grid' => array(
-					'title' => __( 'Apply for all orders', 'wc-assistant' ),
+					'title' => __( 'Apply for all orders', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'order_number_notice'            => array(
 					'id'      => 'order_number_notice',
 					'notices' => array(
 						array(
-							'message' => __( 'Update all order numbers based on the new settings.', 'wc-assistant' ),
+							'message' => __( 'Update all order numbers based on the new settings.', 'assistant-for-woocommerce' ),
 							'type'    => 'error',
 						)
 					),
@@ -349,7 +349,7 @@ class OrderNumber extends Addon implements AddonInterface {
 				),
 				'order_number_update'            => [
 					'id'       => 'order_number_update',
-					'title'    => __( 'Update all order numbers', 'wc-assistant' ),
+					'title'    => __( 'Update all order numbers', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -370,9 +370,9 @@ class OrderNumber extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Order Number', 'wc-assistant' ),
-			'desc'           => __( 'Add custom order numbers to your WooCommerce store.', 'wc-assistant' ),
-			'tags'           => [ __( 'Order', 'wc-assistant' ) ],
+			'title'          => __( 'Order Number', 'assistant-for-woocommerce' ),
+			'desc'           => __( 'Add custom order numbers to your WooCommerce store.', 'assistant-for-woocommerce' ),
+			'tags'           => [ __( 'Order', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'order',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

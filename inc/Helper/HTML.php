@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Helper;
+namespace AssistantForWooCommerce\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -9,8 +9,8 @@ use WP_Query;
 class HTML {
 	use DebugTrait;
 
-	private const prefix = 'wa-';
-	private const prefixName = WOOASSISTANT_INPUT_PREFIX;
+	private const prefix = ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX;
+	private const prefixName = ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX;
 
 	public const saveFields = [
 		'toggle',
@@ -196,7 +196,7 @@ class HTML {
 		if ( ! $data = self::checkData( $data ) ) {
 			return '';
 		}
-		$data['options'] = apply_filters( 'woo_assistant_image_sizes_select_items', Assets::getImageSizes() );
+		$data['options'] = apply_filters( 'assistant_for_woocommerce_image_sizes_select_items', Assets::getImageSizes() );
 
 		return self::select( $data );
 	}
@@ -371,12 +371,12 @@ class HTML {
 		}
 
 		$id                                           = self::prefix . $data['type'] . '-' . $data['id'];
-		$placeholder                                  = $data['placeholder'] ?? __( 'Select Media(s)', 'wc-assistant' );
+		$placeholder                                  = $data['placeholder'] ?? __( 'Select Media(s)', 'assistant-for-woocommerce' );
 		$selectButton                                 = $data['select_button'] ?? $placeholder;
-		$removeAllButton                              = $data['remove_all_button'] ?? __( 'Remove all media', 'wc-assistant' );
+		$removeAllButton                              = $data['remove_all_button'] ?? __( 'Remove all media', 'assistant-for-woocommerce' );
 		$maxNumber                                    = $data['media_max_number'] ?? 1;
-		$data['attributes']['data-title']             = $data['media_title'] ?? __( 'Select or Upload Media', 'wc-assistant' );
-		$data['attributes']['data-button']            = $data['media_button'] ?? __( 'Use this media', 'wc-assistant' );
+		$data['attributes']['data-title']             = $data['media_title'] ?? __( 'Select or Upload Media', 'assistant-for-woocommerce' );
+		$data['attributes']['data-button']            = $data['media_button'] ?? __( 'Use this media', 'assistant-for-woocommerce' );
 		$data['attributes']['data-type']              = $data['media_type'] ?? ''; // image, video, audio
 		$data['attributes']['data-multi-selection']   = (int) ( $data['upload_multi_selection'] ?? true );
 		$data['attributes']['data-accept-extensions'] = $data['upload_accept_extensions'] ?? '';  // Separate with comma (,), example: pdf,doc,docx
@@ -455,7 +455,7 @@ class HTML {
 			'type'         => 'button',
 			'button_type'  => 'button',
 			'button_theme' => 'secondary',
-			'class'        => [ 'wa-media-select' ]
+			'class'        => [ 'asfowoo-media-select' ]
 		) );
 		if ( $removeAllButton ) {
 			$field .= self::button( array(
@@ -463,7 +463,7 @@ class HTML {
 				'title'       => $removeAllButton,
 				'type'        => 'button',
 				'button_type' => 'button',
-				'class'       => [ 'wa-media-remove-all' ]
+				'class'       => [ 'asfowoo-media-remove-all' ]
 			) );
 		}
 		$field .= '</div>';
@@ -523,7 +523,7 @@ class HTML {
 		}
 
 		$field      = self::startinlineelements( $data );
-		$labelClass = self::prefix . 'radio-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' wa-not-equal' : '' );
+		$labelClass = self::prefix . 'radio-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' asfowoo-not-equal' : '' );
 
 		foreach ( $data['options'] as $key => $value ) {
 			$field .= '<label class="' . $labelClass . '">' .
@@ -548,7 +548,7 @@ class HTML {
 
 		$field = self::startinlineelements( $data );
 
-		$labelClass = self::prefix . 'checkbox-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' wa-not-equal' : '' );
+		$labelClass = self::prefix . 'checkbox-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' asfowoo-not-equal' : '' );
 		foreach ( $data['options'] as $key => $value ) {
 			$checked = is_array( $data['setting_value'] ) ? in_array( ( $isList ? $value : $key ), $data['setting_value'], true ) : $data['setting_value'] == ( $isList ? $value : $key );
 
@@ -640,7 +640,7 @@ class HTML {
 			return '';
 		}
 
-		$addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="start"><i class="wa-icon-plus-circle"></i></a>';
+		$addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="start"><i class="asfowoo-icon-plus-circle"></i></a>';
 
 		return '<div class="' . self::prefix . 'repeatable ' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '" ' . self::getAttributes( $data ) . '>' .
 		       '<div class="' . self::prefix . 'title">' . $data['title'] . $addRepeat . '</div>' .
@@ -653,7 +653,7 @@ class HTML {
 		}
 
 		$addText   = ! empty( $data['add_text'] ) ? ' ' . $data['add_text'] : '';
-		$addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="end"><i class="wa-icon-plus-circle"></i>' . $addText . '</a>';
+		$addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="end"><i class="asfowoo-icon-plus-circle"></i>' . $addText . '</a>';
 
 		return '</div>' . $addRepeat . '</div>';
 	}
@@ -746,7 +746,7 @@ class HTML {
 
 		$addon .= '</div><div class="' . self::prefix . 'title-desc"><strong class="' . self::prefix . 'title">' . $data['title'] . '</strong>' .
 		          ( ! empty( $data['desc'] ) ? '<p class="' . self::prefix . 'desc">' . $data['desc'] . '</p>' : '' ) .
-		          ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="wa-icon-chevron-right"></i><span>' . __( 'More info', 'wc-assistant' ) . '</span></a>' : '' ) .
+		          ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="asfowoo-icon-chevron-right"></i><span>' . __( 'More info', 'assistant-for-woocommerce' ) . '</span></a>' : '' ) .
 		          '</div><div class="' . self::prefix . 'action-wrap">';
 
 		if ( $canActivate ) {
@@ -842,45 +842,45 @@ class HTML {
 
 		$field .= self::wpcolorpicker( array(
 			'id'            => $data['id'] . '_color_picker',
-			'title'         => __( 'Color', 'wc-assistant' ),
+			'title'         => __( 'Color', 'assistant-for-woocommerce' ),
 			'type'          => 'wpcolorpicker',
-			'class'         => 'wa-gradient-select-color',
+			'class'         => 'asfowoo-gradient-select-color',
 			'setting_value' => $firstColor,
 		) );
 
 		$field .= self::radioinline( array(
 			'id'            => $data['id'] . '_type',
-			'title'         => __( 'Type', 'wc-assistant' ),
+			'title'         => __( 'Type', 'assistant-for-woocommerce' ),
 			'type'          => 'radioinline',
 			'setting_value' => $function,
 			'not_equal'     => true,
-			'class'         => 'wa-gradient-color-type',
+			'class'         => 'asfowoo-gradient-color-type',
 			'options'       => array(
-				'linear-gradient' => __( 'Linear', 'wc-assistant' ),
-				'radial-gradient' => __( 'Radial', 'wc-assistant' ),
+				'linear-gradient' => __( 'Linear', 'assistant-for-woocommerce' ),
+				'radial-gradient' => __( 'Radial', 'assistant-for-woocommerce' ),
 			)
 		) );
 
 		$field .= self::radioinline( array(
 			'id'            => $data['id'] . '_shape',
-			'title'         => __( 'Shape', 'wc-assistant' ),
+			'title'         => __( 'Shape', 'assistant-for-woocommerce' ),
 			'type'          => 'radioinline',
 			'setting_value' => $shape,
-			'class'         => 'wa-gradient-color-shape wa-gradient-color-variant',
+			'class'         => 'asfowoo-gradient-color-shape asfowoo-gradient-color-variant',
 			'wrap_style'    => $function !== 'radial-gradient' ? 'display:none' : '',
 			'options'       => array(
-				'ellipse' => __( 'Ellipse', 'wc-assistant' ),
-				'circle'  => __( 'Circle', 'wc-assistant' ),
+				'ellipse' => __( 'Ellipse', 'assistant-for-woocommerce' ),
+				'circle'  => __( 'Circle', 'assistant-for-woocommerce' ),
 			)
 		) );
 
 		$field .= self::range( array(
 			'id'            => $data['id'] . '_range',
-			'title'         => __( 'Rotation °', 'wc-assistant' ),
+			'title'         => __( 'Rotation °', 'assistant-for-woocommerce' ),
 			'type'          => 'range',
 			'setting_value' => $rotate,
 			'display_value' => true,
-			'class'         => 'wa-gradient-color-rotation wa-gradient-color-variant',
+			'class'         => 'asfowoo-gradient-color-rotation asfowoo-gradient-color-variant',
 			'wrap_style'    => $function !== 'linear-gradient' ? 'display:none' : '',
 			'attributes'    => array(
 				'min' => 0,
@@ -923,7 +923,7 @@ class HTML {
 
 		if ( $data['addable'] ) {
 			$addText = ! empty( $data['add_text'] ) ? ' ' . $data['add_text'] : '';
-			$field   .= '<div class="' . self::prefix . 'add-color-wrap"><a href="#" class="' . self::prefix . 'add-color" ' . ( count( $colors ) >= $data['max_items'] ? 'disable="true"' : '' ) . '><i class="wa-icon-plus-circle"></i>' . $addText . '</a></div>';
+			$field   .= '<div class="' . self::prefix . 'add-color-wrap"><a href="#" class="' . self::prefix . 'add-color" ' . ( count( $colors ) >= $data['max_items'] ? 'disable="true"' : '' ) . '><i class="asfowoo-icon-plus-circle"></i>' . $addText . '</a></div>';
 		}
 
 		$field .= '</div>';
@@ -985,7 +985,7 @@ class HTML {
 				$requiredText = $data['required_text'];
 			}
 
-			$data['required_text'] = ' <abbr class="required" title="' . __( 'Required', 'wc-assistant' ) . '">' . $requiredText . '</abbr>';
+			$data['required_text'] = ' <abbr class="required" title="' . __( 'Required', 'assistant-for-woocommerce' ) . '">' . $requiredText . '</abbr>';
 		}
 
 		$attributes = empty( $data['attributes'] ) || ! is_array( $data['attributes'] ) ? [] : $data['attributes'];
@@ -1016,7 +1016,7 @@ class HTML {
 
 			if ( $data['type'] === 'button' ) {
 				if ( isset( $data['button_theme'] ) ) {
-					$data['class'][] = 'wa-button-' . $data['button_theme'];
+					$data['class'][] = 'asfowoo-button-' . $data['button_theme'];
 				}
 			}
 

@@ -1,13 +1,13 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-.wa-modal {
-  --wa-modal-color: var(--wa-text-color, #2B2B2B); //  variables.$text
-  --wa-modal-border-width: var(--wa-element-border-width, 0);
-  --wa-modal-border-color: #D3D3D3; // variables.$gray_light_two
-  --wa-modal-bg-color: var(--wa-bg-color, #fff); // variables.$white
-  --wa-modal-border-radius: var(--wa-element-border-radius, 0);
-  --wa-modal-font-size: 15px;
+.asfowoo-modal {
+  --asfowoo-modal-color: var(--asfowoo-text-color, #2B2B2B); //  variables.$text
+  --asfowoo-modal-border-width: var(--asfowoo-element-border-width, 0);
+  --asfowoo-modal-border-color: #D3D3D3; // variables.$gray_light_two
+  --asfowoo-modal-bg-color: var(--asfowoo-bg-color, #fff); // variables.$white
+  --asfowoo-modal-border-radius: var(--asfowoo-element-border-radius, 0);
+  --asfowoo-modal-font-size: 15px;
 
   display: none;
   position: fixed;
@@ -22,70 +22,70 @@
   top: 0;
   left: 0;
   pointer-events: none;
-  font-size: var(--wa-modal-font-size, 15px);
+  font-size: var(--asfowoo-modal-font-size, 15px);
   border: none;
   inset: 0;
 
-  .wa-modal-dialog {
+  .asfowoo-modal-dialog {
     position: relative;
     width: auto;
     max-width: 500px;
-    margin: calc(var(--wa-admin-bar-height, 0) + 2em) auto 2em;
+    margin: calc(var(--asfowoo-admin-bar-height, 0) + 2em) auto 2em;
     pointer-events: none;
   }
 
-  &.wa-modal-large {
-    .wa-modal-dialog {
+  &.asfowoo-modal-large {
+    .asfowoo-modal-dialog {
       max-width: 700px;
     }
   }
 
-  &.wa-modal-xlarge {
-    .wa-modal-dialog {
+  &.asfowoo-modal-xlarge {
+    .asfowoo-modal-dialog {
       max-width: 900px;
     }
   }
 
-  .wa-modal-content {
+  .asfowoo-modal-content {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    color: var(--wa-modal-color);
+    color: var(--asfowoo-modal-color);
     pointer-events: auto;
-    background-color: var(--wa-modal-bg-color);
+    background-color: var(--asfowoo-modal-bg-color);
     background-clip: padding-box;
-    border: var(--wa-modal-border-width) solid var(--wa-modal-border-color);
-    border-radius: var(--wa-modal-border-radius);
+    border: var(--asfowoo-modal-border-width) solid var(--asfowoo-modal-border-color);
+    border-radius: var(--asfowoo-modal-border-radius);
     overflow: hidden;
     outline: 0;
   }
 
-  .wa-modal-header {
+  .asfowoo-modal-header {
     display: flex;
     flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
     padding: 15px;
-    border-bottom: var(--wa-modal-border-width) solid var(--wa-modal-border-color);
+    border-bottom: var(--asfowoo-modal-border-width) solid var(--asfowoo-modal-border-color);
   }
 
-  .wa-modal-title {
+  .asfowoo-modal-title {
     margin-bottom: 0;
     line-height: 1.5;
     font-size: 1.2em;
     font-weight: 600;
   }
 
-  .wa-modal-message:not(:empty) {
+  .asfowoo-modal-message:not(:empty) {
     padding: 15px;
 
-    .woo-assistant-notices {
+    .asfowoo-notices {
       margin-bottom: 0;
     }
   }
 
-  .wa-modal-body {
+  .asfowoo-modal-body {
     position: relative;
     flex: 1 1 auto;
     padding: 15px;
@@ -94,7 +94,7 @@
     overflow: auto;
   }
 
-  .wa-modal-footer {
+  .asfowoo-modal-footer {
     display: flex;
     flex-shrink: 0;
     flex-wrap: wrap;
@@ -102,34 +102,34 @@
     justify-content: flex-end;
     gap: 10px;
     padding: 15px;
-    border-top: var(--wa-modal-border-width) solid var(--wa-modal-border-color);
+    border-top: var(--asfowoo-modal-border-width) solid var(--asfowoo-modal-border-color);
 
     a, button {
       text-align: center;
     }
 
-    .wa-modal-buttons {
+    .asfowoo-modal-buttons {
       display: flex;
       align-items: center;
       gap: 10px;
     }
   }
 
-  &.wa-fade {
-    .wa-modal-dialog {
+  &.asfowoo-fade {
+    .asfowoo-modal-dialog {
       transition: transform .3s ease-out;
       transform: translate(0, -50px);
     }
   }
 
-  &.wa-active {
-    .wa-modal-dialog {
+  &.asfowoo-active {
+    .asfowoo-modal-dialog {
       transform: none;
     }
   }
 }
 
-.wa-modal-overlay {
+.asfowoo-modal-overlay {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -144,7 +144,7 @@
   opacity: 0;
   visibility: hidden;
 
-  &.wa-active {
+  &.asfowoo-active {
     opacity: 1;
     visibility: visible;
   }

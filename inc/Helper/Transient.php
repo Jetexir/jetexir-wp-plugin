@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Helper;
+namespace AssistantForWooCommerce\Helper;
 
 class Transient {
 	public static function get( $key ) {

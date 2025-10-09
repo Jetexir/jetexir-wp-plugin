@@ -14,7 +14,7 @@ const optimization = {
                 // mangle: {
                 //     properties: {
                 //         debug: false,
-                //         reserved: ['wooAssistantAjax'],
+                //         reserved: ['assistantForWooCommerceAjax'],
                 //         keep_quoted: false
                 //     }
                 // },
@@ -22,8 +22,8 @@ const optimization = {
                 //     keep_fnames: true,
                 //     keep_classnames: true,
                 //     properties: {
-                //         //reserved: ['wooAssistantAjax', 'BaseModel'],
-                //         regex: /(^wooAssistantAjax|^p1|^_p1)[A-Z]\w*/
+                //         //reserved: ['assistantForWooCommerceAjax', 'BaseModel'],
+                //         regex: /(^assistantForWooCommerceAjax|^p1|^_p1)[A-Z]\w*/
                 //     }
                 // }, // Note `mangle.properties` is `false` by default.
                 module: false,

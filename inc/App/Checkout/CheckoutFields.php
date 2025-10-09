@@ -1,19 +1,19 @@
 <?php
 
-namespace WooAssistant\App\Checkout;
+namespace AssistantForWooCommerce\App\Checkout;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Addons\Addon;
-use WooAssistant\Helper\Helper;
-use WooAssistant\Helper\HTML;
-use WooAssistant\Helper\Notice;
-use WooAssistant\Helper\Param;
-use WooAssistant\Helper\Sanitizing;
-use WooAssistant\Helper\Templates;
-use WooAssistant\Helper\WooCommerce;
-use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Providers\UI\DataTableUI;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\Helper\Helper;
+use AssistantForWooCommerce\Helper\HTML;
+use AssistantForWooCommerce\Helper\Notice;
+use AssistantForWooCommerce\Helper\Param;
+use AssistantForWooCommerce\Helper\Sanitizing;
+use AssistantForWooCommerce\Helper\Templates;
+use AssistantForWooCommerce\Helper\WooCommerce;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Providers\UI\DataTableUI;
 
 class CheckoutFields extends Addon implements AddonInterface {
 	public string $addonID = 'checkout-fields';
@@ -23,7 +23,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 	private array $checkoutSections = [ 'billing', 'shipping', 'order' ];
 
 	public function initAction(): void {
-		add_action( 'woo_assistant_data_table_ui_action', [ $this, 'dataTableActions' ], 10, 3 );
+		add_action( 'assistant_for_woocommerce_data_table_ui_action', [ $this, 'dataTableActions' ], 10, 3 );
 
 		if ( $this->getSetting( 'checkout_fields_type', 'classic' ) === 'classic' ) {
 			add_filter( 'woocommerce_checkout_fields', [ $this, 'addCustomField' ], 0 );
@@ -93,13 +93,13 @@ class CheckoutFields extends Addon implements AddonInterface {
 			if ( ! empty( $fieldsOutput ) ) {
 				$sectionLabel = ucfirst( $section );
 				// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-				$output .= '<tr><td colspan="2">' . __( $sectionLabel, 'wc-assistant' ) . '</td></tr>' . $fieldsOutput;
+				$output .= '<tr><td colspan="2">' . __( $sectionLabel, 'assistant-for-woocommerce' ) . '</td></tr>' . $fieldsOutput;
 			}
 		}
 
 		if ( ! empty( $output ) ) {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo '<table class="woocommerce-table shop_table order_details has-background wa-checkout-fields-order-meta">' . $output . '</table>';
+			echo '<table class="woocommerce-table shop_table order_details has-background asfowoo-checkout-fields-order-meta">' . $output . '</table>';
 		}
 	}
 
@@ -126,7 +126,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 			if ( ! empty( $fieldsOutput ) ) {
 				$sectionLabel = ucfirst( $section );
 				// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-				$output .= '<tr><td colspan="2">' . __( $sectionLabel, 'wc-assistant' ) . '</td></tr>' . $fieldsOutput;
+				$output .= '<tr><td colspan="2">' . __( $sectionLabel, 'assistant-for-woocommerce' ) . '</td></tr>' . $fieldsOutput;
 			}
 		}
 
@@ -244,7 +244,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 
 		if ( $action === 'bulk_action' ) {
 			$bulkAction = Sanitizing::text( Param::post( 'bulk_action' ) );
-			$rowIDs     = array_map( 'WooAssistant\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
+			$rowIDs     = array_map( 'AssistantForWooCommerce\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
 			$entries    = $this->getSetting( $dataTableID, [] );
 
 			foreach ( $entries as $entryIndex => $status ) {
@@ -297,7 +297,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 			wp_send_json_success( [ 'content' => $form ] );
 
 		} elseif ( $action === 'save_form' ) {
-			$formData           = \WooAssistant\AppHelper\DataTableUI::getFormData( $this->getDataTableUiFields() );
+			$formData           = \AssistantForWooCommerce\AppHelper\DataTableUI::getFormData( $this->getDataTableUiFields() );
 			$formData['custom'] = true;
 			$errorMessage       = '';
 			$entry              = false;
@@ -306,7 +306,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 				$entry = $this->getByIndex( $dataTableID, $index );
 
 				if ( $entry === false ) {
-					$errorMessage = __( 'Field not found!', 'wc-assistant' );
+					$errorMessage = __( 'Field not found!', 'assistant-for-woocommerce' );
 				}
 			}
 
@@ -323,7 +323,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 
 			if ( empty( $errorMessage ) && empty( $formData['name'] ) ) {
 				/* translators: %s: Field name */
-				$errorMessage = sprintf( __( '%s field is empty!', 'wc-assistant' ), __( 'Name', 'wc-assistant' ) );
+				$errorMessage = sprintf( __( '%s field is empty!', 'assistant-for-woocommerce' ), __( 'Name', 'assistant-for-woocommerce' ) );
 			}
 
 			if ( ! empty( $errorMessage ) ) {
@@ -357,11 +357,11 @@ class CheckoutFields extends Addon implements AddonInterface {
 				$entries           = $this->getSetting( $dataTableID, [] );
 				$entries[ $index ] = $formData;
 				$this->saveSetting( $dataTableID, $entries );
-				$successMessage = __( 'The field was successfully saved.', 'wc-assistant' );
+				$successMessage = __( 'The field was successfully saved.', 'assistant-for-woocommerce' );
 
 			} else {
 				$this->addToArraySetting( $dataTableID, $formData );
-				$successMessage = __( 'Field added successfully.', 'wc-assistant' );
+				$successMessage = __( 'Field added successfully.', 'assistant-for-woocommerce' );
 			}
 
 			$dataTable = $this->getDataTable( $dataTableID );
@@ -387,7 +387,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 					'message'   => Notice::addAndDisplay( $this->addonID, array(
 						array(
 							'type'    => 'success',
-							'message' => __( 'Order status removed!', 'wc-assistant' ),
+							'message' => __( 'Order status removed!', 'assistant-for-woocommerce' ),
 						)
 					), false ),
 				] );
@@ -398,7 +398,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 					'message' => Notice::addAndDisplay( $this->addonID, array(
 						array(
 							'type'    => 'error',
-							'message' => __( 'Selected item not found!', 'wc-assistant' ),
+							'message' => __( 'Selected item not found!', 'assistant-for-woocommerce' ),
 						)
 					), false ),
 				], 403 );
@@ -417,14 +417,14 @@ class CheckoutFields extends Addon implements AddonInterface {
 
 	private function getDataTableUiFields( $index = - 1, $data = [] ): array {
 		$types          = array(
-			'text'     => __( 'Text', 'wc-assistant' ),
-			'number'   => __( 'Number', 'wc-assistant' ),
-			'password' => __( 'Password', 'wc-assistant' ),
-			'email'    => __( 'Email', 'wc-assistant' ),
-			'phone'    => __( 'Phone', 'wc-assistant' ),
-			'url'      => __( 'URL', 'wc-assistant' ),
-			'hidden'   => __( 'Hidden', 'wc-assistant' ),
-			'textarea' => __( 'Textarea', 'wc-assistant' ),
+			'text'     => __( 'Text', 'assistant-for-woocommerce' ),
+			'number'   => __( 'Number', 'assistant-for-woocommerce' ),
+			'password' => __( 'Password', 'assistant-for-woocommerce' ),
+			'email'    => __( 'Email', 'assistant-for-woocommerce' ),
+			'phone'    => __( 'Phone', 'assistant-for-woocommerce' ),
+			'url'      => __( 'URL', 'assistant-for-woocommerce' ),
+			'hidden'   => __( 'Hidden', 'assistant-for-woocommerce' ),
+			'textarea' => __( 'Textarea', 'assistant-for-woocommerce' ),
 		);
 		$typeAttributes = $displayAttributes = [];
 		if ( ( isset( $data['type'] ) && ! array_key_exists( $data['type'], $types ) ) || ( isset( $data['custom'] ) && $data['custom'] === false ) ) {
@@ -448,7 +448,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'type',
-				'title'         => __( 'Type', 'wc-assistant' ),
+				'title'         => __( 'Type', 'assistant-for-woocommerce' ),
 				'type'          => 'select',
 				'options'       => $types,
 				'attributes'    => $typeAttributes,
@@ -459,8 +459,8 @@ class CheckoutFields extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'name',
-				'title'         => __( 'Name', 'wc-assistant' ),
-				'desc'          => __( 'Use english alphabetic characters', 'wc-assistant' ),
+				'title'         => __( 'Name', 'assistant-for-woocommerce' ),
+				'desc'          => __( 'Use english alphabetic characters', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'required_text' => true,
 				'setting_value' => $data['name'] ?? '',
@@ -469,32 +469,32 @@ class CheckoutFields extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'label',
-				'title'         => __( 'Label', 'wc-assistant' ),
+				'title'         => __( 'Label', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['label'] ?? '',
 			),
 			array(
 				'id'            => 'placeholder',
-				'title'         => __( 'Placeholder', 'wc-assistant' ),
+				'title'         => __( 'Placeholder', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['placeholder'] ?? '',
 			),
 			array(
 				'id'            => 'default',
-				'title'         => __( 'Default Value', 'wc-assistant' ),
+				'title'         => __( 'Default Value', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['default'] ?? '',
 			),
 			array(
 				'id'            => 'class',
-				'title'         => __( 'CSS Class', 'wc-assistant' ),
-				'desc'          => __( 'Separate with space', 'wc-assistant' ),
+				'title'         => __( 'CSS Class', 'assistant-for-woocommerce' ),
+				'desc'          => __( 'Separate with space', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => is_array( $data['class'] ) ? implode( ' ', $data['class'] ) : 'form-row-wide',
 			),
 			array(
 				'id'    => 'validate_start_grid',
-				'title' => __( 'Validation', 'wc-assistant' ),
+				'title' => __( 'Validation', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 			array(
@@ -502,12 +502,12 @@ class CheckoutFields extends Addon implements AddonInterface {
 				'type'             => 'checkboxInline',
 				'default'          => [],
 				'options'          => array(
-					'number'   => __( 'Number', 'wc-assistant' ),
-					'email'    => __( 'Email', 'wc-assistant' ),
-					'url'      => __( 'URL', 'wc-assistant' ),
-					'phone'    => __( 'Phone', 'wc-assistant' ),
-					'postcode' => __( 'Postcode', 'wc-assistant' ),
-					'state'    => __( 'State', 'wc-assistant' ),
+					'number'   => __( 'Number', 'assistant-for-woocommerce' ),
+					'email'    => __( 'Email', 'assistant-for-woocommerce' ),
+					'url'      => __( 'URL', 'assistant-for-woocommerce' ),
+					'phone'    => __( 'Phone', 'assistant-for-woocommerce' ),
+					'postcode' => __( 'Postcode', 'assistant-for-woocommerce' ),
+					'state'    => __( 'State', 'assistant-for-woocommerce' ),
 				),
 				'not_equal'        => true,
 				'sanitize'         => 'array',
@@ -519,12 +519,12 @@ class CheckoutFields extends Addon implements AddonInterface {
 			),
 			array(
 				'id'    => 'display_start_grid',
-				'title' => __( 'Display', 'wc-assistant' ),
+				'title' => __( 'Display', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 			array(
 				'id'            => 'required',
-				'title'         => __( 'Required', 'wc-assistant' ),
+				'title'         => __( 'Required', 'assistant-for-woocommerce' ),
 				'type'          => 'toggle',
 				'value'         => 1,
 				'default'       => true,
@@ -533,7 +533,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'display_in_email',
-				'title'         => __( 'Display in Emails', 'wc-assistant' ),
+				'title'         => __( 'Display in Emails', 'assistant-for-woocommerce' ),
 				'type'          => 'toggle',
 				'value'         => 1,
 				'default'       => true,
@@ -543,7 +543,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'display_in_order',
-				'title'         => __( 'Display in Order Detail Pages', 'wc-assistant' ),
+				'title'         => __( 'Display in Order Detail Pages', 'assistant-for-woocommerce' ),
 				'type'          => 'toggle',
 				'value'         => 1,
 				'default'       => true,
@@ -566,26 +566,26 @@ class CheckoutFields extends Addon implements AddonInterface {
 		$dataTable->setID( $id )
 		          ->setRows( $this->getRows( $id ) )
 		          ->setIdField( $dataTable::ROW_INDEX )
-		          ->modalAddTitle( __( 'Add new field', 'wc-assistant' ) )
-		          ->modalEditTitle( __( 'Edit field', 'wc-assistant' ) )
-		          ->addNewButton( __( 'Add new', 'wc-assistant' ) )
+		          ->modalAddTitle( __( 'Add new field', 'assistant-for-woocommerce' ) )
+		          ->modalEditTitle( __( 'Edit field', 'assistant-for-woocommerce' ) )
+		          ->addNewButton( __( 'Add new', 'assistant-for-woocommerce' ) )
 		          ->sortable( true )
 		          ->displayBottomBulkAction( true )
-		          ->addAction( 'edit', '<i class="wa-icon-edit"></i>', $dataTable::ACTION_EDIT )
-		          ->addAction( 'delete', '<i class="wa-icon-trash"></i>', $dataTable::ACTION_DELETE )
-		          ->addAction( 'bulk_enable', __( 'Enable', 'wc-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-		          ->addAction( 'bulk_disable', __( 'Disable', 'wc-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-		          ->addAction( 'bulk_delete', __( 'Delete', 'wc-assistant' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
-		          ->addColumn( __( 'Name', 'wc-assistant' ), 'name' )
-		          ->addColumn( __( 'Label', 'wc-assistant' ), 'label', null, [ 'hide_on_mobile' => true ] )
-		          ->addColumn( __( 'Status', 'wc-assistant' ), $dataTable::ACTIVE_FIELD );
+		          ->addAction( 'edit', '<i class="asfowoo-icon-edit"></i>', $dataTable::ACTION_EDIT )
+		          ->addAction( 'delete', '<i class="asfowoo-icon-trash"></i>', $dataTable::ACTION_DELETE )
+		          ->addAction( 'bulk_enable', __( 'Enable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_disable', __( 'Disable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_delete', __( 'Delete', 'assistant-for-woocommerce' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
+		          ->addColumn( __( 'Name', 'assistant-for-woocommerce' ), 'name' )
+		          ->addColumn( __( 'Label', 'assistant-for-woocommerce' ), 'label', null, [ 'hide_on_mobile' => true ] )
+		          ->addColumn( __( 'Status', 'assistant-for-woocommerce' ), $dataTable::ACTIVE_FIELD );
 
 		if ( $id === 'billing_fields_classic' ) {
-			$dataTable->setTitle( __( 'Billing Fields', 'wc-assistant' ) );
+			$dataTable->setTitle( __( 'Billing Fields', 'assistant-for-woocommerce' ) );
 		} elseif ( $id === 'shipping_fields_classic' ) {
-			$dataTable->setTitle( __( 'Shipping Fields', 'wc-assistant' ) );
+			$dataTable->setTitle( __( 'Shipping Fields', 'assistant-for-woocommerce' ) );
 		} elseif ( $id === 'order_fields_classic' ) {
-			$dataTable->setTitle( __( 'Order Fields', 'wc-assistant' ) );
+			$dataTable->setTitle( __( 'Order Fields', 'assistant-for-woocommerce' ) );
 		}
 
 		return $dataTable;
@@ -655,17 +655,17 @@ class CheckoutFields extends Addon implements AddonInterface {
 		$settings = array(
 			'checkout_fields_type_start_grid' => array(
 				'id'    => 'checkout_fields_type_start_grid',
-				'title' => __( 'Checkout Fields', 'wc-assistant' ),
+				'title' => __( 'Checkout Fields', 'assistant-for-woocommerce' ),
 				'type'  => 'startGrid',
 			),
 			'checkout_fields_type'            => array(
 				'id'        => 'checkout_fields_type',
-				'title'     => __( 'Checkout page type', 'wc-assistant' ),
+				'title'     => __( 'Checkout page type', 'assistant-for-woocommerce' ),
 				'type'      => 'radioInline',
 				'default'   => $type,
 				'options'   => array(
-					'classic' => __( 'Classic', 'wc-assistant' ),
-					'blocks'  => __( 'Blocks', 'wc-assistant' ),
+					'classic' => __( 'Classic', 'assistant-for-woocommerce' ),
+					'blocks'  => __( 'Blocks', 'assistant-for-woocommerce' ),
 				),
 				'not_equal' => true,
 				'sanitize'  => 'text'
@@ -681,7 +681,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 					'id'      => 'order_number_notice',
 					'notices' => array(
 						array(
-							'message' => __( 'Block type is not currently supported.', 'wc-assistant' ),
+							'message' => __( 'Block type is not currently supported.', 'assistant-for-woocommerce' ),
 							'type'    => 'warning',
 						)
 					),
@@ -712,8 +712,8 @@ class CheckoutFields extends Addon implements AddonInterface {
 		$settings = array_merge( $settings, $fields );
 
 		$sections[ $this->addonID ] = array(
-			'title'        => __( 'Fields', 'wc-assistant' ),
-			'desc'         => __( 'Checkout fields manager', 'wc-assistant' ),
+			'title'        => __( 'Fields', 'assistant-for-woocommerce' ),
+			'desc'         => __( 'Checkout fields manager', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->info()['settings_key'],
 			'settings'     => $settings
 		);
@@ -727,9 +727,9 @@ class CheckoutFields extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Checkout Fields', 'wc-assistant' ),
-			'desc'           => __( 'Customize the checkout fields in WooCommerce.', 'wc-assistant' ),
-			'tags'           => [ __( 'Checkout', 'wc-assistant' ) ],
+			'title'          => __( 'Checkout Fields', 'assistant-for-woocommerce' ),
+			'desc'           => __( 'Customize the checkout fields in WooCommerce.', 'assistant-for-woocommerce' ),
+			'tags'           => [ __( 'Checkout', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'checkout',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

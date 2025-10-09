@@ -1,10 +1,10 @@
 @use "utilities/variables";
 
-.wa-sale-progress-bar {
+.asfowoo-sale-progress-bar {
   margin-top: 10px;
   margin-bottom: 10px;
 
-  .wa-spb-stock-info {
+  .asfowoo-spb-stock-info {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -12,7 +12,7 @@
     margin-bottom: 8px;
     line-height: 1;
 
-    :is(.wa-spb-total-sold, .wa-spb-current-stock) {
+    :is(.asfowoo-spb-total-sold, .asfowoo-spb-current-stock) {
       display: inline-flex;
       gap: 5px;
     }
@@ -21,32 +21,32 @@
       font-weight: 600;
     }
 
-    .wa-spb-total-sold {
+    .asfowoo-spb-total-sold {
 
     }
 
-    .wa-spb-current-stock {
+    .asfowoo-spb-current-stock {
 
     }
   }
 
-  :is(.wa-spb-progress-area, .wa-spb-progress-bar) {
-    height: var(--wa-progress-bar-height, 7px);
-    border-radius: var(--wa-element-border-radius, 0);
+  :is(.asfowoo-spb-progress-area, .asfowoo-spb-progress-bar) {
+    height: var(--asfowoo-progress-bar-height, 7px);
+    border-radius: var(--asfowoo-element-border-radius, 0);
   }
 
-  .wa-spb-progress-area {
+  .asfowoo-spb-progress-area {
     width: 100%;
     background-color: variables.$gray_light_three;
     transition: background-color .25s ease;
 
-    .wa-spb-progress-bar {
-      background-color: var(--wa-progress-bar-bg-color, variables.$gray_light);
+    .asfowoo-spb-progress-bar {
+      background-color: var(--asfowoo-progress-bar-bg-color, variables.$gray_light);
     }
   }
 
   @media (max-width: 576px) {
-    .wa-spb-stock-info .wa-spb-total-sold {
+    .asfowoo-spb-stock-info .asfowoo-spb-total-sold {
       display: none
     }
   }

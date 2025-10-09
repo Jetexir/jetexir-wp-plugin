@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\App\Order;
+namespace AssistantForWooCommerce\App\Order;
 
 defined( 'ABSPATH' ) || exit;
 

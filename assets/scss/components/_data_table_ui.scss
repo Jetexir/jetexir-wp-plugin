@@ -1,47 +1,47 @@
 @use "../utilities/variables";
 
-@mixin wa-data-table-ui {
-  .wa-data-table-ui {
+@mixin asfowoo-data-table-ui {
+  .asfowoo-data-table-ui {
     background-color: variables.$background_light;
     border: 1px solid variables.$border_color;
     padding: 15px;
     border-radius: 10px;
     position: relative;
 
-    .wa-dtu-head {
+    .asfowoo-dtu-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 20px;
 
-      .wa-dtu-title-wrap {
+      .asfowoo-dtu-title-wrap {
         display: flex;
         align-items: center;
         gap: 15px;
       }
 
-      .wa-dtu-title {
+      .asfowoo-dtu-title {
         display: flex;
         flex-direction: column;
         gap: 10px;
         line-height: 1;
       }
 
-      .wa-dtu-description {
+      .asfowoo-dtu-description {
         font-size: 0.9em;
         color: variables.$meta;
       }
 
-      .wa-dtu-row-count {
+      .asfowoo-dtu-row-count {
 
       }
 
-      .wa-dtu-add-new {
+      .asfowoo-dtu-add-new {
         padding: 8px 14px;
       }
     }
 
-    .wa-dtu-body {
+    .asfowoo-dtu-body {
       position: relative;
 
       select {
@@ -50,28 +50,28 @@
         padding: 4px 14px;
       }
 
-      > .wa-dtu-actions {
+      > .asfowoo-dtu-actions {
         display: flex;
         align-items: center;
         justify-content: space-between;
 
-        &.wa-dtu-actions-top {
+        &.asfowoo-dtu-actions-top {
           margin-bottom: 10px;
         }
 
-        &.wa-dtu-actions-bottom {
+        &.asfowoo-dtu-actions-bottom {
           margin-top: 10px;
         }
       }
     }
 
-    .wa-dtu-bulk-actions {
+    .asfowoo-dtu-bulk-actions {
       display: flex;
       align-items: center;
       gap: 3px;
     }
 
-    table.wa-dtu-table {
+    table.asfowoo-dtu-table {
       border-collapse: collapse;
       width: 100%;
       background-color: white;
@@ -82,7 +82,7 @@
         }
       }
 
-      .wa-dtu-sortable-column {
+      .asfowoo-dtu-sortable-column {
         width: 35px;
         text-align: center;
       }
@@ -99,7 +99,7 @@
           th {
             background-color: variables.$background_side;
 
-            &.wa-dtu-select-all-wrap {
+            &.asfowoo-dtu-select-all-wrap {
               width: 35px;
               text-align: center;
             }
@@ -129,21 +129,21 @@
             &[data-column="is_active"] {
               text-align: center;
 
-              .wa-toggle .wa-toggle-slider {
+              .asfowoo-toggle .asfowoo-toggle-slider {
                 cursor: default;
               }
             }
           }
 
-          .wa-dtu-actions-wrap {
+          .asfowoo-dtu-actions-wrap {
             width: 160px;
 
-            .wa-dtu-actions {
+            .asfowoo-dtu-actions {
               display: flex;
               align-items: center;
               gap: 5px;
 
-              .wa-button {
+              .asfowoo-button {
                 padding: 5px 10px;
               }
             }
@@ -153,15 +153,15 @@
     }
   }
 
-  &.wa-data-table-ui-modal {
-    .wa-modal-body {
+  &.asfowoo-data-table-ui-modal {
+    .asfowoo-modal-body {
       min-height: 200px;
 
       > :not(:last-child) {
         margin-bottom: 20px;
       }
 
-      .wa-field-wrap .wa-field-head {
+      .asfowoo-field-wrap .asfowoo-field-head {
         max-width: 100%;
       }
 
@@ -173,32 +173,32 @@
         max-height: 150px;
       }
 
-      > .wa-field-wrap {
-        .wa-field-head {
+      > .asfowoo-field-wrap {
+        .asfowoo-field-head {
           label {
             min-width: 150px;
           }
         }
       }
 
-      .wa-grid {
+      .asfowoo-grid {
         gap: 20px !important;
       }
 
-      .wa-grid-cols-2 {
+      .asfowoo-grid-cols-2 {
         grid-template-columns: 150px auto !important;
       }
 
-      :is(.wa-radio-inline, .wa-checkbox-inline) .wa-title {
+      :is(.asfowoo-radio-inline, .asfowoo-checkbox-inline) .asfowoo-title {
         height: 3.1rem;
         padding: 7px 16px;
       }
     }
 
-    .wa-modal-footer {
+    .asfowoo-modal-footer {
       justify-content: space-between;
 
-      .wa-field-head {
+      .asfowoo-field-head {
         column-gap: 10px;
       }
     }

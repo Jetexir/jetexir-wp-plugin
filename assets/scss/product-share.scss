@@ -1,11 +1,11 @@
 @use "utilities/variables";
 
-.wa-product-share-wrapper {
+.asfowoo-product-share-wrapper {
   display: flex;
   gap: 10px;
   margin: 20px 0;
 
-  .wa-product-share-title {
+  .asfowoo-product-share-title {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -13,20 +13,20 @@
     min-width: 50px;
   }
 
-  .wa-product-share-links {
+  .asfowoo-product-share-links {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     gap: 10px;
 
-    .wa-product-share-link {
+    .asfowoo-product-share-link {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 5px;
-      color: var(--wa-element-color, variables.$text);
-      border: 1px solid var(--wa-element-border-color, variables.$border_color);
-      background-color: var(--wa-element-bg-color, variables.$white2);
+      color: var(--asfowoo-element-color, variables.$text);
+      border: 1px solid var(--asfowoo-element-border-color, variables.$border_color);
+      background-color: var(--asfowoo-element-bg-color, variables.$white2);
       padding: 10px;
       width: 32px;
       height: 32px;
@@ -34,44 +34,44 @@
       font-size: 14px;
       transition: all 0.3s ease;
 
-      .wa-icon-content_copy {
-        animation: waBlinkText 250ms step-start 0s infinite;
+      .asfowoo-icon-content_copy {
+        animation: afwBlinkText 250ms step-start 0s infinite;
       }
 
-      &.wa-product-share-link-size-large {
+      &.asfowoo-product-share-link-size-large {
         font-size: 18px;
         width: 45px;
         height: 45px;
       }
 
       &:hover, &:focus {
-        color: var(--wa-element-hover-color, variables.$text);
-        border: 1px solid var(--wa-element-hover-border-color, variables.$border_color);
-        background-color: var(--wa-element-hover-bg-color, variables.$white2);
-        outline: 1px solid var(--wa-element-hover-border-color, variables.$border_color);
+        color: var(--asfowoo-element-hover-color, variables.$text);
+        border: 1px solid var(--asfowoo-element-hover-border-color, variables.$border_color);
+        background-color: var(--asfowoo-element-hover-bg-color, variables.$white2);
+        outline: 1px solid var(--asfowoo-element-hover-border-color, variables.$border_color);
       }
 
-      &.wa-product-share-link-shape-round {
+      &.asfowoo-product-share-link-shape-round {
         border-radius: 50%;
       }
 
-      &.wa-product-share-link-shape-rounded_corner {
+      &.asfowoo-product-share-link-shape-rounded_corner {
         border-radius: 10px;
       }
 
-      &.wa-product-share-link-appearance-text, &.wa-product-share-link-appearance-icon_text, {
+      &.asfowoo-product-share-link-appearance-text, &.asfowoo-product-share-link-appearance-icon_text, {
         width: auto;
         border-radius: 10px;
       }
 
-      &.wa-product-share-link-shape-square {
+      &.asfowoo-product-share-link-shape-square {
         border-radius: 0;
       }
     }
   }
 }
 
-@keyframes waBlinkText {
+@keyframes afwBlinkText {
   50% {
     opacity: 0.0;
   }

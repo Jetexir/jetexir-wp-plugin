@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace WooAssistant\Enums;
+namespace AssistantForWooCommerce\Enums;
 
 /**
  * Enum class for all the colors.

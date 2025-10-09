@@ -1,13 +1,13 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-.wa-media-wrap {
+.asfowoo-media-wrap {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
 
-  .wa-media-placeholder {
+  .asfowoo-media-placeholder {
     background-color: variables.$background_light;
     border: 1px dashed variables.$input_border_color;
     border-radius: 10px;
@@ -27,22 +27,22 @@
     }
   }
 
-  .wa-media-images, .wa-media-buttons {
+  .asfowoo-media-images, .asfowoo-media-buttons {
     display: none;
   }
 
-  &.wa-media-selected {
+  &.asfowoo-media-selected {
     background-color: variables.$background_light;
     border: 1px solid variables.$input_border_color;
     border-radius: 10px;
     padding: 15px;
     min-height: 200px;
 
-    .wa-media-placeholder {
+    .asfowoo-media-placeholder {
       display: none;
     }
 
-    .wa-media-images {
+    .asfowoo-media-images {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -52,7 +52,7 @@
       -ms-user-select: none; /* IE 10 and IE 11 */
       user-select: none; /* Standard syntax */
 
-      .wa-media-image {
+      .asfowoo-media-image {
         position: relative;
         overflow: hidden;
 
@@ -75,7 +75,7 @@
           opacity: 0.2;
         }
 
-        .wa-media-image-title {
+        .asfowoo-media-image-title {
           position: absolute;
           bottom: 0;
           left: 0;
@@ -101,7 +101,7 @@
       font-size: 0.9em;
     }
 
-    .wa-media-buttons {
+    .asfowoo-media-buttons {
       display: inline-flex;
       align-items: center;
       margin-top: auto;

@@ -1,47 +1,47 @@
 <?php
 
-use WooAssistant\Helper\HTML;
+use AssistantForWooCommerce\Helper\HTML;
 
 defined( 'ABSPATH' ) or die();
 ?>
 
-<div id="wa-data-table-ui-modal"
-     class="wa-data-table-ui-modal wa-modal wa-modal-large wa-fade woo-assistant-wrap"
+<div id="asfowoo-data-table-ui-modal"
+     class="asfowoo-data-table-ui-modal asfowoo-modal asfowoo-modal-large asfowoo-fade assistant-for-woocommerce-wrap"
      tabindex="-1"
      aria-labelledby="waDataTableUiModalLabel" aria-hidden="true"
-     style="--wa-modal-border-width:0; --wa-modal-bg-color:white; --wa-modal-border-radius: 10px; --wa-modal-font-size: 14px">
-    <div class="wa-modal-dialog">
-        <div class="wa-modal-content">
-            <div class="wa-modal-header">
-                        <span class="wa-modal-title"
-                              id="waDataTableUiModalLabel"><?php esc_html_e( 'Add new', 'wc-assistant' ) ?></span>
-                <button type="button" class="wa-button wa-button-close" data-wa-dismiss="modal"
-                        aria-label="<?php esc_html_e( 'Close', 'wc-assistant' ) ?>"></button>
+     style="--asfowoo-modal-border-width:0; --asfowoo-modal-bg-color:white; --asfowoo-modal-border-radius: 10px; --asfowoo-modal-font-size: 14px">
+    <div class="asfowoo-modal-dialog">
+        <div class="asfowoo-modal-content">
+            <div class="asfowoo-modal-header">
+                        <span class="asfowoo-modal-title"
+                              id="waDataTableUiModalLabel"><?php esc_html_e( 'Add new', 'assistant-for-woocommerce' ) ?></span>
+                <button type="button" class="asfowoo-button asfowoo-button-close" data-asfowoo-dismiss="modal"
+                        aria-label="<?php esc_html_e( 'Close', 'assistant-for-woocommerce' ) ?>"></button>
             </div>
-            <div class="wa-modal-message"></div>
-            <form class="wa-modal-body">
-                <div class="wa-loader-wrap">
-                    <div class="wa-loader"></div>
+            <div class="asfowoo-modal-message"></div>
+            <form class="asfowoo-modal-body">
+                <div class="asfowoo-loader-wrap">
+                    <div class="asfowoo-loader"></div>
                 </div>
             </form>
 
-            <div class="wa-modal-footer">
+            <div class="asfowoo-modal-footer">
                 <?php
                 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo HTML::toggle( array(
                         'type'          => 'toggle',
-                        'title'         => esc_html__( 'Active', 'wc-assistant' ),
+                        'title'         => esc_html__( 'Active', 'assistant-for-woocommerce' ),
                         'id'            => 'dtu-row-active',
                         'value'         => 1,
                         'setting_value' => 1
                 ) );
                 ?>
-                <div class="wa-modal-buttons">
-                    <button class="wa-button wa-button-secondary" data-wa-dismiss="modal" type="button">
-                        <?php esc_html_e( 'Close', 'wc-assistant' ) ?>
+                <div class="asfowoo-modal-buttons">
+                    <button class="asfowoo-button asfowoo-button-secondary" data-asfowoo-dismiss="modal" type="button">
+                        <?php esc_html_e( 'Close', 'assistant-for-woocommerce' ) ?>
                     </button>
-                    <button class="wa-button wa-button-primary" type="button">
-                        <?php esc_html_e( 'Add', 'wc-assistant' ) ?>
+                    <button class="asfowoo-button asfowoo-button-primary" type="button">
+                        <?php esc_html_e( 'Add', 'assistant-for-woocommerce' ) ?>
                     </button>
                 </div>
             </div>

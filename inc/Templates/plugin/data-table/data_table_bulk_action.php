@@ -1,6 +1,6 @@
 <?php
 
-use WooAssistant\Providers\UI\AbstractDataTableUI;
+use AssistantForWooCommerce\Providers\UI\AbstractDataTableUI;
 
 defined( 'ABSPATH' ) or die();
 
@@ -8,13 +8,13 @@ if ( ! isset( $args ) || ! isset( $args[ $args['bulk_action_position'] . '_bulk_
     return;
 }
 ?>
-<div class="wa-dtu-actions wa-dtu-actions-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
+<div class="asfowoo-dtu-actions asfowoo-dtu-actions-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
     <?php
     if ( $args['has_bulk_action'] ) {
         ?>
-        <div class="wa-dtu-bulk-actions wa-dtu-bulk-actions-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
+        <div class="asfowoo-dtu-bulk-actions asfowoo-dtu-bulk-actions-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
             <label for="bulk-action-selector-<?php echo esc_html( $args['bulk_action_position'] ) ?>"
-                   class="screen-reader-text"><?php esc_html_e( 'Select bulk action', 'wc-assistant' ) ?></label>
+                   class="screen-reader-text"><?php esc_html_e( 'Select bulk action', 'assistant-for-woocommerce' ) ?></label>
             <select name="action" id="bulk-action-selector-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
                 <option value="">---</option>
                 <?php
@@ -25,13 +25,13 @@ if ( ! isset( $args ) || ! isset( $args[ $args['bulk_action_position'] . '_bulk_
                 }
                 ?>
             </select>
-            <button class="wa-button wa-button-secondary"
-                    type="button"><?php esc_html_e( 'Apply', 'wc-assistant' ) ?></button>
+            <button class="asfowoo-button asfowoo-button-secondary"
+                    type="button"><?php esc_html_e( 'Apply', 'assistant-for-woocommerce' ) ?></button>
         </div>
     <?php }
 
     if ( $args['sortable'] ) {
-        echo '<button class="wa-button wa-button-secondary wa-dtu-save-changes" type="button" disabled>' . esc_html__( 'Save changes', 'wc-assistant' ) . '</button>';
+        echo '<button class="asfowoo-button asfowoo-button-secondary asfowoo-dtu-save-changes" type="button" disabled>' . esc_html__( 'Save changes', 'assistant-for-woocommerce' ) . '</button>';
     }
     ?>
 </div>

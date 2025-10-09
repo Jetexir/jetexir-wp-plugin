@@ -1,20 +1,20 @@
 <?php
 
-namespace WooAssistant\App\Product;
+namespace AssistantForWooCommerce\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Addons\Addon;
-use WooAssistant\Admin\AdminAssets;
-use WooAssistant\Helper\Assets;
-use WooAssistant\Helper\Helper;
-use WooAssistant\Helper\Notice;
-use WooAssistant\Helper\Param;
-use WooAssistant\Helper\PostMeta;
-use WooAssistant\Helper\Sanitizing;
-use WooAssistant\Helper\WooCommerce;
-use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\Admin\AdminAssets;
+use AssistantForWooCommerce\Helper\Assets;
+use AssistantForWooCommerce\Helper\Helper;
+use AssistantForWooCommerce\Helper\Notice;
+use AssistantForWooCommerce\Helper\Param;
+use AssistantForWooCommerce\Helper\PostMeta;
+use AssistantForWooCommerce\Helper\Sanitizing;
+use AssistantForWooCommerce\Helper\WooCommerce;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Settings\Settings;
 
 class ProductQuantity extends Addon implements AddonInterface {
 	public string $addonID = 'product-quantity';
@@ -24,7 +24,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 	private static bool $printStyle = false;
 
 	public function initAction(): void {
-		add_filter( 'woo_assistant_settings_before_save', [ $this, 'checkSettingsBeforeSave' ], 10, 2 );
+		add_filter( 'assistant_for_woocommerce_settings_before_save', [ $this, 'checkSettingsBeforeSave' ], 10, 2 );
 
 		if ( $this->getSetting( 'product_quantity_tools_enable', false ) ) {
 			add_filter( 'woocommerce_add_to_cart_validation', [ $this, 'addToCartValidation' ], 10, 5 );
@@ -63,44 +63,44 @@ class ProductQuantity extends Addon implements AddonInterface {
 			add_action( 'wp_footer', [ $this, 'enqueueScripts' ] );
 			add_action( 'wp_footer', [ $this, 'printStyle' ] );
 		}
-		//add_filter( 'woo_assistant_settings_header_image', [ $this, 'addHeaderImage' ], 10, 4 );
+		//add_filter( 'assistant_for_woocommerce_settings_header_image', [ $this, 'addHeaderImage' ], 10, 4 );
 	}
 
 	public function adminProductSaveMeta( $productID ): void {
-		$min  = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'product_quantity_min' ) );
-		$max  = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'product_quantity_max' ) );
-		$step = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'product_quantity_step' ) );
+		$min  = Sanitizing::int( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_min' ) );
+		$max  = Sanitizing::int( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_max' ) );
+		$step = Sanitizing::int( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_step' ) );
 
 		if ( $min && $max && $min > $max ) {
 			$max = $min + 10;
 		}
 
 		if ( $min ) {
-			PostMeta::update( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min', $min );
+			PostMeta::update( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_min', $min );
 		} else {
-			PostMeta::delete( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' );
+			PostMeta::delete( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_min' );
 		}
 		if ( $max ) {
-			PostMeta::update( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_max', $max );
+			PostMeta::update( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_max', $max );
 		} else {
-			PostMeta::delete( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_max' );
+			PostMeta::delete( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_max' );
 		}
 		if ( $step ) {
-			PostMeta::update( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_step', $step );
+			PostMeta::update( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_step', $step );
 		} else {
-			PostMeta::delete( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_step' );
+			PostMeta::delete( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_step' );
 		}
 	}
 
 	public function addInventoryFields(): void {
 		$inputs = array(
 			array(
-				'id'                => WOOASSISTANT_INPUT_PREFIX . 'product_quantity_min',
-				'name'              => WOOASSISTANT_INPUT_PREFIX . 'product_quantity_min',
-				'label'             => __( 'Minimum Quantity', 'wc-assistant' ),
+				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_min',
+				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_min',
+				'label'             => __( 'Minimum Quantity', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter minimum quantity for this product', 'wc-assistant' ),
+				'description'       => __( 'Enter minimum quantity for this product', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 1',
 				'custom_attributes' => array(
@@ -109,12 +109,12 @@ class ProductQuantity extends Addon implements AddonInterface {
 				)
 			),
 			array(
-				'id'                => WOOASSISTANT_INPUT_PREFIX . 'product_quantity_max',
-				'name'              => WOOASSISTANT_INPUT_PREFIX . 'product_quantity_max',
-				'label'             => __( 'Maximum Quantity', 'wc-assistant' ),
+				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_max',
+				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_max',
+				'label'             => __( 'Maximum Quantity', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter maximum quantity for this product', 'wc-assistant' ),
+				'description'       => __( 'Enter maximum quantity for this product', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 10',
 				'custom_attributes' => array(
@@ -123,12 +123,12 @@ class ProductQuantity extends Addon implements AddonInterface {
 				)
 			),
 			array(
-				'id'                => WOOASSISTANT_INPUT_PREFIX . 'product_quantity_step',
-				'name'              => WOOASSISTANT_INPUT_PREFIX . 'product_quantity_step',
-				'label'             => __( 'Quantity Step', 'wc-assistant' ),
+				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_step',
+				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_quantity_step',
+				'label'             => __( 'Quantity Step', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter quantity step for this product', 'wc-assistant' ),
+				'description'       => __( 'Enter quantity step for this product', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 1',
 				'custom_attributes' => array(
@@ -138,7 +138,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 			)
 		);
 
-		$inputs = apply_filters( 'woo_assistant_product_quantity_settings', $inputs );
+		$inputs = apply_filters( 'assistant_for_woocommerce_product_quantity_settings', $inputs );
 		if ( ! empty( $inputs ) ) {
 			foreach ( $inputs as $input ) {
 				woocommerce_wp_text_input( $input );
@@ -149,32 +149,32 @@ class ProductQuantity extends Addon implements AddonInterface {
 	public function adminVariationSaveMeta( $variationID, $i ): void {
 		// PHPCS ignore reason: Nonce check is already happening before this logic in `AdminPages` class.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
-		if ( ! isset( $_POST[ WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_min' ][ $i ] ) ) {
+		if ( ! isset( $_POST[ ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_min' ][ $i ] ) ) {
 			return;
 		}
 
-		$min  = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_min' )[ $i ] );
-		$max  = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_max' )[ $i ] );
-		$step = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_step' )[ $i ] );
+		$min  = Sanitizing::int( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_min' )[ $i ] );
+		$max  = Sanitizing::int( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_max' )[ $i ] );
+		$step = Sanitizing::int( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_step' )[ $i ] );
 
 		if ( $min && $max && $min > $max ) {
 			$max = $min + 10;
 		}
 
 		if ( $min ) {
-			PostMeta::update( $variationID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min', $min );
+			PostMeta::update( $variationID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_min', $min );
 		} else {
-			PostMeta::delete( $variationID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min' );
+			PostMeta::delete( $variationID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_min' );
 		}
 		if ( $max ) {
-			PostMeta::update( $variationID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_max', $max );
+			PostMeta::update( $variationID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_max', $max );
 		} else {
-			PostMeta::delete( $variationID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_max' );
+			PostMeta::delete( $variationID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_max' );
 		}
 		if ( $step ) {
-			PostMeta::update( $variationID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_step', $step );
+			PostMeta::update( $variationID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_step', $step );
 		} else {
-			PostMeta::delete( $variationID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_step' );
+			PostMeta::delete( $variationID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_step' );
 		}
 	}
 
@@ -189,12 +189,12 @@ class ProductQuantity extends Addon implements AddonInterface {
 	public function addVariationInventoryFields( $loop, $variationData, $variation ): void {
 		$inputs = array(
 			array(
-				'id'                => WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_min[' . $loop . ']',
-				'name'              => WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_min[' . $loop . ']',
-				'label'             => __( 'Minimum Quantity', 'wc-assistant' ),
+				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_min[' . $loop . ']',
+				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_min[' . $loop . ']',
+				'label'             => __( 'Minimum Quantity', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter minimum quantity for this product variation', 'wc-assistant' ),
+				'description'       => __( 'Enter minimum quantity for this product variation', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 1',
 				'custom_attributes' => array(
@@ -202,15 +202,15 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'min'  => 1
 				),
 				'wrapper_class'     => 'form-row form-row-first',
-				'value'             => get_post_meta( $variation->ID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min', true )
+				'value'             => get_post_meta( $variation->ID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_min', true )
 			),
 			array(
-				'id'                => WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_max[' . $loop . ']',
-				'name'              => WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_max[' . $loop . ']',
-				'label'             => __( 'Maximum Quantity', 'wc-assistant' ),
+				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_max[' . $loop . ']',
+				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_max[' . $loop . ']',
+				'label'             => __( 'Maximum Quantity', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter maximum quantity for this product variation', 'wc-assistant' ),
+				'description'       => __( 'Enter maximum quantity for this product variation', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 10',
 				'custom_attributes' => array(
@@ -218,15 +218,15 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'min'  => 1
 				),
 				'wrapper_class'     => 'form-row form-row-last',
-				'value'             => get_post_meta( $variation->ID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_max', true )
+				'value'             => get_post_meta( $variation->ID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_max', true )
 			),
 			array(
-				'id'                => WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_step[' . $loop . ']',
-				'name'              => WOOASSISTANT_INPUT_PREFIX . 'variation_quantity_step[' . $loop . ']',
-				'label'             => __( 'Quantity Step', 'wc-assistant' ),
+				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_step[' . $loop . ']',
+				'name'              => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'variation_quantity_step[' . $loop . ']',
+				'label'             => __( 'Quantity Step', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'desc_tip'          => true,
-				'description'       => __( 'Enter quantity step for this product variation', 'wc-assistant' ),
+				'description'       => __( 'Enter quantity step for this product variation', 'assistant-for-woocommerce' ),
 				'data_type'         => 'decimal',
 				'placeholder'       => 'eg: 1',
 				'custom_attributes' => array(
@@ -234,11 +234,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'min'  => 1
 				),
 				'wrapper_class'     => 'form-row',
-				'value'             => get_post_meta( $variation->ID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_step', true )
+				'value'             => get_post_meta( $variation->ID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_step', true )
 			)
 		);
 
-		$inputs = apply_filters( 'woo_assistant_product_variation_quantity_settings', $inputs );
+		$inputs = apply_filters( 'assistant_for_woocommerce_product_variation_quantity_settings', $inputs );
 		if ( ! empty( $inputs ) ) {
 			foreach ( $inputs as $input ) {
 				woocommerce_wp_text_input( $input );
@@ -262,19 +262,19 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$max         = Sanitizing::int( $this->getSetting( 'quantity_maximum_value', false ) );
 
 		if ( ! $variation->is_sold_individually() && $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
-			$_productMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' ) );
+			$_productMin = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_min' ) );
 			if ( $_productMin ) {
 				$productMin = $_productMin;
 			}
-			$_productMax = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_max' ) );
+			$_productMax = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_max' ) );
 			if ( $_productMax ) {
 				$variationMax = $_productMax;
 			}
-			$_variationMin = Sanitizing::int( PostMeta::get( $variationID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min' ) );
+			$_variationMin = Sanitizing::int( PostMeta::get( $variationID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_min' ) );
 			if ( $_variationMin ) {
 				$variationMin = $_variationMin;
 			}
-			$_variationMax = Sanitizing::int( PostMeta::get( $variationID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_max' ) );
+			$_variationMax = Sanitizing::int( PostMeta::get( $variationID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_max' ) );
 			if ( $_variationMax ) {
 				$variationMax = $_variationMax;
 			}
@@ -297,7 +297,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$globalStep = $productStep = Sanitizing::int( $this->getSetting( 'quantity_step_value', false ) );
 
 		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
-			$_productStep = Sanitizing::int( PostMeta::get( $product->get_id(), WOOASSISTANT_PLUGIN_KEY . '_product_quantity_step' ) );
+			$_productStep = Sanitizing::int( PostMeta::get( $product->get_id(), ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_step' ) );
 			if ( $_productStep ) {
 				$productStep = $_productStep;
 			}
@@ -317,11 +317,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$globalMax = $productMax = Sanitizing::int( $this->getSetting( 'quantity_maximum_value', false ) );
 
 		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
-			$_variationMax = Sanitizing::int( PostMeta::get( $product->get_id(), WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_max' ) );
+			$_variationMax = Sanitizing::int( PostMeta::get( $product->get_id(), ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_max' ) );
 			if ( $_variationMax ) {
 				$productMax = $_variationMax;
 			} else {
-				$_productMax = Sanitizing::int( PostMeta::get( $product->get_id(), WOOASSISTANT_PLUGIN_KEY . '_product_quantity_max' ) );
+				$_productMax = Sanitizing::int( PostMeta::get( $product->get_id(), ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_max' ) );
 				if ( $_productMax ) {
 					$productMax = $_productMax;
 				}
@@ -342,11 +342,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$globalMin = $productMin = Sanitizing::int( $this->getSetting( 'quantity_minimum_value', false ) );
 
 		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
-			$variationMin = Sanitizing::int( PostMeta::get( $product->get_id(), WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min' ) );
+			$variationMin = Sanitizing::int( PostMeta::get( $product->get_id(), ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_min' ) );
 			if ( $variationMin ) {
 				$productMin = $variationMin;
 			} else {
-				$_productMin = Sanitizing::int( PostMeta::get( $product->get_id(), WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' ) );
+				$_productMin = Sanitizing::int( PostMeta::get( $product->get_id(), ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_min' ) );
 				if ( $_productMin ) {
 					$productMin = $_productMin;
 				}
@@ -371,11 +371,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$quantity  = Sanitizing::int( $args['quantity'] );
 
 		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
-			$variationMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min' ) );
+			$variationMin = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_min' ) );
 			if ( $variationMin ) {
 				$min = $variationMin;
 			} else {
-				$productMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' ) );
+				$productMin = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_min' ) );
 				if ( $productMin ) {
 					$min = $productMin;
 				}
@@ -417,13 +417,13 @@ class ProductQuantity extends Addon implements AddonInterface {
 		}
 
 		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
-			$_productMax = Sanitizing::int( PostMeta::get( $productId, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_max' ) );
+			$_productMax = Sanitizing::int( PostMeta::get( $productId, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_max' ) );
 			if ( $_productMax ) {
 				$productMax = $_productMax;
 			}
 
 			if ( $variationID ) {
-				$_variationMax = Sanitizing::int( PostMeta::get( $variationID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_max' ) );
+				$_variationMax = Sanitizing::int( PostMeta::get( $variationID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_max' ) );
 				if ( $_variationMax ) {
 					$productMax = $_variationMax;
 				}
@@ -433,7 +433,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$quantities[ $cartProductId ] = isset( $quantities[ $cartProductId ] ) ? $quantities[ $cartProductId ] + $quantity : $quantity;
 		$max                          = min( $stockQuantity, $globalMax, $productMax );
 		if ( $quantities[ $cartProductId ] > $max ) {
-			wc_add_notice( __( 'You have reached the maximum number of items in your cart for this product.', 'wc-assistant' ), 'error' );
+			wc_add_notice( __( 'You have reached the maximum number of items in your cart for this product.', 'assistant-for-woocommerce' ), 'error' );
 
 			return false;
 		}
@@ -455,11 +455,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 		$quantity  = Sanitizing::int( $attributes['data-quantity'] );
 
 		if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
-			$variationMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min' ) );
+			$variationMin = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_min' ) );
 			if ( $variationMin ) {
 				$min = $variationMin;
 			} else {
-				$productMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' ) );
+				$productMin = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_min' ) );
 				if ( $productMin ) {
 					$min = $productMin;
 				}
@@ -489,26 +489,26 @@ class ProductQuantity extends Addon implements AddonInterface {
 			$step        = Sanitizing::int( $this->getSetting( 'quantity_step_value', false ) );
 
 			if ( $this->getSetting( 'product_single_quantity_tools_enable', false ) ) {
-				$productStep = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_step' ) );
+				$productStep = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_step' ) );
 				if ( $productStep ) {
 					$step = $productStep;
 				}
 
-				$_variationMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_min' ) );
+				$_variationMin = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_min' ) );
 				if ( $_variationMin ) {
 					$min = $_variationMin;
 				} else {
-					$productMin = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_min' ) );
+					$productMin = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_min' ) );
 					if ( $productMin ) {
 						$min = $productMin;
 					}
 				}
 
-				$_variationMax = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_variation_quantity_max' ) );
+				$_variationMax = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_variation_quantity_max' ) );
 				if ( $_variationMax ) {
 					$max = $_variationMax;
 				} else {
-					$productMax = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_product_quantity_max' ) );
+					$productMax = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_product_quantity_max' ) );
 					if ( $productMax ) {
 						$max = $productMax;
 					}
@@ -541,10 +541,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 	}
 
 	public function checkSettingsBeforeSave( $options, $tab ) {
-		$min = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'quantity_minimum_value', 0 ) );
+		$min = Sanitizing::int( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'quantity_minimum_value', 0 ) );
 		if ( $min ) {
-			$max = $_max = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'quantity_maximum_value', 0 ) );
-			//$step = Sanitizing::float( Param::post( WOOASSISTANT_INPUT_PREFIX . 'quantity_step_value', 0 ) );
+			$max = $_max = Sanitizing::int( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'quantity_maximum_value', 0 ) );
+			//$step = Sanitizing::float( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'quantity_step_value', 0 ) );
 
 			if ( $max && $min > $max ) {
 				$max = $min + 10;
@@ -555,7 +555,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 			}*/
 
 			if ( $_max != $max ) {
-				Notice::add( $tab, __( 'The maximum value changes based on the minimum and step.', 'wc-assistant' ), 'warning' );
+				Notice::add( $tab, __( 'The maximum value changes based on the minimum and step.', 'assistant-for-woocommerce' ), 'warning' );
 			}
 
 			$options['quantity_maximum_value'] = $max;
@@ -591,26 +591,26 @@ class ProductQuantity extends Addon implements AddonInterface {
 		}
 
 		if ( $enableStyle ) {
-			$buttonStyle['border']           = 'var(--wa-button-border-width, 0) solid transparent';
-			$buttonStyle['border-radius']    = 'var(--wa-button-border-radius, 0)';
-			$buttonStyle['color']            = 'var(--wa-button-color, initial)';
-			$buttonStyle['background-color'] = 'var(--wa-button-bg-color, initial)';
-			$buttonStyle['border-color']     = 'var(--wa-button-border-color, initial)';
+			$buttonStyle['border']           = 'var(--asfowoo-button-border-width, 0) solid transparent';
+			$buttonStyle['border-radius']    = 'var(--asfowoo-button-border-radius, 0)';
+			$buttonStyle['color']            = 'var(--asfowoo-button-color, initial)';
+			$buttonStyle['background-color'] = 'var(--asfowoo-button-bg-color, initial)';
+			$buttonStyle['border-color']     = 'var(--asfowoo-button-border-color, initial)';
 
 			// Button hover style
-			$buttonHoverStyle['color']            = 'var(--wa-button-hover-color, initial)';
-			$buttonHoverStyle['background-color'] = 'var(--wa-button-hover-bg-color, initial)';
-			$buttonHoverStyle['border-color']     = 'var(--wa-button-hover-border-color, initial)';
+			$buttonHoverStyle['color']            = 'var(--asfowoo-button-hover-color, initial)';
+			$buttonHoverStyle['background-color'] = 'var(--asfowoo-button-hover-bg-color, initial)';
+			$buttonHoverStyle['border-color']     = 'var(--asfowoo-button-hover-border-color, initial)';
 		}
 
 		// Input style
 		if ( $this->getSetting( 'quantity_input_style', false ) ) {
 			if ( $enableStyle ) {
-				$inputStyle['border']           = 'var(--wa-input-border-width, 0) solid transparent';
-				$inputStyle['border-radius']    = 'var(--wa-input-border-radius, 0)';
-				$inputStyle['color']            = 'var(--wa-input-color, initial)';
-				$inputStyle['background-color'] = 'var(--wa-input-bg-color, initial)';
-				$inputStyle['border-color']     = 'var(--wa-input-border-color, initial)';
+				$inputStyle['border']           = 'var(--asfowoo-input-border-width, 0) solid transparent';
+				$inputStyle['border-radius']    = 'var(--asfowoo-input-border-radius, 0)';
+				$inputStyle['color']            = 'var(--asfowoo-input-color, initial)';
+				$inputStyle['background-color'] = 'var(--asfowoo-input-bg-color, initial)';
+				$inputStyle['border-color']     = 'var(--asfowoo-input-border-color, initial)';
 			}
 
 			if ( $value = $this->getSetting( 'quantity_input_width', false ) ) {
@@ -623,17 +623,17 @@ class ProductQuantity extends Addon implements AddonInterface {
 
 		$buttonStyle = Helper::combineStyles( $buttonStyle );
 		if ( ! empty( $buttonStyle ) ) {
-			$style .= "\n" . '.wa-quantity-input-plus-minus .wa-button-change-quantity{' . $buttonStyle . "\n}\n";
+			$style .= "\n" . '.asfowoo-quantity-input-plus-minus .asfowoo-button-change-quantity{' . $buttonStyle . "\n}\n";
 		}
 
 		$buttonHoverStyle = Helper::combineStyles( $buttonHoverStyle );
 		if ( ! empty( $buttonHoverStyle ) ) {
-			$style .= "\n" . '.wa-quantity-input-plus-minus .wa-button-change-quantity:hover{' . $buttonHoverStyle . "\n}\n";
+			$style .= "\n" . '.asfowoo-quantity-input-plus-minus .asfowoo-button-change-quantity:hover{' . $buttonHoverStyle . "\n}\n";
 		}
 
 		$inputStyle = Helper::combineStyles( $inputStyle );
 		if ( ! empty( $inputStyle ) ) {
-			$style .= "\n" . '.wa-quantity-input-plus-minus input[name="quantity"]{' . $inputStyle . "\n}\n";
+			$style .= "\n" . '.asfowoo-quantity-input-plus-minus input[name="quantity"]{' . $inputStyle . "\n}\n";
 		}
 
 		if ( ! empty( $style ) ) {
@@ -662,11 +662,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 			return;
 		}
 
-		$displayButton = apply_filters( 'woo_assistant_quantity_input_display_plus_minus', true, $productID );
+		$displayButton = apply_filters( 'assistant_for_woocommerce_quantity_input_display_plus_minus', true, $productID );
 
 		if ( $displayButton ) {
 			self::$printed = true;
-			echo '<button type="button" class="wa-button wa-button-change-quantity" data-action="minus" aria-label="' . esc_html__( 'Reduce quantity', 'wc-assistant' ) . '">-</button>';
+			echo '<button type="button" class="asfowoo-button asfowoo-button-change-quantity" data-action="minus" aria-label="' . esc_html__( 'Reduce quantity', 'assistant-for-woocommerce' ) . '">-</button>';
 		}
 	}
 
@@ -676,10 +676,10 @@ class ProductQuantity extends Addon implements AddonInterface {
 		}
 
 		$productID     = WooCommerce::getCurrentProductId();
-		$displayButton = apply_filters( 'woo_assistant_quantity_input_display_plus_minus', true, $productID );
+		$displayButton = apply_filters( 'assistant_for_woocommerce_quantity_input_display_plus_minus', true, $productID );
 
 		if ( $displayButton ) {
-			echo '<button type="button" class="wa-button wa-button-change-quantity" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'wc-assistant' ) . '">+</button>';
+			echo '<button type="button" class="asfowoo-button asfowoo-button-change-quantity" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'assistant-for-woocommerce' ) . '">+</button>';
 		}
 	}
 
@@ -690,11 +690,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 		}
 
 		$pluginVersion = Assets::getVersion();
-		wp_enqueue_script( WOOASSISTANT_PLUGIN_SLUG . '-product-quantity-script',
+		wp_enqueue_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-product-quantity-script',
 			Assets::url( 'js/product-quantity.min.js' ),
-			[ WOOASSISTANT_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
+			[ ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
-		wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-product-quantity-script', WOOASSISTANT_PLUGIN_KEYCAP . 'ProductQuantity', array(
+		wp_localize_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-product-quantity-script', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP . 'ProductQuantity', array(
 			'plusMinusButtons' => Sanitizing::int( self::$printed && $this->getSetting( 'quantity_input_plus_minus_button', false ) ),
 			'quantityDisabled' => Sanitizing::int( $productQuantityDisabled )
 		) );
@@ -702,26 +702,26 @@ class ProductQuantity extends Addon implements AddonInterface {
 
 	public function addSectionSettings( $sections ): array {
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Quantity', 'wc-assistant' ),
-			'desc'         => __( 'Quantity Customization', 'wc-assistant' ),
+			'title'        => __( 'Quantity', 'assistant-for-woocommerce' ),
+			'desc'         => __( 'Quantity Customization', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->addonID,
 			'settings'     => array(
 				'start_grid_quantity_control'          => array(
-					'title' => __( 'Quantity Control', 'wc-assistant' ),
+					'title' => __( 'Quantity Control', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'product_quantity_disabled'            => array(
 					'id'       => 'product_quantity_disabled',
-					'title'    => __( 'Disable on Single Product', 'wc-assistant' ),
+					'title'    => __( 'Disable on Single Product', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
-					'desc'     => __( 'Disable Quantity Field for All Products', 'wc-assistant' ),
+					'desc'     => __( 'Disable Quantity Field for All Products', 'assistant-for-woocommerce' ),
 					'sanitize' => 'bool'
 				),
 				'product_cart_quantity_disabled'       => array(
 					'id'       => 'product_cart_quantity_disabled',
-					'title'    => __( 'Disable on Cart Page', 'wc-assistant' ),
+					'title'    => __( 'Disable on Cart Page', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -729,7 +729,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 				'products_sold_individually'           => array(
 					'id'       => 'products_sold_individually',
-					'title'    => __( 'Set "Sold individually" for All Products', 'wc-assistant' ),
+					'title'    => __( 'Set "Sold individually" for All Products', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -739,21 +739,21 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'type' => 'endGrid',
 				),
 				'start_grid_quantity_min_max'          => array(
-					'title' => __( 'Min/Max/Step', 'wc-assistant' ),
+					'title' => __( 'Min/Max/Step', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'product_quantity_tools_enable'        => array(
 					'id'       => 'product_quantity_tools_enable',
-					'title'    => __( 'Enable quantity manager', 'wc-assistant' ),
+					'title'    => __( 'Enable quantity manager', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
-					'desc'     => __( 'Enable Minimum/Maximum/Step Quantity for all Products', 'wc-assistant' ),
+					'desc'     => __( 'Enable Minimum/Maximum/Step Quantity for all Products', 'assistant-for-woocommerce' ),
 					'sanitize' => 'bool'
 				),
 				'quantity_minimum_value'               => array(
 					'id'         => 'quantity_minimum_value',
-					'title'      => __( 'Minimum', 'wc-assistant' ),
+					'title'      => __( 'Minimum', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 1,
 					'attributes' => array(
@@ -765,7 +765,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 				'quantity_maximum_value'               => array(
 					'id'         => 'quantity_maximum_value',
-					'title'      => __( 'Maximum', 'wc-assistant' ),
+					'title'      => __( 'Maximum', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 1000,
 					'attributes' => array(
@@ -777,7 +777,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 				'quantity_step_value'                  => array(
 					'id'         => 'quantity_step_value',
-					'title'      => __( 'Step', 'wc-assistant' ),
+					'title'      => __( 'Step', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 1,
 					'attributes' => array(
@@ -789,11 +789,11 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 				'product_single_quantity_tools_enable' => array(
 					'id'       => 'product_single_quantity_tools_enable',
-					'title'    => __( 'Enable quantity manager per Product', 'wc-assistant' ),
+					'title'    => __( 'Enable quantity manager per Product', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
-					'desc'     => __( 'Manage Minimum/Maximum/Step per Product', 'wc-assistant' ),
+					'desc'     => __( 'Manage Minimum/Maximum/Step per Product', 'assistant-for-woocommerce' ),
 					'sanitize' => 'bool'
 				),
 				'end_grid_quantity_min_max'            => array(
@@ -803,21 +803,21 @@ class ProductQuantity extends Addon implements AddonInterface {
 					'type' => 'hr',
 				),
 				'start_grid_quantity_input1'           => array(
-					'title' => __( 'Plus/Minus button', 'wc-assistant' ),
+					'title' => __( 'Plus/Minus button', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'quantity_input_plus_minus_button'     => array(
 					'id'       => 'quantity_input_plus_minus_button',
-					'title'    => __( 'Enable Plus/Minus', 'wc-assistant' ),
+					'title'    => __( 'Enable Plus/Minus', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
-					'desc'     => __( 'Add Plus/Minus buttons to Quantity input', 'wc-assistant' ),
+					'desc'     => __( 'Add Plus/Minus buttons to Quantity input', 'assistant-for-woocommerce' ),
 					'sanitize' => 'bool'
 				),
 				'quantity_button_width_height'         => array(
 					'id'          => 'quantity_button_width_height',
-					'title'       => __( 'Button width/height', 'wc-assistant' ),
+					'title'       => __( 'Button width/height', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
 					'default'     => '40px',
 					'placeholder' => '40px'
@@ -828,12 +828,12 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 
 				'start_grid_quantity_input5' => array(
-					'title' => __( 'Input Box', 'wc-assistant' ),
+					'title' => __( 'Input Box', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'quantity_input_style'       => array(
 					'id'       => 'quantity_input_style',
-					'title'    => __( 'Enable quantity input style', 'wc-assistant' ),
+					'title'    => __( 'Enable quantity input style', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -841,14 +841,14 @@ class ProductQuantity extends Addon implements AddonInterface {
 				),
 				'quantity_input_width'       => array(
 					'id'          => 'quantity_input_width',
-					'title'       => __( 'Width', 'wc-assistant' ),
+					'title'       => __( 'Width', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
 					'default'     => '40px',
 					'placeholder' => '40px'
 				),
 				'quantity_input_height'      => array(
 					'id'          => 'quantity_input_height',
-					'title'       => __( 'Height', 'wc-assistant' ),
+					'title'       => __( 'Height', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
 					'default'     => '40px',
 					'placeholder' => '40px'
@@ -867,9 +867,9 @@ class ProductQuantity extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Product Quantity', 'wc-assistant' ),
-			'desc'           => __( 'Add plus and minus buttons to the quantity field. Control the minimum, maximum, and step values of the quantity field.', 'wc-assistant' ),
-			'tags'           => [ __( 'Product', 'wc-assistant' ) ],
+			'title'          => __( 'Product Quantity', 'assistant-for-woocommerce' ),
+			'desc'           => __( 'Add plus and minus buttons to the quantity field. Control the minimum, maximum, and step values of the quantity field.', 'assistant-for-woocommerce' ),
+			'tags'           => [ __( 'Product', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

@@ -2,60 +2,60 @@
 @use "../utilities/variables";
 
 body {
-  --wa-admin-bar-height: 0;
+  --asfowoo-admin-bar-height: 0;
 
   &.admin-bar {
-    --wa-admin-bar-height: 32px;
+    --asfowoo-admin-bar-height: 32px;
   }
 
-  *[class^="wa-"] {
+  *[class^="asfowoo-"] {
     box-sizing: border-box;
   }
 }
 
-.wa-fade {
+.asfowoo-fade {
   transition: opacity .15s linear;
   opacity: 1;
 
-  &:not(.wa-active) {
+  &:not(.asfowoo-active) {
     opacity: 0;
   }
 }
 
-.wa-button-close {
-  --wa-btn-close-color: var(--wa-text-color, #2B2B2B);
-  --wa-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
-  --wa-btn-close-opacity: 0.5;
-  --wa-btn-close-hover-opacity: 0.75;
-  --wa-btn-close-focus-opacity: 1;
-  --wa-btn-close-disabled-opacity: 0.25;
+.asfowoo-button-close {
+  --asfowoo-btn-close-color: var(--asfowoo-text-color, #2B2B2B);
+  --asfowoo-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+  --asfowoo-btn-close-opacity: 0.5;
+  --asfowoo-btn-close-hover-opacity: 0.75;
+  --asfowoo-btn-close-focus-opacity: 1;
+  --asfowoo-btn-close-disabled-opacity: 0.25;
   box-sizing: content-box;
   width: 1em;
   height: 1em;
   padding: 0.5rem;
-  color: var(--wa-btn-close-color);
-  background: transparent var(--wa-btn-close-bg) center/1em auto no-repeat;
+  color: var(--asfowoo-btn-close-color);
+  background: transparent var(--asfowoo-btn-close-bg) center/1em auto no-repeat;
   border: 0;
   border-radius: .375rem;
-  opacity: var(--wa-btn-close-opacity);
+  opacity: var(--asfowoo-btn-close-opacity);
 
   &:hover {
-    opacity: var(--wa-btn-close-hover-opacity);
+    opacity: var(--asfowoo-btn-close-hover-opacity);
   }
 
   &:focus {
-    opacity: var(--wa-btn-close-focus-opacity);
+    opacity: var(--asfowoo-btn-close-focus-opacity);
   }
 
   &[disabled] {
-    opacity: var(--wa-btn-close-disabled-opacity);
+    opacity: var(--asfowoo-btn-close-disabled-opacity);
   }
 }
 
 @media screen and (max-width: 782px) {
   body {
     &.admin-bar {
-      --wa-admin-bar-height: 46px;
+      --asfowoo-admin-bar-height: 46px;
     }
   }
 }

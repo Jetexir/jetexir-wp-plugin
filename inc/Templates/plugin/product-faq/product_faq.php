@@ -8,15 +8,15 @@ if ( ! isset( $args ) ) {
 echo '<h2>' . esc_html( $args['title'] ) . '</h2>';
 
 if ( ! empty( $args['items'] ) ) {
-	echo '<div class="wa-faqs-wrap">';
+	echo '<div class="asfowoo-faqs-wrap">';
 	foreach ( $args['items'] as $faq ) {
 		if ( empty( $faq['question'] ) || empty( $faq['answer'] ) ) {
 			continue;
 		}
 
-		echo '<div class="wa-faq-item">';
-		echo '<button class="wa-faq-question" type="button">' . wp_kses_post( $faq['question'] . $args['icon'] ) . '</button>';
-		echo '<div class="wa-faq-answer">' . wp_kses_post( $faq['answer'] ) . '</div>';
+		echo '<div class="asfowoo-faq-item">';
+		echo '<button class="asfowoo-faq-question" type="button">' . wp_kses_post( $faq['question'] . $args['icon'] ) . '</button>';
+		echo '<div class="asfowoo-faq-answer">' . wp_kses_post( $faq['answer'] ) . '</div>';
 		echo '</div>';
 	}
 	echo '</div>';

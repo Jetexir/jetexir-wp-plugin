@@ -4,7 +4,7 @@
 
 **Initial release**
 
-- Release Woo Assistant V1.0 with 17 add-ons and basic settings.
+- Release Assistant for WooCommerce V1.0 with 17 add-ons and basic settings.
 - Product Add-ons: Sale Badge, Price Variation, Compare, Quantity, WishList, Social Share, FAQ, Products, Call for price
 - Cart Add-ons: Fly Cart, Menu Cart
 - Checkout Add-ons: Checkout Fields

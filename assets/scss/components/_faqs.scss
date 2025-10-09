@@ -1,26 +1,26 @@
 @use "../utilities/variables";
 
-.wa-faqs-wrap {
+.asfowoo-faqs-wrap {
   display: flex;
   flex-direction: column;
   gap: 15px;
   font-size: 18px;
 
-  .wa-faq-item {
-    border: 1.5px solid var(--wa-element-border-color, variables.$border_color);
+  .asfowoo-faq-item {
+    border: 1.5px solid var(--asfowoo-element-border-color, variables.$border_color);
     display: flex;
     flex-direction: column;
-    border-radius: var(--wa-element-border-radius, 0);
+    border-radius: var(--asfowoo-element-border-radius, 0);
     overflow: hidden;
     transition: all 0.3s ease;
 
-    .wa-faq-question {
+    .asfowoo-faq-question {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 15px;
-      color: var(--wa-element-color, variables.$text);
-      background-color: var(--wa-element-bg-color, variables.$white2);
+      color: var(--asfowoo-element-color, variables.$text);
+      background-color: var(--asfowoo-element-bg-color, variables.$white2);
       transition: all 0.3s ease;
       cursor: pointer;
       outline: none;
@@ -33,16 +33,16 @@
       }
     }
 
-    &:not(.wa-active):hover {
-      border-color: var(--wa-element-hover-border-color, variables.$border_color);
+    &:not(.asfowoo-active):hover {
+      border-color: var(--asfowoo-element-hover-border-color, variables.$border_color);
 
-      .wa-faq-question {
-        color: var(--wa-element-hover-color, variables.$text);
-        background-color: var(--wa-element-hover-bg-color, variables.$white2);
+      .asfowoo-faq-question {
+        color: var(--asfowoo-element-hover-color, variables.$text);
+        background-color: var(--asfowoo-element-hover-bg-color, variables.$white2);
       }
     }
 
-    .wa-faq-answer {
+    .asfowoo-faq-answer {
       max-height: 0;
       overflow: hidden;
       transition: 0.3s;
@@ -50,18 +50,18 @@
       font-size: .9em;
     }
 
-    &.wa-active {
-      .wa-faq-question {
-        & i:is(.wa-icon-chevrons-down, .wa-icon-chevron-down ,.wa-icon-arrow-down, .wa-icon-circle-down) {
+    &.asfowoo-active {
+      .asfowoo-faq-question {
+        & i:is(.asfowoo-icon-chevrons-down, .asfowoo-icon-chevron-down ,.asfowoo-icon-arrow-down, .asfowoo-icon-circle-down) {
           transform: rotate(180deg);
         }
 
-        & i.wa-icon-plus {
+        & i.asfowoo-icon-plus {
           transform: rotate(45deg);
         }
       }
 
-      .wa-faq-answer {
+      .asfowoo-faq-answer {
         padding: 15px;
       }
     }

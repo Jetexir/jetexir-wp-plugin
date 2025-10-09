@@ -1,40 +1,40 @@
 <?php
 
-namespace WooAssistant\App\Cart;
+namespace AssistantForWooCommerce\App\Cart;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Addons\Addon;
-use WooAssistant\Helper\Assets;
-use WooAssistant\Helper\Cache;
-use WooAssistant\Helper\Nonce;
-use WooAssistant\Helper\Param;
-use WooAssistant\Helper\Sanitizing;
-use WooAssistant\Helper\Strip;
-use WooAssistant\Helper\Templates;
-use WooAssistant\Helper\WooCommerce;
-use WooAssistant\Helper\WordPress;
-use WooAssistant\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\Helper\Assets;
+use AssistantForWooCommerce\Helper\Cache;
+use AssistantForWooCommerce\Helper\Nonce;
+use AssistantForWooCommerce\Helper\Param;
+use AssistantForWooCommerce\Helper\Sanitizing;
+use AssistantForWooCommerce\Helper\Strip;
+use AssistantForWooCommerce\Helper\Templates;
+use AssistantForWooCommerce\Helper\WooCommerce;
+use AssistantForWooCommerce\Helper\WordPress;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class FlyCart extends Addon implements AddonInterface {
 	public string $addonID = 'fly-cart';
 	public string $currentTab = 'cart';
 
 	public function initAction(): void {
-		add_action( 'wp_ajax_woo_assistant_fly_cart_update', [ $this, 'updateCart' ] );
-		add_action( 'wp_ajax_nopriv_woo_assistant_fly_cart_update', [ $this, 'updateCart' ] );
-		add_action( 'wp_ajax_woo_assistant_fly_cart_items_count', [ $this, 'getCartItemCount' ] );
-		add_action( 'wp_ajax_nopriv_woo_assistant_fly_cart_items_count', [ $this, 'getCartItemCount' ] );
+		add_action( 'wp_ajax_assistant_for_woocommerce_fly_cart_update', [ $this, 'updateCart' ] );
+		add_action( 'wp_ajax_nopriv_assistant_for_woocommerce_fly_cart_update', [ $this, 'updateCart' ] );
+		add_action( 'wp_ajax_assistant_for_woocommerce_fly_cart_items_count', [ $this, 'getCartItemCount' ] );
+		add_action( 'wp_ajax_nopriv_assistant_for_woocommerce_fly_cart_items_count', [ $this, 'getCartItemCount' ] );
 	}
 
 	public function templateRedirectAction(): void {
 		if ( ! WooCommerce::isComingSoon() && ! $this->checkHide() ) {
-			add_filter( 'woo_assistant_site_fly_icons', [ $this, 'addFlyIcon' ] );
-			add_action( 'woo_assistant_site_modals', [ $this, 'printCart' ] );
-			add_action( 'woo_assistant_fly_cart_modal_body', [ $this, 'printCartBody' ] );
+			add_filter( 'assistant_for_woocommerce_site_fly_icons', [ $this, 'addFlyIcon' ] );
+			add_action( 'assistant_for_woocommerce_site_modals', [ $this, 'printCart' ] );
+			add_action( 'assistant_for_woocommerce_fly_cart_modal_body', [ $this, 'printCartBody' ] );
 
 			if ( $this->getSetting( 'fly_cart_overlay_layer', true ) ) {
-				add_filter( 'woo_assistant_site_modal_overlay', '__return_true' );
+				add_filter( 'assistant_for_woocommerce_site_modal_overlay', '__return_true' );
 			}
 		}
 	}
@@ -48,7 +48,7 @@ class FlyCart extends Addon implements AddonInterface {
 
 		wp_send_json_error( [
 			'error'   => 'nonce-invalid',
-			'message' => __( 'Security code is not valid, page will be refreshed.', 'wc-assistant' ),
+			'message' => __( 'Security code is not valid, page will be refreshed.', 'assistant-for-woocommerce' ),
 			'refresh' => true
 		], 403 );
 	}
@@ -75,7 +75,7 @@ class FlyCart extends Addon implements AddonInterface {
 
 		wp_send_json_error( [
 			'error'   => 'nonce-invalid',
-			'message' => __( 'Security code is not valid, page will be refreshed.', 'wc-assistant' ),
+			'message' => __( 'Security code is not valid, page will be refreshed.', 'assistant-for-woocommerce' ),
 			'refresh' => true
 		], 403 );
 	}
@@ -84,22 +84,22 @@ class FlyCart extends Addon implements AddonInterface {
 		$echo = ! is_bool( $echo ) || $echo;
 
 		ob_start();
-		echo '<div class="wa-loader-wrap" style="display: none"><div class="wa-loader"></div></div>';
+		echo '<div class="asfowoo-loader-wrap" style="display: none"><div class="asfowoo-loader"></div></div>';
 
 		if ( ! WordPress::isAjax() && $this->getSetting( 'fly_cart_reload_page_load', true ) ) {
-			echo '<p>' . esc_html__( 'Loading...', 'wc-assistant' ) . '</p>';
+			echo '<p>' . esc_html__( 'Loading...', 'assistant-for-woocommerce' ) . '</p>';
 
 		} else {
 			$cart = WooCommerce::getCart();
 
 			if ( $cart->is_empty() ) {
-				echo '<p>' . esc_html( $this->getSetting( 'fly_cart_empty_message', __( 'Your cart is currently empty!', 'wc-assistant' ) ) ) . '</p>';
+				echo '<p>' . esc_html( $this->getSetting( 'fly_cart_empty_message', __( 'Your cart is currently empty!', 'assistant-for-woocommerce' ) ) ) . '</p>';
 
 			} else {
 				$itemPrice       = $this->getSetting( 'fly_cart_item_price', 'price' );
 				$quantityButtons = $this->getSetting( 'fly_cart_quantity_buttons', true );
 
-				echo '<div class="wa-fly-cart-items wa-product-list-wrap">';
+				echo '<div class="asfowoo-fly-cart-items asfowoo-product-list-wrap">';
 				$items = $cart->get_cart();
 
 				foreach ( $items as $itemKey => $item ) {
@@ -112,35 +112,35 @@ class FlyCart extends Addon implements AddonInterface {
 					$maxValue    = apply_filters( 'woocommerce_quantity_input_max', $_product->get_max_purchase_quantity(), $_product );
 					$buttons     = $quantityButtons && ! ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() );
 
-					echo '<div class="wa-fly-cart-item wa-product-item-wrap" data-item-key="' . esc_html( $itemKey ) . '" data-product-id="' . esc_html( $productID ) . '">';
+					echo '<div class="asfowoo-fly-cart-item asfowoo-product-item-wrap" data-item-key="' . esc_html( $itemKey ) . '" data-product-id="' . esc_html( $productID ) . '">';
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo '<a href="' . esc_url_raw( $productLink ) . '" class="wa-fly-cart-item-image wa-product-item-image">' . Strip::kses( $_product->get_image() ) . '</a>';
+					echo '<a href="' . esc_url_raw( $productLink ) . '" class="asfowoo-fly-cart-item-image asfowoo-product-item-image">' . Strip::kses( $_product->get_image() ) . '</a>';
 
-					echo '<div class="wa-fly-cart-item-info wa-product-item-info">';
-					echo '<a href="' . esc_url_raw( $productLink ) . '" class="wa-fly-cart-item-title wa-product-item-title">' . esc_html( $name ) . '</a>';
+					echo '<div class="asfowoo-fly-cart-item-info asfowoo-product-item-info">';
+					echo '<a href="' . esc_url_raw( $productLink ) . '" class="asfowoo-fly-cart-item-title asfowoo-product-item-title">' . esc_html( $name ) . '</a>';
 					if ( $itemPrice === 'price' ) {
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						echo sprintf( '<div class="wa-fly-cart-item-price wa-product-item-price">%s</div>', $_product->get_price_html() );
+						echo sprintf( '<div class="asfowoo-fly-cart-item-price asfowoo-product-item-price">%s</div>', $_product->get_price_html() );
 					} elseif ( $itemPrice === 'subtotal' ) {
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						echo sprintf( '<div class="wa-fly-cart-item-price wa-product-item-price">%s</div>', WC()->cart->get_product_subtotal( $_product, $item->quantity ) );
+						echo sprintf( '<div class="asfowoo-fly-cart-item-price asfowoo-product-item-price">%s</div>', WC()->cart->get_product_subtotal( $_product, $item->quantity ) );
 					}
 					echo '</div>';
 
-					echo '<div class="wa-fly-cart-item-actions wa-product-item-actions">';
+					echo '<div class="asfowoo-fly-cart-item-actions asfowoo-product-item-actions">';
 
-					echo '<div class="wa-fly-cart-item-quantity ' . ( $buttons ? 'wa-fly-cart-item-quantity-buttons wa-appearance-text-field' : '' ) . '">';
+					echo '<div class="asfowoo-fly-cart-item-quantity ' . ( $buttons ? 'asfowoo-fly-cart-item-quantity-buttons asfowoo-appearance-text-field' : '' ) . '">';
 					if ( $buttons ) {
-						echo '<button type="button" data-action="minus" aria-label="' . esc_html__( 'Reduce quantity', 'wc-assistant' ) . '">-</button>';
+						echo '<button type="button" data-action="minus" aria-label="' . esc_html__( 'Reduce quantity', 'assistant-for-woocommerce' ) . '">-</button>';
 					}
 
 					if ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() ) {
-						echo '<span class="wa-fly-cart-item-quantity-value">' . esc_html( $item->quantity ) . '</span>';
+						echo '<span class="asfowoo-fly-cart-item-quantity-value">' . esc_html( $item->quantity ) . '</span>';
 					} else {
-						add_filter( 'woo_assistant_quantity_input_display_plus_minus', '__return_false' );
+						add_filter( 'assistant_for_woocommerce_quantity_input_display_plus_minus', '__return_false' );
 						$quantity = isset( $item->quantity ) ? wc_stock_amount( $item->quantity ) : $_product->get_min_purchase_quantity();
 						woocommerce_quantity_input( [
-							'input_name'  => WOOASSISTANT_INPUT_PREFIX . 'quantity_' . $productID,
+							'input_name'  => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'quantity_' . $productID,
 							'input_value' => $quantity,
 							'min_value'   => $minValue,
 							'max_value'   => $maxValue,
@@ -148,12 +148,12 @@ class FlyCart extends Addon implements AddonInterface {
 					}
 
 					if ( $buttons ) {
-						echo '<button type="button" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'wc-assistant' ) . '">+</button>';
+						echo '<button type="button" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'assistant-for-woocommerce' ) . '">+</button>';
 					}
 
 					echo '</div>';
 
-					echo '<a href="#" class="wa-fly-cart-item-remove wa-flex wa-product-item-remove" ><i class="wa-icon-cross"></i> ' . esc_html__( 'Remove', 'wc-assistant' ) . '</a>';
+					echo '<a href="#" class="asfowoo-fly-cart-item-remove asfowoo-flex asfowoo-product-item-remove" ><i class="asfowoo-icon-cross"></i> ' . esc_html__( 'Remove', 'assistant-for-woocommerce' ) . '</a>';
 					echo '</div>';
 
 					echo '</div>';
@@ -163,11 +163,11 @@ class FlyCart extends Addon implements AddonInterface {
 
 				if ( $this->getSetting( 'fly_cart_subtotal', true ) ) {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo '<div class="wa-fly-cart-subtotal wa-fly-cart-meta wa-flex"><span>' . esc_html__( 'Subtotal', 'wc-assistant' ) . '</span>' . $cart->get_cart_subtotal() . '</div>';
+					echo '<div class="asfowoo-fly-cart-subtotal asfowoo-fly-cart-meta asfowoo-flex"><span>' . esc_html__( 'Subtotal', 'assistant-for-woocommerce' ) . '</span>' . $cart->get_cart_subtotal() . '</div>';
 				}
 				if ( $this->getSetting( 'fly_cart_total', true ) ) {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo '<div class="wa-fly-cart-total wa-fly-cart-meta wa-flex"><span>' . esc_html__( 'Total', 'wc-assistant' ) . '</span>' . $cart->get_cart_total() . '</div>';
+					echo '<div class="asfowoo-fly-cart-total asfowoo-fly-cart-meta asfowoo-flex"><span>' . esc_html__( 'Total', 'assistant-for-woocommerce' ) . '</span>' . $cart->get_cart_total() . '</div>';
 				}
 			}
 		}
@@ -188,14 +188,14 @@ class FlyCart extends Addon implements AddonInterface {
 		$icons[] = array(
 			'id'          => $this->addonID,
 			'tag'         => 'a',
-			'title'       => $this->getSetting( 'fly_cart_title', __( 'Cart', 'wc-assistant' ) ),
-			'icon'        => self::getBasketIcons( $this->getSetting( 'fly_cart_icon', 'wa-icon-shopping-cart' ), true ),
+			'title'       => $this->getSetting( 'fly_cart_title', __( 'Cart', 'assistant-for-woocommerce' ) ),
+			'icon'        => self::getBasketIcons( $this->getSetting( 'fly_cart_icon', 'asfowoo-icon-shopping-cart' ), true ),
 			'count_badge' => WooCommerce::getCartItemsCount(),
 			'attributes'  => array(
-				'class'          => 'wa-fly-cart',
-				'href'           => '#',
-				'data-wa-toggle' => 'modal',
-				'data-wa-target' => '#wa-fly-cart-modal'
+				'class'               => 'asfowoo-fly-cart',
+				'href'                => '#',
+				'data-asfowoo-toggle' => 'modal',
+				'data-asfowoo-target' => '#asfowoo-fly-cart-modal'
 			),
 			'position'    => $this->getSetting( 'fly_cart_position', 'bottom-left' ),
 		);
@@ -235,7 +235,7 @@ class FlyCart extends Addon implements AddonInterface {
 			$hide = true;
 		}
 
-		$hide = apply_filters( 'woo_assistant_fly_cart_hide', $hide );
+		$hide = apply_filters( 'assistant_for_woocommerce_fly_cart_hide', $hide );
 
 		Cache::set( 'fly_cart_hide', $hide );
 
@@ -244,27 +244,27 @@ class FlyCart extends Addon implements AddonInterface {
 
 	public static function getBasketIcons( $icon = null, $tag = false ) {
 		$icons = array(
-			'wa-icon-shopping-cart',
-			'wa-icon-shopping-cart1',
-			'wa-icon-shopping-cart2',
-			'wa-icon-shopping-cart3',
-			'wa-icon-shopping-cart4',
-			'wa-icon-shopping-cart5',
-			'wa-icon-shopping-cart6',
-			'wa-icon-shopping-cart7',
-			'wa-icon-shopping-bag',
-			'wa-icon-shopping-bag1',
-			'wa-icon-shopping-basket',
-			'wa-icon-shopping-basket1',
-			'wa-icon-shopping-basket2',
-			'wa-icon-shopping-basket3',
+			'asfowoo-icon-shopping-cart',
+			'asfowoo-icon-shopping-cart1',
+			'asfowoo-icon-shopping-cart2',
+			'asfowoo-icon-shopping-cart3',
+			'asfowoo-icon-shopping-cart4',
+			'asfowoo-icon-shopping-cart5',
+			'asfowoo-icon-shopping-cart6',
+			'asfowoo-icon-shopping-cart7',
+			'asfowoo-icon-shopping-bag',
+			'asfowoo-icon-shopping-bag1',
+			'asfowoo-icon-shopping-basket',
+			'asfowoo-icon-shopping-basket1',
+			'asfowoo-icon-shopping-basket2',
+			'asfowoo-icon-shopping-basket3',
 		);
 
 		if ( is_null( $icon ) ) {
 			return $icons;
 		}
 
-		$icon = in_array( $icon, $icons, true ) ? $icon : 'wa-icon-shopping-cart';
+		$icon = in_array( $icon, $icons, true ) ? $icon : 'asfowoo-icon-shopping-cart';
 
 		return $tag ? '<i class="' . $icon . '"></i>' : $icon;
 	}
@@ -276,47 +276,47 @@ class FlyCart extends Addon implements AddonInterface {
 			$basketIcons[ $icon ] = '<i class="' . $icon . '"></i>';
 		}
 		$sections[ $this->addonID ] = array(
-			'title'        => __( 'Fly Cart', 'wc-assistant' ),
-			'desc'         => __( 'Fly Cart', 'wc-assistant' ),
+			'title'        => __( 'Fly Cart', 'assistant-for-woocommerce' ),
+			'desc'         => __( 'Fly Cart', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->addonID,
 			'settings'     => [
 				'fly_cart_start_grid_icon' => array(
 					'id'    => 'fly_cart_start_grid_icon',
-					'title' => __( 'Fly Cart Icon', 'wc-assistant' ),
+					'title' => __( 'Fly Cart Icon', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'fly_cart_position'        => array(
 					'id'       => 'fly_cart_position',
-					'title'    => __( 'Position', 'wc-assistant' ),
+					'title'    => __( 'Position', 'assistant-for-woocommerce' ),
 					'type'     => 'select',
 					'options'  => array(
-						'top-left'     => __( 'Top Left', 'wc-assistant' ),
-						'top-right'    => __( 'Top Right', 'wc-assistant' ),
-						'bottom-left'  => __( 'Bottom Left', 'wc-assistant' ),
-						'bottom-right' => __( 'Bottom Right', 'wc-assistant' ),
+						'top-left'     => __( 'Top Left', 'assistant-for-woocommerce' ),
+						'top-right'    => __( 'Top Right', 'assistant-for-woocommerce' ),
+						'bottom-left'  => __( 'Bottom Left', 'assistant-for-woocommerce' ),
+						'bottom-right' => __( 'Bottom Right', 'assistant-for-woocommerce' ),
 					),
 					'default'  => 'bottom-left',
 					'sanitize' => 'text'
 				),
 				'fly_cart_icon'            => array(
 					'id'       => 'fly_cart_icon',
-					'title'    => __( 'Icon', 'wc-assistant' ),
+					'title'    => __( 'Icon', 'assistant-for-woocommerce' ),
 					'type'     => 'radioInline',
-					'default'  => 'wa-icon-shopping-cart',
+					'default'  => 'asfowoo-icon-shopping-cart',
 					'options'  => $basketIcons,
 					'sanitize' => 'text'
 				),
 				'fly_cart_title'           => array(
 					'id'      => 'fly_cart_title',
-					'title'   => __( 'Title', 'wc-assistant' ),
+					'title'   => __( 'Title', 'assistant-for-woocommerce' ),
 					'type'    => 'text',
-					'default' => __( 'Cart', 'wc-assistant' )
+					'default' => __( 'Cart', 'assistant-for-woocommerce' )
 				),
 				'fly_cart_empty_message'   => array(
 					'id'      => 'fly_cart_empty_message',
-					'title'   => __( 'Empty shopping cart message', 'wc-assistant' ),
+					'title'   => __( 'Empty shopping cart message', 'assistant-for-woocommerce' ),
 					'type'    => 'text',
-					'default' => __( 'Your cart is currently empty!', 'wc-assistant' )
+					'default' => __( 'Your cart is currently empty!', 'assistant-for-woocommerce' )
 				),
 				'fly_cart_end_grid_icon'   => array(
 					'type' => 'endGrid',
@@ -324,23 +324,23 @@ class FlyCart extends Addon implements AddonInterface {
 
 				'fly_cart_start_grid_modal'         => array(
 					'id'    => 'fly_cart_start_grid_modal',
-					'title' => __( 'Cart Modal', 'wc-assistant' ),
+					'title' => __( 'Cart Modal', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'fly_cart_item_price'               => array(
 					'id'       => 'fly_cart_item_price',
-					'title'    => __( 'Product price', 'wc-assistant' ),
+					'title'    => __( 'Product price', 'assistant-for-woocommerce' ),
 					'type'     => 'select',
 					'options'  => array(
-						'price'    => __( 'Price', 'wc-assistant' ),
-						'subtotal' => __( 'Subtotal', 'wc-assistant' ),
+						'price'    => __( 'Price', 'assistant-for-woocommerce' ),
+						'subtotal' => __( 'Subtotal', 'assistant-for-woocommerce' ),
 					),
 					'default'  => 'price',
 					'sanitize' => 'text'
 				),
 				'fly_cart_quantity_buttons'         => array(
 					'id'       => 'fly_cart_quantity_buttons',
-					'title'    => __( 'Quantity plus/minus buttons', 'wc-assistant' ),
+					'title'    => __( 'Quantity plus/minus buttons', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -348,7 +348,7 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_subtotal'                 => array(
 					'id'       => 'fly_cart_subtotal',
-					'title'    => __( 'Subtotal', 'wc-assistant' ),
+					'title'    => __( 'Subtotal', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -356,14 +356,14 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_total'                    => array(
 					'id'       => 'fly_cart_total',
-					'title'    => __( 'Total', 'wc-assistant' ),
+					'title'    => __( 'Total', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
 					'sanitize' => 'bool'
 				),
 				'start_inline_elements_cart_button' => array(
-					'title' => __( 'Cart button', 'wc-assistant' ),
+					'title' => __( 'Cart button', 'assistant-for-woocommerce' ),
 					'type'  => 'startInlineElements',
 				),
 				'fly_cart_cart_button_enable'       => array(
@@ -376,14 +376,14 @@ class FlyCart extends Addon implements AddonInterface {
 				'fly_cart_cart_button'              => array(
 					'id'      => 'fly_cart_cart_button',
 					'type'    => 'text',
-					'default' => __( 'Cart', 'wc-assistant' )
+					'default' => __( 'Cart', 'assistant-for-woocommerce' )
 				),
 				'end_inline_elements_cart_button'   => array(
 					'type' => 'endInlineElements',
 				),
 
 				'start_inline_elements_checkout_button' => array(
-					'title' => __( 'Checkout button', 'wc-assistant' ),
+					'title' => __( 'Checkout button', 'assistant-for-woocommerce' ),
 					'type'  => 'startInlineElements',
 				),
 				'fly_cart_checkout_button_enable'       => array(
@@ -396,15 +396,15 @@ class FlyCart extends Addon implements AddonInterface {
 				'fly_cart_checkout_button'              => array(
 					'id'      => 'fly_cart_checkout_button',
 					'type'    => 'text',
-					'default' => __( 'Checkout', 'wc-assistant' )
+					'default' => __( 'Checkout', 'assistant-for-woocommerce' )
 				),
 				'end_inline_elements_checkout_button'   => array(
 					'type' => 'endInlineElements',
 				),
 				'fly_cart_reload_page_load'             => array(
 					'id'       => 'fly_cart_reload_page_load',
-					'title'    => __( 'Reload cart', 'wc-assistant' ),
-					'desc'     => __( 'Reload the shopping cart after the page opens.', 'wc-assistant' ),
+					'title'    => __( 'Reload cart', 'assistant-for-woocommerce' ),
+					'desc'     => __( 'Reload the shopping cart after the page opens.', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -412,7 +412,7 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_overlay_layer'                => array(
 					'id'       => 'fly_cart_overlay_layer',
-					'title'    => __( 'Overlay layer', 'wc-assistant' ),
+					'title'    => __( 'Overlay layer', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
@@ -424,13 +424,13 @@ class FlyCart extends Addon implements AddonInterface {
 
 				'fly_cart_start_grid_hide'  => array(
 					'id'    => 'fly_cart_start_grid_icon',
-					'title' => __( 'Hide on', 'wc-assistant' ),
+					'title' => __( 'Hide on', 'assistant-for-woocommerce' ),
 					'type'  => 'startGrid',
 				),
 				'fly_cart_hide_on_home'     => array(
 					'id'       => 'fly_cart_hide_on_home',
-					'title'    => __( 'Home', 'wc-assistant' ),
-					'desc'     => __( 'Hide on Home page', 'wc-assistant' ),
+					'title'    => __( 'Home', 'assistant-for-woocommerce' ),
+					'desc'     => __( 'Hide on Home page', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -438,8 +438,8 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_hide_on_blog'     => array(
 					'id'       => 'fly_cart_hide_on_blog',
-					'title'    => __( 'Blog', 'wc-assistant' ),
-					'desc'     => __( 'Hide on Blog page', 'wc-assistant' ),
+					'title'    => __( 'Blog', 'assistant-for-woocommerce' ),
+					'desc'     => __( 'Hide on Blog page', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -447,8 +447,8 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_hide_on_posts'    => array(
 					'id'       => 'fly_cart_hide_on_posts',
-					'title'    => __( 'Posts', 'wc-assistant' ),
-					'desc'     => __( 'Hide on Posts', 'wc-assistant' ),
+					'title'    => __( 'Posts', 'assistant-for-woocommerce' ),
+					'desc'     => __( 'Hide on Posts', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -456,8 +456,8 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_hide_on_cart'     => array(
 					'id'       => 'fly_cart_hide_on_cart',
-					'title'    => __( 'Cart', 'wc-assistant' ),
-					'desc'     => __( 'Hide on Cart page', 'wc-assistant' ),
+					'title'    => __( 'Cart', 'assistant-for-woocommerce' ),
+					'desc'     => __( 'Hide on Cart page', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -465,8 +465,8 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_hide_on_checkout' => array(
 					'id'       => 'fly_cart_hide_on_checkout',
-					'title'    => __( 'Checkout', 'wc-assistant' ),
-					'desc'     => __( 'Hide on Checkout page', 'wc-assistant' ),
+					'title'    => __( 'Checkout', 'assistant-for-woocommerce' ),
+					'desc'     => __( 'Hide on Checkout page', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => false,
@@ -474,7 +474,7 @@ class FlyCart extends Addon implements AddonInterface {
 				),
 				'fly_cart_hide_on_pages'    => array(
 					'id'                => 'fly_cart_hide_on_pages',
-					'title'             => __( 'Hide on Pages', 'wc-assistant' ),
+					'title'             => __( 'Hide on Pages', 'assistant-for-woocommerce' ),
 					'type'              => 'postSelect',
 					'args'              => array(
 						'post_type' => 'page'
@@ -499,9 +499,9 @@ class FlyCart extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Fly Cart', 'wc-assistant' ),
-			'desc'           => __( 'Floating Cart for WooCommerce', 'wc-assistant' ),
-			'tags'           => [ __( 'Cart', 'wc-assistant' ) ],
+			'title'          => __( 'Fly Cart', 'assistant-for-woocommerce' ),
+			'desc'           => __( 'Floating Cart for WooCommerce', 'assistant-for-woocommerce' ),
+			'tags'           => [ __( 'Cart', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'cart',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',
@@ -511,17 +511,17 @@ class FlyCart extends Addon implements AddonInterface {
 
 	public function wpEnqueueScriptsAction(): void {
 		$pluginVersion = Assets::getVersion();
-		$debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
+		$debugName     = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? '' : '.min';
 
-		wp_enqueue_style( WOOASSISTANT_PLUGIN_KEY . '-fly-cart-style',
+		wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-fly-cart-style',
 			Assets::url( 'css/fly-cart' . $debugName . '.css' ),
 			false, $pluginVersion );
 
-		wp_enqueue_script( WOOASSISTANT_PLUGIN_SLUG . '-fly-cart-script',
+		wp_enqueue_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-fly-cart-script',
 			Assets::url( 'js/fly-cart.min.js' ),
-			[ WOOASSISTANT_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
+			[ ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
-		wp_localize_script( WOOASSISTANT_PLUGIN_SLUG . '-fly-cart-script', WOOASSISTANT_PLUGIN_KEYCAP . 'FlyCart', array(
+		wp_localize_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-fly-cart-script', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP . 'FlyCart', array(
 			'reloadOnLoad' => Sanitizing::int( $this->getSetting( 'fly_cart_reload_page_load', true ) )
 		) );
 	}

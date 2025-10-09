@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\App\Cart;
+namespace AssistantForWooCommerce\App\Cart;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Providers\DB;
+namespace AssistantForWooCommerce\Providers\DB;
 
 class Model {
 

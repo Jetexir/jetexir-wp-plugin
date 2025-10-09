@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\App\Product;
+namespace AssistantForWooCommerce\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,12 +26,12 @@ class Product {
 	 */
 	public static function getFields(): array {
 		return array(
-			'price'      => __( 'Price', 'wc-assistant' ),
-			'stock'      => __( 'Stock', 'wc-assistant' ),
-			'rating'     => __( 'Rating', 'wc-assistant' ),
-			'brand'      => __( 'Brand', 'wc-assistant' ),
-			'dimensions' => __( 'Dimensions', 'wc-assistant' ),
-			'weight'     => __( 'Weight', 'wc-assistant' ),
+			'price'      => __( 'Price', 'assistant-for-woocommerce' ),
+			'stock'      => __( 'Stock', 'assistant-for-woocommerce' ),
+			'rating'     => __( 'Rating', 'assistant-for-woocommerce' ),
+			'brand'      => __( 'Brand', 'assistant-for-woocommerce' ),
+			'dimensions' => __( 'Dimensions', 'assistant-for-woocommerce' ),
+			'weight'     => __( 'Weight', 'assistant-for-woocommerce' ),
 		);
 	}
 }

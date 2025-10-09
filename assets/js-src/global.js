@@ -1,9 +1,9 @@
-wooAssistantAjax = false;
+assistantForWooCommerceAjax = false;
 
 jQuery(document).ready(function ($) {
     var waBody = $('body');
 
-    wooAssistantModalCloseEvent = new CustomEvent(
+    assistantForWooCommerceModalCloseEvent = new CustomEvent(
         "waModalClose",
         {
             detail: {
@@ -15,38 +15,38 @@ jQuery(document).ready(function ($) {
     );
 
     function waToggleModal(status, target = '') {
-        let modalOverlay = $('#wa-modal-overlay'),
-            modalTarget = waBody.attr('data-wa-modal-target');
+        let modalOverlay = $('#asfowoo-modal-overlay'),
+            modalTarget = waBody.attr('data-asfowoo-modal-target');
 
-        if (status && !waBody.hasClass('wa-modal-open')) {
+        if (status && !waBody.hasClass('asfowoo-modal-open')) {
             waBody.css({
                 "overflow": "hidden",
                 "padding-right": "0"
             })
-                .addClass('wa-modal-open')
-                .attr('data-wa-modal-target', target);
-            $(target).toggleClass('wa-active').removeAttr('aria-hidden').show();
+                .addClass('asfowoo-modal-open')
+                .attr('data-asfowoo-modal-target', target);
+            $(target).toggleClass('asfowoo-active').removeAttr('aria-hidden').show();
             if (modalOverlay !== undefined)
-                modalOverlay.addClass('wa-active');
+                modalOverlay.addClass('asfowoo-active');
 
-        } else if (!status && waBody.hasClass('wa-modal-open')) {
-            window.dispatchEvent(wooAssistantModalCloseEvent);
+        } else if (!status && waBody.hasClass('asfowoo-modal-open')) {
+            window.dispatchEvent(assistantForWooCommerceModalCloseEvent);
 
             waBody.css({
                 "overflow": "",
                 "padding-right": ""
             })
-                .removeClass('wa-modal-open')
-                .removeAttr('data-wa-modal-target');
-            $(modalTarget).hide().removeClass('wa-active').attr('aria-hidden', 'true');
+                .removeClass('asfowoo-modal-open')
+                .removeAttr('data-asfowoo-modal-target');
+            $(modalTarget).hide().removeClass('asfowoo-active').attr('aria-hidden', 'true');
             if (modalOverlay !== undefined)
-                modalOverlay.removeClass('wa-active');
+                modalOverlay.removeClass('asfowoo-active');
         }
     }
 
-    $('[data-wa-toggle="modal"]').on('click', function () {
+    $('[data-asfowoo-toggle="modal"]').on('click', function () {
         let $this = $(this),
-            modalTarget = $this.data('wa-target');
+            modalTarget = $this.data('asfowoo-target');
 
         if (modalTarget !== undefined) {
             let modalTargetElm = $(modalTarget);
@@ -56,11 +56,11 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    $('#wa-modal-overlay, [data-wa-dismiss="modal"]').on('click', function () {
+    $('#asfowoo-modal-overlay, [data-asfowoo-dismiss="modal"]').on('click', function () {
         waToggleModal(false);
     });
 
-    $('.wa-copy-text').on('click', function (e) {
+    $('.asfowoo-copy-text').on('click', function (e) {
         e.preventDefault();
 
         let copyText = $(this).data('copy'), copyIcon;
@@ -68,33 +68,33 @@ jQuery(document).ready(function ($) {
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(copyText);
 
-                if ((copyIcon = $(this).find('.wa-icon-file_copy')).length > 0) {
-                    copyIcon.removeClass('wa-icon-file_copy').addClass('wa-icon-content_copy');
+                if ((copyIcon = $(this).find('.asfowoo-icon-file_copy')).length > 0) {
+                    copyIcon.removeClass('asfowoo-icon-file_copy').addClass('asfowoo-icon-content_copy');
 
                     setTimeout(function () {
-                        copyIcon.removeClass('wa-icon-content_copy').addClass('wa-icon-file_copy');
+                        copyIcon.removeClass('asfowoo-icon-content_copy').addClass('asfowoo-icon-file_copy');
                     }, 500);
                 }
             } else {
-                alert(WooAssistant.sslError);
+                alert(AssistantForWooCommerce.sslError);
             }
         }
     });
 
-    $('.wa-faq-question').on('click', function () {
+    $('.asfowoo-faq-question').on('click', function () {
         let $this = $(this),
-            faqItem = $this.closest('.wa-faq-item'),
-            faqAnswer = faqItem.find('.wa-faq-answer'),
-            faqActive = faqItem.hasClass('wa-active');
+            faqItem = $this.closest('.asfowoo-faq-item'),
+            faqAnswer = faqItem.find('.asfowoo-faq-answer'),
+            faqActive = faqItem.hasClass('asfowoo-active');
 
-        $('.wa-faq-item').each(function (i) {
-            $(this).removeClass('wa-active');
-            $(this).find('.wa-faq-answer').css('max-height', 0);
+        $('.asfowoo-faq-item').each(function (i) {
+            $(this).removeClass('asfowoo-active');
+            $(this).find('.asfowoo-faq-answer').css('max-height', 0);
         });
 
         if (!faqActive) {
-            faqItem.toggleClass('wa-active');
-            if (faqItem.hasClass('wa-active')) {
+            faqItem.toggleClass('asfowoo-active');
+            if (faqItem.hasClass('asfowoo-active')) {
                 faqAnswer.css('max-height', 'initial');
             } else {
                 faqAnswer.css('max-height', 0);
@@ -102,40 +102,40 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    $('a[data-wa-product-remove-action]').on('click', function (e) {
+    $('a[data-asfowoo-product-remove-action]').on('click', function (e) {
         e.preventDefault();
 
         let $this = $(this),
-            removeAction = $this.data('wa-product-remove-action'),
-            removeWrapperTarget = $this.data('wa-product-list-wrap'),
-            removeNoticeTarget = $this.data('wa-product-list-notice'),
-            removeParentTarget = $this.data('wa-product-parent'),
-            removeLoaderTarget = $this.data('wa-product-loader'),
+            removeAction = $this.data('asfowoo-product-remove-action'),
+            removeWrapperTarget = $this.data('asfowoo-product-list-wrap'),
+            removeNoticeTarget = $this.data('asfowoo-product-list-notice'),
+            removeParentTarget = $this.data('asfowoo-product-parent'),
+            removeLoaderTarget = $this.data('asfowoo-product-loader'),
             removeProductID = $this.data('product-id'),
             removeWrapper, removeNotice, removeParent, removeLoader;
 
         if (removeProductID === undefined || removeProductID === '' || removeAction === undefined || removeAction === '')
             return;
 
-        removeWrapperTarget = removeWrapperTarget === undefined || removeWrapperTarget === '' ? '.wa-product-list-wrap' : removeWrapperTarget;
-        removeNoticeTarget = removeNoticeTarget === undefined || removeNoticeTarget === '' ? '.wa-product-list-notice' : removeNoticeTarget;
-        removeParentTarget = removeParentTarget === undefined || removeParentTarget === '' ? '.wa-product-item-wrap' : removeParentTarget;
-        removeLoaderTarget = removeLoaderTarget === undefined || removeLoaderTarget === '' ? '.wa-loader-wrap' : removeLoaderTarget;
+        removeWrapperTarget = removeWrapperTarget === undefined || removeWrapperTarget === '' ? '.asfowoo-product-list-wrap' : removeWrapperTarget;
+        removeNoticeTarget = removeNoticeTarget === undefined || removeNoticeTarget === '' ? '.asfowoo-product-list-notice' : removeNoticeTarget;
+        removeParentTarget = removeParentTarget === undefined || removeParentTarget === '' ? '.asfowoo-product-item-wrap' : removeParentTarget;
+        removeLoaderTarget = removeLoaderTarget === undefined || removeLoaderTarget === '' ? '.asfowoo-loader-wrap' : removeLoaderTarget;
 
         removeWrapper = $this.closest(removeWrapperTarget);
         removeNotice = removeWrapper.find(removeNoticeTarget);
         removeParent = $this.closest(removeParentTarget);
         removeLoader = removeWrapper.find(removeLoaderTarget);
 
-        if (wooAssistantAjax) return;
-        wooAssistantAjax = true;
+        if (assistantForWooCommerceAjax) return;
+        assistantForWooCommerceAjax = true;
 
         removeLoader.css('display', '');
 
         $.post(
-            WooAssistant.ajaxUrl,
+            AssistantForWooCommerce.ajaxUrl,
             {
-                nonce: WooAssistant.ajaxNonce,
+                nonce: AssistantForWooCommerce.ajaxNonce,
                 action: removeAction,
                 product_id: removeProductID,
             }
@@ -160,7 +160,7 @@ jQuery(document).ready(function ($) {
             })
             .always(function () {
                 removeLoader.hide();
-                wooAssistantAjax = false;
+                assistantForWooCommerceAjax = false;
             });
     })
 });

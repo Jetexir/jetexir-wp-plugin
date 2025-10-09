@@ -1,13 +1,13 @@
 <?php
 
-namespace WooAssistant\Integrations;
+namespace AssistantForWooCommerce\Integrations;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Addons\Addon;
-use WooAssistant\Helper\FeedReader;
-use WooAssistant\Helper\Templates;
-use WooAssistant\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\Helper\FeedReader;
+use AssistantForWooCommerce\Helper\Templates;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class WooDeveloperFeed extends Addon implements AddonInterface {
 	public string $addonID = 'woo-developer-feed';
@@ -44,14 +44,14 @@ class WooDeveloperFeed extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Woo Developer Feed', 'wc-assistant' ),
-			'desc'           => __( 'WooCommerce Developer Blog RSS Feed', 'wc-assistant' ),
+			'title'          => __( 'Woo Developer Feed', 'assistant-for-woocommerce' ),
+			'desc'           => __( 'WooCommerce Developer Blog RSS Feed', 'assistant-for-woocommerce' ),
 			'has_page'       => true,
 			'force_enable'   => false,
 			'content_header' => true,
 			'icon'           => $svg,
 			'image_link'     => 'https://developer.woocommerce.com',
-			'tags'           => [ __( 'Feed', 'wc-assistant' ) ],
+			'tags'           => [ __( 'Feed', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'utility',
 		);
 	}

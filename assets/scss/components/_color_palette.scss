@@ -1,13 +1,13 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-@mixin wa-color-palette {
-  .wa-color-palette {
+@mixin asfowoo-color-palette {
+  .asfowoo-color-palette {
     width: 100%;
     border-radius: 10px;
     border: 1px solid variables.$border_color;
 
-    .wa-color-palette-items {
+    .asfowoo-color-palette-items {
       display: flex;
       flex-direction: column;
       gap: 0;
@@ -90,11 +90,11 @@
       }
     }
 
-    .wa-add-color-wrap {
+    .asfowoo-add-color-wrap {
       border-top: 1px solid variables.$border_color;
     }
 
-    .wa-add-color {
+    .asfowoo-add-color {
       display: flex;
       align-items: center;
       gap: 5px;
@@ -127,7 +127,7 @@
       }
     }
 
-    .wa-remove-color {
+    .asfowoo-remove-color {
       position: absolute;
       color: #222;
       background-color: white;
@@ -156,7 +156,7 @@
     }
 
     &[data-addable="0"] {
-      .wa-color-palette-items {
+      .asfowoo-color-palette-items {
         .wp-picker-container {
           &:last-child {
             .wp-color-result {
@@ -173,8 +173,8 @@
       }
     }
 
-    &.wa-color-palette-horizontal {
-      .wa-color-palette-items {
+    &.asfowoo-color-palette-horizontal {
+      .asfowoo-color-palette-items {
         .wp-picker-container {
           &:not(:first-child) {
             border-top: 0.5px solid variables.$border_color;
@@ -183,8 +183,8 @@
       }
     }
 
-    &.wa-color-palette-vertical {
-      .wa-color-palette-items {
+    &.asfowoo-color-palette-vertical {
+      .asfowoo-color-palette-items {
         display: grid;
         grid-auto-columns: 1fr;
 
@@ -224,7 +224,7 @@
             transform: translateX(-50%) rotate(-90deg);
           }
 
-          .wa-remove-color {
+          .asfowoo-remove-color {
             top: inherit;
             right: inherit;
             bottom: 10px;
@@ -235,7 +235,7 @@
       }
 
       &[data-addable="0"] {
-        .wa-color-palette-items {
+        .asfowoo-color-palette-items {
           .wp-picker-container {
             &:first-child {
               .wp-color-result {

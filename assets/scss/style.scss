@@ -9,7 +9,7 @@
 @use "components/loading";
 @use "components/global";
 
-.wa-appearance-text-field {
+.asfowoo-appearance-text-field {
   input[type="number"] {
     -webkit-appearance: none;
     -moz-appearance: textfield;
@@ -17,8 +17,8 @@
   }
 }
 
-.wa-button {
-  &.wa-button-remove {
+.asfowoo-button {
+  &.asfowoo-button-remove {
     color: variables.$red !important;
 
     &:hover {
@@ -27,7 +27,7 @@
   }
 }
 
-.wa-remove-action {
+.asfowoo-remove-action {
   color: variables.$red !important;
 
   &:hover {
@@ -35,68 +35,68 @@
   }
 }
 
-.wa-inline-flex {
+.asfowoo-inline-flex {
   display: inline-flex !important;
   align-items: center;
   gap: 5px;
 }
 
-.wa-flex {
+.asfowoo-flex {
   display: flex !important;
   align-items: center;
   gap: 5px;
 }
 
-.wa-product-list-wrap {
+.asfowoo-product-list-wrap {
   display: flex;
   flex-direction: column;
   gap: 20px;
   margin-bottom: 20px;
   position: relative;
 
-  .wa-product-item-wrap {
+  .asfowoo-product-item-wrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
     width: 100%;
     padding: 10px;
-    border-radius: var(--wa-element-border-radius, 0);
+    border-radius: var(--asfowoo-element-border-radius, 0);
     transition: all 0.2s;
 
     &:hover {
-      background-color: var(--wa-element-hover-bg-color, variables.$gray_light_three);
+      background-color: var(--asfowoo-element-hover-bg-color, variables.$gray_light_three);
     }
 
-    .wa-product-item-image {
+    .asfowoo-product-item-image {
       width: 60px;
       flex: 0 0 60px;
     }
 
-    .wa-product-item-info {
+    .asfowoo-product-item-info {
       display: flex;
       flex-grow: 1;
       flex-direction: column;
       align-items: start;
       gap: 7px;
 
-      .wa-product-item-title {
+      .asfowoo-product-item-title {
 
       }
 
-      .wa-product-item-meta {
+      .asfowoo-product-item-meta {
         font-size: 0.8em;
       }
     }
 
-    .wa-product-item-actions {
+    .asfowoo-product-item-actions {
       display: flex;
       flex-direction: column;
       align-items: end;
       gap: 7px;
       font-size: 0.8em;
 
-      .wa-product-item-remove {
+      .asfowoo-product-item-remove {
         color: variables.$red;
         gap: 3px;
         text-decoration: none;

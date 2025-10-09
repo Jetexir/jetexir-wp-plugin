@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Helper;
+namespace AssistantForWooCommerce\Helper;
 
 class Strip {
 	public static function kses( $content ) {

@@ -1,7 +1,7 @@
 @use "../utilities/variables";
 
-@mixin wa-repeatable {
-  .wa-repeatable {
+@mixin asfowoo-repeatable {
+  .asfowoo-repeatable {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -12,20 +12,20 @@
     border-radius: 10px;
     counter-reset: repeatable;
 
-    > .wa-title {
+    > .asfowoo-title {
       margin-bottom: 15px;
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      .wa-add-repeatable {
+      .asfowoo-add-repeatable {
         i {
           font-size: 1.5em;
         }
       }
     }
 
-    > .wa-add-repeatable {
+    > .asfowoo-add-repeatable {
       align-self: end;
 
       svg {
@@ -34,13 +34,13 @@
       }
     }
 
-    .wa-repeatable-wrap {
+    .asfowoo-repeatable-wrap {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
 
-    .wa-repeatable-fields-wrap {
+    .asfowoo-repeatable-fields-wrap {
       display: flex;
       flex-direction: column;
       gap: 15px;
@@ -49,7 +49,7 @@
       border-radius: 10px;
       position: relative;
 
-      .wa-repeatable-actions {
+      .asfowoo-repeatable-actions {
         position: absolute;
         right: 10px;
         top: 10px;
@@ -57,7 +57,7 @@
         gap: 10px;
       }
 
-      .wa-remove-repeatable {
+      .asfowoo-remove-repeatable {
         display: none;
 
         svg {
@@ -66,7 +66,7 @@
         }
       }
 
-      :is(.wa-move-up-repeatable,.wa-move-down-repeatable) {
+      :is(.asfowoo-move-up-repeatable,.asfowoo-move-down-repeatable) {
         display: none;
 
         svg {
@@ -76,13 +76,13 @@
       }
 
       &:first-child {
-        .wa-move-up-repeatable {
+        .asfowoo-move-up-repeatable {
           display: none !important;
         }
       }
 
       &:last-child {
-        .wa-move-down-repeatable {
+        .asfowoo-move-down-repeatable {
           display: none !important;
         }
       }
@@ -94,7 +94,7 @@
       }
     }
 
-    .wa-add-repeatable {
+    .asfowoo-add-repeatable {
       display: flex;
       align-items: center;
       gap: 5px;

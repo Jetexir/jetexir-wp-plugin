@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-.wa-badge {
+.asfowoo-badge {
   padding: 7px 10px;
   border-radius: 5px;
   color: white;
@@ -9,19 +9,19 @@
   font-size: 0.9em;
   background-color: variables.$default__badge;
 
-  &.wa-badge-info {
+  &.asfowoo-badge-info {
     background-color: variables.$info__badge;
   }
 
-  &.wa-badge-success {
+  &.asfowoo-badge-success {
     background-color: variables.$success__badge;
   }
 
-  &.wa-badge-warning {
+  &.asfowoo-badge-warning {
     background-color: variables.$warning__badge;
   }
 
-  &.wa-badge-danger {
+  &.asfowoo-badge-danger {
     background-color: variables.$danger__badge;
   }
 }

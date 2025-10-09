@@ -1,8 +1,8 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-@mixin wa-radio {
-  :is(.wa-radio-inline,.wa-checkbox-inline) {
+@mixin asfowoo-radio {
+  :is(.asfowoo-radio-inline,.asfowoo-checkbox-inline) {
     position: relative;
 
     input {
@@ -13,7 +13,7 @@
       width: 0;
     }
 
-    .wa-title {
+    .asfowoo-title {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -28,7 +28,7 @@
       padding: 7px 20px;
     }
 
-    .wa-checkmark {
+    .asfowoo-checkmark {
       position: absolute;
       right: 4px;
       top: 4px;
@@ -54,30 +54,30 @@
       }
     }
 
-    &:hover input:not(:checked) ~ .wa-title {
+    &:hover input:not(:checked) ~ .asfowoo-title {
       border-color: color.scale(variables.$border_color, $lightness: -5%);
     }
 
-    input:checked ~ .wa-checkmark {
+    input:checked ~ .asfowoo-checkmark {
       display: block;
     }
 
-    input:checked ~ .wa-title {
+    input:checked ~ .asfowoo-title {
       border-color: variables.$primary;
     }
 
-    input[disabled] ~ .wa-title, input[disabled] + .wa-checkmark {
+    input[disabled] ~ .asfowoo-title, input[disabled] + .asfowoo-checkmark {
       opacity: 0.7;
     }
 
-    &.wa-not-equal {
-      .wa-title {
+    &.asfowoo-not-equal {
+      .asfowoo-title {
         width: inherit;
       }
     }
   }
 
-  .wa-radio-wrap {
+  .asfowoo-radio-wrap {
     position: relative;
     cursor: pointer;
     -webkit-user-select: none;
@@ -95,7 +95,7 @@
       width: 0;
     }
 
-    .wa-checkmark {
+    .asfowoo-checkmark {
       display: block;
       height: 16px;
       width: 16px;
@@ -116,31 +116,31 @@
       }
     }
 
-    &:hover input:not(:checked) ~ .wa-checkmark {
+    &:hover input:not(:checked) ~ .asfowoo-checkmark {
       background-color: color.scale(variables.$background_input, $lightness: -2%);
     }
 
-    input:checked ~ .wa-checkmark {
+    input:checked ~ .asfowoo-checkmark {
       background-color: variables.$primary;
     }
 
-    input:checked ~ .wa-checkmark:after {
+    input:checked ~ .asfowoo-checkmark:after {
       display: block;
     }
 
-    input:focus + .wa-checkmark {
+    input:focus + .asfowoo-checkmark {
       box-shadow: 0 0 0 2px variables.$primary;
     }
 
-    input[disabled] + .wa-checkmark {
+    input[disabled] + .asfowoo-checkmark {
       opacity: 0.7;
     }
 
-    /*input[disabled] + .wa-checkmark {
+    /*input[disabled] + .asfowoo-checkmark {
       background-color: variables.$gray_light_two;
     }
 
-    input[disabled]:checked + .wa-checkmark {
+    input[disabled]:checked + .asfowoo-checkmark {
       background-color: variables.$gray_light;
     }*/
   }

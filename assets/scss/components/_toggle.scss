@@ -1,8 +1,8 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-@mixin wa-toggle {
-  .wa-toggle {
+@mixin asfowoo-toggle {
+  .asfowoo-toggle {
     position: relative;
     display: inline-block;
     width: 44px;
@@ -14,7 +14,7 @@
       height: 0;
     }
 
-    .wa-toggle-slider {
+    .asfowoo-toggle-slider {
       position: absolute;
       cursor: pointer;
       top: 0;
@@ -29,15 +29,15 @@
       margin: 0;
       padding: 0;
 
-      .wa-check-icon {
+      .asfowoo-check-icon {
         display: none;
       }
 
-      .wa-cross-icon {
+      .asfowoo-cross-icon {
         display: inline-block;
       }
 
-      .wa-toggle-handle {
+      .asfowoo-toggle-handle {
         position: absolute;
         content: "";
         left: 2px;
@@ -47,32 +47,32 @@
       }
     }
 
-    input:checked + .wa-toggle-slider {
-      .wa-check-icon {
+    input:checked + .asfowoo-toggle-slider {
+      .asfowoo-check-icon {
         display: inline-block;
       }
 
-      .wa-cross-icon {
+      .asfowoo-cross-icon {
         display: none;
       }
     }
 
-    input:focus + .wa-toggle-slider {
+    input:focus + .asfowoo-toggle-slider {
       box-shadow: 0 0 0 2px variables.$primary;
     }
 
-    input:checked + .wa-toggle-slider .wa-toggle-handle {
+    input:checked + .asfowoo-toggle-slider .asfowoo-toggle-handle {
       -webkit-transform: translateX(20px);
       -ms-transform: translateX(20px);
       transform: translateX(20px);
     }
 
-    input[disabled] + .wa-toggle-slider {
+    input[disabled] + .asfowoo-toggle-slider {
       opacity: 0.7;
     }
   }
 
-  .wa-control-disabled .wa-toggle .wa-toggle-slider {
+  .asfowoo-control-disabled .asfowoo-toggle .asfowoo-toggle-slider {
     cursor: default;
   }
 }

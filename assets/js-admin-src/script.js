@@ -11,15 +11,15 @@ jQuery(document).ready(function ($) {
         wpMediaFrames = {};
 
     const waBody = $('body'),
-        waContentWrap = $('#wa-content-wrap'),
-        waSettingsHeader = $('#wa-settings-header'),
-        waSettingsSidebar = $('#wa-sidebar'),
-        waSettingsDisplaySidebar = $('#wa-display-sidebar'),
-        waSettingsHideSidebar = $('#wa-hide-sidebar'),
-        waSettingsSectionLinks = $('.wa-section-links ul'),
-        settingsForm = document.getElementById('wa-settings-form'),
-        settingsFooter = document.getElementById('wa-settings-footer'),
-        settingsResetButton = document.getElementById("wa-settings-reset-button");
+        waContentWrap = $('#asfowoo-content-wrap'),
+        waSettingsHeader = $('#asfowoo-settings-header'),
+        waSettingsSidebar = $('#asfowoo-sidebar'),
+        waSettingsDisplaySidebar = $('#asfowoo-display-sidebar'),
+        waSettingsHideSidebar = $('#asfowoo-hide-sidebar'),
+        waSettingsSectionLinks = $('.asfowoo-section-links ul'),
+        settingsForm = document.getElementById('asfowoo-settings-form'),
+        settingsFooter = document.getElementById('asfowoo-settings-footer'),
+        settingsResetButton = document.getElementById("asfowoo-settings-reset-button");
 
     let waContentWrapPrevScrollPos = waContentWrap.scrollTop(),
         waContentWrapCurrentScrollPos = waContentWrapPrevScrollPos;
@@ -42,20 +42,20 @@ jQuery(document).ready(function ($) {
      * */
     waSettingsDisplaySidebar.on('click', function (e) {
         e.preventDefault();
-        waSettingsSidebar.addClass('wa-mobile-sidebar');
-        waBody.addClass('wa-mobile-sidebar-active');
+        waSettingsSidebar.addClass('asfowoo-mobile-sidebar');
+        waBody.addClass('asfowoo-mobile-sidebar-active');
     });
     waSettingsHideSidebar.on('click', function (e) {
         e.preventDefault();
-        waSettingsSidebar.removeClass('wa-mobile-sidebar');
-        waBody.removeClass('wa-mobile-sidebar-active');
+        waSettingsSidebar.removeClass('asfowoo-mobile-sidebar');
+        waBody.removeClass('asfowoo-mobile-sidebar-active');
     });
 
     /**
      * Auto scroll to active section link
      * */
     if (waSettingsSectionLinks.length) {
-        let waSectionActiveLink = waSettingsSectionLinks.find('.wa-section-link-current'),
+        let waSectionActiveLink = waSettingsSectionLinks.find('.asfowoo-section-link-current'),
             waSectionOutsideActiveLink = waSettingsSectionLinks.outerWidth() - 100 < waSectionActiveLink.position().left,
             waSectionScrollActiveLink = waSectionActiveLink.position().left - waSectionActiveLink.outerWidth(true) - (waSettingsSectionLinks.outerWidth() / 3);
 
@@ -73,7 +73,7 @@ jQuery(document).ready(function ($) {
     /**
      * Modal methods
      * */
-    wooAssistantModalCloseEvent = new CustomEvent(
+    assistantForWooCommerceModalCloseEvent = new CustomEvent(
         "waModalClose",
         {
             detail: {
@@ -85,39 +85,39 @@ jQuery(document).ready(function ($) {
     );
 
     function waToggleModal(status, target = '') {
-        let modalOverlay = $('#wa-modal-overlay'),
-            modalTarget = waBody.attr('data-wa-modal-target');
+        let modalOverlay = $('#asfowoo-modal-overlay'),
+            modalTarget = waBody.attr('data-asfowoo-modal-target');
 
-        if (status && !waBody.hasClass('wa-modal-open')) {
+        if (status && !waBody.hasClass('asfowoo-modal-open')) {
             waBody.css({
                 "overflow": "hidden",
                 "padding-right": "0"
             })
-                .addClass('wa-modal-open')
-                .attr('data-wa-modal-target', target);
-            $(target).toggleClass('wa-active').removeAttr('aria-hidden').show();
+                .addClass('asfowoo-modal-open')
+                .attr('data-asfowoo-modal-target', target);
+            $(target).toggleClass('asfowoo-active').removeAttr('aria-hidden').show();
             if (modalOverlay !== undefined)
-                modalOverlay.addClass('wa-active');
+                modalOverlay.addClass('asfowoo-active');
 
-        } else if (!status && waBody.hasClass('wa-modal-open')) {
-            window.dispatchEvent(wooAssistantModalCloseEvent);
+        } else if (!status && waBody.hasClass('asfowoo-modal-open')) {
+            window.dispatchEvent(assistantForWooCommerceModalCloseEvent);
 
             waBody.css({
                 "overflow": "",
                 "padding-right": ""
             })
-                .removeClass('wa-modal-open')
-                .removeAttr('data-wa-modal-target');
-            $(modalTarget).hide().removeClass('wa-active').attr('aria-hidden', 'true');
+                .removeClass('asfowoo-modal-open')
+                .removeAttr('data-asfowoo-modal-target');
+            $(modalTarget).hide().removeClass('asfowoo-active').attr('aria-hidden', 'true');
             if (modalOverlay !== undefined)
-                modalOverlay.removeClass('wa-active');
+                modalOverlay.removeClass('asfowoo-active');
         }
     }
 
     function waModalInit(wrapper) {
-        wrapper.find('[data-wa-toggle="modal"]').unbind('click').on('click', function () {
+        wrapper.find('[data-asfowoo-toggle="modal"]').unbind('click').on('click', function () {
             let $this = $(this),
-                modalTarget = $this.data('wa-target');
+                modalTarget = $this.data('asfowoo-target');
 
             if (modalTarget !== undefined) {
                 let modalTargetElm = $(modalTarget);
@@ -129,7 +129,7 @@ jQuery(document).ready(function ($) {
     }
 
     waModalInit(waBody);
-    $('#wa-modal-overlay, [data-wa-dismiss="modal"]').on('click', function () {
+    $('#asfowoo-modal-overlay, [data-asfowoo-dismiss="modal"]').on('click', function () {
         waToggleModal(false);
     });
 
@@ -138,11 +138,11 @@ jQuery(document).ready(function ($) {
         if (settingsSubmitActive) return;
         settingsSubmitActive = true;
 
-        if (settingsFooter) settingsFooter.classList.remove('wa-submit-inactive');
+        if (settingsFooter) settingsFooter.classList.remove('asfowoo-submit-inactive');
     }
 
     if (settingsForm) {
-        if (settingsFooter) settingsFooter.classList.add('wa-submit-inactive');
+        if (settingsFooter) settingsFooter.classList.add('asfowoo-submit-inactive');
 
         settingsForm.addEventListener('change', function () {
             waActiveSettingsForm();
@@ -152,22 +152,22 @@ jQuery(document).ready(function ($) {
             settingsResetButton.addEventListener("click", () => {
                 settingsSubmitActive = false;
 
-                if (settingsFooter) settingsFooter.classList.add('wa-submit-inactive');
+                if (settingsFooter) settingsFooter.classList.add('asfowoo-submit-inactive');
             });
         }
     }
 
     function waInitGradient() {
-        const wpGradientSelectColor = $('.wa-gradient-select-color input[type="text"]');
+        const wpGradientSelectColor = $('.asfowoo-gradient-select-color input[type="text"]');
         if (wpGradientSelectColor.length) {
             wpGradientSelectColor.wpColorPicker({
                 defaultColor: false, change: function (event, ui) {
-                    let gradientWrap = $(event.target).closest('.wa-gradient-color-picker-wrap'),
-                        gradientContainer = gradientWrap.find('.wa-gradient-color-picker'),
+                    let gradientWrap = $(event.target).closest('.asfowoo-gradient-color-picker-wrap'),
+                        gradientContainer = gradientWrap.find('.asfowoo-gradient-color-picker'),
                         selectedColor = ui.color.toString();
 
-                    gradientContainer.find('.wa-gradient-color-point.is-active').attr('data-color', selectedColor);
-                    gradientContainer.find('.wa-gradient-color-point.is-active span').css('background-color', selectedColor);
+                    gradientContainer.find('.asfowoo-gradient-color-point.is-active').attr('data-color', selectedColor);
+                    gradientContainer.find('.asfowoo-gradient-color-point.is-active span').css('background-color', selectedColor);
                     waUpdateGradient(gradientWrap);
                     waActiveSettingsForm();
 
@@ -177,17 +177,17 @@ jQuery(document).ready(function ($) {
             });
         }
 
-        $('.wa-gradient-color-picker-wrap').not('.wa-gradient-color-picker-initialized').each(function () {
+        $('.asfowoo-gradient-color-picker-wrap').not('.asfowoo-gradient-color-picker-initialized').each(function () {
             let gradientWrap = $(this),
-                gradientField = gradientWrap.find('input.wa-gradient-color-picker-value[type="hidden"]'),
-                gradientContainer = gradientWrap.find('.wa-gradient-color-picker'),
-                gradientSelectColor = gradientWrap.find('.wa-gradient-select-color'),
+                gradientField = gradientWrap.find('input.asfowoo-gradient-color-picker-value[type="hidden"]'),
+                gradientContainer = gradientWrap.find('.asfowoo-gradient-color-picker'),
+                gradientSelectColor = gradientWrap.find('.asfowoo-gradient-select-color'),
                 gradientInfo = JSON.parse(gradientField.val().replaceAll("'", '"')),
                 gradientPoint, gradientPointX, maxX, minX = 5, minY = 5, pX,
                 gradientPoints = Object.entries(gradientInfo.colors);
 
-            gradientWrap.addClass('wa-gradient-color-picker-initialized');
-            gradientSelectColor.append('<a href="#" class="wa-gradient-remove-color" style="display: ' + (gradientPoints.length > 2 ? 'block' : 'none') + '">' + WooAssistant.removeText + '</a>');
+            gradientWrap.addClass('asfowoo-gradient-color-picker-initialized');
+            gradientSelectColor.append('<a href="#" class="asfowoo-gradient-remove-color" style="display: ' + (gradientPoints.length > 2 ? 'block' : 'none') + '">' + AssistantForWooCommerce.removeText + '</a>');
 
             for (let [index, [key, value]] of gradientPoints.entries()) {
                 gradientPoint = gradientWrap.find('div[data-index="' + index + '"]');
@@ -204,32 +204,32 @@ jQuery(document).ready(function ($) {
             }
         });
 
-        $('.wa-gradient-remove-color').unbind('click').on('click', function (e) {
+        $('.asfowoo-gradient-remove-color').unbind('click').on('click', function (e) {
             e.preventDefault();
-            let gradientWrap = $(this).closest('.wa-gradient-color-picker-wrap'),
-                gradientPoints = gradientWrap.find('.wa-gradient-color-point');
+            let gradientWrap = $(this).closest('.asfowoo-gradient-color-picker-wrap'),
+                gradientPoints = gradientWrap.find('.asfowoo-gradient-color-point');
             if (gradientPoints.length <= 2)
                 return;
 
-            gradientWrap.find('.wa-gradient-color-point.is-active').remove();
-            gradientPoints = gradientWrap.find('.wa-gradient-color-point');
+            gradientWrap.find('.asfowoo-gradient-color-point.is-active').remove();
+            gradientPoints = gradientWrap.find('.asfowoo-gradient-color-point');
             if (gradientPoints.length <= 2)
                 $(this).hide();
 
-            gradientWrap.find('.wa-gradient-color-point').first().addClass('is-active').trigger('click');
+            gradientWrap.find('.asfowoo-gradient-color-point').first().addClass('is-active').trigger('click');
 
             waUpdateGradient(gradientWrap);
             waActiveSettingsForm();
         });
 
-        $('.wa-gradient-color-picker-wrap .wa-gradient-color-picker').unbind('click').on('click', function (e) {
-            if (!$(e.target).is('.wa-gradient-color-picker'))
+        $('.asfowoo-gradient-color-picker-wrap .asfowoo-gradient-color-picker').unbind('click').on('click', function (e) {
+            if (!$(e.target).is('.asfowoo-gradient-color-picker'))
                 return;
 
             var gradientContainer = $(this),
-                gradientWrap = gradientContainer.closest('.wa-gradient-color-picker-wrap'),
+                gradientWrap = gradientContainer.closest('.asfowoo-gradient-color-picker-wrap'),
                 gradientMaxColors = parseInt(gradientWrap.data('max-colors')),
-                gradientPoints = gradientWrap.find('.wa-gradient-color-point'),
+                gradientPoints = gradientWrap.find('.asfowoo-gradient-color-point'),
                 maxX, minX = 5, pX;
 
             if (gradientMaxColors <= gradientPoints.length)
@@ -239,10 +239,10 @@ jQuery(document).ready(function ($) {
 
             var gradientWrapID = gradientWrap.attr('id'),
                 leftX = e.pageX - gradientContainer.offset().left,
-                gradientPointFirst = gradientContainer.find('.wa-gradient-color-point').first(),
+                gradientPointFirst = gradientContainer.find('.asfowoo-gradient-color-point').first(),
                 gradientPoint = gradientPointFirst.clone(),
                 gradientPointX, minY = gradientPointFirst.css('top'),
-                gradientRemove = gradientWrap.find('.wa-gradient-remove-color'),
+                gradientRemove = gradientWrap.find('.asfowoo-gradient-remove-color'),
                 randomColor = "#000000".replace(/0/g, function () {
                     return (~~(Math.random() * 16)).toString(16);
                 });
@@ -258,7 +258,7 @@ jQuery(document).ready(function ($) {
             gradientContainer.append(gradientPoint);
             gradientRemove.show();
 
-            gradientWrap.find('.wa-gradient-color-point').each(function (index) {
+            gradientWrap.find('.asfowoo-gradient-color-point').each(function (index) {
                 $(this).attr('id', gradientWrapID + '-' + index);
                 $(this).attr('data-index', index);
             });
@@ -269,34 +269,34 @@ jQuery(document).ready(function ($) {
             gradientPoint.trigger('click');
         });
 
-        $('.wa-gradient-color-picker-wrap .wa-gradient-color-rotation .wa-input-range').unbind('input').on('input', function () {
-            waUpdateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
+        $('.asfowoo-gradient-color-picker-wrap .asfowoo-gradient-color-rotation .asfowoo-input-range').unbind('input').on('input', function () {
+            waUpdateGradient($(this).closest('.asfowoo-gradient-color-picker-wrap'));
         });
 
-        $('.wa-gradient-color-picker-wrap .wa-gradient-color-shape input[type="radio"]').unbind('click').on('click', function () {
-            waUpdateGradient($(this).closest('.wa-gradient-color-picker-wrap'));
+        $('.asfowoo-gradient-color-picker-wrap .asfowoo-gradient-color-shape input[type="radio"]').unbind('click').on('click', function () {
+            waUpdateGradient($(this).closest('.asfowoo-gradient-color-picker-wrap'));
         });
 
-        $('.wa-gradient-color-picker-wrap .wa-gradient-color-type input[type="radio"]').unbind('click').on('click', function () {
-            let gradientWrap = $(this).closest('.wa-gradient-color-picker-wrap');
+        $('.asfowoo-gradient-color-picker-wrap .asfowoo-gradient-color-type input[type="radio"]').unbind('click').on('click', function () {
+            let gradientWrap = $(this).closest('.asfowoo-gradient-color-picker-wrap');
 
-            gradientWrap.find('.wa-gradient-color-variant').hide();
+            gradientWrap.find('.asfowoo-gradient-color-variant').hide();
 
             if ($(this).val() === 'linear-gradient') {
-                gradientWrap.find('.wa-gradient-color-rotation').show();
+                gradientWrap.find('.asfowoo-gradient-color-rotation').show();
 
             } else if ($(this).val() === 'radial-gradient') {
-                gradientWrap.find('.wa-gradient-color-shape').show();
+                gradientWrap.find('.asfowoo-gradient-color-shape').show();
             }
 
             waUpdateGradient(gradientWrap);
         });
 
-        $('.wa-gradient-color-picker-wrap .wa-gradient-color-point').unbind('click').on('click', function () {
-            let gradientWrap = $(this).closest('.wa-gradient-color-picker-wrap');
-            gradientWrap.find('.wa-gradient-color-point').removeClass('is-active');
+        $('.asfowoo-gradient-color-picker-wrap .asfowoo-gradient-color-point').unbind('click').on('click', function () {
+            let gradientWrap = $(this).closest('.asfowoo-gradient-color-picker-wrap');
+            gradientWrap.find('.asfowoo-gradient-color-point').removeClass('is-active');
             $(this).addClass('is-active');
-            gradientWrap.find('.wa-wp-color-picker input.wp-color-picker').val($(this).attr('data-color')).trigger('change');
+            gradientWrap.find('.asfowoo-wp-color-picker input.wp-color-picker').val($(this).attr('data-color')).trigger('change');
         });
     }
 
@@ -309,18 +309,18 @@ jQuery(document).ready(function ($) {
             let pX = Math.round(x / maxX * 100 * 100) / 100;
             elm.setAttribute('data-position', pX);
 
-            waUpdateGradient($(elm.closest('.wa-gradient-color-picker-wrap')));
+            waUpdateGradient($(elm.closest('.asfowoo-gradient-color-picker-wrap')));
             waActiveSettingsForm();
         }
     }
 
     function waUpdateGradient(gradientWrap) {
-        let gradientContainer = gradientWrap.find('.wa-gradient-color-picker'),
-            gradientField = gradientWrap.find('input.wa-gradient-color-picker-value[type="hidden"]'),
-            gradientPoints = gradientContainer.find('.wa-gradient-color-point'),
-            gradientRotation = gradientWrap.find('.wa-input-range').val(),
-            gradientType = gradientWrap.find('.wa-gradient-color-type input[type="radio"]:checked').val(),
-            gradientShape = gradientWrap.find('.wa-gradient-color-shape input[type="radio"]:checked').val(),
+        let gradientContainer = gradientWrap.find('.asfowoo-gradient-color-picker'),
+            gradientField = gradientWrap.find('input.asfowoo-gradient-color-picker-value[type="hidden"]'),
+            gradientPoints = gradientContainer.find('.asfowoo-gradient-color-point'),
+            gradientRotation = gradientWrap.find('.asfowoo-input-range').val(),
+            gradientType = gradientWrap.find('.asfowoo-gradient-color-type input[type="radio"]:checked').val(),
+            gradientShape = gradientWrap.find('.asfowoo-gradient-color-shape input[type="radio"]:checked').val(),
             gradientColors = {}, gradientColorPoints = [], cssGradient, firstParam, gradientFieldValue = {};
 
         if (gradientPoints.length) {
@@ -349,17 +349,17 @@ jQuery(document).ready(function ($) {
     waInitGradient();
 
     function wpColorPickerInit() {
-        let wpColorPicker = $('.wa-wp-color-picker,.wa-color-palette').not('.wa-gradient-select-color').find('input[type="text"]');
+        let wpColorPicker = $('.asfowoo-wp-color-picker,.asfowoo-color-palette').not('.asfowoo-gradient-select-color').find('input[type="text"]');
 
         if (wpColorPicker.length) {
             wpColorPicker.wpColorPicker(wpColorPickerOptions);
 
             setTimeout(function () {
-                $('.wa-color-palette[data-removable="1"]').each(function () {
+                $('.asfowoo-color-palette[data-removable="1"]').each(function () {
                     let waPickerContainer = $(this).find('.wp-picker-container');
 
                     if (waPickerContainer.length > 0) {
-                        waPickerContainer.append('<button type="button" class="wa-remove-color"><i class="wa-icon-cross"></i></button>');
+                        waPickerContainer.append('<button type="button" class="asfowoo-remove-color"><i class="asfowoo-icon-cross"></i></button>');
                     }
                 });
 
@@ -370,12 +370,12 @@ jQuery(document).ready(function ($) {
 
     wpColorPickerInit();
 
-    $('.wa-color-palette .wa-add-color').unbind("click").on('click', function (e) {
+    $('.asfowoo-color-palette .asfowoo-add-color').unbind("click").on('click', function (e) {
         e.preventDefault();
 
         let $this = $(this),
-            waColorPalette = $this.closest('.wa-color-palette'),
-            waColorPaletteItems = waColorPalette.find('.wa-color-palette-items'),
+            waColorPalette = $this.closest('.asfowoo-color-palette'),
+            waColorPaletteItems = waColorPalette.find('.asfowoo-color-palette-items'),
             waColorPaletteMax = waColorPalette.attr('data-max-items'),
             waColorInput = waColorPalette.find('.wp-picker-container').last().find('.wp-picker-input-wrap .wp-color-picker'),
             currentColorCount = waColorPalette.find('.wp-picker-container').length;
@@ -404,22 +404,22 @@ jQuery(document).ready(function ($) {
         }
 
         if (waColorPalette.attr('data-removable') === '1') {
-            waColorPalette.find('.wa-remove-color').show();
-            waColorInputClone.closest('.wp-picker-container').append('<button type="button" class="wa-remove-color"><i class="wa-icon-cross"></i></button>');
+            waColorPalette.find('.asfowoo-remove-color').show();
+            waColorInputClone.closest('.wp-picker-container').append('<button type="button" class="asfowoo-remove-color"><i class="asfowoo-icon-cross"></i></button>');
         }
 
         waColorPaletteInit();
         waActiveSettingsForm();
     });
 
-    $('.wa-add-repeatable').unbind("click").on('click', function (e) {
+    $('.asfowoo-add-repeatable').unbind("click").on('click', function (e) {
         e.preventDefault();
 
         let $this = $(this), repeatablePosition = $this.data('position'),
-            waRepeatable = $this.closest('.wa-repeatable'), repeatableMax = waRepeatable.data('max-repeat'),
-            waRepeatableFieldsWrap = waRepeatable.find('.wa-repeatable-fields-wrap'),
-            waRepeatableFirstFieldsWrap = waRepeatable.find('.wa-repeatable-fields-wrap').first(),
-            waRepeatableLastFieldsWrap = waRepeatable.find('.wa-repeatable-fields-wrap').last(),
+            waRepeatable = $this.closest('.asfowoo-repeatable'), repeatableMax = waRepeatable.data('max-repeat'),
+            waRepeatableFieldsWrap = waRepeatable.find('.asfowoo-repeatable-fields-wrap'),
+            waRepeatableFirstFieldsWrap = waRepeatable.find('.asfowoo-repeatable-fields-wrap').first(),
+            waRepeatableLastFieldsWrap = waRepeatable.find('.asfowoo-repeatable-fields-wrap').last(),
             waRepeatableCloneFieldsWrap;
 
         if (repeatableMax !== undefined && waRepeatableFieldsWrap.length >= parseInt(repeatableMax)) {
@@ -427,13 +427,13 @@ jQuery(document).ready(function ($) {
         }
 
         if (repeatableMax !== undefined && waRepeatableFieldsWrap.length + 1 >= parseInt(repeatableMax)) {
-            waRepeatable.find('.wa-add-repeatable').attr('disable', 'true');
+            waRepeatable.find('.asfowoo-add-repeatable').attr('disable', 'true');
         }
 
         if (waRepeatableFieldsWrap.length >= 1) {
-            waRepeatable.find('.wa-remove-repeatable').show();
-            waRepeatable.find('.wa-move-up-repeatable').show();
-            waRepeatable.find('.wa-move-down-repeatable').show();
+            waRepeatable.find('.asfowoo-remove-repeatable').show();
+            waRepeatable.find('.asfowoo-move-up-repeatable').show();
+            waRepeatable.find('.asfowoo-move-down-repeatable').show();
         }
 
         if (waRepeatableFirstFieldsWrap.length) {
@@ -458,17 +458,17 @@ jQuery(document).ready(function ($) {
     });
 
     function waColorPaletteInit() {
-        $('.wa-color-palette .wa-remove-color').unbind("click").on('click', function (e) {
+        $('.asfowoo-color-palette .asfowoo-remove-color').unbind("click").on('click', function (e) {
             let $this = $(this),
-                waColorPalette = $this.closest('.wa-color-palette');
+                waColorPalette = $this.closest('.asfowoo-color-palette');
 
             $this.closest('.wp-picker-container').slideUp("normal", function () {
                 $(this).remove();
 
-                waColorPalette.find('.wa-add-color').removeAttr('disable');
+                waColorPalette.find('.asfowoo-add-color').removeAttr('disable');
 
                 if (waColorPalette.find('.wp-picker-container').length <= 1) {
-                    waColorPalette.find('.wa-remove-color').hide();
+                    waColorPalette.find('.asfowoo-remove-color').hide();
                 }
 
                 waActiveSettingsForm();
@@ -477,31 +477,31 @@ jQuery(document).ready(function ($) {
     }
 
     function waRepeatableInit() {
-        $('.wa-remove-repeatable').unbind("click").on('click', function (e) {
+        $('.asfowoo-remove-repeatable').unbind("click").on('click', function (e) {
             e.preventDefault();
-            let $this = $(this), waRepeatable = $this.closest('.wa-repeatable');
+            let $this = $(this), waRepeatable = $this.closest('.asfowoo-repeatable');
 
-            //$this.closest('.wa-repeatable-fields-wrap').remove();
-            $this.closest('.wa-repeatable-fields-wrap').slideUp("normal", function () {
+            //$this.closest('.asfowoo-repeatable-fields-wrap').remove();
+            $this.closest('.asfowoo-repeatable-fields-wrap').slideUp("normal", function () {
                 $(this).remove();
 
-                waRepeatable.find('.wa-add-repeatable').removeAttr('disable');
+                waRepeatable.find('.asfowoo-add-repeatable').removeAttr('disable');
 
-                if (waRepeatable.find('.wa-repeatable-fields-wrap').length <= 1) {
-                    waRepeatable.find('.wa-remove-repeatable').hide();
-                    waRepeatable.find('.wa-move-up-repeatable').hide();
-                    waRepeatable.find('.wa-move-down-repeatable').hide();
+                if (waRepeatable.find('.asfowoo-repeatable-fields-wrap').length <= 1) {
+                    waRepeatable.find('.asfowoo-remove-repeatable').hide();
+                    waRepeatable.find('.asfowoo-move-up-repeatable').hide();
+                    waRepeatable.find('.asfowoo-move-down-repeatable').hide();
                 }
 
                 waActiveSettingsForm();
             });
         });
 
-        $('.wa-move-up-repeatable').unbind("click").on('click', function (e) {
+        $('.asfowoo-move-up-repeatable').unbind("click").on('click', function (e) {
             e.preventDefault();
 
-            let $this = $(this), waRepeatableFieldsWrap = $this.closest('.wa-repeatable-fields-wrap'),
-                waPrevRepeatableFieldsWrap = waRepeatableFieldsWrap.prev('.wa-repeatable-fields-wrap');
+            let $this = $(this), waRepeatableFieldsWrap = $this.closest('.asfowoo-repeatable-fields-wrap'),
+                waPrevRepeatableFieldsWrap = waRepeatableFieldsWrap.prev('.asfowoo-repeatable-fields-wrap');
 
             let copyTo = waPrevRepeatableFieldsWrap.clone(true), copyFrom = waRepeatableFieldsWrap.clone(true);
             waPrevRepeatableFieldsWrap.replaceWith(copyFrom);
@@ -510,11 +510,11 @@ jQuery(document).ready(function ($) {
             waActiveSettingsForm();
         });
 
-        $('.wa-move-down-repeatable').unbind("click").on('click', function (e) {
+        $('.asfowoo-move-down-repeatable').unbind("click").on('click', function (e) {
             e.preventDefault();
 
-            let $this = $(this), waRepeatableFieldsWrap = $this.closest('.wa-repeatable-fields-wrap'),
-                waNextRepeatableFieldsWrap = waRepeatableFieldsWrap.next('.wa-repeatable-fields-wrap');
+            let $this = $(this), waRepeatableFieldsWrap = $this.closest('.asfowoo-repeatable-fields-wrap'),
+                waNextRepeatableFieldsWrap = waRepeatableFieldsWrap.next('.asfowoo-repeatable-fields-wrap');
 
             let copyTo = waNextRepeatableFieldsWrap.clone(true), copyFrom = waRepeatableFieldsWrap.clone(true);
             waNextRepeatableFieldsWrap.replaceWith(copyFrom);
@@ -525,13 +525,13 @@ jQuery(document).ready(function ($) {
     }
 
     setTimeout(function () {
-        $('.wa-repeatable').each(function () {
-            let waRepeatableFieldsWrap = $(this).find('.wa-repeatable-fields-wrap');
+        $('.asfowoo-repeatable').each(function () {
+            let waRepeatableFieldsWrap = $(this).find('.asfowoo-repeatable-fields-wrap');
 
             if (waRepeatableFieldsWrap !== undefined && waRepeatableFieldsWrap.length > 1) {
-                $(this).find('.wa-remove-repeatable').show();
-                $(this).find('.wa-move-up-repeatable').show();
-                $(this).find('.wa-move-down-repeatable').show();
+                $(this).find('.asfowoo-remove-repeatable').show();
+                $(this).find('.asfowoo-move-up-repeatable').show();
+                $(this).find('.asfowoo-move-down-repeatable').show();
             }
         });
 
@@ -564,7 +564,7 @@ jQuery(document).ready(function ($) {
         elm.find('tbody').on("sortstop", function (event, ui) {
             ui.item.removeAttr('style');
             elm.find('tbody tr').each(function (index, tr) {
-                $('input.wa-dtu-row-order', tr).val(parseInt(index));
+                $('input.asfowoo-dtu-row-order', tr).val(parseInt(index));
             });
             if (typeof sortCallback == 'function') {
                 sortCallback(event, ui);
@@ -581,52 +581,52 @@ jQuery(document).ready(function ($) {
                     activeField = parseInt($this.data('active-field'));
 
                 modalTargetElm.attr('data-dtu-id', waDataTableID);
-                modalTargetElm.find('#wa-toggle-dtu-row-active').prop('checked', activeField === 1);
+                modalTargetElm.find('#asfowoo-toggle-dtu-row-active').prop('checked', activeField === 1);
                 if (displayActiveField === 1)
-                    modalTargetElm.find('.wa-modal-footer .wa-field-toggle').show();
+                    modalTargetElm.find('.asfowoo-modal-footer .asfowoo-field-toggle').show();
                 else
-                    modalTargetElm.find('.wa-modal-footer .wa-field-toggle').hide();
+                    modalTargetElm.find('.asfowoo-modal-footer .asfowoo-field-toggle').hide();
 
-                modalTargetElm.find('.wa-modal-message').html('');
-                modalTargetElm.find('.wa-modal-footer').hide();
-                modalTargetElm.find('.wa-modal-footer .wa-button-primary').html($this.data('primary-button-text'));
-                modalTargetElm.find('.wa-modal-title').html($this.data('modal-title'));
-                modalTargetElm.find('.wa-modal-body').html('<div class="wa-loader-wrap"><div class="wa-loader"></div></div>');
+                modalTargetElm.find('.asfowoo-modal-message').html('');
+                modalTargetElm.find('.asfowoo-modal-footer').hide();
+                modalTargetElm.find('.asfowoo-modal-footer .asfowoo-button-primary').html($this.data('primary-button-text'));
+                modalTargetElm.find('.asfowoo-modal-title').html($this.data('modal-title'));
+                modalTargetElm.find('.asfowoo-modal-body').html('<div class="asfowoo-loader-wrap"><div class="asfowoo-loader"></div></div>');
             }
         }
     }
 
     function waDataTableUiInit() {
         // Data table action buttons
-        $('.wa-data-table-ui .wa-dtu-action').on('click', function (e) {
+        $('.asfowoo-data-table-ui .asfowoo-dtu-action').on('click', function (e) {
             e.preventDefault();
 
             let $this = $(this),
-                waDataTable = $this.closest('.wa-data-table-ui'),
+                waDataTable = $this.closest('.asfowoo-data-table-ui'),
                 waDataTableID = waDataTable.data('id'),
                 waDataTableRow = $this.closest('tr'),
                 waDataTableRowId = waDataTableRow.data('id'),
                 waDataTableAction = $this.data('action'),
                 waDataTableActionType = $this.data('action-type'),
-                waDataTableBody = waDataTable.find('.wa-dtu-body'),
-                waDataTableTable = waDataTable.find('.wa-dtu-table'),
-                waDataTableRowCount = waDataTable.find('.wa-dtu-row-count'),
-                modalTarget = $this.data('wa-target'),
+                waDataTableBody = waDataTable.find('.asfowoo-dtu-body'),
+                waDataTableTable = waDataTable.find('.asfowoo-dtu-table'),
+                waDataTableRowCount = waDataTable.find('.asfowoo-dtu-row-count'),
+                modalTarget = $this.data('asfowoo-target'),
                 modalTargetElm = $(modalTarget);
 
-            if (wooAssistantAjax || waDataTableActionType === 'delete' && !confirm(WooAssistant.dtuConfirmDelete)) {
+            if (assistantForWooCommerceAjax || waDataTableActionType === 'delete' && !confirm(AssistantForWooCommerce.dtuConfirmDelete)) {
                 return;
             }
 
-            wooAssistantAjax = true;
+            assistantForWooCommerceAjax = true;
 
             waDataTableUiModal($this, waDataTableID, modalTarget);
 
             $.post(
-                WooAssistant.ajaxUrl,
+                AssistantForWooCommerce.ajaxUrl,
                 {
-                    nonce: WooAssistant.ajaxNonce,
-                    action: 'woo_assistant_data_table_ui_action',
+                    nonce: AssistantForWooCommerce.ajaxNonce,
+                    action: 'assistant_for_woocommerce_data_table_ui_action',
                     data_table_id: waDataTableID,
                     row_id: waDataTableRowId,
                     row_action: waDataTableAction
@@ -655,8 +655,8 @@ jQuery(document).ready(function ($) {
                         });
 
                     } else if (waDataTableActionType === 'edit') {
-                        modalTargetElm.find('.wa-modal-footer').show();
-                        modalTargetElm.find('.wa-modal-body').html(data.data.content);
+                        modalTargetElm.find('.asfowoo-modal-footer').show();
+                        modalTargetElm.find('.asfowoo-modal-body').html(data.data.content);
 
                         setTimeout(function () {
                             wpColorPickerInit();
@@ -679,35 +679,35 @@ jQuery(document).ready(function ($) {
                         }, 3000);
                 })
                 .always(function () {
-                    wooAssistantAjax = false;
+                    assistantForWooCommerceAjax = false;
                 });
         });
 
-        $('.wa-data-table-sortable').each(function () {
-            waSortableElement($(this).find('.wa-dtu-table'), function (event, ui) {
+        $('.asfowoo-data-table-sortable').each(function () {
+            waSortableElement($(this).find('.asfowoo-dtu-table'), function (event, ui) {
                 if (event.type === 'sortstop') {
-                    $(event.target).closest('.wa-data-table-ui').find('button.wa-dtu-save-changes').prop('disabled', false);
+                    $(event.target).closest('.asfowoo-data-table-ui').find('button.asfowoo-dtu-save-changes').prop('disabled', false);
                 }
             });
         });
     }
 
     // Data Table UI save rows changes
-    $('.wa-data-table-ui button.wa-dtu-save-changes').on('click', function () {
+    $('.asfowoo-data-table-ui button.asfowoo-dtu-save-changes').on('click', function () {
         let $this = $(this),
-            waDataTable = $this.closest('.wa-data-table-ui'),
+            waDataTable = $this.closest('.asfowoo-data-table-ui'),
             waDataTableID = waDataTable.data('id'),
-            waDataTableBody = waDataTable.find('.wa-dtu-body'),
-            waDataTableRowCount = waDataTable.find('.wa-dtu-row-count'),
-            waDataTableTable = waDataTable.find('.wa-dtu-table'),
+            waDataTableBody = waDataTable.find('.asfowoo-dtu-body'),
+            waDataTableRowCount = waDataTable.find('.asfowoo-dtu-row-count'),
+            waDataTableTable = waDataTable.find('.asfowoo-dtu-table'),
             waDataTableRowOrders = {};
 
-        if (wooAssistantAjax) {
+        if (assistantForWooCommerceAjax) {
             return;
         }
-        wooAssistantAjax = true;
+        assistantForWooCommerceAjax = true;
 
-        waDataTableTable.find('.wa-dtu-row-order').each(function () {
+        waDataTableTable.find('.asfowoo-dtu-row-order').each(function () {
             waDataTableRowOrders[$(this).closest('tr').data('id')] = parseInt($(this).val());
         });
 
@@ -715,10 +715,10 @@ jQuery(document).ready(function ($) {
             return;
 
         $.post(
-            WooAssistant.ajaxUrl,
+            AssistantForWooCommerce.ajaxUrl,
             {
-                nonce: WooAssistant.ajaxNonce,
-                action: 'woo_assistant_data_table_ui_action',
+                nonce: AssistantForWooCommerce.ajaxNonce,
+                action: 'assistant_for_woocommerce_data_table_ui_action',
                 data_table_id: waDataTableID,
                 row_id: -1,
                 row_action: 'save_changes',
@@ -736,7 +736,7 @@ jQuery(document).ready(function ($) {
                     waDataTableUiInit();
                 }
 
-                waDataTable.find('button.wa-dtu-save-changes').prop('disabled', true);
+                waDataTable.find('button.asfowoo-dtu-save-changes').prop('disabled', true);
 
                 if (data.data?.redirect && data.data.redirect !== '')
                     window.location.href = data.data.redirect;
@@ -748,43 +748,43 @@ jQuery(document).ready(function ($) {
                     }, 3000);
             })
             .always(function () {
-                wooAssistantAjax = false;
+                assistantForWooCommerceAjax = false;
             });
     });
 
-    $('.wa-dtu-bulk-actions button').on('click', function () {
+    $('.asfowoo-dtu-bulk-actions button').on('click', function () {
         let $this = $(this),
-            waDataTableBulkActions = $this.closest('.wa-dtu-bulk-actions'),
+            waDataTableBulkActions = $this.closest('.asfowoo-dtu-bulk-actions'),
             waDataTableBulkAction = waDataTableBulkActions.find('select').val(),
             waDataTableActionType, waDataTableRowsSelected = [],
-            waDataTable = $this.closest('.wa-data-table-ui'),
+            waDataTable = $this.closest('.asfowoo-data-table-ui'),
             waDataTableID = waDataTable.data('id'),
-            waDataTableBody = waDataTable.find('.wa-dtu-body'),
-            waDataTableRowCount = waDataTable.find('.wa-dtu-row-count'),
-            waDataTableTable = waDataTable.find('.wa-dtu-table');
+            waDataTableBody = waDataTable.find('.asfowoo-dtu-body'),
+            waDataTableRowCount = waDataTable.find('.asfowoo-dtu-row-count'),
+            waDataTableTable = waDataTable.find('.asfowoo-dtu-table');
 
         if (waDataTableBulkAction.length === 0)
             return;
 
         waDataTableActionType = waDataTableBulkActions.find('select option[value="' + waDataTableBulkAction + '"]').data('action-type');
-        if (wooAssistantAjax || waDataTableActionType === 'delete' && !confirm(WooAssistant.dtuConfirmDelete)) {
+        if (assistantForWooCommerceAjax || waDataTableActionType === 'delete' && !confirm(AssistantForWooCommerce.dtuConfirmDelete)) {
             return;
         }
 
-        waDataTableTable.find('.wa-dtu-row-select:checked').each(function () {
+        waDataTableTable.find('.asfowoo-dtu-row-select:checked').each(function () {
             waDataTableRowsSelected.push(parseInt($(this).val()));
         });
 
         if (waDataTableRowsSelected.length === 0)
             return;
 
-        wooAssistantAjax = true;
+        assistantForWooCommerceAjax = true;
 
         $.post(
-            WooAssistant.ajaxUrl,
+            AssistantForWooCommerce.ajaxUrl,
             {
-                nonce: WooAssistant.ajaxNonce,
-                action: 'woo_assistant_data_table_ui_action',
+                nonce: AssistantForWooCommerce.ajaxNonce,
+                action: 'assistant_for_woocommerce_data_table_ui_action',
                 data_table_id: waDataTableID,
                 row_id: -1,
                 row_action: 'bulk_action',
@@ -813,36 +813,36 @@ jQuery(document).ready(function ($) {
                     }, 3000);
             })
             .always(function () {
-                wooAssistantAjax = false;
+                assistantForWooCommerceAjax = false;
             });
     });
 
     // Add new button click event
-    $('.wa-data-table-ui .wa-dtu-add-new').on('click', function () {
-        if (wooAssistantAjax) return;
-        wooAssistantAjax = true;
+    $('.asfowoo-data-table-ui .asfowoo-dtu-add-new').on('click', function () {
+        if (assistantForWooCommerceAjax) return;
+        assistantForWooCommerceAjax = true;
 
         let $this = $(this),
-            waDataTable = $this.closest('.wa-data-table-ui'),
+            waDataTable = $this.closest('.asfowoo-data-table-ui'),
             waDataTableID = waDataTable.data('id'),
-            modalTarget = $this.data('wa-target'),
+            modalTarget = $this.data('asfowoo-target'),
             modalTargetElm = $(modalTarget);
 
         waDataTableUiModal($this, waDataTableID, modalTarget);
 
         $.post(
-            WooAssistant.ajaxUrl,
+            AssistantForWooCommerce.ajaxUrl,
             {
-                nonce: WooAssistant.ajaxNonce,
-                action: 'woo_assistant_data_table_ui_action',
+                nonce: AssistantForWooCommerce.ajaxNonce,
+                action: 'assistant_for_woocommerce_data_table_ui_action',
                 data_table_id: waDataTableID,
                 row_id: -1,
                 row_action: 'add_form'
             }
         )
             .done(function (data) {
-                modalTargetElm.find('.wa-modal-footer').show();
-                modalTargetElm.find('.wa-modal-body').html(data.data.content);
+                modalTargetElm.find('.asfowoo-modal-footer').show();
+                modalTargetElm.find('.asfowoo-modal-body').html(data.data.content);
 
                 setTimeout(function () {
                     wpColorPickerInit();
@@ -859,30 +859,30 @@ jQuery(document).ready(function ($) {
                     }, 3000);
             })
             .always(function () {
-                wooAssistantAjax = false;
+                assistantForWooCommerceAjax = false;
             });
     });
 
     // DataTableUI modal submit
-    $('.wa-data-table-ui-modal .wa-modal-footer button.wa-button-primary').unbind('click').on('click', function () {
+    $('.asfowoo-data-table-ui-modal .asfowoo-modal-footer button.asfowoo-button-primary').unbind('click').on('click', function () {
         let $this = $(this),
-            waModal = $this.closest('.wa-modal'),
+            waModal = $this.closest('.asfowoo-modal'),
             waDataTableID = waModal.data('dtu-id'),
-            waDataTable = $('.wa-data-table-ui[data-id="' + waDataTableID + '"]'),
-            rowActive = waModal.find('input[name="woo_assistant_dtu-row-active"]').is(':checked'),
-            rowId = waModal.find('input[name="woo_assistant_row_id"]').val(),
-            waModalBody = waModal.find('.wa-modal-body'),
-            waModalMessage = waModal.find('.wa-modal-message'),
-            waCloseButton = waModal.find('.wa-button-close'),
-            waDataTableBody = waDataTable.find('.wa-dtu-body'),
-            waDataTableTable = waDataTable.find('.wa-dtu-table'),
-            waDataTableRowCount = waDataTable.find('.wa-dtu-row-count');
+            waDataTable = $('.asfowoo-data-table-ui[data-id="' + waDataTableID + '"]'),
+            rowActive = waModal.find('input[name="assistant_for_woocommerce_dtu-row-active"]').is(':checked'),
+            rowId = waModal.find('input[name="assistant_for_woocommerce_row_id"]').val(),
+            waModalBody = waModal.find('.asfowoo-modal-body'),
+            waModalMessage = waModal.find('.asfowoo-modal-message'),
+            waCloseButton = waModal.find('.asfowoo-button-close'),
+            waDataTableBody = waDataTable.find('.asfowoo-dtu-body'),
+            waDataTableTable = waDataTable.find('.asfowoo-dtu-table'),
+            waDataTableRowCount = waDataTable.find('.asfowoo-dtu-row-count');
 
         $.post(
-            WooAssistant.ajaxUrl,
+            AssistantForWooCommerce.ajaxUrl,
             {
-                nonce: WooAssistant.ajaxNonce,
-                action: 'woo_assistant_data_table_ui_action',
+                nonce: AssistantForWooCommerce.ajaxNonce,
+                action: 'assistant_for_woocommerce_data_table_ui_action',
                 data_table_id: waDataTableID,
                 row_id: parseInt(rowId),
                 row_action: 'save_form',
@@ -927,7 +927,7 @@ jQuery(document).ready(function ($) {
             })
             .always(function () {
                 waModal.animate({scrollTop: 0}, "slow");
-                wooAssistantAjax = false;
+                assistantForWooCommerceAjax = false;
             });
     });
 
@@ -936,10 +936,10 @@ jQuery(document).ready(function ($) {
 
     /** Media methods */
     function waMediaInit() {
-        $('.wa-media-image').unbind('click').on('click', function () {
+        $('.asfowoo-media-image').unbind('click').on('click', function () {
             let $this = $(this),
                 mediaSelectID = $this.attr('data-id'),
-                mediaWrap = $this.closest('.wa-media-wrap'),
+                mediaWrap = $this.closest('.asfowoo-media-wrap'),
                 mediaInput = mediaWrap.find('input'),
                 mediaImageIDs = mediaInput.val().split(',');
 
@@ -949,7 +949,7 @@ jQuery(document).ready(function ($) {
             }
 
             if (mediaImageIDs.length === 0) {
-                mediaWrap.removeClass('wa-media-selected');
+                mediaWrap.removeClass('asfowoo-media-selected');
             }
 
             mediaInput.val(mediaImageIDs.join(','));
@@ -958,9 +958,9 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    $('.wa-media-select').on('click', function () {
+    $('.asfowoo-media-select').on('click', function () {
         let $this = $(this),
-            mediaWrap = $this.closest('.wa-media-wrap'),
+            mediaWrap = $this.closest('.asfowoo-media-wrap'),
             mediaWrapperID = mediaWrap.attr('id'),
             mediaTitle = mediaWrap.data('title'),
             mediaButton = mediaWrap.data('button'),
@@ -969,7 +969,7 @@ jQuery(document).ready(function ($) {
             multiSelection = parseInt(mediaWrap.data('multi-selection')) === 1,
             mediaMaxNumber = parseInt(mediaWrap.data('max-number')),
             mediaMultiple = mediaMaxNumber > 1,
-            mediaImageContainer = mediaWrap.find('.wa-media-images'),
+            mediaImageContainer = mediaWrap.find('.asfowoo-media-images'),
             mediaInput = mediaWrap.find('input'),
             mediaSelected = 1;
 
@@ -1037,7 +1037,7 @@ jQuery(document).ready(function ($) {
                             }
                         }
                         let imageTitle = attachment.id + ': ' + (attachment.caption.length > 0 ? attachment.caption : attachment.title) + ' (' + attachment.type + ')';
-                        mediaImageContainer.append('<div class="wa-media-image" data-id="' + attachment.id + '"><img src="' + attachmentUrl + '" title="' + imageTitle + '"/><span class="wa-media-image-title">' + imageTitle + '</span></div>');
+                        mediaImageContainer.append('<div class="asfowoo-media-image" data-id="' + attachment.id + '"><img src="' + attachmentUrl + '" title="' + imageTitle + '"/><span class="asfowoo-media-image-title">' + imageTitle + '</span></div>');
                     }
                     mediaSelected++;
                     return attachment.id;
@@ -1045,7 +1045,7 @@ jQuery(document).ready(function ($) {
 
             attachmentIDs = attachmentIDs.slice(0, mediaMaxNumber);
 
-            mediaWrap.addClass('wa-media-selected');
+            mediaWrap.addClass('asfowoo-media-selected');
 
             // Send the attachment id to our hidden input
             mediaInput.val(attachmentIDs.join(','));
@@ -1058,12 +1058,12 @@ jQuery(document).ready(function ($) {
         wpMediaFrames[mediaWrapperID].open();
     });
 
-    $('.wa-media-remove-all').on('click', function () {
+    $('.asfowoo-media-remove-all').on('click', function () {
         let $this = $(this),
-            mediaWrap = $this.closest('.wa-media-wrap'),
+            mediaWrap = $this.closest('.asfowoo-media-wrap'),
             mediaInput = mediaWrap.find('input');
 
-        mediaWrap.removeClass('wa-media-selected');
+        mediaWrap.removeClass('asfowoo-media-selected');
         mediaInput.val('');
         waActiveSettingsForm();
     });
@@ -1075,24 +1075,24 @@ jQuery(document).ready(function ($) {
      * Copy text
      * */
     function waCopyTextInit() {
-        let waCopyText = $('.wa-copy-text');
+        let waCopyText = $('.asfowoo-copy-text');
         if (navigator.clipboard) {
             waCopyText.each(function () {
                 if ($(this).attr('title') === undefined)
-                    $(this).attr('title', WooAssistant.copyText);
+                    $(this).attr('title', AssistantForWooCommerce.copyText);
             })
             waCopyText.unbind('click').on('click', function () {
                 let waCopyTextElm = $(this),
                     waTextForCopy = waCopyTextElm.attr('data-text') !== undefined ? waCopyTextElm.attr('data-text') : waCopyTextElm.text();
                 navigator.clipboard.writeText(waTextForCopy);
-                waCopyTextElm.addClass('wa-text-copied');
+                waCopyTextElm.addClass('asfowoo-text-copied');
 
                 setTimeout(function () {
-                    waCopyTextElm.removeClass('wa-text-copied');
+                    waCopyTextElm.removeClass('asfowoo-text-copied');
                 }, 500);
             });
         } else {
-            waCopyText.removeClass('wa-copy-text');
+            waCopyText.removeClass('asfowoo-copy-text');
         }
     }
 

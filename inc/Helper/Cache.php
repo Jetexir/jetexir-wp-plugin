@@ -1,11 +1,11 @@
 <?php
 
-namespace WooAssistant\Helper;
+namespace AssistantForWooCommerce\Helper;
 
 defined( 'ABSPATH' ) || die();
 
 class Cache {
-	private const cacheGroup = WOOASSISTANT_PLUGIN_KEY;
+	private const cacheGroup = ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY;
 
 	public static function exists( $key, $useDBCache = true ): bool {
 		return self::get( $key, $useDBCache ) !== false;

@@ -1,28 +1,28 @@
 <?php
 
-namespace WooAssistant\App\Product;
+namespace AssistantForWooCommerce\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Utilities\I18nUtil;
-use WooAssistant\Addons\Addon;
-use WooAssistant\App\App;
-use WooAssistant\Helper\Assets;
-use WooAssistant\Helper\Cookie;
-use WooAssistant\Helper\JSON;
-use WooAssistant\Helper\Nonce;
-use WooAssistant\Helper\Notice;
-use WooAssistant\Helper\Param;
-use WooAssistant\Helper\Sanitizing;
-use WooAssistant\Helper\WooCommerce;
-use WooAssistant\Helper\WordPress;
-use WooAssistant\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\App\App;
+use AssistantForWooCommerce\Helper\Assets;
+use AssistantForWooCommerce\Helper\Cookie;
+use AssistantForWooCommerce\Helper\JSON;
+use AssistantForWooCommerce\Helper\Nonce;
+use AssistantForWooCommerce\Helper\Notice;
+use AssistantForWooCommerce\Helper\Param;
+use AssistantForWooCommerce\Helper\Sanitizing;
+use AssistantForWooCommerce\Helper\WooCommerce;
+use AssistantForWooCommerce\Helper\WordPress;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class ProductCompare extends Addon implements AddonInterface {
     public string $addonID = 'product-compare';
     public string $currentTab = 'product';
     public string $currentSection = 'compare';
-    private const shortCode = 'wa_products_compare';
+    private const shortCode = 'asfowoo_products_compare';
     private const cookieName = 'wc_products_compare';
     private const maxItems = 4;
 
@@ -32,8 +32,8 @@ class ProductCompare extends Addon implements AddonInterface {
             add_action( 'woocommerce_after_shop_loop_item', [ $this, 'addButton' ], 9999 );
         }
         add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'addButton' ], 9999 );
-        add_action( 'wp_ajax_wa_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
-        add_action( 'wp_ajax_nopriv_wa_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
+        add_action( 'wp_ajax_asfowoo_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
+        add_action( 'wp_ajax_nopriv_asfowoo_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
     }
 
     public function compareShortcode( $atts ) {
@@ -57,7 +57,7 @@ class ProductCompare extends Addon implements AddonInterface {
             Notice::addAndDisplay( 'product-compare', array(
                     array(
                             'type'    => 'warning',
-                            'message' => __( 'Your product compare list is empty', 'wc-assistant' ),
+                            'message' => __( 'Your product compare list is empty', 'assistant-for-woocommerce' ),
                     )
             ) );
 
@@ -76,7 +76,7 @@ class ProductCompare extends Addon implements AddonInterface {
                 $attributes      = WooCommerce::getAttributeTaxonomies();
                 $data            = [ 'count' => count( $products ) ];
                 ?>
-                <div class="wa-product-compare-wrapper wa-product-compare-cols-<?php echo esc_html( $data['count'] ) ?>">
+                <div class="asfowoo-product-compare-wrapper asfowoo-product-compare-cols-<?php echo esc_html( $data['count'] ) ?>">
                     <?php
                     /**
                      * \WC_Product $product
@@ -85,10 +85,10 @@ class ProductCompare extends Addon implements AddonInterface {
                         $productID = $product->get_id();
                         $imageID   = (int) $product->get_image_id();
 
-                        $data['removeButton'][] = '<button type="button" class="button wa-button wa-product-compare-button wa-button-remove" data-id="' . $productID . '" data-action="refresh"><svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M8.00001 8L16 16" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+                        $data['removeButton'][] = '<button type="button" class="button asfowoo-button asfowoo-product-compare-button asfowoo-button-remove" data-id="' . $productID . '" data-action="refresh"><svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M8.00001 8L16 16" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
 
                         $data['images'][] = ! empty( $imageSize ) && $imageID ? wp_get_attachment_image( $imageID, $imageSize, false,
-                                [ 'class' => 'wa-product-compare-image' ] ) : '';
+                                [ 'class' => 'asfowoo-product-compare-image' ] ) : '';
 
                         if ( ! $product->is_visible() ) {
                             $data['title'][] = esc_html( $product->get_name() );
@@ -111,7 +111,7 @@ class ProductCompare extends Addon implements AddonInterface {
                                 $value = false;
 
                                 if ( $key === 'brand' ) {
-                                    $value = do_shortcode( '[product_brand post_id="' . $productID . '" class="wa-product-compare-brand"]' );
+                                    $value = do_shortcode( '[product_brand post_id="' . $productID . '" class="asfowoo-product-compare-brand"]' );
 
                                 } elseif ( $key === 'dimensions' && $product->has_dimensions() ) {
                                     $value = preg_replace( '/ /', '', $product->get_dimensions(), 4 );
@@ -126,7 +126,7 @@ class ProductCompare extends Addon implements AddonInterface {
                                     $value        = sprintf( '<span class="%s">%s</span>',
                                             esc_attr( $availability['class'] ),
                                             $availability['availability'] ? esc_html( $availability['availability'] ) : esc_html__( 'In stock',
-                                                    'wc-assistant' ) );
+                                                    'assistant-for-woocommerce' ) );
 
                                 } elseif ( $key === 'rating' && wc_review_ratings_enabled() ) {
                                     $value = wc_get_rating_html( $product->get_average_rating() );
@@ -152,10 +152,10 @@ class ProductCompare extends Addon implements AddonInterface {
                     }
 
                     // Head
-                    echo '<div class="wa-product-compare-row wa-product-compare-head">';
+                    echo '<div class="asfowoo-product-compare-row asfowoo-product-compare-head">';
                     foreach ( $data['title'] as $i => $title ) {
                         $i = (int) $i;
-                        echo '<div class="wa-product-compare-col">';
+                        echo '<div class="asfowoo-product-compare-col">';
                         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         echo $data['removeButton'][ $i ];
                         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -163,7 +163,7 @@ class ProductCompare extends Addon implements AddonInterface {
                         echo wp_kses_post( $title );
                         if ( ! empty( $data['addToCard'][ $i ] ) ) {
                             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            echo '<div class="wa-product-compare-add-to-card">' . $data['addToCard'][ $i ] . '</div>';
+                            echo '<div class="asfowoo-product-compare-add-to-card">' . $data['addToCard'][ $i ] . '</div>';
                         }
                         echo '</div>';
                     }
@@ -176,12 +176,12 @@ class ProductCompare extends Addon implements AddonInterface {
                             continue;
                         }
 
-                        echo '<div class="wa-product-compare-field-title">';
+                        echo '<div class="asfowoo-product-compare-field-title">';
                         echo esc_html( $field['label'] );
                         echo '</div>';
-                        echo '<div class="wa-product-compare-row wa-product-compare-row-field wa-product-compare-row-' . esc_html( $key ) . '">';
+                        echo '<div class="asfowoo-product-compare-row asfowoo-product-compare-row-field asfowoo-product-compare-row-' . esc_html( $key ) . '">';
                         foreach ( $field['value'] as $value ) {
-                            echo '<div class="wa-product-compare-col">';
+                            echo '<div class="asfowoo-product-compare-col">';
                             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             echo empty( $value ) ? '---' : $value;
                             echo '</div>';
@@ -196,7 +196,7 @@ class ProductCompare extends Addon implements AddonInterface {
                 Notice::addAndDisplay( 'product-compare', array(
                         array(
                                 'type'    => 'warning',
-                                'message' => __( 'Your product compare list is empty', 'wc-assistant' ),
+                                'message' => __( 'Your product compare list is empty', 'assistant-for-woocommerce' ),
                         )
                 ) );
             }
@@ -228,7 +228,7 @@ class ProductCompare extends Addon implements AddonInterface {
 
         wp_send_json_error( [
                 'error'   => 'nonce-invalid',
-                'message' => __( 'Security code is not valid, page will be refreshed.', 'wc-assistant' ),
+                'message' => __( 'Security code is not valid, page will be refreshed.', 'assistant-for-woocommerce' ),
                 'refresh' => true
         ], 403 );
     }
@@ -275,8 +275,8 @@ class ProductCompare extends Addon implements AddonInterface {
     public function addButton(): void {
         $productID = get_the_ID();
         $exists    = $this->checkExistsItem( $productID );
-        echo '<button type="button" class="button wa-button wa-button-secondary wa-product-compare-button' . ( $exists ? ' wa-button-remove' : '' ) . '" data-id="' . esc_html( $productID ) . '" data-action="non">' .
-             esc_html( $this->getSetting( 'product_compare_button_text', __( 'Compare', 'wc-assistant' ) ) )
+        echo '<button type="button" class="button asfowoo-button asfowoo-button-secondary asfowoo-product-compare-button' . ( $exists ? ' asfowoo-button-remove' : '' ) . '" data-id="' . esc_html( $productID ) . '" data-action="non">' .
+             esc_html( $this->getSetting( 'product_compare_button_text', __( 'Compare', 'assistant-for-woocommerce' ) ) )
              . '</button>';
     }
 
@@ -317,46 +317,46 @@ class ProductCompare extends Addon implements AddonInterface {
         }
 
         $pluginVersion = Assets::getVersion();
-        $debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
+        $debugName     = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? '' : '.min';
 
-        wp_enqueue_style( WOOASSISTANT_PLUGIN_KEY . '-product-compare-style',
+        wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-compare-style',
                 Assets::url( 'css/product-compare' . $debugName . '.css' ),
                 false, $pluginVersion );
 
-        wp_enqueue_script( WOOASSISTANT_PLUGIN_KEY . '-product-compare-script',
+        wp_enqueue_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-compare-script',
                 Assets::url( 'js/product-compare.min.js' ),
-                [ WOOASSISTANT_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
+                [ ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
-        wp_localize_script( WOOASSISTANT_PLUGIN_KEY . '-product-compare-script', WOOASSISTANT_PLUGIN_KEYCAP . 'ProductCompare', array(
-                'maxExceededMessage' => __( 'It is not possible to add more than %number% product to the comparison.', 'wc-assistant' ),
+        wp_localize_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-compare-script', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP . 'ProductCompare', array(
+                'maxExceededMessage' => __( 'It is not possible to add more than %number% product to the comparison.', 'assistant-for-woocommerce' ),
         ) );
     }
 
     public function addSectionSettings( $sections ) {
         $settings = array(
                 'start_grid_product_compare'         => array(
-                        'title' => __( 'Product Compare', 'wc-assistant' ),
+                        'title' => __( 'Product Compare', 'assistant-for-woocommerce' ),
                         'type'  => 'startgrid',
                 ),
                 'product_compare_button_text'        => array(
                         'id'      => 'product_compare_button_text',
-                        'title'   => __( 'Button Text', 'wc-assistant' ),
+                        'title'   => __( 'Button Text', 'assistant-for-woocommerce' ),
                         'type'    => 'text',
-                        'default' => __( 'Compare', 'wc-assistant' ),
-                        'desc'    => __( 'Compare button text', 'wc-assistant' )
+                        'default' => __( 'Compare', 'assistant-for-woocommerce' ),
+                        'desc'    => __( 'Compare button text', 'assistant-for-woocommerce' )
                 ),
                 'product_compare_archive_button'     => array(
                         'id'       => 'product_compare_archive_button',
-                        'title'    => __( 'Archive compare button', 'wc-assistant' ),
+                        'title'    => __( 'Archive compare button', 'assistant-for-woocommerce' ),
                         'type'     => 'toggle',
                         'value'    => 1,
                         'default'  => false,
-                        'desc'     => __( 'Display compare button in WooCommerce archive pages', 'wc-assistant' ),
+                        'desc'     => __( 'Display compare button in WooCommerce archive pages', 'assistant-for-woocommerce' ),
                         'sanitize' => 'bool'
                 ),
                 'product_compare_page'               => array(
                         'id'                => 'product_compare_page',
-                        'title'             => __( 'Compare page', 'wc-assistant' ),
+                        'title'             => __( 'Compare page', 'assistant-for-woocommerce' ),
                         'type'              => 'postSelect',
                         'args'              => array(
                                 'post_type' => 'page'
@@ -365,19 +365,19 @@ class ProductCompare extends Addon implements AddonInterface {
                         'option_none'       => '---',
                         'option_none_value' => '',
                     /* translators: %s: Shortcode */
-                        'desc'              => wp_sprintf( __( 'Insert shortcode in the compare page %s', 'wc-assistant' ), '<code class="wa-copy-text">[wa_products_compare]</code>' )
+                        'desc'              => wp_sprintf( __( 'Insert shortcode in the compare page %s', 'assistant-for-woocommerce' ), '<code class="asfowoo-copy-text">[asfowoo_products_compare]</code>' )
                 ),
                 'product_compare_max_items'          => array(
                         'id'      => 'product_compare_max_items',
-                        'title'   => __( 'Max product items', 'wc-assistant' ),
+                        'title'   => __( 'Max product items', 'assistant-for-woocommerce' ),
                         'type'    => 'select',
                         'options' => array( 2, 3, 4 ),
                         'default' => 0,
-                        'desc'    => __( 'Select max product items for comparing.', 'wc-assistant' )
+                        'desc'    => __( 'Select max product items for comparing.', 'assistant-for-woocommerce' )
                 ),
                 'product_compare_image_size'         => array(
                         'id'                => 'product_compare_image_size',
-                        'title'             => __( 'Image size', 'wc-assistant' ),
+                        'title'             => __( 'Image size', 'assistant-for-woocommerce' ),
                         'type'              => 'imageSizeSelect',
                         'args'              => array(
                                 'post_type' => 'page'
@@ -385,15 +385,15 @@ class ProductCompare extends Addon implements AddonInterface {
                         'default'           => 'thumbnail',
                         'option_none'       => '---',
                         'option_none_value' => '',
-                        'desc'              => __( 'Select product image size', 'wc-assistant' )
+                        'desc'              => __( 'Select product image size', 'assistant-for-woocommerce' )
                 ),
                 'product_compare_add_to_cart_button' => array(
                         'id'       => 'product_compare_add_to_cart_button',
-                        'title'    => __( 'Add to cart button', 'wc-assistant' ),
+                        'title'    => __( 'Add to cart button', 'assistant-for-woocommerce' ),
                         'type'     => 'toggle',
                         'value'    => 1,
                         'default'  => false,
-                        'desc'     => __( 'Display add to cart button in product compare page', 'wc-assistant' ),
+                        'desc'     => __( 'Display add to cart button in product compare page', 'assistant-for-woocommerce' ),
                         'sanitize' => 'bool'
                 ),
                 'end_grid_product_compare'           => array(
@@ -405,7 +405,7 @@ class ProductCompare extends Addon implements AddonInterface {
                 ),
 
                 'start_grid_product_compare_fields' => array(
-                        'title' => __( 'Product fields', 'wc-assistant' ),
+                        'title' => __( 'Product fields', 'assistant-for-woocommerce' ),
                         'type'  => 'startgrid',
                 ),
         );
@@ -431,7 +431,7 @@ class ProductCompare extends Addon implements AddonInterface {
         );
 
         $settings['start_grid_product_compare_attributes'] = array(
-                'title' => __( 'Product attributes', 'wc-assistant' ),
+                'title' => __( 'Product attributes', 'assistant-for-woocommerce' ),
                 'type'  => 'startgrid',
         );
 
@@ -441,7 +441,7 @@ class ProductCompare extends Addon implements AddonInterface {
                     'id'      => 'product_compare_no_attributes_notice',
                     'notices' => array(
                             array(
-                                    'message' => __( 'Your product attributes is empty, Add attribute in "Products > Attributes" menu.', 'wc-assistant' ),
+                                    'message' => __( 'Your product attributes is empty, Add attribute in "Products > Attributes" menu.', 'assistant-for-woocommerce' ),
                                     'type'    => 'warning',
                             )
                     ),
@@ -466,8 +466,8 @@ class ProductCompare extends Addon implements AddonInterface {
         );
 
         $sections[ $this->currentSection ] = array(
-                'title'        => __( 'Compare', 'wc-assistant' ),
-                'desc'         => __( 'Product compare', 'wc-assistant' ),
+                'title'        => __( 'Compare', 'assistant-for-woocommerce' ),
+                'desc'         => __( 'Product compare', 'assistant-for-woocommerce' ),
                 'settings_key' => $this->addonID,
                 'settings'     => $settings
         );
@@ -480,9 +480,9 @@ class ProductCompare extends Addon implements AddonInterface {
 
         return array(
                 'id'             => $this->addonID,
-                'title'          => __( 'Products Compare', 'wc-assistant' ),
-                'desc'           => __( 'Enables customers to compare products.', 'wc-assistant' ),
-                'tags'           => [ __( 'Product', 'wc-assistant' ) ],
+                'title'          => __( 'Products Compare', 'assistant-for-woocommerce' ),
+                'desc'           => __( 'Enables customers to compare products.', 'assistant-for-woocommerce' ),
+                'tags'           => [ __( 'Product', 'assistant-for-woocommerce' ) ],
                 'cat'            => 'product',
                 'icon'           => $icon,
                 'more_info_link' => 'https://parsa.ws',

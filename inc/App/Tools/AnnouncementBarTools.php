@@ -1,32 +1,38 @@
 <?php
 
-namespace WooAssistant\App\Tools;
+namespace AssistantForWooCommerce\App\Tools;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Addons\Addon;
-use WooAssistant\App\App;
-use WooAssistant\Helper\Assets;
-use WooAssistant\Helper\Helper;
-use WooAssistant\Helper\HTML;
-use WooAssistant\Helper\Notice;
-use WooAssistant\Helper\Param;
-use WooAssistant\Helper\Sanitizing;
-use WooAssistant\Helper\Templates;
-use WooAssistant\Helper\WordPress;
-use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Providers\UI\DataTableUI;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\App\App;
+use AssistantForWooCommerce\Helper\Assets;
+use AssistantForWooCommerce\Helper\Helper;
+use AssistantForWooCommerce\Helper\HTML;
+use AssistantForWooCommerce\Helper\Notice;
+use AssistantForWooCommerce\Helper\Param;
+use AssistantForWooCommerce\Helper\Sanitizing;
+use AssistantForWooCommerce\Helper\Templates;
+use AssistantForWooCommerce\Helper\WordPress;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Providers\UI\DataTableUI;
 
 class AnnouncementBarTools extends Addon implements AddonInterface {
 	public string $addonID = 'announcement-bar-tools';
 	public string $currentTab = 'tools';
 	public string $currentSection = 'announcement-bar';
-	private const shortCode = 'wa_announcement_bar';
+	private const shortCode = 'asfowoo_announcement_bar';
 
 	public function initAction(): void {
 		App::addShortcode( self::shortCode, [ $this, 'announcementBarShortcode' ] );
-		add_action( 'woo_assistant_data_table_ui_announcement_bar_action', [ $this, 'dataTableActions' ], 10, 2 );
-		add_filter( 'woo_assistant_tools_settings_display_footer', [ $this, 'displayFooterSettings' ], 10, 2 );
+		add_action( 'assistant_for_woocommerce_data_table_ui_announcement_bar_action', [
+			$this,
+			'dataTableActions'
+		], 10, 2 );
+		add_filter( 'assistant_for_woocommerce_tools_settings_display_footer', [
+			$this,
+			'displayFooterSettings'
+		], 10, 2 );
 	}
 
 	public function announcementBarShortcode( $atts ): string {
@@ -93,15 +99,15 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 	}
 
 	public function getAnnouncement( $announcement, $position = true ): string {
-		$style = '--wa-announcement-bar-text-color: ' . ( $announcement['text_color'] ?? '#333' ) . ';';
+		$style = '--asfowoo-announcement-bar-text-color: ' . ( $announcement['text_color'] ?? '#333' ) . ';';
 
 		$bgColorType = $announcement['bg_color_type'] ?? 'solid';
 		if ( $bgColorType === 'gradient' ) {
 			$bgColorGradient = $announcement['bg_color_gradient'] ?? [];
-			$style           .= '--wa-announcement-bar-bg: ' . Assets::cssGradient( $bgColorGradient ) . ';';
+			$style           .= '--asfowoo-announcement-bar-bg: ' . Assets::cssGradient( $bgColorGradient ) . ';';
 
 		} else {
-			$style .= '--wa-announcement-bar-bg: ' . $announcement['bg_color_solid'] ?? '#ebe5ff' . ';';
+			$style .= '--asfowoo-announcement-bar-bg: ' . $announcement['bg_color_solid'] ?? '#ebe5ff' . ';';
 		}
 
 		$tag         = 'div';
@@ -114,16 +120,16 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			$withButtons = true;
 		}
 
-		$output = '<' . $tag . ( $tag === 'a' ? ' href="' . $announcement['primary_button_url'] . '"' : '' ) . ' id="wa-announcement-bar-' . $announcement['code'] . '" class="wa-announcement-bar' . ( $position ? ' wa-announcement-bar-fixed wa-announcement-bar-' . $announcement['position'] : ' wa-announcement-bar-inline' ) . ( ! $withButtons ? ' wa-announcement-bar-center' : '' ) . '" style="' . $style . '">';
-		$output .= '<span class="wa-announcement-bar-container">';
-		$output .= '<span class="wa-announcement-bar-text">' . esc_html( $announcement['text'] ) . '</span>';
+		$output = '<' . $tag . ( $tag === 'a' ? ' href="' . $announcement['primary_button_url'] . '"' : '' ) . ' id="asfowoo-announcement-bar-' . $announcement['code'] . '" class="asfowoo-announcement-bar' . ( $position ? ' asfowoo-announcement-bar-fixed asfowoo-announcement-bar-' . $announcement['position'] : ' asfowoo-announcement-bar-inline' ) . ( ! $withButtons ? ' asfowoo-announcement-bar-center' : '' ) . '" style="' . $style . '">';
+		$output .= '<span class="asfowoo-announcement-bar-container">';
+		$output .= '<span class="asfowoo-announcement-bar-text">' . esc_html( $announcement['text'] ) . '</span>';
 		if ( $withButtons ) {
-			$output .= '<span class="wa-announcement-bar-buttons">';
+			$output .= '<span class="asfowoo-announcement-bar-buttons">';
 			if ( ! empty( $announcement['primary_button'] ) && ! empty( $announcement['primary_button_url'] ) ) {
-				$output .= '<a href="' . $announcement['primary_button_url'] . '" class="wa-button wa-button-primary">' . $announcement['primary_button'] . '</a>';
+				$output .= '<a href="' . $announcement['primary_button_url'] . '" class="asfowoo-button asfowoo-button-primary">' . $announcement['primary_button'] . '</a>';
 			}
 			if ( ! empty( $announcement['secondary_button'] ) && ! empty( $announcement['secondary_button_url'] ) ) {
-				$output .= '<a href="' . $announcement['secondary_button_url'] . '" class="wa-button wa-button-secondary">' . $announcement['secondary_button'] . '</a>';
+				$output .= '<a href="' . $announcement['secondary_button_url'] . '" class="asfowoo-button asfowoo-button-secondary">' . $announcement['secondary_button'] . '</a>';
 			}
 			$output .= '</span>';
 		}
@@ -186,7 +192,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 		} elseif ( $action === 'bulk_action' ) {
 			$bulkAction    = Sanitizing::text( Param::post( 'bulk_action' ) );
-			$rowIDs        = array_map( 'WooAssistant\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
+			$rowIDs        = array_map( 'AssistantForWooCommerce\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
 			$announcements = $this->getSetting( 'announcement_bar_data', [] );
 
 			foreach ( $announcements as $announcementIndex => $announcement ) {
@@ -223,23 +229,23 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			wp_send_json_success( [ 'content' => $form ] );
 
 		} elseif ( $action === 'save_form' ) {
-			$formData     = \WooAssistant\AppHelper\DataTableUI::getFormData( $this->getFields() );
+			$formData     = \AssistantForWooCommerce\AppHelper\DataTableUI::getFormData( $this->getFields() );
 			$errorMessage = '';
 			$announcement = false;
 
 			if ( empty( $formData['title'] ) ) {
 				/* translators: %s: Title */
-				$errorMessage = sprintf( __( '%s field is empty!', 'wc-assistant' ), __( 'Title', 'wc-assistant' ) );
+				$errorMessage = sprintf( __( '%s field is empty!', 'assistant-for-woocommerce' ), __( 'Title', 'assistant-for-woocommerce' ) );
 			} elseif ( empty( $formData['text'] ) ) {
 				/* translators: %s: Text */
-				$errorMessage = sprintf( __( '%s field is empty!', 'wc-assistant' ), __( 'Text', 'wc-assistant' ) );
+				$errorMessage = sprintf( __( '%s field is empty!', 'assistant-for-woocommerce' ), __( 'Text', 'assistant-for-woocommerce' ) );
 			}
 
 			if ( $index >= 0 ) {
 				$announcement = $this->getAnnouncementByIndex( $index );
 
 				if ( $announcement === false ) {
-					$errorMessage = __( 'Announcement not found!', 'wc-assistant' );
+					$errorMessage = __( 'Announcement not found!', 'assistant-for-woocommerce' );
 				}
 			}
 
@@ -260,12 +266,12 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				$announcements[ $index ]         = $formData;
 				$announcements[ $index ]['code'] = $announcement['code'];
 				$this->saveSetting( 'announcement_bar_data', $announcements );
-				$successMessage = __( 'The announcement was successfully saved.', 'wc-assistant' );
+				$successMessage = __( 'The announcement was successfully saved.', 'assistant-for-woocommerce' );
 
 			} else {
 				$formData['code'] = Helper::randomString( 6, true, false, true );
 				$this->addToArraySetting( 'announcement_bar_data', $formData, true );
-				$successMessage = __( 'Announcement added successfully.', 'wc-assistant' );
+				$successMessage = __( 'Announcement added successfully.', 'assistant-for-woocommerce' );
 			}
 
 			$dataTable = $this->getDataTable();
@@ -292,7 +298,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 					'message'   => Notice::addAndDisplay( $this->currentSection, array(
 						array(
 							'type'    => 'success',
-							'message' => __( 'Announcement removed!', 'wc-assistant' ),
+							'message' => __( 'Announcement removed!', 'assistant-for-woocommerce' ),
 						)
 					), false ),
 				] );
@@ -303,7 +309,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 					'message' => Notice::addAndDisplay( $this->currentSection, array(
 						array(
 							'type'    => 'error',
-							'message' => __( 'Selected item not found!', 'wc-assistant' ),
+							'message' => __( 'Selected item not found!', 'assistant-for-woocommerce' ),
 						)
 					), false ),
 				], 403 );
@@ -316,20 +322,20 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		$dataTable->setID( 'announcement_bar' )
 		          ->setRows( $this->getSetting( 'announcement_bar_data', [] ) )
 		          ->setIdField( $dataTable::ROW_INDEX )
-		          ->setTitle( __( 'Announcement Bars', 'wc-assistant' ) )
-		          ->modalAddTitle( __( 'Add new announcement', 'wc-assistant' ) )
-		          ->modalEditTitle( __( 'Edit announcement', 'wc-assistant' ) )
-		          ->addNewButton( __( 'Add new', 'wc-assistant' ) )
-		          ->addAction( 'edit', '<i class="wa-icon-edit"></i>', $dataTable::ACTION_EDIT )
-		          ->addAction( 'delete', '<i class="wa-icon-trash"></i>', $dataTable::ACTION_DELETE )
-		          ->addAction( 'bulk_enable', __( 'Enable', 'wc-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-		          ->addAction( 'bulk_disable', __( 'Disable', 'wc-assistant' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-		          ->addAction( 'bulk_delete', __( 'Delete', 'wc-assistant' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
-		          ->addColumn( __( 'Title', 'wc-assistant' ), 'title' )
-		          ->addColumn( __( 'ShortCode', 'wc-assistant' ), 'code', function ( $row ) {
-			          return '<code class="wa-copy-text" title="' . __( 'Copy shortcode', 'wc-assistant' ) . '">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
+		          ->setTitle( __( 'Announcement Bars', 'assistant-for-woocommerce' ) )
+		          ->modalAddTitle( __( 'Add new announcement', 'assistant-for-woocommerce' ) )
+		          ->modalEditTitle( __( 'Edit announcement', 'assistant-for-woocommerce' ) )
+		          ->addNewButton( __( 'Add new', 'assistant-for-woocommerce' ) )
+		          ->addAction( 'edit', '<i class="asfowoo-icon-edit"></i>', $dataTable::ACTION_EDIT )
+		          ->addAction( 'delete', '<i class="asfowoo-icon-trash"></i>', $dataTable::ACTION_DELETE )
+		          ->addAction( 'bulk_enable', __( 'Enable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_disable', __( 'Disable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+		          ->addAction( 'bulk_delete', __( 'Delete', 'assistant-for-woocommerce' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
+		          ->addColumn( __( 'Title', 'assistant-for-woocommerce' ), 'title' )
+		          ->addColumn( __( 'ShortCode', 'assistant-for-woocommerce' ), 'code', function ( $row ) {
+			          return '<code class="asfowoo-copy-text" title="' . __( 'Copy shortcode', 'assistant-for-woocommerce' ) . '">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
 		          }, [ 'is_html' => true, 'hide_on_mobile' => true ] )
-		          ->addColumn( __( 'Status', 'wc-assistant' ), $dataTable::ACTIVE_FIELD );
+		          ->addColumn( __( 'Status', 'assistant-for-woocommerce' ), $dataTable::ACTIVE_FIELD );
 
 		return $dataTable;
 	}
@@ -338,7 +344,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 		$dataTable = $this->getDataTable();
 
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Announcement Bar', 'wc-assistant' ),
+			'title'        => __( 'Announcement Bar', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->currentSection,
 			'settings'     => array(
 				'data_table_ui' => array(
@@ -362,17 +368,17 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'title',
-				'title'         => __( 'Title', 'wc-assistant' ),
+				'title'         => __( 'Title', 'assistant-for-woocommerce' ),
 				/* translators: %s: Shortcode */
-				'desc'          => isset( $data['code'] ) && $data['code'] ? wp_sprintf( __( 'Announcement Bar shortcode: %s', 'wc-assistant' ), '<code class="wa-copy-text">[' . self::shortCode . ' code="' . $data['code'] . ']</code>' ) : '',
-				'placeholder'   => __( 'Announcement title', 'wc-assistant' ),
+				'desc'          => isset( $data['code'] ) && $data['code'] ? wp_sprintf( __( 'Announcement Bar shortcode: %s', 'assistant-for-woocommerce' ), '<code class="asfowoo-copy-text">[' . self::shortCode . ' code="' . $data['code'] . ']</code>' ) : '',
+				'placeholder'   => __( 'Announcement title', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['title'] ?? ''
 			),
 			array(
 				'id'            => 'text',
-				'title'         => __( 'Text', 'wc-assistant' ),
-				'placeholder'   => __( 'Announcement text', 'wc-assistant' ),
+				'title'         => __( 'Text', 'assistant-for-woocommerce' ),
+				'placeholder'   => __( 'Announcement text', 'assistant-for-woocommerce' ),
 				'type'          => 'textarea',
 				'attributes'    => array(
 					'resize' => 'none'
@@ -381,30 +387,30 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'primary_button',
-				'title'         => __( 'Primary button', 'wc-assistant' ),
-				'placeholder'   => __( 'Primary button text', 'wc-assistant' ),
-				'desc'          => __( 'If you leave the field blank, the announcement bar will be linked.', 'wc-assistant' ),
+				'title'         => __( 'Primary button', 'assistant-for-woocommerce' ),
+				'placeholder'   => __( 'Primary button text', 'assistant-for-woocommerce' ),
+				'desc'          => __( 'If you leave the field blank, the announcement bar will be linked.', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['primary_button'] ?? ''
 			),
 			array(
 				'id'            => 'primary_button_url',
-				'title'         => __( 'Primary link', 'wc-assistant' ),
-				'placeholder'   => __( 'Primary button link', 'wc-assistant' ),
+				'title'         => __( 'Primary link', 'assistant-for-woocommerce' ),
+				'placeholder'   => __( 'Primary button link', 'assistant-for-woocommerce' ),
 				'type'          => 'url',
 				'setting_value' => $data['primary_button_url'] ?? ''
 			),
 			array(
 				'id'            => 'secondary_button',
-				'title'         => __( 'Secondary button', 'wc-assistant' ),
-				'placeholder'   => __( 'Secondary button text', 'wc-assistant' ),
+				'title'         => __( 'Secondary button', 'assistant-for-woocommerce' ),
+				'placeholder'   => __( 'Secondary button text', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['secondary_button'] ?? ''
 			),
 			array(
 				'id'            => 'secondary_button_url',
-				'title'         => __( 'Secondary link', 'wc-assistant' ),
-				'placeholder'   => __( 'Secondary button link', 'wc-assistant' ),
+				'title'         => __( 'Secondary link', 'assistant-for-woocommerce' ),
+				'placeholder'   => __( 'Secondary button link', 'assistant-for-woocommerce' ),
 				'type'          => 'url',
 				'setting_value' => $data['secondary_button_url'] ?? ''
 			),
@@ -412,17 +418,17 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				'type' => 'hr',
 			),
 			array(
-				'title' => __( 'Display on', 'wc-assistant' ),
+				'title' => __( 'Display on', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 			array(
 				'id'                => 'position',
-				'title'             => __( 'Position', 'wc-assistant' ),
+				'title'             => __( 'Position', 'assistant-for-woocommerce' ),
 				'type'              => 'select',
 				'options'           => array(
-					'top'           => __( 'Top', 'wc-assistant' ),
-					'sticky-top'    => __( 'Sticky on top', 'wc-assistant' ),
-					'sticky-bottom' => __( 'Sticky on bottom', 'wc-assistant' ),
+					'top'           => __( 'Top', 'assistant-for-woocommerce' ),
+					'sticky-top'    => __( 'Sticky on top', 'assistant-for-woocommerce' ),
+					'sticky-bottom' => __( 'Sticky on bottom', 'assistant-for-woocommerce' ),
 				),
 				'option_none'       => 'Use shortcode',
 				'option_none_value' => '',
@@ -432,33 +438,33 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'post_ids',
-				'title'         => __( 'Single post/page/product', 'wc-assistant' ),
+				'title'         => __( 'Single post/page/product', 'assistant-for-woocommerce' ),
 				'placeholder'   => '1,25,87',
-				'desc'          => __( 'Enter the post, page, or product IDs, separated by commas.', 'wc-assistant' ),
+				'desc'          => __( 'Enter the post, page, or product IDs, separated by commas.', 'assistant-for-woocommerce' ),
 				'type'          => 'text',
 				'setting_value' => $data['post_ids'] ?? ''
 			),
 			array(
 				'id'               => 'display_on',
-				'title'            => __( 'Select page types', 'wc-assistant' ),
+				'title'            => __( 'Select page types', 'assistant-for-woocommerce' ),
 				'type'             => 'checkboxInline',
 				'setting_value'    => $data['display_on'] ?? [ 'all' ],
 				'options'          => array(
-					'all'              => __( 'All pages', 'wc-assistant' ),
-					'home'             => __( 'Home', 'wc-assistant' ),
-					'blog'             => __( 'Blog', 'wc-assistant' ),
-					'cart'             => __( 'Cart', 'wc-assistant' ),
-					'checkout'         => __( 'Checkout', 'wc-assistant' ),
-					'shop'             => __( 'Shop', 'wc-assistant' ),
-					'product'          => __( 'Product', 'wc-assistant' ),
-					'product-category' => __( 'Product category', 'wc-assistant' ),
-					'product-tag'      => __( 'Product tag', 'wc-assistant' ),
-					'product-taxonomy' => __( 'Product taxonomy', 'wc-assistant' ),
-					'category'         => __( 'Category', 'wc-assistant' ),
-					'tag'              => __( 'Tag', 'wc-assistant' ),
-					'page'             => __( 'Page', 'wc-assistant' ),
-					'post'             => __( 'Post', 'wc-assistant' ),
-					'singular'         => __( 'All single post types', 'wc-assistant' ),
+					'all'              => __( 'All pages', 'assistant-for-woocommerce' ),
+					'home'             => __( 'Home', 'assistant-for-woocommerce' ),
+					'blog'             => __( 'Blog', 'assistant-for-woocommerce' ),
+					'cart'             => __( 'Cart', 'assistant-for-woocommerce' ),
+					'checkout'         => __( 'Checkout', 'assistant-for-woocommerce' ),
+					'shop'             => __( 'Shop', 'assistant-for-woocommerce' ),
+					'product'          => __( 'Product', 'assistant-for-woocommerce' ),
+					'product-category' => __( 'Product category', 'assistant-for-woocommerce' ),
+					'product-tag'      => __( 'Product tag', 'assistant-for-woocommerce' ),
+					'product-taxonomy' => __( 'Product taxonomy', 'assistant-for-woocommerce' ),
+					'category'         => __( 'Category', 'assistant-for-woocommerce' ),
+					'tag'              => __( 'Tag', 'assistant-for-woocommerce' ),
+					'page'             => __( 'Page', 'assistant-for-woocommerce' ),
+					'post'             => __( 'Post', 'assistant-for-woocommerce' ),
+					'singular'         => __( 'All single post types', 'assistant-for-woocommerce' ),
 				),
 				'not_equal'        => true,
 				'sanitize'         => 'array',
@@ -471,23 +477,23 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 				'type' => 'hr',
 			),
 			array(
-				'title' => __( 'Style', 'wc-assistant' ),
+				'title' => __( 'Style', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 			array(
 				'id'            => 'text_color',
-				'title'         => __( 'Text color', 'wc-assistant' ),
+				'title'         => __( 'Text color', 'assistant-for-woocommerce' ),
 				'type'          => 'wpColorPicker',
 				'sanitize'      => 'color',
 				'setting_value' => $data['text_color'] ?? '#333'
 			),
 			array(
-				'title' => __( 'Background color type', 'wc-assistant' ),
+				'title' => __( 'Background color type', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			array(
 				'id'            => 'bg_color_type',
-				'title'         => __( 'Solid color', 'wc-assistant' ),
+				'title'         => __( 'Solid color', 'assistant-for-woocommerce' ),
 				'type'          => 'radio',
 				'default'       => 'solid',
 				'value'         => 'solid',
@@ -496,7 +502,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'bg_color_type',
-				'title'         => __( 'Gradient color', 'wc-assistant' ),
+				'title'         => __( 'Gradient color', 'assistant-for-woocommerce' ),
 				'type'          => 'radio',
 				'default'       => 'solid',
 				'value'         => 'gradient',
@@ -508,14 +514,14 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 			),
 			array(
 				'id'            => 'bg_color_solid',
-				'title'         => __( 'Background solid color', 'wc-assistant' ),
+				'title'         => __( 'Background solid color', 'assistant-for-woocommerce' ),
 				'type'          => 'wpColorPicker',
 				'setting_value' => $data['bg_color_solid'] ?? '#ebe5ff',
 				'sanitize'      => 'color'
 			),
 			array(
 				'id'            => 'bg_color_gradient',
-				'title'         => __( 'Background gradient color', 'wc-assistant' ),
+				'title'         => __( 'Background gradient color', 'assistant-for-woocommerce' ),
 				'type'          => 'gradientColorPicker',
 				'addable'       => true,
 				'removable'     => true,
@@ -543,9 +549,9 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 	public function wpEnqueueScriptsAction(): void {
 		$pluginVersion = Assets::getVersion();
-		$debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
+		$debugName     = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? '' : '.min';
 
-		wp_enqueue_style( WOOASSISTANT_PLUGIN_KEY . '-announcement-bar-style',
+		wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-announcement-bar-style',
 			Assets::url( 'css/announcement-bar' . $debugName . '.css' ),
 			false, $pluginVersion );
 	}
@@ -555,9 +561,9 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Announcement Bar', 'wc-assistant' ),
-			'desc'           => __( 'Promote sales using multiple announcement bar banner types.', 'wc-assistant' ),
-			'tags'           => [ __( 'Notification', 'wc-assistant' ) ],
+			'title'          => __( 'Announcement Bar', 'assistant-for-woocommerce' ),
+			'desc'           => __( 'Promote sales using multiple announcement bar banner types.', 'assistant-for-woocommerce' ),
+			'tags'           => [ __( 'Notification', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'customizations',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

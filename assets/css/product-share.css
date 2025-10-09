@@ -1,29 +1,29 @@
-.wa-product-share-wrapper {
+.asfowoo-product-share-wrapper {
   display: flex;
   gap: 10px;
   margin: 20px 0;
 }
-.wa-product-share-wrapper .wa-product-share-title {
+.asfowoo-product-share-wrapper .asfowoo-product-share-title {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   margin-block-end: 10px;
   min-width: 50px;
 }
-.wa-product-share-wrapper .wa-product-share-links {
+.asfowoo-product-share-wrapper .asfowoo-product-share-links {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   gap: 10px;
 }
-.wa-product-share-wrapper .wa-product-share-links .wa-product-share-link {
+.asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  color: var(--wa-element-color, #2B2B2B);
-  border: 1px solid var(--wa-element-border-color, #E6E2F5);
-  background-color: var(--wa-element-bg-color, rgb(247.35, 247.35, 247.35));
+  color: var(--asfowoo-element-color, #2B2B2B);
+  border: 1px solid var(--asfowoo-element-border-color, #E6E2F5);
+  background-color: var(--asfowoo-element-bg-color, rgb(247.35, 247.35, 247.35));
   padding: 10px;
   width: 32px;
   height: 32px;
@@ -31,35 +31,35 @@
   font-size: 14px;
   transition: all 0.3s ease;
 }
-.wa-product-share-wrapper .wa-product-share-links .wa-product-share-link .wa-icon-content_copy {
-  animation: waBlinkText 250ms step-start 0s infinite;
+.asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link .asfowoo-icon-content_copy {
+  animation: afwBlinkText 250ms step-start 0s infinite;
 }
-.wa-product-share-wrapper .wa-product-share-links .wa-product-share-link.wa-product-share-link-size-large {
+.asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-size-large {
   font-size: 18px;
   width: 45px;
   height: 45px;
 }
-.wa-product-share-wrapper .wa-product-share-links .wa-product-share-link:hover, .wa-product-share-wrapper .wa-product-share-links .wa-product-share-link:focus {
-  color: var(--wa-element-hover-color, #2B2B2B);
-  border: 1px solid var(--wa-element-hover-border-color, #E6E2F5);
-  background-color: var(--wa-element-hover-bg-color, rgb(247.35, 247.35, 247.35));
-  outline: 1px solid var(--wa-element-hover-border-color, #E6E2F5);
+.asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link:hover, .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link:focus {
+  color: var(--asfowoo-element-hover-color, #2B2B2B);
+  border: 1px solid var(--asfowoo-element-hover-border-color, #E6E2F5);
+  background-color: var(--asfowoo-element-hover-bg-color, rgb(247.35, 247.35, 247.35));
+  outline: 1px solid var(--asfowoo-element-hover-border-color, #E6E2F5);
 }
-.wa-product-share-wrapper .wa-product-share-links .wa-product-share-link.wa-product-share-link-shape-round {
+.asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-shape-round {
   border-radius: 50%;
 }
-.wa-product-share-wrapper .wa-product-share-links .wa-product-share-link.wa-product-share-link-shape-rounded_corner {
+.asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-shape-rounded_corner {
   border-radius: 10px;
 }
-.wa-product-share-wrapper .wa-product-share-links .wa-product-share-link.wa-product-share-link-appearance-text, .wa-product-share-wrapper .wa-product-share-links .wa-product-share-link.wa-product-share-link-appearance-icon_text {
+.asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-appearance-text, .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-appearance-icon_text {
   width: auto;
   border-radius: 10px;
 }
-.wa-product-share-wrapper .wa-product-share-links .wa-product-share-link.wa-product-share-link-shape-square {
+.asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-shape-square {
   border-radius: 0;
 }
 
-@keyframes waBlinkText {
+@keyframes afwBlinkText {
   50% {
     opacity: 0;
   }

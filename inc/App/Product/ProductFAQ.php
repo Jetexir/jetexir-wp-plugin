@@ -1,14 +1,14 @@
 <?php
 
-namespace WooAssistant\App\Product;
+namespace AssistantForWooCommerce\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Addons\Addon;
-use WooAssistant\Helper\Param;
-use WooAssistant\Helper\PostMeta;
-use WooAssistant\Helper\Templates;
-use WooAssistant\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\Helper\Param;
+use AssistantForWooCommerce\Helper\PostMeta;
+use AssistantForWooCommerce\Helper\Templates;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class ProductFAQ extends Addon implements AddonInterface {
     public string $addonID = 'product-faq';
@@ -31,7 +31,7 @@ class ProductFAQ extends Addon implements AddonInterface {
         $globalFAQsPosition = $this->getSetting( 'product_faq_global_position', 'before' );
         $globalFAQs         = $this->getSetting( 'product_faq', [] );
         $buttonIcon         = $this->getSetting( 'product_faq_button_icon', 'chevron' );
-        $productFAQs        = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq' );
+        $productFAQs        = PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq' );
         $productFAQs        = is_array( $productFAQs ) ? $productFAQs : [];
 
         if ( $globalFAQsPosition === 'before' ) {
@@ -40,7 +40,7 @@ class ProductFAQ extends Addon implements AddonInterface {
             $FAQs = array_merge( $productFAQs, $globalFAQs );
         }
 
-        $title = apply_filters( 'woo_assistant_product_faq_tab_title', __( 'FAQs', 'wc-assistant' ) );
+        $title = apply_filters( 'assistant_for_woocommerce_product_faq_tab_title', __( 'FAQs', 'assistant-for-woocommerce' ) );
 
         Templates::load( Templates::getPath( 'product-faq/product_faq.php' ), array(
                 'title' => $title,
@@ -51,14 +51,14 @@ class ProductFAQ extends Addon implements AddonInterface {
 
     public function productTab( $tabs ) {
         $productID = wc_get_product()->get_id();
-        $enable    = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq_enable' );
+        $enable    = PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable' );
         $enable    = $enable === '' ? 1 : (int) $enable;
         if ( $enable === 0 || ! $this->productHasFAQs( $productID ) ) {
             return $tabs;
         }
 
-        $tabs['wa_product_faq'] = array(
-                'title'    => apply_filters( 'woo_assistant_product_faq_tab_title', __( 'FAQs', 'wc-assistant' ) ),
+        $tabs['asfowoo_product_faq'] = array(
+                'title'    => apply_filters( 'assistant_for_woocommerce_product_faq_tab_title', __( 'FAQs', 'assistant-for-woocommerce' ) ),
                 'priority' => 50,
                 'callback' => [ $this, 'productTabContent' ],
         );
@@ -72,36 +72,36 @@ class ProductFAQ extends Addon implements AddonInterface {
             return true;
         }
 
-        $productFAQs = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq' );
+        $productFAQs = PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq' );
 
         return is_array( $productFAQs ) && count( $productFAQs );
     }
 
     private function getIcon( $icon ): string {
         if ( $icon === 'chevron' ) {
-            return '<i class="wa-icon-chevron-down"></i>';
+            return '<i class="asfowoo-icon-chevron-down"></i>';
 
         } elseif ( $icon === 'chevrons' ) {
-            return '<i class="wa-icon-chevrons-down"></i>';
+            return '<i class="asfowoo-icon-chevrons-down"></i>';
 
         } elseif ( $icon === 'arrow' ) {
-            return '<i class="wa-icon-arrow-down"></i>';
+            return '<i class="asfowoo-icon-arrow-down"></i>';
 
         } elseif ( $icon === 'arrow-circle' ) {
-            return '<i class="wa-icon-circle-down"></i>';
+            return '<i class="asfowoo-icon-circle-down"></i>';
 
         } elseif ( $icon === 'plus' ) {
-            return '<i class="wa-icon-plus"></i>';
+            return '<i class="asfowoo-icon-plus"></i>';
         }
 
         return '';
     }
 
     public function adminProductSaveMeta( $productID ): void {
-        $enable = (int) wc_string_to_bool( Param::post( WOOASSISTANT_INPUT_PREFIX . 'product_faq_enable' ) );
-        PostMeta::update( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq_enable', $enable );
+        $enable = (int) wc_string_to_bool( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable' ) );
+        PostMeta::update( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable', $enable );
 
-        $FAQs = Param::post( WOOASSISTANT_INPUT_PREFIX . 'product_faq' );
+        $FAQs = Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq' );
         if ( is_array( $FAQs ) ) {
             foreach ( $FAQs as $index => $faq ) {
                 $faq = array_map( 'trim', $faq );
@@ -111,14 +111,14 @@ class ProductFAQ extends Addon implements AddonInterface {
             }
             $FAQs = array_values( $FAQs );
 
-            PostMeta::update( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq', $FAQs );
+            PostMeta::update( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq', $FAQs );
         }
     }
 
     public function adminProductTab( $tabs ) {
-        $tabs[ WOOASSISTANT_PLUGIN_KEY . '_faq_control' ] = array(
-                'label'  => __( 'FAQs', 'wc-assistant' ),
-                'target' => WOOASSISTANT_PLUGIN_KEY . '_faq_control'
+        $tabs[ ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_faq_control' ] = array(
+                'label'  => __( 'FAQs', 'assistant-for-woocommerce' ),
+                'target' => ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_faq_control'
         );
 
         return $tabs;
@@ -126,43 +126,43 @@ class ProductFAQ extends Addon implements AddonInterface {
 
     public function adminProductSettings(): void {
         $productID = get_the_ID();
-        $enable    = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq_enable' );
+        $enable    = PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable' );
         $enable    = $enable === '' ? 1 : (int) $enable;
-        $FAQs      = PostMeta::get( $productID, WOOASSISTANT_INPUT_PREFIX . 'product_faq' );
+        $FAQs      = PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq' );
         $FAQs      = is_array( $FAQs ) ? $FAQs : [];
         ?>
-        <div id="<?php echo esc_html( WOOASSISTANT_PLUGIN_KEY ) . '_faq_control' ?>"
+        <div id="<?php echo esc_html( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY ) . '_faq_control' ?>"
              class="panel woocommerce_options_panel"
              style="display: none">
             <div class="options_group">
                 <?php
                 woocommerce_wp_checkbox( array(
-                        'id'      => WOOASSISTANT_INPUT_PREFIX . 'product_faq_enable',
-                        'name'    => WOOASSISTANT_INPUT_PREFIX . 'product_faq_enable',
-                        'label'   => __( 'Enable Product FAQ', 'wc-assistant' ),
+                        'id'      => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable',
+                        'name'    => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable',
+                        'label'   => __( 'Enable Product FAQ', 'assistant-for-woocommerce' ),
                         'value'   => $enable === 1 ? 1 : 0,
                         'cbvalue' => 1
                 ) );
 
-                echo '<p><strong>' . esc_html__( 'Product FAQs', 'wc-assistant' ) . '</strong></p>';
+                echo '<p><strong>' . esc_html__( 'Product FAQs', 'assistant-for-woocommerce' ) . '</strong></p>';
 
                 for ( $i = 1; $i <= self::maxProductFAQs; $i ++ ) {
                     $index = $i - 1;
                     woocommerce_wp_text_input( array(
-                            'id'          => WOOASSISTANT_INPUT_PREFIX . 'product_faq_question_' . $index,
-                            'name'        => WOOASSISTANT_INPUT_PREFIX . 'product_faq[' . $index . '][question]',
-                            'label'       => __( 'Question', 'wc-assistant' ) . ' ' . $i,
+                            'id'          => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_question_' . $index,
+                            'name'        => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq[' . $index . '][question]',
+                            'label'       => __( 'Question', 'assistant-for-woocommerce' ) . ' ' . $i,
                             'type'        => 'text',
-                            'placeholder' => __( 'Question', 'wc-assistant' ),
+                            'placeholder' => __( 'Question', 'assistant-for-woocommerce' ),
                             'value'       => $FAQs[ $index ]['question'] ?? '',
                     ) );
 
                     woocommerce_wp_textarea_input( array(
-                            'id'          => WOOASSISTANT_INPUT_PREFIX . 'product_faq_answer_' . $index,
-                            'name'        => WOOASSISTANT_INPUT_PREFIX . 'product_faq[' . $index . '][answer]',
-                            'label'       => __( 'Answer', 'wc-assistant' ) . ' ' . $i,
+                            'id'          => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_answer_' . $index,
+                            'name'        => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq[' . $index . '][answer]',
+                            'label'       => __( 'Answer', 'assistant-for-woocommerce' ) . ' ' . $i,
                             'rows'        => 3,
-                            'placeholder' => __( 'Answer', 'wc-assistant' ),
+                            'placeholder' => __( 'Answer', 'assistant-for-woocommerce' ),
                             'value'       => $FAQs[ $index ]['answer'] ?? '',
                     ) );
 
@@ -178,37 +178,37 @@ class ProductFAQ extends Addon implements AddonInterface {
 
     public function addSectionSettings( $sections ) {
         $sections[ $this->currentSection ] = array(
-                'title'        => __( 'FAQ', 'wc-assistant' ),
-                'desc'         => __( 'Product frequently asked questions', 'wc-assistant' ),
+                'title'        => __( 'FAQ', 'assistant-for-woocommerce' ),
+                'desc'         => __( 'Product frequently asked questions', 'assistant-for-woocommerce' ),
                 'settings_key' => $this->addonID,
                 'settings'     => array(
                         'product_faq_start_grid_1'    => array(
                                 'id'    => 'product_faq_start_grid_1',
-                                'title' => __( 'Frequently asked questions', 'wc-assistant' ),
+                                'title' => __( 'Frequently asked questions', 'assistant-for-woocommerce' ),
                                 'type'  => 'startgrid',
                         ),
                         'product_faq_global_position' => array(
                                 'id'       => 'product_faq_global_position',
-                                'title'    => __( 'Global FAQ position', 'wc-assistant' ),
+                                'title'    => __( 'Global FAQ position', 'assistant-for-woocommerce' ),
                                 'type'     => 'select',
                                 'options'  => array(
-                                        'before' => __( 'Before Product FAQs', 'wc-assistant' ),
-                                        'after'  => __( 'After Product FAQs', 'wc-assistant' ),
+                                        'before' => __( 'Before Product FAQs', 'assistant-for-woocommerce' ),
+                                        'after'  => __( 'After Product FAQs', 'assistant-for-woocommerce' ),
                                 ),
                                 'default'  => 'before',
                                 'sanitize' => 'text'
                         ),
                         'product_faq_button_icon'     => array(
                                 'id'       => 'product_faq_button_icon',
-                                'title'    => __( 'Button icon', 'wc-assistant' ),
+                                'title'    => __( 'Button icon', 'assistant-for-woocommerce' ),
                                 'type'     => 'radioInline',
                                 'default'  => 'chevron',
                                 'options'  => array(
-                                        'chevron'      => '<i class="wa-icon-chevron-down"></i>',
-                                        'chevrons'     => '<i class="wa-icon-chevrons-down"></i>',
-                                        'arrow'        => '<i class="wa-icon-arrow-down"></i>',
-                                        'arrow-circle' => '<i class="wa-icon-circle-down"></i>',
-                                        'plus'         => '<i class="wa-icon-plus"></i>',
+                                        'chevron'      => '<i class="asfowoo-icon-chevron-down"></i>',
+                                        'chevrons'     => '<i class="asfowoo-icon-chevrons-down"></i>',
+                                        'arrow'        => '<i class="asfowoo-icon-arrow-down"></i>',
+                                        'arrow-circle' => '<i class="asfowoo-icon-circle-down"></i>',
+                                        'plus'         => '<i class="asfowoo-icon-plus"></i>',
                                 ),
                                 'sanitize' => 'text'
                         ),
@@ -218,33 +218,33 @@ class ProductFAQ extends Addon implements AddonInterface {
 
                         'product_faq_start_grid_3'              => array(
                                 'id'    => 'product_faq_start_grid_3',
-                                'title' => __( 'Global FAQs', 'wc-assistant' ),
+                                'title' => __( 'Global FAQs', 'assistant-for-woocommerce' ),
                                 'type'  => 'startgrid',
                         ),
                         'product_faq_start_repeatable'          => array(
                                 'id'         => 'product_faq_start_repeatable',
-                                'title'      => __( 'Global FAQs', 'wc-assistant' ),
+                                'title'      => __( 'Global FAQs', 'assistant-for-woocommerce' ),
                                 'max_repeat' => 10,
                                 'type'       => 'startRepeatable',
                         ),
                         'product_faq_start_repeatable_elements' => array(
                                 'id'    => 'product_faq',
-                                'title' => __( 'FAQ', 'wc-assistant' ),
+                                'title' => __( 'FAQ', 'assistant-for-woocommerce' ),
                                 'type'  => 'startRepeatableElements',
                         ),
                         'product_faq_question'                  => array(
                                 'id'          => 'product_faq_question',
-                                'title'       => __( 'Question', 'wc-assistant' ),
-                                'placeholder' => __( 'Question', 'wc-assistant' ),
+                                'title'       => __( 'Question', 'assistant-for-woocommerce' ),
+                                'placeholder' => __( 'Question', 'assistant-for-woocommerce' ),
                                 'type'        => 'text'
                         ),
                         'product_faq_answer'                    => array(
                                 'id'         => 'product_faq_answer',
-                                'title'      => __( 'Answer', 'wc-assistant' ),
+                                'title'      => __( 'Answer', 'assistant-for-woocommerce' ),
                                 'type'       => 'textarea',
                                 'attributes' => array(
                                         'rows'        => 2,
-                                        'placeholder' => __( 'Answer', 'wc-assistant' ),
+                                        'placeholder' => __( 'Answer', 'assistant-for-woocommerce' ),
                                         'resize'      => 'none'
                                 )
                         ),
@@ -252,7 +252,7 @@ class ProductFAQ extends Addon implements AddonInterface {
                                 'type' => 'endRepeatableElements',
                         ),
                         'product_faq_end_repeatable'            => array(
-                                'add_text' => __( 'Add', 'wc-assistant' ),
+                                'add_text' => __( 'Add', 'assistant-for-woocommerce' ),
                                 'type'     => 'endRepeatable',
                         ),
                         'product_faq_end_grid_3'                => array(
@@ -269,9 +269,9 @@ class ProductFAQ extends Addon implements AddonInterface {
 
         return array(
                 'id'             => $this->addonID,
-                'title'          => __( 'Products FAQ', 'wc-assistant' ),
-                'desc'           => __( 'Add a frequently asked questions (FAQ) section to the product page.', 'wc-assistant' ),
-                'tags'           => [ __( 'Product', 'wc-assistant' ) ],
+                'title'          => __( 'Products FAQ', 'assistant-for-woocommerce' ),
+                'desc'           => __( 'Add a frequently asked questions (FAQ) section to the product page.', 'assistant-for-woocommerce' ),
+                'tags'           => [ __( 'Product', 'assistant-for-woocommerce' ) ],
                 'cat'            => 'product',
                 'icon'           => $icon,
                 'more_info_link' => 'https://parsa.ws',

@@ -3,8 +3,8 @@
 
 $height: 100px;
 
-@mixin wa-gradient-color-picker {
-  .wa-gradient-color-picker-wrap {
+@mixin asfowoo-gradient-color-picker {
+  .asfowoo-gradient-color-picker-wrap {
     width: 100%;
     border-radius: 10px;
     background-color: variables.$background_light;
@@ -18,7 +18,7 @@ $height: 100px;
       color: variables.$text !important;
     }
 
-    .wa-gradient-color-picker {
+    .asfowoo-gradient-color-picker {
       width: 100%;
       max-width: 100%;
       height: $height;
@@ -26,7 +26,7 @@ $height: 100px;
       border: 1px solid variables.$border_color;
       position: relative;
 
-      .wa-gradient-color-point {
+      .asfowoo-gradient-color-point {
         background: white;
         border-radius: 15px;
         box-shadow: rgba(0, 0, 0, 0.15) 0 0 0 1px, rgba(0, 0, 0, 0.05) 0 10px 10px -5px, inset #fff 0 0 0 6px;
@@ -63,7 +63,7 @@ $height: 100px;
       }
     }
 
-    .wa-gradient-select-color {
+    .asfowoo-gradient-select-color {
       flex-direction: revert;
       justify-content: space-between;
       align-items: center;
@@ -85,43 +85,43 @@ $height: 100px;
       }
     }
 
-    .wa-field-wrap {
-      .wa-field-head {
+    .asfowoo-field-wrap {
+      .asfowoo-field-head {
         flex-direction: row !important;
         align-items: center !important;
         column-gap: 10px;
 
-        > .wa-input-label {
+        > .asfowoo-input-label {
           margin: 0;
           width: 80px;
         }
       }
     }
 
-    .wa-radio-group {
+    .asfowoo-radio-group {
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 10px;
 
-      > .wa-title {
+      > .asfowoo-title {
         margin: 0;
         width: 80px;
       }
 
-      .wa-checkmark {
+      .asfowoo-checkmark {
         display: none !important;
       }
 
-      .wa-radio-group-options {
-        .wa-radio-inline {
-          .wa-title {
+      .asfowoo-radio-group-options {
+        .asfowoo-radio-inline {
+          .asfowoo-title {
             height: auto;
           }
         }
       }
 
-      :is(.wa-radio-inline, .wa-checkbox-inline) .wa-title {
+      :is(.asfowoo-radio-inline, .asfowoo-checkbox-inline) .asfowoo-title {
         border-width: 1px;
       }
     }

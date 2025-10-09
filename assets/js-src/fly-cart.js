@@ -2,22 +2,22 @@ jQuery(document).ready(function ($) {
     let waFlyCartChanged = false, waFlyCartReloadTimer;
 
     const waFlyCartUpdate = function (action = 'reload', productID = 0, itemKey = '', qty = 1) {
-            let flyCartModal = $('#wa-fly-cart-modal'),
-                flyCartModalBody = flyCartModal.find('.wa-modal-body'),
-                flyCartLoader = flyCartModal.find('.wa-loader-wrap');
+            let flyCartModal = $('#asfowoo-fly-cart-modal'),
+                flyCartModalBody = flyCartModal.find('.asfowoo-modal-body'),
+                flyCartLoader = flyCartModal.find('.asfowoo-loader-wrap');
 
-            if (wooAssistantAjax) return;
-            wooAssistantAjax = true;
+            if (assistantForWooCommerceAjax) return;
+            assistantForWooCommerceAjax = true;
 
             flyCartLoader.css('display', '');
             if (action !== 'reload')
                 waFlyCartChanged = true;
 
             $.post(
-                WooAssistant.ajaxUrl,
+                AssistantForWooCommerce.ajaxUrl,
                 {
-                    nonce: WooAssistant.ajaxNonce,
-                    action: "woo_assistant_fly_cart_update",
+                    nonce: AssistantForWooCommerce.ajaxNonce,
+                    action: "assistant_for_woocommerce_fly_cart_update",
                     cart_action: action,
                     product_id: productID,
                     item_key: itemKey,
@@ -27,7 +27,7 @@ jQuery(document).ready(function ($) {
                 .done(function (data) {
                     flyCartModalBody.html(data.data.cart);
 
-                    $('#wa-fly-icon-fly-cart').find('.wa-fly-icon-count').html(data.data.cart_items_count);
+                    $('#asfowoo-fly-icon-fly-cart').find('.asfowoo-fly-icon-count').html(data.data.cart_items_count);
 
                     waFlyCartInit();
 
@@ -42,15 +42,15 @@ jQuery(document).ready(function ($) {
                 })
                 .always(function () {
                     flyCartLoader.hide();
-                    wooAssistantAjax = false;
+                    assistantForWooCommerceAjax = false;
                 });
         },
         waFlyCartInit = function () {
-            $('.wa-fly-cart-item-quantity input.qty').unbind('change').on('change', function () {
-                if (wooAssistantAjax) return;
+            $('.asfowoo-fly-cart-item-quantity input.qty').unbind('change').on('change', function () {
+                if (assistantForWooCommerceAjax) return;
                 let $this = $(this),
                     qtyVal = parseInt($this.val()),
-                    waCartItem = $this.closest('.wa-fly-cart-item'),
+                    waCartItem = $this.closest('.asfowoo-fly-cart-item'),
                     productID = waCartItem.attr('data-product-id'),
                     itemKey = waCartItem.attr('data-item-key');
                 qtyVal = isNaN(qtyVal) ? 1 : qtyVal;
@@ -58,20 +58,20 @@ jQuery(document).ready(function ($) {
                 waFlyCartUpdate('quantity', productID, itemKey, qtyVal);
             });
 
-            $('.wa-fly-cart-item-remove').unbind('click').on('click', function (e) {
+            $('.asfowoo-fly-cart-item-remove').unbind('click').on('click', function (e) {
                 e.preventDefault();
-                if (wooAssistantAjax) return;
+                if (assistantForWooCommerceAjax) return;
                 let $this = $(this),
-                    waCartItem = $this.closest('.wa-fly-cart-item'),
+                    waCartItem = $this.closest('.asfowoo-fly-cart-item'),
                     productID = waCartItem.attr('data-product-id'),
                     itemKey = waCartItem.attr('data-item-key');
 
                 waFlyCartUpdate('remove', productID, itemKey);
             });
 
-            $('.wa-fly-cart-item-quantity button').unbind('click').on('click', function () {
+            $('.asfowoo-fly-cart-item-quantity button').unbind('click').on('click', function () {
                 let qtyCurrentVal,
-                    parentDiv = $(this).closest('.wa-fly-cart-item-quantity'),
+                    parentDiv = $(this).closest('.asfowoo-fly-cart-item-quantity'),
                     waQuantityInput = parentDiv.find('input.qty'),
                     qtyVal = parseInt(waQuantityInput.val()),
                     step = parseInt(waQuantityInput.attr('step')),
@@ -100,7 +100,7 @@ jQuery(document).ready(function ($) {
         }
 
     window.addEventListener("waModalClose", function (event) {
-        if (waFlyCartChanged && (WooAssistant.pageName === 'cart' || WooAssistant.pageName === 'checkout')) {
+        if (waFlyCartChanged && (AssistantForWooCommerce.pageName === 'cart' || AssistantForWooCommerce.pageName === 'checkout')) {
             window.location.reload(true);
         }
         waFlyCartChanged = false;
@@ -108,7 +108,7 @@ jQuery(document).ready(function ($) {
 
     //@TODO: Fly cart update, Need optimizing with some use-case
     $(document).on("ajaxComplete", function (event, request, settings) {
-        if (!settings?.data.includes('woo_assistant_fly_cart')) {
+        if (!settings?.data.includes('assistant_for_woocommerce_fly_cart')) {
             clearTimeout(waFlyCartReloadTimer);
             waFlyCartReloadTimer = setTimeout(function () {
                 waFlyCartUpdate();
@@ -116,13 +116,13 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    $('#wa-fly-icon-fly-cart').on('click', function (e) {
+    $('#asfowoo-fly-icon-fly-cart').on('click', function (e) {
         e.preventDefault();
     });
 
     waFlyCartInit();
 
-    if (WooAssistantFlyCart.reloadOnLoad === '1') {
+    if (AssistantForWooCommerceFlyCart.reloadOnLoad === '1') {
         setTimeout(function () {
             waFlyCartUpdate();
         }, 2000);

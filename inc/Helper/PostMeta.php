@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Helper;
+namespace AssistantForWooCommerce\Helper;
 
 class PostMeta {
 	/**
@@ -23,7 +23,7 @@ class PostMeta {
 	public static function get( $postId, $metaKey = '', $single = true ) {
 		$metaValue = get_post_meta( $postId, $metaKey, $single );
 
-		return apply_filters( 'woo_assistant_get_post_meta', $metaValue, $postId, $metaKey, $single );
+		return apply_filters( 'assistant_for_woocommerce_get_post_meta', $metaValue, $postId, $metaKey, $single );
 	}
 
 	/**
@@ -48,7 +48,7 @@ class PostMeta {
 	 *                  is the same as the one that is already in the database.
 	 */
 	public static function update( $postId, $metaKey, $metaValue, $prevValue = '' ) {
-		if ( ( $metaValue = apply_filters( 'woo_assistant_update_post_meta', $metaValue, $postId, $metaKey, $prevValue ) ) !== false ) {
+		if ( ( $metaValue = apply_filters( 'assistant_for_woocommerce_update_post_meta', $metaValue, $postId, $metaKey, $prevValue ) ) !== false ) {
 			return update_post_meta( $postId, $metaKey, $metaValue, $prevValue );
 		}
 
@@ -72,7 +72,7 @@ class PostMeta {
 	 *
 	 */
 	public static function delete( $postId, $metaKey = '', $metaValue = '' ): bool {
-		if ( apply_filters( 'woo_assistant_delete_post_meta', true, $postId, $metaKey, $metaValue ) ) {
+		if ( apply_filters( 'assistant_for_woocommerce_delete_post_meta', true, $postId, $metaKey, $metaValue ) ) {
 			return delete_post_meta( $postId, $metaKey, $metaValue );
 		}
 

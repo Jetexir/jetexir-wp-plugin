@@ -1,27 +1,27 @@
 <?php
 
-namespace WooAssistant\App\General;
+namespace AssistantForWooCommerce\App\General;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Admin\AdminPages;
-use WooAssistant\Enums\Colors;
-use WooAssistant\Helper\Assets;
-use WooAssistant\Settings\Settings;
+use AssistantForWooCommerce\Admin\AdminPages;
+use AssistantForWooCommerce\Enums\Colors;
+use AssistantForWooCommerce\Helper\Assets;
+use AssistantForWooCommerce\Settings\Settings;
 
 class Styles {
 	private const sectionID = 'styles';
 
 	public function __construct() {
-		add_filter( 'woo_assistant_general_settings_sections', [ $this, 'addSectionSettings' ] );
+		add_filter( 'assistant_for_woocommerce_general_settings_sections', [ $this, 'addSectionSettings' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'addInlineStyles' ], 0 );
-		add_filter( 'woo_assistant_dashboard_custom_links', [ $this, 'addDashboardLink' ] );
+		add_filter( 'assistant_for_woocommerce_dashboard_custom_links', [ $this, 'addDashboardLink' ] );
 	}
 
 	public function addDashboardLink( $links ) {
 		$links[] = [
-			'title' => __( 'Plugin Styles', 'wc-assistant' ),
-			'desc'  => __( 'General plugin styles', 'wc-assistant' ),
+			'title' => __( 'Plugin Styles', 'assistant-for-woocommerce' ),
+			'desc'  => __( 'General plugin styles', 'assistant-for-woocommerce' ),
 			'link'  => AdminPages::link( [
 				'tab'     => 'general',
 				'section' => self::sectionID,
@@ -49,7 +49,7 @@ class Styles {
 					$add = ! isset( $settings[ $setting['id'] . '_enable' ] ) || Settings::get( $setting['id'] . '_enable', true );
 
 					if ( $add && $value = Settings::get( $setting['id'], $setting['default'] ?? false ) ) {
-						$name         = WOOASSISTANT_INPUT_CLASS_PREFIX . str_replace( '_', '-', $setting['meta']['css_variable'] );
+						$name         = ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX . str_replace( '_', '-', $setting['meta']['css_variable'] );
 						$syntax       = $setting['meta']['css_syntax'] ?? '*';
 						$inherits     = $setting['meta']['css_inherits'] ?? true;
 						$initialValue = $setting['meta']['css_initial_value'] ?? '';
@@ -65,27 +65,27 @@ class Styles {
 			return;
 		}
 
-		$sep    = WOOASSISTANT_DEBUG_MODE ? "\n\t\t\t" : '';
+		$sep    = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? "\n\t\t\t" : '';
 		$styles = implode( $sep, $properties ) . $sep . ":root{" . $sep . "\t" . implode( $sep . "\t", $variables ) . "$sep}\n";
 
-		wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-general-inline-style', false, [], Assets::getVersion() );
-		wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-general-inline-style' );
-		wp_add_inline_style( WOOASSISTANT_PLUGIN_SLUG . '-general-inline-style', $styles );
+		wp_register_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-general-inline-style', false, [], Assets::getVersion() );
+		wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-general-inline-style' );
+		wp_add_inline_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-general-inline-style', $styles );
 	}
 
 	public function addSectionSettings( $sections ) {
 		$settings = [
 			'start_grid_enable_styles' => array(
-				'title' => __( 'Styles', 'wc-assistant' ),
+				'title' => __( 'Styles', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 			'enable_styles'            => array(
 				'id'       => 'enable_styles',
-				'title'    => __( 'Enable Styles', 'wc-assistant' ),
+				'title'    => __( 'Enable Styles', 'assistant-for-woocommerce' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
-				'desc'     => __( 'If you want to change elements based on the theme style, disable this option.', 'wc-assistant' ),
+				'desc'     => __( 'If you want to change elements based on the theme style, disable this option.', 'assistant-for-woocommerce' ),
 				'sanitize' => 'bool'
 			),
 			'end_grid_enable_styles'   => array(
@@ -95,12 +95,12 @@ class Styles {
 
 		$settings = array_merge( $settings, [
 			'start_grid_general_styles' => array(
-				'title' => __( 'General', 'wc-assistant' ),
+				'title' => __( 'General', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 
 			'start_inline_elements_primary_color' => array(
-				'title' => __( 'Primary color', 'wc-assistant' ),
+				'title' => __( 'Primary color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'primary_color_enable'                => array(
@@ -125,7 +125,7 @@ class Styles {
 			),
 
 			'start_inline_elements_text_color' => array(
-				'title' => __( 'Text color', 'wc-assistant' ),
+				'title' => __( 'Text color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'text_color_enable'                => array(
@@ -150,7 +150,7 @@ class Styles {
 			),
 
 			'start_inline_elements_bg_color' => array(
-				'title' => __( 'Background color', 'wc-assistant' ),
+				'title' => __( 'Background color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'bg_color_enable'                => array(
@@ -181,12 +181,12 @@ class Styles {
 
 		$settings = array_merge( $settings, [
 			'start_grid_elements_styles' => array(
-				'title' => __( 'Elements', 'wc-assistant' ),
+				'title' => __( 'Elements', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 
 			'start_inline_elements_element_color' => array(
-				'title' => __( 'Text color', 'wc-assistant' ),
+				'title' => __( 'Text color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'element_color_enable'                => array(
@@ -211,7 +211,7 @@ class Styles {
 			),
 
 			'start_inline_elements_element_hover_color' => array(
-				'title' => __( 'Hover text color', 'wc-assistant' ),
+				'title' => __( 'Hover text color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'element_hover_color_enable'                => array(
@@ -236,7 +236,7 @@ class Styles {
 			),
 
 			'start_inline_elements_element_bg_color' => array(
-				'title' => __( 'Background color', 'wc-assistant' ),
+				'title' => __( 'Background color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'element_bg_color_enable'                => array(
@@ -261,7 +261,7 @@ class Styles {
 			),
 
 			'start_inline_elements_element_hover_bg_color' => array(
-				'title' => __( 'Hover background color', 'wc-assistant' ),
+				'title' => __( 'Hover background color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'element_hover_bg_color_enable'                => array(
@@ -286,7 +286,7 @@ class Styles {
 			),
 
 			'start_inline_elements_element_border_color' => array(
-				'title' => __( 'Border color', 'wc-assistant' ),
+				'title' => __( 'Border color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'element_border_color_enable'                => array(
@@ -311,7 +311,7 @@ class Styles {
 			),
 
 			'start_inline_elements_element_hover_border_color' => array(
-				'title' => __( 'Hover border color', 'wc-assistant' ),
+				'title' => __( 'Hover border color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'element_hover_border_color_enable'                => array(
@@ -336,7 +336,7 @@ class Styles {
 			),
 
 			'start_inline_elements_element_border_radius' => array(
-				'title' => __( 'Border radius', 'wc-assistant' ),
+				'title' => __( 'Border radius', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'element_border_radius_enable'                => array(
@@ -363,7 +363,7 @@ class Styles {
 			),
 
 			'start_inline_elements_element_border_width' => array(
-				'title' => __( 'Border width', 'wc-assistant' ),
+				'title' => __( 'Border width', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'element_border_width_enable'                => array(
@@ -397,12 +397,12 @@ class Styles {
 		// Input styles
 		$settings = array_merge( $settings, [
 			'start_grid_input_styles' => array(
-				'title' => __( 'Input box', 'wc-assistant' ),
+				'title' => __( 'Input box', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 
 			'start_inline_elements_input_color' => array(
-				'title' => __( 'Text color', 'wc-assistant' ),
+				'title' => __( 'Text color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'input_color_enable'                => array(
@@ -427,7 +427,7 @@ class Styles {
 			),
 
 			'start_inline_elements_input_bg_color' => array(
-				'title' => __( 'Background color', 'wc-assistant' ),
+				'title' => __( 'Background color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'input_bg_color_enable'                => array(
@@ -452,7 +452,7 @@ class Styles {
 			),
 
 			'start_inline_elements_input_border_color' => array(
-				'title' => __( 'Border color', 'wc-assistant' ),
+				'title' => __( 'Border color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'input_border_color_enable'                => array(
@@ -477,7 +477,7 @@ class Styles {
 			),
 
 			'start_inline_elements_input_border_radius' => array(
-				'title' => __( 'Border radius', 'wc-assistant' ),
+				'title' => __( 'Border radius', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'input_border_radius_enable'                => array(
@@ -504,7 +504,7 @@ class Styles {
 			),
 
 			'start_inline_elements_input_border_width' => array(
-				'title' => __( 'Border width', 'wc-assistant' ),
+				'title' => __( 'Border width', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'input_border_width_enable'                => array(
@@ -539,12 +539,12 @@ class Styles {
 		// Primary Button styles
 		$settings = array_merge( $settings, [
 			'start_grid_button_styles' => array(
-				'title' => __( 'Primary Button', 'wc-assistant' ),
+				'title' => __( 'Primary Button', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 
 			'start_inline_elements_button_color' => array(
-				'title' => __( 'Text color', 'wc-assistant' ),
+				'title' => __( 'Text color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'button_color_enable'                => array(
@@ -569,7 +569,7 @@ class Styles {
 			),
 
 			'start_inline_elements_button_hover_color' => array(
-				'title' => __( 'Hover text color', 'wc-assistant' ),
+				'title' => __( 'Hover text color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'button_hover_color_enable'                => array(
@@ -594,7 +594,7 @@ class Styles {
 			),
 
 			'start_inline_elements_button_bg_color' => array(
-				'title' => __( 'Background color', 'wc-assistant' ),
+				'title' => __( 'Background color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'button_bg_color_enable'                => array(
@@ -619,7 +619,7 @@ class Styles {
 			),
 
 			'start_inline_elements_button_hover_bg_color' => array(
-				'title' => __( 'Hover background color', 'wc-assistant' ),
+				'title' => __( 'Hover background color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'button_hover_bg_color_enable'                => array(
@@ -644,7 +644,7 @@ class Styles {
 			),
 
 			'start_inline_elements_button_border_color' => array(
-				'title' => __( 'Border color', 'wc-assistant' ),
+				'title' => __( 'Border color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'button_border_color_enable'                => array(
@@ -669,7 +669,7 @@ class Styles {
 			),
 
 			'start_inline_elements_button_hover_border_color' => array(
-				'title' => __( 'Hover border color', 'wc-assistant' ),
+				'title' => __( 'Hover border color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'button_hover_border_color_enable'                => array(
@@ -694,7 +694,7 @@ class Styles {
 			),
 
 			'start_inline_elements_button_border_radius' => array(
-				'title' => __( 'Border radius', 'wc-assistant' ),
+				'title' => __( 'Border radius', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'button_border_radius_enable'                => array(
@@ -721,7 +721,7 @@ class Styles {
 			),
 
 			'start_inline_elements_button_border_width' => array(
-				'title' => __( 'Border width', 'wc-assistant' ),
+				'title' => __( 'Border width', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'button_border_width_enable'                => array(
@@ -755,12 +755,12 @@ class Styles {
 		// Secondary button styles
 		$settings = array_merge( $settings, [
 			'start_grid_secondary_button_styles' => array(
-				'title' => __( 'Secondary Button', 'wc-assistant' ),
+				'title' => __( 'Secondary Button', 'assistant-for-woocommerce' ),
 				'type'  => 'startGrid',
 			),
 
 			'start_inline_elements_secondary_button_color' => array(
-				'title' => __( 'Text color', 'wc-assistant' ),
+				'title' => __( 'Text color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'secondary_button_color_enable'                => array(
@@ -785,7 +785,7 @@ class Styles {
 			),
 
 			'start_inline_elements_secondary_button_hover_color' => array(
-				'title' => __( 'Hover text color', 'wc-assistant' ),
+				'title' => __( 'Hover text color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'secondary_button_hover_color_enable'                => array(
@@ -810,7 +810,7 @@ class Styles {
 			),
 
 			'start_inline_elements_secondary_button_bg_color' => array(
-				'title' => __( 'Background color', 'wc-assistant' ),
+				'title' => __( 'Background color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'secondary_button_bg_color_enable'                => array(
@@ -835,7 +835,7 @@ class Styles {
 			),
 
 			'start_inline_elements_secondary_button_hover_bg_color' => array(
-				'title' => __( 'Hover background color', 'wc-assistant' ),
+				'title' => __( 'Hover background color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'secondary_button_hover_bg_color_enable'                => array(
@@ -860,7 +860,7 @@ class Styles {
 			),
 
 			'start_inline_elements_secondary_button_border_color' => array(
-				'title' => __( 'Border color', 'wc-assistant' ),
+				'title' => __( 'Border color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'secondary_button_border_color_enable'                => array(
@@ -885,7 +885,7 @@ class Styles {
 			),
 
 			'start_inline_elements_secondary_button_hover_border_color' => array(
-				'title' => __( 'Hover border color', 'wc-assistant' ),
+				'title' => __( 'Hover border color', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'secondary_button_hover_border_color_enable'                => array(
@@ -910,7 +910,7 @@ class Styles {
 			),
 
 			'start_inline_elements_secondary_button_border_radius' => array(
-				'title' => __( 'Border radius', 'wc-assistant' ),
+				'title' => __( 'Border radius', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'secondary_button_border_radius_enable'                => array(
@@ -937,7 +937,7 @@ class Styles {
 			),
 
 			'start_inline_elements_secondary_button_border_width' => array(
-				'title' => __( 'Border width', 'wc-assistant' ),
+				'title' => __( 'Border width', 'assistant-for-woocommerce' ),
 				'type'  => 'startInlineElements',
 			),
 			'secondary_button_border_width_enable'                => array(
@@ -969,8 +969,8 @@ class Styles {
 		] );
 
 		$sections[ self::sectionID ] = array(
-			'title'    => __( 'Styles', 'wc-assistant' ),
-			'desc'     => __( 'General Styles', 'wc-assistant' ),
+			'title'    => __( 'Styles', 'assistant-for-woocommerce' ),
+			'desc'     => __( 'General Styles', 'assistant-for-woocommerce' ),
 			'settings' => $settings
 		);
 

@@ -1,7 +1,7 @@
 @use "../utilities/variables";
 
-@mixin wa-list-links {
-  .wa-list-links {
+@mixin asfowoo-list-links {
+  .asfowoo-list-links {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -28,7 +28,7 @@
       &:hover {
         text-decoration: none;
 
-        .wa-feed-title {
+        .asfowoo-feed-title {
           text-decoration: underline;
           color: variables.$link_hover;
         }
@@ -38,22 +38,22 @@
         display: block;
       }
 
-      .wa-feed-title {
+      .asfowoo-feed-title {
         font-weight: bold;
         font-size: 1.2em;
         color: variables.$link;
       }
 
-      .wa-feed-description {
+      .asfowoo-feed-description {
 
       }
 
-      .wa-feed-author {
+      .asfowoo-feed-author {
         color: variables.$meta;
         font-size: .9em;
       }
 
-      .wa-feed-datetime {
+      .asfowoo-feed-datetime {
         color: variables.$meta;
         font-size: .8em;
       }

@@ -4,7 +4,7 @@
 @use "dashboard";
 
 body {
-  &.wa-mobile-sidebar-active {
+  &.asfowoo-mobile-sidebar-active {
     overflow: hidden;
   }
 }
@@ -44,18 +44,18 @@ body.toplevel_page_#{variables.$plugin_key} {
     border-radius: 2px;
     padding: 5px;
 
-    &.wa-copy-text {
+    &.asfowoo-copy-text {
       display: inline-flex;
       align-items: center;
       gap: 3px;
 
       &:before {
         content: "";
-        font-family: "wooassistant-icon" !important;
+        font-family: "assistant-for-woocommerce-icon" !important;
         color: color.scale(variables.$meta, $lightness: 30%);
       }
 
-      &.wa-text-copied {
+      &.asfowoo-text-copied {
         &:before {
           color: variables.$primary
         }
@@ -112,13 +112,13 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .wa-sidebar {
+    .asfowoo-sidebar {
       background-color: variables.$background_side;
       border-right: 1px solid variables.$border_color;
       padding: 20px;
       position: relative;
 
-      .wa-sidebar-head {
+      .asfowoo-sidebar-head {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -171,24 +171,24 @@ body.toplevel_page_#{variables.$plugin_key} {
         }
       }
 
-      .wa-hide-sidebar {
+      .asfowoo-hide-sidebar {
         display: none;
         font-size: 20px;
         color: variables.$gray;
       }
 
-      &.wa-mobile-sidebar {
+      &.asfowoo-mobile-sidebar {
         //display: block;
         -webkit-transform: translateX(0);
         transform: translateX(0);
 
-        .wa-hide-sidebar {
+        .asfowoo-hide-sidebar {
           display: inherit;
         }
       }
     }
 
-    .wa-display-sidebar {
+    .asfowoo-display-sidebar {
       display: none;
       padding: 10px;
       background-color: variables.$background_side;
@@ -202,7 +202,7 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .wa-content {
+    .asfowoo-content {
       //padding: 30px;
       display: flex;
       flex-direction: column;
@@ -210,12 +210,12 @@ body.toplevel_page_#{variables.$plugin_key} {
       max-height: calc(100vh - 40px - var(--wp-admin--admin-bar--height, 0));
       overflow-y: auto;
 
-      > .woo-assistant-notices {
+      > .assistant-for-woocommerce-notices {
         padding: 20px 30px;
         margin-bottom: 0;
       }
 
-      .wa-content-body {
+      .asfowoo-content-body {
         padding: 40px 30px 60px;
         margin-bottom: auto;
       }
@@ -234,12 +234,12 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .wa-description {
+    .asfowoo-description {
       font-size: 0.9em;
       color: variables.$meta;
     }
 
-    .wa-header {
+    .asfowoo-header {
       //overflow: hidden;
       padding: 20px 30px 0 30px;
       position: sticky;
@@ -259,26 +259,26 @@ body.toplevel_page_#{variables.$plugin_key} {
         transform: translateY(-100%);
       }
 
-      .wa-header-title {
+      .asfowoo-header-title {
         display: flex;
         flex-direction: column;
         gap: 10px;
       }
 
-      &.wa-has-header-image {
+      &.asfowoo-has-header-image {
         margin: -30px -30px 30px -30px;
 
-        .wa-header-title {
+        .asfowoo-header-title {
           padding: 30px 30px 20px 30px;
           background-size: cover;
           align-items: start;
         }
 
-        .wa-header-links {
+        .asfowoo-header-links {
           padding: 0 30px;
         }
 
-        .wa-header-separator {
+        .asfowoo-header-separator {
           margin-top: 0;
         }
 
@@ -308,7 +308,7 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .wa-header-links {
+    .asfowoo-header-links {
       margin-top: 20px;
       background-color: white;
 
@@ -317,7 +317,7 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .wa-section-links {
+    .asfowoo-section-links {
       text-transform: uppercase;
 
       ul {
@@ -358,7 +358,7 @@ body.toplevel_page_#{variables.$plugin_key} {
               text-decoration: none;
             }
 
-            &.wa-section-link-current {
+            &.asfowoo-section-link-current {
               color: variables.$primary;
               border-color: variables.$primary;
             }
@@ -375,18 +375,18 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .wa-footer {
+    .asfowoo-footer {
       padding: 10px 30px;
       background-color: color.adjust(variables.$background_side, $lightness: 1%);
 
-      &.wa-settings-footer {
+      &.asfowoo-settings-footer {
         pointer-events: inherit;
         position: sticky;
         bottom: 0;
         z-index: 99999;
         opacity: 0.9;
 
-        &.wa-submit-inactive {
+        &.asfowoo-submit-inactive {
           pointer-events: none;
           opacity: 0.8;
 
@@ -397,20 +397,20 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .wa-copy-text {
+    .asfowoo-copy-text {
       cursor: pointer;
 
-      &.wa-text-copied {
-        animation: waBlinkText 250ms step-start 0s infinite;
+      &.asfowoo-text-copied {
+        animation: afwBlinkText 250ms step-start 0s infinite;
       }
     }
 
-    @include list_links.wa-list-links;
+    @include list_links.asfowoo-list-links;
     @include dashboard.dashboard;
   }
 }
 
-@keyframes waBlinkText {
+@keyframes afwBlinkText {
   50% {
     opacity: 0.5;
   }

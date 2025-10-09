@@ -1,6 +1,6 @@
-# Woo Assistant
+# Assistant for WooCommerce
 
-Woo Assistant integrates with WooCommerce to help you further enhance your website.
+Assistant for WooCommerce integrates with WooCommerce to help you further enhance your website.
 
 # Changelog
 

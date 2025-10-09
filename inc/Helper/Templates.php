@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Helper;
+namespace AssistantForWooCommerce\Helper;
 
 class Templates {
 	public static function load( $file, $args = [], $loadOnce = false, $echo = true ) {
@@ -18,8 +18,8 @@ class Templates {
 	}
 
 	public static function getPath( $template, $dir = 'plugin' ): string {
-		$path = Assets::pathCorrection( WOOASSISTANT_PLUGIN_PATH . '/inc/Templates/' . $dir . '/' . $template );
+		$path = Assets::pathCorrection( ASSISTANTFORWOOCOMMERCE_PLUGIN_PATH . '/inc/Templates/' . $dir . '/' . $template );
 
-		return apply_filters( 'woo_assistant_template_path', $path, $template, $dir );
+		return apply_filters( 'assistant_for_woocommerce_template_path', $path, $template, $dir );
 	}
 }

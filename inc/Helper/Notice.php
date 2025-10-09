@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Helper;
+namespace AssistantForWooCommerce\Helper;
 
 defined( 'ABSPATH' ) || die();
 
@@ -18,6 +18,10 @@ class Notice {
 	}
 
 	public static function add( $key, $message, $type = null ): void {
+		if ( ! $key || ! $message ) {
+			return;
+		}
+
 		$type                     = self::getType( $type );
 		self::$messages[ $key ][] = array(
 			'type'    => $type,
@@ -46,7 +50,7 @@ class Notice {
 		}
 
 		if ( ! empty( $notices ) ) {
-			$noticeWrap = '<div class="' . WOOASSISTANT_PLUGIN_SLUG . '-notices">' . $notices . '</div>';
+			$noticeWrap = '<div class="' . ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX . 'notices">' . $notices . '</div>';
 		}
 
 		if ( $echo ) {
@@ -62,7 +66,7 @@ class Notice {
 	public static function html( $type, $message ): string {
 		$type = self::getType( $type );
 
-		return '<div class="wa-notice wa-notice-' . $type . '" ><div>' . self::getIcon( $type ) . '<p>' . $message . '</p></div></div>';
+		return '<div class="' . ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX . 'notice ' . ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX . 'notice-' . $type . '" ><div>' . self::getIcon( $type ) . '<p>' . $message . '</p></div></div>';
 	}
 
 	private static function getIcon( $type ): string {

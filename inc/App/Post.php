@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\App;
+namespace AssistantForWooCommerce\App;
 
 class Post {
 

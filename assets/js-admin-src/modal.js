@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
     var waBody = $('body');
 
-    wooAssistantModalCloseEvent = new CustomEvent(
+    assistantForWooCommerceModalCloseEvent = new CustomEvent(
         "waModalClose",
         {
             detail: {
@@ -13,38 +13,38 @@ jQuery(document).ready(function ($) {
     );
 
     function waToggleModal(status, target = '') {
-        let modalOverlay = $('#wa-modal-overlay'),
-            modalTarget = waBody.attr('data-wa-modal-target');
+        let modalOverlay = $('#asfowoo-modal-overlay'),
+            modalTarget = waBody.attr('data-asfowoo-modal-target');
 
-        if (status && !waBody.hasClass('wa-modal-open')) {
+        if (status && !waBody.hasClass('asfowoo-modal-open')) {
             waBody.css({
                 "overflow": "hidden",
                 "padding-right": "0"
             })
-                .addClass('wa-modal-open')
-                .attr('data-wa-modal-target', target);
-            $(target).toggleClass('wa-active').removeAttr('aria-hidden').show();
+                .addClass('asfowoo-modal-open')
+                .attr('data-asfowoo-modal-target', target);
+            $(target).toggleClass('asfowoo-active').removeAttr('aria-hidden').show();
             if (modalOverlay !== undefined)
-                modalOverlay.addClass('wa-active');
+                modalOverlay.addClass('asfowoo-active');
 
-        } else if (!status && waBody.hasClass('wa-modal-open')) {
-            window.dispatchEvent(wooAssistantModalCloseEvent);
+        } else if (!status && waBody.hasClass('asfowoo-modal-open')) {
+            window.dispatchEvent(assistantForWooCommerceModalCloseEvent);
 
             waBody.css({
                 "overflow": "",
                 "padding-right": ""
             })
-                .removeClass('wa-modal-open')
-                .removeAttr('data-wa-modal-target');
-            $(modalTarget).hide().removeClass('wa-active').attr('aria-hidden', 'true');
+                .removeClass('asfowoo-modal-open')
+                .removeAttr('data-asfowoo-modal-target');
+            $(modalTarget).hide().removeClass('asfowoo-active').attr('aria-hidden', 'true');
             if (modalOverlay !== undefined)
-                modalOverlay.removeClass('wa-active');
+                modalOverlay.removeClass('asfowoo-active');
         }
     }
 
-    $('[data-wa-toggle="modal"]').on('click', function () {
+    $('[data-asfowoo-toggle="modal"]').on('click', function () {
         let $this = $(this),
-            modalTarget = $this.data('wa-target');
+            modalTarget = $this.data('asfowoo-target');
 
         if (modalTarget !== undefined) {
             let modalTargetElm = $(modalTarget);
@@ -54,7 +54,7 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    $('#wa-modal-overlay, [data-wa-dismiss="modal"]').on('click', function () {
+    $('#asfowoo-modal-overlay, [data-asfowoo-dismiss="modal"]').on('click', function () {
         waToggleModal(false);
     });
 });

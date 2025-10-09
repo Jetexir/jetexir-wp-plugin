@@ -1,23 +1,23 @@
 <?php
 
-use WooAssistant\Helper\WooCommerce;
-use WooAssistant\Settings\Settings;
+use AssistantForWooCommerce\Helper\WooCommerce;
+use AssistantForWooCommerce\Settings\Settings;
 
 defined( 'ABSPATH' ) or die();
 ?>
 
-<div id="wa-fly-cart-modal" class="wa-modal wa-fade" tabindex="-1"
-     aria-labelledby="flyCartModalLabel" aria-hidden="true" style="--wa-modal-border-width:0">
-    <div class="wa-modal-dialog">
-        <div class="wa-modal-content">
-            <div class="wa-modal-header">
-                        <span class="wa-modal-title"
-                              id="flyCartModalLabel"><?php esc_html_e( 'Cart', 'wc-assistant' ) ?></span>
-                <button type="button" class="wa-button wa-button-close" data-wa-dismiss="modal"
-                        aria-label="<?php esc_html_e( 'Close', 'wc-assistant' ) ?>"></button>
+<div id="asfowoo-fly-cart-modal" class="asfowoo-modal asfowoo-fade" tabindex="-1"
+     aria-labelledby="flyCartModalLabel" aria-hidden="true" style="--asfowoo-modal-border-width:0">
+    <div class="asfowoo-modal-dialog">
+        <div class="asfowoo-modal-content">
+            <div class="asfowoo-modal-header">
+                        <span class="asfowoo-modal-title"
+                              id="flyCartModalLabel"><?php esc_html_e( 'Cart', 'assistant-for-woocommerce' ) ?></span>
+                <button type="button" class="asfowoo-button asfowoo-button-close" data-asfowoo-dismiss="modal"
+                        aria-label="<?php esc_html_e( 'Close', 'assistant-for-woocommerce' ) ?>"></button>
             </div>
-            <div class="wa-modal-body">
-                <?php do_action( 'woo_assistant_fly_cart_modal_body' ); ?>
+            <div class="asfowoo-modal-body">
+                <?php do_action( 'assistant_for_woocommerce_fly_cart_modal_body' ); ?>
             </div>
 
             <?php
@@ -25,17 +25,17 @@ defined( 'ABSPATH' ) or die();
             $checkout = Settings::get( 'fly_cart_checkout_button_enable', true ) && ! WooCommerce::isCheckout();
 
             if ( $cart || $checkout ) {
-                echo '<div class="wa-modal-footer">';
+                echo '<div class="asfowoo-modal-footer">';
 
                 if ( $cart ) {
-                    echo '<a href="' . esc_url_raw( wc_get_cart_url() ) . '" type="button" class="wa-button wa-button-secondary">' .
-                         esc_html( Settings::get( 'fly_cart_cart_button', __( 'Cart', 'wc-assistant' ) ) )
+                    echo '<a href="' . esc_url_raw( wc_get_cart_url() ) . '" type="button" class="asfowoo-button asfowoo-button-secondary">' .
+                         esc_html( Settings::get( 'fly_cart_cart_button', __( 'Cart', 'assistant-for-woocommerce' ) ) )
                          . '</a>';
                 }
 
                 if ( $checkout ) {
-                    echo '<a href="' . esc_url_raw( wc_get_checkout_url() ) . '" type="button" class="wa-button wa-button-primary">' .
-                         esc_html( Settings::get( 'fly_cart_checkout_button', __( 'Checkout', 'wc-assistant' ) ) )
+                    echo '<a href="' . esc_url_raw( wc_get_checkout_url() ) . '" type="button" class="asfowoo-button asfowoo-button-primary">' .
+                         esc_html( Settings::get( 'fly_cart_checkout_button', __( 'Checkout', 'assistant-for-woocommerce' ) ) )
                          . '</a>';
                 }
 

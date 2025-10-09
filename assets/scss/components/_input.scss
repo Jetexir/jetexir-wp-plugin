@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-@mixin wa-input {
+@mixin asfowoo-input {
   input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="password"], input[type="search"] {
     background-color: white;
     color: variables.$dark;

@@ -1,18 +1,18 @@
 <?php
 
-namespace WooAssistant\App\Product;
+namespace AssistantForWooCommerce\App\Product;
 
-use WooAssistant\Addons\Addon;
-use WooAssistant\Admin\AdminPages;
-use WooAssistant\Enums\Colors;
-use WooAssistant\Helper\Assets;
-use WooAssistant\Helper\Notice;
-use WooAssistant\Helper\Param;
-use WooAssistant\Helper\PostMeta;
-use WooAssistant\Helper\Sanitizing;
-use WooAssistant\Helper\Templates;
-use WooAssistant\Helper\WooCommerce;
-use WooAssistant\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\Admin\AdminPages;
+use AssistantForWooCommerce\Enums\Colors;
+use AssistantForWooCommerce\Helper\Assets;
+use AssistantForWooCommerce\Helper\Notice;
+use AssistantForWooCommerce\Helper\Param;
+use AssistantForWooCommerce\Helper\PostMeta;
+use AssistantForWooCommerce\Helper\Sanitizing;
+use AssistantForWooCommerce\Helper\Templates;
+use AssistantForWooCommerce\Helper\WooCommerce;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class ProductSaleProgressBar extends Addon implements AddonInterface {
 	public string $addonID = 'product-sale-progress-bar';
@@ -21,7 +21,7 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
 	public function adminInitAction(): void {
 		if ( AdminPages::isSettingPage() && Param::get( 'section' ) === $this->currentSection ) {
-			Notice::add( $this->currentTab, __( 'At present, this functionality is exclusively available for simple products', 'wc-assistant' ), 'warning' );
+			Notice::add( $this->currentTab, __( 'At present, this functionality is exclusively available for simple products.', 'assistant-for-woocommerce' ), 'warning' );
 		}
 	}
 
@@ -46,7 +46,7 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
 		$productID            = $product->get_id();
 		$stock                = Sanitizing::int( $product->get_stock_quantity() );
-		$saleProgressBarStock = Sanitizing::int( PostMeta::get( $productID, WOOASSISTANT_PLUGIN_KEY . '_sale_progress_bar_stock' ) );
+		$saleProgressBarStock = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_sale_progress_bar_stock' ) );
 
 		if ( $stock > $saleProgressBarStock ) {
 			return;
@@ -56,9 +56,9 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 		$soldPercent = (int) ( 100 / $saleProgressBarStock ) * $sold;
 
 		Templates::load( Templates::getPath( 'sale-progress-bar/progress_bar.php' ), array(
-			'sold_title'            => $this->getSetting( 'product_sale_progress_bar_sold_title', __( 'Sold', 'wc-assistant' ) ),
+			'sold_title'            => $this->getSetting( 'product_sale_progress_bar_sold_title', __( 'Sold', 'assistant-for-woocommerce' ) ),
 			'sold'                  => $sold,
-			'remaining_title'       => $this->getSetting( 'product_sale_progress_bar_remaining_title', __( 'Remaining', 'wc-assistant' ) ),
+			'remaining_title'       => $this->getSetting( 'product_sale_progress_bar_remaining_title', __( 'Remaining', 'assistant-for-woocommerce' ) ),
 			'stock'                 => $stock,
 			'sold_percent'          => $soldPercent,
 			'progress_bar_bg_color' => $this->getSetting( 'product_sale_progress_bar_bg_color', Colors::primary ),
@@ -67,29 +67,29 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 	}
 
 	public function adminProductSaveMeta( $productID ): void {
-		$stock = Sanitizing::int( Param::post( WOOASSISTANT_INPUT_PREFIX . 'sale_progress_bar_stock' ) );
+		$stock = Sanitizing::int( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'sale_progress_bar_stock' ) );
 
 		if ( $stock ) {
-			PostMeta::update( $productID, WOOASSISTANT_PLUGIN_KEY . '_sale_progress_bar_stock', $stock );
+			PostMeta::update( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_sale_progress_bar_stock', $stock );
 		} else {
-			PostMeta::delete( $productID, WOOASSISTANT_PLUGIN_KEY . '_sale_progress_bar_stock' );
+			PostMeta::delete( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_sale_progress_bar_stock' );
 		}
 	}
 
 	public function addStockToProduct(): void {
 		$product = wc_get_product();
-		$value   = (int) $product->get_meta( WOOASSISTANT_PLUGIN_KEY . '_sale_progress_bar_stock' );
+		$value   = (int) $product->get_meta( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_sale_progress_bar_stock' );
 		if ( ! $value ) {
 			$value = wc_stock_amount( $product->get_stock_quantity( 'edit' ) ?? 1 );
 		}
 
 		woocommerce_wp_text_input(
 			array(
-				'id'                => WOOASSISTANT_INPUT_PREFIX . 'sale_progress_bar_stock',
+				'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'sale_progress_bar_stock',
 				'value'             => wc_stock_amount( $value ),
-				'label'             => __( 'Sale progress bar quantity', 'wc-assistant' ),
+				'label'             => __( 'Sale progress bar quantity', 'assistant-for-woocommerce' ),
 				'desc_tip'          => true,
-				'description'       => __( 'Please enter the starting quantity of product, The entered value must be greater than the quantity value.', 'wc-assistant' ),
+				'description'       => __( 'Please enter the starting quantity of product, The entered value must be greater than the quantity value.', 'assistant-for-woocommerce' ),
 				'type'              => 'number',
 				'custom_attributes' => array(
 					'step' => 'any',
@@ -101,45 +101,45 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
 	public function addSectionSettings( $sections ): array {
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Sale progress bar', 'wc-assistant' ),
-			'desc'         => __( 'Product sale progress bar', 'wc-assistant' ),
+			'title'        => __( 'Sale progress bar', 'assistant-for-woocommerce' ),
+			'desc'         => __( 'Product sale progress bar', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->addonID,
 			'settings'     => [
 				'product_sale_progress_bar_start_grid'      => array(
 					'id'    => 'product_sale_progress_bar_start_grid',
-					'title' => __( 'Sale progress bar', 'wc-assistant' ),
+					'title' => __( 'Sale progress bar', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'product_sale_progress_bar_sold_title'      => array(
 					'id'          => 'product_sale_progress_bar_sold_title',
-					'title'       => __( 'Sold title', 'wc-assistant' ),
+					'title'       => __( 'Sold title', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
-					'default'     => __( 'Sold', 'wc-assistant' ),
-					'placeholder' => __( 'Sold', 'wc-assistant' ),
+					'default'     => __( 'Sold', 'assistant-for-woocommerce' ),
+					'placeholder' => __( 'Sold', 'assistant-for-woocommerce' ),
 				),
 				'product_sale_progress_bar_remaining_title' => array(
 					'id'          => 'product_sale_progress_bar_remaining_title',
-					'title'       => __( 'Remaining product title', 'wc-assistant' ),
+					'title'       => __( 'Remaining product title', 'assistant-for-woocommerce' ),
 					'type'        => 'text',
-					'default'     => __( 'Remaining', 'wc-assistant' ),
-					'placeholder' => __( 'Remaining', 'wc-assistant' ),
+					'default'     => __( 'Remaining', 'assistant-for-woocommerce' ),
+					'placeholder' => __( 'Remaining', 'assistant-for-woocommerce' ),
 				),
 				'product_sale_progress_bar_position'        => array(
 					'id'          => 'product_sale_progress_bar_position',
-					'title'       => __( 'Position on single page', 'wc-assistant' ),
+					'title'       => __( 'Position on single page', 'assistant-for-woocommerce' ),
 					'type'        => 'select',
 					'options'     => array(
-						'before_title'       => __( 'Before title', 'wc-assistant' ),
-						'after_title'        => __( 'After title', 'wc-assistant' ),
-						'after_rating'       => __( 'After rating', 'wc-assistant' ),
-						'after_price'        => __( 'After price', 'wc-assistant' ),
-						'after_excerpt'      => __( 'After excerpt', 'wc-assistant' ),
-						'before_add_to_cart' => __( 'Before add to cart button', 'wc-assistant' ),
-						'after_add_to_cart'  => __( 'After add to cart button', 'wc-assistant' ),
-						'after_meta'         => __( 'After meta', 'wc-assistant' ),
-						'after_sharing'      => __( 'After sharing', 'wc-assistant' ),
+						'before_title'       => __( 'Before title', 'assistant-for-woocommerce' ),
+						'after_title'        => __( 'After title', 'assistant-for-woocommerce' ),
+						'after_rating'       => __( 'After rating', 'assistant-for-woocommerce' ),
+						'after_price'        => __( 'After price', 'assistant-for-woocommerce' ),
+						'after_excerpt'      => __( 'After excerpt', 'assistant-for-woocommerce' ),
+						'before_add_to_cart' => __( 'Before add to cart button', 'assistant-for-woocommerce' ),
+						'after_add_to_cart'  => __( 'After add to cart button', 'assistant-for-woocommerce' ),
+						'after_meta'         => __( 'After meta', 'assistant-for-woocommerce' ),
+						'after_sharing'      => __( 'After sharing', 'assistant-for-woocommerce' ),
 					),
-					'option_none' => __( 'Hide', 'wc-assistant' ),
+					'option_none' => __( 'Hide', 'assistant-for-woocommerce' ),
 					'default'     => 'after_title',
 					'sanitize'    => 'text',
 				),
@@ -148,20 +148,20 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 				),
 				'product_sale_progress_bar_start_grid_2'    => array(
 					'id'    => 'product_sale_progress_bar_start_grid_2',
-					'title' => __( 'Style', 'wc-assistant' ),
+					'title' => __( 'Style', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'product_sale_progress_bar_bg_color'        => array(
 					'id'       => 'product_sale_progress_bar_bg_color',
-					'title'    => __( 'Progress bar background color', 'wc-assistant' ),
+					'title'    => __( 'Progress bar background color', 'assistant-for-woocommerce' ),
 					'type'     => 'wpColorPicker',
 					'default'  => Colors::primary,
 					'sanitize' => 'color'
 				),
 				'product_sale_progress_bar_height'          => array(
 					'id'         => 'product_sale_progress_bar_height',
-					'title'      => __( 'Progress bar height', 'wc-assistant' ),
-					'desc'       => __( 'Pixel', 'wc-assistant' ),
+					'title'      => __( 'Progress bar height', 'assistant-for-woocommerce' ),
+					'desc'       => __( 'Pixel', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 10,
 					'attributes' => array(
@@ -195,9 +195,9 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 		}
 
 		$pluginVersion = Assets::getVersion();
-		$debugName     = WOOASSISTANT_DEBUG_MODE ? '' : '.min';
+		$debugName     = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? '' : '.min';
 
-		wp_enqueue_style( WOOASSISTANT_PLUGIN_KEY . '-product-sale-progress-bar-style',
+		wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-sale-progress-bar-style',
 			Assets::url( 'css/product-sale-progress-bar' . $debugName . '.css' ),
 			false, $pluginVersion );
 	}
@@ -210,9 +210,9 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Sale progress bar', 'wc-assistant' ),
-			'desc'           => __( 'Sales progress bar for products', 'wc-assistant' ),
-			'tags'           => [ __( 'Product', 'wc-assistant' ) ],
+			'title'          => __( 'Sale progress bar', 'assistant-for-woocommerce' ),
+			'desc'           => __( 'Sales progress bar for products', 'assistant-for-woocommerce' ),
+			'tags'           => [ __( 'Product', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

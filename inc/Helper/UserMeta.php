@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Helper;
+namespace AssistantForWooCommerce\Helper;
 
 class UserMeta {
 	/**
@@ -23,7 +23,7 @@ class UserMeta {
 	public static function get( $userId, $metaKey = '', $single = true ) {
 		$metaValue = get_user_meta( $userId, $metaKey, $single );
 
-		return apply_filters( 'woo_assistant_get_user_meta', $metaValue, $userId, $metaKey, $single );
+		return apply_filters( 'assistant_for_woocommerce_get_user_meta', $metaValue, $userId, $metaKey, $single );
 	}
 
 	/**
@@ -48,7 +48,7 @@ class UserMeta {
 	 *                  is the same as the one that is already in the database.
 	 */
 	public static function update( $userId, $metaKey, $metaValue, $prevValue = '' ) {
-		if ( ( $metaValue = apply_filters( 'woo_assistant_update_user_meta', $metaValue, $userId, $metaKey, $prevValue ) ) !== false ) {
+		if ( ( $metaValue = apply_filters( 'assistant_for_woocommerce_update_user_meta', $metaValue, $userId, $metaKey, $prevValue ) ) !== false ) {
 			return update_user_meta( $userId, $metaKey, $metaValue, $prevValue );
 		}
 
@@ -72,7 +72,7 @@ class UserMeta {
 	 *
 	 */
 	public static function delete( $userId, $metaKey = '', $metaValue = '' ): bool {
-		if ( apply_filters( 'woo_assistant_delete_user_meta', true, $userId, $metaKey, $metaValue ) ) {
+		if ( apply_filters( 'assistant_for_woocommerce_delete_user_meta', true, $userId, $metaKey, $metaValue ) ) {
 			return delete_user_meta( $userId, $metaKey, $metaValue );
 		}
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace WooAssistant\App\Tools;
+namespace AssistantForWooCommerce\App\Tools;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Addons\Addon;
-use WooAssistant\Helper\Assets;
-use WooAssistant\Helper\Cache;
-use WooAssistant\Helper\Param;
-use WooAssistant\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\Helper\Assets;
+use AssistantForWooCommerce\Helper\Cache;
+use AssistantForWooCommerce\Helper\Param;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class CurrencySymbolTools extends Addon implements AddonInterface {
 	public string $addonID = 'currency-symbol-tools';
@@ -63,9 +63,9 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 	public function addInlineStyles(): void {
 		if ( $this->getSetting( 'price_currency_style', true ) ) {
 			$styles = '.woocommerce-Price-amount bdi{display: inline-flex;align-items: center;gap: 3px;line-height: 1.2;}';
-			wp_register_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style', false, [], Assets::getVersion() );
-			wp_enqueue_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style' );
-			wp_add_inline_style( WOOASSISTANT_PLUGIN_SLUG . '-' . $this->addonID . '-style', $styles );
+			wp_register_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-' . $this->addonID . '-style', false, [], Assets::getVersion() );
+			wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-' . $this->addonID . '-style' );
+			wp_add_inline_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-' . $this->addonID . '-style', $styles );
 		}
 	}
 
@@ -75,32 +75,32 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 		$symbol   = Assets::isSvgImageString( $symbol ) || Assets::isImageString( $symbol ) ? '' : $symbol;
 
 		$sections[ $this->currentSection ] = array(
-			'title'        => __( 'Currency Symbol', 'wc-assistant' ),
+			'title'        => __( 'Currency Symbol', 'assistant-for-woocommerce' ),
 			'settings_key' => $this->info()['settings_key'],
 			'settings'     => array(
 				'start_grid_currency_symbol_1' => array(
-					'title' => __( 'Currency Symbol', 'wc-assistant' ),
+					'title' => __( 'Currency Symbol', 'assistant-for-woocommerce' ),
 					'type'  => 'startgrid',
 				),
 				'currency_1'                   => array(
 					'id'                => 'currency_1',
-					'title'             => __( 'Currency', 'wc-assistant' ),
+					'title'             => __( 'Currency', 'assistant-for-woocommerce' ),
 					'type'              => 'currencySelect',
 					'default'           => $currency,
-					'option_none'       => __( 'No changes', 'wc-assistant' ),
+					'option_none'       => __( 'No changes', 'assistant-for-woocommerce' ),
 					'option_none_value' => '',
 					'sanitize'          => 'text'
 				),
 				'currency_symbol_1'            => array(
 					'id'      => 'currency_symbol_1',
-					'title'   => __( 'Symbol', 'wc-assistant' ),
+					'title'   => __( 'Symbol', 'assistant-for-woocommerce' ),
 					'type'    => 'text',
 					'default' => $symbol
 				),
 				'currency_media_1'             => array(
 					'id'                       => 'currency_media_1',
-					'title'                    => __( 'SVG Icon', 'wc-assistant' ),
-					'select_button'            => __( 'Select SVG', 'wc-assistant' ),
+					'title'                    => __( 'SVG Icon', 'assistant-for-woocommerce' ),
+					'select_button'            => __( 'Select SVG', 'assistant-for-woocommerce' ),
 					'remove_all_button'        => false,
 					'type'                     => 'media',
 					'media_type'               => 'image/svg+xml',
@@ -109,8 +109,8 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
 				'currency_media_size' => array(
 					'id'         => 'currency_media_size',
-					'title'      => __( 'SVG media size', 'wc-assistant' ),
-					'desc'       => __( 'Pixel', 'wc-assistant' ),
+					'title'      => __( 'SVG media size', 'assistant-for-woocommerce' ),
+					'desc'       => __( 'Pixel', 'assistant-for-woocommerce' ),
 					'type'       => 'number',
 					'default'    => 14,
 					'attributes' => array(
@@ -124,11 +124,11 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
 				'price_currency_style' => [
 					'id'       => 'price_currency_style',
-					'title'    => __( 'Price style', 'wc-assistant' ),
+					'title'    => __( 'Price style', 'assistant-for-woocommerce' ),
 					'type'     => 'toggle',
 					'value'    => 1,
 					'default'  => true,
-					'desc'     => __( 'Styling the price along with the currency symbol', 'wc-assistant' ),
+					'desc'     => __( 'Styling the price along with the currency symbol', 'assistant-for-woocommerce' ),
 					'sanitize' => 'bool'
 				],
 
@@ -146,9 +146,9 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Currency Symbol', 'wc-assistant' ),
-			'desc'           => __( 'Change the currency symbol', 'wc-assistant' ),
-			'tags'           => [ __( 'Currency', 'wc-assistant' ) ],
+			'title'          => __( 'Currency Symbol', 'assistant-for-woocommerce' ),
+			'desc'           => __( 'Change the currency symbol', 'assistant-for-woocommerce' ),
+			'tags'           => [ __( 'Currency', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'customizations',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws',

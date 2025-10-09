@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Interfaces;
+namespace AssistantForWooCommerce\Interfaces;
 
 interface AddonInterface {
 	public function info(): array;

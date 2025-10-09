@@ -1,8 +1,8 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-@mixin wa-button {
-  .wa-button {
+@mixin asfowoo-button {
+  .asfowoo-button {
     background-color: transparent;
     color: variables.$dark;
     border: 1px solid transparent;
@@ -18,7 +18,7 @@
       background-color: rgba(255, 255, 255, 0.5);
     }
 
-    &.wa-button-primary {
+    &.asfowoo-button-primary {
       background-color: variables.$primary;
       border-color: variables.$woo_purple_50;
       color: white;
@@ -37,7 +37,7 @@
       }
     }
 
-    &.wa-button-secondary {
+    &.asfowoo-button-secondary {
       background-color: white;
       border-color: variables.$gray_light_two;
 
@@ -56,7 +56,7 @@
       cursor: default;
     }
 
-    &.wa-button-primary, &.wa-button-secondary, {
+    &.asfowoo-button-primary, &.asfowoo-button-secondary, {
       &:disabled {
         background-color: variables.$gray_light_three;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Flow;
+namespace AssistantForWooCommerce\Flow;
 
 class Install {
 	public static function run(): void {

@@ -1,27 +1,27 @@
 <?php
 
-namespace WooAssistant\Admin;
+namespace AssistantForWooCommerce\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Helper\Cache;
-use WooAssistant\Helper\DebugTrait;
-use WooAssistant\Helper\Notice;
-use WooAssistant\Helper\Assets;
-use WooAssistant\Helper\Param;
+use AssistantForWooCommerce\Helper\Cache;
+use AssistantForWooCommerce\Helper\DebugTrait;
+use AssistantForWooCommerce\Helper\Notice;
+use AssistantForWooCommerce\Helper\Assets;
+use AssistantForWooCommerce\Helper\Param;
 
 class AdminPages {
     use DebugTrait;
 
     public function __construct() {
         add_action( 'admin_init', [ $this, 'init' ] );
-        add_action( 'woo_assistant_admin_init', [ $this, 'checkSubmitForm' ], 15 );
+        add_action( 'assistant_for_woocommerce_admin_init', [ $this, 'checkSubmitForm' ], 15 );
         add_action( 'admin_menu', array( $this, 'adminMenuInit' ), 0 );
         add_action( 'admin_menu', array( $this, 'addMenu' ), PHP_INT_MAX );
-        add_action( 'woo_assistant_notice', [ $this, 'displayNotices' ] );
-        add_action( 'woo_assistant_header', [ $this, 'pageHeader' ] );
-        add_action( 'woo_assistant_content', [ $this, 'pageContent' ] );
-        add_action( 'woo_assistant_footer', [ $this, 'pageFooter' ] );
+        add_action( 'assistant_for_woocommerce_notice', [ $this, 'displayNotices' ] );
+        add_action( 'assistant_for_woocommerce_header', [ $this, 'pageHeader' ] );
+        add_action( 'assistant_for_woocommerce_content', [ $this, 'pageContent' ] );
+        add_action( 'assistant_for_woocommerce_footer', [ $this, 'pageFooter' ] );
         add_action( 'admin_footer', [ $this, 'flushRewriteRules' ] );
     }
 
@@ -34,7 +34,7 @@ class AdminPages {
     public function checkSubmitForm(): void {
         $tab = self::getActiveTab();
         if ( isset( $_POST['_form_nonce'] ) && check_admin_referer( 'settings_submit_' . $tab, '_form_nonce' ) ) {
-            do_action( 'woo_assistant_submit_settings_form', $tab );
+            do_action( 'assistant_for_woocommerce_submit_settings_form', $tab );
         }
     }
 
@@ -45,7 +45,7 @@ class AdminPages {
     public function pageContent( $currentTab ): void {
         $settings = AdminSettings::getSettings( $currentTab );
 
-        if ( $settings && apply_filters( 'woo_assistant_display_tab_settings', true, $currentTab ) ) {
+        if ( $settings && apply_filters( 'assistant_for_woocommerce_display_tab_settings', true, $currentTab ) ) {
             AdminSettings::printPage( $currentTab, $settings );
         }
     }
@@ -63,18 +63,18 @@ class AdminPages {
 
     public function init(): void {
         if ( self::isSettingPage() ) {
-            do_action( 'woo_assistant_admin_init', self::getActiveTab() );
+            do_action( 'assistant_for_woocommerce_admin_init', self::getActiveTab() );
         }
     }
 
     public function adminMenuInit(): void {
         if ( self::isSettingPage() ) {
-            do_action( 'woo_assistant_admin_init_menu', self::getActiveTab() );
+            do_action( 'assistant_for_woocommerce_admin_init_menu', self::getActiveTab() );
         }
     }
 
     public function displayNotices( $tab ): void {
-        if ( apply_filters( 'woo_assistant_' . $tab . '_tab_display_notice', true ) ) {
+        if ( apply_filters( 'assistant_for_woocommerce_' . $tab . '_tab_display_notice', true ) ) {
             Notice::display( '*' );
             Notice::display( $tab );
         }
@@ -83,26 +83,26 @@ class AdminPages {
     public function addMenu(): void {
         $icon = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1OCIgaGVpZ2h0PSIyNiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTExLjczMiAyNC44NzNjMi42ODUgMCA0Ljg0LTEuMzIxIDYuNDYzLTQuMzZsMy42MTMtNi43Mzd2NS43MTRjMCAzLjM2OCAyLjE4NyA1LjM4MyA1LjU2NyA1LjM4MyAyLjY1MiAwIDQuNjA3LTEuMTU2IDYuNDk2LTQuMzZMNDIuMTkgNi41MWMxLjgyMy0zLjA3MS41My01LjM4My0zLjQ4LTUuMzgzLTIuMTU0IDAtMy41NDYuNjk0LTQuODA2IDMuMDM5bC01LjczMyAxMC43MzNWNS4zNTRjMC0yLjg0LTEuMzU5LTQuMjI3LTMuODc4LTQuMjI3LTEuOTg4IDAtMy41OC44NTktNC44MDUgMy4yMzdsLTUuNDAzIDEwLjUzNVY1LjQ1NGMwLTMuMDM5LTEuMjU5LTQuMzI3LTQuMzA4LTQuMzI3aC02LjIzQzEuMTkyIDEuMTI3IDAgMi4yMTcgMCA0LjIzMnMxLjI2IDMuMTcgMy41NDYgMy4xN2gyLjU1MnYxMi4wNTVjMCAzLjQwMSAyLjI4NyA1LjQxNiA1LjYzNCA1LjQxNk01Ni41OCA4LjIxOWwxLjM2NyAxMi43NWMuNDU1IDMuNjQzLTIuMSA0LjA5OC0zLjkxIDQuMDk4LTIuMjk0IDAtMy41MzItMS4yNzctMy41MzItMy44OTFWMTIuMzlsLTUuMjIxIDkuODhjLTEuMTQ3IDIuMTU5LTIuNDE1IDIuNzk3LTQuMzc3IDIuNzk3LTMuNjUyIDAtNC44My0yLjEyOC0zLjE3LTQuOTU1bDcuNTc3LTEyLjg5QzQ3LjAzNCA0LjI3NCA0OC4wOS45MzMgNTAuNTA1LjkzM2MzLjA3OSAwIDUuNjIgMy42NDMgNi4wNzUgNy4yODYiLz48L3N2Zz4=';
 
-        add_menu_page( __( 'Woo Assistant', 'wc-assistant' ), __( 'Woo Assistant', 'wc-assistant' ), 'manage_options', WOOASSISTANT_PLUGIN_SLUG,
+        add_menu_page( __( 'Assistant for WooCommerce', 'assistant-for-woocommerce' ), __( 'Assistant', 'assistant-for-woocommerce' ), 'manage_options', ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG,
                 [ $this, 'mainPage' ], $icon, '55.5' );
     }
 
     public function mainPage(): void {
-        $logo       = Assets::url( 'images/woo-assistant-logo.svg' );
+        $logo       = Assets::url( 'images/assistant-for-woocommerce.svg' );
         $currentTab = self::getActiveTab();
         ?>
         <div class="wrap ">
-            <div class="woo-assistant-wrap woo-assistant-<?php echo esc_html( $currentTab ) ?>-wrap woo-assistant-wrapper">
-                <div class="wa-sidebar" id="wa-sidebar">
-                    <div class="wa-sidebar-head">
-                        <img src="<?php echo esc_url_raw( $logo ) ?>" alt="Logo" class="wa-logo">
-                        <a href="#" class="wa-hide-sidebar" id="wa-hide-sidebar">
-                            <i class="wa-icon-close"></i>
+            <div class="assistant-for-woocommerce-wrap assistant-for-woocommerce-<?php echo esc_html( $currentTab ) ?>-wrap assistant-for-woocommerce-wrapper">
+                <div class="asfowoo-sidebar" id="asfowoo-sidebar">
+                    <div class="asfowoo-sidebar-head">
+                        <img src="<?php echo esc_url_raw( $logo ) ?>" alt="Logo" class="asfowoo-logo">
+                        <a href="#" class="asfowoo-hide-sidebar" id="asfowoo-hide-sidebar">
+                            <i class="asfowoo-icon-close"></i>
                         </a>
                     </div>
                     <div class="menu-items">
                         <?php
-                        do_action( 'woo_assistant_start_menus' );
+                        do_action( 'assistant_for_woocommerce_start_menus' );
                         $menus    = self::getMenus();
                         $addonSep = false;
                         foreach ( $menus as $tab => $menu ) {
@@ -114,34 +114,35 @@ class AdminPages {
                             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             echo self::menuItem( $tab, $menu );
                         }
-                        do_action( 'woo_assistant_end_menus' );
+                        do_action( 'assistant_for_woocommerce_end_menus' );
                         ?>
                     </div>
                 </div>
-                <div class="wa-display-sidebar">
-                    <a href="#" id="wa-display-sidebar">
-                        <i class="wa-icon-menu"></i>
+                <div class="asfowoo-display-sidebar">
+                    <a href="#" id="asfowoo-display-sidebar">
+                        <i class="asfowoo-icon-menu"></i>
                     </a>
                 </div>
-                <div class="wa-content wa-<?php echo esc_html( $currentTab ) ?>-content" id="wa-content-wrap">
+                <div class="asfowoo-content asfowoo-<?php echo esc_html( $currentTab ) ?>-content"
+                     id="asfowoo-content-wrap">
                     <?php
                     // Display tab header
-                    do_action( 'woo_assistant_' . $currentTab . '_tab_header' );
-                    do_action( 'woo_assistant_header', $currentTab );
+                    do_action( 'assistant_for_woocommerce_' . $currentTab . '_tab_header' );
+                    do_action( 'assistant_for_woocommerce_header', $currentTab );
 
-                    echo '<div class="wa-content-body">';
+                    echo '<div class="asfowoo-content-body">';
                     // Display notice
-                    do_action( 'woo_assistant_notice', $currentTab );
-                    do_action( 'woo_assistant_' . $currentTab . '_tab_notice' );
+                    do_action( 'assistant_for_woocommerce_notice', $currentTab );
+                    do_action( 'assistant_for_woocommerce_' . $currentTab . '_tab_notice' );
 
                     // Display tab content
-                    do_action( 'woo_assistant_' . $currentTab . '_tab_content' );
-                    do_action( 'woo_assistant_content', $currentTab );
+                    do_action( 'assistant_for_woocommerce_' . $currentTab . '_tab_content' );
+                    do_action( 'assistant_for_woocommerce_content', $currentTab );
                     echo '</div>';
 
                     // Display tab footer
-                    do_action( 'woo_assistant_' . $currentTab . '_tab_footer' );
-                    do_action( 'woo_assistant_footer', $currentTab );
+                    do_action( 'assistant_for_woocommerce_' . $currentTab . '_tab_footer' );
+                    do_action( 'assistant_for_woocommerce_footer', $currentTab );
                     ?>
                 </div>
             </div>
@@ -150,7 +151,7 @@ class AdminPages {
     }
 
     public static function getMenus(): array {
-        return apply_filters( 'woo_assistant_menus', [] );
+        return apply_filters( 'assistant_for_woocommerce_menus', [] );
 
         /*$settings = AdminSettings::defaultSettings();
         return array_map( static function ( $setting ) {
@@ -184,12 +185,12 @@ class AdminPages {
     }
 
     public static function isSettingPage(): bool {
-        return is_admin() && Param::get( 'page' ) === WOOASSISTANT_PLUGIN_SLUG;
+        return is_admin() && Param::get( 'page' ) === ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG;
     }
 
     public static function link( $query ): ?string {
         $query = is_array( $query ) ? $query : array();
-        $data  = array_merge( array( 'page' => WOOASSISTANT_PLUGIN_SLUG ), $query );
+        $data  = array_merge( array( 'page' => ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG ), $query );
         $query = http_build_query( $data );
 
         return admin_url( 'admin.php?' . $query );

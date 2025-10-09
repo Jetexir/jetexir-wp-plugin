@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Helper;
+namespace AssistantForWooCommerce\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -82,11 +82,11 @@ class Assets {
 	}
 
 	public static function getVersion(): string {
-		return WOOASSISTANT_PLUGIN_VERSION . ( WOOASSISTANT_DEBUG_MODE || wp_is_development_mode( 'plugin' ) ? time() : '' );
+		return ASSISTANTFORWOOCOMMERCE_PLUGIN_VERSION . ( ASSISTANTFORWOOCOMMERCE_DEBUG_MODE || wp_is_development_mode( 'plugin' ) ? time() : '' );
 	}
 
 	public static function url( $path ): string {
-		return WOOASSISTANT_PLUGIN_URL . 'assets/' . $path;
+		return ASSISTANTFORWOOCOMMERCE_PLUGIN_URL . 'assets/' . $path;
 	}
 
 	/**
@@ -101,7 +101,7 @@ class Assets {
 
 		foreach ( $sizes as $value ) {
 			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-			$imageSizes[ $value ] = __( ucwords( str_replace( '_', ' ', $value ) ), 'wc-assistant' );
+			$imageSizes[ $value ] = __( ucwords( str_replace( '_', ' ', $value ) ), 'assistant-for-woocommerce' );
 		}
 
 		return $imageSizes;

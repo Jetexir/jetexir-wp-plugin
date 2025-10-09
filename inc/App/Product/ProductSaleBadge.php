@@ -1,12 +1,12 @@
 <?php
 
-namespace WooAssistant\App\Product;
+namespace AssistantForWooCommerce\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Addons\Addon;
-use WooAssistant\Interfaces\AddonInterface;
-use WooAssistant\Settings\Settings;
+use AssistantForWooCommerce\Addons\Addon;
+use AssistantForWooCommerce\Interfaces\AddonInterface;
+use AssistantForWooCommerce\Settings\Settings;
 
 class ProductSaleBadge extends Addon implements AddonInterface {
 	public string $addonID = 'product-sale-badge';
@@ -16,7 +16,7 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 	public function __construct() {
 		parent::__construct();
 
-		add_filter( 'woo_assistant_product_general_settings', [ $this, 'addProductGeneralSettings' ] );
+		add_filter( 'assistant_for_woocommerce_product_general_settings', [ $this, 'addProductGeneralSettings' ] );
 	}
 
 	public function initAction(): void {
@@ -92,23 +92,23 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 	public function addProductGeneralSettings( $settings ): array {
 		$addonSettings = array(
 			'start_grid_product_sale_badge' => array(
-				'title' => __( 'Sale Badge', 'wc-assistant' ),
+				'title' => __( 'Sale Badge', 'assistant-for-woocommerce' ),
 				'type'  => 'startgrid',
 			),
 			'product_sale_badge_text'       => array(
 				'id'          => 'product_sale_badge_text',
-				'title'       => __( 'Sale Badge text', 'wc-assistant' ),
+				'title'       => __( 'Sale Badge text', 'assistant-for-woocommerce' ),
 				'type'        => 'text',
-				'default'     => __( 'Sale', 'wc-assistant' ),
-				'placeholder' => __( 'Sale', 'wc-assistant' ),
+				'default'     => __( 'Sale', 'assistant-for-woocommerce' ),
+				'placeholder' => __( 'Sale', 'assistant-for-woocommerce' ),
 			),
 			'product_sale_badge_percentage' => [
 				'id'       => 'product_sale_badge_percentage',
-				'title'    => __( 'Discount percentage', 'wc-assistant' ),
+				'title'    => __( 'Discount percentage', 'assistant-for-woocommerce' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => false,
-				'desc'     => __( 'Display discount percentage as sale badge', 'wc-assistant' ),
+				'desc'     => __( 'Display discount percentage as sale badge', 'assistant-for-woocommerce' ),
 				'sanitize' => 'bool'
 			],
 			'end_grid_product_sale_badge'   => array(
@@ -124,9 +124,9 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 
 		return array(
 			'id'             => $this->addonID,
-			'title'          => __( 'Product Sale Badge', 'wc-assistant' ),
-			'desc'           => __( 'Customize the product sale badge.', 'wc-assistant' ),
-			'tags'           => [ __( 'Sale', 'wc-assistant' ) ],
+			'title'          => __( 'Product Sale Badge', 'assistant-for-woocommerce' ),
+			'desc'           => __( 'Customize the product sale badge.', 'assistant-for-woocommerce' ),
+			'tags'           => [ __( 'Sale', 'assistant-for-woocommerce' ) ],
 			'cat'            => 'product',
 			'icon'           => $icon,
 			'more_info_link' => 'https://parsa.ws'

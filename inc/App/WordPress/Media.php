@@ -1,16 +1,16 @@
 <?php
 
-namespace WooAssistant\App\WordPress;
+namespace AssistantForWooCommerce\App\WordPress;
 
 defined( 'ABSPATH' ) || exit;
 
-use WooAssistant\Settings\Settings;
+use AssistantForWooCommerce\Settings\Settings;
 
 class Media {
 	private const sectionID = 'media';
 
 	public function __construct() {
-		add_filter( 'woo_assistant_wordpress_settings_sections', [ $this, 'addSectionSettings' ] );
+		add_filter( 'assistant_for_woocommerce_wordpress_settings_sections', [ $this, 'addSectionSettings' ] );
 
 		if ( Settings::get( 'svg_enable', true ) ) {
 			add_filter( 'upload_mimes', [ $this, 'addSvgToMedia' ] );
@@ -59,11 +59,11 @@ class Media {
 			),
 			'svg_enable'     => array(
 				'id'       => 'svg_enable',
-				'title'    => __( 'Enable SVG support', 'wc-assistant' ),
+				'title'    => __( 'Enable SVG support', 'assistant-for-woocommerce' ),
 				'type'     => 'toggle',
 				'value'    => 1,
 				'default'  => true,
-				'desc'     => __( 'Allows upload SVG Files into your Media library', 'wc-assistant' ),
+				'desc'     => __( 'Allows upload SVG Files into your Media library', 'assistant-for-woocommerce' ),
 				'sanitize' => 'bool'
 			),
 			'end_grid_svg'   => array(
@@ -72,8 +72,8 @@ class Media {
 		];
 
 		$sections[ self::sectionID ] = array(
-			'title'    => __( 'Media', 'wc-assistant' ),
-			'desc'     => __( 'Media Settings', 'wc-assistant' ),
+			'title'    => __( 'Media', 'assistant-for-woocommerce' ),
+			'desc'     => __( 'Media Settings', 'assistant-for-woocommerce' ),
 			'settings' => $settings
 		);
 

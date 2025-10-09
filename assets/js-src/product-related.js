@@ -4,30 +4,30 @@ jQuery(document).ready(function ($) {
     if (relatedProducts.length === 0)
         return;
 
-    relatedProducts.addClass('wa-related-products owl-carousel owl-theme');
+    relatedProducts.addClass('asfowoo-related-products owl-carousel owl-theme');
 
     relatedProducts.owlCarousel({
-        rtl: WooAssistant.direction === 'rtl',
-        loop: WooAssistantProductRelated.loop === '1',
-        center: WooAssistantProductRelated.center === '1',
-        margin: parseInt(WooAssistantProductRelated.margin),
-        nav: WooAssistantProductRelated.arrow === '1',
-        dots: WooAssistantProductRelated.dots === '1',
-        autoplay: WooAssistantProductRelated.autoplay === '1',
-        autoplayTimeout: parseInt(WooAssistantProductRelated.autoplayTimeout),
-        autoplayHoverPause: WooAssistantProductRelated.autoplay === '1',
+        rtl: AssistantForWooCommerce.direction === 'rtl',
+        loop: AssistantForWooCommerceProductRelated.loop === '1',
+        center: AssistantForWooCommerceProductRelated.center === '1',
+        margin: parseInt(AssistantForWooCommerceProductRelated.margin),
+        nav: AssistantForWooCommerceProductRelated.arrow === '1',
+        dots: AssistantForWooCommerceProductRelated.dots === '1',
+        autoplay: AssistantForWooCommerceProductRelated.autoplay === '1',
+        autoplayTimeout: parseInt(AssistantForWooCommerceProductRelated.autoplayTimeout),
+        autoplayHoverPause: AssistantForWooCommerceProductRelated.autoplay === '1',
         responsiveClass: true,
         lazyLoad: true,
-        navText: ['<i class="wa-icon-chevron-left"></i>', '<i class="wa-icon-chevron-right"></i>'],
+        navText: ['<i class="asfowoo-icon-chevron-left"></i>', '<i class="asfowoo-icon-chevron-right"></i>'],
         responsive: {
             0: {
-                items: parseInt(WooAssistantProductRelated.mobileLimit),
+                items: parseInt(AssistantForWooCommerceProductRelated.mobileLimit),
             },
             600: {
-                items: parseInt(WooAssistantProductRelated.tabletLimit),
+                items: parseInt(AssistantForWooCommerceProductRelated.tabletLimit),
             },
             1200: {
-                items: parseInt(WooAssistantProductRelated.desktopLimit),
+                items: parseInt(AssistantForWooCommerceProductRelated.desktopLimit),
             }
         }
     })

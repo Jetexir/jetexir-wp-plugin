@@ -1,30 +1,30 @@
-.wa-announcement-bar {
+.asfowoo-announcement-bar {
   display: block;
   width: 100%;
   margin: 0;
   font-weight: 600;
   font-size: 17px;
-  color: var(--wa-announcement-bar-text-color, #333);
-  background: var(--wa-announcement-bar-bg, white);
+  color: var(--asfowoo-announcement-bar-text-color, #333);
+  background: var(--asfowoo-announcement-bar-bg, white);
   text-decoration: none !important;
 }
-.wa-announcement-bar.wa-announcement-bar-fixed {
+.asfowoo-announcement-bar.asfowoo-announcement-bar-fixed {
   position: fixed;
   left: 0;
   right: 0;
   z-index: 999995;
 }
-.wa-announcement-bar.wa-announcement-bar-fixed.wa-announcement-bar-top {
+.asfowoo-announcement-bar.asfowoo-announcement-bar-fixed.asfowoo-announcement-bar-top {
   position: inherit;
 }
-.wa-announcement-bar.wa-announcement-bar-fixed.wa-announcement-bar-sticky-top {
+.asfowoo-announcement-bar.asfowoo-announcement-bar-fixed.asfowoo-announcement-bar-sticky-top {
   position: sticky;
-  top: var(--wa-admin-bar-height, 0);
+  top: var(--asfowoo-admin-bar-height, 0);
 }
-.wa-announcement-bar.wa-announcement-bar-fixed.wa-announcement-bar-sticky-bottom {
+.asfowoo-announcement-bar.asfowoo-announcement-bar-fixed.asfowoo-announcement-bar-sticky-bottom {
   bottom: 0;
 }
-.wa-announcement-bar .wa-announcement-bar-container {
+.asfowoo-announcement-bar .asfowoo-announcement-bar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33,23 +33,23 @@
   padding: 10px 20px;
   margin: 0 auto;
 }
-.wa-announcement-bar .wa-announcement-bar-buttons {
+.asfowoo-announcement-bar .asfowoo-announcement-bar-buttons {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.wa-announcement-bar .wa-announcement-bar-buttons .wa-button {
+.asfowoo-announcement-bar .asfowoo-announcement-bar-buttons .asfowoo-button {
   line-height: 1;
 }
-.wa-announcement-bar.wa-announcement-bar-inline {
-  border-radius: var(--wa-element-border-radius, 0);
+.asfowoo-announcement-bar.asfowoo-announcement-bar-inline {
+  border-radius: var(--asfowoo-element-border-radius, 0);
   margin: 20px 0;
 }
-.wa-announcement-bar.wa-announcement-bar-center .wa-announcement-bar-container {
+.asfowoo-announcement-bar.asfowoo-announcement-bar-center .asfowoo-announcement-bar-container {
   justify-content: center;
 }
 @media screen and (max-width: 782px) {
-  .wa-announcement-bar .wa-announcement-bar-container {
+  .asfowoo-announcement-bar .asfowoo-announcement-bar-container {
     flex-direction: column;
   }
 }

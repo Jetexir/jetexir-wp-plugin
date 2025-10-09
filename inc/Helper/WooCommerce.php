@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\Helper;
+namespace AssistantForWooCommerce\Helper;
 
 class WooCommerce {
 	public static function isComingSoon(): bool {
@@ -281,7 +281,7 @@ class WooCommerce {
 			];
 		}
 
-		return apply_filters( 'woo_assistant_attribute_taxonomies', $wcAttributes );
+		return apply_filters( 'assistant_for_woocommerce_attribute_taxonomies', $wcAttributes );
 	}
 
 	public static function getCheckoutFields( $type = '' ): array {

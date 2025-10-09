@@ -8,5 +8,5 @@ if ( ! isset( $args ) ) {
 if ( empty( $args['link'] ) ) {
 	echo wp_kses_post( $args['title'] );
 } else {
-	echo '<a href="' . esc_url_raw( $args['link'] ) . '" class="wa-feed-link" target="_blank">' . wp_kses_post( $args['title'] ) . '</a>';
+	echo '<a href="' . esc_url_raw( $args['link'] ) . '" class="asfowoo-feed-link" target="_blank">' . wp_kses_post( $args['title'] ) . '</a>';
 }

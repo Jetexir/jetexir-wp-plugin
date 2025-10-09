@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\App\General;
+namespace AssistantForWooCommerce\App\General;
 
 defined( 'ABSPATH' ) || exit;
 

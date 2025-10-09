@@ -1,13 +1,13 @@
 {
-  "name": "parsa-kafi/woo-assistant",
-  "description": "WooCommerce Assistant",
+  "name": "parsa-kafi/assistant-for-woocommerce",
+  "description": "Assistant for WooCommerce",
   "type": "project",
   "scripts": {
-    "woo-assistant-autoload": "composer dump-autoload"
+    "assistant-for-woocommerce-autoload": "composer dump-autoload"
   },
   "autoload": {
     "psr-4": {
-      "WooAssistant\\": [
+      "AssistantForWooCommerce\\": [
         "inc/"
       ]
     }
@@ -24,8 +24,5 @@
   "require": {
     "php": ">=7.4",
     "enshrined/svg-sanitize": "^0.21.0"
-  },
-  "require-dev": {
-    "roave/security-advisories": "dev-latest"
   }
 }

@@ -1,25 +1,25 @@
 @use "utilities/variables";
 
-#wa-fly-cart-modal {
-  .wa-fly-cart-items {
-    .wa-fly-cart-item {
-      .wa-fly-cart-item-image {
+#asfowoo-fly-cart-modal {
+  .asfowoo-fly-cart-items {
+    .asfowoo-fly-cart-item {
+      .asfowoo-fly-cart-item-image {
 
       }
 
-      .wa-fly-cart-item-info {
+      .asfowoo-fly-cart-item-info {
 
       }
 
-      .wa-fly-cart-item-actions {
+      .asfowoo-fly-cart-item-actions {
 
       }
 
-      .wa-fly-cart-item-price {
+      .asfowoo-fly-cart-item-price {
 
       }
 
-      .wa-fly-cart-item-quantity {
+      .asfowoo-fly-cart-item-quantity {
         display: flex;
         border-radius: 3px;
         overflow: hidden;
@@ -59,25 +59,25 @@
           }
         }
 
-        .wa-fly-cart-item-quantity-value {
+        .asfowoo-fly-cart-item-quantity-value {
           padding: 5px 10px;
           display: inline-block;
         }
 
-        &.wa-fly-cart-item-quantity-buttons {
+        &.asfowoo-fly-cart-item-quantity-buttons {
           input {
             width: 40px;
           }
         }
       }
 
-      .wa-fly-cart-item-remove {
+      .asfowoo-fly-cart-item-remove {
 
       }
     }
   }
 
-  .wa-fly-cart-meta {
+  .asfowoo-fly-cart-meta {
     justify-content: space-between;
     font-size: 0.9em;
 
@@ -86,7 +86,7 @@
     }
   }
 
-  .wa-modal-footer {
+  .asfowoo-modal-footer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 

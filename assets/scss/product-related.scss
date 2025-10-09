@@ -1,6 +1,6 @@
 @use "utilities/variables";
 
-:is(.related, .wa-related-products) {
+:is(.related, .asfowoo-related-products) {
   .products {
     .product {
       width: auto !important;
@@ -10,7 +10,7 @@
   }
 }
 
-.wa-related-products {
+.asfowoo-related-products {
   &.owl-carousel {
     .owl-nav {
       position: absolute;
@@ -22,10 +22,10 @@
       pointer-events: none;
 
       button:is(.owl-prev,.owl-next) {
-        color: var(--wa-element-color, variables.$text);
-        background-color: var(--wa-element-bg-color, variables.$white2);
+        color: var(--asfowoo-element-color, variables.$text);
+        background-color: var(--asfowoo-element-bg-color, variables.$white2);
         border-radius: 100%;
-        border: var(--wa-element-border-width, 0) solid var(--wa-element-border-color, variables.$border_color);
+        border: var(--asfowoo-element-border-width, 0) solid var(--asfowoo-element-border-color, variables.$border_color);
         line-height: 1;
         font-size: 30px;
         padding: 0;
@@ -37,9 +37,9 @@
         pointer-events: auto;
 
         &:hover, &:focus {
-          color: var(--wa-element-hover-color, variables.$text);
-          background-color: var(--wa-element-hover-bg-color, variables.$white2);
-          border-color: var(--wa-element-hover-border-color, variables.$border_color);
+          color: var(--asfowoo-element-hover-color, variables.$text);
+          background-color: var(--asfowoo-element-hover-bg-color, variables.$white2);
+          border-color: var(--asfowoo-element-hover-border-color, variables.$border_color);
         }
 
         &.owl-prev {

@@ -1,6 +1,6 @@
 <?php
 
-namespace WooAssistant\App\Checkout;
+namespace AssistantForWooCommerce\App\Checkout;
 
 defined( 'ABSPATH' ) || exit;
 
