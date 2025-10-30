@@ -47,11 +47,13 @@ class AdminAssets {
 		wp_add_inline_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-admin', 'var assistantForWooCommerceAjax = false, assistantForWooCommerceModalCloseEvent;', 'before' );
 
 		wp_localize_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-admin', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP, array(
-			'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
-			'ajaxNonce'        => Nonce::create(),
-			'removeText'       => esc_html__( 'Remove', 'assistant-for-woocommerce' ),
-			'dtuConfirmDelete' => esc_html__( 'Are you sure you want to delete this item(s)?', 'assistant-for-woocommerce' ),
-			'copyText'         => esc_html__( 'Click to copy this text.', 'assistant-for-woocommerce' ),
+			'ajaxUrl'            => admin_url( 'admin-ajax.php' ),
+			'ajaxNonce'          => Nonce::create(),
+			'pageRefreshedAfter' => apply_filters( 'assistant_for_woocommerce_settings_page_refreshed_after', 0 ),
+			'pageRefreshUrl'     => apply_filters( 'assistant_for_woocommerce_settings_page_refresh_url', null ),
+			'removeText'         => esc_html__( 'Remove', 'assistant-for-woocommerce' ),
+			'dtuConfirmDelete'   => esc_html__( 'Are you sure you want to delete this item(s)?', 'assistant-for-woocommerce' ),
+			'copyText'           => esc_html__( 'Click to copy this text.', 'assistant-for-woocommerce' ),
 		) );
 	}
 

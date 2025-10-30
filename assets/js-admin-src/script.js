@@ -22,7 +22,17 @@ jQuery(document).ready(function ($) {
         waSettingsResetButton = document.getElementById("asfowoo-settings-reset-button");
 
     let waContentWrapPrevScrollPos = waContentWrap.scrollTop(),
-        waContentWrapCurrentScrollPos = waContentWrapPrevScrollPos;
+        waContentWrapCurrentScrollPos = waContentWrapPrevScrollPos,
+        waPageRefreshedAfter = parseInt(AssistantForWooCommerce.pageRefreshedAfter);
+
+    if (waPageRefreshedAfter > 0) {
+        setTimeout(function () {
+            if (AssistantForWooCommerce.pageRefreshUrl !== null)
+                window.location.href = AssistantForWooCommerce.pageRefreshUrl;
+            else
+                window.location.reload(true);
+        }, waPageRefreshedAfter);
+    }
 
     /**
      * Hide header on scroll down and sticky on scroll to top
