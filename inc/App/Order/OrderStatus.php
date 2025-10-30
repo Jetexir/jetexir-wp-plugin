@@ -284,12 +284,12 @@ class OrderStatus extends Addon implements AddonInterface {
 			if ( empty( $formData['title'] ) ) {
 				/* translators: %s: Title */
 				$errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Title', 'assistant-for-woocommerce' ) );
+
 			} elseif ( empty( $formData['slug'] ) ) {
 				/* translators: %s: Slug */
 				$errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Slug', 'assistant-for-woocommerce' ) );
-			}
 
-			if ( $index >= 0 ) {
+			} elseif ( $index >= 0 ) {
 				$entry = $this->getByIndex( $index );
 
 				if ( $entry === false ) {
