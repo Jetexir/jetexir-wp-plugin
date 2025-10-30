@@ -26,10 +26,8 @@ class Addons {
         add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_display_notice', '__return_false' );
         add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_content_display_notice', '__return_true' );
         add_filter( 'assistant_for_woocommerce_' . self::tab . '_settings_display_reset_button', '__return_false' );
-        add_filter( 'assistant_for_woocommerce_settings_submit_button_title', [
-                $this,
-                'changeSubmitButtonTitle'
-        ], 10, 2 );
+        add_filter( 'assistant_for_woocommerce_settings_submit_button_title',
+            [ $this, 'changeSubmitButtonTitle' ], 10, 2 );
         add_filter( 'assistant_for_woocommerce_save_settings_success_message', [ $this, 'saveMessage' ], 10, 2 );
         add_filter( 'assistant_for_woocommerce_dashboard_custom_links', [ $this, 'addDashboardLink' ] );
         add_action( 'assistant_for_woocommerce_admin_init', [ $this, 'addRefreshNotice' ], 25 );
@@ -38,13 +36,13 @@ class Addons {
 
     public function addDashboardLink( $links ) {
         $links[] = [
-                'title' => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
-                'desc'  => esc_html__( 'Assistant for WooCommerce Addons', 'assistant-for-woocommerce' ),
-                'link'  => AdminPages::link( [
-                        'tab' => self::tab
-                ] ),
-                'icon'  => self::icon,
-                'type'  => 'addons'
+            'title' => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
+            'desc'  => esc_html__( 'Assistant for WooCommerce Addons', 'assistant-for-woocommerce' ),
+            'link'  => AdminPages::link( [
+                'tab' => self::tab
+            ] ),
+            'icon'  => self::icon,
+            'type'  => 'addons'
         ];
 
         return $links;
@@ -61,22 +59,19 @@ class Addons {
     public function addRefreshNotice( $tab ): void {
         if ( $tab === self::tab && Cache::get( 'settings_saved' ) ) {
             Notice::add( self::tab, esc_html__( 'To load the add-on initial hooks, the page refreshes.', 'assistant-for-woocommerce' ), 'warning' );
-            ?>
-            <script>
-                setTimeout(function () {
-                    window.location.href = '<?php
-                            echo AdminPages::link( [ 'tab' => self::tab, 'addons-refreshed' => true ] )
-                            ?>';
-                }, 5000)
-            </script>
-            <?php
+            add_filter( 'assistant_for_woocommerce_settings_page_refreshed_after', static function () {
+                return 5000;
+            } );
+            add_filter( 'assistant_for_woocommerce_settings_page_refresh_url', static function () {
+                return AdminPages::link( [ 'tab' => self::tab, 'addons-refreshed' => true ] );
+            } );
         }
     }
 
     public function addMenu( $menus ) {
         $menus[ self::tab ] = array(
-                'title' => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
-                'icon'  => self::menuIcon
+            'title' => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
+            'icon'  => self::menuIcon
         );
 
         return $menus;
@@ -121,16 +116,16 @@ class Addons {
                     $fileExists = file_exists( WP_PLUGIN_DIR . '/' . $requirePluginPath );
 
                     if (
-                            ( $fileExists && is_plugin_active( $requirePluginPath ) ) ||
-                            ( ! empty( $requirePlugin['function_check'] ) && function_exists( $requirePlugin['function_check'] ) ) ||
-                            ( ! empty( $requirePlugin['class_check'] ) && class_exists( $requirePlugin['class_check'] ) )
+                        ( $fileExists && is_plugin_active( $requirePluginPath ) ) ||
+                        ( ! empty( $requirePlugin['function_check'] ) && function_exists( $requirePlugin['function_check'] ) ) ||
+                        ( ! empty( $requirePlugin['class_check'] ) && class_exists( $requirePlugin['class_check'] ) )
                     ) {
                         $requirePluginsActive ++;
 
                     } elseif ( $fileExists ) {
                         $actionLink  = wp_nonce_url(
-                                self_admin_url( 'plugins.php?action=activate&plugin=' . $requirePluginPath ),
-                                'activate-plugin_' . $requirePluginPath
+                            self_admin_url( 'plugins.php?action=activate&plugin=' . $requirePluginPath ),
+                            'activate-plugin_' . $requirePluginPath
                         );
                         $actionTitle = esc_html__( 'Activate required addon', 'assistant-for-woocommerce' );
 
@@ -138,8 +133,8 @@ class Addons {
                         $pluginSlug = WordPress::pluginPathToSlug( $requirePluginPath );
 
                         $actionLink  = wp_nonce_url(
-                                self_admin_url( 'update.php?action=install-plugin&plugin=' . $pluginSlug ),
-                                'install-plugin_' . $pluginSlug
+                            self_admin_url( 'update.php?action=install-plugin&plugin=' . $pluginSlug ),
+                            'install-plugin_' . $pluginSlug
                         );
                         $actionTitle = esc_html__( 'Install required addon', 'assistant-for-woocommerce' );
 
@@ -164,22 +159,22 @@ class Addons {
             }
 
             $addonList[ $cat ][ $addon['id'] ] = array(
-                    'id'                   => 'internal_addon_' . $addon['id'],
-                    'title'                => $addon['title'],
-                    'desc'                 => wp_trim_words( $addon['desc'] ?? '', 20, '' ),
-                    'value'                => 1,
-                    'default'              => 0,
-                    'image'                => $image,
-                    'image_link'           => $imageLink,
-                    'icon'                 => $icon,
-                    'tags'                 => $tags,
-                    'cat'                  => $cat,
-                    'more_info_link'       => $moreInfo,
-                    'can_activate'         => $canActivate,
-                    'action_link'          => $actionLink,
-                    'action_link_external' => Validating::isExternalLink( $actionLink ),
-                    'action_title'         => $actionTitle,
-                    'force_enable'         => $forceEnable
+                'id'                   => 'internal_addon_' . $addon['id'],
+                'title'                => $addon['title'],
+                'desc'                 => wp_trim_words( $addon['desc'] ?? '', 20, '' ),
+                'value'                => 1,
+                'default'              => 0,
+                'image'                => $image,
+                'image_link'           => $imageLink,
+                'icon'                 => $icon,
+                'tags'                 => $tags,
+                'cat'                  => $cat,
+                'more_info_link'       => $moreInfo,
+                'can_activate'         => $canActivate,
+                'action_link'          => $actionLink,
+                'action_link_external' => Validating::isExternalLink( $actionLink ),
+                'action_title'         => $actionTitle,
+                'force_enable'         => $forceEnable
             );
         }
 
@@ -199,35 +194,35 @@ class Addons {
                 }
 
                 $elementList[ $cat . '_startaddons' ] = array(
-                        'type'  => 'startaddons',
-                        'title' => $addonCats[ $cat ],
+                    'type'  => 'startaddons',
+                    'title' => $addonCats[ $cat ],
                 );
 
                 foreach ( $addons as $addonID => $pluginOptions ) {
                     $elementList[ $addonID . '_plugin' ] = array_merge(
-                            $pluginOptions, [
-                                    'type' => 'addon',
-                                    'name' => 'active_plugins[' . $addonID . ']'
-                            ]
+                        $pluginOptions, [
+                            'type' => 'addon',
+                            'name' => 'active_plugins[' . $addonID . ']'
+                        ]
                     );
                 }
 
                 $elementList[ $cat . '_endaddons' ] = array(
-                        'type' => 'endaddons'
+                    'type' => 'endaddons'
                 );
 
                 if ( $cat !== $lastKey ) {
                     $elementList[ $cat . '_sep' ] = array(
-                            'type' => 'hr'
+                        'type' => 'hr'
                     );
                 }
             }
         }
 
         return array(
-                'title'    => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
-                'desc'     => esc_html__( 'Assistant for WooCommerce integrates with WooCommerce to help you further enhance your website. You can enable or disable these integrations below.', 'assistant-for-woocommerce' ),
-                'settings' => $elementList
+            'title'    => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
+            'desc'     => esc_html__( 'Assistant for WooCommerce integrates with WooCommerce to help you further enhance your website. You can enable or disable these integrations below.', 'assistant-for-woocommerce' ),
+            'settings' => $elementList
         );
     }
 
@@ -238,19 +233,19 @@ class Addons {
         }
 
         $defaultCats = array(
-                'recommended'    => esc_html__( 'Recommended', 'assistant-for-woocommerce' ),
-                'product'        => esc_html__( 'Product', 'assistant-for-woocommerce' ),
-                'cart'           => esc_html__( 'Cart', 'assistant-for-woocommerce' ),
-                'checkout'       => esc_html__( 'Checkout', 'assistant-for-woocommerce' ),
-                'order'          => esc_html__( 'Order', 'assistant-for-woocommerce' ),
-                'marketing'      => esc_html__( 'Marketing', 'assistant-for-woocommerce' ),
-                'payments'       => esc_html__( 'Payments', 'assistant-for-woocommerce' ),
-                'merchandising'  => esc_html__( 'Merchandising', 'assistant-for-woocommerce' ),
-                'shipping'       => esc_html__( 'Shipping', 'assistant-for-woocommerce' ),
-                'customizations' => esc_html__( 'Customizations', 'assistant-for-woocommerce' ),
-                'conversion'     => esc_html__( 'Conversion', 'assistant-for-woocommerce' ),
-                'seo'            => esc_html__( 'SEO', 'assistant-for-woocommerce' ),
-                'utility'        => esc_html__( 'Utility', 'assistant-for-woocommerce' ),
+            'recommended'    => esc_html__( 'Recommended', 'assistant-for-woocommerce' ),
+            'product'        => esc_html__( 'Product', 'assistant-for-woocommerce' ),
+            'cart'           => esc_html__( 'Cart', 'assistant-for-woocommerce' ),
+            'checkout'       => esc_html__( 'Checkout', 'assistant-for-woocommerce' ),
+            'order'          => esc_html__( 'Order', 'assistant-for-woocommerce' ),
+            'marketing'      => esc_html__( 'Marketing', 'assistant-for-woocommerce' ),
+            'payments'       => esc_html__( 'Payments', 'assistant-for-woocommerce' ),
+            'merchandising'  => esc_html__( 'Merchandising', 'assistant-for-woocommerce' ),
+            'shipping'       => esc_html__( 'Shipping', 'assistant-for-woocommerce' ),
+            'customizations' => esc_html__( 'Customizations', 'assistant-for-woocommerce' ),
+            'conversion'     => esc_html__( 'Conversion', 'assistant-for-woocommerce' ),
+            'seo'            => esc_html__( 'SEO', 'assistant-for-woocommerce' ),
+            'utility'        => esc_html__( 'Utility', 'assistant-for-woocommerce' ),
         );
 
         $cats = apply_filters( 'assistant_for_woocommerce_addon_cats', array() );
