@@ -60,8 +60,9 @@ class ProductQuantity extends Addon implements AddonInterface {
 		add_action( 'woocommerce_after_quantity_input_field', [ $this, 'afterQuantityInputField' ] );
 
 		if ( WooCommerce::isWoocommerce() || WooCommerce::isCart() ) {
-			add_action( 'wp_footer', [ $this, 'enqueueScripts' ] );
-			add_action( 'wp_footer', [ $this, 'printStyle' ] );
+			add_action( 'wp_footer', [ $this, 'enqueueScripts' ], 0 );
+			add_action( 'wp_footer', [ $this, 'enqueueStyle' ], 0 );
+			add_action( 'wp_footer', [ $this, 'printStyleFooter' ] );
 		}
 		//add_filter( 'assistant_for_woocommerce_settings_header_image', [ $this, 'addHeaderImage' ], 10, 4 );
 	}
@@ -572,7 +573,7 @@ class ProductQuantity extends Addon implements AddonInterface {
 		return $image;
 	}
 
-	public function printStyle(): void {
+	public function enqueueStyle(): void {
 		if ( ! self::$printed && ! self::$printStyle ) {
 			return;
 		}
@@ -635,11 +636,15 @@ class ProductQuantity extends Addon implements AddonInterface {
 		if ( ! empty( $inputStyle ) ) {
 			$style .= "\n" . '.asfowoo-quantity-input-plus-minus input[name="quantity"]{' . $inputStyle . "\n}\n";
 		}
-
 		if ( ! empty( $style ) ) {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo '<style>' . $style . '</style>' . "\n";
+			wp_register_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-product-quantity-inline-style', false, [], Assets::getVersion() );
+			wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-product-quantity-inline-style' );
+			wp_add_inline_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-product-quantity-inline-style', $style );
 		}
+	}
+
+	public function printStyleFooter(): void {
+		wp_print_styles( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-product-quantity-inline-style' );
 	}
 
 	public function beforeQuantityInputField(): void {
