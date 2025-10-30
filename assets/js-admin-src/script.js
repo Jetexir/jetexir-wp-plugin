@@ -1,14 +1,14 @@
 jQuery(document).ready(function ($) {
-    let wpColorPickerPalettes = ['#333', '#5de0f0', '#608bf7', '#7fff3f', '#00b700', '#fff200', '#ffae63', '#e64f6f', '#ef32e3', '#d1c1ff', '#873eff'],
-        wpColorPickerOptions = {
+    let waWpColorPickerPalettes = ['#333', '#5de0f0', '#608bf7', '#7fff3f', '#00b700', '#fff200', '#ffae63', '#e64f6f', '#ef32e3', '#d1c1ff', '#873eff'],
+        waWpColorPickerOptions = {
             defaultColor: false, change: function (event, ui) {
                 waActiveSettingsForm();
             }, clear: function () {
                 waActiveSettingsForm();
-            }, hide: true, palettes: wpColorPickerPalettes
+            }, hide: true, palettes: waWpColorPickerPalettes
         },
-        settingsSubmitActive = false,
-        wpMediaFrames = {};
+        waSettingsSubmitActive = false,
+        waWpMediaFrames = {};
 
     const waBody = $('body'),
         waContentWrap = $('#asfowoo-content-wrap'),
@@ -17,9 +17,9 @@ jQuery(document).ready(function ($) {
         waSettingsDisplaySidebar = $('#asfowoo-display-sidebar'),
         waSettingsHideSidebar = $('#asfowoo-hide-sidebar'),
         waSettingsSectionLinks = $('.asfowoo-section-links ul'),
-        settingsForm = document.getElementById('asfowoo-settings-form'),
-        settingsFooter = document.getElementById('asfowoo-settings-footer'),
-        settingsResetButton = document.getElementById("asfowoo-settings-reset-button");
+        waSettingsForm = document.getElementById('asfowoo-settings-form'),
+        waSettingsFooter = document.getElementById('asfowoo-settings-footer'),
+        waSettingsResetButton = document.getElementById("asfowoo-settings-reset-button");
 
     let waContentWrapPrevScrollPos = waContentWrap.scrollTop(),
         waContentWrapCurrentScrollPos = waContentWrapPrevScrollPos;
@@ -135,24 +135,24 @@ jQuery(document).ready(function ($) {
 
 
     function waActiveSettingsForm() {
-        if (settingsSubmitActive) return;
-        settingsSubmitActive = true;
+        if (waSettingsSubmitActive) return;
+        waSettingsSubmitActive = true;
 
-        if (settingsFooter) settingsFooter.classList.remove('asfowoo-submit-inactive');
+        if (waSettingsFooter) waSettingsFooter.classList.remove('asfowoo-submit-inactive');
     }
 
-    if (settingsForm) {
-        if (settingsFooter) settingsFooter.classList.add('asfowoo-submit-inactive');
+    if (waSettingsForm) {
+        if (waSettingsFooter) waSettingsFooter.classList.add('asfowoo-submit-inactive');
 
-        settingsForm.addEventListener('change', function () {
+        waSettingsForm.addEventListener('change', function () {
             waActiveSettingsForm();
         });
 
-        if (settingsResetButton) {
-            settingsResetButton.addEventListener("click", () => {
-                settingsSubmitActive = false;
+        if (waSettingsResetButton) {
+            waSettingsResetButton.addEventListener("click", () => {
+                waSettingsSubmitActive = false;
 
-                if (settingsFooter) settingsFooter.classList.add('asfowoo-submit-inactive');
+                if (waSettingsFooter) waSettingsFooter.classList.add('asfowoo-submit-inactive');
             });
         }
     }
@@ -173,7 +173,7 @@ jQuery(document).ready(function ($) {
 
                 }, clear: function () {
                     waActiveSettingsForm();
-                }, hide: true, palettes: wpColorPickerPalettes
+                }, hide: true, palettes: waWpColorPickerPalettes
             });
         }
 
@@ -348,11 +348,11 @@ jQuery(document).ready(function ($) {
 
     waInitGradient();
 
-    function wpColorPickerInit() {
+    function waWpColorPickerInit() {
         let wpColorPicker = $('.asfowoo-wp-color-picker,.asfowoo-color-palette').not('.asfowoo-gradient-select-color').find('input[type="text"]');
 
         if (wpColorPicker.length) {
-            wpColorPicker.wpColorPicker(wpColorPickerOptions);
+            wpColorPicker.wpColorPicker(waWpColorPickerOptions);
 
             setTimeout(function () {
                 $('.asfowoo-color-palette[data-removable="1"]').each(function () {
@@ -368,7 +368,7 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    wpColorPickerInit();
+    waWpColorPickerInit();
 
     $('.asfowoo-color-palette .asfowoo-add-color').unbind("click").on('click', function (e) {
         e.preventDefault();
@@ -397,7 +397,7 @@ jQuery(document).ready(function ($) {
         }));
         waColorPaletteItems.append(waColorInputClone);
 
-        waColorInputClone.wpColorPicker(wpColorPickerOptions);
+        waColorInputClone.wpColorPicker(waWpColorPickerOptions);
 
         if (waColorPaletteMax !== undefined && parseInt(waColorPaletteMax) <= (currentColorCount + 1)) {
             $this.attr('disable', 'true');
@@ -659,7 +659,7 @@ jQuery(document).ready(function ($) {
                         modalTargetElm.find('.asfowoo-modal-body').html(data.data.content);
 
                         setTimeout(function () {
-                            wpColorPickerInit();
+                            waWpColorPickerInit();
                             waInitGradient();
                         }, 500);
                     }
@@ -845,7 +845,7 @@ jQuery(document).ready(function ($) {
                 modalTargetElm.find('.asfowoo-modal-body').html(data.data.content);
 
                 setTimeout(function () {
-                    wpColorPickerInit();
+                    waWpColorPickerInit();
                     waInitGradient();
                 }, 500);
 
@@ -973,13 +973,13 @@ jQuery(document).ready(function ($) {
             mediaInput = mediaWrap.find('input'),
             mediaSelected = 1;
 
-        /*if (wpMediaFrames.hasOwnProperty(mediaWrapperID)) {
-            wpMediaFrames[mediaWrapperID].open();
+        /*if (waWpMediaFrames.hasOwnProperty(mediaWrapperID)) {
+            waWpMediaFrames[mediaWrapperID].open();
             return;
         }*/
 
         // Create a new media frame
-        wpMediaFrames[mediaWrapperID] = wp.media({
+        waWpMediaFrames[mediaWrapperID] = wp.media({
             title: mediaTitle,
             button: {
                 text: mediaButton
@@ -990,8 +990,8 @@ jQuery(document).ready(function ($) {
             multiple: mediaMultiple
         });
 
-        wpMediaFrames[mediaWrapperID].once('uploader:ready', function () {
-            var uploader = wpMediaFrames[mediaWrapperID].uploader.uploader.uploader; // Upload manager
+        waWpMediaFrames[mediaWrapperID].once('uploader:ready', function () {
+            var uploader = waWpMediaFrames[mediaWrapperID].uploader.uploader.uploader; // Upload manager
 
             //Updating allowed extensions
             uploader.setOption('filters',
@@ -1006,8 +1006,8 @@ jQuery(document).ready(function ($) {
             uploader.setOption('multi_selection', multiSelection);
         });
 
-        wpMediaFrames[mediaWrapperID].on('open', function () {
-            let selection = wpMediaFrames[mediaWrapperID].state().get('selection'),
+        waWpMediaFrames[mediaWrapperID].on('open', function () {
+            let selection = waWpMediaFrames[mediaWrapperID].state().get('selection'),
                 mediaIDs = mediaInput.val().split(',');
 
             if (mediaIDs.length > 0) {
@@ -1020,11 +1020,11 @@ jQuery(document).ready(function ($) {
         });
 
         // When an image is selected in the media frame...
-        wpMediaFrames[mediaWrapperID].on('select', function () {
+        waWpMediaFrames[mediaWrapperID].on('select', function () {
             mediaImageContainer.html('');
 
             // Get media attachment details from the frame state
-            let attachments = wpMediaFrames[mediaWrapperID].state().get('selection'),
+            let attachments = waWpMediaFrames[mediaWrapperID].state().get('selection'),
                 attachmentIDs = attachments.map(function (attachment) {
                     if (mediaSelected <= mediaMaxNumber) {
                         attachment = attachment.toJSON();
@@ -1055,7 +1055,7 @@ jQuery(document).ready(function ($) {
         });
 
         // Finally, open the modal on click
-        wpMediaFrames[mediaWrapperID].open();
+        waWpMediaFrames[mediaWrapperID].open();
     });
 
     $('.asfowoo-media-remove-all').on('click', function () {
