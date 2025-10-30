@@ -379,9 +379,6 @@ class ProductCompare extends Addon implements AddonInterface {
                         'id'                => 'product_compare_image_size',
                         'title'             => esc_html__( 'Image size', 'assistant-for-woocommerce' ),
                         'type'              => 'imageSizeSelect',
-                        'args'              => array(
-                                'post_type' => 'page'
-                        ),
                         'default'           => 'thumbnail',
                         'option_none'       => '---',
                         'option_none_value' => '',
