@@ -185,6 +185,10 @@ class AdminSettings {
 			$default = [];
 		}
 
+		if ( $setting['type'] === 'checkboxinline' ) {
+			$default = [];
+		}
+
 		return $default;
 	}
 
