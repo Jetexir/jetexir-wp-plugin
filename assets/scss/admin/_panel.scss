@@ -276,6 +276,10 @@ body.toplevel_page_#{variables.$plugin_key} {
 
         .asfowoo-header-links {
           padding: 0 30px;
+
+          &:empty {
+            display: none;
+          }
         }
 
         .asfowoo-header-separator {
