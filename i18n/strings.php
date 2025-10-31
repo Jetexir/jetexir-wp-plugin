@@ -1,8 +1,5 @@
 <?php
 // Dynamic strings
-esc_html__( 'Billing', 'assistant-for-woocommerce' );
-esc_html__( 'Shipping', 'assistant-for-woocommerce' );
-esc_html__( 'Order', 'assistant-for-woocommerce' );
 
 // Image sizes
 esc_html__( 'Full', 'assistant-for-woocommerce' );
