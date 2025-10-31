@@ -2,10 +2,9 @@
 
 @font-face {
   font-family: '#{$icomoon-font-family}';
-  src:
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?20wdh9') format('truetype'),
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?20wdh9') format('woff'),
-          url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?20wdh9##{$icomoon-font-family}') format('svg');
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?20wdh9') format('truetype'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?20wdh9') format('woff'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?20wdh9##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -31,406 +30,487 @@
     content: $asfowoo-icon-menu;
   }
 }
+
 .asfowoo-icon-magic-wand {
   &:before {
     content: $asfowoo-icon-magic-wand;
   }
 }
+
 .asfowoo-icon-magic-wand3 {
   &:before {
     content: $asfowoo-icon-magic-wand3;
   }
 }
+
 .asfowoo-icon-magic-wand1 {
   &:before {
     content: $asfowoo-icon-magic-wand1;
   }
 }
+
 .asfowoo-icon-magic-lamp {
   &:before {
     content: $asfowoo-icon-magic-lamp;
   }
 }
+
 .asfowoo-icon-magic-lamp1 {
   &:before {
     content: $asfowoo-icon-magic-lamp1;
   }
 }
+
 .asfowoo-icon-magic-wand2 {
   &:before {
     content: $asfowoo-icon-magic-wand2;
   }
 }
+
 .asfowoo-icon-wish {
   &:before {
     content: $asfowoo-icon-wish;
   }
 }
+
 .asfowoo-icon-crossed-fingers {
   &:before {
     content: $asfowoo-icon-crossed-fingers;
   }
 }
+
 .asfowoo-icon-bluesky {
   &:before {
     content: $asfowoo-icon-bluesky;
   }
 }
+
 .asfowoo-icon-viber {
   &:before {
     content: $asfowoo-icon-viber;
   }
 }
+
 .asfowoo-icon-whatsapp {
   &:before {
     content: $asfowoo-icon-whatsapp;
   }
 }
+
 .asfowoo-icon-telegram {
   &:before {
     content: $asfowoo-icon-telegram;
   }
 }
+
 .asfowoo-icon-mastodon {
   &:before {
     content: $asfowoo-icon-mastodon;
   }
 }
+
 .asfowoo-icon-yahoo {
   &:before {
     content: $asfowoo-icon-yahoo;
   }
 }
+
 .asfowoo-icon-x-twitter {
   &:before {
     content: $asfowoo-icon-x-twitter;
   }
 }
+
 .asfowoo-icon-shopping-basket3 {
   &:before {
     content: $asfowoo-icon-shopping-basket3;
   }
 }
+
 .asfowoo-icon-heart3 {
   &:before {
     content: $asfowoo-icon-heart3;
   }
 }
+
 .asfowoo-icon-heart1 {
   &:before {
     content: $asfowoo-icon-heart1;
   }
 }
+
 .asfowoo-icon-move-vertical {
   &:before {
     content: $asfowoo-icon-move-vertical;
   }
 }
+
 .asfowoo-icon-heart-stroke {
   &:before {
     content: $asfowoo-icon-heart-stroke;
   }
 }
+
 .asfowoo-icon-shopping-basket2 {
   &:before {
     content: $asfowoo-icon-shopping-basket2;
   }
 }
+
 .asfowoo-icon-shopping-cart5 {
   &:before {
     content: $asfowoo-icon-shopping-cart5;
   }
 }
+
 .asfowoo-icon-shopping-cart6 {
   &:before {
     content: $asfowoo-icon-shopping-cart6;
   }
 }
+
 .asfowoo-icon-checkmark {
   &:before {
     content: $asfowoo-icon-checkmark;
   }
 }
+
 .asfowoo-icon-checkmark2 {
   &:before {
     content: $asfowoo-icon-checkmark2;
   }
 }
+
 .asfowoo-icon-arrow-down {
   &:before {
     content: $asfowoo-icon-arrow-down;
   }
 }
+
 .asfowoo-icon-circle-down {
   &:before {
     content: $asfowoo-icon-circle-down;
   }
 }
+
 .asfowoo-icon-weibo {
   &:before {
     content: $asfowoo-icon-weibo;
   }
 }
+
 .asfowoo-icon-tick-outline {
   &:before {
     content: $asfowoo-icon-tick-outline;
   }
 }
+
 .asfowoo-icon-shopping-cart {
   &:before {
     content: $asfowoo-icon-shopping-cart;
   }
 }
+
 .asfowoo-icon-star_rate {
   &:before {
     content: $asfowoo-icon-star_rate;
   }
 }
+
 .asfowoo-icon-bookmark_outline {
   &:before {
     content: $asfowoo-icon-bookmark_outline;
   }
 }
+
 .asfowoo-icon-star_outline {
   &:before {
     content: $asfowoo-icon-star_outline;
   }
 }
+
 .asfowoo-icon-star_half {
   &:before {
     content: $asfowoo-icon-star_half;
   }
 }
+
 .asfowoo-icon-library_add {
   &:before {
     content: $asfowoo-icon-library_add;
   }
 }
+
 .asfowoo-icon-bookmarks {
   &:before {
     content: $asfowoo-icon-bookmarks;
   }
 }
+
 .asfowoo-icon-bookmark {
   &:before {
     content: $asfowoo-icon-bookmark;
   }
 }
+
 .asfowoo-icon-heart {
   &:before {
     content: $asfowoo-icon-heart;
   }
 }
+
 .asfowoo-icon-library_add_check {
   &:before {
     content: $asfowoo-icon-library_add_check;
   }
 }
+
 .asfowoo-icon-check_circle_outline {
   &:before {
     content: $asfowoo-icon-check_circle_outline;
   }
 }
+
 .asfowoo-icon-check_circle {
   &:before {
     content: $asfowoo-icon-check_circle;
   }
 }
+
 .asfowoo-icon-check_box {
   &:before {
     content: $asfowoo-icon-check_box;
   }
 }
+
 .asfowoo-icon-file_copy {
   &:before {
     content: $asfowoo-icon-file_copy;
   }
 }
+
 .asfowoo-icon-content_copy {
   &:before {
     content: $asfowoo-icon-content_copy;
   }
 }
+
 .asfowoo-icon-edit {
   &:before {
     content: $asfowoo-icon-edit;
   }
 }
+
 .asfowoo-icon-trash {
   &:before {
     content: $asfowoo-icon-trash;
   }
 }
+
 .asfowoo-icon-check {
   &:before {
     content: $asfowoo-icon-check;
   }
 }
+
 .asfowoo-icon-heart2 {
   &:before {
     content: $asfowoo-icon-heart2;
   }
 }
+
 .asfowoo-icon-shopping-bag {
   &:before {
     content: $asfowoo-icon-shopping-bag;
   }
 }
+
 .asfowoo-icon-shopping-cart3 {
   &:before {
     content: $asfowoo-icon-shopping-cart3;
   }
 }
+
 .asfowoo-icon-plus {
   &:before {
     content: $asfowoo-icon-plus;
   }
 }
+
 .asfowoo-icon-chevrons-up {
   &:before {
     content: $asfowoo-icon-chevrons-up;
   }
 }
+
 .asfowoo-icon-chevrons-right {
   &:before {
     content: $asfowoo-icon-chevrons-right;
   }
 }
+
 .asfowoo-icon-chevrons-left {
   &:before {
     content: $asfowoo-icon-chevrons-left;
   }
 }
+
 .asfowoo-icon-chevrons-down {
   &:before {
     content: $asfowoo-icon-chevrons-down;
   }
 }
+
 .asfowoo-icon-chevron-right {
   &:before {
     content: $asfowoo-icon-chevron-right;
   }
 }
+
 .asfowoo-icon-chevron-left {
   &:before {
     content: $asfowoo-icon-chevron-left;
   }
 }
+
 .asfowoo-icon-chevron-down {
   &:before {
     content: $asfowoo-icon-chevron-down;
   }
 }
+
 .asfowoo-icon-chevron-up {
   &:before {
     content: $asfowoo-icon-chevron-up;
   }
 }
+
 .asfowoo-icon-plus-circle {
   &:before {
     content: $asfowoo-icon-plus-circle;
   }
 }
+
 .asfowoo-icon-cross {
   &:before {
     content: $asfowoo-icon-cross;
   }
 }
+
 .asfowoo-icon-shopping-cart7 {
   &:before {
     content: $asfowoo-icon-shopping-cart7;
   }
 }
+
 .asfowoo-icon-close {
   &:before {
     content: $asfowoo-icon-close;
   }
 }
+
 .asfowoo-icon-shopping-cart1 {
   &:before {
     content: $asfowoo-icon-shopping-cart1;
   }
 }
+
 .asfowoo-icon-location-shopping {
   &:before {
     content: $asfowoo-icon-location-shopping;
   }
 }
+
 .asfowoo-icon-circle-with-cross {
   &:before {
     content: $asfowoo-icon-circle-with-cross;
   }
 }
+
 .asfowoo-icon-shopping-basket {
   &:before {
     content: $asfowoo-icon-shopping-basket;
   }
 }
+
 .asfowoo-icon-shopping-bag1 {
   &:before {
     content: $asfowoo-icon-shopping-bag1;
   }
 }
+
 .asfowoo-icon-shopping-cart4 {
   &:before {
     content: $asfowoo-icon-shopping-cart4;
   }
 }
+
 .asfowoo-icon-evernote {
   &:before {
     content: $asfowoo-icon-evernote;
   }
 }
+
 .asfowoo-icon-xing {
   &:before {
     content: $asfowoo-icon-xing;
   }
 }
+
 .asfowoo-icon-vk {
   &:before {
     content: $asfowoo-icon-vk;
   }
 }
+
 .asfowoo-icon-tumblr {
   &:before {
     content: $asfowoo-icon-tumblr;
   }
 }
+
 .asfowoo-icon-check1 {
   &:before {
     content: $asfowoo-icon-check1;
   }
 }
+
 .asfowoo-icon-shopping-basket1 {
   &:before {
     content: $asfowoo-icon-shopping-basket1;
   }
 }
+
 .asfowoo-icon-shopping-cart2 {
   &:before {
     content: $asfowoo-icon-shopping-cart2;
   }
 }
+
 .asfowoo-icon-email {
   &:before {
     content: $asfowoo-icon-email;
   }
 }
+
 .asfowoo-icon-reddit {
   &:before {
     content: $asfowoo-icon-reddit;
   }
 }
+
 .asfowoo-icon-linkedin {
   &:before {
     content: $asfowoo-icon-linkedin;
   }
 }
+
 .asfowoo-icon-facebook {
   &:before {
     content: $asfowoo-icon-facebook;
   }
 }
+
 .asfowoo-icon-pinterest {
   &:before {
     content: $asfowoo-icon-pinterest;

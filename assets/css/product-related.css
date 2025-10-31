@@ -13,6 +13,7 @@
   justify-content: space-between;
   pointer-events: none;
 }
+
 .asfowoo-related-products.owl-carousel .owl-nav button:is(.owl-prev, .owl-next) {
   color: var(--asfowoo-element-color, #2B2B2B);
   background-color: var(--asfowoo-element-bg-color, rgb(247.35, 247.35, 247.35));
@@ -28,6 +29,7 @@
   justify-content: center;
   pointer-events: auto;
 }
+
 .asfowoo-related-products.owl-carousel .owl-nav button:is(.owl-prev, .owl-next):hover, .asfowoo-related-products.owl-carousel .owl-nav button:is(.owl-prev, .owl-next):focus {
   color: var(--asfowoo-element-hover-color, #2B2B2B);
   background-color: var(--asfowoo-element-hover-bg-color, rgb(247.35, 247.35, 247.35));

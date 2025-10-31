@@ -3,5 +3,5 @@
 namespace AssistantForWooCommerce\Interfaces;
 
 interface AddonInterface {
-	public function info(): array;
+  public function info(): array;
 }

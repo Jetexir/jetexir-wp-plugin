@@ -3,7 +3,7 @@
 namespace AssistantForWooCommerce\Plugin;
 
 class Install {
-	public static function run(): void {
+  public static function run(): void {
 
-	}
+  }
 }

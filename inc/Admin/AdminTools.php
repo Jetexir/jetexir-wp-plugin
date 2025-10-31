@@ -7,8 +7,8 @@ defined( 'ABSPATH' ) || exit;
 use AssistantForWooCommerce\Interfaces\AdminTabInterface;
 
 class AdminTools implements AdminTabInterface {
-	public const tab = 'tools';
-	public const icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+  public const tab = 'tools';
+  public const icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
   <g stroke="#873eff" stroke-width="1.5">
     <circle cx="12" cy="12" r="10"/>
     <circle cx="12" cy="12" r="3"/>
@@ -17,43 +17,43 @@ class AdminTools implements AdminTabInterface {
   </g>
 </svg>';
 
-	private static ?array $settings = null;
+  private static ?array $settings = null;
 
-	public function __construct() {
-		add_filter( 'assistant_for_woocommerce_menus', [ $this, 'addMenu' ] );
-		add_filter( 'assistant_for_woocommerce_' . self::tab . '_settings', [ $this, 'settings' ] );
-		add_filter( 'assistant_for_woocommerce_settings', [ $this, 'allSettings' ] );
-		add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_display_notice', '__return_false' );
-		add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_content_display_notice', '__return_true' );
-	}
+  public function __construct() {
+    add_filter( 'assistant_for_woocommerce_menus', [ $this, 'addMenu' ] );
+    add_filter( 'assistant_for_woocommerce_' . self::tab . '_settings', [ $this, 'settings' ] );
+    add_filter( 'assistant_for_woocommerce_settings', [ $this, 'allSettings' ] );
+    add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_display_notice', '__return_false' );
+    add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_content_display_notice', '__return_true' );
+  }
 
-	public function addMenu( $menus ) {
-		$settings = $this->settings();
-		if ( ! empty( $settings['sections'] ) ) {
-			$menus[ self::tab ] = array(
-				'title' => esc_html__( 'Tools', 'assistant-for-woocommerce' ),
-				'icon'  => self::icon
-			);
-		}
+  public function addMenu( $menus ) {
+    $settings = $this->settings();
+    if ( ! empty( $settings['sections'] ) ) {
+      $menus[ self::tab ] = array(
+        'title' => esc_html__( 'Tools', 'assistant-for-woocommerce' ),
+        'icon'  => self::icon
+      );
+    }
 
-		return $menus;
-	}
+    return $menus;
+  }
 
-	public function allSettings( $settings ): array {
-		$settings[ self::tab ] = $this->settings();
+  public function allSettings( $settings ): array {
+    $settings[ self::tab ] = $this->settings();
 
-		return $settings;
-	}
+    return $settings;
+  }
 
-	public function settings(): array {
-		if ( self::$settings === null ) {
-			self::$settings = array(
-				'title'    => esc_html__( 'Tools', 'assistant-for-woocommerce' ),
-				'desc'     => esc_html__( 'Tools for WordPress and WooCommerce', 'assistant-for-woocommerce' ),
-				'sections' => apply_filters( 'assistant_for_woocommerce_' . self::tab . '_settings_sections', [] )
-			);
-		}
+  public function settings(): array {
+    if ( self::$settings === null ) {
+      self::$settings = array(
+        'title'    => esc_html__( 'Tools', 'assistant-for-woocommerce' ),
+        'desc'     => esc_html__( 'Tools for WordPress and WooCommerce', 'assistant-for-woocommerce' ),
+        'sections' => apply_filters( 'assistant_for_woocommerce_' . self::tab . '_settings_sections', [] )
+      );
+    }
 
-		return self::$settings;
-	}
+    return self::$settings;
+  }
 }

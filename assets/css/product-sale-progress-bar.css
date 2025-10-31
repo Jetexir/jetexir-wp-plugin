@@ -2,6 +2,7 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 .asfowoo-sale-progress-bar .asfowoo-spb-stock-info {
   display: flex;
   flex-wrap: wrap;
@@ -10,25 +11,31 @@
   margin-bottom: 8px;
   line-height: 1;
 }
+
 .asfowoo-sale-progress-bar .asfowoo-spb-stock-info :is(.asfowoo-spb-total-sold, .asfowoo-spb-current-stock) {
   display: inline-flex;
   gap: 5px;
 }
+
 .asfowoo-sale-progress-bar .asfowoo-spb-stock-info span {
   font-weight: 600;
 }
+
 .asfowoo-sale-progress-bar :is(.asfowoo-spb-progress-area, .asfowoo-spb-progress-bar) {
   height: var(--asfowoo-progress-bar-height, 7px);
   border-radius: var(--asfowoo-element-border-radius, 0);
 }
+
 .asfowoo-sale-progress-bar .asfowoo-spb-progress-area {
   width: 100%;
   background-color: #f3f3f3;
   transition: background-color 0.25s ease;
 }
+
 .asfowoo-sale-progress-bar .asfowoo-spb-progress-area .asfowoo-spb-progress-bar {
   background-color: var(--asfowoo-progress-bar-bg-color, #8A8A8A);
 }
+
 @media (max-width: 576px) {
   .asfowoo-sale-progress-bar .asfowoo-spb-stock-info .asfowoo-spb-total-sold {
     display: none;

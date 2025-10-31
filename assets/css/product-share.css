@@ -3,6 +3,7 @@
   gap: 10px;
   margin: 20px 0;
 }
+
 .asfowoo-product-share-wrapper .asfowoo-product-share-title {
   display: flex;
   justify-content: flex-start;
@@ -10,12 +11,14 @@
   margin-block-end: 10px;
   min-width: 50px;
 }
+
 .asfowoo-product-share-wrapper .asfowoo-product-share-links {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   gap: 10px;
 }
+
 .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link {
   display: flex;
   justify-content: center;
@@ -31,30 +34,37 @@
   font-size: 14px;
   transition: all 0.3s ease;
 }
+
 .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link .asfowoo-icon-content_copy {
   animation: afwBlinkText 250ms step-start 0s infinite;
 }
+
 .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-size-large {
   font-size: 18px;
   width: 45px;
   height: 45px;
 }
+
 .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link:hover, .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link:focus {
   color: var(--asfowoo-element-hover-color, #2B2B2B);
   border: 1px solid var(--asfowoo-element-hover-border-color, #E6E2F5);
   background-color: var(--asfowoo-element-hover-bg-color, rgb(247.35, 247.35, 247.35));
   outline: 1px solid var(--asfowoo-element-hover-border-color, #E6E2F5);
 }
+
 .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-shape-round {
   border-radius: 50%;
 }
+
 .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-shape-rounded_corner {
   border-radius: 10px;
 }
+
 .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-appearance-text, .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-appearance-icon_text {
   width: auto;
   border-radius: 10px;
 }
+
 .asfowoo-product-share-wrapper .asfowoo-product-share-links .asfowoo-product-share-link.asfowoo-product-share-link-shape-square {
   border-radius: 0;
 }

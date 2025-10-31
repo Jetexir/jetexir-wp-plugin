@@ -10,19 +10,19 @@ use AssistantForWooCommerce\Helper\Templates;
 use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class WooDeveloperFeed extends Addon implements AddonInterface {
-	public string $addonID = 'woo-developer-feed';
+  public string $addonID = 'woo-developer-feed';
 
-	public function content(): void {
-		$feedReader = new FeedReader( [ 'url' => 'https://developer.woocommerce.com/feed/' ] );
-		$feedItems  = $feedReader->replaceDescText( array(
-			[ 'The post %title% appeared first on The WooCommerce Developer Blog.', '' ]
-		) )->read()->getFeedLinks();
+  public function content(): void {
+    $feedReader = new FeedReader( [ 'url' => 'https://developer.woocommerce.com/feed/' ] );
+    $feedItems  = $feedReader->replaceDescText( array(
+      [ 'The post %title% appeared first on The WooCommerce Developer Blog.', '' ]
+    ) )->read()->getFeedLinks();
 
-		Templates::load( Templates::getPath( 'feed-reader/feed_list.php' ), array( 'items' => $feedItems ) );
-	}
+    Templates::load( Templates::getPath( 'feed-reader/feed_list.php' ), array( 'items' => $feedItems ) );
+  }
 
-	public function info(): array {
-		$svg = '<svg width="200" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+  public function info(): array {
+    $svg = '<svg width="200" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 183.6 47.5" style="enable-background:new 0 0 183.6 47.5;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#873EFF;}
@@ -42,17 +42,17 @@ class WooDeveloperFeed extends Addon implements AddonInterface {
 </g>
 </svg>';
 
-		return array(
-			'id'             => $this->addonID,
-			'title'          => esc_html__( 'Woo Developer Feed', 'assistant-for-woocommerce' ),
-			'desc'           => esc_html__( 'WooCommerce Developer Blog RSS Feed', 'assistant-for-woocommerce' ),
-			'has_page'       => true,
-			'force_enable'   => false,
-			'content_header' => true,
-			'icon'           => $svg,
-			'image_link'     => 'https://developer.woocommerce.com',
-			'tags'           => [ esc_html__( 'Feed', 'assistant-for-woocommerce' ) ],
-			'cat'            => 'utility',
-		);
-	}
+    return array(
+      'id'             => $this->addonID,
+      'title'          => esc_html__( 'Woo Developer Feed', 'assistant-for-woocommerce' ),
+      'desc'           => esc_html__( 'WooCommerce Developer Blog RSS Feed', 'assistant-for-woocommerce' ),
+      'has_page'       => true,
+      'force_enable'   => false,
+      'content_header' => true,
+      'icon'           => $svg,
+      'image_link'     => 'https://developer.woocommerce.com',
+      'tags'           => [ esc_html__( 'Feed', 'assistant-for-woocommerce' ) ],
+      'cat'            => 'utility',
+    );
+  }
 }

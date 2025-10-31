@@ -28,61 +28,61 @@ use AssistantForWooCommerce\Settings\Settings;
 use AssistantForWooCommerce\Plugin\Install;
 
 final class AssistantForWooCommerce {
-	public function __construct() {
-		$this->define();
-		$this->include();
-		$this->instance();
-	}
+  public function __construct() {
+    $this->define();
+    $this->include();
+    $this->instance();
+  }
 
-	/**
-	 * Define constant
-	 *
-	 * @return void
-	 */
-	private function define(): void {
-		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY', 'assistant_for_woocommerce' );
-		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG', 'assistant-for-woocommerce' );
-		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP', 'AssistantForWooCommerce' );
-		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_FILE_PATH', __FILE__ );
-		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_PATH', __DIR__ );
-		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_TEMPLATE_PATH', ASSISTANTFORWOOCOMMERCE_PLUGIN_PATH . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Templates' );
-		define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_URL', plugins_url( '/', ASSISTANTFORWOOCOMMERCE_PLUGIN_FILE_PATH ) );
-		define( 'ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_' );
-		define( 'ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX', 'asfowoo-' );
+  /**
+   * Define constant
+   *
+   * @return void
+   */
+  private function define(): void {
+    define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY', 'assistant_for_woocommerce' );
+    define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG', 'assistant-for-woocommerce' );
+    define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP', 'AssistantForWooCommerce' );
+    define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_FILE_PATH', __FILE__ );
+    define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_PATH', __DIR__ );
+    define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_TEMPLATE_PATH', ASSISTANTFORWOOCOMMERCE_PLUGIN_PATH . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Templates' );
+    define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_URL', plugins_url( '/', ASSISTANTFORWOOCOMMERCE_PLUGIN_FILE_PATH ) );
+    define( 'ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_' );
+    define( 'ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX', 'asfowoo-' );
 
-		add_action( 'init', static function () {
-			if ( ! function_exists( 'get_plugin_data' ) ) {
-				require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-			}
-			$pluginData = get_plugin_data( ASSISTANTFORWOOCOMMERCE_PLUGIN_FILE_PATH );
-			define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_VERSION', $pluginData['Version'] );
-		}, 0 );
-	}
+    add_action( 'init', static function () {
+      if ( ! function_exists( 'get_plugin_data' ) ) {
+        require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+      }
+      $pluginData = get_plugin_data( ASSISTANTFORWOOCOMMERCE_PLUGIN_FILE_PATH );
+      define( 'ASSISTANTFORWOOCOMMERCE_PLUGIN_VERSION', $pluginData['Version'] );
+    }, 0 );
+  }
 
-	/**
-	 * Include required files
-	 *
-	 * @return void
-	 */
-	private function include(): void {
-		require_once __DIR__ . '/vendor/autoload.php';
-	}
+  /**
+   * Include required files
+   *
+   * @return void
+   */
+  private function include(): void {
+    require_once __DIR__ . '/vendor/autoload.php';
+  }
 
-	/**
-	 * Instant classes
-	 *
-	 * @return void
-	 */
-	private function instance(): void {
-		define( 'ASSISTANTFORWOOCOMMERCE_DEBUG_MODE', Settings::get( 'debug_mode', false ) );
+  /**
+   * Instant classes
+   *
+   * @return void
+   */
+  private function instance(): void {
+    define( 'ASSISTANTFORWOOCOMMERCE_DEBUG_MODE', Settings::get( 'debug_mode', false ) );
 
-		new Plugin();
-		new Admin();
-		new Addons();
-		new Integrations();
-		new AppHelper();
-		new App();
-	}
+    new Plugin();
+    new Admin();
+    new Addons();
+    new Integrations();
+    new AppHelper();
+    new App();
+  }
 }
 
 new AssistantForWooCommerce();
