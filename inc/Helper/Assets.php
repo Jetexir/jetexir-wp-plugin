@@ -99,12 +99,26 @@ class Assets {
     $sizes      = get_intermediate_image_sizes();
     $imageSizes = [];
 
-    foreach ( $sizes as $value ) {
-      // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-      $imageSizes[ $value ] = esc_html__( ucwords( str_replace( '_', ' ', $value ) ), 'assistant-for-woocommerce' );
+    foreach ( $sizes as $size ) {
+      $imageSizes[ $size ] = self::getImageSizeLabel( $size );
     }
 
     return $imageSizes;
+  }
+
+  public static function getImageSizeLabel( $size ) {
+    $labels = array(
+      'full'                          => esc_html__( 'Full', 'assistant-for-woocommerce' ),
+      'thumbnail'                     => esc_html__( 'Thumbnail', 'assistant-for-woocommerce' ),
+      'medium'                        => esc_html__( 'Medium', 'assistant-for-woocommerce' ),
+      'medium_large'                  => esc_html__( 'Medium Large', 'assistant-for-woocommerce' ),
+      'large'                         => esc_html__( 'Large', 'assistant-for-woocommerce' ),
+      'woocommerce_thumbnail'         => esc_html__( 'Woocommerce Thumbnail', 'assistant-for-woocommerce' ),
+      'woocommerce_single'            => esc_html__( 'Woocommerce Single', 'assistant-for-woocommerce' ),
+      'woocommerce_gallery_thumbnail' => esc_html__( 'Woocommerce Gallery Thumbnail', 'assistant-for-woocommerce' )
+    );
+
+    return $labels[ $size ] ?? $size;
   }
 
   public static function isImageString( $string ): bool {
