@@ -20,8 +20,7 @@ trait DebugTrait {
     echo '</pre>';
 
     if ( $echo ) {
-      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-      echo ob_get_clean();
+      echo wp_kses_post( ob_get_clean() );
     } else {
       $output = ob_get_contents();
       ob_get_clean();

@@ -11,11 +11,98 @@ class Media {
 
   public function __construct() {
     add_filter( 'assistant_for_woocommerce_wordpress_settings_sections', [ $this, 'addSectionSettings' ] );
+    add_filter( 'wp_kses_allowed_html', [ $this, 'addSvgToKses' ], 10, 2 );
 
     if ( Settings::get( 'svg_enable', true ) ) {
       add_filter( 'upload_mimes', [ $this, 'addSvgToMedia' ] );
       add_filter( 'image_downsize', [ $this, 'fixSvgSize' ], 10, 2 );
     }
+  }
+
+  public function addSvgToKses( $tags, $context ) {
+    if ( $context === 'post' && is_array( $tags ) && ! isset( $tags['svg'] ) ) {
+      $svg = array(
+        'svg'      => array(
+          'class'           => true,
+          'version'         => true,
+          'aria-hidden'     => true,
+          'aria-labelledby' => true,
+          'role'            => true,
+          'xmlns'           => true,
+          'xmlns:sketch'    => true,
+          'width'           => true,
+          'height'          => true,
+          'viewbox'         => true,
+          'fill'            => true,
+          'focusable'       => true,
+          'style'           => true,
+          'x'               => true,
+          'y'               => true,
+          'xml:space'       => true,
+        ),
+        'g'        => array(
+          'fill'            => true,
+          'fill-rule'       => true,
+          'id'              => true,
+          'transform'       => true,
+          'sketch:type'     => true,
+          'stroke'          => true,
+          'stroke-width'    => true,
+          'strokewidth'     => true,
+          'stroke-linecap'  => true,
+          'stroke-linejoin' => true,
+        ),
+        'title'    => array(
+          'title' => true
+        ),
+        'style'    => array(
+          'type' => true
+        ),
+        'circle'   => array(
+          'cx' => true,
+          'cy' => true,
+          'r'  => true,
+        ),
+        'path'     => array(
+          'd'               => true,
+          'id'              => true,
+          'transform'       => true,
+          'fill'            => true,
+          'class'           => true,
+          'sketch:type'     => true,
+          'stroke'          => true,
+          'stroke-width'    => true,
+          'strokewidth'     => true,
+          'stroke-linecap'  => true,
+          'stroke-linejoin' => true,
+        ),
+        'line'     => array(
+          'id' => true,
+          'x1' => true,
+          'y1' => true,
+          'x2' => true,
+          'y2' => true
+        ),
+        'polygon'  => array(
+          'points' => true
+        ),
+        'polyline' => array(
+          'id'     => true,
+          'points' => true
+        ),
+        'rect'     => array(
+          'x'         => true,
+          'y'         => true,
+          'width'     => true,
+          'height'    => true,
+          'transform' => true,
+        ),
+      );
+
+      $tags = array_merge( $tags, $svg );
+    }
+
+    return $tags;
   }
 
   public function addSvgToMedia( $mimes ) {
