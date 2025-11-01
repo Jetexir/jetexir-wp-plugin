@@ -7,15 +7,7 @@ defined( 'ABSPATH' ) || exit;
 use Automattic\WooCommerce\Utilities\I18nUtil;
 use AssistantForWooCommerce\Addons\Addon;
 use AssistantForWooCommerce\App\App;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Cookie;
-use AssistantForWooCommerce\Helper\JSON;
-use AssistantForWooCommerce\Helper\Nonce;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\WooCommerce;
-use AssistantForWooCommerce\Helper\WordPress;
+use AssistantForWooCommerce\Helper\{Assets, Cookie, JSON, Nonce, Notice, Param, Sanitizing, WooCommerce, WordPress};
 use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class ProductCompare extends Addon implements AddonInterface {
@@ -71,7 +63,7 @@ class ProductCompare extends Addon implements AddonInterface {
       ) );
 
       if ( count( $products ) ) {
-        $addToCardButton = $this->getSetting( 'product_compare_add_to_cart_button', false );
+        $addToCartButton = $this->getSetting( 'product_compare_add_to_cart_button', false );
         $fields          = Product::getFields();
         $attributes      = WooCommerce::getAttributeTaxonomies();
         $data            = [ 'count' => count( $products ) ];
@@ -98,13 +90,13 @@ class ProductCompare extends Addon implements AddonInterface {
                 esc_html( $product->get_name() ) );
             }
 
-            if ( $addToCardButton ) {
+            if ( $addToCartButton ) {
               $button = '';
               if ( $product->is_purchasable() && $product->is_in_stock() ) {
                 $button = WooCommerce::getAddToCartButton( $product );
               }
 
-              $data['addToCard'][] = $button;
+              $data['addToCart'][] = $button;
             }
 
             foreach ( $fields as $key => $field ) {
@@ -157,14 +149,12 @@ class ProductCompare extends Addon implements AddonInterface {
           foreach ( $data['title'] as $i => $title ) {
             $i = (int) $i;
             echo '<div class="asfowoo-product-compare-col">';
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo $data['removeButton'][ $i ];
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo $data['images'][ $i ];
+            echo wp_kses_post( $data['removeButton'][ $i ] );
+            echo wp_kses_post( $data['images'][ $i ] );
             echo wp_kses_post( $title );
-            if ( ! empty( $data['addToCard'][ $i ] ) ) {
-              // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-              echo '<div class="asfowoo-product-compare-add-to-card">' . $data['addToCard'][ $i ] . '</div>';
+
+            if ( ! empty( $data['addToCart'][ $i ] ) ) {
+              echo '<div class="asfowoo-product-compare-add-to-cart">' . wp_kses_post( $data['addToCart'][ $i ] ) . '</div>';
             }
             echo '</div>';
           }
@@ -183,8 +173,7 @@ class ProductCompare extends Addon implements AddonInterface {
             echo '<div class="asfowoo-product-compare-row asfowoo-product-compare-row-field asfowoo-product-compare-row-' . esc_html( $key ) . '">';
             foreach ( $field['value'] as $value ) {
               echo '<div class="asfowoo-product-compare-col">';
-              // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-              echo empty( $value ) ? '---' : $value;
+              echo empty( $value ) ? '---' : wp_kses_post( $value );
               echo '</div>';
             }
             echo '</div>';
