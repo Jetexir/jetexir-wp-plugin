@@ -92,8 +92,7 @@ if ( ! isset( $args ) ) {
             ) );
           }
 
-          // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-          echo '<td ' . $addClass . ' ' . $attributes . '>' . $data['content'] . '</td>';
+          echo '<td ' . esc_attr( $addClass ) . ' ' . wp_kses_post( $attributes ) . '>' . wp_kses_post( $data['content'] ) . '</td>';
         }
 
         echo '<td class="asfowoo-dtu-actions-wrap">';
@@ -113,11 +112,9 @@ if ( ! isset( $args ) ) {
               $attributes = \AssistantForWooCommerce\Helper\HTML::getAttributes( $action, $attributes );
               ?>
               <button class="asfowoo-button asfowoo-dtu-action"
-                      data-action="<?php echo esc_html( $key ) ?>"
-                      data-action-type="<?php echo esc_html( $action['type'] ) ?>"
-                      type="button" <?php
-              // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-              echo $attributes ?>>
+                      data-action="<?php echo esc_attr( $key ) ?>"
+                      data-action-type="<?php echo esc_attr( $action['type'] ) ?>"
+                      type="button" <?php echo wp_kses_post( $attributes ) ?>>
                 <?php echo wp_kses_post( $action['title'] ) ?>
               </button>
             <?php }

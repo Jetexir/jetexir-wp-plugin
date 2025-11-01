@@ -15,10 +15,7 @@ if ( ! empty( $args['progress_bar_bg_color'] ) ) {
 ?>
 
 <div class="asfowoo-sale-progress-bar"
-     style="<?php
-     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-     echo implode( '; ', $style );
-     ?>">
+     style="<?php echo wp_kses_post( implode( '; ', $style ) ); ?>">
   <div class="asfowoo-spb-stock-info">
     <div class="asfowoo-spb-total-sold">
       <?php echo esc_html( $args['sold_title'] ) ?>

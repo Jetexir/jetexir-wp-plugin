@@ -5,13 +5,7 @@ namespace AssistantForWooCommerce\App\Checkout;
 defined( 'ABSPATH' ) || exit;
 
 use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Helper\Helper;
-use AssistantForWooCommerce\Helper\HTML;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\Templates;
-use AssistantForWooCommerce\Helper\WooCommerce;
+use AssistantForWooCommerce\Helper\{Helper, HTML, Notice, Param, Sanitizing, Templates, WooCommerce};
 use AssistantForWooCommerce\Interfaces\AddonInterface;
 use AssistantForWooCommerce\Providers\UI\DataTableUI;
 
@@ -96,8 +90,7 @@ class CheckoutFields extends Addon implements AddonInterface {
     }
 
     if ( ! empty( $output ) ) {
-      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-      echo '<table class="woocommerce-table shop_table order_details has-background asfowoo-checkout-fields-order-meta">' . $output . '</table>';
+      echo '<table class="woocommerce-table shop_table order_details has-background asfowoo-checkout-fields-order-meta">' . wp_kses_post( $output ) . '</table>';
     }
   }
 
@@ -127,8 +120,7 @@ class CheckoutFields extends Addon implements AddonInterface {
     }
 
     if ( ! empty( $output ) ) {
-      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-      echo '<table style="color:#525252;border:1px solid #e5e5e5;width:100%;vertical-align:middle;margin-bottom: 30px;">' . $output . '</table>';
+      echo wp_kses_post( '<table style="color:#525252;border:1px solid #e5e5e5;width:100%;vertical-align:middle;margin-bottom: 30px;">' . $output . '</table>' );
     }
   }
 

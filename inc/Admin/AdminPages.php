@@ -4,11 +4,7 @@ namespace AssistantForWooCommerce\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Helper\Cache;
-use AssistantForWooCommerce\Helper\DebugTrait;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Param;
+use AssistantForWooCommerce\Helper\{Cache, DebugTrait, Notice, Assets, Param};
 
 class AdminPages {
   use DebugTrait;
@@ -112,8 +108,7 @@ class AdminPages {
                 $addonSep = true;
               }
 
-              // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-              echo self::menuItem( $tab, $menu );
+              echo wp_kses_post( self::menuItem( $tab, $menu ) );
             }
             do_action( 'assistant_for_woocommerce_end_menus' );
             ?>

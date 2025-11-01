@@ -5,9 +5,7 @@ namespace AssistantForWooCommerce\Admin;
 defined( 'ABSPATH' ) || exit;
 
 use AssistantForWooCommerce\Addons\Addons;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\User;
+use AssistantForWooCommerce\Helper\{Assets, Notice, User};
 use AssistantForWooCommerce\Interfaces\AdminTabInterface;
 
 class AdminDashboard implements AdminTabInterface {
@@ -57,8 +55,7 @@ class AdminDashboard implements AdminTabInterface {
     foreach ( $dashboardTypeLinks as $dashboardLinks ) {
       foreach ( $dashboardLinks as $link ) {
         $icon = ! empty( $link['icon'] ) && Assets::isSvgImageString( $link['icon'] ) ? Assets::setSvgDimensions( $link['icon'], 50 ) : '';
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo '<a href="' . esc_url( $link['link'] ) . '" title="' . esc_html( $link['desc'] ) . '" class="asfowoo-link-type-' . esc_html( $link['type'] ) . '">' . $icon . '<span>' . esc_html( $link['title'] ) . '</span></a>';
+        echo '<a href="' . esc_url( $link['link'] ) . '" title="' . esc_html( $link['desc'] ) . '" class="asfowoo-link-type-' . esc_html( $link['type'] ) . '">' . wp_kses_post( $icon ) . '<span>' . esc_html( $link['title'] ) . '</span></a>';
       }
     }
     echo '</div>';

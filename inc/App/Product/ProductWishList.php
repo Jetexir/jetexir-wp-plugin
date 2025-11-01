@@ -7,16 +7,16 @@ defined( 'ABSPATH' ) || exit;
 use Automattic\WooCommerce\Enums\ProductStatus;
 use AssistantForWooCommerce\Addons\Addon;
 use AssistantForWooCommerce\App\App;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Helper;
-use AssistantForWooCommerce\Helper\HTML;
-use AssistantForWooCommerce\Helper\Nonce;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\UserMeta;
-use AssistantForWooCommerce\Helper\WooCommerce;
-use AssistantForWooCommerce\Helper\WordPress;
+use AssistantForWooCommerce\Helper\{Assets,
+  Helper,
+  HTML,
+  Nonce,
+  Notice,
+  Param,
+  Sanitizing,
+  UserMeta,
+  WooCommerce,
+  WordPress};
 use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class ProductWishList extends Addon implements AddonInterface {
@@ -260,8 +260,7 @@ class ProductWishList extends Addon implements AddonInterface {
       $buttonAppearance = $this->getSetting( 'wishlist_archive_button', 'icon' );
     }
 
-    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    echo $this->buttonShortcode( array(
+    echo wp_kses_post( $this->buttonShortcode( array(
       'type'         => esc_html( $this->getSetting( 'wishlist_button_type', 'button' ) ),
       'icon'         => wp_kses_post( $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'asfowoo-icon-heart' ), true ) ),
       'text'         => esc_html( $this->getSetting( 'wishlist_button_text', esc_html__( 'Add to wishlist', 'assistant-for-woocommerce' ) ) ),
@@ -269,7 +268,7 @@ class ProductWishList extends Addon implements AddonInterface {
       'remove_text'  => esc_html( $this->getSetting( 'wishlist_button_remove_text', esc_html__( 'Remove from wishlist', 'assistant-for-woocommerce' ) ) ),
       'browse_text'  => esc_html( $this->getSetting( 'wishlist_button_browse_text', esc_html__( 'Browse wishlist', 'assistant-for-woocommerce' ) ) ),
       'added_action' => esc_html( $this->getSetting( 'wishlist_added_action', 'remove' ) )
-    ) );
+    ) ) );
   }
 
   public function buttonShortcode( $atts ): string {
@@ -385,15 +384,13 @@ class ProductWishList extends Addon implements AddonInterface {
         // Info (Name, Date, Price)
         echo '<div class="asfowoo-product-item-info">';
         echo '<a href="' . esc_url( $productLink ) . '" target="_blank" class="asfowoo-product-item-title">' . esc_html( $name ) . '</a>';
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo '<div class="asfowoo-product-item-price asfowoo-product-item-meta">' . $product->get_price_html() . '</div>';
+        echo '<div class="asfowoo-product-item-price asfowoo-product-item-meta">' . wp_kses_post( $product->get_price_html() ) . '</div>';
         echo '<div class="asfowoo-product-item-date asfowoo-product-item-meta">' . esc_html( wp_date( $dateFormat, $data['timestamp'] ) ) . '</div>';
         echo '</div>';
 
         echo '<div class="asfowoo-product-item-actions">';
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo WooCommerce::getAddToCartButton( $product );
-        echo '<a href="#" class="asfowoo-product-item-remove asfowoo-flex asfowoo-product-wishlist-remove" data-asfowoo-product-remove-action="asfowoo_product_wishlist_remove" data-product-id="' . esc_html( $productID ) . '"><i class="asfowoo-icon-cross"></i> ' . esc_html__( 'Remove', 'assistant-for-woocommerce' ) . '</a>';
+        echo wp_kses_post( WooCommerce::getAddToCartButton( $product ) );
+        echo '<a href="#" class="asfowoo-product-item-remove asfowoo-flex asfowoo-product-wishlist-remove" data-asfowoo-product-remove-action="asfowoo_product_wishlist_remove" data-product-id="' . esc_attr( $productID ) . '"><i class="asfowoo-icon-cross"></i> ' . esc_html__( 'Remove', 'assistant-for-woocommerce' ) . '</a>';
         echo '</div>';
 
         echo '</div>';
@@ -401,8 +398,6 @@ class ProductWishList extends Addon implements AddonInterface {
     }
 
     echo '</div>';
-
-    //self::dd( $products );
 
     return '';
   }

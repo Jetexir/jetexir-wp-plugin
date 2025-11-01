@@ -7,7 +7,6 @@ if ( ! isset( $args ) ) {
 
 echo '<ul class="asfowoo-list-links">';
 foreach ( $args['items'] as $feedItem ) {
-  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-  echo '<li>' . $feedItem . '</li>';
+  echo '<li>' . wp_kses_post( $feedItem ) . '</li>';
 }
 echo '</ul>';

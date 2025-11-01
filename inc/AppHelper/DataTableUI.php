@@ -6,11 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use AssistantForWooCommerce\Admin\AdminPages;
 use AssistantForWooCommerce\Admin\AdminSettings;
-use AssistantForWooCommerce\Helper\HTML;
-use AssistantForWooCommerce\Helper\Nonce;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\Templates;
+use AssistantForWooCommerce\Helper\{HTML, Nonce, Param, Sanitizing, Templates, User};
 
 class DataTableUI {
   public function __construct() {
@@ -69,7 +65,7 @@ class DataTableUI {
   }
 
   public function doAction(): void {
-    if ( Nonce::verify() && current_user_can( 'manage_options' ) ) {
+    if ( Nonce::verify() && User::can( 'manage_options' ) ) {
       $dataTableID = Sanitizing::text( Param::post( 'data_table_id' ) );
       $rowID       = Sanitizing::text( Param::post( 'row_id' ) );
       $rowAction   = Sanitizing::text( Param::post( 'row_action' ) );

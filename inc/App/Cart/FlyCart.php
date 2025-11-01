@@ -5,15 +5,7 @@ namespace AssistantForWooCommerce\App\Cart;
 defined( 'ABSPATH' ) || exit;
 
 use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Cache;
-use AssistantForWooCommerce\Helper\Nonce;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\Strip;
-use AssistantForWooCommerce\Helper\Templates;
-use AssistantForWooCommerce\Helper\WooCommerce;
-use AssistantForWooCommerce\Helper\WordPress;
+use AssistantForWooCommerce\Helper\{Assets, Cache, Nonce, Param, Sanitizing, Templates, User, WooCommerce, WordPress};
 use AssistantForWooCommerce\Interfaces\AddonInterface;
 
 class FlyCart extends Addon implements AddonInterface {
@@ -28,7 +20,7 @@ class FlyCart extends Addon implements AddonInterface {
   }
 
   public function templateRedirectAction(): void {
-    if ( ! WooCommerce::isComingSoon() && ! $this->checkHide() ) {
+    if ( ! $this->checkHide() && ( ! WooCommerce::isComingSoon() || User::can( 'manage_options' ) ) ) {
       add_filter( 'assistant_for_woocommerce_site_fly_icons', [ $this, 'addFlyIcon' ] );
       add_action( 'assistant_for_woocommerce_site_modals', [ $this, 'printCart' ] );
       add_action( 'assistant_for_woocommerce_fly_cart_modal_body', [ $this, 'printCartBody' ] );
@@ -113,17 +105,15 @@ class FlyCart extends Addon implements AddonInterface {
           $buttons     = $quantityButtons && ! ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() );
 
           echo '<div class="asfowoo-fly-cart-item asfowoo-product-item-wrap" data-item-key="' . esc_html( $itemKey ) . '" data-product-id="' . esc_html( $productID ) . '">';
-          // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-          echo '<a href="' . esc_url( $productLink ) . '" class="asfowoo-fly-cart-item-image asfowoo-product-item-image">' . Strip::kses( $_product->get_image() ) . '</a>';
+          echo '<a href="' . esc_url( $productLink ) . '" class="asfowoo-fly-cart-item-image asfowoo-product-item-image">' . wp_kses_post( $_product->get_image() ) . '</a>';
 
           echo '<div class="asfowoo-fly-cart-item-info asfowoo-product-item-info">';
           echo '<a href="' . esc_url( $productLink ) . '" class="asfowoo-fly-cart-item-title asfowoo-product-item-title">' . esc_html( $name ) . '</a>';
           if ( $itemPrice === 'price' ) {
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo sprintf( '<div class="asfowoo-fly-cart-item-price asfowoo-product-item-price">%s</div>', $_product->get_price_html() );
+            echo sprintf( '<div class="asfowoo-fly-cart-item-price asfowoo-product-item-price">%s</div>', wp_kses_post( $_product->get_price_html() ) );
+
           } elseif ( $itemPrice === 'subtotal' ) {
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo sprintf( '<div class="asfowoo-fly-cart-item-price asfowoo-product-item-price">%s</div>', WC()->cart->get_product_subtotal( $_product, $item->quantity ) );
+            echo sprintf( '<div class="asfowoo-fly-cart-item-price asfowoo-product-item-price">%s</div>', wp_kses_post( WC()->cart->get_product_subtotal( $_product, $item->quantity ) ) );
           }
           echo '</div>';
 
@@ -162,12 +152,10 @@ class FlyCart extends Addon implements AddonInterface {
         echo '</div>';
 
         if ( $this->getSetting( 'fly_cart_subtotal', true ) ) {
-          // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-          echo '<div class="asfowoo-fly-cart-subtotal asfowoo-fly-cart-meta asfowoo-flex"><span>' . esc_html__( 'Subtotal', 'assistant-for-woocommerce' ) . '</span>' . $cart->get_cart_subtotal() . '</div>';
+          echo '<div class="asfowoo-fly-cart-subtotal asfowoo-fly-cart-meta asfowoo-flex"><span>' . esc_html__( 'Subtotal', 'assistant-for-woocommerce' ) . '</span>' . wp_kses_post( $cart->get_cart_subtotal() ) . '</div>';
         }
         if ( $this->getSetting( 'fly_cart_total', true ) ) {
-          // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-          echo '<div class="asfowoo-fly-cart-total asfowoo-fly-cart-meta asfowoo-flex"><span>' . esc_html__( 'Total', 'assistant-for-woocommerce' ) . '</span>' . $cart->get_cart_total() . '</div>';
+          echo '<div class="asfowoo-fly-cart-total asfowoo-fly-cart-meta asfowoo-flex"><span>' . esc_html__( 'Total', 'assistant-for-woocommerce' ) . '</span>' . wp_kses_post( $cart->get_cart_total() ) . '</div>';
         }
       }
     }

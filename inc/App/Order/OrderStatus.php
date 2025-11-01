@@ -6,14 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use AssistantForWooCommerce\Addons\Addon;
 use AssistantForWooCommerce\Admin\AdminPages;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Helper;
-use AssistantForWooCommerce\Helper\HTML;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\Templates;
-use AssistantForWooCommerce\Helper\WooCommerce;
+use AssistantForWooCommerce\Helper\{Helper, Assets, HTML, Notice, Param, Sanitizing, Templates, WooCommerce};
 use AssistantForWooCommerce\Interfaces\AddonInterface;
 use AssistantForWooCommerce\Providers\UI\DataTableUI;
 use AssistantForWooCommerce\Settings\Settings;

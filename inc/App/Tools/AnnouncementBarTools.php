@@ -6,14 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use AssistantForWooCommerce\Addons\Addon;
 use AssistantForWooCommerce\App\App;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Helper;
-use AssistantForWooCommerce\Helper\HTML;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\Templates;
-use AssistantForWooCommerce\Helper\WordPress;
+use AssistantForWooCommerce\Helper\{Assets, Helper, HTML, Notice, Param, Sanitizing, Templates, WordPress};
 use AssistantForWooCommerce\Interfaces\AddonInterface;
 use AssistantForWooCommerce\Providers\UI\DataTableUI;
 
@@ -57,8 +50,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
     foreach ( $announcements as $announcement ) {
       if ( $this->checkDisplay( $announcement ) ) {
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo $this->getAnnouncement( $announcement );
+        echo wp_kses_post( $this->getAnnouncement( $announcement ) );
       }
     }
   }
@@ -68,8 +60,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
     foreach ( $announcements as $announcement ) {
       if ( $this->checkDisplay( $announcement ) ) {
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo $this->getAnnouncement( $announcement );
+        echo wp_kses_post( $this->getAnnouncement( $announcement ) );
       }
     }
   }

@@ -3,7 +3,7 @@
 namespace AssistantForWooCommerce\Helper;
 
 class Strip {
-  public static function kses( $content ) {
+  public static function kses( $content ): string {
     return wp_kses( stripslashes_deep( $content ), wp_kses_allowed_html( 'post' ) );
   }
 
