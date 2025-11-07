@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) or die();
                 aria-label="<?php esc_html_e( 'Close', 'assistant-for-woocommerce' ) ?>"></button>
       </div>
       <div class="asfowoo-modal-message"></div>
-      <form class="asfowoo-modal-body">
+      <form class="asfowoo-modal-body" onsubmit="return false;">
         <div class="asfowoo-loader-wrap">
           <div class="asfowoo-loader"></div>
         </div>
