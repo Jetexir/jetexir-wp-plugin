@@ -644,6 +644,7 @@ class HTML {
 
     return '<div class="' . self::prefix . 'repeatable ' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '" ' . self::getAttributes( $data ) . '>' .
            '<div class="' . self::prefix . 'title">' . $data['title'] . $addRepeat . '</div>' .
+           ( ! empty( $data['desc'] ) ? '<div class="' . self::prefix . 'description">' . $data['desc'] . '</div>' : '' ) .
            '<div class="' . self::prefix . 'repeatable-wrap">';
   }
 
