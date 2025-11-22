@@ -21,7 +21,7 @@ class DataTableUI {
     ];
 
     foreach ( $fields as $field ) {
-      if ( isset( $data[ $field['id'] ] ) ) {
+      if ( ! isset( $field['id'] ) || isset( $data[ $field['id'] ] ) ) {
         continue;
       }
 
