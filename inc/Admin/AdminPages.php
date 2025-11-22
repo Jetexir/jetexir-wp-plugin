@@ -91,7 +91,7 @@ class AdminPages {
         class="assistant-for-woocommerce-wrap assistant-for-woocommerce-<?php echo esc_html( $currentTab ) ?>-wrap assistant-for-woocommerce-wrapper">
         <div class="asfowoo-sidebar" id="asfowoo-sidebar">
           <div class="asfowoo-sidebar-head">
-            <img src="<?php echo Assets::url( 'images/assistant-for-woocommerce.svg' ) ?>" alt="Logo"
+            <img src="<?php echo esc_url( Assets::url( 'images/assistant-for-woocommerce.svg' ) ) ?>" alt="Logo"
                  class="asfowoo-logo">
             <a href="#" class="asfowoo-hide-sidebar" id="asfowoo-hide-sidebar">
               <i class="asfowoo-icon-close"></i>
