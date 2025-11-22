@@ -100,8 +100,8 @@ class FlyCart extends Addon implements AddonInterface {
           $_product    = wc_get_product( $productID );
           $productLink = $_product->get_permalink();
           $name        = wp_strip_all_tags( $_product->get_name() );
-          $minValue    = apply_filters( 'woocommerce_quantity_input_min', $_product->get_min_purchase_quantity(), $_product );
-          $maxValue    = apply_filters( 'woocommerce_quantity_input_max', $_product->get_max_purchase_quantity(), $_product );
+          $minValue    = $_product->get_min_purchase_quantity();
+          $maxValue    = $_product->get_max_purchase_quantity();
           $buttons     = $quantityButtons && ! ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() );
 
           echo '<div class="asfowoo-fly-cart-item asfowoo-product-item-wrap" data-item-key="' . esc_html( $itemKey ) . '" data-product-id="' . esc_html( $productID ) . '">';
