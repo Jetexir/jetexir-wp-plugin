@@ -174,8 +174,8 @@ class OrderStatus extends Addon implements AddonInterface {
         'exclude_from_search'       => false,
         'show_in_admin_all_list'    => true,
         'show_in_admin_status_list' => true,
-        // phpcs:ignore WordPress.WP.I18n.InterpolatedVariablePlural, WordPress.WP.I18n.InterpolatedVariableSingular
         /* translators: %s: Number of orders */
+        // phpcs:ignore WordPress.WP.I18n.InterpolatedVariablePlural, WordPress.WP.I18n.InterpolatedVariableSingular
         'label_count'               => _n_noop( "$title <span class='count'>(%s)</span>", "$title <span class='count'>(%s)</span>", 'assistant-for-woocommerce' ),
       );
     }
