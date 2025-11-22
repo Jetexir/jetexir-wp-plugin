@@ -23,6 +23,9 @@
   ],
   "require": {
     "php": ">=7.4",
-    "enshrined/svg-sanitize": "^0.21.0"
+    "enshrined/svg-sanitize": "^0.22.0"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
   }
 }
