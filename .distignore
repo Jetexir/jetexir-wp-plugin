@@ -8,8 +8,6 @@ README.md
 CHANGELOG.md
 package.json
 package-lock.json
-composer.json
-composer.lock
 assets/scss
 assets/js-admin-src
 assets/js-src
