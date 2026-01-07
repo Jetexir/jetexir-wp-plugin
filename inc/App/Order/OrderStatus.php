@@ -1,15 +1,15 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Order;
+namespace Jetexir\App\Order;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Admin\AdminPages;
-use AssistantForWooCommerce\Helper\{Helper, Assets, HTML, Notice, Param, Sanitizing, Templates, WooCommerce};
-use AssistantForWooCommerce\Interfaces\AddonInterface;
-use AssistantForWooCommerce\Providers\UI\DataTableUI;
-use AssistantForWooCommerce\Settings\Settings;
+use Jetexir\Addons\Addon;
+use Jetexir\Admin\AdminPages;
+use Jetexir\Helper\{Helper, Assets, HTML, Notice, Param, Sanitizing, Templates, WooCommerce};
+use Jetexir\Interfaces\AddonInterface;
+use Jetexir\Providers\UI\DataTableUI;
+use Jetexir\Settings\Settings;
 
 class OrderStatus extends Addon implements AddonInterface {
   public string $addonID = 'order-status';
@@ -19,7 +19,7 @@ class OrderStatus extends Addon implements AddonInterface {
   private const orderStatusDataTableId = 'order_status';
 
   public function initAction(): void {
-    add_action( 'assistant_for_woocommerce_data_table_ui_order_status_action', [
+    add_action( 'jetexir_data_table_ui_order_status_action', [
       $this,
       'dataTableActions'
     ], 10, 2 );
@@ -86,7 +86,7 @@ class OrderStatus extends Addon implements AddonInterface {
   public function wcAddOrderBulkActions( $actions ) {
     foreach ( $this->getStatuses() as $slug => $title ) {
       /* translators: %s: Order status name */
-      $actions[ 'mark_' . $slug ] = sprintf( esc_html__( 'Change status to %s', 'assistant-for-woocommerce' ), $title );
+      $actions[ 'mark_' . $slug ] = sprintf( esc_html__( 'Change status to %s', 'jetexir' ), $title );
     }
 
     return $actions;
@@ -107,7 +107,7 @@ class OrderStatus extends Addon implements AddonInterface {
           'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=' . $slug . '&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
           'name'   => $title,
           /* translators: %s: Order status name */
-          'title'  => sprintf( esc_html__( 'Change order status to %s', 'assistant-for-woocommerce' ), $title ),
+          'title'  => sprintf( esc_html__( 'Change order status to %s', 'jetexir' ), $title ),
           'action' => $slug,
         );
       }
@@ -118,7 +118,7 @@ class OrderStatus extends Addon implements AddonInterface {
         $actions['status']['actions'] = array_merge( $actions['status']['actions'], $statusActions );
       } else {
         $actions['status'] = array(
-          'group'   => esc_html__( 'Change status:', 'assistant-for-woocommerce' ) . ' ',
+          'group'   => esc_html__( 'Change status:', 'jetexir' ) . ' ',
           'actions' => $statusActions,
         );
       }
@@ -140,7 +140,7 @@ class OrderStatus extends Addon implements AddonInterface {
           'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=' . $slug . '&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
           'name'   => $title,
           /* translators: %s: Order status name */
-          'title'  => sprintf( esc_html__( 'Change order status to %s', 'assistant-for-woocommerce' ), $title ),
+          'title'  => sprintf( esc_html__( 'Change order status to %s', 'jetexir' ), $title ),
           'action' => 'edit ' . $slug,
         );
       }
@@ -176,7 +176,7 @@ class OrderStatus extends Addon implements AddonInterface {
         'show_in_admin_status_list' => true,
         /* translators: %s: Number of orders */
         // phpcs:ignore WordPress.WP.I18n.InterpolatedVariablePlural, WordPress.WP.I18n.InterpolatedVariableSingular
-        'label_count'               => _n_noop( "$title <span class='count'>(%s)</span>", "$title <span class='count'>(%s)</span>", 'assistant-for-woocommerce' ),
+        'label_count'               => _n_noop( "$title <span class='count'>(%s)</span>", "$title <span class='count'>(%s)</span>", 'jetexir' ),
       );
     }
 
@@ -217,7 +217,7 @@ class OrderStatus extends Addon implements AddonInterface {
   public function dataTableActions( $index, $action ): void {
     if ( $action === 'bulk_action' ) {
       $bulkAction = Sanitizing::text( Param::post( 'bulk_action' ) );
-      $rowIDs     = array_map( 'AssistantForWooCommerce\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
+      $rowIDs     = array_map( 'Jetexir\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
       $statuses   = Settings::get( self::orderStatusDataTableId, [], $this->addonID );
 
       foreach ( $statuses as $statusIndex => $status ) {
@@ -271,23 +271,23 @@ class OrderStatus extends Addon implements AddonInterface {
       wp_send_json_success( [ 'content' => $form ] );
 
     } elseif ( $action === 'save_form' ) {
-      $formData     = \AssistantForWooCommerce\AppHelper\DataTableUI::getFormData( $this->getFields() );
+      $formData     = \Jetexir\AppHelper\DataTableUI::getFormData( $this->getFields() );
       $errorMessage = '';
       $entry        = false;
 
       if ( empty( $formData['title'] ) ) {
         /* translators: %s: Title */
-        $errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Title', 'assistant-for-woocommerce' ) );
+        $errorMessage = sprintf( esc_html__( '%s field is empty!', 'jetexir' ), esc_html__( 'Title', 'jetexir' ) );
 
       } elseif ( empty( $formData['slug'] ) ) {
         /* translators: %s: Slug */
-        $errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Slug', 'assistant-for-woocommerce' ) );
+        $errorMessage = sprintf( esc_html__( '%s field is empty!', 'jetexir' ), esc_html__( 'Slug', 'jetexir' ) );
 
       } elseif ( $index >= 0 ) {
         $entry = $this->getByIndex( $index );
 
         if ( $entry === false ) {
-          $errorMessage = esc_html__( 'Order status not found!', 'assistant-for-woocommerce' );
+          $errorMessage = esc_html__( 'Order status not found!', 'jetexir' );
         }
       }
 
@@ -309,11 +309,11 @@ class OrderStatus extends Addon implements AddonInterface {
         $entries           = Settings::get( self::orderStatusDataTableId, [], $this->addonID );
         $entries[ $index ] = $formData;
         Settings::save( self::orderStatusDataTableId, $entries, $this->addonID );
-        $successMessage = esc_html__( 'The order status was successfully saved.', 'assistant-for-woocommerce' );
+        $successMessage = esc_html__( 'The order status was successfully saved.', 'jetexir' );
 
       } else {
         Settings::addToArray( self::orderStatusDataTableId, $formData, $this->addonID, true );
-        $successMessage = esc_html__( 'Order status added successfully.', 'assistant-for-woocommerce' );
+        $successMessage = esc_html__( 'Order status added successfully.', 'jetexir' );
       }
 
       $dataTable = $this->getDataTable();
@@ -344,7 +344,7 @@ class OrderStatus extends Addon implements AddonInterface {
           'message'   => Notice::addAndDisplay( $this->addonID, array(
             array(
               'type'    => 'success',
-              'message' => esc_html__( 'Order status removed!', 'assistant-for-woocommerce' ),
+              'message' => esc_html__( 'Order status removed!', 'jetexir' ),
             )
           ), false ),
         ] );
@@ -355,7 +355,7 @@ class OrderStatus extends Addon implements AddonInterface {
           'message' => Notice::addAndDisplay( $this->addonID, array(
             array(
               'type'    => 'error',
-              'message' => esc_html__( 'Selected item not found!', 'assistant-for-woocommerce' ),
+              'message' => esc_html__( 'Selected item not found!', 'jetexir' ),
             )
           ), false ),
         ], 403 );
@@ -391,37 +391,37 @@ class OrderStatus extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'text_color',
-        'title'         => esc_html__( 'Text color', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Text color', 'jetexir' ),
         'type'          => 'wpColorPicker',
         'setting_value' => $data['text_color'] ?? '#333',
         'sanitize'      => 'color'
       ),
       array(
         'id'            => 'bg_color',
-        'title'         => esc_html__( 'Background color', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Background color', 'jetexir' ),
         'type'          => 'wpColorPicker',
         'setting_value' => $data['bg_color'] ?? '#ebe5ff',
         'sanitize'      => 'color'
       ),
       array(
         'id'            => 'row_bg_color',
-        'title'         => esc_html__( 'Row background color', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Row background color', 'jetexir' ),
         'type'          => 'wpColorPicker',
         'setting_value' => $data['row_bg_color'] ?? '',
         'sanitize'      => 'color'
       ),
       array(
         'id'            => 'title',
-        'title'         => esc_html__( 'Title', 'assistant-for-woocommerce' ),
-        'placeholder'   => esc_html__( 'Status title', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Title', 'jetexir' ),
+        'placeholder'   => esc_html__( 'Status title', 'jetexir' ),
         'type'          => 'text',
         'setting_value' => $data['title'] ?? '',
       ),
       array(
         'id'            => 'slug',
-        'title'         => esc_html__( 'Slug', 'assistant-for-woocommerce' ),
-        'desc'          => esc_html__( 'Use english alphabetic characters', 'assistant-for-woocommerce' ),
-        'placeholder'   => esc_html__( 'Status slug', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Slug', 'jetexir' ),
+        'desc'          => esc_html__( 'Use english alphabetic characters', 'jetexir' ),
+        'placeholder'   => esc_html__( 'Status slug', 'jetexir' ),
         'type'          => 'text',
         'setting_value' => $data['slug'] ?? '',
         'sanitize'      => 'title',
@@ -436,20 +436,20 @@ class OrderStatus extends Addon implements AddonInterface {
               ->setRows( Settings::get( self::orderStatusDataTableId, [], $this->addonID ) )
               ->setIdField( $dataTable::ROW_INDEX )
               ->sortable( true )
-              ->setTitle( esc_html__( 'Custom Order Status', 'assistant-for-woocommerce' ) )
-              ->modalAddTitle( esc_html__( 'Add new order status', 'assistant-for-woocommerce' ) )
-              ->modalEditTitle( esc_html__( 'Edit order status', 'assistant-for-woocommerce' ) )
-              ->addNewButton( esc_html__( 'Add new', 'assistant-for-woocommerce' ) )
-              ->addAction( 'edit', '<i class="asfowoo-icon-edit"></i>', $dataTable::ACTION_EDIT )
-              ->addAction( 'delete', '<i class="asfowoo-icon-trash"></i>', $dataTable::ACTION_DELETE )
-              ->addAction( 'bulk_enable', esc_html__( 'Enable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-              ->addAction( 'bulk_disable', esc_html__( 'Disable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-              ->addAction( 'bulk_delete', esc_html__( 'Delete', 'assistant-for-woocommerce' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
-              ->addColumn( esc_html__( 'Title', 'assistant-for-woocommerce' ), 'title', function ( $entry ) {
+              ->setTitle( esc_html__( 'Custom Order Status', 'jetexir' ) )
+              ->modalAddTitle( esc_html__( 'Add new order status', 'jetexir' ) )
+              ->modalEditTitle( esc_html__( 'Edit order status', 'jetexir' ) )
+              ->addNewButton( esc_html__( 'Add new', 'jetexir' ) )
+              ->addAction( 'edit', '<i class="jetexir-icon-edit"></i>', $dataTable::ACTION_EDIT )
+              ->addAction( 'delete', '<i class="jetexir-icon-trash"></i>', $dataTable::ACTION_DELETE )
+              ->addAction( 'bulk_enable', esc_html__( 'Enable', 'jetexir' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+              ->addAction( 'bulk_disable', esc_html__( 'Disable', 'jetexir' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+              ->addAction( 'bulk_delete', esc_html__( 'Delete', 'jetexir' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
+              ->addColumn( esc_html__( 'Title', 'jetexir' ), 'title', function ( $entry ) {
                 return '<mark class="order-status status-' . $entry['slug'] . '"><span>' . $entry['title'] . '</span></mark>';
               }, [ 'is_html' => true ] )
-              ->addColumn( esc_html__( 'Slug', 'assistant-for-woocommerce' ), 'slug', null, [ 'hide_on_mobile' => true ] )
-              ->addColumn( esc_html__( 'Status', 'assistant-for-woocommerce' ), $dataTable::ACTIVE_FIELD );
+              ->addColumn( esc_html__( 'Slug', 'jetexir' ), 'slug', null, [ 'hide_on_mobile' => true ] )
+              ->addColumn( esc_html__( 'Status', 'jetexir' ), $dataTable::ACTIVE_FIELD );
 
     return $dataTable;
   }
@@ -460,7 +460,7 @@ class OrderStatus extends Addon implements AddonInterface {
       return;
     }
 
-    $styleID = ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-' . $this->addonID;
+    $styleID = JETEXIR_PLUGIN_SLUG . '-' . $this->addonID;
     $styles  = '#order_data h2{display: inline-block;padding:10px !important;border-radius:5px;}';
     if ( AdminPages::isSettingPage() ) {
       $styles .= '.order-status { display: inline-flex; line-height: 2.5em; color: #454545; background: #e5e5e5; border-radius: 4px; border-bottom: 1px solid rgba(0,0,0,.05); margin: -.25em 0; cursor: inherit !important; white-space: nowrap; max-width: 100%; }.order-status > span { margin: 0 1em; overflow: hidden; text-overflow: ellipsis; }';
@@ -516,21 +516,21 @@ class OrderStatus extends Addon implements AddonInterface {
       ),
       'order_status_start_grid'      => array(
         'id'    => 'order_status_start_grid',
-        'title' => esc_html__( 'Order status', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Order status', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       'order_status_default'         => array(
         'id'                => 'order_status_default',
-        'title'             => esc_html__( 'Default order status', 'assistant-for-woocommerce' ),
+        'title'             => esc_html__( 'Default order status', 'jetexir' ),
         'type'              => 'orderStatusSelect',
         'default'           => 0,
-        'option_none'       => esc_html__( 'No changes', 'assistant-for-woocommerce' ),
+        'option_none'       => esc_html__( 'No changes', 'jetexir' ),
         'option_none_value' => '',
         'sanitize'          => 'text'
       ),
       'order_status_fallback_delete' => array(
         'id'       => 'order_status_fallback_delete',
-        'title'    => esc_html__( 'Fallback delete order status', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Fallback delete order status', 'jetexir' ),
         'type'     => 'orderStatusSelect',
         'default'  => 'on-hold',
         'sanitize' => 'text'
@@ -542,8 +542,8 @@ class OrderStatus extends Addon implements AddonInterface {
       $paymentGatewayOptions[ 'order_status_payment_' . $gatewayID ] = array(
         'id'                => 'order_status_payment_' . $gatewayID,
         /* translators: %s: Payment gateway title */
-        'title'             => sprintf( esc_html__( 'Default order status for "%s" method', 'assistant-for-woocommerce' ), $gatewayTitle ),
-        'option_none'       => esc_html__( 'No changes', 'assistant-for-woocommerce' ),
+        'title'             => sprintf( esc_html__( 'Default order status for "%s" method', 'jetexir' ), $gatewayTitle ),
+        'option_none'       => esc_html__( 'No changes', 'jetexir' ),
         'option_none_value' => '',
         'type'              => 'orderStatusSelect',
         'sanitize'          => 'text'
@@ -561,7 +561,7 @@ class OrderStatus extends Addon implements AddonInterface {
         array(
           'order_status_row_colors_start_grid' => array(
             'id'    => 'order_status_row_colors_start_grid',
-            'title' => esc_html__( 'Orders row background color', 'assistant-for-woocommerce' ),
+            'title' => esc_html__( 'Orders row background color', 'jetexir' ),
             'type'  => 'startgrid',
           )
         ),
@@ -580,8 +580,8 @@ class OrderStatus extends Addon implements AddonInterface {
     }
 
     $sections[ $this->addonID ] = array(
-      'title'        => esc_html__( 'Status', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Custom Order Status', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Status', 'jetexir' ),
+      'desc'         => esc_html__( 'Custom Order Status', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => $settings
     );
@@ -594,9 +594,9 @@ class OrderStatus extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Order Status', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Add custom order statuses to your WooCommerce store.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Order', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Order Status', 'jetexir' ),
+      'desc'           => esc_html__( 'Add custom order statuses to your WooCommerce store.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Order', 'jetexir' ) ],
       'cat'            => 'order',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

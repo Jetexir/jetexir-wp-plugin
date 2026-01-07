@@ -1,14 +1,14 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Tools;
+namespace Jetexir\App\Tools;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Cache;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Addons\Addon;
+use Jetexir\Helper\Assets;
+use Jetexir\Helper\Cache;
+use Jetexir\Helper\Param;
+use Jetexir\Interfaces\AddonInterface;
 
 class CurrencySymbolTools extends Addon implements AddonInterface {
   public string $addonID = 'currency-symbol-tools';
@@ -63,9 +63,9 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
   public function addInlineStyles(): void {
     if ( $this->getSetting( 'price_currency_style', true ) ) {
       $styles = '.woocommerce-Price-amount bdi{display: inline-flex;align-items: center;gap: 3px;line-height: 1.2;}';
-      wp_register_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-' . $this->addonID . '-style', false, [], Assets::getVersion() );
-      wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-' . $this->addonID . '-style' );
-      wp_add_inline_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-' . $this->addonID . '-style', $styles );
+      wp_register_style( JETEXIR_PLUGIN_SLUG . '-' . $this->addonID . '-style', false, [], Assets::getVersion() );
+      wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-' . $this->addonID . '-style' );
+      wp_add_inline_style( JETEXIR_PLUGIN_SLUG . '-' . $this->addonID . '-style', $styles );
     }
   }
 
@@ -75,32 +75,32 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
     $symbol   = Assets::isSvgImageString( $symbol ) || Assets::isImageString( $symbol ) ? '' : $symbol;
 
     $sections[ $this->currentSection ] = array(
-      'title'        => esc_html__( 'Currency Symbol', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Currency Symbol', 'jetexir' ),
       'settings_key' => $this->info()['settings_key'],
       'settings'     => array(
         'start_grid_currency_symbol_1' => array(
-          'title' => esc_html__( 'Currency Symbol', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Currency Symbol', 'jetexir' ),
           'type'  => 'startgrid',
         ),
         'currency_1'                   => array(
           'id'                => 'currency_1',
-          'title'             => esc_html__( 'Currency', 'assistant-for-woocommerce' ),
+          'title'             => esc_html__( 'Currency', 'jetexir' ),
           'type'              => 'currencySelect',
           'default'           => $currency,
-          'option_none'       => esc_html__( 'No changes', 'assistant-for-woocommerce' ),
+          'option_none'       => esc_html__( 'No changes', 'jetexir' ),
           'option_none_value' => '',
           'sanitize'          => 'text'
         ),
         'currency_symbol_1'            => array(
           'id'      => 'currency_symbol_1',
-          'title'   => esc_html__( 'Symbol', 'assistant-for-woocommerce' ),
+          'title'   => esc_html__( 'Symbol', 'jetexir' ),
           'type'    => 'text',
           'default' => $symbol
         ),
         'currency_media_1'             => array(
           'id'                       => 'currency_media_1',
-          'title'                    => esc_html__( 'SVG Icon', 'assistant-for-woocommerce' ),
-          'select_button'            => esc_html__( 'Select SVG', 'assistant-for-woocommerce' ),
+          'title'                    => esc_html__( 'SVG Icon', 'jetexir' ),
+          'select_button'            => esc_html__( 'Select SVG', 'jetexir' ),
           'remove_all_button'        => false,
           'type'                     => 'media',
           'media_type'               => 'image/svg+xml',
@@ -109,8 +109,8 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
         'currency_media_size' => array(
           'id'         => 'currency_media_size',
-          'title'      => esc_html__( 'SVG media size', 'assistant-for-woocommerce' ),
-          'desc'       => esc_html__( 'Pixel', 'assistant-for-woocommerce' ),
+          'title'      => esc_html__( 'SVG media size', 'jetexir' ),
+          'desc'       => esc_html__( 'Pixel', 'jetexir' ),
           'type'       => 'number',
           'default'    => 14,
           'attributes' => array(
@@ -124,11 +124,11 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
         'price_currency_style' => [
           'id'       => 'price_currency_style',
-          'title'    => esc_html__( 'Price style', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Price style', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
-          'desc'     => esc_html__( 'Styling the price along with the currency symbol', 'assistant-for-woocommerce' ),
+          'desc'     => esc_html__( 'Styling the price along with the currency symbol', 'jetexir' ),
           'sanitize' => 'bool'
         ],
 
@@ -146,9 +146,9 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Currency Symbol', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Change the currency symbol', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Currency', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Currency Symbol', 'jetexir' ),
+      'desc'           => esc_html__( 'Change the currency symbol', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Currency', 'jetexir' ) ],
       'cat'            => 'customizations',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

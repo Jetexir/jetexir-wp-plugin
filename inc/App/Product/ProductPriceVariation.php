@@ -1,12 +1,12 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Product;
+namespace Jetexir\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Interfaces\AddonInterface;
-use AssistantForWooCommerce\Settings\Settings;
+use Jetexir\Addons\Addon;
+use Jetexir\Interfaces\AddonInterface;
+use Jetexir\Settings\Settings;
 
 class ProductPriceVariation extends Addon implements AddonInterface {
   public string $addonID = 'product-price-variation';
@@ -16,7 +16,7 @@ class ProductPriceVariation extends Addon implements AddonInterface {
   public function __construct() {
     parent::__construct();
 
-    add_filter( 'assistant_for_woocommerce_product_general_settings', [ $this, 'addProductGeneralSettings' ] );
+    add_filter( 'jetexir_product_general_settings', [ $this, 'addProductGeneralSettings' ] );
   }
 
   public function initAction(): void {
@@ -60,10 +60,10 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 
       if ( $minPrice !== $maxPrice ) {
         if ( $type === 'min' ) {
-          $price = ( $addFrom ? esc_html__( 'From', 'assistant-for-woocommerce' ) : '' ) . ' ' . wc_price( $minPrice );
+          $price = ( $addFrom ? esc_html__( 'From', 'jetexir' ) : '' ) . ' ' . wc_price( $minPrice );
 
         } elseif ( $type === 'max' ) {
-          $price = ( $addUpTo ? esc_html__( 'Up To', 'assistant-for-woocommerce' ) : '' ) . ' ' . wc_price( $maxPrice );
+          $price = ( $addUpTo ? esc_html__( 'Up To', 'jetexir' ) : '' ) . ' ' . wc_price( $maxPrice );
 
         } elseif ( $type === 'max_to_min' ) {
           $price = wc_format_price_range( $maxPrice, $minPrice );
@@ -80,19 +80,19 @@ class ProductPriceVariation extends Addon implements AddonInterface {
   public function addProductGeneralSettings( $settings ): array {
     $addonSettings = array(
       'start_grid_product_variation_price' => array(
-        'title' => esc_html__( 'Variation Prices', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Variation Prices', 'jetexir' ),
         'type'  => 'startgrid',
       ),
 
       'variation_price_type'      => array(
         'id'                => 'variation_price_type',
-        'title'             => esc_html__( 'Variation price type', 'assistant-for-woocommerce' ),
+        'title'             => esc_html__( 'Variation price type', 'jetexir' ),
         'type'              => 'select',
         'options'           => array(
-          'min'        => esc_html__( 'Minimum Price', 'assistant-for-woocommerce' ),
-          'max'        => esc_html__( 'Maximum Price', 'assistant-for-woocommerce' ),
-          'min_to_max' => esc_html__( 'Minimum to Maximum Price', 'assistant-for-woocommerce' ),
-          'max_to_min' => esc_html__( 'Maximum to Minimum Price', 'assistant-for-woocommerce' ),
+          'min'        => esc_html__( 'Minimum Price', 'jetexir' ),
+          'max'        => esc_html__( 'Maximum Price', 'jetexir' ),
+          'min_to_max' => esc_html__( 'Minimum to Maximum Price', 'jetexir' ),
+          'max_to_min' => esc_html__( 'Maximum to Minimum Price', 'jetexir' ),
         ),
         'option_none'       => '---',
         'option_none_value' => '',
@@ -101,29 +101,29 @@ class ProductPriceVariation extends Addon implements AddonInterface {
       ),
       'variation_price_add_from'  => [
         'id'       => 'variation_price_add_from',
-        'title'    => esc_html__( 'Add From', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Add From', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => true,
-        'desc'     => esc_html__( 'Activate this feature to show "From" prior to the Minimum Price.', 'assistant-for-woocommerce' ),
+        'desc'     => esc_html__( 'Activate this feature to show "From" prior to the Minimum Price.', 'jetexir' ),
         'sanitize' => 'bool'
       ],
       'variation_price_add_up_to' => [
         'id'       => 'variation_price_add_up_to',
-        'title'    => esc_html__( 'Add Up To', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Add Up To', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => true,
-        'desc'     => esc_html__( 'Activate this option to present "Up To" before the Maximum Price.', 'assistant-for-woocommerce' ),
+        'desc'     => esc_html__( 'Activate this option to present "Up To" before the Maximum Price.', 'jetexir' ),
         'sanitize' => 'bool'
       ],
       'variation_hide_reset_link' => array(
         'id'       => 'variation_hide_reset_link',
-        'title'    => esc_html__( 'Hide Reset Link', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Hide Reset Link', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
-        'desc'     => esc_html__( 'Remove "Clear" link on single product page.', 'assistant-for-woocommerce' ),
+        'desc'     => esc_html__( 'Remove "Clear" link on single product page.', 'jetexir' ),
         'sanitize' => 'bool'
       ),
 
@@ -140,9 +140,9 @@ class ProductPriceVariation extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Product Price Variation', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Add advanced settings for WooCommerce variable product pricing.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Product Price Variation', 'jetexir' ),
+      'desc'           => esc_html__( 'Add advanced settings for WooCommerce variable product pricing.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws'

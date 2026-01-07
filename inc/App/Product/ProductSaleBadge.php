@@ -1,12 +1,12 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Product;
+namespace Jetexir\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Interfaces\AddonInterface;
-use AssistantForWooCommerce\Settings\Settings;
+use Jetexir\Addons\Addon;
+use Jetexir\Interfaces\AddonInterface;
+use Jetexir\Settings\Settings;
 
 class ProductSaleBadge extends Addon implements AddonInterface {
   public string $addonID = 'product-sale-badge';
@@ -16,7 +16,7 @@ class ProductSaleBadge extends Addon implements AddonInterface {
   public function __construct() {
     parent::__construct();
 
-    add_filter( 'assistant_for_woocommerce_product_general_settings', [ $this, 'addProductGeneralSettings' ] );
+    add_filter( 'jetexir_product_general_settings', [ $this, 'addProductGeneralSettings' ] );
   }
 
   public function initAction(): void {
@@ -92,23 +92,23 @@ class ProductSaleBadge extends Addon implements AddonInterface {
   public function addProductGeneralSettings( $settings ): array {
     $addonSettings = array(
       'start_grid_product_sale_badge' => array(
-        'title' => esc_html__( 'Sale Badge', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Sale Badge', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       'product_sale_badge_text'       => array(
         'id'          => 'product_sale_badge_text',
-        'title'       => esc_html__( 'Sale Badge text', 'assistant-for-woocommerce' ),
+        'title'       => esc_html__( 'Sale Badge text', 'jetexir' ),
         'type'        => 'text',
-        'default'     => esc_html__( 'Sale', 'assistant-for-woocommerce' ),
-        'placeholder' => esc_html__( 'Sale', 'assistant-for-woocommerce' ),
+        'default'     => esc_html__( 'Sale', 'jetexir' ),
+        'placeholder' => esc_html__( 'Sale', 'jetexir' ),
       ),
       'product_sale_badge_percentage' => [
         'id'       => 'product_sale_badge_percentage',
-        'title'    => esc_html__( 'Discount percentage', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Discount percentage', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
-        'desc'     => esc_html__( 'Display discount percentage as sale badge', 'assistant-for-woocommerce' ),
+        'desc'     => esc_html__( 'Display discount percentage as sale badge', 'jetexir' ),
         'sanitize' => 'bool'
       ],
       'end_grid_product_sale_badge'   => array(
@@ -124,9 +124,9 @@ class ProductSaleBadge extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Product Sale Badge', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Customize the product sale badge.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Sale', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Product Sale Badge', 'jetexir' ),
+      'desc'           => esc_html__( 'Customize the product sale badge.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Sale', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws'

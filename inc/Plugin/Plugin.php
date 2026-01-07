@@ -1,10 +1,10 @@
 <?php
 
-namespace AssistantForWooCommerce\Plugin;
+namespace Jetexir\Plugin;
 
 class Plugin {
   public function __construct() {
-    add_filter( 'plugin_action_links_' . plugin_basename( ASSISTANTFORWOOCOMMERCE_PLUGIN_FILE_PATH ),
+    add_filter( 'plugin_action_links_' . plugin_basename( JETEXIR_PLUGIN_FILE_PATH ),
       [ $this, 'pluginActionLink' ] );
   }
 
@@ -16,8 +16,8 @@ class Plugin {
    * @return  array
    */
   public static function pluginActionLink( $links ): array {
-    $links[] = '<a href="' . admin_url( 'admin.php?page=' . ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG ) . '">' .
-               __( 'Dashboard', 'assistant-for-woocommerce' ) . '</a>';
+    $links[] = '<a href="' . admin_url( 'admin.php?page=' . JETEXIR_PLUGIN_SLUG ) . '">' .
+               __( 'Dashboard', 'jetexir' ) . '</a>';
 
     return $links;
   }

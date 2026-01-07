@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace AssistantForWooCommerce\Enums;
+namespace Jetexir\Enums;
 
 /**
  * Enum class for all the colors.

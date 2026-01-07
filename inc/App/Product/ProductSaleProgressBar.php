@@ -1,18 +1,18 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Product;
+namespace Jetexir\App\Product;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Admin\AdminPages;
-use AssistantForWooCommerce\Enums\Colors;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\PostMeta;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\Templates;
-use AssistantForWooCommerce\Helper\WooCommerce;
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Addons\Addon;
+use Jetexir\Admin\AdminPages;
+use Jetexir\Enums\Colors;
+use Jetexir\Helper\Assets;
+use Jetexir\Helper\Notice;
+use Jetexir\Helper\Param;
+use Jetexir\Helper\PostMeta;
+use Jetexir\Helper\Sanitizing;
+use Jetexir\Helper\Templates;
+use Jetexir\Helper\WooCommerce;
+use Jetexir\Interfaces\AddonInterface;
 
 class ProductSaleProgressBar extends Addon implements AddonInterface {
   public string $addonID = 'product-sale-progress-bar';
@@ -21,7 +21,7 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
   public function adminInitAction(): void {
     if ( AdminPages::isSettingPage() && Param::get( 'section' ) === $this->currentSection ) {
-      Notice::add( $this->currentTab, esc_html__( 'At present, this functionality is exclusively available for simple products.', 'assistant-for-woocommerce' ), 'warning' );
+      Notice::add( $this->currentTab, esc_html__( 'At present, this functionality is exclusively available for simple products.', 'jetexir' ), 'warning' );
     }
   }
 
@@ -46,7 +46,7 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
     $productID            = $product->get_id();
     $stock                = Sanitizing::int( $product->get_stock_quantity() );
-    $saleProgressBarStock = Sanitizing::int( PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_sale_progress_bar_stock' ) );
+    $saleProgressBarStock = Sanitizing::int( PostMeta::get( $productID, JETEXIR_PLUGIN_KEY . '_sale_progress_bar_stock' ) );
 
     if ( $stock > $saleProgressBarStock ) {
       return;
@@ -56,9 +56,9 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
     $soldPercent = (int) ( 100 / $saleProgressBarStock ) * $sold;
 
     Templates::load( Templates::getPath( 'sale-progress-bar/progress_bar.php' ), array(
-      'sold_title'            => $this->getSetting( 'product_sale_progress_bar_sold_title', esc_html__( 'Sold', 'assistant-for-woocommerce' ) ),
+      'sold_title'            => $this->getSetting( 'product_sale_progress_bar_sold_title', esc_html__( 'Sold', 'jetexir' ) ),
       'sold'                  => $sold,
-      'remaining_title'       => $this->getSetting( 'product_sale_progress_bar_remaining_title', esc_html__( 'Remaining', 'assistant-for-woocommerce' ) ),
+      'remaining_title'       => $this->getSetting( 'product_sale_progress_bar_remaining_title', esc_html__( 'Remaining', 'jetexir' ) ),
       'stock'                 => $stock,
       'sold_percent'          => $soldPercent,
       'progress_bar_bg_color' => $this->getSetting( 'product_sale_progress_bar_bg_color', Colors::primary ),
@@ -67,29 +67,29 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
   }
 
   public function adminProductSaveMeta( $productID ): void {
-    $stock = Sanitizing::int( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'sale_progress_bar_stock' ) );
+    $stock = Sanitizing::int( Param::post( JETEXIR_INPUT_PREFIX . 'sale_progress_bar_stock' ) );
 
     if ( $stock ) {
-      PostMeta::update( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_sale_progress_bar_stock', $stock );
+      PostMeta::update( $productID, JETEXIR_PLUGIN_KEY . '_sale_progress_bar_stock', $stock );
     } else {
-      PostMeta::delete( $productID, ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_sale_progress_bar_stock' );
+      PostMeta::delete( $productID, JETEXIR_PLUGIN_KEY . '_sale_progress_bar_stock' );
     }
   }
 
   public function addStockToProduct(): void {
     $product = wc_get_product();
-    $value   = (int) $product->get_meta( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_sale_progress_bar_stock' );
+    $value   = (int) $product->get_meta( JETEXIR_PLUGIN_KEY . '_sale_progress_bar_stock' );
     if ( ! $value ) {
       $value = wc_stock_amount( $product->get_stock_quantity( 'edit' ) ?? 1 );
     }
 
     woocommerce_wp_text_input(
       array(
-        'id'                => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'sale_progress_bar_stock',
+        'id'                => JETEXIR_INPUT_PREFIX . 'sale_progress_bar_stock',
         'value'             => wc_stock_amount( $value ),
-        'label'             => esc_html__( 'Sale progress bar quantity', 'assistant-for-woocommerce' ),
+        'label'             => esc_html__( 'Sale progress bar quantity', 'jetexir' ),
         'desc_tip'          => true,
-        'description'       => esc_html__( 'Please enter the starting quantity of product, The entered value must be greater than the quantity value.', 'assistant-for-woocommerce' ),
+        'description'       => esc_html__( 'Please enter the starting quantity of product, The entered value must be greater than the quantity value.', 'jetexir' ),
         'type'              => 'number',
         'custom_attributes' => array(
           'step' => 'any',
@@ -101,45 +101,45 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
   public function addSectionSettings( $sections ): array {
     $sections[ $this->currentSection ] = array(
-      'title'        => esc_html__( 'Sale progress bar', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Product sale progress bar', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Sale progress bar', 'jetexir' ),
+      'desc'         => esc_html__( 'Product sale progress bar', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => [
         'product_sale_progress_bar_start_grid'      => array(
           'id'    => 'product_sale_progress_bar_start_grid',
-          'title' => esc_html__( 'Sale progress bar', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Sale progress bar', 'jetexir' ),
           'type'  => 'startgrid',
         ),
         'product_sale_progress_bar_sold_title'      => array(
           'id'          => 'product_sale_progress_bar_sold_title',
-          'title'       => esc_html__( 'Sold title', 'assistant-for-woocommerce' ),
+          'title'       => esc_html__( 'Sold title', 'jetexir' ),
           'type'        => 'text',
-          'default'     => esc_html__( 'Sold', 'assistant-for-woocommerce' ),
-          'placeholder' => esc_html__( 'Sold', 'assistant-for-woocommerce' ),
+          'default'     => esc_html__( 'Sold', 'jetexir' ),
+          'placeholder' => esc_html__( 'Sold', 'jetexir' ),
         ),
         'product_sale_progress_bar_remaining_title' => array(
           'id'          => 'product_sale_progress_bar_remaining_title',
-          'title'       => esc_html__( 'Remaining product title', 'assistant-for-woocommerce' ),
+          'title'       => esc_html__( 'Remaining product title', 'jetexir' ),
           'type'        => 'text',
-          'default'     => esc_html__( 'Remaining', 'assistant-for-woocommerce' ),
-          'placeholder' => esc_html__( 'Remaining', 'assistant-for-woocommerce' ),
+          'default'     => esc_html__( 'Remaining', 'jetexir' ),
+          'placeholder' => esc_html__( 'Remaining', 'jetexir' ),
         ),
         'product_sale_progress_bar_position'        => array(
           'id'          => 'product_sale_progress_bar_position',
-          'title'       => esc_html__( 'Position on single page', 'assistant-for-woocommerce' ),
+          'title'       => esc_html__( 'Position on single page', 'jetexir' ),
           'type'        => 'select',
           'options'     => array(
-            'before_title'       => esc_html__( 'Before title', 'assistant-for-woocommerce' ),
-            'after_title'        => esc_html__( 'After title', 'assistant-for-woocommerce' ),
-            'after_rating'       => esc_html__( 'After rating', 'assistant-for-woocommerce' ),
-            'after_price'        => esc_html__( 'After price', 'assistant-for-woocommerce' ),
-            'after_excerpt'      => esc_html__( 'After excerpt', 'assistant-for-woocommerce' ),
-            'before_add_to_cart' => esc_html__( 'Before add to cart button', 'assistant-for-woocommerce' ),
-            'after_add_to_cart'  => esc_html__( 'After add to cart button', 'assistant-for-woocommerce' ),
-            'after_meta'         => esc_html__( 'After meta', 'assistant-for-woocommerce' ),
-            'after_sharing'      => esc_html__( 'After sharing', 'assistant-for-woocommerce' ),
+            'before_title'       => esc_html__( 'Before title', 'jetexir' ),
+            'after_title'        => esc_html__( 'After title', 'jetexir' ),
+            'after_rating'       => esc_html__( 'After rating', 'jetexir' ),
+            'after_price'        => esc_html__( 'After price', 'jetexir' ),
+            'after_excerpt'      => esc_html__( 'After excerpt', 'jetexir' ),
+            'before_add_to_cart' => esc_html__( 'Before add to cart button', 'jetexir' ),
+            'after_add_to_cart'  => esc_html__( 'After add to cart button', 'jetexir' ),
+            'after_meta'         => esc_html__( 'After meta', 'jetexir' ),
+            'after_sharing'      => esc_html__( 'After sharing', 'jetexir' ),
           ),
-          'option_none' => esc_html__( 'Hide', 'assistant-for-woocommerce' ),
+          'option_none' => esc_html__( 'Hide', 'jetexir' ),
           'default'     => 'after_title',
           'sanitize'    => 'text',
         ),
@@ -148,20 +148,20 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
         ),
         'product_sale_progress_bar_start_grid_2'    => array(
           'id'    => 'product_sale_progress_bar_start_grid_2',
-          'title' => esc_html__( 'Style', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Style', 'jetexir' ),
           'type'  => 'startgrid',
         ),
         'product_sale_progress_bar_bg_color'        => array(
           'id'       => 'product_sale_progress_bar_bg_color',
-          'title'    => esc_html__( 'Progress bar background color', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Progress bar background color', 'jetexir' ),
           'type'     => 'wpColorPicker',
           'default'  => Colors::primary,
           'sanitize' => 'color'
         ),
         'product_sale_progress_bar_height'          => array(
           'id'         => 'product_sale_progress_bar_height',
-          'title'      => esc_html__( 'Progress bar height', 'assistant-for-woocommerce' ),
-          'desc'       => esc_html__( 'Pixel', 'assistant-for-woocommerce' ),
+          'title'      => esc_html__( 'Progress bar height', 'jetexir' ),
+          'desc'       => esc_html__( 'Pixel', 'jetexir' ),
           'type'       => 'number',
           'default'    => 10,
           'attributes' => array(
@@ -195,9 +195,9 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
     }
 
     $pluginVersion = Assets::getVersion();
-    $debugName     = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? '' : '.min';
+    $debugName     = JETEXIR_DEBUG_MODE ? '' : '.min';
 
-    wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-sale-progress-bar-style',
+    wp_enqueue_style( JETEXIR_PLUGIN_KEY . '-product-sale-progress-bar-style',
       Assets::url( 'css/product-sale-progress-bar' . $debugName . '.css' ),
       false, $pluginVersion );
   }
@@ -210,9 +210,9 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Sale progress bar', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Sales progress bar for products', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Sale progress bar', 'jetexir' ),
+      'desc'           => esc_html__( 'Sales progress bar for products', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

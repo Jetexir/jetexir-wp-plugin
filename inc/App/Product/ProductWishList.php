@@ -1,13 +1,13 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Product;
+namespace Jetexir\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Enums\ProductStatus;
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\App\App;
-use AssistantForWooCommerce\Helper\{Assets,
+use Jetexir\Addons\Addon;
+use Jetexir\App\App;
+use Jetexir\Helper\{Assets,
   Helper,
   HTML,
   Nonce,
@@ -17,15 +17,15 @@ use AssistantForWooCommerce\Helper\{Assets,
   UserMeta,
   WooCommerce,
   WordPress};
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Interfaces\AddonInterface;
 
 class ProductWishList extends Addon implements AddonInterface {
   public string $addonID = 'product-wishlist';
   public string $currentTab = 'product';
   public string $currentSection = 'wishlist';
-  private const buttonShortCode = 'asfowoo_product_wishlist_button';
-  private const wishlistShortcode = 'asfowoo_products_wishlist';
-  private const userMeta = ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_wishlist_items';
+  private const buttonShortCode = 'jetexir_product_wishlist_button';
+  private const wishlistShortcode = 'jetexir_products_wishlist';
+  private const userMeta = JETEXIR_PLUGIN_KEY . '_wishlist_items';
   private const defaultList = 'default';
 
   public function initAction(): void {
@@ -39,8 +39,8 @@ class ProductWishList extends Addon implements AddonInterface {
       }
 
       add_action( 'woocommerce_thankyou', [ $this, 'removeWishlistItem' ], 99999 );
-      add_action( 'wp_ajax_asfowoo_product_wishlist_add_remove', [ $this, 'addRemoveItem' ] );
-      add_action( 'wp_ajax_asfowoo_product_wishlist_remove', [ $this, 'addRemoveItem' ] );
+      add_action( 'wp_ajax_jetexir_product_wishlist_add_remove', [ $this, 'addRemoveItem' ] );
+      add_action( 'wp_ajax_jetexir_product_wishlist_remove', [ $this, 'addRemoveItem' ] );
 
       if ( $position = $this->getSetting( 'wishlist_product_position', 'after_add_to_cart' ) ) {
         add_action( 'woocommerce_single_product_summary', [
@@ -119,7 +119,7 @@ class ProductWishList extends Addon implements AddonInterface {
   }
 
   public function wooAccountMenuItemsFilter( $items ): array {
-    $menuItems = [ 'wishlist' => esc_html__( 'Wishlist', 'assistant-for-woocommerce' ) ];
+    $menuItems = [ 'wishlist' => esc_html__( 'Wishlist', 'jetexir' ) ];
 
     if ( isset( $items['customer-logout'] ) ) {
       $index = array_search( 'customer-logout', array_keys( $items ), true );
@@ -157,7 +157,7 @@ class ProductWishList extends Addon implements AddonInterface {
 
     wp_send_json_error( [
       'error'   => 'nonce-invalid',
-      'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'assistant-for-woocommerce' ),
+      'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'jetexir' ),
       'refresh' => true
     ], 403 );
   }
@@ -205,7 +205,7 @@ class ProductWishList extends Addon implements AddonInterface {
     }
 
     $listKeys = array( self::defaultList );
-    $listKeys = apply_filters( 'assistant_for_woocommerce_wishlist_list_keys', $listKeys, $userID );
+    $listKeys = apply_filters( 'jetexir_wishlist_list_keys', $listKeys, $userID );
     $listKeys = array_values( $listKeys );
 
     if ( ! in_array( self::defaultList, $listKeys, true ) ) {
@@ -243,12 +243,12 @@ class ProductWishList extends Addon implements AddonInterface {
     $wishlist = is_array( $wishlist ) ? $wishlist : [];
 
     if ( is_null( $list ) ) {
-      return apply_filters( 'assistant_for_woocommerce_wishlist_items', $wishlist, $userId );;
+      return apply_filters( 'jetexir_wishlist_items', $wishlist, $userId );;
     }
 
     $wishlist = $wishlist[ $list ] ?? [];
 
-    $wishlist = apply_filters( 'assistant_for_woocommerce_wishlist_list_items', $wishlist, $list, $userId );
+    $wishlist = apply_filters( 'jetexir_wishlist_list_items', $wishlist, $list, $userId );
 
     return $wishlist;
   }
@@ -262,11 +262,11 @@ class ProductWishList extends Addon implements AddonInterface {
 
     echo wp_kses_post( $this->buttonShortcode( array(
       'type'         => esc_html( $this->getSetting( 'wishlist_button_type', 'button' ) ),
-      'icon'         => wp_kses_post( $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'asfowoo-icon-heart' ), true ) ),
-      'text'         => esc_html( $this->getSetting( 'wishlist_button_text', esc_html__( 'Add to wishlist', 'assistant-for-woocommerce' ) ) ),
+      'icon'         => wp_kses_post( $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'jetexir-icon-heart' ), true ) ),
+      'text'         => esc_html( $this->getSetting( 'wishlist_button_text', esc_html__( 'Add to wishlist', 'jetexir' ) ) ),
       'appearance'   => esc_html( $buttonAppearance ),
-      'remove_text'  => esc_html( $this->getSetting( 'wishlist_button_remove_text', esc_html__( 'Remove from wishlist', 'assistant-for-woocommerce' ) ) ),
-      'browse_text'  => esc_html( $this->getSetting( 'wishlist_button_browse_text', esc_html__( 'Browse wishlist', 'assistant-for-woocommerce' ) ) ),
+      'remove_text'  => esc_html( $this->getSetting( 'wishlist_button_remove_text', esc_html__( 'Remove from wishlist', 'jetexir' ) ) ),
+      'browse_text'  => esc_html( $this->getSetting( 'wishlist_button_browse_text', esc_html__( 'Browse wishlist', 'jetexir' ) ) ),
       'added_action' => esc_html( $this->getSetting( 'wishlist_added_action', 'remove' ) )
     ) ) );
   }
@@ -274,10 +274,10 @@ class ProductWishList extends Addon implements AddonInterface {
   public function buttonShortcode( $atts ): string {
     $atts = shortcode_atts( array(
       'product_id'    => WooCommerce::getCurrentProductId(),
-      'icon'          => $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'asfowoo-icon-heart' ), true ),
-      'text'          => $this->getSetting( 'wishlist_button_text', esc_html__( 'Add to wishlist', 'assistant-for-woocommerce' ) ),
-      'remove_text'   => $this->getSetting( 'wishlist_button_remove_text', esc_html__( 'Remove from wishlist', 'assistant-for-woocommerce' ) ),
-      'browse_text'   => $this->getSetting( 'wishlist_button_browse_text', esc_html__( 'Browse wishlist', 'assistant-for-woocommerce' ) ),
+      'icon'          => $this->getButtonIcons( $this->getSetting( 'wishlist_button_icon', 'jetexir-icon-heart' ), true ),
+      'text'          => $this->getSetting( 'wishlist_button_text', esc_html__( 'Add to wishlist', 'jetexir' ) ),
+      'remove_text'   => $this->getSetting( 'wishlist_button_remove_text', esc_html__( 'Remove from wishlist', 'jetexir' ) ),
+      'browse_text'   => $this->getSetting( 'wishlist_button_browse_text', esc_html__( 'Browse wishlist', 'jetexir' ) ),
       'added_action'  => $this->getSetting( 'wishlist_added_action', 'remove' ),
       'type'          => $this->getSetting( 'wishlist_button_type', 'button' ),
       'appearance'    => 'icon_text',
@@ -311,9 +311,9 @@ class ProductWishList extends Addon implements AddonInterface {
       $buttonAddedText = $atts['icon'] . ' ' . $addedText;
     }
 
-    $defaultClass = 'asfowoo-product-wishlist-button ' . ( $exists ? 'asfowoo-product-wishlist-added ' : '' );
-    $defaultClass .= $atts['default_class'] === 'on' ? ( $type === 'button' ? 'button asfowoo-button asfowoo-button-secondary asfowoo-inline-flex ' : 'asfowoo-inline-flex ' ) : '';
-    $defaultClass .= $exists && $atts['added_action'] === 'remove' ? 'asfowoo-remove-action ' : '';
+    $defaultClass = 'jetexir-product-wishlist-button ' . ( $exists ? 'jetexir-product-wishlist-added ' : '' );
+    $defaultClass .= $atts['default_class'] === 'on' ? ( $type === 'button' ? 'button jetexir-button jetexir-button-secondary jetexir-inline-flex ' : 'jetexir-inline-flex ' ) : '';
+    $defaultClass .= $exists && $atts['added_action'] === 'remove' ? 'jetexir-remove-action ' : '';
     $class        = trim( $defaultClass . ' ' . $atts['class'] );
 
     $attributes = array(
@@ -339,7 +339,7 @@ class ProductWishList extends Addon implements AddonInterface {
     $emptyNotice = Notice::addAndDisplay( 'product-compare', array(
       array(
         'type'    => 'info',
-        'message' => esc_html__( 'Your wishlist is empty.', 'assistant-for-woocommerce' ),
+        'message' => esc_html__( 'Your wishlist is empty.', 'jetexir' ),
       )
     ), false );
     $listItems   = self::getListItems( $atts['list'], $atts['user_id'] );
@@ -366,9 +366,9 @@ class ProductWishList extends Addon implements AddonInterface {
     $dateFormat = get_option( 'date_format' );
 
     ob_start();
-    echo '<div class="asfowoo-product-list-wrap asfowoo-product-wishlist-wrap">';
-    echo '<div class="asfowoo-loader-wrap" style="display: none"><div class="asfowoo-loader"></div></div>';
-    echo '<div class="asfowoo-product-list-notice" style="display: none">' . esc_html( $emptyNotice ) . '</div>';
+    echo '<div class="jetexir-product-list-wrap jetexir-product-wishlist-wrap">';
+    echo '<div class="jetexir-loader-wrap" style="display: none"><div class="jetexir-loader"></div></div>';
+    echo '<div class="jetexir-product-list-notice" style="display: none">' . esc_html( $emptyNotice ) . '</div>';
 
     foreach ( $listItems as $productID => $data ) {
       if ( isset( $products[ $productID ] ) ) {
@@ -376,21 +376,21 @@ class ProductWishList extends Addon implements AddonInterface {
         $productLink = $product->get_permalink();
         $name        = wp_strip_all_tags( $product->get_name() );
 
-        echo '<div class="asfowoo-product-item-wrap asfowoo-product-wishlist-item" data-product-id="' . esc_html( $productID ) . '">';
+        echo '<div class="jetexir-product-item-wrap jetexir-product-wishlist-item" data-product-id="' . esc_html( $productID ) . '">';
 
         // Image
-        echo '<a href="' . esc_url( $productLink ) . '" target="_blank" class="asfowoo-product-item-image asfowoo-wishlist-item-image">' . wp_kses_post( $product->get_image() ) . '</a>';
+        echo '<a href="' . esc_url( $productLink ) . '" target="_blank" class="jetexir-product-item-image jetexir-wishlist-item-image">' . wp_kses_post( $product->get_image() ) . '</a>';
 
         // Info (Name, Date, Price)
-        echo '<div class="asfowoo-product-item-info">';
-        echo '<a href="' . esc_url( $productLink ) . '" target="_blank" class="asfowoo-product-item-title">' . esc_html( $name ) . '</a>';
-        echo '<div class="asfowoo-product-item-price asfowoo-product-item-meta">' . wp_kses_post( $product->get_price_html() ) . '</div>';
-        echo '<div class="asfowoo-product-item-date asfowoo-product-item-meta">' . esc_html( wp_date( $dateFormat, $data['timestamp'] ) ) . '</div>';
+        echo '<div class="jetexir-product-item-info">';
+        echo '<a href="' . esc_url( $productLink ) . '" target="_blank" class="jetexir-product-item-title">' . esc_html( $name ) . '</a>';
+        echo '<div class="jetexir-product-item-price jetexir-product-item-meta">' . wp_kses_post( $product->get_price_html() ) . '</div>';
+        echo '<div class="jetexir-product-item-date jetexir-product-item-meta">' . esc_html( wp_date( $dateFormat, $data['timestamp'] ) ) . '</div>';
         echo '</div>';
 
-        echo '<div class="asfowoo-product-item-actions">';
+        echo '<div class="jetexir-product-item-actions">';
         echo wp_kses_post( WooCommerce::getAddToCartButton( $product ) );
-        echo '<a href="#" class="asfowoo-product-item-remove asfowoo-flex asfowoo-product-wishlist-remove" data-asfowoo-product-remove-action="asfowoo_product_wishlist_remove" data-product-id="' . esc_attr( $productID ) . '"><i class="asfowoo-icon-cross"></i> ' . esc_html__( 'Remove', 'assistant-for-woocommerce' ) . '</a>';
+        echo '<a href="#" class="jetexir-product-item-remove jetexir-flex jetexir-product-wishlist-remove" data-jetexir-product-remove-action="jetexir_product_wishlist_remove" data-product-id="' . esc_attr( $productID ) . '"><i class="jetexir-icon-cross"></i> ' . esc_html__( 'Remove', 'jetexir' ) . '</a>';
         echo '</div>';
 
         echo '</div>';
@@ -414,41 +414,41 @@ class ProductWishList extends Addon implements AddonInterface {
 
   private function getButtonIcons( $icon = null, $tag = false ) {
     $icons = array(
-      'asfowoo-icon-heart',
-      'asfowoo-icon-heart1',
-      'asfowoo-icon-heart2',
-      'asfowoo-icon-heart3',
-      'asfowoo-icon-heart',
-      'asfowoo-icon-bookmark',
-      'asfowoo-icon-bookmark_outline',
-      'asfowoo-icon-bookmarks',
-      'asfowoo-icon-star_rate',
-      'asfowoo-icon-star_outline',
-      'asfowoo-icon-star_half',
-      'asfowoo-icon-check',
-      'asfowoo-icon-check1',
-      'asfowoo-icon-tick-outline',
-      'asfowoo-icon-checkmark',
-      'asfowoo-icon-checkmark2',
-      'asfowoo-icon-check_circle',
-      'asfowoo-icon-check_circle_outline',
-      'asfowoo-icon-check_box',
-      'asfowoo-icon-library_add_check',
-      'asfowoo-icon-library_add',
-      'asfowoo-icon-plus',
-      'asfowoo-icon-magic-wand',
-      'asfowoo-icon-magic-wand1',
-      'asfowoo-icon-magic-wand2',
-      'asfowoo-icon-magic-wand3',
-      'asfowoo-icon-magic-lamp',
-      'asfowoo-icon-magic-lamp1',
+      'jetexir-icon-heart',
+      'jetexir-icon-heart1',
+      'jetexir-icon-heart2',
+      'jetexir-icon-heart3',
+      'jetexir-icon-heart',
+      'jetexir-icon-bookmark',
+      'jetexir-icon-bookmark_outline',
+      'jetexir-icon-bookmarks',
+      'jetexir-icon-star_rate',
+      'jetexir-icon-star_outline',
+      'jetexir-icon-star_half',
+      'jetexir-icon-check',
+      'jetexir-icon-check1',
+      'jetexir-icon-tick-outline',
+      'jetexir-icon-checkmark',
+      'jetexir-icon-checkmark2',
+      'jetexir-icon-check_circle',
+      'jetexir-icon-check_circle_outline',
+      'jetexir-icon-check_box',
+      'jetexir-icon-library_add_check',
+      'jetexir-icon-library_add',
+      'jetexir-icon-plus',
+      'jetexir-icon-magic-wand',
+      'jetexir-icon-magic-wand1',
+      'jetexir-icon-magic-wand2',
+      'jetexir-icon-magic-wand3',
+      'jetexir-icon-magic-lamp',
+      'jetexir-icon-magic-lamp1',
     );
 
     if ( is_null( $icon ) ) {
       return $icons;
     }
 
-    $icon = in_array( $icon, $icons, true ) ? $icon : 'asfowoo-icon-heart';
+    $icon = in_array( $icon, $icons, true ) ? $icon : 'jetexir-icon-heart';
 
     return $tag ? '<i class="' . $icon . '"></i>' : $icon;
   }
@@ -465,19 +465,19 @@ class ProductWishList extends Addon implements AddonInterface {
     }
 
     $pluginVersion = Assets::getVersion();
-    $debugName     = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? '' : '.min';
+    $debugName     = JETEXIR_DEBUG_MODE ? '' : '.min';
 
-    /*wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-wishlist-style',
+    /*wp_enqueue_style( JETEXIR_PLUGIN_KEY . '-product-wishlist-style',
       Assets::url( 'css/product-wishlist' . $debugName . '.css' ),
       false, $pluginVersion );*/
 
-    wp_enqueue_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-wishlist-script',
+    wp_enqueue_script( JETEXIR_PLUGIN_KEY . '-product-wishlist-script',
       Assets::url( 'js/product-wishlist.min.js' ),
-      [ ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
+      [ JETEXIR_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
-    wp_localize_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-wishlist-script', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP . 'ProductWishlist', array(
+    wp_localize_script( JETEXIR_PLUGIN_KEY . '-product-wishlist-script', JETEXIR_PLUGIN_KEYCAP . 'ProductWishlist', array(
       'maxItems'           => $this->getSetting( 'wishlist_max_items', 10 ),
-      'maxExceededMessage' => esc_html__( 'It is not possible to add more than %number% product to the wishlist.', 'assistant-for-woocommerce' ),
+      'maxExceededMessage' => esc_html__( 'It is not possible to add more than %number% product to the wishlist.', 'jetexir' ),
       'wishlistPage'       => $this->getWishlistPage()
     ) );
   }
@@ -491,26 +491,26 @@ class ProductWishList extends Addon implements AddonInterface {
 
     $settings = array(
       'start_grid_wishlist_general' => array(
-        'title' => esc_html__( 'Products Wishlist', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Products Wishlist', 'jetexir' ),
         'type'  => 'startGrid',
       ),
       'wishlist_page'               => array(
         'id'                => 'wishlist_page',
-        'title'             => esc_html__( 'Wishlist page', 'assistant-for-woocommerce' ),
+        'title'             => esc_html__( 'Wishlist page', 'jetexir' ),
         'type'              => 'postSelect',
         'args'              => array(
           'post_type' => 'page'
         ),
         'default'           => 0,
-        'option_none'       => esc_html__( 'Add tab to "My account" page', 'assistant-for-woocommerce' ),
+        'option_none'       => esc_html__( 'Add tab to "My account" page', 'jetexir' ),
         'option_none_value' => 0,
         /* translators: %s: Shortcode */
-        'desc'              => wp_sprintf( esc_html__( 'Insert shortcode in the custom wishlist page %s', 'assistant-for-woocommerce' ), '<code  class="asfowoo-copy-text">[' . self::wishlistShortcode . ']</code>' )
+        'desc'              => wp_sprintf( esc_html__( 'Insert shortcode in the custom wishlist page %s', 'jetexir' ), '<code  class="jetexir-copy-text">[' . self::wishlistShortcode . ']</code>' )
       ),
       'wishlist_max_items'          => array(
         'id'         => 'wishlist_max_items',
-        'title'      => esc_html__( 'Max items', 'assistant-for-woocommerce' ),
-        'desc'       => esc_html__( 'Max wishlist items per user', 'assistant-for-woocommerce' ),
+        'title'      => esc_html__( 'Max items', 'jetexir' ),
+        'desc'       => esc_html__( 'Max wishlist items per user', 'jetexir' ),
         'type'       => 'number',
         'default'    => 10,
         'attributes' => array(
@@ -523,45 +523,45 @@ class ProductWishList extends Addon implements AddonInterface {
       ),
       'wishlist_auto_remove'        => array(
         'id'       => 'wishlist_auto_remove',
-        'title'    => esc_html__( 'Auto remove', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Auto remove', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
-        'desc'     => esc_html__( 'Auto remove product from the wishlist after create order.', 'assistant-for-woocommerce' ),
+        'desc'     => esc_html__( 'Auto remove product from the wishlist after create order.', 'jetexir' ),
         'sanitize' => 'bool'
       ),
       'wishlist_product_position'   => array(
         'id'          => 'wishlist_product_position',
-        'title'       => esc_html__( 'Position on single page', 'assistant-for-woocommerce' ),
+        'title'       => esc_html__( 'Position on single page', 'jetexir' ),
         'type'        => 'select',
         'options'     => array(
-          'before_title'       => esc_html__( 'Before title', 'assistant-for-woocommerce' ),
-          'after_title'        => esc_html__( 'After title', 'assistant-for-woocommerce' ),
-          'after_rating'       => esc_html__( 'After rating', 'assistant-for-woocommerce' ),
-          'after_price'        => esc_html__( 'After price', 'assistant-for-woocommerce' ),
-          'after_excerpt'      => esc_html__( 'After excerpt', 'assistant-for-woocommerce' ),
-          'before_add_to_cart' => esc_html__( 'Before add to cart button', 'assistant-for-woocommerce' ),
-          'after_add_to_cart'  => esc_html__( 'After add to cart button', 'assistant-for-woocommerce' ),
-          'after_meta'         => esc_html__( 'After meta', 'assistant-for-woocommerce' ),
-          'after_sharing'      => esc_html__( 'After sharing', 'assistant-for-woocommerce' ),
+          'before_title'       => esc_html__( 'Before title', 'jetexir' ),
+          'after_title'        => esc_html__( 'After title', 'jetexir' ),
+          'after_rating'       => esc_html__( 'After rating', 'jetexir' ),
+          'after_price'        => esc_html__( 'After price', 'jetexir' ),
+          'after_excerpt'      => esc_html__( 'After excerpt', 'jetexir' ),
+          'before_add_to_cart' => esc_html__( 'Before add to cart button', 'jetexir' ),
+          'after_add_to_cart'  => esc_html__( 'After add to cart button', 'jetexir' ),
+          'after_meta'         => esc_html__( 'After meta', 'jetexir' ),
+          'after_sharing'      => esc_html__( 'After sharing', 'jetexir' ),
         ),
-        'option_none' => esc_html__( 'Hide', 'assistant-for-woocommerce' ),
+        'option_none' => esc_html__( 'Hide', 'jetexir' ),
         'default'     => 'after_add_to_cart',
         'sanitize'    => 'text',
       ),
       'wishlist_archive_position'   => array(
         'id'          => 'wishlist_archive_position',
-        'title'       => esc_html__( 'Position on archive page', 'assistant-for-woocommerce' ),
+        'title'       => esc_html__( 'Position on archive page', 'jetexir' ),
         'type'        => 'select',
         'options'     => array(
-          'before_title'       => esc_html__( 'Before title', 'assistant-for-woocommerce' ),
-          'after_title'        => esc_html__( 'After title', 'assistant-for-woocommerce' ),
-          'after_rating'       => esc_html__( 'After rating', 'assistant-for-woocommerce' ),
-          'after_price'        => esc_html__( 'After price', 'assistant-for-woocommerce' ),
-          'before_add_to_cart' => esc_html__( 'Before add to cart button', 'assistant-for-woocommerce' ),
-          'after_add_to_cart'  => esc_html__( 'After add to cart button', 'assistant-for-woocommerce' ),
+          'before_title'       => esc_html__( 'Before title', 'jetexir' ),
+          'after_title'        => esc_html__( 'After title', 'jetexir' ),
+          'after_rating'       => esc_html__( 'After rating', 'jetexir' ),
+          'after_price'        => esc_html__( 'After price', 'jetexir' ),
+          'before_add_to_cart' => esc_html__( 'Before add to cart button', 'jetexir' ),
+          'after_add_to_cart'  => esc_html__( 'After add to cart button', 'jetexir' ),
         ),
-        'option_none' => esc_html__( 'Hide', 'assistant-for-woocommerce' ),
+        'option_none' => esc_html__( 'Hide', 'jetexir' ),
         'default'     => 'after_add_to_cart',
         'sanitize'    => 'text',
       ),
@@ -570,83 +570,83 @@ class ProductWishList extends Addon implements AddonInterface {
       ),
 
       'start_grid_wishlist_button'  => array(
-        'title' => esc_html__( 'Button', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Button', 'jetexir' ),
         'type'  => 'startGrid',
       ),
       'wishlist_button_type'        => array(
         'id'       => 'wishlist_button_type',
-        'title'    => esc_html__( 'Type', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Type', 'jetexir' ),
         'type'     => 'select',
         'options'  => array(
-          'button' => esc_html__( 'Button', 'assistant-for-woocommerce' ),
-          'a'      => esc_html__( 'Link', 'assistant-for-woocommerce' ),
+          'button' => esc_html__( 'Button', 'jetexir' ),
+          'a'      => esc_html__( 'Link', 'jetexir' ),
         ),
         'default'  => 'button',
         'sanitize' => 'text',
       ),
       'wishlist_button_icon'        => array(
         'id'       => 'wishlist_button_icon',
-        'title'    => esc_html__( 'Button icon', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Button icon', 'jetexir' ),
         'type'     => 'radioInline',
-        'default'  => 'asfowoo-icon-heart',
+        'default'  => 'jetexir-icon-heart',
         'options'  => $buttonIcons,
         'sanitize' => 'text'
       ),
       'wishlist_button_text'        => array(
         'id'      => 'wishlist_button_text',
-        'title'   => esc_html__( 'Button text', 'assistant-for-woocommerce' ),
+        'title'   => esc_html__( 'Button text', 'jetexir' ),
         'type'    => 'text',
-        'default' => esc_html__( 'Add to wishlist', 'assistant-for-woocommerce' ),
+        'default' => esc_html__( 'Add to wishlist', 'jetexir' ),
       ),
       'wishlist_button_remove_text' => array(
         'id'      => 'wishlist_button_remove_text',
-        'title'   => esc_html__( 'Remove button text', 'assistant-for-woocommerce' ),
+        'title'   => esc_html__( 'Remove button text', 'jetexir' ),
         'type'    => 'text',
-        'default' => esc_html__( 'Remove from wishlist', 'assistant-for-woocommerce' ),
+        'default' => esc_html__( 'Remove from wishlist', 'jetexir' ),
       ),
       'wishlist_button_browse_text' => array(
         'id'      => 'wishlist_button_browse_text',
-        'title'   => esc_html__( 'Browse button text', 'assistant-for-woocommerce' ),
+        'title'   => esc_html__( 'Browse button text', 'jetexir' ),
         'type'    => 'text',
-        'default' => esc_html__( 'Browse wishlist', 'assistant-for-woocommerce' ),
+        'default' => esc_html__( 'Browse wishlist', 'jetexir' ),
       ),
       'wishlist_added_action'       => array(
         'id'       => 'wishlist_added_action',
-        'title'    => esc_html__( 'Action after adding the product', 'assistant-for-woocommerce' ),
-        'desc'     => esc_html__( 'Specify the action to perform following product addition', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Action after adding the product', 'jetexir' ),
+        'desc'     => esc_html__( 'Specify the action to perform following product addition', 'jetexir' ),
         'type'     => 'select',
         'options'  => array(
-          'open_page' => esc_html__( 'Open wishlist page', 'assistant-for-woocommerce' ),
-          'remove'    => esc_html__( 'Remove from wishlist', 'assistant-for-woocommerce' ),
+          'open_page' => esc_html__( 'Open wishlist page', 'jetexir' ),
+          'remove'    => esc_html__( 'Remove from wishlist', 'jetexir' ),
         ),
         'default'  => 'remove',
         'sanitize' => 'text',
       ),
       'wishlist_product_button'     => array(
         'id'       => 'wishlist_product_button',
-        'title'    => esc_html__( 'Product appearance', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Product appearance', 'jetexir' ),
         'type'     => 'select',
         'options'  => array(
-          'icon'      => esc_html__( 'Icon', 'assistant-for-woocommerce' ),
-          'text'      => esc_html__( 'Text', 'assistant-for-woocommerce' ),
-          'icon_text' => esc_html__( 'Icon with text', 'assistant-for-woocommerce' ),
+          'icon'      => esc_html__( 'Icon', 'jetexir' ),
+          'text'      => esc_html__( 'Text', 'jetexir' ),
+          'icon_text' => esc_html__( 'Icon with text', 'jetexir' ),
         ),
         'default'  => 'icon_text',
         'sanitize' => 'text',
-        'desc'     => esc_html__( 'Select single product button appearance', 'assistant-for-woocommerce' )
+        'desc'     => esc_html__( 'Select single product button appearance', 'jetexir' )
       ),
       'wishlist_archive_button'     => array(
         'id'       => 'wishlist_archive_button',
-        'title'    => esc_html__( 'Archive appearance', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Archive appearance', 'jetexir' ),
         'type'     => 'select',
         'options'  => array(
-          'icon'      => esc_html__( 'Icon', 'assistant-for-woocommerce' ),
-          'text'      => esc_html__( 'Text', 'assistant-for-woocommerce' ),
-          'icon_text' => esc_html__( 'Icon with text', 'assistant-for-woocommerce' ),
+          'icon'      => esc_html__( 'Icon', 'jetexir' ),
+          'text'      => esc_html__( 'Text', 'jetexir' ),
+          'icon_text' => esc_html__( 'Icon with text', 'jetexir' ),
         ),
         'default'  => 'icon',
         'sanitize' => 'text',
-        'desc'     => esc_html__( 'Select archive button appearance', 'assistant-for-woocommerce' )
+        'desc'     => esc_html__( 'Select archive button appearance', 'jetexir' )
       ),
       'end_grid_wishlist_button'    => array(
         'type' => 'endgrid',
@@ -656,8 +656,8 @@ class ProductWishList extends Addon implements AddonInterface {
     );
 
     $sections[ $this->currentSection ] = array(
-      'title'        => esc_html__( 'WishList', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Products WishList', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'WishList', 'jetexir' ),
+      'desc'         => esc_html__( 'Products WishList', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => $settings
     );
@@ -670,9 +670,9 @@ class ProductWishList extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Products WishList', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Add wishlist functionality to your store.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Products WishList', 'jetexir' ),
+      'desc'           => esc_html__( 'Add wishlist functionality to your store.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

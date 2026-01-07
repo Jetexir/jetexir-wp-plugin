@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\AppHelper;
+namespace Jetexir\AppHelper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,18 +11,18 @@ class Modal {
   }
 
   public function printAdminModal(): void {
-    do_action( 'assistant_for_woocommerce_admin_modals' );
+    do_action( 'jetexir_admin_modals' );
 
-    if ( apply_filters( 'assistant_for_woocommerce_admin_modal_overlay', true ) ) {
-      echo '<div id="asfowoo-modal-overlay" class="asfowoo-modal-overlay"></div>';
+    if ( apply_filters( 'jetexir_admin_modal_overlay', true ) ) {
+      echo '<div id="jetexir-modal-overlay" class="jetexir-modal-overlay"></div>';
     }
   }
 
   public function printModal(): void {
-    do_action( 'assistant_for_woocommerce_site_modals' );
+    do_action( 'jetexir_site_modals' );
 
-    if ( apply_filters( 'assistant_for_woocommerce_site_modal_overlay', false ) ) {
-      echo '<div id="asfowoo-modal-overlay" class="asfowoo-modal-overlay"></div>';
+    if ( apply_filters( 'jetexir_site_modal_overlay', false ) ) {
+      echo '<div id="jetexir-modal-overlay" class="jetexir-modal-overlay"></div>';
     }
   }
 }

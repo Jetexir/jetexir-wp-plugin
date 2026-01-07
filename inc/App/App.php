@@ -1,16 +1,16 @@
 <?php
 
-namespace AssistantForWooCommerce\App;
+namespace Jetexir\App;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\App\General\General;
-use AssistantForWooCommerce\App\Order\Order;
-use AssistantForWooCommerce\App\Product\Product;
-use AssistantForWooCommerce\App\Cart\Cart;
-use AssistantForWooCommerce\App\Checkout\Checkout;
-use AssistantForWooCommerce\App\Tools\Tools;
-use AssistantForWooCommerce\App\WordPress\WordPress;
+use Jetexir\App\General\General;
+use Jetexir\App\Order\Order;
+use Jetexir\App\Product\Product;
+use Jetexir\App\Cart\Cart;
+use Jetexir\App\Checkout\Checkout;
+use Jetexir\App\Tools\Tools;
+use Jetexir\App\WordPress\WordPress;
 
 class App {
   public function __construct() {
@@ -28,8 +28,8 @@ class App {
   }
 
   public function init(): void {
-    do_action( 'assistant_for_woocommerce_addons_load' );
-    do_action( 'assistant_for_woocommerce_init' );
+    do_action( 'jetexir_addons_load' );
+    do_action( 'jetexir_init' );
   }
 
   /**
@@ -43,7 +43,7 @@ class App {
    *                           itself (`$shortcode_tag`), in that order.
    */
   public static function addShortcode( $tag, $callback ): void {
-    if ( apply_filters( 'assistant_for_woocommerce_add_shortcode', true, $tag ) ) {
+    if ( apply_filters( 'jetexir_add_shortcode', true, $tag ) ) {
       add_shortcode( $tag, $callback );
     }
   }

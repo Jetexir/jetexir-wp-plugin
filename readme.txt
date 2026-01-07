@@ -1,20 +1,20 @@
-=== Assistant for WooCommerce ===
+=== Jetexir ===
 Contributors: parselearn
 Tags: WooCommerce, Product, Cart, Checkout, Order
 Requires at least: 6.7
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Assistant for WooCommerce integrates with WooCommerce to help you further enhance your website.
+Jetexir integrates with WooCommerce to help you further enhance your website.
 
 == Description ==
 
-### Assistant for WooCommerce for WooCommerce ###
+### Jetexir for WooCommerce ###
 
-Assistant for WooCommerce is the ultimate enhancement suite for your WooCommerce store, designed to elevate both customer experience and administrative efficiency.
+Jetexir is the ultimate enhancement suite for your WooCommerce store, designed to elevate both customer experience and administrative efficiency.
 
 = Key Features: =
 
@@ -25,9 +25,9 @@ Assistant for WooCommerce is the ultimate enhancement suite for your WooCommerce
 * Checkout Optimization: Customize checkout fields and order statuses with advanced configuration options
 * Branding Tools: Personalize your store with an announcement bar and custom currency symbols
 
-Assistant for WooCommerce transforms your WooCommerce store into a more engaging, user-friendly shopping destination while giving you powerful tools to manage every aspect of the customer journey.
+Jetexir transforms your WooCommerce store into a more engaging, user-friendly shopping destination while giving you powerful tools to manage every aspect of the customer journey.
 
-### Why Choose Assistant for WooCommerce for Your WooCommerce Store? ###
+### Why Choose Jetexir for Your WooCommerce Store? ###
 
 1. Boost Conversions: Our product comparison and wishlist features help customers make purchasing decisions faster, increasing your sales potential.
 
@@ -37,7 +37,7 @@ Assistant for WooCommerce transforms your WooCommerce store into a more engaging
 
 4. Improve Customer Engagement: FAQ sections and related products keep shoppers on your site longer while providing valuable information.
 
-5. Flexible Customization: From checkout fields to currency symbols, Assistant for WooCommerce puts you in complete control of your store's appearance and functionality.
+5. Flexible Customization: From checkout fields to currency symbols, Jetexir puts you in complete control of your store's appearance and functionality.
 
 6. Convenient Shopping Experience: Fly Cart and Menu Cart options make it easier for customers to manage their purchases without leaving the product page.
 
@@ -47,7 +47,7 @@ Assistant for WooCommerce transforms your WooCommerce store into a more engaging
 
 = Minimum Requirements =
 
-Assistant for WooCommerce like WooCommerce has minimum requirements
+Jetexir like WooCommerce has minimum requirements
 
 * PHP 7.4 or greater is required (PHP 8.0 or greater is recommended)
 * MySQL 5.5.5 or greater, OR MariaDB version 10.1 or greater, is required
@@ -55,9 +55,9 @@ Assistant for WooCommerce like WooCommerce has minimum requirements
 
 = Automatic installation =
 
-Automatic installation is the easiest option — WordPress will handle the file transfer, and you won’t need to leave your web browser. To do an automatic install of Assistant for WooCommerce, log in to your WordPress dashboard, navigate to the Plugins menu, and click “Add New.”
+Automatic installation is the easiest option — WordPress will handle the file transfer, and you won’t need to leave your web browser. To do an automatic install of Jetexir, log in to your WordPress dashboard, navigate to the Plugins menu, and click “Add New.”
 
-In the search field type “Assistant for WooCommerce,” then click “Search Plugins.” Once you’ve found us, you can view details about it such as the point release, rating, and description. Most importantly of course, you can install it by! Click “Install Now,” and WordPress will take it from there.
+In the search field type “Jetexir,” then click “Search Plugins.” Once you’ve found us, you can view details about it such as the point release, rating, and description. Most importantly of course, you can install it by! Click “Install Now,” and WordPress will take it from there.
 
 = Manual installation =
 
@@ -79,7 +79,7 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 == Changelog ==
 ### 1.0 - 2025-08-15
 **Initial release**
-- Release Assistant for WooCommerce V1.0 with 17 add-ons and basic settings.
+- Release Jetexir V1.0 with 17 add-ons and basic settings.
 - Product Add-ons: Sale Badge, Price Variation, Compare, Quantity, WishList, Social Share, FAQ, Products, Call for price
 - Cart Add-ons: Fly Cart, Menu Cart
 - Checkout Add-ons: Checkout Fields

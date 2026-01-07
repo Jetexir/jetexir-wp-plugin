@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Helper;
+namespace Jetexir\Helper;
 
 class WordPress {
   public static function getPageName(): string {

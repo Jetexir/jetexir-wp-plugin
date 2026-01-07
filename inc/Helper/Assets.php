@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Helper;
+namespace Jetexir\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -82,11 +82,11 @@ class Assets {
   }
 
   public static function getVersion(): string {
-    return ASSISTANTFORWOOCOMMERCE_PLUGIN_VERSION . ( ASSISTANTFORWOOCOMMERCE_DEBUG_MODE || wp_is_development_mode( 'plugin' ) ? time() : '' );
+    return JETEXIR_PLUGIN_VERSION . ( JETEXIR_DEBUG_MODE || wp_is_development_mode( 'plugin' ) ? time() : '' );
   }
 
   public static function url( $path ): string {
-    return ASSISTANTFORWOOCOMMERCE_PLUGIN_URL . 'assets/' . $path;
+    return JETEXIR_PLUGIN_URL . 'assets/' . $path;
   }
 
   /**
@@ -108,14 +108,14 @@ class Assets {
 
   public static function getImageSizeLabel( $size ) {
     $labels = array(
-      'full'                          => esc_html__( 'Full', 'assistant-for-woocommerce' ),
-      'thumbnail'                     => esc_html__( 'Thumbnail', 'assistant-for-woocommerce' ),
-      'medium'                        => esc_html__( 'Medium', 'assistant-for-woocommerce' ),
-      'medium_large'                  => esc_html__( 'Medium Large', 'assistant-for-woocommerce' ),
-      'large'                         => esc_html__( 'Large', 'assistant-for-woocommerce' ),
-      'woocommerce_thumbnail'         => esc_html__( 'Woocommerce Thumbnail', 'assistant-for-woocommerce' ),
-      'woocommerce_single'            => esc_html__( 'Woocommerce Single', 'assistant-for-woocommerce' ),
-      'woocommerce_gallery_thumbnail' => esc_html__( 'Woocommerce Gallery Thumbnail', 'assistant-for-woocommerce' )
+      'full'                          => esc_html__( 'Full', 'jetexir' ),
+      'thumbnail'                     => esc_html__( 'Thumbnail', 'jetexir' ),
+      'medium'                        => esc_html__( 'Medium', 'jetexir' ),
+      'medium_large'                  => esc_html__( 'Medium Large', 'jetexir' ),
+      'large'                         => esc_html__( 'Large', 'jetexir' ),
+      'woocommerce_thumbnail'         => esc_html__( 'Woocommerce Thumbnail', 'jetexir' ),
+      'woocommerce_single'            => esc_html__( 'Woocommerce Single', 'jetexir' ),
+      'woocommerce_gallery_thumbnail' => esc_html__( 'Woocommerce Gallery Thumbnail', 'jetexir' )
     );
 
     return $labels[ $size ] ?? $size;

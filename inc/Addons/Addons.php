@@ -1,17 +1,17 @@
 <?php
 
-namespace AssistantForWooCommerce\Addons;
+namespace Jetexir\Addons;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Admin\AdminPages;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Cache;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\Validating;
-use AssistantForWooCommerce\Helper\WordPress;
+use Jetexir\Admin\AdminPages;
+use Jetexir\Helper\Assets;
+use Jetexir\Helper\Cache;
+use Jetexir\Helper\Notice;
+use Jetexir\Helper\Param;
+use Jetexir\Helper\Sanitizing;
+use Jetexir\Helper\Validating;
+use Jetexir\Helper\WordPress;
 
 class Addons {
   public const tab = 'addons';
@@ -21,23 +21,23 @@ class Addons {
 </svg>';
 
   public function __construct() {
-    add_filter( 'assistant_for_woocommerce_menus', [ $this, 'addMenu' ] );
-    add_filter( 'assistant_for_woocommerce_' . self::tab . '_settings', [ $this, 'settings' ] );
-    add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_display_notice', '__return_false' );
-    add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_content_display_notice', '__return_true' );
-    add_filter( 'assistant_for_woocommerce_' . self::tab . '_settings_display_reset_button', '__return_false' );
-    add_filter( 'assistant_for_woocommerce_settings_submit_button_title',
+    add_filter( 'jetexir_menus', [ $this, 'addMenu' ] );
+    add_filter( 'jetexir_' . self::tab . '_settings', [ $this, 'settings' ] );
+    add_filter( 'jetexir_' . self::tab . '_tab_display_notice', '__return_false' );
+    add_filter( 'jetexir_' . self::tab . '_tab_content_display_notice', '__return_true' );
+    add_filter( 'jetexir_' . self::tab . '_settings_display_reset_button', '__return_false' );
+    add_filter( 'jetexir_settings_submit_button_title',
       [ $this, 'changeSubmitButtonTitle' ], 10, 2 );
-    add_filter( 'assistant_for_woocommerce_save_settings_success_message', [ $this, 'saveMessage' ], 10, 2 );
-    add_filter( 'assistant_for_woocommerce_dashboard_custom_links', [ $this, 'addDashboardLink' ] );
-    add_action( 'assistant_for_woocommerce_admin_init', [ $this, 'addRefreshNotice' ], 25 );
+    add_filter( 'jetexir_save_settings_success_message', [ $this, 'saveMessage' ], 10, 2 );
+    add_filter( 'jetexir_dashboard_custom_links', [ $this, 'addDashboardLink' ] );
+    add_action( 'jetexir_admin_init', [ $this, 'addRefreshNotice' ], 25 );
     add_action( 'admin_init', [ $this, 'flushRewriteRules' ] );
   }
 
   public function addDashboardLink( $links ) {
     $links[] = [
-      'title' => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
-      'desc'  => esc_html__( 'Assistant for WooCommerce Addons', 'assistant-for-woocommerce' ),
+      'title' => esc_html__( 'Addons', 'jetexir' ),
+      'desc'  => esc_html__( 'Jetexir Addons', 'jetexir' ),
       'link'  => AdminPages::link( [
         'tab' => self::tab
       ] ),
@@ -58,11 +58,11 @@ class Addons {
 
   public function addRefreshNotice( $tab ): void {
     if ( $tab === self::tab && Cache::get( 'settings_saved' ) ) {
-      Notice::add( self::tab, esc_html__( 'To load the add-on initial hooks, the page refreshes.', 'assistant-for-woocommerce' ), 'warning' );
-      add_filter( 'assistant_for_woocommerce_settings_page_refreshed_after', static function () {
+      Notice::add( self::tab, esc_html__( 'To load the add-on initial hooks, the page refreshes.', 'jetexir' ), 'warning' );
+      add_filter( 'jetexir_settings_page_refreshed_after', static function () {
         return 5000;
       } );
-      add_filter( 'assistant_for_woocommerce_settings_page_refresh_url', static function () {
+      add_filter( 'jetexir_settings_page_refresh_url', static function () {
         return AdminPages::link( [ 'tab' => self::tab, 'addons-refreshed' => true ] );
       } );
     }
@@ -70,7 +70,7 @@ class Addons {
 
   public function addMenu( $menus ) {
     $menus[ self::tab ] = array(
-      'title' => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
+      'title' => esc_html__( 'Addons', 'jetexir' ),
       'icon'  => self::menuIcon
     );
 
@@ -79,14 +79,14 @@ class Addons {
 
   public function saveMessage( $message, $tab ) {
     if ( $tab === self::tab ) {
-      $message = esc_html__( 'Addons settings saved.', 'assistant-for-woocommerce' );
+      $message = esc_html__( 'Addons settings saved.', 'jetexir' );
     }
 
     return $message;
   }
 
   public function settings(): array {
-    $addons    = apply_filters( 'assistant_for_woocommerce_addons', array() );
+    $addons    = apply_filters( 'jetexir_addons', array() );
     $addonList = array();
     $addonCats = self::getAddonCats();
     foreach ( array_keys( $addonCats ) as $addonCat ) {
@@ -109,7 +109,7 @@ class Addons {
       $canActivate          = empty( $addon['requires_plugins'] );
       $requirePluginsActive = 0;
       $actionLink           = '';
-      $actionTitle          = esc_html__( 'Enable addon', 'assistant-for-woocommerce' );
+      $actionTitle          = esc_html__( 'Enable addon', 'jetexir' );
 
       if ( ! $canActivate && ! empty( $addon['requires_plugins'] ) && is_array( $addon['requires_plugins'] ) ) {
         foreach ( $addon['requires_plugins'] as $requirePluginPath => $requirePlugin ) {
@@ -127,7 +127,7 @@ class Addons {
               self_admin_url( 'plugins.php?action=activate&plugin=' . $requirePluginPath ),
               'activate-plugin_' . $requirePluginPath
             );
-            $actionTitle = esc_html__( 'Activate required addon', 'assistant-for-woocommerce' );
+            $actionTitle = esc_html__( 'Activate required addon', 'jetexir' );
 
           } elseif ( isset( $requirePlugin['is_wp_plugin'] ) && $requirePlugin['is_wp_plugin'] ) {
             $pluginSlug = WordPress::pluginPathToSlug( $requirePluginPath );
@@ -136,11 +136,11 @@ class Addons {
               self_admin_url( 'update.php?action=install-plugin&plugin=' . $pluginSlug ),
               'install-plugin_' . $pluginSlug
             );
-            $actionTitle = esc_html__( 'Install required addon', 'assistant-for-woocommerce' );
+            $actionTitle = esc_html__( 'Install required addon', 'jetexir' );
 
           } elseif ( ! empty( $requirePlugin['plugin_link'] ) && Validating::isUrl( $requirePlugin['plugin_link'] ) ) {
             $actionLink  = $requirePlugin['plugin_link'];
-            $actionTitle = isset( $requirePlugin['is_free'] ) && $requirePlugin['is_free'] ? esc_html__( 'Download required addon', 'assistant-for-woocommerce' ) : esc_html__( 'Buy required addon', 'assistant-for-woocommerce' );
+            $actionTitle = isset( $requirePlugin['is_free'] ) && $requirePlugin['is_free'] ? esc_html__( 'Download required addon', 'jetexir' ) : esc_html__( 'Buy required addon', 'jetexir' );
 
           }
 
@@ -220,8 +220,8 @@ class Addons {
     }
 
     return array(
-      'title'    => esc_html__( 'Addons', 'assistant-for-woocommerce' ),
-      'desc'     => esc_html__( 'Assistant for WooCommerce integrates with WooCommerce to help you further enhance your website. You can enable or disable these integrations below.', 'assistant-for-woocommerce' ),
+      'title'    => esc_html__( 'Addons', 'jetexir' ),
+      'desc'     => esc_html__( 'Jetexir integrates with WooCommerce to help you further enhance your website. You can enable or disable these integrations below.', 'jetexir' ),
       'settings' => $elementList
     );
   }
@@ -233,25 +233,25 @@ class Addons {
     }
 
     $defaultCats = array(
-      'recommended'    => esc_html__( 'Recommended', 'assistant-for-woocommerce' ),
-      'product'        => esc_html__( 'Product', 'assistant-for-woocommerce' ),
-      'cart'           => esc_html__( 'Cart', 'assistant-for-woocommerce' ),
-      'checkout'       => esc_html__( 'Checkout', 'assistant-for-woocommerce' ),
-      'order'          => esc_html__( 'Order', 'assistant-for-woocommerce' ),
-      'marketing'      => esc_html__( 'Marketing', 'assistant-for-woocommerce' ),
-      'payments'       => esc_html__( 'Payments', 'assistant-for-woocommerce' ),
-      'merchandising'  => esc_html__( 'Merchandising', 'assistant-for-woocommerce' ),
-      'shipping'       => esc_html__( 'Shipping', 'assistant-for-woocommerce' ),
-      'customizations' => esc_html__( 'Customizations', 'assistant-for-woocommerce' ),
-      'conversion'     => esc_html__( 'Conversion', 'assistant-for-woocommerce' ),
-      'seo'            => esc_html__( 'SEO', 'assistant-for-woocommerce' ),
-      'utility'        => esc_html__( 'Utility', 'assistant-for-woocommerce' ),
+      'recommended'    => esc_html__( 'Recommended', 'jetexir' ),
+      'product'        => esc_html__( 'Product', 'jetexir' ),
+      'cart'           => esc_html__( 'Cart', 'jetexir' ),
+      'checkout'       => esc_html__( 'Checkout', 'jetexir' ),
+      'order'          => esc_html__( 'Order', 'jetexir' ),
+      'marketing'      => esc_html__( 'Marketing', 'jetexir' ),
+      'payments'       => esc_html__( 'Payments', 'jetexir' ),
+      'merchandising'  => esc_html__( 'Merchandising', 'jetexir' ),
+      'shipping'       => esc_html__( 'Shipping', 'jetexir' ),
+      'customizations' => esc_html__( 'Customizations', 'jetexir' ),
+      'conversion'     => esc_html__( 'Conversion', 'jetexir' ),
+      'seo'            => esc_html__( 'SEO', 'jetexir' ),
+      'utility'        => esc_html__( 'Utility', 'jetexir' ),
     );
 
-    $cats = apply_filters( 'assistant_for_woocommerce_addon_cats', array() );
+    $cats = apply_filters( 'jetexir_addon_cats', array() );
     $cats = is_array( $cats ) ? $cats : [];
 
-    $cats = array_merge( $defaultCats, $cats, [ 'other' => esc_html__( 'Other addons', 'assistant-for-woocommerce' ) ] );
+    $cats = array_merge( $defaultCats, $cats, [ 'other' => esc_html__( 'Other addons', 'jetexir' ) ] );
     Cache::set( 'addon_cats', $cats );
 
     return $cats;
@@ -259,7 +259,7 @@ class Addons {
 
   public function changeSubmitButtonTitle( $title, $tab ) {
     if ( $tab === self::tab ) {
-      $title = esc_html__( 'Save active addons', 'assistant-for-woocommerce' );
+      $title = esc_html__( 'Save active addons', 'jetexir' );
     }
 
     return $title;

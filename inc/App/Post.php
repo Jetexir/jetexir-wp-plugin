@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\App;
+namespace Jetexir\App;
 
 class Post {
 

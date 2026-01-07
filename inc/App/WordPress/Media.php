@@ -1,16 +1,16 @@
 <?php
 
-namespace AssistantForWooCommerce\App\WordPress;
+namespace Jetexir\App\WordPress;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Settings\Settings;
+use Jetexir\Settings\Settings;
 
 class Media {
   private const sectionID = 'media';
 
   public function __construct() {
-    add_filter( 'assistant_for_woocommerce_wordpress_settings_sections', [ $this, 'addSectionSettings' ] );
+    add_filter( 'jetexir_wordpress_settings_sections', [ $this, 'addSectionSettings' ] );
     add_filter( 'wp_kses_allowed_html', [ $this, 'addSvgToKses' ], 10, 2 );
 
     if ( Settings::get( 'svg_enable', true ) ) {
@@ -146,11 +146,11 @@ class Media {
       ),
       'svg_enable'     => array(
         'id'       => 'svg_enable',
-        'title'    => esc_html__( 'Enable SVG support', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Enable SVG support', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => true,
-        'desc'     => esc_html__( 'Allows upload SVG Files into your Media library', 'assistant-for-woocommerce' ),
+        'desc'     => esc_html__( 'Allows upload SVG Files into your Media library', 'jetexir' ),
         'sanitize' => 'bool'
       ),
       'end_grid_svg'   => array(
@@ -159,8 +159,8 @@ class Media {
     ];
 
     $sections[ self::sectionID ] = array(
-      'title'    => esc_html__( 'Media', 'assistant-for-woocommerce' ),
-      'desc'     => esc_html__( 'Media Settings', 'assistant-for-woocommerce' ),
+      'title'    => esc_html__( 'Media', 'jetexir' ),
+      'desc'     => esc_html__( 'Media Settings', 'jetexir' ),
       'settings' => $settings
     );
 

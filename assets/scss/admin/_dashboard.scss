@@ -2,7 +2,7 @@
 @use "../utilities/variables";
 
 @mixin dashboard {
-  .asfowoo-dashboard-welcome {
+  .jetexir-dashboard-welcome {
     background-color: variables.$background_light;
     padding: 20px;
     font-size: 1.5em;
@@ -18,7 +18,7 @@
     }
   }
 
-  .asfowoo-dashboard-links-wrap {
+  .jetexir-dashboard-links-wrap {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
@@ -48,7 +48,7 @@
         text-decoration: none !important;
       }
 
-      &.asfowoo-link-type-wordpress {
+      &.jetexir-link-type-wordpress {
         // #F4FCFF
         background-image: linear-gradient(to right top, #ffffff, #fefeff, #fcfdff, #fafdff, #f8fcff, #f8fcff, #f8fcff, #f8fcff, #fafdff, #fcfdff, #fefeff, #ffffff);
 
@@ -58,7 +58,7 @@
         }
       }
 
-      &.asfowoo-link-type-addons {
+      &.jetexir-link-type-addons {
         // #FFF4F4
         background-image: linear-gradient(to right top, #ffffff, #fefdfe, #fdfbfd, #fef9fb, #fef7f9, #fef7f9, #fef7f9, #fef7f9, #fef9fb, #fdfbfd, #fefdfe, #ffffff);
 
@@ -68,7 +68,7 @@
         }
       }
 
-      &.asfowoo-link-type-style {
+      &.jetexir-link-type-style {
         // #FFFEEE
         background-image: linear-gradient(to right top, #ffffff, #fffeff, #fffcfc, #fffbf7, #fffcf3, #fffcf3, #fffcf3, #fffcf3, #fffbf7, #fffcfc, #fffeff, #ffffff);
 

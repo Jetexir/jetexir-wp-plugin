@@ -1,13 +1,13 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Checkout;
+namespace Jetexir\App\Checkout;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Helper\{Helper, HTML, Notice, Param, Sanitizing, Templates, WooCommerce};
-use AssistantForWooCommerce\Interfaces\AddonInterface;
-use AssistantForWooCommerce\Providers\UI\DataTableUI;
+use Jetexir\Addons\Addon;
+use Jetexir\Helper\{Helper, HTML, Notice, Param, Sanitizing, Templates, WooCommerce};
+use Jetexir\Interfaces\AddonInterface;
+use Jetexir\Providers\UI\DataTableUI;
 
 class CheckoutFields extends Addon implements AddonInterface {
   public string $addonID = 'checkout-fields';
@@ -17,7 +17,7 @@ class CheckoutFields extends Addon implements AddonInterface {
   private array $checkoutSections = [ 'billing', 'shipping', 'order' ];
 
   public function initAction(): void {
-    add_action( 'assistant_for_woocommerce_data_table_ui_action', [ $this, 'dataTableActions' ], 10, 3 );
+    add_action( 'jetexir_data_table_ui_action', [ $this, 'dataTableActions' ], 10, 3 );
 
     if ( $this->getSetting( 'checkout_fields_type', 'classic' ) === 'classic' ) {
       add_filter( 'woocommerce_checkout_fields', [ $this, 'addCustomField' ], 0 );
@@ -90,7 +90,7 @@ class CheckoutFields extends Addon implements AddonInterface {
     }
 
     if ( ! empty( $output ) ) {
-      echo '<table class="woocommerce-table shop_table order_details has-background asfowoo-checkout-fields-order-meta">' . wp_kses_post( $output ) . '</table>';
+      echo '<table class="woocommerce-table shop_table order_details has-background jetexir-checkout-fields-order-meta">' . wp_kses_post( $output ) . '</table>';
     }
   }
 
@@ -126,9 +126,9 @@ class CheckoutFields extends Addon implements AddonInterface {
 
   private function getSectionLabel( $section ) {
     $sections = array(
-      'billing'  => esc_html__( 'Billing', 'assistant-for-woocommerce' ),
-      'shipping' => esc_html__( 'Shipping', 'assistant-for-woocommerce' ),
-      'order'    => esc_html__( 'Order', 'assistant-for-woocommerce' ),
+      'billing'  => esc_html__( 'Billing', 'jetexir' ),
+      'shipping' => esc_html__( 'Shipping', 'jetexir' ),
+      'order'    => esc_html__( 'Order', 'jetexir' ),
     );
 
     return $sections[ $section ] ?? ucfirst( $section );
@@ -242,7 +242,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 
     if ( $action === 'bulk_action' ) {
       $bulkAction = Sanitizing::text( Param::post( 'bulk_action' ) );
-      $rowIDs     = array_map( 'AssistantForWooCommerce\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
+      $rowIDs     = array_map( 'Jetexir\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
       $entries    = $this->getSetting( $dataTableID, [] );
 
       foreach ( $entries as $entryIndex => $status ) {
@@ -295,7 +295,7 @@ class CheckoutFields extends Addon implements AddonInterface {
       wp_send_json_success( [ 'content' => $form ] );
 
     } elseif ( $action === 'save_form' ) {
-      $formData           = \AssistantForWooCommerce\AppHelper\DataTableUI::getFormData( $this->getDataTableUiFields() );
+      $formData           = \Jetexir\AppHelper\DataTableUI::getFormData( $this->getDataTableUiFields() );
       $formData['custom'] = true;
       $errorMessage       = '';
       $entry              = false;
@@ -304,7 +304,7 @@ class CheckoutFields extends Addon implements AddonInterface {
         $entry = $this->getByIndex( $dataTableID, $index );
 
         if ( $entry === false ) {
-          $errorMessage = esc_html__( 'Field not found!', 'assistant-for-woocommerce' );
+          $errorMessage = esc_html__( 'Field not found!', 'jetexir' );
         }
       }
 
@@ -321,7 +321,7 @@ class CheckoutFields extends Addon implements AddonInterface {
 
       if ( empty( $errorMessage ) && empty( $formData['name'] ) ) {
         /* translators: %s: Field name */
-        $errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Name', 'assistant-for-woocommerce' ) );
+        $errorMessage = sprintf( esc_html__( '%s field is empty!', 'jetexir' ), esc_html__( 'Name', 'jetexir' ) );
       }
 
       if ( ! empty( $errorMessage ) ) {
@@ -355,11 +355,11 @@ class CheckoutFields extends Addon implements AddonInterface {
         $entries           = $this->getSetting( $dataTableID, [] );
         $entries[ $index ] = $formData;
         $this->saveSetting( $dataTableID, $entries );
-        $successMessage = esc_html__( 'The field was successfully saved.', 'assistant-for-woocommerce' );
+        $successMessage = esc_html__( 'The field was successfully saved.', 'jetexir' );
 
       } else {
         $this->addToArraySetting( $dataTableID, $formData );
-        $successMessage = esc_html__( 'Field added successfully.', 'assistant-for-woocommerce' );
+        $successMessage = esc_html__( 'Field added successfully.', 'jetexir' );
       }
 
       $dataTable = $this->getDataTable( $dataTableID );
@@ -385,7 +385,7 @@ class CheckoutFields extends Addon implements AddonInterface {
           'message'   => Notice::addAndDisplay( $this->addonID, array(
             array(
               'type'    => 'success',
-              'message' => esc_html__( 'Order status removed!', 'assistant-for-woocommerce' ),
+              'message' => esc_html__( 'Order status removed!', 'jetexir' ),
             )
           ), false ),
         ] );
@@ -396,7 +396,7 @@ class CheckoutFields extends Addon implements AddonInterface {
           'message' => Notice::addAndDisplay( $this->addonID, array(
             array(
               'type'    => 'error',
-              'message' => esc_html__( 'Selected item not found!', 'assistant-for-woocommerce' ),
+              'message' => esc_html__( 'Selected item not found!', 'jetexir' ),
             )
           ), false ),
         ], 403 );
@@ -415,14 +415,14 @@ class CheckoutFields extends Addon implements AddonInterface {
 
   private function getDataTableUiFields( $index = - 1, $data = [] ): array {
     $types          = array(
-      'text'     => esc_html__( 'Text', 'assistant-for-woocommerce' ),
-      'number'   => esc_html__( 'Number', 'assistant-for-woocommerce' ),
-      'password' => esc_html__( 'Password', 'assistant-for-woocommerce' ),
-      'email'    => esc_html__( 'Email', 'assistant-for-woocommerce' ),
-      'phone'    => esc_html__( 'Phone', 'assistant-for-woocommerce' ),
-      'url'      => esc_html__( 'URL', 'assistant-for-woocommerce' ),
-      'hidden'   => esc_html__( 'Hidden', 'assistant-for-woocommerce' ),
-      'textarea' => esc_html__( 'Textarea', 'assistant-for-woocommerce' ),
+      'text'     => esc_html__( 'Text', 'jetexir' ),
+      'number'   => esc_html__( 'Number', 'jetexir' ),
+      'password' => esc_html__( 'Password', 'jetexir' ),
+      'email'    => esc_html__( 'Email', 'jetexir' ),
+      'phone'    => esc_html__( 'Phone', 'jetexir' ),
+      'url'      => esc_html__( 'URL', 'jetexir' ),
+      'hidden'   => esc_html__( 'Hidden', 'jetexir' ),
+      'textarea' => esc_html__( 'Textarea', 'jetexir' ),
     );
     $typeAttributes = $displayAttributes = [];
     if ( ( isset( $data['type'] ) && ! array_key_exists( $data['type'], $types ) ) || ( isset( $data['custom'] ) && $data['custom'] === false ) ) {
@@ -446,7 +446,7 @@ class CheckoutFields extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'type',
-        'title'         => esc_html__( 'Type', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Type', 'jetexir' ),
         'type'          => 'select',
         'options'       => $types,
         'attributes'    => $typeAttributes,
@@ -457,8 +457,8 @@ class CheckoutFields extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'name',
-        'title'         => esc_html__( 'Name', 'assistant-for-woocommerce' ),
-        'desc'          => esc_html__( 'Use english alphabetic characters', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Name', 'jetexir' ),
+        'desc'          => esc_html__( 'Use english alphabetic characters', 'jetexir' ),
         'type'          => 'text',
         'required_text' => true,
         'setting_value' => $data['name'] ?? '',
@@ -467,32 +467,32 @@ class CheckoutFields extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'label',
-        'title'         => esc_html__( 'Label', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Label', 'jetexir' ),
         'type'          => 'text',
         'setting_value' => $data['label'] ?? '',
       ),
       array(
         'id'            => 'placeholder',
-        'title'         => esc_html__( 'Placeholder', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Placeholder', 'jetexir' ),
         'type'          => 'text',
         'setting_value' => $data['placeholder'] ?? '',
       ),
       array(
         'id'            => 'default',
-        'title'         => esc_html__( 'Default Value', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Default Value', 'jetexir' ),
         'type'          => 'text',
         'setting_value' => $data['default'] ?? '',
       ),
       array(
         'id'            => 'class',
-        'title'         => esc_html__( 'CSS Class', 'assistant-for-woocommerce' ),
-        'desc'          => esc_html__( 'Separate with space', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'CSS Class', 'jetexir' ),
+        'desc'          => esc_html__( 'Separate with space', 'jetexir' ),
         'type'          => 'text',
         'setting_value' => is_array( $data['class'] ) ? implode( ' ', $data['class'] ) : 'form-row-wide',
       ),
       array(
         'id'    => 'validate_start_grid',
-        'title' => esc_html__( 'Validation', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Validation', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       array(
@@ -500,12 +500,12 @@ class CheckoutFields extends Addon implements AddonInterface {
         'type'             => 'checkboxInline',
         'default'          => [],
         'options'          => array(
-          'number'   => esc_html__( 'Number', 'assistant-for-woocommerce' ),
-          'email'    => esc_html__( 'Email', 'assistant-for-woocommerce' ),
-          'url'      => esc_html__( 'URL', 'assistant-for-woocommerce' ),
-          'phone'    => esc_html__( 'Phone', 'assistant-for-woocommerce' ),
-          'postcode' => esc_html__( 'Postcode', 'assistant-for-woocommerce' ),
-          'state'    => esc_html__( 'State', 'assistant-for-woocommerce' ),
+          'number'   => esc_html__( 'Number', 'jetexir' ),
+          'email'    => esc_html__( 'Email', 'jetexir' ),
+          'url'      => esc_html__( 'URL', 'jetexir' ),
+          'phone'    => esc_html__( 'Phone', 'jetexir' ),
+          'postcode' => esc_html__( 'Postcode', 'jetexir' ),
+          'state'    => esc_html__( 'State', 'jetexir' ),
         ),
         'not_equal'        => true,
         'sanitize'         => 'array',
@@ -517,12 +517,12 @@ class CheckoutFields extends Addon implements AddonInterface {
       ),
       array(
         'id'    => 'display_start_grid',
-        'title' => esc_html__( 'Display', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Display', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       array(
         'id'            => 'required',
-        'title'         => esc_html__( 'Required', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Required', 'jetexir' ),
         'type'          => 'toggle',
         'value'         => 1,
         'default'       => true,
@@ -531,7 +531,7 @@ class CheckoutFields extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'display_in_email',
-        'title'         => esc_html__( 'Display in Emails', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Display in Emails', 'jetexir' ),
         'type'          => 'toggle',
         'value'         => 1,
         'default'       => true,
@@ -541,7 +541,7 @@ class CheckoutFields extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'display_in_order',
-        'title'         => esc_html__( 'Display in Order Detail Pages', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Display in Order Detail Pages', 'jetexir' ),
         'type'          => 'toggle',
         'value'         => 1,
         'default'       => true,
@@ -564,26 +564,26 @@ class CheckoutFields extends Addon implements AddonInterface {
     $dataTable->setID( $id )
               ->setRows( $this->getRows( $id ) )
               ->setIdField( $dataTable::ROW_INDEX )
-              ->modalAddTitle( esc_html__( 'Add new field', 'assistant-for-woocommerce' ) )
-              ->modalEditTitle( esc_html__( 'Edit field', 'assistant-for-woocommerce' ) )
-              ->addNewButton( esc_html__( 'Add new', 'assistant-for-woocommerce' ) )
+              ->modalAddTitle( esc_html__( 'Add new field', 'jetexir' ) )
+              ->modalEditTitle( esc_html__( 'Edit field', 'jetexir' ) )
+              ->addNewButton( esc_html__( 'Add new', 'jetexir' ) )
               ->sortable( true )
               ->displayBottomBulkAction( true )
-              ->addAction( 'edit', '<i class="asfowoo-icon-edit"></i>', $dataTable::ACTION_EDIT )
-              ->addAction( 'delete', '<i class="asfowoo-icon-trash"></i>', $dataTable::ACTION_DELETE )
-              ->addAction( 'bulk_enable', esc_html__( 'Enable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-              ->addAction( 'bulk_disable', esc_html__( 'Disable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-              ->addAction( 'bulk_delete', esc_html__( 'Delete', 'assistant-for-woocommerce' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
-              ->addColumn( esc_html__( 'Name', 'assistant-for-woocommerce' ), 'name' )
-              ->addColumn( esc_html__( 'Label', 'assistant-for-woocommerce' ), 'label', null, [ 'hide_on_mobile' => true ] )
-              ->addColumn( esc_html__( 'Status', 'assistant-for-woocommerce' ), $dataTable::ACTIVE_FIELD );
+              ->addAction( 'edit', '<i class="jetexir-icon-edit"></i>', $dataTable::ACTION_EDIT )
+              ->addAction( 'delete', '<i class="jetexir-icon-trash"></i>', $dataTable::ACTION_DELETE )
+              ->addAction( 'bulk_enable', esc_html__( 'Enable', 'jetexir' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+              ->addAction( 'bulk_disable', esc_html__( 'Disable', 'jetexir' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+              ->addAction( 'bulk_delete', esc_html__( 'Delete', 'jetexir' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
+              ->addColumn( esc_html__( 'Name', 'jetexir' ), 'name' )
+              ->addColumn( esc_html__( 'Label', 'jetexir' ), 'label', null, [ 'hide_on_mobile' => true ] )
+              ->addColumn( esc_html__( 'Status', 'jetexir' ), $dataTable::ACTIVE_FIELD );
 
     if ( $id === 'billing_fields_classic' ) {
-      $dataTable->setTitle( esc_html__( 'Billing Fields', 'assistant-for-woocommerce' ) );
+      $dataTable->setTitle( esc_html__( 'Billing Fields', 'jetexir' ) );
     } elseif ( $id === 'shipping_fields_classic' ) {
-      $dataTable->setTitle( esc_html__( 'Shipping Fields', 'assistant-for-woocommerce' ) );
+      $dataTable->setTitle( esc_html__( 'Shipping Fields', 'jetexir' ) );
     } elseif ( $id === 'order_fields_classic' ) {
-      $dataTable->setTitle( esc_html__( 'Order Fields', 'assistant-for-woocommerce' ) );
+      $dataTable->setTitle( esc_html__( 'Order Fields', 'jetexir' ) );
     }
 
     return $dataTable;
@@ -653,17 +653,17 @@ class CheckoutFields extends Addon implements AddonInterface {
     $settings = array(
       'checkout_fields_type_start_grid' => array(
         'id'    => 'checkout_fields_type_start_grid',
-        'title' => esc_html__( 'Checkout Fields', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Checkout Fields', 'jetexir' ),
         'type'  => 'startGrid',
       ),
       'checkout_fields_type'            => array(
         'id'        => 'checkout_fields_type',
-        'title'     => esc_html__( 'Checkout page type', 'assistant-for-woocommerce' ),
+        'title'     => esc_html__( 'Checkout page type', 'jetexir' ),
         'type'      => 'radioInline',
         'default'   => $type,
         'options'   => array(
-          'classic' => esc_html__( 'Classic', 'assistant-for-woocommerce' ),
-          'blocks'  => esc_html__( 'Blocks', 'assistant-for-woocommerce' ),
+          'classic' => esc_html__( 'Classic', 'jetexir' ),
+          'blocks'  => esc_html__( 'Blocks', 'jetexir' ),
         ),
         'not_equal' => true,
         'sanitize'  => 'text'
@@ -679,7 +679,7 @@ class CheckoutFields extends Addon implements AddonInterface {
           'id'      => 'order_number_notice',
           'notices' => array(
             array(
-              'message' => esc_html__( 'Block type is not currently supported.', 'assistant-for-woocommerce' ),
+              'message' => esc_html__( 'Block type is not currently supported.', 'jetexir' ),
               'type'    => 'warning',
             )
           ),
@@ -710,8 +710,8 @@ class CheckoutFields extends Addon implements AddonInterface {
     $settings = array_merge( $settings, $fields );
 
     $sections[ $this->addonID ] = array(
-      'title'        => esc_html__( 'Fields', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Checkout fields manager', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Fields', 'jetexir' ),
+      'desc'         => esc_html__( 'Checkout fields manager', 'jetexir' ),
       'settings_key' => $this->info()['settings_key'],
       'settings'     => $settings
     );
@@ -725,9 +725,9 @@ class CheckoutFields extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Checkout Fields', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Customize the checkout fields in WooCommerce.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Checkout', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Checkout Fields', 'jetexir' ),
+      'desc'           => esc_html__( 'Customize the checkout fields in WooCommerce.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Checkout', 'jetexir' ) ],
       'cat'            => 'checkout',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

@@ -17,22 +17,22 @@
 .#{variables.$plugin_key}-wrap {
   position: relative;
 
-  @include toggle.asfowoo-toggle;
-  @include button.asfowoo-button;
-  @include input.asfowoo-input;
-  @include textarea.asfowoo-textarea;
-  @include checkbox.asfowoo-checkbox;
-  @include radio.asfowoo-radio;
-  @include range.asfowoo-range;
-  @include select.asfowoo-select;
-  @include addons.asfowoo-addons;
-  @include wp.asfowoo-wp;
-  @include repeatable.asfowoo-repeatable;
-  @include color_palette.asfowoo-color-palette;
-  @include gradient_color_picker.asfowoo-gradient-color-picker;
-  @include data_table_ui.asfowoo-data-table-ui;
+  @include toggle.jetexir-toggle;
+  @include button.jetexir-button;
+  @include input.jetexir-input;
+  @include textarea.jetexir-textarea;
+  @include checkbox.jetexir-checkbox;
+  @include radio.jetexir-radio;
+  @include range.jetexir-range;
+  @include select.jetexir-select;
+  @include addons.jetexir-addons;
+  @include wp.jetexir-wp;
+  @include repeatable.jetexir-repeatable;
+  @include color_palette.jetexir-color-palette;
+  @include gradient_color_picker.jetexir-gradient-color-picker;
+  @include data_table_ui.jetexir-data-table-ui;
 
-  #asfowoo-settings-form {
+  #jetexir-settings-form {
     //height: 100% !important;
     display: flex;
     flex-direction: column;
@@ -45,26 +45,26 @@
       margin-top: 0;
     }
 
-    .assistant-for-woocommerce-notices {
+    .jetexir-notices {
       margin-bottom: 0;
     }
   }
 
-  .asfowoo-grid {
+  .jetexir-grid {
     display: grid !important;
     gap: 3rem !important;
   }
 
-  .asfowoo-grid-cols-2 {
+  .jetexir-grid-cols-2 {
     grid-template-columns: 200px auto !important;
   }
 
-  .asfowoo-field-wrap {
+  .jetexir-field-wrap {
     display: flex;
     flex-direction: column;
     gap: 10px;
 
-    .asfowoo-field-head {
+    .jetexir-field-head {
       display: flex;
       column-gap: 20px;
       row-gap: 10px;
@@ -73,25 +73,25 @@
     }
   }
 
-  .asfowoo-fields-wrap {
+  .jetexir-fields-wrap {
     display: flex;
     flex-direction: column;
     gap: 30px;
 
-    .asfowoo-field-wrap {
-      .asfowoo-field-head {
+    .jetexir-field-wrap {
+      .jetexir-field-head {
         flex-direction: column;
         align-items: start;
       }
 
-      &.asfowoo-field-toggle {
-        .asfowoo-field-head {
+      &.jetexir-field-toggle {
+        .jetexir-field-head {
           flex-direction: row-reverse;
           justify-content: space-between;
         }
       }
 
-      &.asfowoo-appearance-text-field {
+      &.jetexir-appearance-text-field {
         input[type="number"] {
           -webkit-appearance: none;
           -moz-appearance: textfield;
@@ -100,12 +100,12 @@
       }
     }
 
-    :is( .asfowoo-inline-elements-group, .asfowoo-radio-group, .asfowoo-checkbox-group) {
+    :is( .jetexir-inline-elements-group, .jetexir-radio-group, .jetexir-checkbox-group) {
       legend {
         margin-bottom: 1em;
       }
 
-      :is(.asfowoo-inline-elements-group-options, .asfowoo-radio-group-options, .asfowoo-checkbox-group-options) {
+      :is(.jetexir-inline-elements-group-options, .jetexir-radio-group-options, .jetexir-checkbox-group-options) {
         display: flex;
         align-items: center;
         flex-direction: row;

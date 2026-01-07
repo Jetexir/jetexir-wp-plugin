@@ -4,7 +4,7 @@
 @use "dashboard";
 
 body {
-  &.asfowoo-mobile-sidebar-active {
+  &.jetexir-mobile-sidebar-active {
     overflow: hidden;
   }
 }
@@ -44,18 +44,18 @@ body.toplevel_page_#{variables.$plugin_key} {
     border-radius: 2px;
     padding: 5px;
 
-    &.asfowoo-copy-text {
+    &.jetexir-copy-text {
       display: inline-flex;
       align-items: center;
       gap: 3px;
 
       &:before {
         content: "";
-        font-family: "assistant-for-woocommerce-icon" !important;
+        font-family: "jetexir-icon" !important;
         color: color.scale(variables.$meta, $lightness: 30%);
       }
 
-      &.asfowoo-text-copied {
+      &.jetexir-text-copied {
         &:before {
           color: variables.$primary
         }
@@ -112,16 +112,20 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .asfowoo-sidebar {
+    .jetexir-sidebar {
       background-color: variables.$background_side;
       border-right: 1px solid variables.$border_color;
       padding: 20px;
       position: relative;
 
-      .asfowoo-sidebar-head {
+      .jetexir-sidebar-head {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        .jetexir-logo {
+          max-width: 40px;
+        }
       }
 
       .menu-items {
@@ -171,24 +175,24 @@ body.toplevel_page_#{variables.$plugin_key} {
         }
       }
 
-      .asfowoo-hide-sidebar {
+      .jetexir-hide-sidebar {
         display: none;
         font-size: 20px;
         color: variables.$gray;
       }
 
-      &.asfowoo-mobile-sidebar {
+      &.jetexir-mobile-sidebar {
         //display: block;
         -webkit-transform: translateX(0);
         transform: translateX(0);
 
-        .asfowoo-hide-sidebar {
+        .jetexir-hide-sidebar {
           display: inherit;
         }
       }
     }
 
-    .asfowoo-display-sidebar {
+    .jetexir-display-sidebar {
       display: none;
       padding: 10px;
       background-color: variables.$background_side;
@@ -202,7 +206,7 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .asfowoo-content {
+    .jetexir-content {
       //padding: 30px;
       display: flex;
       flex-direction: column;
@@ -210,12 +214,12 @@ body.toplevel_page_#{variables.$plugin_key} {
       max-height: calc(100vh - 40px - var(--wp-admin--admin-bar--height, 0));
       overflow-y: auto;
 
-      > .assistant-for-woocommerce-notices {
+      > .jetexir-notices {
         padding: 20px 30px;
         margin-bottom: 0;
       }
 
-      .asfowoo-content-body {
+      .jetexir-content-body {
         padding: 40px 30px 60px;
         margin-bottom: auto;
       }
@@ -234,12 +238,12 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .asfowoo-description {
+    .jetexir-description {
       font-size: 0.9em;
       color: variables.$meta;
     }
 
-    .asfowoo-header {
+    .jetexir-header {
       //overflow: hidden;
       padding: 20px 30px 0 30px;
       position: sticky;
@@ -259,22 +263,22 @@ body.toplevel_page_#{variables.$plugin_key} {
         transform: translateY(-100%);
       }
 
-      .asfowoo-header-title {
+      .jetexir-header-title {
         display: flex;
         flex-direction: column;
         gap: 10px;
       }
 
-      &.asfowoo-has-header-image {
+      &.jetexir-has-header-image {
         margin: -30px -30px 30px -30px;
 
-        .asfowoo-header-title {
+        .jetexir-header-title {
           padding: 30px 30px 20px 30px;
           background-size: cover;
           align-items: start;
         }
 
-        .asfowoo-header-links {
+        .jetexir-header-links {
           padding: 0 30px;
 
           &:empty {
@@ -282,7 +286,7 @@ body.toplevel_page_#{variables.$plugin_key} {
           }
         }
 
-        .asfowoo-header-separator {
+        .jetexir-header-separator {
           margin-top: 0;
         }
 
@@ -312,7 +316,7 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .asfowoo-header-links {
+    .jetexir-header-links {
       margin-top: 20px;
       background-color: white;
 
@@ -321,7 +325,7 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .asfowoo-section-links {
+    .jetexir-section-links {
       text-transform: uppercase;
 
       ul {
@@ -362,7 +366,7 @@ body.toplevel_page_#{variables.$plugin_key} {
               text-decoration: none;
             }
 
-            &.asfowoo-section-link-current {
+            &.jetexir-section-link-current {
               color: variables.$primary;
               border-color: variables.$primary;
             }
@@ -379,18 +383,18 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .asfowoo-footer {
+    .jetexir-footer {
       padding: 10px 30px;
       background-color: color.adjust(variables.$background_side, $lightness: 1%);
 
-      &.asfowoo-settings-footer {
+      &.jetexir-settings-footer {
         pointer-events: inherit;
         position: sticky;
         bottom: 0;
         z-index: 99999;
         opacity: 0.9;
 
-        &.asfowoo-submit-inactive {
+        &.jetexir-submit-inactive {
           pointer-events: none;
           opacity: 0.8;
 
@@ -401,15 +405,15 @@ body.toplevel_page_#{variables.$plugin_key} {
       }
     }
 
-    .asfowoo-copy-text {
+    .jetexir-copy-text {
       cursor: pointer;
 
-      &.asfowoo-text-copied {
+      &.jetexir-text-copied {
         animation: afwBlinkText 250ms step-start 0s infinite;
       }
     }
 
-    @include list_links.asfowoo-list-links;
+    @include list_links.jetexir-list-links;
     @include dashboard.dashboard;
   }
 }

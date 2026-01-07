@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\App\WordPress;
+namespace Jetexir\App\WordPress;
 
 defined( 'ABSPATH' ) || exit;
 

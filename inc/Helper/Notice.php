@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Helper;
+namespace Jetexir\Helper;
 
 defined( 'ABSPATH' ) || die();
 
@@ -50,7 +50,7 @@ class Notice {
     }
 
     if ( ! empty( $notices ) ) {
-      $noticeWrap = '<div class="' . ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX . 'notices">' . $notices . '</div>';
+      $noticeWrap = '<div class="' . JETEXIR_CLASS_PREFIX . 'notices">' . $notices . '</div>';
     }
 
     if ( $echo ) {
@@ -66,7 +66,7 @@ class Notice {
   public static function html( $type, $message ): string {
     $type = self::getType( $type );
 
-    return '<div class="' . ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX . 'notice ' . ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX . 'notice-' . $type . '" ><div>' . self::getIcon( $type ) . '<p>' . $message . '</p></div></div>';
+    return '<div class="' . JETEXIR_CLASS_PREFIX . 'notice ' . JETEXIR_CLASS_PREFIX . 'notice-' . $type . '" ><div>' . self::getIcon( $type ) . '<p>' . $message . '</p></div></div>';
   }
 
   private static function getIcon( $type ): string {

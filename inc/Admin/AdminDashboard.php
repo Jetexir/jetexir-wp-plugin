@@ -1,12 +1,12 @@
 <?php
 
-namespace AssistantForWooCommerce\Admin;
+namespace Jetexir\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addons;
-use AssistantForWooCommerce\Helper\{Assets, Notice, User};
-use AssistantForWooCommerce\Interfaces\AdminTabInterface;
+use Jetexir\Addons\Addons;
+use Jetexir\Helper\{Assets, Notice, User};
+use Jetexir\Interfaces\AdminTabInterface;
 
 class AdminDashboard implements AdminTabInterface {
   public const tab = 'dashboard';
@@ -17,14 +17,14 @@ class AdminDashboard implements AdminTabInterface {
 </svg>';
 
   public function __construct() {
-    add_action( 'assistant_for_woocommerce_dashboard_tab_content', [ $this, 'content' ] );
-    add_action( 'assistant_for_woocommerce_admin_init', [ $this, 'notice' ] );
-    add_filter( 'assistant_for_woocommerce_menus', [ $this, 'addMenu' ] );
+    add_action( 'jetexir_dashboard_tab_content', [ $this, 'content' ] );
+    add_action( 'jetexir_admin_init', [ $this, 'notice' ] );
+    add_filter( 'jetexir_menus', [ $this, 'addMenu' ] );
   }
 
   public function addMenu( $menus ) {
     $menus[ self::tab ] = array(
-      'title' => esc_html__( 'Dashboard', 'assistant-for-woocommerce' ),
+      'title' => esc_html__( 'Dashboard', 'jetexir' ),
       'icon'  => self::icon
     );
 
@@ -32,37 +32,37 @@ class AdminDashboard implements AdminTabInterface {
   }
 
   public function notice(): void {
-    Notice::add( self::tab, esc_html__( 'Welcome to Assistant for WooCommerce!', 'assistant-for-woocommerce' ), 'default' );
+    Notice::add( self::tab, esc_html__( 'Welcome to Jetexir!', 'jetexir' ), 'default' );
   }
 
   public function content(): void {
     $dashboardTypeLinks = array(
       'addons' => $this->getAddons(),
-      'custom' => apply_filters( 'assistant_for_woocommerce_dashboard_custom_links', [] )
+      'custom' => apply_filters( 'jetexir_dashboard_custom_links', [] )
     );
 
     if ( empty( $dashboardTypeLinks['addons'] ) ) {
-      $message = '<strong>' . esc_html__( 'Hello', 'assistant-for-woocommerce' ) . ', ' . User::getData( 'display_name' ) . '!</strong>';
-      $message .= '<p>' . esc_html__( 'Assistant for WooCommerce is here to help you sell more in your store. To get started, go to the Addons tab and activate the required addons.', 'assistant-for-woocommerce' ) . '</p>';
+      $message = '<strong>' . esc_html__( 'Hello', 'jetexir' ) . ', ' . User::getData( 'display_name' ) . '!</strong>';
+      $message .= '<p>' . esc_html__( 'Jetexir is here to help you sell more in your store. To get started, go to the Addons tab and activate the required addons.', 'jetexir' ) . '</p>';
 
-      echo '<div class="asfowoo-dashboard-welcome">' . wp_kses( $message, [
+      echo '<div class="jetexir-dashboard-welcome">' . wp_kses( $message, [
           'strong' => [],
           'p'      => []
         ] ) . '</div>';
     }
 
-    echo '<div class="asfowoo-dashboard-links-wrap">';
+    echo '<div class="jetexir-dashboard-links-wrap">';
     foreach ( $dashboardTypeLinks as $dashboardLinks ) {
       foreach ( $dashboardLinks as $link ) {
         $icon = ! empty( $link['icon'] ) && Assets::isSvgImageString( $link['icon'] ) ? Assets::setSvgDimensions( $link['icon'], 50 ) : '';
-        echo '<a href="' . esc_url( $link['link'] ) . '" title="' . esc_html( $link['desc'] ) . '" class="asfowoo-link-type-' . esc_html( $link['type'] ) . '">' . wp_kses_post( $icon ) . '<span>' . esc_html( $link['title'] ) . '</span></a>';
+        echo '<a href="' . esc_url( $link['link'] ) . '" title="' . esc_html( $link['desc'] ) . '" class="jetexir-link-type-' . esc_html( $link['type'] ) . '">' . wp_kses_post( $icon ) . '<span>' . esc_html( $link['title'] ) . '</span></a>';
       }
     }
     echo '</div>';
   }
 
   private function getAddons(): array {
-    $addons    = apply_filters( 'assistant_for_woocommerce_dashboard_addon_links', [] );
+    $addons    = apply_filters( 'jetexir_dashboard_addon_links', [] );
     $addonCats = Addons::getAddonCats();
     $addonList = array();
     foreach ( array_keys( $addonCats ) as $addonCat ) {

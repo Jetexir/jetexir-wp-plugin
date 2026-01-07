@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Interfaces;
+namespace Jetexir\Interfaces;
 
 interface AddonInterface {
   public function info(): array;

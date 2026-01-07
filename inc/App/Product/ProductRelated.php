@@ -1,16 +1,16 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Product;
+namespace Jetexir\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\Transient;
-use AssistantForWooCommerce\Helper\WooCommerce;
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Addons\Addon;
+use Jetexir\Helper\Assets;
+use Jetexir\Helper\Param;
+use Jetexir\Helper\Sanitizing;
+use Jetexir\Helper\Transient;
+use Jetexir\Helper\WooCommerce;
+use Jetexir\Interfaces\AddonInterface;
 
 class ProductRelated extends Addon implements AddonInterface {
   public string $addonID = 'product-related';
@@ -18,12 +18,12 @@ class ProductRelated extends Addon implements AddonInterface {
   public string $currentSection = 'related';
 
   public function initAction(): void {
-    add_action( 'assistant_for_woocommerce_submit_settings_form', [ $this, 'clearRelatedCache' ] );
+    add_action( 'jetexir_submit_settings_form', [ $this, 'clearRelatedCache' ] );
     add_filter( 'woocommerce_product_related_products_heading', [ $this, 'setTitle' ] );
     add_filter( 'woocommerce_product_related_posts_shuffle', [ $this, 'setShuffle' ] );
     add_filter( 'woocommerce_output_related_products_args', [ $this, 'setOrderByArgs' ] );
     add_filter( 'shortcode_atts_related_products', [ $this, 'setOrderByArgs' ] );
-    //add_filter( 'assistant_for_woocommerce_wc_locate_template', [ $this, 'changeTemplate' ], 10, 2 );
+    //add_filter( 'jetexir_wc_locate_template', [ $this, 'changeTemplate' ], 10, 2 );
 
     $mode = $this->getSetting( 'product_related_mode', 'custom' );
     if ( $mode === 'disable' ) {
@@ -172,7 +172,7 @@ class ProductRelated extends Addon implements AddonInterface {
   }
 
   public function setTitle( $title ) {
-    if ( $customTitle = $this->getSetting( 'product_related_title', esc_html__( 'Related Products', 'assistant-for-woocommerce' ) ) ) {
+    if ( $customTitle = $this->getSetting( 'product_related_title', esc_html__( 'Related Products', 'jetexir' ) ) ) {
       return $customTitle;
     }
 
@@ -190,24 +190,24 @@ class ProductRelated extends Addon implements AddonInterface {
     }
 
     $pluginVersion = Assets::getVersion();
-    $debugName     = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? '' : '.min';
+    $debugName     = JETEXIR_DEBUG_MODE ? '' : '.min';
 
-    wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-related-style',
+    wp_enqueue_style( JETEXIR_PLUGIN_KEY . '-product-related-style',
       Assets::url( 'css/product-related' . $debugName . '.css' ),
       false, $pluginVersion );
 
-    wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-owl-carousel' );
-    wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-owl-carousel-theme' );
-    wp_enqueue_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-owl-carousel' );
+    wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-owl-carousel' );
+    wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-owl-carousel-theme' );
+    wp_enqueue_script( JETEXIR_PLUGIN_SLUG . '-owl-carousel' );
 
-    wp_enqueue_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-related-script',
+    wp_enqueue_script( JETEXIR_PLUGIN_KEY . '-product-related-script',
       Assets::url( 'js/product-related.min.js' ),
       [
-        ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-global',
-        ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-owl-carousel'
+        JETEXIR_PLUGIN_SLUG . '-global',
+        JETEXIR_PLUGIN_SLUG . '-owl-carousel'
       ], $pluginVersion, [ 'in_footer' => true ] );
 
-    wp_localize_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-related-script', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP . 'ProductRelated', array(
+    wp_localize_script( JETEXIR_PLUGIN_KEY . '-product-related-script', JETEXIR_PLUGIN_KEYCAP . 'ProductRelated', array(
       'loop'            => Sanitizing::int( $this->getSetting( 'product_related_slider_loop', true ) ),
       'center'          => Sanitizing::int( $this->getSetting( 'product_related_slider_center', false ) ),
       'dots'            => Sanitizing::int( $this->getSetting( 'product_related_slider_dots', false ) ),
@@ -222,7 +222,7 @@ class ProductRelated extends Addon implements AddonInterface {
   }
 
   public function clearRelatedCache(): void {
-    if ( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_related_delete_wc_cache' ) === '1' ) {
+    if ( Param::post( JETEXIR_INPUT_PREFIX . 'product_related_delete_wc_cache' ) === '1' ) {
       Transient::deleteLike( 'wc_related' );
     }
   }
@@ -230,53 +230,53 @@ class ProductRelated extends Addon implements AddonInterface {
   public function addSectionSettings( $sections ): array {
     $settings = array(
       'start_grid_product_related' => array(
-        'title' => esc_html__( 'Related Products', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Related Products', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       'product_related_mode'       => array(
         'id'       => 'product_related_mode',
-        'title'    => esc_html__( 'Mode', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Mode', 'jetexir' ),
         'type'     => 'select',
         'options'  => array(
-          'custom'  => esc_html__( 'Custom related products', 'assistant-for-woocommerce' ),
-          'default' => esc_html__( 'Use WooCommerce built-in related products', 'assistant-for-woocommerce' ),
-          'disable' => esc_html__( 'Disable related products', 'assistant-for-woocommerce' ),
+          'custom'  => esc_html__( 'Custom related products', 'jetexir' ),
+          'default' => esc_html__( 'Use WooCommerce built-in related products', 'jetexir' ),
+          'disable' => esc_html__( 'Disable related products', 'jetexir' ),
         ),
         'default'  => 'custom',
         'sanitize' => 'text'
       ),
       'product_related_title'      => array(
         'id'          => 'product_related_title',
-        'title'       => esc_html__( 'Title', 'assistant-for-woocommerce' ),
+        'title'       => esc_html__( 'Title', 'jetexir' ),
         'type'        => 'text',
-        'default'     => esc_html__( 'Related Products', 'assistant-for-woocommerce' ),
-        'placeholder' => esc_html__( 'Related Products', 'assistant-for-woocommerce' )
+        'default'     => esc_html__( 'Related Products', 'jetexir' ),
+        'placeholder' => esc_html__( 'Related Products', 'jetexir' )
       ),
       'product_related_orderby'    => array(
         'id'                => 'product_related_orderby',
-        'title'             => esc_html__( 'Sort by', 'assistant-for-woocommerce' ),
+        'title'             => esc_html__( 'Sort by', 'jetexir' ),
         'type'              => 'select',
         'options'           => array(
-          'title'      => esc_html__( 'Product title', 'assistant-for-woocommerce' ),
-          'id'         => esc_html__( 'ID', 'assistant-for-woocommerce' ),
-          'date'       => esc_html__( 'Date', 'assistant-for-woocommerce' ),
-          'modified'   => esc_html__( 'Last modified', 'assistant-for-woocommerce' ),
-          'menu_order' => esc_html__( 'Menu order', 'assistant-for-woocommerce' ),
-          'price'      => esc_html__( 'Price', 'assistant-for-woocommerce' ),
-          'none'       => esc_html__( 'None', 'assistant-for-woocommerce' ),
+          'title'      => esc_html__( 'Product title', 'jetexir' ),
+          'id'         => esc_html__( 'ID', 'jetexir' ),
+          'date'       => esc_html__( 'Date', 'jetexir' ),
+          'modified'   => esc_html__( 'Last modified', 'jetexir' ),
+          'menu_order' => esc_html__( 'Menu order', 'jetexir' ),
+          'price'      => esc_html__( 'Price', 'jetexir' ),
+          'none'       => esc_html__( 'None', 'jetexir' ),
         ),
-        'option_none'       => esc_html__( 'Random', 'assistant-for-woocommerce' ),
+        'option_none'       => esc_html__( 'Random', 'jetexir' ),
         'option_none_value' => 'rand',
         'default'           => 'rand',
         'sanitize'          => 'text'
       ),
       'product_related_order'      => array(
         'id'       => 'product_related_order',
-        'title'    => esc_html__( 'Sort order', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Sort order', 'jetexir' ),
         'type'     => 'select',
         'options'  => array(
-          'asc'  => esc_html__( 'Ascending', 'assistant-for-woocommerce' ),
-          'desc' => esc_html__( 'Descending', 'assistant-for-woocommerce' ),
+          'asc'  => esc_html__( 'Ascending', 'jetexir' ),
+          'desc' => esc_html__( 'Descending', 'jetexir' ),
         ),
         'default'  => 'asc',
         'sanitize' => 'text'
@@ -286,12 +286,12 @@ class ProductRelated extends Addon implements AddonInterface {
       ),
 
       'start_grid_product_related_custom' => array(
-        'title' => esc_html__( 'Display related products by', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Display related products by', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       'product_related_by_cat'            => [
         'id'       => 'product_related_by_cat',
-        'title'    => esc_html__( 'Category', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Category', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => true,
@@ -299,7 +299,7 @@ class ProductRelated extends Addon implements AddonInterface {
       ],
       'product_related_exclude_cats'      => array(
         'id'                => 'product_related_exclude_cats',
-        'title'             => esc_html__( 'Exclude categories', 'assistant-for-woocommerce' ),
+        'title'             => esc_html__( 'Exclude categories', 'jetexir' ),
         'type'              => 'termSelect',
         'args'              => array(
           'taxonomy'   => 'product_cat',
@@ -309,7 +309,7 @@ class ProductRelated extends Addon implements AddonInterface {
         'default'           => 0,
         'option_none'       => '---',
         'option_none_value' => '',
-        'desc'              => esc_html__( 'Choose the categories to exclude from the related products section.', 'assistant-for-woocommerce' ),
+        'desc'              => esc_html__( 'Choose the categories to exclude from the related products section.', 'jetexir' ),
         'sanitize'          => 'array',
         'sanitize_options'  => 'int',
         'attributes'        => array(
@@ -318,7 +318,7 @@ class ProductRelated extends Addon implements AddonInterface {
       ),
       'product_related_by_tag'            => [
         'id'       => 'product_related_by_tag',
-        'title'    => esc_html__( 'Tag', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Tag', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
@@ -326,7 +326,7 @@ class ProductRelated extends Addon implements AddonInterface {
       ],
       'product_related_by_brand'          => [
         'id'       => 'product_related_by_brand',
-        'title'    => esc_html__( 'Brand', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Brand', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
@@ -354,13 +354,13 @@ class ProductRelated extends Addon implements AddonInterface {
       ),
 
       'start_grid_product_related_slider'       => array(
-        'title' => esc_html__( 'Slider', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Slider', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       'product_related_slider'                  => [
         'id'       => 'product_related_slider',
-        'title'    => esc_html__( 'Activate the slider', 'assistant-for-woocommerce' ),
-        'desc'     => esc_html__( 'Activate slider for the related products section', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Activate the slider', 'jetexir' ),
+        'desc'     => esc_html__( 'Activate slider for the related products section', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => true,
@@ -368,8 +368,8 @@ class ProductRelated extends Addon implements AddonInterface {
       ],
       'product_related_slider_loop'             => [
         'id'       => 'product_related_slider_loop',
-        'title'    => esc_html__( 'Slider loop', 'assistant-for-woocommerce' ),
-        'desc'     => esc_html__( 'Enabling slider loop', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Slider loop', 'jetexir' ),
+        'desc'     => esc_html__( 'Enabling slider loop', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => true,
@@ -377,8 +377,8 @@ class ProductRelated extends Addon implements AddonInterface {
       ],
       'product_related_slider_center'           => [
         'id'       => 'product_related_slider_center',
-        'title'    => esc_html__( 'Slider center', 'assistant-for-woocommerce' ),
-        'desc'     => esc_html__( 'Enabling slider center', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Slider center', 'jetexir' ),
+        'desc'     => esc_html__( 'Enabling slider center', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
@@ -386,8 +386,8 @@ class ProductRelated extends Addon implements AddonInterface {
       ],
       'product_related_slider_dots'             => [
         'id'       => 'product_related_slider_dots',
-        'title'    => esc_html__( 'Slider dots navigation', 'assistant-for-woocommerce' ),
-        'desc'     => esc_html__( 'Enabling slider dots navigation', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Slider dots navigation', 'jetexir' ),
+        'desc'     => esc_html__( 'Enabling slider dots navigation', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
@@ -395,8 +395,8 @@ class ProductRelated extends Addon implements AddonInterface {
       ],
       'product_related_slider_arrow'            => [
         'id'       => 'product_related_slider_arrow',
-        'title'    => esc_html__( 'Slider arrow navigation', 'assistant-for-woocommerce' ),
-        'desc'     => esc_html__( 'Enabling slider arrow navigation', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Slider arrow navigation', 'jetexir' ),
+        'desc'     => esc_html__( 'Enabling slider arrow navigation', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => true,
@@ -404,7 +404,7 @@ class ProductRelated extends Addon implements AddonInterface {
       ],
       'product_related_slider_autoplay'         => [
         'id'       => 'product_related_slider_autoplay',
-        'title'    => esc_html__( 'Slider autoplay', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Slider autoplay', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
@@ -412,8 +412,8 @@ class ProductRelated extends Addon implements AddonInterface {
       ],
       'product_related_slider_autoplay_timeout' => array(
         'id'         => 'product_related_slider_autoplay_timeout',
-        'title'      => esc_html__( 'Slider autoplay timeout', 'assistant-for-woocommerce' ),
-        'desc'       => esc_html__( 'Milliseconds', 'assistant-for-woocommerce' ),
+        'title'      => esc_html__( 'Slider autoplay timeout', 'jetexir' ),
+        'desc'       => esc_html__( 'Milliseconds', 'jetexir' ),
         'type'       => 'number',
         'default'    => 4000,
         'attributes' => array(
@@ -425,7 +425,7 @@ class ProductRelated extends Addon implements AddonInterface {
       ),
       'product_related_slider_margin'           => array(
         'id'         => 'product_related_slider_margin',
-        'title'      => esc_html__( 'Slide margin', 'assistant-for-woocommerce' ),
+        'title'      => esc_html__( 'Slide margin', 'jetexir' ),
         'type'       => 'number',
         'default'    => 10,
         'attributes' => array(
@@ -438,7 +438,7 @@ class ProductRelated extends Addon implements AddonInterface {
       ),
       'product_related_slider_limit'            => array(
         'id'         => 'product_related_slider_limit',
-        'title'      => esc_html__( 'Number of products', 'assistant-for-woocommerce' ),
+        'title'      => esc_html__( 'Number of products', 'jetexir' ),
         'type'       => 'number',
         'default'    => 9,
         'attributes' => array(
@@ -451,7 +451,7 @@ class ProductRelated extends Addon implements AddonInterface {
       ),
       'product_related_slider_mobile_limit'     => array(
         'id'         => 'product_related_slider_mobile_limit',
-        'title'      => esc_html__( 'Number of products in mobile view', 'assistant-for-woocommerce' ),
+        'title'      => esc_html__( 'Number of products in mobile view', 'jetexir' ),
         'type'       => 'number',
         'default'    => 1,
         'attributes' => array(
@@ -464,7 +464,7 @@ class ProductRelated extends Addon implements AddonInterface {
       ),
       'product_related_slider_tablet_limit'     => array(
         'id'         => 'product_related_slider_tablet_limit',
-        'title'      => esc_html__( 'Number of products in tablet view', 'assistant-for-woocommerce' ),
+        'title'      => esc_html__( 'Number of products in tablet view', 'jetexir' ),
         'type'       => 'number',
         'default'    => 2,
         'attributes' => array(
@@ -477,7 +477,7 @@ class ProductRelated extends Addon implements AddonInterface {
       ),
       'product_related_slider_desktop_limit'    => array(
         'id'         => 'product_related_slider_desktop_limit',
-        'title'      => esc_html__( 'Number of products in desktop view', 'assistant-for-woocommerce' ),
+        'title'      => esc_html__( 'Number of products in desktop view', 'jetexir' ),
         'type'       => 'number',
         'default'    => 3,
         'attributes' => array(
@@ -493,13 +493,13 @@ class ProductRelated extends Addon implements AddonInterface {
       ),
 
       'start_grid_product_related_cache' => array(
-        'title' => esc_html__( 'Cache', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Cache', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       'product_related_disable_cache'    => [
         'id'       => 'product_related_disable_cache',
-        'title'    => esc_html__( 'Disable cache', 'assistant-for-woocommerce' ),
-        'desc'     => esc_html__( 'Disable WooCommerce related products cache', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Disable cache', 'jetexir' ),
+        'desc'     => esc_html__( 'Disable WooCommerce related products cache', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
@@ -507,8 +507,8 @@ class ProductRelated extends Addon implements AddonInterface {
       ],
       'product_related_delete_wc_cache'  => [
         'id'       => 'product_related_delete_wc_cache',
-        'title'    => esc_html__( 'Delete related products cache', 'assistant-for-woocommerce' ),
-        'desc'     => esc_html__( 'Delete all related products cache (Not saved)', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Delete related products cache', 'jetexir' ),
+        'desc'     => esc_html__( 'Delete all related products cache (Not saved)', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
@@ -521,8 +521,8 @@ class ProductRelated extends Addon implements AddonInterface {
     ] );
 
     $sections[ $this->currentSection ] = array(
-      'title'        => esc_html__( 'Related', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Related Products', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Related', 'jetexir' ),
+      'desc'         => esc_html__( 'Related Products', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => $settings
     );
@@ -535,9 +535,9 @@ class ProductRelated extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Related Products', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Displays custom related products based on category, tags, attributes, or specific products for your WooCommerce store.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Related Products', 'jetexir' ),
+      'desc'           => esc_html__( 'Displays custom related products based on category, tags, attributes, or specific products for your WooCommerce store.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

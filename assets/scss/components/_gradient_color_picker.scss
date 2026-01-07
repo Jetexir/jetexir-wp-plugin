@@ -3,8 +3,8 @@
 
 $height: 100px;
 
-@mixin asfowoo-gradient-color-picker {
-  .asfowoo-gradient-color-picker-wrap {
+@mixin jetexir-gradient-color-picker {
+  .jetexir-gradient-color-picker-wrap {
     width: 100%;
     border-radius: 10px;
     background-color: variables.$background_light;
@@ -18,7 +18,7 @@ $height: 100px;
       color: variables.$text !important;
     }
 
-    .asfowoo-gradient-color-picker {
+    .jetexir-gradient-color-picker {
       width: 100%;
       max-width: 100%;
       height: $height;
@@ -26,7 +26,7 @@ $height: 100px;
       border: 1px solid variables.$border_color;
       position: relative;
 
-      .asfowoo-gradient-color-point {
+      .jetexir-gradient-color-point {
         background: white;
         border-radius: 15px;
         box-shadow: rgba(0, 0, 0, 0.15) 0 0 0 1px, rgba(0, 0, 0, 0.05) 0 10px 10px -5px, inset #fff 0 0 0 6px;
@@ -63,7 +63,7 @@ $height: 100px;
       }
     }
 
-    .asfowoo-gradient-select-color {
+    .jetexir-gradient-select-color {
       flex-direction: revert;
       justify-content: space-between;
       align-items: center;
@@ -85,43 +85,43 @@ $height: 100px;
       }
     }
 
-    .asfowoo-field-wrap {
-      .asfowoo-field-head {
+    .jetexir-field-wrap {
+      .jetexir-field-head {
         flex-direction: row !important;
         align-items: center !important;
         column-gap: 10px;
 
-        > .asfowoo-input-label {
+        > .jetexir-input-label {
           margin: 0;
           width: 80px;
         }
       }
     }
 
-    .asfowoo-radio-group {
+    .jetexir-radio-group {
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 10px;
 
-      > .asfowoo-title {
+      > .jetexir-title {
         margin: 0;
         width: 80px;
       }
 
-      .asfowoo-checkmark {
+      .jetexir-checkmark {
         display: none !important;
       }
 
-      .asfowoo-radio-group-options {
-        .asfowoo-radio-inline {
-          .asfowoo-title {
+      .jetexir-radio-group-options {
+        .jetexir-radio-inline {
+          .jetexir-title {
             height: auto;
           }
         }
       }
 
-      :is(.asfowoo-radio-inline, .asfowoo-checkbox-inline) .asfowoo-title {
+      :is(.jetexir-radio-inline, .jetexir-checkbox-inline) .jetexir-title {
         border-width: 1px;
       }
     }

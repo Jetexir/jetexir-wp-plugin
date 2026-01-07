@@ -1,13 +1,13 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-.asfowoo-modal {
-  --asfowoo-modal-color: var(--asfowoo-text-color, #2B2B2B); //  variables.$text
-  --asfowoo-modal-border-width: var(--asfowoo-element-border-width, 0);
-  --asfowoo-modal-border-color: #D3D3D3; // variables.$gray_light_two
-  --asfowoo-modal-bg-color: var(--asfowoo-bg-color, #fff); // variables.$white
-  --asfowoo-modal-border-radius: var(--asfowoo-element-border-radius, 0);
-  --asfowoo-modal-font-size: 15px;
+.jetexir-modal {
+  --jetexir-modal-color: var(--jetexir-text-color, #2B2B2B); //  variables.$text
+  --jetexir-modal-border-width: var(--jetexir-element-border-width, 0);
+  --jetexir-modal-border-color: #D3D3D3; // variables.$gray_light_two
+  --jetexir-modal-bg-color: var(--jetexir-bg-color, #fff); // variables.$white
+  --jetexir-modal-border-radius: var(--jetexir-element-border-radius, 0);
+  --jetexir-modal-font-size: 15px;
 
   display: none;
   position: fixed;
@@ -22,70 +22,70 @@
   top: 0;
   left: 0;
   pointer-events: none;
-  font-size: var(--asfowoo-modal-font-size, 15px);
+  font-size: var(--jetexir-modal-font-size, 15px);
   border: none;
   inset: 0;
 
-  .asfowoo-modal-dialog {
+  .jetexir-modal-dialog {
     position: relative;
     width: auto;
     max-width: 500px;
-    margin: calc(var(--asfowoo-admin-bar-height, 0) + 2em) auto 2em;
+    margin: calc(var(--jetexir-admin-bar-height, 0) + 2em) auto 2em;
     pointer-events: none;
   }
 
-  &.asfowoo-modal-large {
-    .asfowoo-modal-dialog {
+  &.jetexir-modal-large {
+    .jetexir-modal-dialog {
       max-width: 700px;
     }
   }
 
-  &.asfowoo-modal-xlarge {
-    .asfowoo-modal-dialog {
+  &.jetexir-modal-xlarge {
+    .jetexir-modal-dialog {
       max-width: 900px;
     }
   }
 
-  .asfowoo-modal-content {
+  .jetexir-modal-content {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    color: var(--asfowoo-modal-color);
+    color: var(--jetexir-modal-color);
     pointer-events: auto;
-    background-color: var(--asfowoo-modal-bg-color);
+    background-color: var(--jetexir-modal-bg-color);
     background-clip: padding-box;
-    border: var(--asfowoo-modal-border-width) solid var(--asfowoo-modal-border-color);
-    border-radius: var(--asfowoo-modal-border-radius);
+    border: var(--jetexir-modal-border-width) solid var(--jetexir-modal-border-color);
+    border-radius: var(--jetexir-modal-border-radius);
     overflow: hidden;
     outline: 0;
   }
 
-  .asfowoo-modal-header {
+  .jetexir-modal-header {
     display: flex;
     flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
     padding: 15px;
-    border-bottom: var(--asfowoo-modal-border-width) solid var(--asfowoo-modal-border-color);
+    border-bottom: var(--jetexir-modal-border-width) solid var(--jetexir-modal-border-color);
   }
 
-  .asfowoo-modal-title {
+  .jetexir-modal-title {
     margin-bottom: 0;
     line-height: 1.5;
     font-size: 1.2em;
     font-weight: 600;
   }
 
-  .asfowoo-modal-message:not(:empty) {
+  .jetexir-modal-message:not(:empty) {
     padding: 15px;
 
-    .asfowoo-notices {
+    .jetexir-notices {
       margin-bottom: 0;
     }
   }
 
-  .asfowoo-modal-body {
+  .jetexir-modal-body {
     position: relative;
     flex: 1 1 auto;
     padding: 15px;
@@ -94,7 +94,7 @@
     overflow: auto;
   }
 
-  .asfowoo-modal-footer {
+  .jetexir-modal-footer {
     display: flex;
     flex-shrink: 0;
     flex-wrap: wrap;
@@ -102,34 +102,34 @@
     justify-content: flex-end;
     gap: 10px;
     padding: 15px;
-    border-top: var(--asfowoo-modal-border-width) solid var(--asfowoo-modal-border-color);
+    border-top: var(--jetexir-modal-border-width) solid var(--jetexir-modal-border-color);
 
     a, button {
       text-align: center;
     }
 
-    .asfowoo-modal-buttons {
+    .jetexir-modal-buttons {
       display: flex;
       align-items: center;
       gap: 10px;
     }
   }
 
-  &.asfowoo-fade {
-    .asfowoo-modal-dialog {
+  &.jetexir-fade {
+    .jetexir-modal-dialog {
       transition: transform .3s ease-out;
       transform: translate(0, -50px);
     }
   }
 
-  &.asfowoo-active {
-    .asfowoo-modal-dialog {
+  &.jetexir-active {
+    .jetexir-modal-dialog {
       transform: none;
     }
   }
 }
 
-.asfowoo-modal-overlay {
+.jetexir-modal-overlay {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -144,7 +144,7 @@
   opacity: 0;
   visibility: hidden;
 
-  &.asfowoo-active {
+  &.jetexir-active {
     opacity: 1;
     visibility: visible;
   }

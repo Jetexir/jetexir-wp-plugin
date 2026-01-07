@@ -1,6 +1,6 @@
 <?php
 
-use AssistantForWooCommerce\Providers\UI\AbstractDataTableUI;
+use Jetexir\Providers\UI\AbstractDataTableUI;
 
 defined( 'ABSPATH' ) or die();
 
@@ -9,23 +9,23 @@ if ( ! isset( $args ) ) {
 }
 ?>
 
-<table class="asfowoo-dtu-table">
+<table class="jetexir-dtu-table">
   <thead>
   <tr>
     <?php
     if ( $args['sortable'] ) {
-      echo '<th class="asfowoo-dtu-sortable-column"><i class="asfowoo-icon-move-vertical"></th>';
+      echo '<th class="jetexir-dtu-sortable-column"><i class="jetexir-icon-move-vertical"></th>';
     }
 
     if ( $args['has_bulk_action'] ) {
-      echo '<th class="asfowoo-dtu-select-all-wrap check-column"><label class="asfowoo-checkbox-wrap"><input type="checkbox" class="asfowoo-dtu-select-all"><span class="asfowoo-checkmark"></span></label></th>';
+      echo '<th class="jetexir-dtu-select-all-wrap check-column"><label class="jetexir-checkbox-wrap"><input type="checkbox" class="jetexir-dtu-select-all"><span class="jetexir-checkmark"></span></label></th>';
     }
 
     foreach ( $args['thead'] as $columnKey => $column ) {
       $addClass = [];
       $addAttr  = '';
       if ( $column['hide_on_mobile'] ) {
-        $addClass[] = 'asfowoo-dtu-col-hide-on-mobile';
+        $addClass[] = 'jetexir-dtu-col-hide-on-mobile';
       }
       if ( $column['is_sortable'] ) {
         $addClass[] = 'is_sortable';
@@ -46,7 +46,7 @@ if ( ! isset( $args ) ) {
   <tbody class="<?php echo $args['sortable'] ? 'ui-sortable' : '' ?>">
   <?php
   if ( empty( $args['tbody'] ) ) {
-    echo '<tr><td colspan="100%">' . esc_html__( 'No entries!', 'assistant-for-woocommerce' ) . '</td></tr>';
+    echo '<tr><td colspan="100%">' . esc_html__( 'No entries!', 'jetexir' ) . '</td></tr>';
   } else {
     foreach ( $args['tbody'] as $index => $row ) {
       $rowId      = $row['id'];
@@ -61,10 +61,10 @@ if ( ! isset( $args ) ) {
         data-id="<?php echo esc_html( $rowId ) ?>" <?php echo wp_kses_post( $attributes ) . ( ! $row['is_active'] ? ' data-disabled="true"' : '' ) ?>>
         <?php
         if ( $args['sortable'] ) {
-          echo '<td class="asfowoo-dtu-sortable-column sort ui-sortable-handle"><i class="asfowoo-icon-move-vertical"></i><input type="hidden" class="asfowoo-dtu-row-order" name="order[' . esc_html( $rowId ) . ']" value="' . esc_html( $index ) . '" ></td>';
+          echo '<td class="jetexir-dtu-sortable-column sort ui-sortable-handle"><i class="jetexir-icon-move-vertical"></i><input type="hidden" class="jetexir-dtu-row-order" name="order[' . esc_html( $rowId ) . ']" value="' . esc_html( $index ) . '" ></td>';
         }
         if ( $args['has_bulk_action'] ) {
-          echo '<td class="check-column"><label class="asfowoo-checkbox-wrap"><input type="checkbox" class="asfowoo-dtu-row-select" value="' . esc_html( $rowId ) . '"><span class="asfowoo-checkmark"></span></label></td>';
+          echo '<td class="check-column"><label class="jetexir-checkbox-wrap"><input type="checkbox" class="jetexir-dtu-row-select" value="' . esc_html( $rowId ) . '"><span class="jetexir-checkmark"></span></label></td>';
         }
 
         foreach ( $row['data'] as $data ) {
@@ -75,13 +75,13 @@ if ( ! isset( $args ) ) {
 
           $addClass = [];
           if ( isset( $args['thead'][ $data['field'] ]['hide_on_mobile'] ) && $args['thead'][ $data['field'] ]['hide_on_mobile'] ) {
-            $addClass[] = 'asfowoo-dtu-col-hide-on-mobile';
+            $addClass[] = 'jetexir-dtu-col-hide-on-mobile';
           }
           $addClass = empty( $addClass ) ? '' : ' class="' . implode( ' ', $addClass ) . '"';
 
           if ( $data['field'] === AbstractDataTableUI::ACTIVE_FIELD &&
                in_array( $data['content'], [ '1', '0' ], true ) ) {
-            $data['content'] = \AssistantForWooCommerce\Helper\HTML::toggle( array(
+            $data['content'] = \Jetexir\Helper\HTML::toggle( array(
               'id'            => $args['id'] . '_row_active_' . $rowId,
               'type'          => 'toggle',
               'value'         => 1,
@@ -95,9 +95,9 @@ if ( ! isset( $args ) ) {
           echo '<td ' . esc_attr( $addClass ) . ' ' . wp_kses_post( $attributes ) . '>' . wp_kses_post( $data['content'] ) . '</td>';
         }
 
-        echo '<td class="asfowoo-dtu-actions-wrap">';
+        echo '<td class="jetexir-dtu-actions-wrap">';
         if ( ! empty( $args['actions'] ) ) {
-          echo '<div class="asfowoo-dtu-actions">';
+          echo '<div class="jetexir-dtu-actions">';
           foreach ( $args['actions'] as $key => $action ) {
             if ( $action['flag'] === AbstractDataTableUI::ACTION_SINGLE ) {
               $attributes = [];
@@ -106,12 +106,12 @@ if ( ! isset( $args ) ) {
                 $attributes['data-primary-button-text']  = $args['modal_edit_button'];
                 $attributes['data-display-active-field'] = (int) $args['display_active_field'];
                 $attributes['data-active-field']         = (int) $row['is_active'];
-                $attributes['data-asfowoo-toggle']       = 'modal';
-                $attributes['data-asfowoo-target']       = '#asfowoo-data-table-ui-modal';
+                $attributes['data-jetexir-toggle']       = 'modal';
+                $attributes['data-jetexir-target']       = '#jetexir-data-table-ui-modal';
               }
-              $attributes = \AssistantForWooCommerce\Helper\HTML::getAttributes( $action, $attributes );
+              $attributes = \Jetexir\Helper\HTML::getAttributes( $action, $attributes );
               ?>
-              <button class="asfowoo-button asfowoo-dtu-action"
+              <button class="jetexir-button jetexir-dtu-action"
                       data-action="<?php echo esc_attr( $key ) ?>"
                       data-action-type="<?php echo esc_attr( $action['type'] ) ?>"
                       type="button" <?php echo wp_kses_post( $attributes ) ?>>

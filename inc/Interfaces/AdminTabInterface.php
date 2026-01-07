@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Interfaces;
+namespace Jetexir\Interfaces;
 
 interface AdminTabInterface {
   //public function settings(): array;

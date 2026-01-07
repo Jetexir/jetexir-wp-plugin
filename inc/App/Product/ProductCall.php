@@ -1,11 +1,11 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Product;
+namespace Jetexir\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Addons\Addon;
+use Jetexir\Interfaces\AddonInterface;
 
 class ProductCall extends Addon implements AddonInterface {
   public string $addonID = 'product-call';
@@ -45,7 +45,7 @@ class ProductCall extends Addon implements AddonInterface {
    */
   public function changeReadMore( $text, $product ): string {
     if ( empty( $product->get_price() ) || ( ! $product->is_in_stock() && $this->getSetting( 'product_call_out_of_stock_price', false ) ) ) {
-      return $this->getSetting( 'product_call_text', esc_html__( 'Call for Price', 'assistant-for-woocommerce' ) );
+      return $this->getSetting( 'product_call_text', esc_html__( 'Call for Price', 'jetexir' ) );
     }
 
     return $text;
@@ -95,7 +95,7 @@ class ProductCall extends Addon implements AddonInterface {
    */
   public function outOfStockPriceText( $price, $product ): string {
     if ( ! $product->is_in_stock() ) {
-      return $this->getSetting( 'product_call_text', esc_html__( 'Call for Price', 'assistant-for-woocommerce' ) );
+      return $this->getSetting( 'product_call_text', esc_html__( 'Call for Price', 'jetexir' ) );
     }
 
     return $price;
@@ -109,7 +109,7 @@ class ProductCall extends Addon implements AddonInterface {
    */
   public function zeroPriceText( $price, $product ): string {
     if ( $product->get_price() === '0' ) {
-      return $this->getSetting( 'product_call_text', esc_html__( 'Call for Price', 'assistant-for-woocommerce' ) );
+      return $this->getSetting( 'product_call_text', esc_html__( 'Call for Price', 'jetexir' ) );
     }
 
     return $price;
@@ -122,7 +122,7 @@ class ProductCall extends Addon implements AddonInterface {
    * @return string
    */
   public function emptyPriceText( $text, $product ): string {
-    $_text = $this->getSetting( 'product_call_text', esc_html__( 'Call for Price', 'assistant-for-woocommerce' ) );
+    $_text = $this->getSetting( 'product_call_text', esc_html__( 'Call for Price', 'jetexir' ) );
 
     if ( ! empty( $_text ) ) {
       $text = $_text;
@@ -133,19 +133,19 @@ class ProductCall extends Addon implements AddonInterface {
 
   public function addSectionSettings( $sections ): array {
     $sections[ $this->currentSection ] = array(
-      'title'        => esc_html__( 'Call', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Call for product price', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Call', 'jetexir' ),
+      'desc'         => esc_html__( 'Call for product price', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => [
         'product_call_start_grid'         => array(
           'id'    => 'product_call_start_grid',
-          'title' => esc_html__( 'Call for Price', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Call for Price', 'jetexir' ),
           'type'  => 'startgrid',
         ),
         'product_call_empty_price'        => array(
           'id'       => 'product_call_empty_price',
-          'title'    => esc_html__( 'Empty price', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Display custom text for product with empty price', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Empty price', 'jetexir' ),
+          'desc'     => esc_html__( 'Display custom text for product with empty price', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -153,8 +153,8 @@ class ProductCall extends Addon implements AddonInterface {
         ),
         'product_call_zero_price'         => array(
           'id'       => 'product_call_zero_price',
-          'title'    => esc_html__( 'Zero price', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Display custom text for product with zero price', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Zero price', 'jetexir' ),
+          'desc'     => esc_html__( 'Display custom text for product with zero price', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -162,8 +162,8 @@ class ProductCall extends Addon implements AddonInterface {
         ),
         'product_call_out_of_stock_price' => array(
           'id'       => 'product_call_out_of_stock_price',
-          'title'    => esc_html__( '"Out of stock" products', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Display custom text for out of stock products', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( '"Out of stock" products', 'jetexir' ),
+          'desc'     => esc_html__( 'Display custom text for out of stock products', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => false,
@@ -171,15 +171,15 @@ class ProductCall extends Addon implements AddonInterface {
         ),
         'product_call_text'               => array(
           'id'          => 'product_call_text',
-          'title'       => esc_html__( 'Text', 'assistant-for-woocommerce' ),
+          'title'       => esc_html__( 'Text', 'jetexir' ),
           'type'        => 'text',
-          'default'     => esc_html__( 'Call for Price', 'assistant-for-woocommerce' ),
-          'placeholder' => esc_html__( 'Call for Price', 'assistant-for-woocommerce' ),
+          'default'     => esc_html__( 'Call for Price', 'jetexir' ),
+          'placeholder' => esc_html__( 'Call for Price', 'jetexir' ),
         ),
         'product_call_read_more'          => array(
           'id'       => 'product_call_read_more',
-          'title'    => esc_html__( '"Read more" button', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Change "Read more" button text', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( '"Read more" button', 'jetexir' ),
+          'desc'     => esc_html__( 'Change "Read more" button text', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -187,8 +187,8 @@ class ProductCall extends Addon implements AddonInterface {
         ),
         'product_call_sale_tag'           => array(
           'id'       => 'product_call_sale_tag',
-          'title'    => esc_html__( 'Sale tag', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Hides sale tag for products with empty prices.', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Sale tag', 'jetexir' ),
+          'desc'     => esc_html__( 'Hides sale tag for products with empty prices.', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => false,
@@ -208,9 +208,9 @@ class ProductCall extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Call for price', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Add a Call button for products with no price set.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Call for price', 'jetexir' ),
+      'desc'           => esc_html__( 'Add a Call button for products with no price set.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Helper;
+namespace Jetexir\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -120,7 +120,7 @@ class FeedReader {
     }
 
     if ( ! $feed->get_item_quantity() ) {
-      $this->error = new \WP_Error( 'feed_empty', esc_html__( 'Feed is empty.', 'assistant-for-woocommerce' ), $this->args );
+      $this->error = new \WP_Error( 'feed_empty', esc_html__( 'Feed is empty.', 'jetexir' ), $this->args );
       $feed->__destruct();
       unset( $feed );
 
@@ -146,7 +146,7 @@ class FeedReader {
       if ( in_array( 'title', $this->args['fields'], true ) ) {
         $title = esc_html( trim( wp_strip_all_tags( $item->get_title() ) ) );
         if ( empty( $title ) ) {
-          $title = esc_html__( 'Untitled', 'assistant-for-woocommerce' );
+          $title = esc_html__( 'Untitled', 'jetexir' );
         }
 
         $feedItem['title'] = $title;

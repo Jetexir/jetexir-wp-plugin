@@ -1,14 +1,14 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Product;
+namespace Jetexir\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\PostMeta;
-use AssistantForWooCommerce\Helper\Templates;
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Addons\Addon;
+use Jetexir\Helper\Param;
+use Jetexir\Helper\PostMeta;
+use Jetexir\Helper\Templates;
+use Jetexir\Interfaces\AddonInterface;
 
 class ProductFAQ extends Addon implements AddonInterface {
   public string $addonID = 'product-faq';
@@ -31,7 +31,7 @@ class ProductFAQ extends Addon implements AddonInterface {
     $globalFAQsPosition = $this->getSetting( 'product_faq_global_position', 'before' );
     $globalFAQs         = $this->getSetting( 'product_faq', [] );
     $buttonIcon         = $this->getSetting( 'product_faq_button_icon', 'chevron' );
-    $productFAQs        = PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq' );
+    $productFAQs        = PostMeta::get( $productID, JETEXIR_INPUT_PREFIX . 'product_faq' );
     $productFAQs        = is_array( $productFAQs ) ? $productFAQs : [];
 
     if ( $globalFAQsPosition === 'before' ) {
@@ -40,7 +40,7 @@ class ProductFAQ extends Addon implements AddonInterface {
       $FAQs = array_merge( $productFAQs, $globalFAQs );
     }
 
-    $title = apply_filters( 'assistant_for_woocommerce_product_faq_tab_title', esc_html__( 'FAQs', 'assistant-for-woocommerce' ) );
+    $title = apply_filters( 'jetexir_product_faq_tab_title', esc_html__( 'FAQs', 'jetexir' ) );
 
     Templates::load( Templates::getPath( 'product-faq/product_faq.php' ), array(
       'title' => $title,
@@ -51,14 +51,14 @@ class ProductFAQ extends Addon implements AddonInterface {
 
   public function productTab( $tabs ) {
     $productID = wc_get_product()->get_id();
-    $enable    = PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable' );
+    $enable    = PostMeta::get( $productID, JETEXIR_INPUT_PREFIX . 'product_faq_enable' );
     $enable    = $enable === '' ? 1 : (int) $enable;
     if ( $enable === 0 || ! $this->productHasFAQs( $productID ) ) {
       return $tabs;
     }
 
-    $tabs['asfowoo_product_faq'] = array(
-      'title'    => apply_filters( 'assistant_for_woocommerce_product_faq_tab_title', esc_html__( 'FAQs', 'assistant-for-woocommerce' ) ),
+    $tabs['jetexir_product_faq'] = array(
+      'title'    => apply_filters( 'jetexir_product_faq_tab_title', esc_html__( 'FAQs', 'jetexir' ) ),
       'priority' => 50,
       'callback' => [ $this, 'productTabContent' ],
     );
@@ -72,36 +72,36 @@ class ProductFAQ extends Addon implements AddonInterface {
       return true;
     }
 
-    $productFAQs = PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq' );
+    $productFAQs = PostMeta::get( $productID, JETEXIR_INPUT_PREFIX . 'product_faq' );
 
     return is_array( $productFAQs ) && count( $productFAQs );
   }
 
   private function getIcon( $icon ): string {
     if ( $icon === 'chevron' ) {
-      return '<i class="asfowoo-icon-chevron-down"></i>';
+      return '<i class="jetexir-icon-chevron-down"></i>';
 
     } elseif ( $icon === 'chevrons' ) {
-      return '<i class="asfowoo-icon-chevrons-down"></i>';
+      return '<i class="jetexir-icon-chevrons-down"></i>';
 
     } elseif ( $icon === 'arrow' ) {
-      return '<i class="asfowoo-icon-arrow-down"></i>';
+      return '<i class="jetexir-icon-arrow-down"></i>';
 
     } elseif ( $icon === 'arrow-circle' ) {
-      return '<i class="asfowoo-icon-circle-down"></i>';
+      return '<i class="jetexir-icon-circle-down"></i>';
 
     } elseif ( $icon === 'plus' ) {
-      return '<i class="asfowoo-icon-plus"></i>';
+      return '<i class="jetexir-icon-plus"></i>';
     }
 
     return '';
   }
 
   public function adminProductSaveMeta( $productID ): void {
-    $enable = (int) wc_string_to_bool( Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable' ) );
-    PostMeta::update( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable', $enable );
+    $enable = (int) wc_string_to_bool( Param::post( JETEXIR_INPUT_PREFIX . 'product_faq_enable' ) );
+    PostMeta::update( $productID, JETEXIR_INPUT_PREFIX . 'product_faq_enable', $enable );
 
-    $FAQs = Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq' );
+    $FAQs = Param::post( JETEXIR_INPUT_PREFIX . 'product_faq' );
     if ( is_array( $FAQs ) ) {
       foreach ( $FAQs as $index => $faq ) {
         $faq = array_map( 'trim', $faq );
@@ -111,14 +111,14 @@ class ProductFAQ extends Addon implements AddonInterface {
       }
       $FAQs = array_values( $FAQs );
 
-      PostMeta::update( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq', $FAQs );
+      PostMeta::update( $productID, JETEXIR_INPUT_PREFIX . 'product_faq', $FAQs );
     }
   }
 
   public function adminProductTab( $tabs ) {
-    $tabs[ ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_faq_control' ] = array(
-      'label'  => esc_html__( 'FAQs', 'assistant-for-woocommerce' ),
-      'target' => ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_faq_control'
+    $tabs[ JETEXIR_PLUGIN_KEY . '_faq_control' ] = array(
+      'label'  => esc_html__( 'FAQs', 'jetexir' ),
+      'target' => JETEXIR_PLUGIN_KEY . '_faq_control'
     );
 
     return $tabs;
@@ -126,43 +126,43 @@ class ProductFAQ extends Addon implements AddonInterface {
 
   public function adminProductSettings(): void {
     $productID = get_the_ID();
-    $enable    = PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable' );
+    $enable    = PostMeta::get( $productID, JETEXIR_INPUT_PREFIX . 'product_faq_enable' );
     $enable    = $enable === '' ? 1 : (int) $enable;
-    $FAQs      = PostMeta::get( $productID, ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq' );
+    $FAQs      = PostMeta::get( $productID, JETEXIR_INPUT_PREFIX . 'product_faq' );
     $FAQs      = is_array( $FAQs ) ? $FAQs : [];
     ?>
-    <div id="<?php echo esc_html( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY ) . '_faq_control' ?>"
+    <div id="<?php echo esc_html( JETEXIR_PLUGIN_KEY ) . '_faq_control' ?>"
          class="panel woocommerce_options_panel"
          style="display: none">
       <div class="options_group">
         <?php
         woocommerce_wp_checkbox( array(
-          'id'      => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable',
-          'name'    => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_enable',
-          'label'   => esc_html__( 'Enable Product FAQ', 'assistant-for-woocommerce' ),
+          'id'      => JETEXIR_INPUT_PREFIX . 'product_faq_enable',
+          'name'    => JETEXIR_INPUT_PREFIX . 'product_faq_enable',
+          'label'   => esc_html__( 'Enable Product FAQ', 'jetexir' ),
           'value'   => $enable === 1 ? 1 : 0,
           'cbvalue' => 1
         ) );
 
-        echo '<p><strong>' . esc_html__( 'Product FAQs', 'assistant-for-woocommerce' ) . '</strong></p>';
+        echo '<p><strong>' . esc_html__( 'Product FAQs', 'jetexir' ) . '</strong></p>';
 
         for ( $i = 1; $i <= self::maxProductFAQs; $i ++ ) {
           $index = $i - 1;
           woocommerce_wp_text_input( array(
-            'id'          => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_question_' . $index,
-            'name'        => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq[' . $index . '][question]',
-            'label'       => esc_html__( 'Question', 'assistant-for-woocommerce' ) . ' ' . $i,
+            'id'          => JETEXIR_INPUT_PREFIX . 'product_faq_question_' . $index,
+            'name'        => JETEXIR_INPUT_PREFIX . 'product_faq[' . $index . '][question]',
+            'label'       => esc_html__( 'Question', 'jetexir' ) . ' ' . $i,
             'type'        => 'text',
-            'placeholder' => esc_html__( 'Question', 'assistant-for-woocommerce' ),
+            'placeholder' => esc_html__( 'Question', 'jetexir' ),
             'value'       => $FAQs[ $index ]['question'] ?? '',
           ) );
 
           woocommerce_wp_textarea_input( array(
-            'id'          => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq_answer_' . $index,
-            'name'        => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'product_faq[' . $index . '][answer]',
-            'label'       => esc_html__( 'Answer', 'assistant-for-woocommerce' ) . ' ' . $i,
+            'id'          => JETEXIR_INPUT_PREFIX . 'product_faq_answer_' . $index,
+            'name'        => JETEXIR_INPUT_PREFIX . 'product_faq[' . $index . '][answer]',
+            'label'       => esc_html__( 'Answer', 'jetexir' ) . ' ' . $i,
             'rows'        => 3,
-            'placeholder' => esc_html__( 'Answer', 'assistant-for-woocommerce' ),
+            'placeholder' => esc_html__( 'Answer', 'jetexir' ),
             'value'       => $FAQs[ $index ]['answer'] ?? '',
           ) );
 
@@ -178,37 +178,37 @@ class ProductFAQ extends Addon implements AddonInterface {
 
   public function addSectionSettings( $sections ) {
     $sections[ $this->currentSection ] = array(
-      'title'        => esc_html__( 'FAQ', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Product frequently asked questions', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'FAQ', 'jetexir' ),
+      'desc'         => esc_html__( 'Product frequently asked questions', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => array(
         'product_faq_start_grid_1'    => array(
           'id'    => 'product_faq_start_grid_1',
-          'title' => esc_html__( 'Frequently asked questions', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Frequently asked questions', 'jetexir' ),
           'type'  => 'startgrid',
         ),
         'product_faq_global_position' => array(
           'id'       => 'product_faq_global_position',
-          'title'    => esc_html__( 'Global FAQ position', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Global FAQ position', 'jetexir' ),
           'type'     => 'select',
           'options'  => array(
-            'before' => esc_html__( 'Before Product FAQs', 'assistant-for-woocommerce' ),
-            'after'  => esc_html__( 'After Product FAQs', 'assistant-for-woocommerce' ),
+            'before' => esc_html__( 'Before Product FAQs', 'jetexir' ),
+            'after'  => esc_html__( 'After Product FAQs', 'jetexir' ),
           ),
           'default'  => 'before',
           'sanitize' => 'text'
         ),
         'product_faq_button_icon'     => array(
           'id'       => 'product_faq_button_icon',
-          'title'    => esc_html__( 'Button icon', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Button icon', 'jetexir' ),
           'type'     => 'radioInline',
           'default'  => 'chevron',
           'options'  => array(
-            'chevron'      => '<i class="asfowoo-icon-chevron-down"></i>',
-            'chevrons'     => '<i class="asfowoo-icon-chevrons-down"></i>',
-            'arrow'        => '<i class="asfowoo-icon-arrow-down"></i>',
-            'arrow-circle' => '<i class="asfowoo-icon-circle-down"></i>',
-            'plus'         => '<i class="asfowoo-icon-plus"></i>',
+            'chevron'      => '<i class="jetexir-icon-chevron-down"></i>',
+            'chevrons'     => '<i class="jetexir-icon-chevrons-down"></i>',
+            'arrow'        => '<i class="jetexir-icon-arrow-down"></i>',
+            'arrow-circle' => '<i class="jetexir-icon-circle-down"></i>',
+            'plus'         => '<i class="jetexir-icon-plus"></i>',
           ),
           'sanitize' => 'text'
         ),
@@ -218,33 +218,33 @@ class ProductFAQ extends Addon implements AddonInterface {
 
         'product_faq_start_grid_3'              => array(
           'id'    => 'product_faq_start_grid_3',
-          'title' => esc_html__( 'Global FAQs', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Global FAQs', 'jetexir' ),
           'type'  => 'startgrid',
         ),
         'product_faq_start_repeatable'          => array(
           'id'         => 'product_faq_start_repeatable',
-          'title'      => esc_html__( 'Global FAQs', 'assistant-for-woocommerce' ),
+          'title'      => esc_html__( 'Global FAQs', 'jetexir' ),
           'max_repeat' => 10,
           'type'       => 'startRepeatable',
         ),
         'product_faq_start_repeatable_elements' => array(
           'id'    => 'product_faq',
-          'title' => esc_html__( 'FAQ', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'FAQ', 'jetexir' ),
           'type'  => 'startRepeatableElements',
         ),
         'product_faq_question'                  => array(
           'id'          => 'product_faq_question',
-          'title'       => esc_html__( 'Question', 'assistant-for-woocommerce' ),
-          'placeholder' => esc_html__( 'Question', 'assistant-for-woocommerce' ),
+          'title'       => esc_html__( 'Question', 'jetexir' ),
+          'placeholder' => esc_html__( 'Question', 'jetexir' ),
           'type'        => 'text'
         ),
         'product_faq_answer'                    => array(
           'id'         => 'product_faq_answer',
-          'title'      => esc_html__( 'Answer', 'assistant-for-woocommerce' ),
+          'title'      => esc_html__( 'Answer', 'jetexir' ),
           'type'       => 'textarea',
           'attributes' => array(
             'rows'        => 2,
-            'placeholder' => esc_html__( 'Answer', 'assistant-for-woocommerce' ),
+            'placeholder' => esc_html__( 'Answer', 'jetexir' ),
             'resize'      => 'none'
           )
         ),
@@ -252,7 +252,7 @@ class ProductFAQ extends Addon implements AddonInterface {
           'type' => 'endRepeatableElements',
         ),
         'product_faq_end_repeatable'            => array(
-          'add_text' => esc_html__( 'Add', 'assistant-for-woocommerce' ),
+          'add_text' => esc_html__( 'Add', 'jetexir' ),
           'type'     => 'endRepeatable',
         ),
         'product_faq_end_grid_3'                => array(
@@ -269,9 +269,9 @@ class ProductFAQ extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Products FAQ', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Add a frequently asked questions (FAQ) section to the product page.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Products FAQ', 'jetexir' ),
+      'desc'           => esc_html__( 'Add a frequently asked questions (FAQ) section to the product page.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

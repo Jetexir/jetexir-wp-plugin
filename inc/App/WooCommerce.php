@@ -1,11 +1,11 @@
 <?php
 
-namespace AssistantForWooCommerce\App;
+namespace Jetexir\App;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Templates;
+use Jetexir\Helper\Param;
+use Jetexir\Helper\Templates;
 
 class WooCommerce {
   public function __construct() {
@@ -37,7 +37,7 @@ class WooCommerce {
    * @since 9.5.0 $defaultPath argument added.
    */
   public function locateTemplate( $template, $templateName, $templatePath, $defaultPath ): string {
-    $waTemplate = apply_filters( 'assistant_for_woocommerce_wc_locate_template', false, $templateName, $template, $templatePath, $defaultPath );
+    $waTemplate = apply_filters( 'jetexir_wc_locate_template', false, $templateName, $template, $templatePath, $defaultPath );
 
     if ( ! $waTemplate ) {
       return $template;

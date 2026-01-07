@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\AppHelper;
+namespace Jetexir\AppHelper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,7 +31,7 @@ class FlyIcons {
       foreach ( $positionIcons as $position => $icons ) {
         $icons     = implode( '', $icons );
         $positions = explode( '-', $position );
-        echo '<div id="asfowoo-fly-icons-' . esc_html( $position ) . '" class="asfowoo-fly-icons asfowoo-fly-icons-' . esc_html( $position ) . ' asfowoo-fly-icons-' . esc_html( $positions[0] ) . ' asfowoo-fly-icons-' . esc_html( $positions[1] ) . '">' . wp_kses_post( $icons ) . '</div>';
+        echo '<div id="jetexir-fly-icons-' . esc_html( $position ) . '" class="jetexir-fly-icons jetexir-fly-icons-' . esc_html( $position ) . ' jetexir-fly-icons-' . esc_html( $positions[0] ) . ' jetexir-fly-icons-' . esc_html( $positions[1] ) . '">' . wp_kses_post( $icons ) . '</div>';
       }
     }
   }
@@ -48,21 +48,21 @@ class FlyIcons {
     );
     $flyIcon     = wp_parse_args( $flyIcon, $defaultArgs );
 
-    $id                             = 'asfowoo-fly-icon-' . $flyIcon['id'];
+    $id                             = 'jetexir-fly-icon-' . $flyIcon['id'];
     $tag                            = in_array( $flyIcon['tag'], [ 'div', 'a' ] ) ? $flyIcon['tag'] : 'div';
     $title                          = is_string( $flyIcon['title'] ) ? $flyIcon['title'] : '';
     $icon                           = is_string( $flyIcon['icon'] ) ? $flyIcon['icon'] : '';
     $countBadge                     = (string) ( $flyIcon['count_badge'] ?? '' );
-    $flyIcon['attributes']['class'] = 'asfowoo-fly-icon ' . $flyIcon['attributes']['class'] ?? '';
+    $flyIcon['attributes']['class'] = 'jetexir-fly-icon ' . $flyIcon['attributes']['class'] ?? '';
     $attributes                     = $this->getAttributes( $flyIcon['attributes'] ?? '' );
 
     $output = '<' . $tag . ' id="' . $id . '" ' . $attributes . '>';
     $output .= $icon;
     if ( ! empty( $title ) ) {
-      $output .= '<span class="asfowoo-fly-icon-title">' . $title . '</span>';
+      $output .= '<span class="jetexir-fly-icon-title">' . $title . '</span>';
     }
     if ( ! empty( $countBadge ) ) {
-      $output .= '<span class="asfowoo-fly-icon-count">' . $countBadge . '</span>';
+      $output .= '<span class="jetexir-fly-icon-count">' . $countBadge . '</span>';
     }
     $output .= '</' . $tag . '>';
 
@@ -100,10 +100,10 @@ class FlyIcons {
   }
 
   public function siteIcons(): void {
-    $this->printIcons( apply_filters( 'assistant_for_woocommerce_site_fly_icons', [] ) );
+    $this->printIcons( apply_filters( 'jetexir_site_fly_icons', [] ) );
   }
 
   public function adminIcons(): void {
-    $this->printIcons( apply_filters( 'assistant_for_woocommerce_admin_fly_icons', [] ) );
+    $this->printIcons( apply_filters( 'jetexir_admin_fly_icons', [] ) );
   }
 }

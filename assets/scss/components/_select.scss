@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-@mixin asfowoo-select {
+@mixin jetexir-select {
   select {
     color: variables.$dark;
     border: 1px solid variables.$input_border_color;

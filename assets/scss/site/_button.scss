@@ -1,12 +1,12 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-.asfowoo-button {
+.jetexir-button {
   background-color: transparent;
-  color: var(--asfowoo-text-color, variables.$dark);
+  color: var(--jetexir-text-color, variables.$dark);
   border: none;
   padding: 10px 16px;
-  border-radius: var(--asfowoo-button-border-radius, 0);
+  border-radius: var(--jetexir-button-border-radius, 0);
   font-weight: 500;
   cursor: pointer;
   -webkit-transition: .2s;
@@ -21,41 +21,41 @@
   }
 
   &:hover, &:focus, &:active {
-    color: var(--asfowoo-text-color, variables.$gray);
+    color: var(--jetexir-text-color, variables.$gray);
     background-color: transparent;
   }
 
-  &.asfowoo-button-primary {
-    color: var(--asfowoo-button-color, var(--asfowoo-text-color, variables.$dark));
-    background-color: var(--asfowoo-button-bg-color, variables.$primary_light);
-    border-color: var(--asfowoo-button-border-color, variables.$woo_purple_50);
+  &.jetexir-button-primary {
+    color: var(--jetexir-button-color, var(--jetexir-text-color, variables.$dark));
+    background-color: var(--jetexir-button-bg-color, variables.$primary_light);
+    border-color: var(--jetexir-button-border-color, variables.$woo_purple_50);
 
     &:hover, &:focus, &:active {
-      color: var(--asfowoo-button-hover-color, var(--asfowoo-text-color, variables.$dark));
-      background-color: var(--asfowoo-button-hover-bg-color, color.scale(variables.$primary_light, $lightness: -5%));
-      border-color: var(--asfowoo-button-hover-border-color, variables.$woo_purple_50);
+      color: var(--jetexir-button-hover-color, var(--jetexir-text-color, variables.$dark));
+      background-color: var(--jetexir-button-hover-bg-color, color.scale(variables.$primary_light, $lightness: -5%));
+      border-color: var(--jetexir-button-hover-border-color, variables.$woo_purple_50);
     }
 
     &:focus, &:active {
       outline-offset: 2px;
-      outline: var(--asfowoo-button-hover-border-color, variables.$woo_purple_50) solid 2px;
+      outline: var(--jetexir-button-hover-border-color, variables.$woo_purple_50) solid 2px;
     }
   }
 
-  &.asfowoo-button-secondary {
-    color: var(--asfowoo-secondary-button-color, var(--asfowoo-text-color, variables.$dark));
-    background-color: var(--asfowoo-secondary-button-bg-color, variables.$gray_light_three);
-    border-color: var(--asfowoo-secondary-button-border-color, variables.$woo_purple_50);
+  &.jetexir-button-secondary {
+    color: var(--jetexir-secondary-button-color, var(--jetexir-text-color, variables.$dark));
+    background-color: var(--jetexir-secondary-button-bg-color, variables.$gray_light_three);
+    border-color: var(--jetexir-secondary-button-border-color, variables.$woo_purple_50);
 
     &:hover, &:focus, &:active {
-      color: var(--asfowoo-secondary-button-hover-color, var(--asfowoo-text-color, variables.$dark));
-      background-color: var(--asfowoo-secondary-button-hover-bg-color, color.scale(variables.$gray_light_three, $lightness: -5%));
-      border-color: var(--asfowoo-secondary-button-hover-border-color, variables.$gray_light_two);
+      color: var(--jetexir-secondary-button-hover-color, var(--jetexir-text-color, variables.$dark));
+      background-color: var(--jetexir-secondary-button-hover-bg-color, color.scale(variables.$gray_light_three, $lightness: -5%));
+      border-color: var(--jetexir-secondary-button-hover-border-color, variables.$gray_light_two);
     }
 
     &:focus, &:active {
       outline-offset: 2px;
-      outline: var(--asfowoo-secondary-button-hover-border-color, variables.$gray_light_two) solid 2px;
+      outline: var(--jetexir-secondary-button-hover-border-color, variables.$gray_light_two) solid 2px;
     }
   }
 }

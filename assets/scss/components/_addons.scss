@@ -1,8 +1,8 @@
 @use "../utilities/variables";
 
-@mixin asfowoo-addons {
-  .asfowoo-addons-wrap {
-    .asfowoo-heading-2 {
+@mixin jetexir-addons {
+  .jetexir-addons-wrap {
+    .jetexir-heading-2 {
       margin-bottom: 30px;
       font-weight: 600;
     }
@@ -11,14 +11,14 @@
       margin: 30px 0 !important;
     }
 
-    .asfowoo-addons-grid {
+    .jetexir-addons-grid {
       display: grid;
       //grid-template-columns: repeat(auto-fill, 300px);
       grid-template-columns: repeat(auto-fit, minmax(250px, 0.5fr));
       gap: 20px;
     }
 
-    .asfowoo-addon-wrap {
+    .jetexir-addon-wrap {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -27,8 +27,8 @@
       overflow: hidden;
       // max-width: 600px;
 
-      &.asfowoo-addon-inactive {
-        .asfowoo-image-wrap {
+      &.jetexir-addon-inactive {
+        .jetexir-image-wrap {
           img, svg {
             opacity: 0.5;
             filter: grayscale(80%);
@@ -37,12 +37,12 @@
       }
 
       &:hover, &:focus-within {
-        .asfowoo-image-wrap {
+        .jetexir-image-wrap {
           background-image: linear-gradient(to right top, #ffffff, #fcfcff, #faf9ff, #f7f5ff, #f5f2ff, #f5f2ff, #f5f2ff, #f5f2ff, #f7f5ff, #faf9ff, #fcfcff, #ffffff);
         }
       }
 
-      .asfowoo-image-wrap {
+      .jetexir-image-wrap {
         background-color: variables.$background_side;
         background-image: linear-gradient(to right top, #ffffff, #fdfdfe, #fcfbfd, #fafafc, #f8f8fb, #f8f8fb, #f8f8fb, #f8f8fb, #fafafc, #fcfbfd, #fdfdfe, #ffffff);
         height: 100px;
@@ -51,7 +51,7 @@
         justify-content: center;
         position: relative;
 
-        .asfowoo-tag {
+        .jetexir-tag {
           position: absolute;
           right: 5px;
           top: 5px;
@@ -64,7 +64,7 @@
           cursor: default;
         }
 
-        .asfowoo-image-link {
+        .jetexir-image-link {
           width: 100%;
           height: 100%;
           display: flex;
@@ -72,7 +72,7 @@
           justify-content: center;
         }
 
-        .asfowoo-image {
+        .jetexir-image {
           object-fit: cover;
           width: 100%;
           height: 100%;
@@ -84,23 +84,23 @@
         }
       }
 
-      .asfowoo-title-desc {
+      .jetexir-title-desc {
         display: flex;
         flex-direction: column;
         gap: 10px;
         padding: 20px 15px;
         height: 170px;
 
-        .asfowoo-title {
+        .jetexir-title {
           margin: 0;
           font-weight: 600;
         }
 
-        .asfowoo-desc {
+        .jetexir-desc {
           color: variables.$meta;
         }
 
-        .asfowoo-more-info-link {
+        .jetexir-more-info-link {
           display: inline-flex;
           align-items: baseline;
           justify-content: start;
@@ -112,14 +112,14 @@
         }
       }
 
-      .asfowoo-action-wrap {
+      .jetexir-action-wrap {
         align-self: flex-end;
         width: 100%;
         padding: 20px 15px;
         background-color: variables.$background_side;
         margin-top: auto;
 
-        .asfowoo-field-head {
+        .jetexir-field-head {
           display: flex;
           align-items: center;
           flex-direction: row-reverse;
@@ -127,7 +127,7 @@
           max-width: 100%;
         }
 
-        .asfowoo-action-link {
+        .jetexir-action-link {
           display: block;
           text-align: center;
           background-color: white;

@@ -1,8 +1,8 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-@mixin asfowoo-checkbox {
-  .asfowoo-checkbox-wrap {
+@mixin jetexir-checkbox {
+  .jetexir-checkbox-wrap {
     position: relative;
     cursor: pointer;
     -webkit-user-select: none;
@@ -27,7 +27,7 @@
       }
     }
 
-    .asfowoo-checkmark {
+    .jetexir-checkmark {
       display: block;
       height: 18px;
       width: 18px;
@@ -51,31 +51,31 @@
       }
     }
 
-    &:hover input:not(:checked) ~ .asfowoo-checkmark {
+    &:hover input:not(:checked) ~ .jetexir-checkmark {
       background-color: color.scale(variables.$background_input, $lightness: -2%);
     }
 
-    input:checked ~ .asfowoo-checkmark {
+    input:checked ~ .jetexir-checkmark {
       background-color: variables.$primary;
     }
 
-    input:checked ~ .asfowoo-checkmark:after {
+    input:checked ~ .jetexir-checkmark:after {
       display: block;
     }
 
-    input:focus + .asfowoo-checkmark {
+    input:focus + .jetexir-checkmark {
       box-shadow: 0 0 0 2px variables.$primary;
     }
 
-    input[disabled] + .asfowoo-checkmark {
+    input[disabled] + .jetexir-checkmark {
       opacity: 0.7;
     }
 
-    /*input[disabled] + .asfowoo-checkmark {
+    /*input[disabled] + .jetexir-checkmark {
       background-color: variables.$gray_light_two;
     }
 
-    input[disabled]:checked + .asfowoo-checkmark {
+    input[disabled]:checked + .jetexir-checkmark {
       background-color: variables.$gray_light;
     }*/
   }

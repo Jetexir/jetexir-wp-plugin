@@ -1,15 +1,15 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Order;
+namespace Jetexir\App\Order;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Helper\Helper;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\WooCommerce;
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Addons\Addon;
+use Jetexir\Helper\Helper;
+use Jetexir\Helper\Notice;
+use Jetexir\Helper\Param;
+use Jetexir\Helper\WooCommerce;
+use Jetexir\Interfaces\AddonInterface;
 
 class OrderNumber extends Addon implements AddonInterface {
   public string $addonID = 'order-number';
@@ -19,7 +19,7 @@ class OrderNumber extends Addon implements AddonInterface {
   public function initAction(): void {
     if ( $this->getSetting( 'order_number_format', '' ) ) {
       // Update all order numbers
-      add_action( 'assistant_for_woocommerce_save_settings_success', [ $this, 'updateOrderNumbers' ], 999999, 3 );
+      add_action( 'jetexir_save_settings_success', [ $this, 'updateOrderNumbers' ], 999999, 3 );
 
       // Update order number
       add_action( 'woocommerce_new_order', [ $this, 'updateOrderNumber' ] );
@@ -60,7 +60,7 @@ class OrderNumber extends Addon implements AddonInterface {
       $where      = $wpdb->prepare( "`%s`.id in (SELECT order_id FROM `%s` WHERE meta_key = %s AND meta_value LIKE %s)",
         $orderTable,
         $metaTable,
-        '_asfowoo_order_number',
+        '_jetexir_order_number',
         '%' . $wpdb->esc_like( $searchTerm ) . '%' );
     }
 
@@ -68,11 +68,11 @@ class OrderNumber extends Addon implements AddonInterface {
   }
 
   public function hposAddOrderNumberSearchFilter( $options ): array {
-    return Helper::arrayInsertAfter( $options, 1, [ 'order_number' => esc_html__( 'Order Number', 'assistant-for-woocommerce' ) ] );
+    return Helper::arrayInsertAfter( $options, 1, [ 'order_number' => esc_html__( 'Order Number', 'jetexir' ) ] );
   }
 
   public function searchByMetaOrderNumber( $metaKeys ) {
-    $metaKeys[] = '_asfowoo_order_number';
+    $metaKeys[] = '_jetexir_order_number';
 
     return $metaKeys;
   }
@@ -89,7 +89,7 @@ class OrderNumber extends Addon implements AddonInterface {
         // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
         'meta_query' => [
           [
-            'key'        => '_asfowoo_order_number',
+            'key'        => '_jetexir_order_number',
             'value'      => $orderID,
             'comparison' => '='
           ],
@@ -102,7 +102,7 @@ class OrderNumber extends Addon implements AddonInterface {
         'fields'         => 'ids',
         'posts_per_page' => 1,
         // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-        'meta_key'       => '_asfowoo_order_number',
+        'meta_key'       => '_jetexir_order_number',
         // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
         'meta_value'     => $orderID,
       ) );
@@ -128,7 +128,7 @@ class OrderNumber extends Addon implements AddonInterface {
       return $orderID;
     }
 
-    $orderNumber = WooCommerce::getOrderMeta( $order->get_id(), '_asfowoo_order_number' );
+    $orderNumber = WooCommerce::getOrderMeta( $order->get_id(), '_jetexir_order_number' );
     if ( ! empty( $orderNumber ) ) {
       return $orderNumber;
     }
@@ -146,7 +146,7 @@ class OrderNumber extends Addon implements AddonInterface {
   }
 
   public function setOrderNumber( $orderID, $reset = false ): void {
-    if ( $reset || empty( WooCommerce::getOrderMeta( $orderID, '_asfowoo_order_number' ) ) ) {
+    if ( $reset || empty( WooCommerce::getOrderMeta( $orderID, '_jetexir_order_number' ) ) ) {
       $format = $this->getSetting( 'order_number_format', '' );
 
       if ( empty( $format ) ) {
@@ -194,12 +194,12 @@ class OrderNumber extends Addon implements AddonInterface {
         $this->saveSetting( 'order_number_next', $nextNumber + 1 );
       }
 
-      WooCommerce::updateOrderMeta( $orderID, '_asfowoo_order_number', $orderNumber );
+      WooCommerce::updateOrderMeta( $orderID, '_jetexir_order_number', $orderNumber );
     }
   }
 
   public function updateOrderNumbers( $tab, $section, $options ): void {
-    if ( $tab === $this->currentTab && $section === $this->addonID && Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'order_number_update' ) && $this->getSetting( 'order_number_format', '' ) ) {
+    if ( $tab === $this->currentTab && $section === $this->addonID && Param::post( JETEXIR_INPUT_PREFIX . 'order_number_update' ) && $this->getSetting( 'order_number_format', '' ) ) {
       $limit       = 100;
       $updateCount = $offset = 0;
       $start       = (int) $this->getSetting( 'order_number_start', 1 );
@@ -235,40 +235,40 @@ class OrderNumber extends Addon implements AddonInterface {
       }
 
       /* translators: %d: Order number updated count */
-      Notice::add( $tab, sprintf( esc_html__( '%d Order numbers updated.', 'assistant-for-woocommerce' ), $updateCount ), 'info' );
+      Notice::add( $tab, sprintf( esc_html__( '%d Order numbers updated.', 'jetexir' ), $updateCount ), 'info' );
     }
   }
 
   public function addSectionSettings( $sections ): array {
     $sections[ $this->addonID ] = array(
-      'title'        => esc_html__( 'Number', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Custom order number', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Number', 'jetexir' ),
+      'desc'         => esc_html__( 'Custom order number', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => array(
         'order_number_start_grid'  => array(
-          'title' => esc_html__( 'Order number', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Order number', 'jetexir' ),
           'type'  => 'startgrid',
         ),
         'order_number_format'      => array(
           'id'                => 'order_number_format',
-          'title'             => esc_html__( 'Order number format', 'assistant-for-woocommerce' ),
+          'title'             => esc_html__( 'Order number format', 'jetexir' ),
           'type'              => 'select',
           'options'           => array(
-            'sequential'             => esc_html__( 'Sequential number', 'assistant-for-woocommerce' ),
-            'prefix_sequential'      => esc_html__( 'Prefix + Sequential number', 'assistant-for-woocommerce' ),
-            'date_sequential'        => esc_html__( 'Date + Sequential number', 'assistant-for-woocommerce' ),
-            'prefix_date_sequential' => esc_html__( 'Prefix + Date + Sequential number', 'assistant-for-woocommerce' ),
-            'hash_crc32'             => esc_html__( 'Pseudorandom - crc32 Hash (max 10 digits)', 'assistant-for-woocommerce' ),
+            'sequential'             => esc_html__( 'Sequential number', 'jetexir' ),
+            'prefix_sequential'      => esc_html__( 'Prefix + Sequential number', 'jetexir' ),
+            'date_sequential'        => esc_html__( 'Date + Sequential number', 'jetexir' ),
+            'prefix_date_sequential' => esc_html__( 'Prefix + Date + Sequential number', 'jetexir' ),
+            'hash_crc32'             => esc_html__( 'Pseudorandom - crc32 Hash (max 10 digits)', 'jetexir' ),
           ),
-          'option_none'       => esc_html__( 'Order ID', 'assistant-for-woocommerce' ),
+          'option_none'       => esc_html__( 'Order ID', 'jetexir' ),
           'option_none_value' => '',
           'default'           => '',
           'sanitize'          => 'text'
         ),
         'order_number_length'      => array(
           'id'         => 'order_number_length',
-          'title'      => esc_html__( 'Order number length', 'assistant-for-woocommerce' ),
-          'desc'       => esc_html__( 'Minimum length of number (zeros add to the left). This changes the order number length for all orders. Set to 5 for 00001, leave as 0 to disable.', 'assistant-for-woocommerce' ),
+          'title'      => esc_html__( 'Order number length', 'jetexir' ),
+          'desc'       => esc_html__( 'Minimum length of number (zeros add to the left). This changes the order number length for all orders. Set to 5 for 00001, leave as 0 to disable.', 'jetexir' ),
           'type'       => 'number',
           'default'    => 0,
           'attributes' => array(
@@ -281,22 +281,22 @@ class OrderNumber extends Addon implements AddonInterface {
         ),
         'order_number_prefix'      => array(
           'id'      => 'order_number_prefix',
-          'title'   => esc_html__( 'Prefix', 'assistant-for-woocommerce' ),
-          'desc'    => esc_html__( 'Prefix will be appended at the beginning of the order number.', 'assistant-for-woocommerce' ),
+          'title'   => esc_html__( 'Prefix', 'jetexir' ),
+          'desc'    => esc_html__( 'Prefix will be appended at the beginning of the order number.', 'jetexir' ),
           'type'    => 'text',
           'default' => 'afw',
         ),
         'order_number_date_format' => array(
           'id'      => 'order_number_date_format',
-          'title'   => esc_html__( 'Date format', 'assistant-for-woocommerce' ),
-          'desc'    => esc_html__( 'Date will be appended at the beginning of the order number or after prefix.', 'assistant-for-woocommerce' ),
+          'title'   => esc_html__( 'Date format', 'jetexir' ),
+          'desc'    => esc_html__( 'Date will be appended at the beginning of the order number or after prefix.', 'jetexir' ),
           'type'    => 'text',
           'default' => 'Ymd',
         ),
         'order_number_start'       => array(
           'id'         => 'order_number_start',
-          'title'      => esc_html__( 'Start Number', 'assistant-for-woocommerce' ),
-          'desc'       => esc_html__( 'Use in "Sequential Number" methods', 'assistant-for-woocommerce' ),
+          'title'      => esc_html__( 'Start Number', 'jetexir' ),
+          'desc'       => esc_html__( 'Use in "Sequential Number" methods', 'jetexir' ),
           'type'       => 'number',
           'default'    => 1,
           'attributes' => array(
@@ -308,8 +308,8 @@ class OrderNumber extends Addon implements AddonInterface {
         ),
         'order_number_next'        => array(
           'id'         => 'order_number_next',
-          'title'      => esc_html__( 'Next Number', 'assistant-for-woocommerce' ),
-          'desc'       => esc_html__( 'Use in "Sequential Number" methods', 'assistant-for-woocommerce' ),
+          'title'      => esc_html__( 'Next Number', 'jetexir' ),
+          'desc'       => esc_html__( 'Use in "Sequential Number" methods', 'jetexir' ),
           'type'       => 'number',
           'default'    => 1,
           'save'       => false,
@@ -320,7 +320,7 @@ class OrderNumber extends Addon implements AddonInterface {
         ),
         'order_number_tracking'    => [
           'id'       => 'order_number_tracking',
-          'title'    => esc_html__( 'Order tracking by custom number', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Order tracking by custom number', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -334,14 +334,14 @@ class OrderNumber extends Addon implements AddonInterface {
           'type' => 'hr',
         ),
         'order_number_update_start_grid' => array(
-          'title' => esc_html__( 'Apply for all orders', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Apply for all orders', 'jetexir' ),
           'type'  => 'startgrid',
         ),
         'order_number_notice'            => array(
           'id'      => 'order_number_notice',
           'notices' => array(
             array(
-              'message' => esc_html__( 'Update all order numbers based on the new settings.', 'assistant-for-woocommerce' ),
+              'message' => esc_html__( 'Update all order numbers based on the new settings.', 'jetexir' ),
               'type'    => 'error',
             )
           ),
@@ -349,7 +349,7 @@ class OrderNumber extends Addon implements AddonInterface {
         ),
         'order_number_update'            => [
           'id'       => 'order_number_update',
-          'title'    => esc_html__( 'Update all order numbers', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Update all order numbers', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => false,
@@ -370,9 +370,9 @@ class OrderNumber extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Order Number', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Add custom order numbers to your WooCommerce store.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Order', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Order Number', 'jetexir' ),
+      'desc'           => esc_html__( 'Add custom order numbers to your WooCommerce store.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Order', 'jetexir' ) ],
       'cat'            => 'order',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

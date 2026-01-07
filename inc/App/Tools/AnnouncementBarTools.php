@@ -1,28 +1,28 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Tools;
+namespace Jetexir\App\Tools;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\App\App;
-use AssistantForWooCommerce\Helper\{Assets, Helper, HTML, Notice, Param, Sanitizing, Templates, WordPress};
-use AssistantForWooCommerce\Interfaces\AddonInterface;
-use AssistantForWooCommerce\Providers\UI\DataTableUI;
+use Jetexir\Addons\Addon;
+use Jetexir\App\App;
+use Jetexir\Helper\{Assets, Helper, HTML, Notice, Param, Sanitizing, Templates, WordPress};
+use Jetexir\Interfaces\AddonInterface;
+use Jetexir\Providers\UI\DataTableUI;
 
 class AnnouncementBarTools extends Addon implements AddonInterface {
   public string $addonID = 'announcement-bar-tools';
   public string $currentTab = 'tools';
   public string $currentSection = 'announcement-bar';
-  private const shortCode = 'asfowoo_announcement_bar';
+  private const shortCode = 'jetexir_announcement_bar';
 
   public function initAction(): void {
     App::addShortcode( self::shortCode, [ $this, 'announcementBarShortcode' ] );
-    add_action( 'assistant_for_woocommerce_data_table_ui_announcement_bar_action', [
+    add_action( 'jetexir_data_table_ui_announcement_bar_action', [
       $this,
       'dataTableActions'
     ], 10, 2 );
-    add_filter( 'assistant_for_woocommerce_tools_settings_display_footer', [
+    add_filter( 'jetexir_tools_settings_display_footer', [
       $this,
       'displayFooterSettings'
     ], 10, 2 );
@@ -90,15 +90,15 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
   }
 
   public function getAnnouncement( $announcement, $position = true ): string {
-    $style = '--asfowoo-announcement-bar-text-color: ' . ( $announcement['text_color'] ?? '#333' ) . ';';
+    $style = '--jetexir-announcement-bar-text-color: ' . ( $announcement['text_color'] ?? '#333' ) . ';';
 
     $bgColorType = $announcement['bg_color_type'] ?? 'solid';
     if ( $bgColorType === 'gradient' ) {
       $bgColorGradient = $announcement['bg_color_gradient'] ?? [];
-      $style           .= '--asfowoo-announcement-bar-bg: ' . Assets::cssGradient( $bgColorGradient ) . ';';
+      $style           .= '--jetexir-announcement-bar-bg: ' . Assets::cssGradient( $bgColorGradient ) . ';';
 
     } else {
-      $style .= '--asfowoo-announcement-bar-bg: ' . $announcement['bg_color_solid'] ?? '#ebe5ff' . ';';
+      $style .= '--jetexir-announcement-bar-bg: ' . $announcement['bg_color_solid'] ?? '#ebe5ff' . ';';
     }
 
     $tag         = 'div';
@@ -111,16 +111,16 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
       $withButtons = true;
     }
 
-    $output = '<' . $tag . ( $tag === 'a' ? ' href="' . $announcement['primary_button_url'] . '"' : '' ) . ' id="asfowoo-announcement-bar-' . $announcement['code'] . '" class="asfowoo-announcement-bar' . ( $position ? ' asfowoo-announcement-bar-fixed asfowoo-announcement-bar-' . $announcement['position'] : ' asfowoo-announcement-bar-inline' ) . ( ! $withButtons ? ' asfowoo-announcement-bar-center' : '' ) . '" style="' . $style . '">';
-    $output .= '<span class="asfowoo-announcement-bar-container">';
-    $output .= '<span class="asfowoo-announcement-bar-text">' . esc_html( $announcement['text'] ) . '</span>';
+    $output = '<' . $tag . ( $tag === 'a' ? ' href="' . $announcement['primary_button_url'] . '"' : '' ) . ' id="jetexir-announcement-bar-' . $announcement['code'] . '" class="jetexir-announcement-bar' . ( $position ? ' jetexir-announcement-bar-fixed jetexir-announcement-bar-' . $announcement['position'] : ' jetexir-announcement-bar-inline' ) . ( ! $withButtons ? ' jetexir-announcement-bar-center' : '' ) . '" style="' . $style . '">';
+    $output .= '<span class="jetexir-announcement-bar-container">';
+    $output .= '<span class="jetexir-announcement-bar-text">' . esc_html( $announcement['text'] ) . '</span>';
     if ( $withButtons ) {
-      $output .= '<span class="asfowoo-announcement-bar-buttons">';
+      $output .= '<span class="jetexir-announcement-bar-buttons">';
       if ( ! empty( $announcement['primary_button'] ) && ! empty( $announcement['primary_button_url'] ) ) {
-        $output .= '<a href="' . $announcement['primary_button_url'] . '" class="asfowoo-button asfowoo-button-primary">' . $announcement['primary_button'] . '</a>';
+        $output .= '<a href="' . $announcement['primary_button_url'] . '" class="jetexir-button jetexir-button-primary">' . $announcement['primary_button'] . '</a>';
       }
       if ( ! empty( $announcement['secondary_button'] ) && ! empty( $announcement['secondary_button_url'] ) ) {
-        $output .= '<a href="' . $announcement['secondary_button_url'] . '" class="asfowoo-button asfowoo-button-secondary">' . $announcement['secondary_button'] . '</a>';
+        $output .= '<a href="' . $announcement['secondary_button_url'] . '" class="jetexir-button jetexir-button-secondary">' . $announcement['secondary_button'] . '</a>';
       }
       $output .= '</span>';
     }
@@ -183,7 +183,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
     } elseif ( $action === 'bulk_action' ) {
       $bulkAction    = Sanitizing::text( Param::post( 'bulk_action' ) );
-      $rowIDs        = array_map( 'AssistantForWooCommerce\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
+      $rowIDs        = array_map( 'Jetexir\Helper\Sanitizing::int', Sanitizing::array( Param::post( 'row_ids' ) ) );
       $announcements = $this->getSetting( 'announcement_bar_data', [] );
 
       foreach ( $announcements as $announcementIndex => $announcement ) {
@@ -220,23 +220,23 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
       wp_send_json_success( [ 'content' => $form ] );
 
     } elseif ( $action === 'save_form' ) {
-      $formData     = \AssistantForWooCommerce\AppHelper\DataTableUI::getFormData( $this->getFields() );
+      $formData     = \Jetexir\AppHelper\DataTableUI::getFormData( $this->getFields() );
       $errorMessage = '';
       $announcement = false;
 
       if ( empty( $formData['title'] ) ) {
         /* translators: %s: Title */
-        $errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Title', 'assistant-for-woocommerce' ) );
+        $errorMessage = sprintf( esc_html__( '%s field is empty!', 'jetexir' ), esc_html__( 'Title', 'jetexir' ) );
       } elseif ( empty( $formData['text'] ) ) {
         /* translators: %s: Text */
-        $errorMessage = sprintf( esc_html__( '%s field is empty!', 'assistant-for-woocommerce' ), esc_html__( 'Text', 'assistant-for-woocommerce' ) );
+        $errorMessage = sprintf( esc_html__( '%s field is empty!', 'jetexir' ), esc_html__( 'Text', 'jetexir' ) );
       }
 
       if ( $index >= 0 ) {
         $announcement = $this->getAnnouncementByIndex( $index );
 
         if ( $announcement === false ) {
-          $errorMessage = esc_html__( 'Announcement not found!', 'assistant-for-woocommerce' );
+          $errorMessage = esc_html__( 'Announcement not found!', 'jetexir' );
         }
       }
 
@@ -257,12 +257,12 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
         $announcements[ $index ]         = $formData;
         $announcements[ $index ]['code'] = $announcement['code'];
         $this->saveSetting( 'announcement_bar_data', $announcements );
-        $successMessage = esc_html__( 'The announcement was successfully saved.', 'assistant-for-woocommerce' );
+        $successMessage = esc_html__( 'The announcement was successfully saved.', 'jetexir' );
 
       } else {
         $formData['code'] = Helper::randomString( 6, true, false, true );
         $this->addToArraySetting( 'announcement_bar_data', $formData, true );
-        $successMessage = esc_html__( 'Announcement added successfully.', 'assistant-for-woocommerce' );
+        $successMessage = esc_html__( 'Announcement added successfully.', 'jetexir' );
       }
 
       $dataTable = $this->getDataTable();
@@ -289,7 +289,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
           'message'   => Notice::addAndDisplay( $this->currentSection, array(
             array(
               'type'    => 'success',
-              'message' => esc_html__( 'Announcement removed!', 'assistant-for-woocommerce' ),
+              'message' => esc_html__( 'Announcement removed!', 'jetexir' ),
             )
           ), false ),
         ] );
@@ -300,7 +300,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
           'message' => Notice::addAndDisplay( $this->currentSection, array(
             array(
               'type'    => 'error',
-              'message' => esc_html__( 'Selected item not found!', 'assistant-for-woocommerce' ),
+              'message' => esc_html__( 'Selected item not found!', 'jetexir' ),
             )
           ), false ),
         ], 403 );
@@ -313,20 +313,20 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
     $dataTable->setID( 'announcement_bar' )
               ->setRows( $this->getSetting( 'announcement_bar_data', [] ) )
               ->setIdField( $dataTable::ROW_INDEX )
-              ->setTitle( esc_html__( 'Announcement Bars', 'assistant-for-woocommerce' ) )
-              ->modalAddTitle( esc_html__( 'Add new announcement', 'assistant-for-woocommerce' ) )
-              ->modalEditTitle( esc_html__( 'Edit announcement', 'assistant-for-woocommerce' ) )
-              ->addNewButton( esc_html__( 'Add new', 'assistant-for-woocommerce' ) )
-              ->addAction( 'edit', '<i class="asfowoo-icon-edit"></i>', $dataTable::ACTION_EDIT )
-              ->addAction( 'delete', '<i class="asfowoo-icon-trash"></i>', $dataTable::ACTION_DELETE )
-              ->addAction( 'bulk_enable', esc_html__( 'Enable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-              ->addAction( 'bulk_disable', esc_html__( 'Disable', 'assistant-for-woocommerce' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
-              ->addAction( 'bulk_delete', esc_html__( 'Delete', 'assistant-for-woocommerce' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
-              ->addColumn( esc_html__( 'Title', 'assistant-for-woocommerce' ), 'title' )
-              ->addColumn( esc_html__( 'ShortCode', 'assistant-for-woocommerce' ), 'code', function ( $row ) {
-                return '<code class="asfowoo-copy-text" title="' . esc_html__( 'Copy shortcode', 'assistant-for-woocommerce' ) . '">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
+              ->setTitle( esc_html__( 'Announcement Bars', 'jetexir' ) )
+              ->modalAddTitle( esc_html__( 'Add new announcement', 'jetexir' ) )
+              ->modalEditTitle( esc_html__( 'Edit announcement', 'jetexir' ) )
+              ->addNewButton( esc_html__( 'Add new', 'jetexir' ) )
+              ->addAction( 'edit', '<i class="jetexir-icon-edit"></i>', $dataTable::ACTION_EDIT )
+              ->addAction( 'delete', '<i class="jetexir-icon-trash"></i>', $dataTable::ACTION_DELETE )
+              ->addAction( 'bulk_enable', esc_html__( 'Enable', 'jetexir' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+              ->addAction( 'bulk_disable', esc_html__( 'Disable', 'jetexir' ), $dataTable::ACTION_NONE, [], $dataTable::ACTION_BULK )
+              ->addAction( 'bulk_delete', esc_html__( 'Delete', 'jetexir' ), $dataTable::ACTION_DELETE, [], $dataTable::ACTION_BULK )
+              ->addColumn( esc_html__( 'Title', 'jetexir' ), 'title' )
+              ->addColumn( esc_html__( 'ShortCode', 'jetexir' ), 'code', function ( $row ) {
+                return '<code class="jetexir-copy-text" title="' . esc_html__( 'Copy shortcode', 'jetexir' ) . '">[' . self::shortCode . ' code="' . $row['code'] . '"]</code>';
               }, [ 'is_html' => true, 'hide_on_mobile' => true ] )
-              ->addColumn( esc_html__( 'Status', 'assistant-for-woocommerce' ), $dataTable::ACTIVE_FIELD );
+              ->addColumn( esc_html__( 'Status', 'jetexir' ), $dataTable::ACTIVE_FIELD );
 
     return $dataTable;
   }
@@ -335,7 +335,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
     $dataTable = $this->getDataTable();
 
     $sections[ $this->currentSection ] = array(
-      'title'        => esc_html__( 'Announcement Bar', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Announcement Bar', 'jetexir' ),
       'settings_key' => $this->currentSection,
       'settings'     => array(
         'data_table_ui' => array(
@@ -359,17 +359,17 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'title',
-        'title'         => esc_html__( 'Title', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Title', 'jetexir' ),
         /* translators: %s: Shortcode */
-        'desc'          => isset( $data['code'] ) && $data['code'] ? wp_sprintf( esc_html__( 'Announcement Bar shortcode: %s', 'assistant-for-woocommerce' ), '<code class="asfowoo-copy-text">[' . self::shortCode . ' code="' . $data['code'] . ']</code>' ) : '',
-        'placeholder'   => esc_html__( 'Announcement title', 'assistant-for-woocommerce' ),
+        'desc'          => isset( $data['code'] ) && $data['code'] ? wp_sprintf( esc_html__( 'Announcement Bar shortcode: %s', 'jetexir' ), '<code class="jetexir-copy-text">[' . self::shortCode . ' code="' . $data['code'] . ']</code>' ) : '',
+        'placeholder'   => esc_html__( 'Announcement title', 'jetexir' ),
         'type'          => 'text',
         'setting_value' => $data['title'] ?? ''
       ),
       array(
         'id'            => 'text',
-        'title'         => esc_html__( 'Text', 'assistant-for-woocommerce' ),
-        'placeholder'   => esc_html__( 'Announcement text', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Text', 'jetexir' ),
+        'placeholder'   => esc_html__( 'Announcement text', 'jetexir' ),
         'type'          => 'textarea',
         'attributes'    => array(
           'resize' => 'none'
@@ -378,30 +378,30 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'primary_button',
-        'title'         => esc_html__( 'Primary button', 'assistant-for-woocommerce' ),
-        'placeholder'   => esc_html__( 'Primary button text', 'assistant-for-woocommerce' ),
-        'desc'          => esc_html__( 'If you leave the field blank, the announcement bar will be linked.', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Primary button', 'jetexir' ),
+        'placeholder'   => esc_html__( 'Primary button text', 'jetexir' ),
+        'desc'          => esc_html__( 'If you leave the field blank, the announcement bar will be linked.', 'jetexir' ),
         'type'          => 'text',
         'setting_value' => $data['primary_button'] ?? ''
       ),
       array(
         'id'            => 'primary_button_url',
-        'title'         => esc_html__( 'Primary link', 'assistant-for-woocommerce' ),
-        'placeholder'   => esc_html__( 'Primary button link', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Primary link', 'jetexir' ),
+        'placeholder'   => esc_html__( 'Primary button link', 'jetexir' ),
         'type'          => 'url',
         'setting_value' => $data['primary_button_url'] ?? ''
       ),
       array(
         'id'            => 'secondary_button',
-        'title'         => esc_html__( 'Secondary button', 'assistant-for-woocommerce' ),
-        'placeholder'   => esc_html__( 'Secondary button text', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Secondary button', 'jetexir' ),
+        'placeholder'   => esc_html__( 'Secondary button text', 'jetexir' ),
         'type'          => 'text',
         'setting_value' => $data['secondary_button'] ?? ''
       ),
       array(
         'id'            => 'secondary_button_url',
-        'title'         => esc_html__( 'Secondary link', 'assistant-for-woocommerce' ),
-        'placeholder'   => esc_html__( 'Secondary button link', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Secondary link', 'jetexir' ),
+        'placeholder'   => esc_html__( 'Secondary button link', 'jetexir' ),
         'type'          => 'url',
         'setting_value' => $data['secondary_button_url'] ?? ''
       ),
@@ -409,17 +409,17 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
         'type' => 'hr',
       ),
       array(
-        'title' => esc_html__( 'Display on', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Display on', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       array(
         'id'                => 'position',
-        'title'             => esc_html__( 'Position', 'assistant-for-woocommerce' ),
+        'title'             => esc_html__( 'Position', 'jetexir' ),
         'type'              => 'select',
         'options'           => array(
-          'top'           => esc_html__( 'Top', 'assistant-for-woocommerce' ),
-          'sticky-top'    => esc_html__( 'Sticky on top', 'assistant-for-woocommerce' ),
-          'sticky-bottom' => esc_html__( 'Sticky on bottom', 'assistant-for-woocommerce' ),
+          'top'           => esc_html__( 'Top', 'jetexir' ),
+          'sticky-top'    => esc_html__( 'Sticky on top', 'jetexir' ),
+          'sticky-bottom' => esc_html__( 'Sticky on bottom', 'jetexir' ),
         ),
         'option_none'       => 'Use shortcode',
         'option_none_value' => '',
@@ -429,33 +429,33 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'post_ids',
-        'title'         => esc_html__( 'Single post/page/product', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Single post/page/product', 'jetexir' ),
         'placeholder'   => '1,25,87',
-        'desc'          => esc_html__( 'Enter the post, page, or product IDs, separated by commas.', 'assistant-for-woocommerce' ),
+        'desc'          => esc_html__( 'Enter the post, page, or product IDs, separated by commas.', 'jetexir' ),
         'type'          => 'text',
         'setting_value' => $data['post_ids'] ?? ''
       ),
       array(
         'id'               => 'display_on',
-        'title'            => esc_html__( 'Select page types', 'assistant-for-woocommerce' ),
+        'title'            => esc_html__( 'Select page types', 'jetexir' ),
         'type'             => 'checkboxInline',
         'setting_value'    => $data['display_on'] ?? [ 'all' ],
         'options'          => array(
-          'all'              => esc_html__( 'All pages', 'assistant-for-woocommerce' ),
-          'home'             => esc_html__( 'Home', 'assistant-for-woocommerce' ),
-          'blog'             => esc_html__( 'Blog', 'assistant-for-woocommerce' ),
-          'cart'             => esc_html__( 'Cart', 'assistant-for-woocommerce' ),
-          'checkout'         => esc_html__( 'Checkout', 'assistant-for-woocommerce' ),
-          'shop'             => esc_html__( 'Shop', 'assistant-for-woocommerce' ),
-          'product'          => esc_html__( 'Product', 'assistant-for-woocommerce' ),
-          'product-category' => esc_html__( 'Product category', 'assistant-for-woocommerce' ),
-          'product-tag'      => esc_html__( 'Product tag', 'assistant-for-woocommerce' ),
-          'product-taxonomy' => esc_html__( 'Product taxonomy', 'assistant-for-woocommerce' ),
-          'category'         => esc_html__( 'Category', 'assistant-for-woocommerce' ),
-          'tag'              => esc_html__( 'Tag', 'assistant-for-woocommerce' ),
-          'page'             => esc_html__( 'Page', 'assistant-for-woocommerce' ),
-          'post'             => esc_html__( 'Post', 'assistant-for-woocommerce' ),
-          'singular'         => esc_html__( 'All single post types', 'assistant-for-woocommerce' ),
+          'all'              => esc_html__( 'All pages', 'jetexir' ),
+          'home'             => esc_html__( 'Home', 'jetexir' ),
+          'blog'             => esc_html__( 'Blog', 'jetexir' ),
+          'cart'             => esc_html__( 'Cart', 'jetexir' ),
+          'checkout'         => esc_html__( 'Checkout', 'jetexir' ),
+          'shop'             => esc_html__( 'Shop', 'jetexir' ),
+          'product'          => esc_html__( 'Product', 'jetexir' ),
+          'product-category' => esc_html__( 'Product category', 'jetexir' ),
+          'product-tag'      => esc_html__( 'Product tag', 'jetexir' ),
+          'product-taxonomy' => esc_html__( 'Product taxonomy', 'jetexir' ),
+          'category'         => esc_html__( 'Category', 'jetexir' ),
+          'tag'              => esc_html__( 'Tag', 'jetexir' ),
+          'page'             => esc_html__( 'Page', 'jetexir' ),
+          'post'             => esc_html__( 'Post', 'jetexir' ),
+          'singular'         => esc_html__( 'All single post types', 'jetexir' ),
         ),
         'not_equal'        => true,
         'sanitize'         => 'array',
@@ -468,23 +468,23 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
         'type' => 'hr',
       ),
       array(
-        'title' => esc_html__( 'Style', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Style', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       array(
         'id'            => 'text_color',
-        'title'         => esc_html__( 'Text color', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Text color', 'jetexir' ),
         'type'          => 'wpColorPicker',
         'sanitize'      => 'color',
         'setting_value' => $data['text_color'] ?? '#333'
       ),
       array(
-        'title' => esc_html__( 'Background color type', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Background color type', 'jetexir' ),
         'type'  => 'startInlineElements',
       ),
       array(
         'id'            => 'bg_color_type',
-        'title'         => esc_html__( 'Solid color', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Solid color', 'jetexir' ),
         'type'          => 'radio',
         'default'       => 'solid',
         'value'         => 'solid',
@@ -493,7 +493,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'bg_color_type',
-        'title'         => esc_html__( 'Gradient color', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Gradient color', 'jetexir' ),
         'type'          => 'radio',
         'default'       => 'solid',
         'value'         => 'gradient',
@@ -505,14 +505,14 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
       ),
       array(
         'id'            => 'bg_color_solid',
-        'title'         => esc_html__( 'Background solid color', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Background solid color', 'jetexir' ),
         'type'          => 'wpColorPicker',
         'setting_value' => $data['bg_color_solid'] ?? '#ebe5ff',
         'sanitize'      => 'color'
       ),
       array(
         'id'            => 'bg_color_gradient',
-        'title'         => esc_html__( 'Background gradient color', 'assistant-for-woocommerce' ),
+        'title'         => esc_html__( 'Background gradient color', 'jetexir' ),
         'type'          => 'gradientColorPicker',
         'addable'       => true,
         'removable'     => true,
@@ -540,9 +540,9 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
   public function wpEnqueueScriptsAction(): void {
     $pluginVersion = Assets::getVersion();
-    $debugName     = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? '' : '.min';
+    $debugName     = JETEXIR_DEBUG_MODE ? '' : '.min';
 
-    wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-announcement-bar-style',
+    wp_enqueue_style( JETEXIR_PLUGIN_KEY . '-announcement-bar-style',
       Assets::url( 'css/announcement-bar' . $debugName . '.css' ),
       false, $pluginVersion );
   }
@@ -552,9 +552,9 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Announcement Bar', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Promote sales using multiple announcement bar banner types.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Notification', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Announcement Bar', 'jetexir' ),
+      'desc'           => esc_html__( 'Promote sales using multiple announcement bar banner types.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Notification', 'jetexir' ) ],
       'cat'            => 'customizations',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

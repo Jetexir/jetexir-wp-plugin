@@ -1,9 +1,9 @@
-assistantForWooCommerceAjax = false;
+jetexirAjax = false;
 
 jQuery(document).ready(function ($) {
   var waBody = $('body');
 
-  assistantForWooCommerceModalCloseEvent = new CustomEvent(
+  jetexirModalCloseEvent = new CustomEvent(
     "waModalClose",
     {
       detail: {
@@ -15,38 +15,38 @@ jQuery(document).ready(function ($) {
   );
 
   function waToggleModal(status, target = '') {
-    let modalOverlay = $('#asfowoo-modal-overlay'),
-      modalTarget = waBody.attr('data-asfowoo-modal-target');
+    let modalOverlay = $('#jetexir-modal-overlay'),
+      modalTarget = waBody.attr('data-jetexir-modal-target');
 
-    if (status && !waBody.hasClass('asfowoo-modal-open')) {
+    if (status && !waBody.hasClass('jetexir-modal-open')) {
       waBody.css({
         "overflow": "hidden",
         "padding-right": "0"
       })
-        .addClass('asfowoo-modal-open')
-        .attr('data-asfowoo-modal-target', target);
-      $(target).toggleClass('asfowoo-active').removeAttr('aria-hidden').show();
+        .addClass('jetexir-modal-open')
+        .attr('data-jetexir-modal-target', target);
+      $(target).toggleClass('jetexir-active').removeAttr('aria-hidden').show();
       if (modalOverlay !== undefined)
-        modalOverlay.addClass('asfowoo-active');
+        modalOverlay.addClass('jetexir-active');
 
-    } else if (!status && waBody.hasClass('asfowoo-modal-open')) {
-      window.dispatchEvent(assistantForWooCommerceModalCloseEvent);
+    } else if (!status && waBody.hasClass('jetexir-modal-open')) {
+      window.dispatchEvent(jetexirModalCloseEvent);
 
       waBody.css({
         "overflow": "",
         "padding-right": ""
       })
-        .removeClass('asfowoo-modal-open')
-        .removeAttr('data-asfowoo-modal-target');
-      $(modalTarget).hide().removeClass('asfowoo-active').attr('aria-hidden', 'true');
+        .removeClass('jetexir-modal-open')
+        .removeAttr('data-jetexir-modal-target');
+      $(modalTarget).hide().removeClass('jetexir-active').attr('aria-hidden', 'true');
       if (modalOverlay !== undefined)
-        modalOverlay.removeClass('asfowoo-active');
+        modalOverlay.removeClass('jetexir-active');
     }
   }
 
-  $('[data-asfowoo-toggle="modal"]').on('click', function () {
+  $('[data-jetexir-toggle="modal"]').on('click', function () {
     let $this = $(this),
-      modalTarget = $this.data('asfowoo-target');
+      modalTarget = $this.data('jetexir-target');
 
     if (modalTarget !== undefined) {
       let modalTargetElm = $(modalTarget);
@@ -56,11 +56,11 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  $('#asfowoo-modal-overlay, [data-asfowoo-dismiss="modal"]').on('click', function () {
+  $('#jetexir-modal-overlay, [data-jetexir-dismiss="modal"]').on('click', function () {
     waToggleModal(false);
   });
 
-  $('.asfowoo-copy-text').on('click', function (e) {
+  $('.jetexir-copy-text').on('click', function (e) {
     e.preventDefault();
 
     let copyText = $(this).data('copy'), copyIcon;
@@ -68,33 +68,33 @@ jQuery(document).ready(function ($) {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(copyText);
 
-        if ((copyIcon = $(this).find('.asfowoo-icon-file_copy')).length > 0) {
-          copyIcon.removeClass('asfowoo-icon-file_copy').addClass('asfowoo-icon-content_copy');
+        if ((copyIcon = $(this).find('.jetexir-icon-file_copy')).length > 0) {
+          copyIcon.removeClass('jetexir-icon-file_copy').addClass('jetexir-icon-content_copy');
 
           setTimeout(function () {
-            copyIcon.removeClass('asfowoo-icon-content_copy').addClass('asfowoo-icon-file_copy');
+            copyIcon.removeClass('jetexir-icon-content_copy').addClass('jetexir-icon-file_copy');
           }, 500);
         }
       } else {
-        alert(AssistantForWooCommerce.sslError);
+        alert(Jetexir.sslError);
       }
     }
   });
 
-  $('.asfowoo-faq-question').on('click', function () {
+  $('.jetexir-faq-question').on('click', function () {
     let $this = $(this),
-      faqItem = $this.closest('.asfowoo-faq-item'),
-      faqAnswer = faqItem.find('.asfowoo-faq-answer'),
-      faqActive = faqItem.hasClass('asfowoo-active');
+      faqItem = $this.closest('.jetexir-faq-item'),
+      faqAnswer = faqItem.find('.jetexir-faq-answer'),
+      faqActive = faqItem.hasClass('jetexir-active');
 
-    $('.asfowoo-faq-item').each(function (i) {
-      $(this).removeClass('asfowoo-active');
-      $(this).find('.asfowoo-faq-answer').css('max-height', 0);
+    $('.jetexir-faq-item').each(function (i) {
+      $(this).removeClass('jetexir-active');
+      $(this).find('.jetexir-faq-answer').css('max-height', 0);
     });
 
     if (!faqActive) {
-      faqItem.toggleClass('asfowoo-active');
-      if (faqItem.hasClass('asfowoo-active')) {
+      faqItem.toggleClass('jetexir-active');
+      if (faqItem.hasClass('jetexir-active')) {
         faqAnswer.css('max-height', 'initial');
       } else {
         faqAnswer.css('max-height', 0);
@@ -102,40 +102,40 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  $('a[data-asfowoo-product-remove-action]').on('click', function (e) {
+  $('a[data-jetexir-product-remove-action]').on('click', function (e) {
     e.preventDefault();
 
     let $this = $(this),
-      removeAction = $this.data('asfowoo-product-remove-action'),
-      removeWrapperTarget = $this.data('asfowoo-product-list-wrap'),
-      removeNoticeTarget = $this.data('asfowoo-product-list-notice'),
-      removeParentTarget = $this.data('asfowoo-product-parent'),
-      removeLoaderTarget = $this.data('asfowoo-product-loader'),
+      removeAction = $this.data('jetexir-product-remove-action'),
+      removeWrapperTarget = $this.data('jetexir-product-list-wrap'),
+      removeNoticeTarget = $this.data('jetexir-product-list-notice'),
+      removeParentTarget = $this.data('jetexir-product-parent'),
+      removeLoaderTarget = $this.data('jetexir-product-loader'),
       removeProductID = $this.data('product-id'),
       removeWrapper, removeNotice, removeParent, removeLoader;
 
     if (removeProductID === undefined || removeProductID === '' || removeAction === undefined || removeAction === '')
       return;
 
-    removeWrapperTarget = removeWrapperTarget === undefined || removeWrapperTarget === '' ? '.asfowoo-product-list-wrap' : removeWrapperTarget;
-    removeNoticeTarget = removeNoticeTarget === undefined || removeNoticeTarget === '' ? '.asfowoo-product-list-notice' : removeNoticeTarget;
-    removeParentTarget = removeParentTarget === undefined || removeParentTarget === '' ? '.asfowoo-product-item-wrap' : removeParentTarget;
-    removeLoaderTarget = removeLoaderTarget === undefined || removeLoaderTarget === '' ? '.asfowoo-loader-wrap' : removeLoaderTarget;
+    removeWrapperTarget = removeWrapperTarget === undefined || removeWrapperTarget === '' ? '.jetexir-product-list-wrap' : removeWrapperTarget;
+    removeNoticeTarget = removeNoticeTarget === undefined || removeNoticeTarget === '' ? '.jetexir-product-list-notice' : removeNoticeTarget;
+    removeParentTarget = removeParentTarget === undefined || removeParentTarget === '' ? '.jetexir-product-item-wrap' : removeParentTarget;
+    removeLoaderTarget = removeLoaderTarget === undefined || removeLoaderTarget === '' ? '.jetexir-loader-wrap' : removeLoaderTarget;
 
     removeWrapper = $this.closest(removeWrapperTarget);
     removeNotice = removeWrapper.find(removeNoticeTarget);
     removeParent = $this.closest(removeParentTarget);
     removeLoader = removeWrapper.find(removeLoaderTarget);
 
-    if (assistantForWooCommerceAjax) return;
-    assistantForWooCommerceAjax = true;
+    if (jetexirAjax) return;
+    jetexirAjax = true;
 
     removeLoader.css('display', '');
 
     $.post(
-      AssistantForWooCommerce.ajaxUrl,
+      Jetexir.ajaxUrl,
       {
-        nonce: AssistantForWooCommerce.ajaxNonce,
+        nonce: Jetexir.ajaxNonce,
         action: removeAction,
         product_id: removeProductID,
       }
@@ -160,7 +160,7 @@ jQuery(document).ready(function ($) {
       })
       .always(function () {
         removeLoader.hide();
-        assistantForWooCommerceAjax = false;
+        jetexirAjax = false;
       });
   })
 });

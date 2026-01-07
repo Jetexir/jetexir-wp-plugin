@@ -1,35 +1,30 @@
-.asfowoo-announcement-bar {
+.jetexir-announcement-bar {
   display: block;
   width: 100%;
   margin: 0;
   font-weight: 600;
   font-size: 17px;
-  color: var(--asfowoo-announcement-bar-text-color, #333);
-  background: var(--asfowoo-announcement-bar-bg, white);
+  color: var(--jetexir-announcement-bar-text-color, #333);
+  background: var(--jetexir-announcement-bar-bg, white);
   text-decoration: none !important;
 }
-
-.asfowoo-announcement-bar.asfowoo-announcement-bar-fixed {
+.jetexir-announcement-bar.jetexir-announcement-bar-fixed {
   position: fixed;
   left: 0;
   right: 0;
   z-index: 999995;
 }
-
-.asfowoo-announcement-bar.asfowoo-announcement-bar-fixed.asfowoo-announcement-bar-top {
+.jetexir-announcement-bar.jetexir-announcement-bar-fixed.jetexir-announcement-bar-top {
   position: inherit;
 }
-
-.asfowoo-announcement-bar.asfowoo-announcement-bar-fixed.asfowoo-announcement-bar-sticky-top {
+.jetexir-announcement-bar.jetexir-announcement-bar-fixed.jetexir-announcement-bar-sticky-top {
   position: sticky;
-  top: var(--asfowoo-admin-bar-height, 0);
+  top: var(--jetexir-admin-bar-height, 0);
 }
-
-.asfowoo-announcement-bar.asfowoo-announcement-bar-fixed.asfowoo-announcement-bar-sticky-bottom {
+.jetexir-announcement-bar.jetexir-announcement-bar-fixed.jetexir-announcement-bar-sticky-bottom {
   bottom: 0;
 }
-
-.asfowoo-announcement-bar .asfowoo-announcement-bar-container {
+.jetexir-announcement-bar .jetexir-announcement-bar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -38,28 +33,23 @@
   padding: 10px 20px;
   margin: 0 auto;
 }
-
-.asfowoo-announcement-bar .asfowoo-announcement-bar-buttons {
+.jetexir-announcement-bar .jetexir-announcement-bar-buttons {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-
-.asfowoo-announcement-bar .asfowoo-announcement-bar-buttons .asfowoo-button {
+.jetexir-announcement-bar .jetexir-announcement-bar-buttons .jetexir-button {
   line-height: 1;
 }
-
-.asfowoo-announcement-bar.asfowoo-announcement-bar-inline {
-  border-radius: var(--asfowoo-element-border-radius, 0);
+.jetexir-announcement-bar.jetexir-announcement-bar-inline {
+  border-radius: var(--jetexir-element-border-radius, 0);
   margin: 20px 0;
 }
-
-.asfowoo-announcement-bar.asfowoo-announcement-bar-center .asfowoo-announcement-bar-container {
+.jetexir-announcement-bar.jetexir-announcement-bar-center .jetexir-announcement-bar-container {
   justify-content: center;
 }
-
 @media screen and (max-width: 782px) {
-  .asfowoo-announcement-bar .asfowoo-announcement-bar-container {
+  .jetexir-announcement-bar .jetexir-announcement-bar-container {
     flex-direction: column;
   }
 }

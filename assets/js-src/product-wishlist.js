@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-  $('.asfowoo-product-wishlist-button').on('click', function (e) {
+  $('.jetexir-product-wishlist-button').on('click', function (e) {
     e.preventDefault();
 
     var $this = $(this),
@@ -7,34 +7,34 @@ jQuery(document).ready(function ($) {
       waWishlistAddedAction = $this.attr('data-added-action');
 
     if (waWishlist !== '' && waWishlistAddedAction === 'open_page') {
-      window.location.href = AssistantForWooCommerceProductWishlist.wishlistPage;
+      window.location.href = JetexirProductWishlist.wishlistPage;
       return;
     }
 
-    if (assistantForWooCommerceAjax) return;
-    assistantForWooCommerceAjax = true;
+    if (jetexirAjax) return;
+    jetexirAjax = true;
 
     $.post(
-      AssistantForWooCommerce.ajaxUrl,
+      Jetexir.ajaxUrl,
       {
-        nonce: AssistantForWooCommerce.ajaxNonce,
-        action: "asfowoo_product_wishlist_add_remove",
+        nonce: Jetexir.ajaxNonce,
+        action: "jetexir_product_wishlist_add_remove",
         product_id: $this.data('product-id')
       }
     )
       .done(function (data) {
         if (data.data.status === 'added') {
           $this.attr('data-in-wishlist', data.data.list);
-          $this.addClass('asfowoo-remove-action');
+          $this.addClass('jetexir-remove-action');
           $this.html($this.data('added-text'));
 
         } else if (data.data.status === 'removed') {
           $this.attr('data-in-wishlist', '');
-          $this.removeClass('asfowoo-remove-action');
+          $this.removeClass('jetexir-remove-action');
           $this.html($this.data('add-text'));
 
         } else if (data.data.status === 'max_exceeded')
-          alert(AssistantForWooCommerceProductWishlist.maxExceededMessage.replace('%number%', data.data.count));
+          alert(JetexirProductWishlist.maxExceededMessage.replace('%number%', data.data.count));
 
         if ($this.data('action') === 'refresh')
           window.location.reload(true);
@@ -49,7 +49,7 @@ jQuery(document).ready(function ($) {
           }, 3000);
       })
       .always(function () {
-        assistantForWooCommerceAjax = false;
+        jetexirAjax = false;
       });
   })
 });

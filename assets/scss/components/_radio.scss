@@ -1,8 +1,8 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-@mixin asfowoo-radio {
-  :is(.asfowoo-radio-inline,.asfowoo-checkbox-inline) {
+@mixin jetexir-radio {
+  :is(.jetexir-radio-inline,.jetexir-checkbox-inline) {
     position: relative;
 
     input {
@@ -13,7 +13,7 @@
       width: 0;
     }
 
-    .asfowoo-title {
+    .jetexir-title {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -28,7 +28,7 @@
       padding: 7px 20px;
     }
 
-    .asfowoo-checkmark {
+    .jetexir-checkmark {
       position: absolute;
       right: 4px;
       top: 4px;
@@ -54,30 +54,30 @@
       }
     }
 
-    &:hover input:not(:checked) ~ .asfowoo-title {
+    &:hover input:not(:checked) ~ .jetexir-title {
       border-color: color.scale(variables.$border_color, $lightness: -5%);
     }
 
-    input:checked ~ .asfowoo-checkmark {
+    input:checked ~ .jetexir-checkmark {
       display: block;
     }
 
-    input:checked ~ .asfowoo-title {
+    input:checked ~ .jetexir-title {
       border-color: variables.$primary;
     }
 
-    input[disabled] ~ .asfowoo-title, input[disabled] + .asfowoo-checkmark {
+    input[disabled] ~ .jetexir-title, input[disabled] + .jetexir-checkmark {
       opacity: 0.7;
     }
 
-    &.asfowoo-not-equal {
-      .asfowoo-title {
+    &.jetexir-not-equal {
+      .jetexir-title {
         width: inherit;
       }
     }
   }
 
-  .asfowoo-radio-wrap {
+  .jetexir-radio-wrap {
     position: relative;
     cursor: pointer;
     -webkit-user-select: none;
@@ -95,7 +95,7 @@
       width: 0;
     }
 
-    .asfowoo-checkmark {
+    .jetexir-checkmark {
       display: block;
       height: 16px;
       width: 16px;
@@ -116,31 +116,31 @@
       }
     }
 
-    &:hover input:not(:checked) ~ .asfowoo-checkmark {
+    &:hover input:not(:checked) ~ .jetexir-checkmark {
       background-color: color.scale(variables.$background_input, $lightness: -2%);
     }
 
-    input:checked ~ .asfowoo-checkmark {
+    input:checked ~ .jetexir-checkmark {
       background-color: variables.$primary;
     }
 
-    input:checked ~ .asfowoo-checkmark:after {
+    input:checked ~ .jetexir-checkmark:after {
       display: block;
     }
 
-    input:focus + .asfowoo-checkmark {
+    input:focus + .jetexir-checkmark {
       box-shadow: 0 0 0 2px variables.$primary;
     }
 
-    input[disabled] + .asfowoo-checkmark {
+    input[disabled] + .jetexir-checkmark {
       opacity: 0.7;
     }
 
-    /*input[disabled] + .asfowoo-checkmark {
+    /*input[disabled] + .jetexir-checkmark {
       background-color: variables.$gray_light_two;
     }
 
-    input[disabled]:checked + .asfowoo-checkmark {
+    input[disabled]:checked + .jetexir-checkmark {
       background-color: variables.$gray_light;
     }*/
   }

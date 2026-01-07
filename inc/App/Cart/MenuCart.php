@@ -1,13 +1,13 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Cart;
+namespace Jetexir\App\Cart;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\WooCommerce;
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Addons\Addon;
+use Jetexir\Helper\Assets;
+use Jetexir\Helper\WooCommerce;
+use Jetexir\Interfaces\AddonInterface;
 
 class MenuCart extends Addon implements AddonInterface {
   public string $addonID = 'menu-cart';
@@ -23,9 +23,9 @@ class MenuCart extends Addon implements AddonInterface {
       return;
     }
 
-    wp_register_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-menu-cart', false, [], Assets::getVersion() );
-    wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-menu-cart' );
-    wp_add_inline_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-menu-cart', '.asfowoo-menu-cart a{display: inline-flex !important;column-gap: 5px;align-items: center;}' );
+    wp_register_style( JETEXIR_PLUGIN_SLUG . '-menu-cart', false, [], Assets::getVersion() );
+    wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-menu-cart' );
+    wp_add_inline_style( JETEXIR_PLUGIN_SLUG . '-menu-cart', '.jetexir-menu-cart a{display: inline-flex !important;column-gap: 5px;align-items: center;}' );
   }
 
   public function addCartToMenu( $items, $args ) {
@@ -53,25 +53,25 @@ class MenuCart extends Addon implements AddonInterface {
   }
 
   private function getMenuCart( $menuSlug ): string {
-    $icon       = $this->getSetting( 'menu_cart_icon', 'asfowoo-icon-shopping-cart' );
+    $icon       = $this->getSetting( 'menu_cart_icon', 'jetexir-icon-shopping-cart' );
     $icon       = $icon === 'none' ? '' : FlyCart::getBasketIcons( $icon, true );
     $content    = $this->getSetting( 'menu_cart_content', 'items-count-price' );
     $priceType  = $this->getSetting( 'menu_cart_price_type', 'total' );
     $link       = $this->getSetting( 'menu_cart_link', 'cart' );
     $itemsCount = WooCommerce::getCartItemsCount();
-    $count      = '<span class="asfowoo-menu-cart-count">' . $itemsCount . ' ' . esc_html__( 'items', 'assistant-for-woocommerce' ) . '</span>';
+    $count      = '<span class="jetexir-menu-cart-count">' . $itemsCount . ' ' . esc_html__( 'items', 'jetexir' ) . '</span>';
 
     if ( $priceType === 'subtotal' ) {
       $price = WooCommerce::getCartSubTotal();
     } else {
       $price = WooCommerce::getCartTotal();
     }
-    $price = '<span class="asfowoo-menu-cart-amount">' . $price . '</span>';
+    $price = '<span class="jetexir-menu-cart-amount">' . $price . '</span>';
 
     $attr = '';
     if ( $link === 'fly-cart-modal' ) {
       $url  = '#';
-      $attr = 'data-asfowoo-toggle="modal" data-asfowoo-target="#asfowoo-fly-cart-modal"';
+      $attr = 'data-jetexir-toggle="modal" data-jetexir-target="#jetexir-fly-cart-modal"';
     } elseif ( $link === 'checkout' ) {
       $url = WooCommerce::url( 'checkout' );
     } else {
@@ -86,8 +86,8 @@ class MenuCart extends Addon implements AddonInterface {
       $content = $count . ' - ' . $price;
     }
 
-    $output = '<li id="asfowoo-menu-cart-' . $menuSlug . '" class="menu-item asfowoo-menu-cart" >';
-    $output .= '<a href="' . $url . '" aria-label="' . esc_html__( 'Menu Cart', 'assistant-for-woocommerce' ) . '" ' . $attr . '>';
+    $output = '<li id="jetexir-menu-cart-' . $menuSlug . '" class="menu-item jetexir-menu-cart" >';
+    $output .= '<a href="' . $url . '" aria-label="' . esc_html__( 'Menu Cart', 'jetexir' ) . '" ' . $attr . '>';
     $output .= $icon . $content;
     $output .= '</a></li>';
 
@@ -101,18 +101,18 @@ class MenuCart extends Addon implements AddonInterface {
       $basketIcons[ $icon ] = '<i class="' . $icon . '"></i>';
     }
     $sections[ $this->addonID ] = array(
-      'title'        => esc_html__( 'Menu Cart', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Menu Cart', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Menu Cart', 'jetexir' ),
+      'desc'         => esc_html__( 'Menu Cart', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => [
         'menu_cart_display_start_grid' => array(
           'id'    => 'fly_cart_start_grid_icon',
-          'title' => esc_html__( 'Menu Cart', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Menu Cart', 'jetexir' ),
           'type'  => 'startGrid',
         ),
         'menu_cart_menus'              => array(
           'id'                => 'menu_cart_menus',
-          'title'             => esc_html__( 'Select the menu(s) to display the Menu Cart', 'assistant-for-woocommerce' ),
+          'title'             => esc_html__( 'Select the menu(s) to display the Menu Cart', 'jetexir' ),
           'type'              => 'menuSelect',
           'multiple'          => true,
           'default'           => 0,
@@ -126,7 +126,7 @@ class MenuCart extends Addon implements AddonInterface {
         ),
         'menu_cart_display_empty'      => array(
           'id'       => 'menu_cart_display_empty',
-          'title'    => esc_html__( 'Hide empty cart', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Hide empty cart', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -134,7 +134,7 @@ class MenuCart extends Addon implements AddonInterface {
         ),
         'menu_cart_cart_checkout_hide' => array(
           'id'       => 'menu_cart_cart_checkout_hide',
-          'title'    => esc_html__( 'Hide on cart & checkout page', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Hide on cart & checkout page', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -142,8 +142,8 @@ class MenuCart extends Addon implements AddonInterface {
         ),
         'menu_cart_load_styles'        => array(
           'id'       => 'menu_cart_load_styles',
-          'title'    => esc_html__( 'Add menu styles', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Styles to better display the menu', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Add menu styles', 'jetexir' ),
+          'desc'     => esc_html__( 'Styles to better display the menu', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -154,48 +154,48 @@ class MenuCart extends Addon implements AddonInterface {
         ),
         'menu_cart_content_start_grid' => array(
           'id'    => 'fly_cart_start_grid_icon',
-          'title' => esc_html__( 'Menu Cart content', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Menu Cart content', 'jetexir' ),
           'type'  => 'startGrid',
         ),
         'menu_cart_icon'               => array(
           'id'       => 'menu_cart_icon',
-          'title'    => esc_html__( 'Icon', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Icon', 'jetexir' ),
           'type'     => 'radioInline',
-          'default'  => 'asfowoo-icon-shopping-cart',
+          'default'  => 'jetexir-icon-shopping-cart',
           'options'  => $basketIcons,
           'sanitize' => 'text'
         ),
         'menu_cart_content'            => array(
           'id'       => 'menu_cart_content',
-          'title'    => esc_html__( 'Menu content', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Menu content', 'jetexir' ),
           'type'     => 'select',
           'options'  => array(
-            'count'       => esc_html__( 'Products count', 'assistant-for-woocommerce' ),
-            'price'       => esc_html__( 'Price', 'assistant-for-woocommerce' ),
-            'count-price' => esc_html__( 'Products count and price', 'assistant-for-woocommerce' ),
+            'count'       => esc_html__( 'Products count', 'jetexir' ),
+            'price'       => esc_html__( 'Price', 'jetexir' ),
+            'count-price' => esc_html__( 'Products count and price', 'jetexir' ),
           ),
           'default'  => 'count-price',
           'sanitize' => 'text'
         ),
         'menu_cart_price_type'         => array(
           'id'       => 'menu_cart_price_type',
-          'title'    => esc_html__( 'Price type', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Price type', 'jetexir' ),
           'type'     => 'select',
           'options'  => array(
-            'total'    => esc_html__( 'Total', 'assistant-for-woocommerce' ),
-            'subtotal' => esc_html__( 'Subtotal', 'assistant-for-woocommerce' ),
+            'total'    => esc_html__( 'Total', 'jetexir' ),
+            'subtotal' => esc_html__( 'Subtotal', 'jetexir' ),
           ),
           'default'  => 'total',
           'sanitize' => 'text'
         ),
         'menu_cart_link'               => array(
           'id'       => 'menu_cart_link',
-          'title'    => esc_html__( 'Link to', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Link to', 'jetexir' ),
           'type'     => 'select',
           'options'  => array(
-            'fly-cart-modal' => esc_html__( 'Display Fly Cart modal', 'assistant-for-woocommerce' ),
-            'cart'           => esc_html__( 'Cart page', 'assistant-for-woocommerce' ),
-            'checkout'       => esc_html__( 'Checkout page', 'assistant-for-woocommerce' ),
+            'fly-cart-modal' => esc_html__( 'Display Fly Cart modal', 'jetexir' ),
+            'cart'           => esc_html__( 'Cart page', 'jetexir' ),
+            'checkout'       => esc_html__( 'Checkout page', 'jetexir' ),
           ),
           'default'  => 'cart',
           'sanitize' => 'text'
@@ -214,9 +214,9 @@ class MenuCart extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Menu Cart', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Add a shopping cart icon to the menu bar.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Cart', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Menu Cart', 'jetexir' ),
+      'desc'           => esc_html__( 'Add a shopping cart icon to the menu bar.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Cart', 'jetexir' ) ],
       'cat'            => 'cart',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

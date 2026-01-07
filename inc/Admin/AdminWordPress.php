@@ -1,10 +1,10 @@
 <?php
 
-namespace AssistantForWooCommerce\Admin;
+namespace Jetexir\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Interfaces\AdminTabInterface;
+use Jetexir\Interfaces\AdminTabInterface;
 
 class AdminWordPress implements AdminTabInterface {
   public const tab = 'wordpress';
@@ -16,20 +16,20 @@ class AdminWordPress implements AdminTabInterface {
   private static ?array $settings = null;
 
   public function __construct() {
-    add_filter( 'assistant_for_woocommerce_menus', [ $this, 'addMenu' ] );
-    add_filter( 'assistant_for_woocommerce_' . self::tab . '_settings', [ $this, 'settings' ] );
-    add_filter( 'assistant_for_woocommerce_settings', [ $this, 'allSettings' ] );
-    add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_display_notice', '__return_false' );
-    add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_content_display_notice', '__return_true' );
-    add_filter( 'assistant_for_woocommerce_dashboard_custom_links', [ $this, 'addDashboardLink' ] );
+    add_filter( 'jetexir_menus', [ $this, 'addMenu' ] );
+    add_filter( 'jetexir_' . self::tab . '_settings', [ $this, 'settings' ] );
+    add_filter( 'jetexir_settings', [ $this, 'allSettings' ] );
+    add_filter( 'jetexir_' . self::tab . '_tab_display_notice', '__return_false' );
+    add_filter( 'jetexir_' . self::tab . '_tab_content_display_notice', '__return_true' );
+    add_filter( 'jetexir_dashboard_custom_links', [ $this, 'addDashboardLink' ] );
   }
 
   public function addDashboardLink( $links ) {
     $settings = $this->settings();
     if ( ! empty( $settings['sections'] ) ) {
       $links[] = [
-        'title' => esc_html__( 'WordPress', 'assistant-for-woocommerce' ),
-        'desc'  => esc_html__( 'WordPress customize options', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'WordPress', 'jetexir' ),
+        'desc'  => esc_html__( 'WordPress customize options', 'jetexir' ),
         'link'  => AdminPages::link( [
           'tab' => self::tab
         ] ),
@@ -45,7 +45,7 @@ class AdminWordPress implements AdminTabInterface {
     $settings = $this->settings();
     if ( ! empty( $settings['sections'] ) ) {
       $menus[ self::tab ] = array(
-        'title' => esc_html__( 'WordPress', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'WordPress', 'jetexir' ),
         'icon'  => self::menuIcon
       );
     }
@@ -62,9 +62,9 @@ class AdminWordPress implements AdminTabInterface {
   public function settings(): array {
     if ( self::$settings === null ) {
       self::$settings = array(
-        'title'    => esc_html__( 'WordPress', 'assistant-for-woocommerce' ),
-        'desc'     => esc_html__( 'Tools to enhance your WordPress site', 'assistant-for-woocommerce' ),
-        'sections' => apply_filters( 'assistant_for_woocommerce_' . self::tab . '_settings_sections', [] )
+        'title'    => esc_html__( 'WordPress', 'jetexir' ),
+        'desc'     => esc_html__( 'Tools to enhance your WordPress site', 'jetexir' ),
+        'sections' => apply_filters( 'jetexir_' . self::tab . '_settings_sections', [] )
       );
     }
 

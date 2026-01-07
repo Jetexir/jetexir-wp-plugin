@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Helper;
+namespace Jetexir\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -9,8 +9,8 @@ use WP_Query;
 class HTML {
   use DebugTrait;
 
-  private const prefix = ASSISTANTFORWOOCOMMERCE_CLASS_PREFIX;
-  private const prefixName = ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX;
+  private const prefix = JETEXIR_CLASS_PREFIX;
+  private const prefixName = JETEXIR_INPUT_PREFIX;
 
   public const saveFields = [
     'toggle',
@@ -196,7 +196,7 @@ class HTML {
     if ( ! $data = self::checkData( $data ) ) {
       return '';
     }
-    $data['options'] = apply_filters( 'assistant_for_woocommerce_image_sizes_select_items', Assets::getImageSizes() );
+    $data['options'] = apply_filters( 'jetexir_image_sizes_select_items', Assets::getImageSizes() );
 
     return self::select( $data );
   }
@@ -371,12 +371,12 @@ class HTML {
     }
 
     $id                                           = self::prefix . $data['type'] . '-' . $data['id'];
-    $placeholder                                  = $data['placeholder'] ?? esc_html__( 'Select Media(s)', 'assistant-for-woocommerce' );
+    $placeholder                                  = $data['placeholder'] ?? esc_html__( 'Select Media(s)', 'jetexir' );
     $selectButton                                 = $data['select_button'] ?? $placeholder;
-    $removeAllButton                              = $data['remove_all_button'] ?? esc_html__( 'Remove all media', 'assistant-for-woocommerce' );
+    $removeAllButton                              = $data['remove_all_button'] ?? esc_html__( 'Remove all media', 'jetexir' );
     $maxNumber                                    = $data['media_max_number'] ?? 1;
-    $data['attributes']['data-title']             = $data['media_title'] ?? esc_html__( 'Select or Upload Media', 'assistant-for-woocommerce' );
-    $data['attributes']['data-button']            = $data['media_button'] ?? esc_html__( 'Use this media', 'assistant-for-woocommerce' );
+    $data['attributes']['data-title']             = $data['media_title'] ?? esc_html__( 'Select or Upload Media', 'jetexir' );
+    $data['attributes']['data-button']            = $data['media_button'] ?? esc_html__( 'Use this media', 'jetexir' );
     $data['attributes']['data-type']              = $data['media_type'] ?? ''; // image, video, audio
     $data['attributes']['data-multi-selection']   = (int) ( $data['upload_multi_selection'] ?? true );
     $data['attributes']['data-accept-extensions'] = $data['upload_accept_extensions'] ?? '';  // Separate with comma (,), example: pdf,doc,docx
@@ -455,7 +455,7 @@ class HTML {
       'type'         => 'button',
       'button_type'  => 'button',
       'button_theme' => 'secondary',
-      'class'        => [ 'asfowoo-media-select' ]
+      'class'        => [ 'jetexir-media-select' ]
     ) );
     if ( $removeAllButton ) {
       $field .= self::button( array(
@@ -463,7 +463,7 @@ class HTML {
         'title'       => $removeAllButton,
         'type'        => 'button',
         'button_type' => 'button',
-        'class'       => [ 'asfowoo-media-remove-all' ]
+        'class'       => [ 'jetexir-media-remove-all' ]
       ) );
     }
     $field .= '</div>';
@@ -523,7 +523,7 @@ class HTML {
     }
 
     $field      = self::startinlineelements( $data );
-    $labelClass = self::prefix . 'radio-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' asfowoo-not-equal' : '' );
+    $labelClass = self::prefix . 'radio-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' jetexir-not-equal' : '' );
 
     foreach ( $data['options'] as $key => $value ) {
       $field .= '<label class="' . $labelClass . '">' .
@@ -548,7 +548,7 @@ class HTML {
 
     $field = self::startinlineelements( $data );
 
-    $labelClass = self::prefix . 'checkbox-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' asfowoo-not-equal' : '' );
+    $labelClass = self::prefix . 'checkbox-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' jetexir-not-equal' : '' );
     foreach ( $data['options'] as $key => $value ) {
       $checked = is_array( $data['setting_value'] ) ? in_array( ( $isList ? $value : $key ), $data['setting_value'], true ) : $data['setting_value'] == ( $isList ? $value : $key );
 
@@ -640,7 +640,7 @@ class HTML {
       return '';
     }
 
-    $addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="start"><i class="asfowoo-icon-plus-circle"></i></a>';
+    $addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="start"><i class="jetexir-icon-plus-circle"></i></a>';
 
     return '<div class="' . self::prefix . 'repeatable ' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '" ' . self::getAttributes( $data ) . '>' .
            '<div class="' . self::prefix . 'title">' . $data['title'] . $addRepeat . '</div>' .
@@ -654,7 +654,7 @@ class HTML {
     }
 
     $addText   = ! empty( $data['add_text'] ) ? ' ' . $data['add_text'] : '';
-    $addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="end"><i class="asfowoo-icon-plus-circle"></i>' . $addText . '</a>';
+    $addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="end"><i class="jetexir-icon-plus-circle"></i>' . $addText . '</a>';
 
     return '</div>' . $addRepeat . '</div>';
   }
@@ -747,7 +747,7 @@ class HTML {
 
     $addon .= '</div><div class="' . self::prefix . 'title-desc"><strong class="' . self::prefix . 'title">' . $data['title'] . '</strong>' .
               ( ! empty( $data['desc'] ) ? '<p class="' . self::prefix . 'desc">' . $data['desc'] . '</p>' : '' ) .
-              ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="asfowoo-icon-chevron-right"></i><span>' . esc_html__( 'More info', 'assistant-for-woocommerce' ) . '</span></a>' : '' ) .
+              ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="jetexir-icon-chevron-right"></i><span>' . esc_html__( 'More info', 'jetexir' ) . '</span></a>' : '' ) .
               '</div><div class="' . self::prefix . 'action-wrap">';
 
     if ( $canActivate ) {
@@ -843,45 +843,45 @@ class HTML {
 
     $field .= self::wpcolorpicker( array(
       'id'            => $data['id'] . '_color_picker',
-      'title'         => esc_html__( 'Color', 'assistant-for-woocommerce' ),
+      'title'         => esc_html__( 'Color', 'jetexir' ),
       'type'          => 'wpcolorpicker',
-      'class'         => 'asfowoo-gradient-select-color',
+      'class'         => 'jetexir-gradient-select-color',
       'setting_value' => $firstColor,
     ) );
 
     $field .= self::radioinline( array(
       'id'            => $data['id'] . '_type',
-      'title'         => esc_html__( 'Type', 'assistant-for-woocommerce' ),
+      'title'         => esc_html__( 'Type', 'jetexir' ),
       'type'          => 'radioinline',
       'setting_value' => $function,
       'not_equal'     => true,
-      'class'         => 'asfowoo-gradient-color-type',
+      'class'         => 'jetexir-gradient-color-type',
       'options'       => array(
-        'linear-gradient' => esc_html__( 'Linear', 'assistant-for-woocommerce' ),
-        'radial-gradient' => esc_html__( 'Radial', 'assistant-for-woocommerce' ),
+        'linear-gradient' => esc_html__( 'Linear', 'jetexir' ),
+        'radial-gradient' => esc_html__( 'Radial', 'jetexir' ),
       )
     ) );
 
     $field .= self::radioinline( array(
       'id'            => $data['id'] . '_shape',
-      'title'         => esc_html__( 'Shape', 'assistant-for-woocommerce' ),
+      'title'         => esc_html__( 'Shape', 'jetexir' ),
       'type'          => 'radioinline',
       'setting_value' => $shape,
-      'class'         => 'asfowoo-gradient-color-shape asfowoo-gradient-color-variant',
+      'class'         => 'jetexir-gradient-color-shape jetexir-gradient-color-variant',
       'wrap_style'    => $function !== 'radial-gradient' ? 'display:none' : '',
       'options'       => array(
-        'ellipse' => esc_html__( 'Ellipse', 'assistant-for-woocommerce' ),
-        'circle'  => esc_html__( 'Circle', 'assistant-for-woocommerce' ),
+        'ellipse' => esc_html__( 'Ellipse', 'jetexir' ),
+        'circle'  => esc_html__( 'Circle', 'jetexir' ),
       )
     ) );
 
     $field .= self::range( array(
       'id'            => $data['id'] . '_range',
-      'title'         => esc_html__( 'Rotation °', 'assistant-for-woocommerce' ),
+      'title'         => esc_html__( 'Rotation °', 'jetexir' ),
       'type'          => 'range',
       'setting_value' => $rotate,
       'display_value' => true,
-      'class'         => 'asfowoo-gradient-color-rotation asfowoo-gradient-color-variant',
+      'class'         => 'jetexir-gradient-color-rotation jetexir-gradient-color-variant',
       'wrap_style'    => $function !== 'linear-gradient' ? 'display:none' : '',
       'attributes'    => array(
         'min' => 0,
@@ -924,7 +924,7 @@ class HTML {
 
     if ( $data['addable'] ) {
       $addText = ! empty( $data['add_text'] ) ? ' ' . $data['add_text'] : '';
-      $field   .= '<div class="' . self::prefix . 'add-color-wrap"><a href="#" class="' . self::prefix . 'add-color" ' . ( count( $colors ) >= $data['max_items'] ? 'disable="true"' : '' ) . '><i class="asfowoo-icon-plus-circle"></i>' . $addText . '</a></div>';
+      $field   .= '<div class="' . self::prefix . 'add-color-wrap"><a href="#" class="' . self::prefix . 'add-color" ' . ( count( $colors ) >= $data['max_items'] ? 'disable="true"' : '' ) . '><i class="jetexir-icon-plus-circle"></i>' . $addText . '</a></div>';
     }
 
     $field .= '</div>';
@@ -986,7 +986,7 @@ class HTML {
         $requiredText = $data['required_text'];
       }
 
-      $data['required_text'] = ' <abbr class="required" title="' . esc_html__( 'Required', 'assistant-for-woocommerce' ) . '">' . $requiredText . '</abbr>';
+      $data['required_text'] = ' <abbr class="required" title="' . esc_html__( 'Required', 'jetexir' ) . '">' . $requiredText . '</abbr>';
     }
 
     $attributes = empty( $data['attributes'] ) || ! is_array( $data['attributes'] ) ? [] : $data['attributes'];
@@ -1017,7 +1017,7 @@ class HTML {
 
       if ( $data['type'] === 'button' ) {
         if ( isset( $data['button_theme'] ) ) {
-          $data['class'][] = 'asfowoo-button-' . $data['button_theme'];
+          $data['class'][] = 'jetexir-button-' . $data['button_theme'];
         }
       }
 

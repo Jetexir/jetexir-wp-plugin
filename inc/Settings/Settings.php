@@ -1,11 +1,11 @@
 <?php
 
-namespace AssistantForWooCommerce\Settings;
+namespace Jetexir\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Helper\Cache;
-use AssistantForWooCommerce\Helper\Validating;
+use Jetexir\Helper\Cache;
+use Jetexir\Helper\Validating;
 
 class Settings {
   public static function addToArray( $key, $value, $optionsName = null, $reverse = false ): bool {
@@ -46,7 +46,7 @@ class Settings {
       return false;
     }
 
-    $optionsName  = is_string( $optionsName ) ? ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_' . $optionsName : ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY;
+    $optionsName  = is_string( $optionsName ) ? JETEXIR_PLUGIN_KEY . '_' . $optionsName : JETEXIR_PLUGIN_KEY;
     $savedOptions = get_option( $optionsName, [] );
     $savedOptions = is_array( $savedOptions ) ? $savedOptions : [];
     $now          = current_time( 'timestamp' );
@@ -61,7 +61,7 @@ class Settings {
   }
 
   public static function get( string $key = null, $default = null, $optionsName = null, bool $useCache = true ) {
-    $optionsName = is_string( $optionsName ) ? ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_' . $optionsName : ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY;
+    $optionsName = is_string( $optionsName ) ? JETEXIR_PLUGIN_KEY . '_' . $optionsName : JETEXIR_PLUGIN_KEY;
     $options     = Cache::get( 'options_' . $optionsName, false );
 
     if ( ! $useCache || ! is_array( $options ) ) {
@@ -71,14 +71,14 @@ class Settings {
     }
 
     if ( $key !== null ) {
-      return apply_filters( 'assistant_for_woocommerce_get_setting', $options[ $key ] ?? $default, $key, $default, $options, $optionsName );
+      return apply_filters( 'jetexir_get_setting', $options[ $key ] ?? $default, $key, $default, $options, $optionsName );
     }
 
-    return apply_filters( 'assistant_for_woocommerce_get_settings', $options ?: $default, $optionsName );
+    return apply_filters( 'jetexir_get_settings', $options ?: $default, $optionsName );
   }
 
   public static function delete( string $key, $optionsName = null ): bool {
-    $optionsName  = is_string( $optionsName ) ? ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '_' . $optionsName : ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY;
+    $optionsName  = is_string( $optionsName ) ? JETEXIR_PLUGIN_KEY . '_' . $optionsName : JETEXIR_PLUGIN_KEY;
     $savedOptions = get_option( $optionsName, [] );
     $savedOptions = is_array( $savedOptions ) ? $savedOptions : [];
 

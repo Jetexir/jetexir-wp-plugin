@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Integrations;
+namespace Jetexir\Integrations;
 
 defined( 'ABSPATH' ) || exit;
 

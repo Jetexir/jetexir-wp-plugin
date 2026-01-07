@@ -1,10 +1,10 @@
 <?php
 
-namespace AssistantForWooCommerce\Admin;
+namespace Jetexir\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Interfaces\AdminTabInterface;
+use Jetexir\Interfaces\AdminTabInterface;
 
 class AdminGeneral implements AdminTabInterface {
   public const tab = 'general';
@@ -14,16 +14,16 @@ class AdminGeneral implements AdminTabInterface {
 </svg>';
 
   public function __construct() {
-    add_filter( 'assistant_for_woocommerce_menus', [ $this, 'addMenu' ] );
-    add_filter( 'assistant_for_woocommerce_' . self::tab . '_settings', [ $this, 'settings' ] );
-    add_filter( 'assistant_for_woocommerce_settings', [ $this, 'allSettings' ] );
-    add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_display_notice', '__return_false' );
-    add_filter( 'assistant_for_woocommerce_' . self::tab . '_tab_content_display_notice', '__return_true' );
+    add_filter( 'jetexir_menus', [ $this, 'addMenu' ] );
+    add_filter( 'jetexir_' . self::tab . '_settings', [ $this, 'settings' ] );
+    add_filter( 'jetexir_settings', [ $this, 'allSettings' ] );
+    add_filter( 'jetexir_' . self::tab . '_tab_display_notice', '__return_false' );
+    add_filter( 'jetexir_' . self::tab . '_tab_content_display_notice', '__return_true' );
   }
 
   public function addMenu( $menus ) {
     $menus[ self::tab ] = array(
-      'title' => esc_html__( 'General', 'assistant-for-woocommerce' ),
+      'title' => esc_html__( 'General', 'jetexir' ),
       'icon'  => self::icon
     );
 
@@ -38,9 +38,9 @@ class AdminGeneral implements AdminTabInterface {
 
   public function settings(): array {
     return array(
-      'title'    => esc_html__( 'General', 'assistant-for-woocommerce' ),
-      'desc'     => esc_html__( 'General Settings', 'assistant-for-woocommerce' ),
-      'sections' => apply_filters( 'assistant_for_woocommerce_' . self::tab . '_settings_sections', [] )
+      'title'    => esc_html__( 'General', 'jetexir' ),
+      'desc'     => esc_html__( 'General Settings', 'jetexir' ),
+      'sections' => apply_filters( 'jetexir_' . self::tab . '_settings_sections', [] )
     );
   }
 }

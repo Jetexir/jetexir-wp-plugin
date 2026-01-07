@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Providers\DB;
+namespace Jetexir\Providers\DB;
 
 class Model {
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace AssistantForWooCommerce\Integrations;
+namespace Jetexir\Integrations;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Helper\FeedReader;
-use AssistantForWooCommerce\Helper\Templates;
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Addons\Addon;
+use Jetexir\Helper\FeedReader;
+use Jetexir\Helper\Templates;
+use Jetexir\Interfaces\AddonInterface;
 
 class WooDeveloperFeed extends Addon implements AddonInterface {
   public string $addonID = 'woo-developer-feed';
@@ -44,14 +44,14 @@ class WooDeveloperFeed extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Woo Developer Feed', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'WooCommerce Developer Blog RSS Feed', 'assistant-for-woocommerce' ),
+      'title'          => esc_html__( 'Woo Developer Feed', 'jetexir' ),
+      'desc'           => esc_html__( 'WooCommerce Developer Blog RSS Feed', 'jetexir' ),
       'has_page'       => true,
       'force_enable'   => false,
       'content_header' => true,
       'icon'           => $svg,
       'image_link'     => 'https://developer.woocommerce.com',
-      'tags'           => [ esc_html__( 'Feed', 'assistant-for-woocommerce' ) ],
+      'tags'           => [ esc_html__( 'Feed', 'jetexir' ) ],
       'cat'            => 'utility',
     );
   }

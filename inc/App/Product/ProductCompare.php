@@ -1,20 +1,20 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Product;
+namespace Jetexir\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Utilities\I18nUtil;
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\App\App;
-use AssistantForWooCommerce\Helper\{Assets, Cookie, JSON, Nonce, Notice, Param, Sanitizing, WooCommerce, WordPress};
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Addons\Addon;
+use Jetexir\App\App;
+use Jetexir\Helper\{Assets, Cookie, JSON, Nonce, Notice, Param, Sanitizing, WooCommerce, WordPress};
+use Jetexir\Interfaces\AddonInterface;
 
 class ProductCompare extends Addon implements AddonInterface {
   public string $addonID = 'product-compare';
   public string $currentTab = 'product';
   public string $currentSection = 'compare';
-  private const shortCode = 'asfowoo_products_compare';
+  private const shortCode = 'jetexir_products_compare';
   private const cookieName = 'wc_products_compare';
   private const maxItems = 4;
 
@@ -24,8 +24,8 @@ class ProductCompare extends Addon implements AddonInterface {
       add_action( 'woocommerce_after_shop_loop_item', [ $this, 'addButton' ], 9999 );
     }
     add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'addButton' ], 9999 );
-    add_action( 'wp_ajax_asfowoo_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
-    add_action( 'wp_ajax_nopriv_asfowoo_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
+    add_action( 'wp_ajax_jetexir_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
+    add_action( 'wp_ajax_nopriv_jetexir_product_compare_add_remove', [ $this, 'addRemoveItem' ] );
   }
 
   public function compareShortcode( $atts ) {
@@ -49,7 +49,7 @@ class ProductCompare extends Addon implements AddonInterface {
       Notice::addAndDisplay( 'product-compare', array(
         array(
           'type'    => 'warning',
-          'message' => esc_html__( 'Your product compare list is empty', 'assistant-for-woocommerce' ),
+          'message' => esc_html__( 'Your product compare list is empty', 'jetexir' ),
         )
       ) );
 
@@ -69,7 +69,7 @@ class ProductCompare extends Addon implements AddonInterface {
         $data            = [ 'count' => count( $products ) ];
         ?>
         <div
-          class="asfowoo-product-compare-wrapper asfowoo-product-compare-cols-<?php echo esc_html( $data['count'] ) ?>">
+          class="jetexir-product-compare-wrapper jetexir-product-compare-cols-<?php echo esc_html( $data['count'] ) ?>">
           <?php
           /**
            * \WC_Product $product
@@ -78,10 +78,10 @@ class ProductCompare extends Addon implements AddonInterface {
             $productID = $product->get_id();
             $imageID   = (int) $product->get_image_id();
 
-            $data['removeButton'][] = '<button type="button" class="button asfowoo-button asfowoo-product-compare-button asfowoo-button-remove" data-id="' . $productID . '" data-action="refresh"><svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M8.00001 8L16 16" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+            $data['removeButton'][] = '<button type="button" class="button jetexir-button jetexir-product-compare-button jetexir-button-remove" data-id="' . $productID . '" data-action="refresh"><svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M8.00001 8L16 16" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
 
             $data['images'][] = ! empty( $imageSize ) && $imageID ? wp_get_attachment_image( $imageID, $imageSize, false,
-              [ 'class' => 'asfowoo-product-compare-image' ] ) : '';
+              [ 'class' => 'jetexir-product-compare-image' ] ) : '';
 
             if ( ! $product->is_visible() ) {
               $data['title'][] = esc_html( $product->get_name() );
@@ -104,7 +104,7 @@ class ProductCompare extends Addon implements AddonInterface {
                 $value = false;
 
                 if ( $key === 'brand' ) {
-                  $value = do_shortcode( '[product_brand post_id="' . $productID . '" class="asfowoo-product-compare-brand"]' );
+                  $value = do_shortcode( '[product_brand post_id="' . $productID . '" class="jetexir-product-compare-brand"]' );
 
                 } elseif ( $key === 'dimensions' && $product->has_dimensions() ) {
                   $value = preg_replace( '/ /', '', $product->get_dimensions(), 4 );
@@ -119,7 +119,7 @@ class ProductCompare extends Addon implements AddonInterface {
                   $value        = sprintf( '<span class="%s">%s</span>',
                     esc_attr( $availability['class'] ),
                     $availability['availability'] ? esc_html( $availability['availability'] ) : esc_html__( 'In stock',
-                      'assistant-for-woocommerce' ) );
+                      'jetexir' ) );
 
                 } elseif ( $key === 'rating' && wc_review_ratings_enabled() ) {
                   $value = wc_get_rating_html( $product->get_average_rating() );
@@ -145,16 +145,16 @@ class ProductCompare extends Addon implements AddonInterface {
           }
 
           // Head
-          echo '<div class="asfowoo-product-compare-row asfowoo-product-compare-head">';
+          echo '<div class="jetexir-product-compare-row jetexir-product-compare-head">';
           foreach ( $data['title'] as $i => $title ) {
             $i = (int) $i;
-            echo '<div class="asfowoo-product-compare-col">';
+            echo '<div class="jetexir-product-compare-col">';
             echo wp_kses_post( $data['removeButton'][ $i ] );
             echo wp_kses_post( $data['images'][ $i ] );
             echo wp_kses_post( $title );
 
             if ( ! empty( $data['addToCart'][ $i ] ) ) {
-              echo '<div class="asfowoo-product-compare-add-to-cart">' . wp_kses_post( $data['addToCart'][ $i ] ) . '</div>';
+              echo '<div class="jetexir-product-compare-add-to-cart">' . wp_kses_post( $data['addToCart'][ $i ] ) . '</div>';
             }
             echo '</div>';
           }
@@ -167,12 +167,12 @@ class ProductCompare extends Addon implements AddonInterface {
               continue;
             }
 
-            echo '<div class="asfowoo-product-compare-field-title">';
+            echo '<div class="jetexir-product-compare-field-title">';
             echo esc_html( $field['label'] );
             echo '</div>';
-            echo '<div class="asfowoo-product-compare-row asfowoo-product-compare-row-field asfowoo-product-compare-row-' . esc_html( $key ) . '">';
+            echo '<div class="jetexir-product-compare-row jetexir-product-compare-row-field jetexir-product-compare-row-' . esc_html( $key ) . '">';
             foreach ( $field['value'] as $value ) {
-              echo '<div class="asfowoo-product-compare-col">';
+              echo '<div class="jetexir-product-compare-col">';
               echo empty( $value ) ? '---' : wp_kses_post( $value );
               echo '</div>';
             }
@@ -186,7 +186,7 @@ class ProductCompare extends Addon implements AddonInterface {
         Notice::addAndDisplay( 'product-compare', array(
           array(
             'type'    => 'warning',
-            'message' => esc_html__( 'Your product compare list is empty', 'assistant-for-woocommerce' ),
+            'message' => esc_html__( 'Your product compare list is empty', 'jetexir' ),
           )
         ) );
       }
@@ -218,7 +218,7 @@ class ProductCompare extends Addon implements AddonInterface {
 
     wp_send_json_error( [
       'error'   => 'nonce-invalid',
-      'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'assistant-for-woocommerce' ),
+      'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'jetexir' ),
       'refresh' => true
     ], 403 );
   }
@@ -265,8 +265,8 @@ class ProductCompare extends Addon implements AddonInterface {
   public function addButton(): void {
     $productID = get_the_ID();
     $exists    = $this->checkExistsItem( $productID );
-    echo '<button type="button" class="button asfowoo-button asfowoo-button-secondary asfowoo-product-compare-button' . ( $exists ? ' asfowoo-button-remove' : '' ) . '" data-id="' . esc_html( $productID ) . '" data-action="non">' .
-         esc_html( $this->getSetting( 'product_compare_button_text', esc_html__( 'Compare', 'assistant-for-woocommerce' ) ) )
+    echo '<button type="button" class="button jetexir-button jetexir-button-secondary jetexir-product-compare-button' . ( $exists ? ' jetexir-button-remove' : '' ) . '" data-id="' . esc_html( $productID ) . '" data-action="non">' .
+         esc_html( $this->getSetting( 'product_compare_button_text', esc_html__( 'Compare', 'jetexir' ) ) )
          . '</button>';
   }
 
@@ -307,46 +307,46 @@ class ProductCompare extends Addon implements AddonInterface {
     }
 
     $pluginVersion = Assets::getVersion();
-    $debugName     = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? '' : '.min';
+    $debugName     = JETEXIR_DEBUG_MODE ? '' : '.min';
 
-    wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-compare-style',
+    wp_enqueue_style( JETEXIR_PLUGIN_KEY . '-product-compare-style',
       Assets::url( 'css/product-compare' . $debugName . '.css' ),
       false, $pluginVersion );
 
-    wp_enqueue_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-compare-script',
+    wp_enqueue_script( JETEXIR_PLUGIN_KEY . '-product-compare-script',
       Assets::url( 'js/product-compare.min.js' ),
-      [ ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
+      [ JETEXIR_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
-    wp_localize_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-product-compare-script', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP . 'ProductCompare', array(
-      'maxExceededMessage' => esc_html__( 'It is not possible to add more than %number% product to the comparison.', 'assistant-for-woocommerce' ),
+    wp_localize_script( JETEXIR_PLUGIN_KEY . '-product-compare-script', JETEXIR_PLUGIN_KEYCAP . 'ProductCompare', array(
+      'maxExceededMessage' => esc_html__( 'It is not possible to add more than %number% product to the comparison.', 'jetexir' ),
     ) );
   }
 
   public function addSectionSettings( $sections ) {
     $settings = array(
       'start_grid_product_compare'         => array(
-        'title' => esc_html__( 'Product Compare', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Product Compare', 'jetexir' ),
         'type'  => 'startgrid',
       ),
       'product_compare_button_text'        => array(
         'id'      => 'product_compare_button_text',
-        'title'   => esc_html__( 'Button Text', 'assistant-for-woocommerce' ),
+        'title'   => esc_html__( 'Button Text', 'jetexir' ),
         'type'    => 'text',
-        'default' => esc_html__( 'Compare', 'assistant-for-woocommerce' ),
-        'desc'    => esc_html__( 'Compare button text', 'assistant-for-woocommerce' )
+        'default' => esc_html__( 'Compare', 'jetexir' ),
+        'desc'    => esc_html__( 'Compare button text', 'jetexir' )
       ),
       'product_compare_archive_button'     => array(
         'id'       => 'product_compare_archive_button',
-        'title'    => esc_html__( 'Archive compare button', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Archive compare button', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
-        'desc'     => esc_html__( 'Display compare button in WooCommerce archive pages', 'assistant-for-woocommerce' ),
+        'desc'     => esc_html__( 'Display compare button in WooCommerce archive pages', 'jetexir' ),
         'sanitize' => 'bool'
       ),
       'product_compare_page'               => array(
         'id'                => 'product_compare_page',
-        'title'             => esc_html__( 'Compare page', 'assistant-for-woocommerce' ),
+        'title'             => esc_html__( 'Compare page', 'jetexir' ),
         'type'              => 'postSelect',
         'args'              => array(
           'post_type' => 'page'
@@ -355,32 +355,32 @@ class ProductCompare extends Addon implements AddonInterface {
         'option_none'       => '---',
         'option_none_value' => '',
         /* translators: %s: Shortcode */
-        'desc'              => wp_sprintf( esc_html__( 'Insert shortcode in the compare page %s', 'assistant-for-woocommerce' ), '<code class="asfowoo-copy-text">[asfowoo_products_compare]</code>' )
+        'desc'              => wp_sprintf( esc_html__( 'Insert shortcode in the compare page %s', 'jetexir' ), '<code class="jetexir-copy-text">[jetexir_products_compare]</code>' )
       ),
       'product_compare_max_items'          => array(
         'id'      => 'product_compare_max_items',
-        'title'   => esc_html__( 'Max product items', 'assistant-for-woocommerce' ),
+        'title'   => esc_html__( 'Max product items', 'jetexir' ),
         'type'    => 'select',
         'options' => array( 2, 3, 4 ),
         'default' => 0,
-        'desc'    => esc_html__( 'Select max product items for comparing.', 'assistant-for-woocommerce' )
+        'desc'    => esc_html__( 'Select max product items for comparing.', 'jetexir' )
       ),
       'product_compare_image_size'         => array(
         'id'                => 'product_compare_image_size',
-        'title'             => esc_html__( 'Image size', 'assistant-for-woocommerce' ),
+        'title'             => esc_html__( 'Image size', 'jetexir' ),
         'type'              => 'imageSizeSelect',
         'default'           => 'thumbnail',
         'option_none'       => '---',
         'option_none_value' => '',
-        'desc'              => esc_html__( 'Select product image size', 'assistant-for-woocommerce' )
+        'desc'              => esc_html__( 'Select product image size', 'jetexir' )
       ),
       'product_compare_add_to_cart_button' => array(
         'id'       => 'product_compare_add_to_cart_button',
-        'title'    => esc_html__( 'Add to cart button', 'assistant-for-woocommerce' ),
+        'title'    => esc_html__( 'Add to cart button', 'jetexir' ),
         'type'     => 'toggle',
         'value'    => 1,
         'default'  => false,
-        'desc'     => esc_html__( 'Display add to cart button in product compare page', 'assistant-for-woocommerce' ),
+        'desc'     => esc_html__( 'Display add to cart button in product compare page', 'jetexir' ),
         'sanitize' => 'bool'
       ),
       'end_grid_product_compare'           => array(
@@ -392,7 +392,7 @@ class ProductCompare extends Addon implements AddonInterface {
       ),
 
       'start_grid_product_compare_fields' => array(
-        'title' => esc_html__( 'Product fields', 'assistant-for-woocommerce' ),
+        'title' => esc_html__( 'Product fields', 'jetexir' ),
         'type'  => 'startgrid',
       ),
     );
@@ -418,7 +418,7 @@ class ProductCompare extends Addon implements AddonInterface {
     );
 
     $settings['start_grid_product_compare_attributes'] = array(
-      'title' => esc_html__( 'Product attributes', 'assistant-for-woocommerce' ),
+      'title' => esc_html__( 'Product attributes', 'jetexir' ),
       'type'  => 'startgrid',
     );
 
@@ -428,7 +428,7 @@ class ProductCompare extends Addon implements AddonInterface {
         'id'      => 'product_compare_no_attributes_notice',
         'notices' => array(
           array(
-            'message' => esc_html__( 'Your product attributes is empty, Add attribute in "Products > Attributes" menu.', 'assistant-for-woocommerce' ),
+            'message' => esc_html__( 'Your product attributes is empty, Add attribute in "Products > Attributes" menu.', 'jetexir' ),
             'type'    => 'warning',
           )
         ),
@@ -453,8 +453,8 @@ class ProductCompare extends Addon implements AddonInterface {
     );
 
     $sections[ $this->currentSection ] = array(
-      'title'        => esc_html__( 'Compare', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Product compare', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Compare', 'jetexir' ),
+      'desc'         => esc_html__( 'Product compare', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => $settings
     );
@@ -467,9 +467,9 @@ class ProductCompare extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Products Compare', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Enables customers to compare products.', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Product', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Products Compare', 'jetexir' ),
+      'desc'           => esc_html__( 'Enables customers to compare products.', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',

@@ -1,11 +1,11 @@
 @use "utilities/variables";
 
-.asfowoo-product-share-wrapper {
+.jetexir-product-share-wrapper {
   display: flex;
   gap: 10px;
   margin: 20px 0;
 
-  .asfowoo-product-share-title {
+  .jetexir-product-share-title {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -13,20 +13,20 @@
     min-width: 50px;
   }
 
-  .asfowoo-product-share-links {
+  .jetexir-product-share-links {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     gap: 10px;
 
-    .asfowoo-product-share-link {
+    .jetexir-product-share-link {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 5px;
-      color: var(--asfowoo-element-color, variables.$text);
-      border: 1px solid var(--asfowoo-element-border-color, variables.$border_color);
-      background-color: var(--asfowoo-element-bg-color, variables.$white2);
+      color: var(--jetexir-element-color, variables.$text);
+      border: 1px solid var(--jetexir-element-border-color, variables.$border_color);
+      background-color: var(--jetexir-element-bg-color, variables.$white2);
       padding: 10px;
       width: 32px;
       height: 32px;
@@ -34,37 +34,37 @@
       font-size: 14px;
       transition: all 0.3s ease;
 
-      .asfowoo-icon-content_copy {
+      .jetexir-icon-content_copy {
         animation: afwBlinkText 250ms step-start 0s infinite;
       }
 
-      &.asfowoo-product-share-link-size-large {
+      &.jetexir-product-share-link-size-large {
         font-size: 18px;
         width: 45px;
         height: 45px;
       }
 
       &:hover, &:focus {
-        color: var(--asfowoo-element-hover-color, variables.$text);
-        border: 1px solid var(--asfowoo-element-hover-border-color, variables.$border_color);
-        background-color: var(--asfowoo-element-hover-bg-color, variables.$white2);
-        outline: 1px solid var(--asfowoo-element-hover-border-color, variables.$border_color);
+        color: var(--jetexir-element-hover-color, variables.$text);
+        border: 1px solid var(--jetexir-element-hover-border-color, variables.$border_color);
+        background-color: var(--jetexir-element-hover-bg-color, variables.$white2);
+        outline: 1px solid var(--jetexir-element-hover-border-color, variables.$border_color);
       }
 
-      &.asfowoo-product-share-link-shape-round {
+      &.jetexir-product-share-link-shape-round {
         border-radius: 50%;
       }
 
-      &.asfowoo-product-share-link-shape-rounded_corner {
+      &.jetexir-product-share-link-shape-rounded_corner {
         border-radius: 10px;
       }
 
-      &.asfowoo-product-share-link-appearance-text, &.asfowoo-product-share-link-appearance-icon_text, {
+      &.jetexir-product-share-link-appearance-text, &.jetexir-product-share-link-appearance-icon_text, {
         width: auto;
         border-radius: 10px;
       }
 
-      &.asfowoo-product-share-link-shape-square {
+      &.jetexir-product-share-link-shape-square {
         border-radius: 0;
       }
     }

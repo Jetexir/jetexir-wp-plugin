@@ -1,13 +1,13 @@
 @use "../utilities/variables";
 
-.asfowoo-fly-icons {
+.jetexir-fly-icons {
   position: fixed;
   z-index: 999997;
   font-size: 18px;
   display: flex;
   gap: 15px;
 
-  &.asfowoo-fly-icons-top {
+  &.jetexir-fly-icons-top {
     top: 40px;
 
     > :is(a, div) {
@@ -18,7 +18,7 @@
     }
   }
 
-  &.asfowoo-fly-icons-bottom {
+  &.jetexir-fly-icons-bottom {
     bottom: 40px;
 
     > :is(a, div) {
@@ -29,18 +29,18 @@
     }
   }
 
-  &.asfowoo-fly-icons-left {
+  &.jetexir-fly-icons-left {
     left: 40px;
 
-    .asfowoo-fly-icon-count {
+    .jetexir-fly-icon-count {
       right: -10px;
     }
   }
 
-  &.asfowoo-fly-icons-right {
+  &.jetexir-fly-icons-right {
     right: 40px;
 
-    .asfowoo-fly-icon-count {
+    .jetexir-fly-icon-count {
       left: -10px;
     }
   }
@@ -57,10 +57,10 @@
     height: 60px;
     top: 0;
     bottom: 0;
-    color: var(--asfowoo-element-color, variables.$text);
-    background-color: var(--asfowoo-element-bg-color, variables.$white2);
-    border: 1.5px solid var(--asfowoo-element-border-color, variables.$border_color);
-    border-radius: var(--asfowoo-element-border-radius, 0);
+    color: var(--jetexir-element-color, variables.$text);
+    background-color: var(--jetexir-element-bg-color, variables.$white2);
+    border: 1.5px solid var(--jetexir-element-border-color, variables.$border_color);
+    border-radius: var(--jetexir-element-border-radius, 0);
     transition: all 0.5s;
     box-shadow: rgba(33, 35, 38, 0.1) 0 10px 10px -10px;
     text-decoration: none;
@@ -69,9 +69,9 @@
     &:hover, &:focus {
       text-decoration: none;
       outline: none;
-      border-color: var(--asfowoo-element-hover-border-color, variables.$border_color);
-      color: var(--asfowoo-element-hover-color, variables.$text);
-      background-color: var(--asfowoo-element-hover-bg-color, variables.$white2);
+      border-color: var(--jetexir-element-hover-border-color, variables.$border_color);
+      color: var(--jetexir-element-hover-color, variables.$text);
+      background-color: var(--jetexir-element-hover-bg-color, variables.$white2);
     }
   }
 
@@ -84,11 +84,11 @@
 
   }
 
-  .asfowoo-fly-icon-title {
+  .jetexir-fly-icon-title {
     font-size: 12px;
   }
 
-  .asfowoo-fly-icon-count {
+  .jetexir-fly-icon-count {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -99,6 +99,6 @@
     font-size: 12px;
     border-radius: 50%;
     color: white;
-    background: var(--asfowoo-primary-color, variables.$primary);
+    background: var(--jetexir-primary-color, variables.$primary);
   }
 }

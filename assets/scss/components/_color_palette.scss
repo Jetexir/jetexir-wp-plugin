@@ -1,13 +1,13 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-@mixin asfowoo-color-palette {
-  .asfowoo-color-palette {
+@mixin jetexir-color-palette {
+  .jetexir-color-palette {
     width: 100%;
     border-radius: 10px;
     border: 1px solid variables.$border_color;
 
-    .asfowoo-color-palette-items {
+    .jetexir-color-palette-items {
       display: flex;
       flex-direction: column;
       gap: 0;
@@ -90,11 +90,11 @@
       }
     }
 
-    .asfowoo-add-color-wrap {
+    .jetexir-add-color-wrap {
       border-top: 1px solid variables.$border_color;
     }
 
-    .asfowoo-add-color {
+    .jetexir-add-color {
       display: flex;
       align-items: center;
       gap: 5px;
@@ -127,7 +127,7 @@
       }
     }
 
-    .asfowoo-remove-color {
+    .jetexir-remove-color {
       position: absolute;
       color: #222;
       background-color: white;
@@ -156,7 +156,7 @@
     }
 
     &[data-addable="0"] {
-      .asfowoo-color-palette-items {
+      .jetexir-color-palette-items {
         .wp-picker-container {
           &:last-child {
             .wp-color-result {
@@ -173,8 +173,8 @@
       }
     }
 
-    &.asfowoo-color-palette-horizontal {
-      .asfowoo-color-palette-items {
+    &.jetexir-color-palette-horizontal {
+      .jetexir-color-palette-items {
         .wp-picker-container {
           &:not(:first-child) {
             border-top: 0.5px solid variables.$border_color;
@@ -183,8 +183,8 @@
       }
     }
 
-    &.asfowoo-color-palette-vertical {
-      .asfowoo-color-palette-items {
+    &.jetexir-color-palette-vertical {
+      .jetexir-color-palette-items {
         display: grid;
         grid-auto-columns: 1fr;
 
@@ -224,7 +224,7 @@
             transform: translateX(-50%) rotate(-90deg);
           }
 
-          .asfowoo-remove-color {
+          .jetexir-remove-color {
             top: inherit;
             right: inherit;
             bottom: 10px;
@@ -235,7 +235,7 @@
       }
 
       &[data-addable="0"] {
-        .asfowoo-color-palette-items {
+        .jetexir-color-palette-items {
           .wp-picker-container {
             &:first-child {
               .wp-color-result {

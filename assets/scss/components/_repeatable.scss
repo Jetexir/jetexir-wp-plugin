@@ -1,7 +1,7 @@
 @use "../utilities/variables";
 
-@mixin asfowoo-repeatable {
-  .asfowoo-repeatable {
+@mixin jetexir-repeatable {
+  .jetexir-repeatable {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -12,19 +12,19 @@
     border-radius: 10px;
     counter-reset: repeatable;
 
-    > .asfowoo-title {
+    > .jetexir-title {
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      .asfowoo-add-repeatable {
+      .jetexir-add-repeatable {
         i {
           font-size: 1.5em;
         }
       }
     }
 
-    > .asfowoo-add-repeatable {
+    > .jetexir-add-repeatable {
       align-self: end;
 
       svg {
@@ -33,14 +33,14 @@
       }
     }
 
-    .asfowoo-repeatable-wrap {
+    .jetexir-repeatable-wrap {
       display: flex;
       flex-direction: column;
       gap: 15px;
       margin-top: 15px;
     }
 
-    .asfowoo-repeatable-fields-wrap {
+    .jetexir-repeatable-fields-wrap {
       display: flex;
       flex-direction: column;
       gap: 15px;
@@ -49,7 +49,7 @@
       border-radius: 10px;
       position: relative;
 
-      .asfowoo-repeatable-actions {
+      .jetexir-repeatable-actions {
         position: absolute;
         right: 10px;
         top: 10px;
@@ -57,7 +57,7 @@
         gap: 10px;
       }
 
-      .asfowoo-remove-repeatable {
+      .jetexir-remove-repeatable {
         display: none;
 
         svg {
@@ -66,7 +66,7 @@
         }
       }
 
-      :is(.asfowoo-move-up-repeatable,.asfowoo-move-down-repeatable) {
+      :is(.jetexir-move-up-repeatable,.jetexir-move-down-repeatable) {
         display: none;
 
         svg {
@@ -76,13 +76,13 @@
       }
 
       &:first-child {
-        .asfowoo-move-up-repeatable {
+        .jetexir-move-up-repeatable {
           display: none !important;
         }
       }
 
       &:last-child {
-        .asfowoo-move-down-repeatable {
+        .jetexir-move-down-repeatable {
           display: none !important;
         }
       }
@@ -94,7 +94,7 @@
       }
     }
 
-    .asfowoo-add-repeatable {
+    .jetexir-add-repeatable {
       display: flex;
       align-items: center;
       gap: 5px;

@@ -1,17 +1,17 @@
 <?php
 
-namespace AssistantForWooCommerce\AppHelper;
+namespace Jetexir\AppHelper;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Admin\AdminPages;
-use AssistantForWooCommerce\Admin\AdminSettings;
-use AssistantForWooCommerce\Helper\{HTML, Nonce, Param, Sanitizing, Templates, User};
+use Jetexir\Admin\AdminPages;
+use Jetexir\Admin\AdminSettings;
+use Jetexir\Helper\{HTML, Nonce, Param, Sanitizing, Templates, User};
 
 class DataTableUI {
   public function __construct() {
-    add_action( 'wp_ajax_assistant_for_woocommerce_data_table_ui_action', [ $this, 'doAction' ] );
-    add_action( 'assistant_for_woocommerce_admin_modals', [ $this, 'printModal' ] );
+    add_action( 'wp_ajax_jetexir_data_table_ui_action', [ $this, 'doAction' ] );
+    add_action( 'jetexir_admin_modals', [ $this, 'printModal' ] );
   }
 
   public static function getFormData( $fields ): array {
@@ -33,10 +33,10 @@ class DataTableUI {
       }
 
       if ( in_array( $field['type'], [ 'checkbox', 'checkboxinline', 'toggle' ] ) ) {
-        $value = $postedData[ ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . $field['id'] ] ?? false;
+        $value = $postedData[ JETEXIR_INPUT_PREFIX . $field['id'] ] ?? false;
       } else {
         $default = AdminSettings::getSettingDefault( $field );
-        $value   = $postedData[ ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . $field['id'] ] ?? $default;
+        $value   = $postedData[ JETEXIR_INPUT_PREFIX . $field['id'] ] ?? $default;
       }
 
       $value = AdminSettings::sanitizeSetting( $value, $field );
@@ -49,7 +49,7 @@ class DataTableUI {
         $value = array_values( $value );
       }
 
-      $value                = apply_filters( 'assistant_for_woocommerce_dtu_value_before_save', $value, $field );
+      $value                = apply_filters( 'jetexir_dtu_value_before_save', $value, $field );
       $data[ $field['id'] ] = $value;
     }
 
@@ -70,18 +70,18 @@ class DataTableUI {
       $rowID       = Sanitizing::text( Param::post( 'row_id' ) );
       $rowAction   = Sanitizing::text( Param::post( 'row_action' ) );
 
-      do_action( 'assistant_for_woocommerce_data_table_ui_' . $dataTableID . '_action', $rowID, $rowAction );
-      do_action( 'assistant_for_woocommerce_data_table_ui_action', $dataTableID, $rowID, $rowAction );
+      do_action( 'jetexir_data_table_ui_' . $dataTableID . '_action', $rowID, $rowAction );
+      do_action( 'jetexir_data_table_ui_action', $dataTableID, $rowID, $rowAction );
 
       wp_send_json_error( [
         'error'   => 'not-action',
-        'message' => esc_html__( 'Not registered action for this data table:', 'assistant-for-woocommerce' ) . ' ' . $dataTableID,
+        'message' => esc_html__( 'Not registered action for this data table:', 'jetexir' ) . ' ' . $dataTableID,
       ], 403 );
     }
 
     wp_send_json_error( [
       'error'   => 'nonce-invalid',
-      'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'assistant-for-woocommerce' ),
+      'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'jetexir' ),
       'refresh' => true
     ], 403 );
   }

@@ -1,6 +1,6 @@
 @use "utilities/variables";
 
-:is(.related, .asfowoo-related-products) {
+:is(.related, .jetexir-related-products) {
   .products {
     .product {
       width: auto !important;
@@ -10,7 +10,7 @@
   }
 }
 
-.asfowoo-related-products {
+.jetexir-related-products {
   &.owl-carousel {
     .owl-nav {
       position: absolute;
@@ -22,10 +22,10 @@
       pointer-events: none;
 
       button:is(.owl-prev,.owl-next) {
-        color: var(--asfowoo-element-color, variables.$text);
-        background-color: var(--asfowoo-element-bg-color, variables.$white2);
+        color: var(--jetexir-element-color, variables.$text);
+        background-color: var(--jetexir-element-bg-color, variables.$white2);
         border-radius: 100%;
-        border: var(--asfowoo-element-border-width, 0) solid var(--asfowoo-element-border-color, variables.$border_color);
+        border: var(--jetexir-element-border-width, 0) solid var(--jetexir-element-border-color, variables.$border_color);
         line-height: 1;
         font-size: 30px;
         padding: 0;
@@ -37,9 +37,9 @@
         pointer-events: auto;
 
         &:hover, &:focus {
-          color: var(--asfowoo-element-hover-color, variables.$text);
-          background-color: var(--asfowoo-element-hover-bg-color, variables.$white2);
-          border-color: var(--asfowoo-element-hover-border-color, variables.$border_color);
+          color: var(--jetexir-element-hover-color, variables.$text);
+          background-color: var(--jetexir-element-hover-bg-color, variables.$white2);
+          border-color: var(--jetexir-element-hover-border-color, variables.$border_color);
         }
 
         &.owl-prev {

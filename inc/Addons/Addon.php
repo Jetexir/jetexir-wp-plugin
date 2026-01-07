@@ -1,15 +1,15 @@
 <?php
 
-namespace AssistantForWooCommerce\Addons;
+namespace Jetexir\Addons;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Admin\AdminPages;
-use AssistantForWooCommerce\Admin\AdminSettings;
-use AssistantForWooCommerce\Helper\Assets;
-use AssistantForWooCommerce\Helper\Cache;
-use AssistantForWooCommerce\Helper\DebugTrait;
-use AssistantForWooCommerce\Settings\Settings;
+use Jetexir\Admin\AdminPages;
+use Jetexir\Admin\AdminSettings;
+use Jetexir\Helper\Assets;
+use Jetexir\Helper\Cache;
+use Jetexir\Helper\DebugTrait;
+use Jetexir\Settings\Settings;
 
 abstract class Addon {
   use DebugTrait;
@@ -21,19 +21,19 @@ abstract class Addon {
   public string $currentSection = '';
 
   public function __construct() {
-    add_filter( 'assistant_for_woocommerce_addons', [ $this, 'registerAddon' ] );
-    add_action( 'assistant_for_woocommerce_admin_init', [ $this, 'registerMenu' ] );
-    add_filter( 'assistant_for_woocommerce_settings', [ $this, 'allSettings' ] );
+    add_filter( 'jetexir_addons', [ $this, 'registerAddon' ] );
+    add_action( 'jetexir_admin_init', [ $this, 'registerMenu' ] );
+    add_filter( 'jetexir_settings', [ $this, 'allSettings' ] );
 
     if ( $this->addonID ) {
-      add_filter( 'assistant_for_woocommerce_' . $this->addonID . '_tab_display_notice', '__return_false' );
-      add_filter( 'assistant_for_woocommerce_' . $this->addonID . '_tab_content_display_notice', '__return_true' );
-      add_filter( 'assistant_for_woocommerce_dashboard_addon_links', [ $this, 'addDashboardLink' ] );
+      add_filter( 'jetexir_' . $this->addonID . '_tab_display_notice', '__return_false' );
+      add_filter( 'jetexir_' . $this->addonID . '_tab_content_display_notice', '__return_true' );
+      add_filter( 'jetexir_dashboard_addon_links', [ $this, 'addDashboardLink' ] );
     }
 
     // Register Plugin hooks
     if ( $this->currentTab ) {
-      add_filter( 'assistant_for_woocommerce_' . $this->currentTab . '_settings_sections', [
+      add_filter( 'jetexir_' . $this->currentTab . '_settings_sections', [
         $this,
         'registerAddSectionSettings'
       ] );
@@ -136,19 +136,19 @@ abstract class Addon {
 
   public function registerMenu(): void {
     if ( $this->getInfo( 'has_page', false ) && $this->isActivated() ) {
-      add_filter( 'assistant_for_woocommerce_menus', [ $this, 'addMenu' ] );
+      add_filter( 'jetexir_menus', [ $this, 'addMenu' ] );
 
       if ( $this->getInfo( 'content_header', false ) ) {
-        add_action( 'assistant_for_woocommerce_' . $this->addonID . '_tab_header',
+        add_action( 'jetexir_' . $this->addonID . '_tab_header',
           [ $this, 'displayContentHeader' ], - 10 );
       }
 
       if ( method_exists( $this, 'content' ) ) {
-        add_action( 'assistant_for_woocommerce_' . $this->addonID . '_tab_content', [ $this, 'content' ] );
+        add_action( 'jetexir_' . $this->addonID . '_tab_content', [ $this, 'content' ] );
       }
 
       if ( method_exists( $this, 'settings' ) ) {
-        add_filter( 'assistant_for_woocommerce_' . $this->addonID . '_settings', [ $this, 'settings' ] );
+        add_filter( 'jetexir_' . $this->addonID . '_settings', [ $this, 'settings' ] );
       }
     }
   }

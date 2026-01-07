@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Checkout;
+namespace Jetexir\App\Checkout;
 
 defined( 'ABSPATH' ) || exit;
 

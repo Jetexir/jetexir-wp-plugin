@@ -1,23 +1,23 @@
 @use "utilities/variables";
 
-.asfowoo-product-compare-button {
+.jetexir-product-compare-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: var(--asfowoo-secondary-button-border-width, 0) solid transparent;
-  border-radius: var(--asfowoo-secondary-button-border-radius, 0);
-  color: var(--asfowoo-secondary-button-color, initial);
-  background-color: var(--asfowoo-secondary-button-bg-color, initial);
-  border-color: var(--asfowoo-secondary-button-border-color, initial);
+  border: var(--jetexir-secondary-button-border-width, 0) solid transparent;
+  border-radius: var(--jetexir-secondary-button-border-radius, 0);
+  color: var(--jetexir-secondary-button-color, initial);
+  background-color: var(--jetexir-secondary-button-bg-color, initial);
+  border-color: var(--jetexir-secondary-button-border-color, initial);
 
   &:hover {
-    color: var(--asfowoo-secondary-button-hover-color, initial);
-    background-color: var(--asfowoo-secondary-button-hover-bg-color, initial);
-    border-color: var(--asfowoo-secondary-button-hover-border-color, initial);
+    color: var(--jetexir-secondary-button-hover-color, initial);
+    background-color: var(--jetexir-secondary-button-hover-bg-color, initial);
+    border-color: var(--jetexir-secondary-button-hover-border-color, initial);
   }
 }
 
-.asfowoo-product-compare-wrapper {
+.jetexir-product-compare-wrapper {
   margin: 30px 15px;
   color: #333;
 
@@ -25,31 +25,31 @@
     border-radius: 2px;
   }
 
-  &.asfowoo-product-compare-cols-2 {
-    .asfowoo-product-compare-row {
+  &.jetexir-product-compare-cols-2 {
+    .jetexir-product-compare-row {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  &.asfowoo-product-compare-cols-3 {
-    .asfowoo-product-compare-row {
+  &.jetexir-product-compare-cols-3 {
+    .jetexir-product-compare-row {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
-  &.asfowoo-product-compare-cols-4 {
-    .asfowoo-product-compare-row {
+  &.jetexir-product-compare-cols-4 {
+    .jetexir-product-compare-row {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 
-  .asfowoo-product-compare-row {
+  .jetexir-product-compare-row {
     display: grid;
     border-bottom: 1px solid #e5e5e5;
     padding: 10px 0 20px 0;
 
-    &.asfowoo-product-compare-head {
-      .asfowoo-product-compare-col {
+    &.jetexir-product-compare-head {
+      .jetexir-product-compare-col {
         position: relative;
         display: flex;
         flex-direction: column;
@@ -57,7 +57,7 @@
         align-items: center;
       }
 
-      .asfowoo-button-product-compare {
+      .jetexir-button-product-compare {
         position: absolute;
         left: 5px;
         top: 5px;
@@ -69,13 +69,13 @@
       }
     }
 
-    &.asfowoo-product-compare-row-field {
+    &.jetexir-product-compare-row-field {
       a {
         display: inline-block;
       }
     }
 
-    img.asfowoo-product-compare-brand {
+    img.jetexir-product-compare-brand {
       width: 70px;
       height: auto;
     }
@@ -89,7 +89,7 @@
     color: #df3152;
   }
 
-  .asfowoo-product-compare-field-title {
+  .jetexir-product-compare-field-title {
     color: rgb(129, 133, 139);
     font-size: 1.1rem;
     font-weight: 400;
@@ -97,14 +97,14 @@
     padding-top: 20px;
   }
 
-  .asfowoo-product-compare-add-to-cart {
+  .jetexir-product-compare-add-to-cart {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
   }
 
-  .asfowoo-product-compare-image {
+  .jetexir-product-compare-image {
     max-height: 200px;
     width: auto;
     margin: 0 auto;

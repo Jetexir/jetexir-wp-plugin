@@ -1,13 +1,13 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-.asfowoo-media-wrap {
+.jetexir-media-wrap {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
 
-  .asfowoo-media-placeholder {
+  .jetexir-media-placeholder {
     background-color: variables.$background_light;
     border: 1px dashed variables.$input_border_color;
     border-radius: 10px;
@@ -27,22 +27,22 @@
     }
   }
 
-  .asfowoo-media-images, .asfowoo-media-buttons {
+  .jetexir-media-images, .jetexir-media-buttons {
     display: none;
   }
 
-  &.asfowoo-media-selected {
+  &.jetexir-media-selected {
     background-color: variables.$background_light;
     border: 1px solid variables.$input_border_color;
     border-radius: 10px;
     padding: 15px;
     min-height: 200px;
 
-    .asfowoo-media-placeholder {
+    .jetexir-media-placeholder {
       display: none;
     }
 
-    .asfowoo-media-images {
+    .jetexir-media-images {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -52,7 +52,7 @@
       -ms-user-select: none; /* IE 10 and IE 11 */
       user-select: none; /* Standard syntax */
 
-      .asfowoo-media-image {
+      .jetexir-media-image {
         position: relative;
         overflow: hidden;
 
@@ -75,7 +75,7 @@
           opacity: 0.2;
         }
 
-        .asfowoo-media-image-title {
+        .jetexir-media-image-title {
           position: absolute;
           bottom: 0;
           left: 0;
@@ -101,7 +101,7 @@
       font-size: 0.9em;
     }
 
-    .asfowoo-media-buttons {
+    .jetexir-media-buttons {
       display: inline-flex;
       align-items: center;
       margin-top: auto;

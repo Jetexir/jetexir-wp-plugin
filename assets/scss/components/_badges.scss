@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use "../utilities/variables";
 
-.asfowoo-badge {
+.jetexir-badge {
   padding: 7px 10px;
   border-radius: 5px;
   color: white;
@@ -9,19 +9,19 @@
   font-size: 0.9em;
   background-color: variables.$default__badge;
 
-  &.asfowoo-badge-info {
+  &.jetexir-badge-info {
     background-color: variables.$info__badge;
   }
 
-  &.asfowoo-badge-success {
+  &.jetexir-badge-success {
     background-color: variables.$success__badge;
   }
 
-  &.asfowoo-badge-warning {
+  &.jetexir-badge-warning {
     background-color: variables.$warning__badge;
   }
 
-  &.asfowoo-badge-danger {
+  &.jetexir-badge-danger {
     background-color: variables.$danger__badge;
   }
 }

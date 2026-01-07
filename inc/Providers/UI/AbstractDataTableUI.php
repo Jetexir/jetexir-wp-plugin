@@ -1,8 +1,8 @@
 <?php
 
-namespace AssistantForWooCommerce\Providers\UI;
+namespace Jetexir\Providers\UI;
 
-use AssistantForWooCommerce\Helper\Templates;
+use Jetexir\Helper\Templates;
 
 abstract class AbstractDataTableUI {
   /**
@@ -437,8 +437,8 @@ abstract class AbstractDataTableUI {
       'sortable'             => $this->sortable,
       'modal_add_title'      => empty( $this->modalAddTitle ) ? $this->title : $this->modalAddTitle,
       'modal_edit_title'     => empty( $this->modalEditTitle ) ? $this->title : $this->modalEditTitle,
-      'modal_add_button'     => empty( $this->modalAddNewButton ) ? esc_html__( 'Add new', 'assistant-for-woocommerce' ) : $this->modalAddNewButton,
-      'modal_edit_button'    => empty( $this->modalEditButton ) ? esc_html__( 'Save changes', 'assistant-for-woocommerce' ) : $this->modalEditButton,
+      'modal_add_button'     => empty( $this->modalAddNewButton ) ? esc_html__( 'Add new', 'jetexir' ) : $this->modalAddNewButton,
+      'modal_edit_button'    => empty( $this->modalEditButton ) ? esc_html__( 'Save changes', 'jetexir' ) : $this->modalEditButton,
     );
   }
 

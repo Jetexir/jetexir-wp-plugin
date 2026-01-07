@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Admin;
+namespace Jetexir\Admin;
 
 defined( 'ABSPATH' ) || exit;
 

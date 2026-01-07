@@ -1,13 +1,13 @@
 {
-  "name": "parsa-kafi/assistant-for-woocommerce",
-  "description": "Assistant for WooCommerce",
+  "name": "parsa-kafi/jetexir",
+  "description": "Jetexir",
   "type": "project",
   "scripts": {
-    "assistant-for-woocommerce-autoload": "composer dump-autoload"
+    "jetexir-autoload": "composer dump-autoload"
   },
   "autoload": {
     "psr-4": {
-      "AssistantForWooCommerce\\": [
+      "Jetexir\\": [
         "inc/"
       ]
     }

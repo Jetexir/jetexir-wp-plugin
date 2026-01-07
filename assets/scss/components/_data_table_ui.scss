@@ -1,47 +1,47 @@
 @use "../utilities/variables";
 
-@mixin asfowoo-data-table-ui {
-  .asfowoo-data-table-ui {
+@mixin jetexir-data-table-ui {
+  .jetexir-data-table-ui {
     background-color: variables.$background_light;
     border: 1px solid variables.$border_color;
     padding: 15px;
     border-radius: 10px;
     position: relative;
 
-    .asfowoo-dtu-head {
+    .jetexir-dtu-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 20px;
 
-      .asfowoo-dtu-title-wrap {
+      .jetexir-dtu-title-wrap {
         display: flex;
         align-items: center;
         gap: 15px;
       }
 
-      .asfowoo-dtu-title {
+      .jetexir-dtu-title {
         display: flex;
         flex-direction: column;
         gap: 10px;
         line-height: 1;
       }
 
-      .asfowoo-dtu-description {
+      .jetexir-dtu-description {
         font-size: 0.9em;
         color: variables.$meta;
       }
 
-      .asfowoo-dtu-row-count {
+      .jetexir-dtu-row-count {
 
       }
 
-      .asfowoo-dtu-add-new {
+      .jetexir-dtu-add-new {
         padding: 8px 14px;
       }
     }
 
-    .asfowoo-dtu-body {
+    .jetexir-dtu-body {
       position: relative;
 
       select {
@@ -50,28 +50,28 @@
         padding: 4px 14px;
       }
 
-      > .asfowoo-dtu-actions {
+      > .jetexir-dtu-actions {
         display: flex;
         align-items: center;
         justify-content: space-between;
 
-        &.asfowoo-dtu-actions-top {
+        &.jetexir-dtu-actions-top {
           margin-bottom: 10px;
         }
 
-        &.asfowoo-dtu-actions-bottom {
+        &.jetexir-dtu-actions-bottom {
           margin-top: 10px;
         }
       }
     }
 
-    .asfowoo-dtu-bulk-actions {
+    .jetexir-dtu-bulk-actions {
       display: flex;
       align-items: center;
       gap: 3px;
     }
 
-    table.asfowoo-dtu-table {
+    table.jetexir-dtu-table {
       border-collapse: collapse;
       width: 100%;
       background-color: white;
@@ -82,7 +82,7 @@
         }
       }
 
-      .asfowoo-dtu-sortable-column {
+      .jetexir-dtu-sortable-column {
         width: 35px;
         text-align: center;
       }
@@ -99,7 +99,7 @@
           th {
             background-color: variables.$background_side;
 
-            &.asfowoo-dtu-select-all-wrap {
+            &.jetexir-dtu-select-all-wrap {
               width: 35px;
               text-align: center;
             }
@@ -129,21 +129,21 @@
             &[data-column="is_active"] {
               text-align: center;
 
-              .asfowoo-toggle .asfowoo-toggle-slider {
+              .jetexir-toggle .jetexir-toggle-slider {
                 cursor: default;
               }
             }
           }
 
-          .asfowoo-dtu-actions-wrap {
+          .jetexir-dtu-actions-wrap {
             width: 160px;
 
-            .asfowoo-dtu-actions {
+            .jetexir-dtu-actions {
               display: flex;
               align-items: center;
               gap: 5px;
 
-              .asfowoo-button {
+              .jetexir-button {
                 padding: 5px 10px;
               }
             }
@@ -153,15 +153,15 @@
     }
   }
 
-  &.asfowoo-data-table-ui-modal {
-    .asfowoo-modal-body {
+  &.jetexir-data-table-ui-modal {
+    .jetexir-modal-body {
       min-height: 200px;
 
       > :not(:last-child) {
         margin-bottom: 20px;
       }
 
-      .asfowoo-field-wrap .asfowoo-field-head {
+      .jetexir-field-wrap .jetexir-field-head {
         max-width: 100%;
       }
 
@@ -173,32 +173,32 @@
         max-height: 150px;
       }
 
-      > .asfowoo-field-wrap {
-        .asfowoo-field-head {
+      > .jetexir-field-wrap {
+        .jetexir-field-head {
           label {
             min-width: 150px;
           }
         }
       }
 
-      .asfowoo-grid {
+      .jetexir-grid {
         gap: 20px !important;
       }
 
-      .asfowoo-grid-cols-2 {
+      .jetexir-grid-cols-2 {
         grid-template-columns: 150px auto !important;
       }
 
-      :is(.asfowoo-radio-inline, .asfowoo-checkbox-inline) .asfowoo-title {
+      :is(.jetexir-radio-inline, .jetexir-checkbox-inline) .jetexir-title {
         height: 3.1rem;
         padding: 7px 16px;
       }
     }
 
-    .asfowoo-modal-footer {
+    .jetexir-modal-footer {
       justify-content: space-between;
 
-      .asfowoo-field-head {
+      .jetexir-field-head {
         column-gap: 10px;
       }
     }

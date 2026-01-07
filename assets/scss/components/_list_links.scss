@@ -1,7 +1,7 @@
 @use "../utilities/variables";
 
-@mixin asfowoo-list-links {
-  .asfowoo-list-links {
+@mixin jetexir-list-links {
+  .jetexir-list-links {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -28,7 +28,7 @@
       &:hover {
         text-decoration: none;
 
-        .asfowoo-feed-title {
+        .jetexir-feed-title {
           text-decoration: underline;
           color: variables.$link_hover;
         }
@@ -38,22 +38,22 @@
         display: block;
       }
 
-      .asfowoo-feed-title {
+      .jetexir-feed-title {
         font-weight: bold;
         font-size: 1.2em;
         color: variables.$link;
       }
 
-      .asfowoo-feed-description {
+      .jetexir-feed-description {
 
       }
 
-      .asfowoo-feed-author {
+      .jetexir-feed-author {
         color: variables.$meta;
         font-size: .9em;
       }
 
-      .asfowoo-feed-datetime {
+      .jetexir-feed-datetime {
         color: variables.$meta;
         font-size: .8em;
       }

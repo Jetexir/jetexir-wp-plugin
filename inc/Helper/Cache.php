@@ -1,11 +1,11 @@
 <?php
 
-namespace AssistantForWooCommerce\Helper;
+namespace Jetexir\Helper;
 
 defined( 'ABSPATH' ) || die();
 
 class Cache {
-  private const cacheGroup = ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY;
+  private const cacheGroup = JETEXIR_PLUGIN_KEY;
 
   public static function exists( $key, $useDBCache = true ): bool {
     return self::get( $key, $useDBCache ) !== false;

@@ -1,24 +1,23 @@
 <?php
 
-namespace AssistantForWooCommerce\Admin;
+namespace Jetexir\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Helper\Cache;
-use AssistantForWooCommerce\Helper\Helper;
-use AssistantForWooCommerce\Helper\HTML;
-use AssistantForWooCommerce\Helper\Notice;
-use AssistantForWooCommerce\Helper\Param;
-use AssistantForWooCommerce\Helper\Sanitizing;
-use AssistantForWooCommerce\Helper\Validating;
-use AssistantForWooCommerce\Settings\Settings;
+use Jetexir\Helper\Cache;
+use Jetexir\Helper\HTML;
+use Jetexir\Helper\Notice;
+use Jetexir\Helper\Param;
+use Jetexir\Helper\Sanitizing;
+use Jetexir\Helper\Validating;
+use Jetexir\Settings\Settings;
 
 class AdminSettings {
   private static $settings = [];
 
   public function __construct() {
-    add_action( 'assistant_for_woocommerce_submit_settings_form', [ $this, 'saveForm' ], 0 );
-    //add_filter( 'assistant_for_woocommerce_settings_header_image', [ $this, 'headerImage' ], 0 );
+    add_action( 'jetexir_submit_settings_form', [ $this, 'saveForm' ], 0 );
+    //add_filter( 'jetexir_settings_header_image', [ $this, 'headerImage' ], 0 );
   }
 
   public function headerImage( $image ) {
@@ -62,9 +61,9 @@ class AdminSettings {
           if ( in_array( $setting['type'], [ 'checkbox', 'toggle' ] ) ) {
             // PHPCS ignore reason: Nonce check is already happening before this logic in `AdminPages` class.
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
-            $value = isset( $_POST[ ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . $setting['id'] ] ) ? Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . $setting['id'], $default ) : false;
+            $value = isset( $_POST[ JETEXIR_INPUT_PREFIX . $setting['id'] ] ) ? Param::post( JETEXIR_INPUT_PREFIX . $setting['id'], $default ) : false;
           } else {
-            $value = Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . $setting['id'], $default );
+            $value = Param::post( JETEXIR_INPUT_PREFIX . $setting['id'], $default );
           }
 
           $value = self::sanitizeSetting( $value, $setting );
@@ -77,22 +76,22 @@ class AdminSettings {
             $value = array_values( $value );
           }
 
-          $value = apply_filters( 'assistant_for_woocommerce_setting_value_before_save', $value, $setting );
+          $value = apply_filters( 'jetexir_setting_value_before_save', $value, $setting );
 
           $options[ $setting['id'] ] = $value;
         }
       }
 
-      $options = apply_filters( 'assistant_for_woocommerce_settings_before_save', $options, $tab );
+      $options = apply_filters( 'jetexir_settings_before_save', $options, $tab );
       if ( count( $options ) ) {
         $saved = Settings::saves( $options, $optionsName );
 
         if ( $saved ) {
           Cache::set( 'settings_saved', true );
-          Notice::add( $tab, apply_filters( 'assistant_for_woocommerce_save_settings_success_message', esc_html__( 'Settings saved.', 'assistant-for-woocommerce' ), $tab ), 'success' );
-          do_action( 'assistant_for_woocommerce_save_settings_success', $tab, $currentSection, $options );
+          Notice::add( $tab, apply_filters( 'jetexir_save_settings_success_message', esc_html__( 'Settings saved.', 'jetexir' ), $tab ), 'success' );
+          do_action( 'jetexir_save_settings_success', $tab, $currentSection, $options );
         } else {
-          Notice::add( $tab, apply_filters( 'assistant_for_woocommerce_save_settings_error_message', esc_html__( 'Error saving settings!', 'assistant-for-woocommerce' ), $tab ), 'error' );
+          Notice::add( $tab, apply_filters( 'jetexir_save_settings_error_message', esc_html__( 'Error saving settings!', 'jetexir' ), $tab ), 'error' );
         }
       }
     }
@@ -126,8 +125,8 @@ class AdminSettings {
           ] ) ) {
           $setting['is_repeatable'] = true;
           $default                  = self::getSettingDefault( $setting );
-          $rowKey                   = str_replace( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . $repeatableSettingId . '_', '', ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . $setting['id'] );
-          $value                    = Param::post( ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . $setting['id'], $default );
+          $rowKey                   = str_replace( JETEXIR_INPUT_PREFIX . $repeatableSettingId . '_', '', JETEXIR_INPUT_PREFIX . $setting['id'] );
+          $value                    = Param::post( JETEXIR_INPUT_PREFIX . $setting['id'], $default );
 
           if ( is_array( $value ) ) {
             $count = count( $value );
@@ -228,7 +227,7 @@ class AdminSettings {
     }
 
     if ( isset( $setting['sanitize_options'] ) && method_exists( Sanitizing::class, $setting['sanitize_options'] ) ) {
-      $value = array_map( 'AssistantForWooCommerce\Helper\Sanitizing::' . $setting['sanitize_options'], $value );
+      $value = array_map( 'Jetexir\Helper\Sanitizing::' . $setting['sanitize_options'], $value );
     }
 
     return $value;
@@ -310,14 +309,14 @@ class AdminSettings {
 
   public static function getSettings( $tab ) {
     if ( ! isset( self::$settings[ $tab ] ) ) {
-      self::$settings[ $tab ] = apply_filters( 'assistant_for_woocommerce_' . $tab . '_settings', [] );
+      self::$settings[ $tab ] = apply_filters( 'jetexir_' . $tab . '_settings', [] );
     }
 
     return self::$settings[ $tab ];
   }
 
   public static function allSettings( $tab = null ) {
-    $settings = apply_filters( 'assistant_for_woocommerce_settings', [] );
+    $settings = apply_filters( 'jetexir_settings', [] );
 
     if ( ! is_null( $tab ) ) {
       return ! empty( $settings[ $tab ] ) ? $settings[ $tab ] : false;
@@ -330,15 +329,15 @@ class AdminSettings {
     $optionsName    = $settings['settings_key'] ?? null;
     $currentSection = null;
 
-    //echo '<div class="asfowoo-content-body">';
-    echo '<form method="post" id="asfowoo-settings-form">';
+    //echo '<div class="jetexir-content-body">';
+    echo '<form method="post" id="jetexir-settings-form">';
     wp_nonce_field( 'settings_submit_' . $currentTab, '_form_nonce' );
     if ( self::isSectionMode( $settings ) ) {
       $currentSection  = self::getActiveSection( $settings );
       $currentSettings = $settings['sections'][ $currentSection ]['settings'] ?? [];
       $optionsName     = $settings['sections'][ $currentSection ]['settings_key'] ?? $optionsName;
 
-      do_action( 'assistant_for_woocommerce_section_content', $currentTab, $currentSection, $currentSettings );
+      do_action( 'jetexir_section_content', $currentTab, $currentSection, $currentSettings );
       self::printSettings( $currentSettings, $optionsName );
     } else {
       $currentSettings = $settings['settings'] ?? [];
@@ -465,54 +464,54 @@ class AdminSettings {
     }
 
     $currentSection = self::getActiveSection( $settings );
-    $headerImage    = apply_filters( 'assistant_for_woocommerce_settings_header_image', $settings['header_image'] ?? '', $currentTab, $currentSection, $settings );
+    $headerImage    = apply_filters( 'jetexir_settings_header_image', $settings['header_image'] ?? '', $currentTab, $currentSection, $settings );
     $headerImage    = ! empty( $headerImage ) && Validating::isUrl( $headerImage ) ? $headerImage : false;
 
-    echo '<header id="asfowoo-settings-header" class="asfowoo-header ' . ( $headerImage ? 'asfowoo-has-header-image' : '' ) . '">';
-    echo '<div class="asfowoo-header-title" style="' . ( $headerImage ? 'background-image: url(' . esc_url( $headerImage ) . ');' : '' ) . '">';
+    echo '<header id="jetexir-settings-header" class="jetexir-header ' . ( $headerImage ? 'jetexir-has-header-image' : '' ) . '">';
+    echo '<div class="jetexir-header-title" style="' . ( $headerImage ? 'background-image: url(' . esc_url( $headerImage ) . ');' : '' ) . '">';
     echo '<h1>' . esc_html( $settings['title'] ) . '</h1>';
     if ( ! empty( $settings['desc'] ) ) {
-      echo '<p class="asfowoo-description">' . esc_html( $settings['desc'] ) . '</p>';
+      echo '<p class="jetexir-description">' . esc_html( $settings['desc'] ) . '</p>';
     }
     echo '</div>';
-    //echo '<hr class="asfowoo-header-separator"/>';
-    echo '<div class="asfowoo-header-links">';
+    //echo '<hr class="jetexir-header-separator"/>';
+    echo '<div class="jetexir-header-links">';
     self::printSections( $currentTab, $settings );
     echo '</div>';
     echo '</header>';
 
-    if ( apply_filters( 'assistant_for_woocommerce_' . $currentTab . '_tab_content_display_notice', false ) ) {
+    if ( apply_filters( 'jetexir_' . $currentTab . '_tab_content_display_notice', false ) ) {
       Notice::display( '*' );
       Notice::display( $currentTab );
     }
   }
 
   public static function footerSettings( $currentTab, $currentSection ): void {
-    if ( ! apply_filters( 'assistant_for_woocommerce_settings_display_footer', true, $currentTab, $currentSection ) || ! apply_filters( 'assistant_for_woocommerce_' . $currentTab . '_settings_display_footer', true, $currentSection ) ) {
+    if ( ! apply_filters( 'jetexir_settings_display_footer', true, $currentTab, $currentSection ) || ! apply_filters( 'jetexir_' . $currentTab . '_settings_display_footer', true, $currentSection ) ) {
       return;
     }
 
-    echo '<footer id="asfowoo-settings-footer" class="asfowoo-footer asfowoo-settings-footer">';
+    echo '<footer id="jetexir-settings-footer" class="jetexir-footer jetexir-settings-footer">';
 
     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     echo HTML::button( [
       'id'          => 'settings-submit',
-      'title'       => esc_html( apply_filters( 'assistant_for_woocommerce_settings_submit_button_title', esc_html__( 'Save changes', 'assistant-for-woocommerce' ), $currentTab ) ),
+      'title'       => esc_html( apply_filters( 'jetexir_settings_submit_button_title', esc_html__( 'Save changes', 'jetexir' ), $currentTab ) ),
       'button_type' => 'submit',
-      'class'       => 'asfowoo-button-primary',
+      'class'       => 'jetexir-button-primary',
       'attributes'  => [
-        'form' => 'asfowoo-settings-form'
+        'form' => 'jetexir-settings-form'
       ]
     ] );
 
-    if ( apply_filters( 'assistant_for_woocommerce_' . $currentTab . '_settings_display_reset_button', true ) ) {
+    if ( apply_filters( 'jetexir_' . $currentTab . '_settings_display_reset_button', true ) ) {
       // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
       echo HTML::button( [
         'id'          => 'settings-reset',
-        'title'       => esc_html( apply_filters( 'assistant_for_woocommerce_settings_reset_button_title', esc_html__( 'Discard changes', 'assistant-for-woocommerce' ), $currentTab ) ),
+        'title'       => esc_html( apply_filters( 'jetexir_settings_reset_button_title', esc_html__( 'Discard changes', 'jetexir' ), $currentTab ) ),
         'button_type' => 'reset',
         'attributes'  => [
-          'form' => 'asfowoo-settings-form'
+          'form' => 'jetexir-settings-form'
         ]
       ] );
     }
@@ -528,19 +527,19 @@ class AdminSettings {
         return;
       }
 
-      echo '<div class="asfowoo-section-links"><ul>';
+      echo '<div class="jetexir-section-links"><ul>';
       foreach ( $sections as $key => $section ) {
         echo '<li>';
         echo '<a href="' . esc_url( AdminPages::link( [
             'tab'     => $currentTab,
             'section' => $key
-          ] ) ) . '" title="' . esc_html( $section['desc'] ) . '" class="asfowoo-section-link' . ( $key === $currentSection ? ' asfowoo-section-link-current' : '' ) . '">' . esc_html( $section['title'] ) . '</a>';
+          ] ) ) . '" title="' . esc_html( $section['desc'] ) . '" class="jetexir-section-link' . ( $key === $currentSection ? ' jetexir-section-link-current' : '' ) . '">' . esc_html( $section['title'] ) . '</a>';
         echo '</li>';
       }
       echo '</ul>';
 
-      if ( ! empty( $sections[ $currentSection ]['desc'] ) && apply_filters( 'assistant_for_woocommerce_display_section_description', false, $currentTab, $currentSection ) ) {
-        echo '<p class="asfowoo-description">' . esc_html( $sections[ $currentSection ]['desc'] ) . '</p>';
+      if ( ! empty( $sections[ $currentSection ]['desc'] ) && apply_filters( 'jetexir_display_section_description', false, $currentTab, $currentSection ) ) {
+        echo '<p class="jetexir-description">' . esc_html( $sections[ $currentSection ]['desc'] ) . '</p>';
       }
 
       echo '</div>';

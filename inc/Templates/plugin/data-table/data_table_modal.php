@@ -1,47 +1,47 @@
 <?php
 
-use AssistantForWooCommerce\Helper\HTML;
+use Jetexir\Helper\HTML;
 
 defined( 'ABSPATH' ) or die();
 ?>
 
-<div id="asfowoo-data-table-ui-modal"
-     class="asfowoo-data-table-ui-modal asfowoo-modal asfowoo-modal-large asfowoo-fade assistant-for-woocommerce-wrap"
+<div id="jetexir-data-table-ui-modal"
+     class="jetexir-data-table-ui-modal jetexir-modal jetexir-modal-large jetexir-fade jetexir-wrap"
      tabindex="-1"
      aria-labelledby="waDataTableUiModalLabel" aria-hidden="true"
-     style="--asfowoo-modal-border-width:0; --asfowoo-modal-bg-color:white; --asfowoo-modal-border-radius: 10px; --asfowoo-modal-font-size: 14px">
-  <div class="asfowoo-modal-dialog">
-    <div class="asfowoo-modal-content">
-      <div class="asfowoo-modal-header">
-                        <span class="asfowoo-modal-title"
-                              id="waDataTableUiModalLabel"><?php esc_html_e( 'Add new', 'assistant-for-woocommerce' ) ?></span>
-        <button type="button" class="asfowoo-button asfowoo-button-close" data-asfowoo-dismiss="modal"
-                aria-label="<?php esc_html_e( 'Close', 'assistant-for-woocommerce' ) ?>"></button>
+     style="--jetexir-modal-border-width:0; --jetexir-modal-bg-color:white; --jetexir-modal-border-radius: 10px; --jetexir-modal-font-size: 14px">
+  <div class="jetexir-modal-dialog">
+    <div class="jetexir-modal-content">
+      <div class="jetexir-modal-header">
+                        <span class="jetexir-modal-title"
+                              id="waDataTableUiModalLabel"><?php esc_html_e( 'Add new', 'jetexir' ) ?></span>
+        <button type="button" class="jetexir-button jetexir-button-close" data-jetexir-dismiss="modal"
+                aria-label="<?php esc_html_e( 'Close', 'jetexir' ) ?>"></button>
       </div>
-      <div class="asfowoo-modal-message"></div>
-      <form class="asfowoo-modal-body" onsubmit="return false;">
-        <div class="asfowoo-loader-wrap">
-          <div class="asfowoo-loader"></div>
+      <div class="jetexir-modal-message"></div>
+      <form class="jetexir-modal-body" onsubmit="return false;">
+        <div class="jetexir-loader-wrap">
+          <div class="jetexir-loader"></div>
         </div>
       </form>
 
-      <div class="asfowoo-modal-footer">
+      <div class="jetexir-modal-footer">
         <?php
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo HTML::toggle( array(
           'type'          => 'toggle',
-          'title'         => esc_html__( 'Active', 'assistant-for-woocommerce' ),
+          'title'         => esc_html__( 'Active', 'jetexir' ),
           'id'            => 'dtu-row-active',
           'value'         => 1,
           'setting_value' => 1
         ) );
         ?>
-        <div class="asfowoo-modal-buttons">
-          <button class="asfowoo-button asfowoo-button-secondary" data-asfowoo-dismiss="modal" type="button">
-            <?php esc_html_e( 'Close', 'assistant-for-woocommerce' ) ?>
+        <div class="jetexir-modal-buttons">
+          <button class="jetexir-button jetexir-button-secondary" data-jetexir-dismiss="modal" type="button">
+            <?php esc_html_e( 'Close', 'jetexir' ) ?>
           </button>
-          <button class="asfowoo-button asfowoo-button-primary" type="button">
-            <?php esc_html_e( 'Add', 'assistant-for-woocommerce' ) ?>
+          <button class="jetexir-button jetexir-button-primary" type="button">
+            <?php esc_html_e( 'Add', 'jetexir' ) ?>
           </button>
         </div>
       </div>

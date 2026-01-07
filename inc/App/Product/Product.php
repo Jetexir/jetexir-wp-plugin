@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Product;
+namespace Jetexir\App\Product;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,12 +26,12 @@ class Product {
    */
   public static function getFields(): array {
     return array(
-      'price'      => esc_html__( 'Price', 'assistant-for-woocommerce' ),
-      'stock'      => esc_html__( 'Stock', 'assistant-for-woocommerce' ),
-      'rating'     => esc_html__( 'Rating', 'assistant-for-woocommerce' ),
-      'brand'      => esc_html__( 'Brand', 'assistant-for-woocommerce' ),
-      'dimensions' => esc_html__( 'Dimensions', 'assistant-for-woocommerce' ),
-      'weight'     => esc_html__( 'Weight', 'assistant-for-woocommerce' ),
+      'price'      => esc_html__( 'Price', 'jetexir' ),
+      'stock'      => esc_html__( 'Stock', 'jetexir' ),
+      'rating'     => esc_html__( 'Rating', 'jetexir' ),
+      'brand'      => esc_html__( 'Brand', 'jetexir' ),
+      'dimensions' => esc_html__( 'Dimensions', 'jetexir' ),
+      'weight'     => esc_html__( 'Weight', 'jetexir' ),
     );
   }
 }

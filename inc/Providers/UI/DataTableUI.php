@@ -1,6 +1,6 @@
 <?php
 
-namespace AssistantForWooCommerce\Providers\UI;
+namespace Jetexir\Providers\UI;
 
 class DataTableUI extends AbstractDataTableUI {
 

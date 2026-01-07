@@ -1,32 +1,32 @@
 <?php
 
-namespace AssistantForWooCommerce\App\Cart;
+namespace Jetexir\App\Cart;
 
 defined( 'ABSPATH' ) || exit;
 
-use AssistantForWooCommerce\Addons\Addon;
-use AssistantForWooCommerce\Helper\{Assets, Cache, Nonce, Param, Sanitizing, Templates, User, WooCommerce, WordPress};
-use AssistantForWooCommerce\Interfaces\AddonInterface;
+use Jetexir\Addons\Addon;
+use Jetexir\Helper\{Assets, Cache, Nonce, Param, Sanitizing, Templates, User, WooCommerce, WordPress};
+use Jetexir\Interfaces\AddonInterface;
 
 class FlyCart extends Addon implements AddonInterface {
   public string $addonID = 'fly-cart';
   public string $currentTab = 'cart';
 
   public function initAction(): void {
-    add_action( 'wp_ajax_assistant_for_woocommerce_fly_cart_update', [ $this, 'updateCart' ] );
-    add_action( 'wp_ajax_nopriv_assistant_for_woocommerce_fly_cart_update', [ $this, 'updateCart' ] );
-    add_action( 'wp_ajax_assistant_for_woocommerce_fly_cart_items_count', [ $this, 'getCartItemCount' ] );
-    add_action( 'wp_ajax_nopriv_assistant_for_woocommerce_fly_cart_items_count', [ $this, 'getCartItemCount' ] );
+    add_action( 'wp_ajax_jetexir_fly_cart_update', [ $this, 'updateCart' ] );
+    add_action( 'wp_ajax_nopriv_jetexir_fly_cart_update', [ $this, 'updateCart' ] );
+    add_action( 'wp_ajax_jetexir_fly_cart_items_count', [ $this, 'getCartItemCount' ] );
+    add_action( 'wp_ajax_nopriv_jetexir_fly_cart_items_count', [ $this, 'getCartItemCount' ] );
   }
 
   public function templateRedirectAction(): void {
     if ( ! $this->checkHide() && ( ! WooCommerce::isComingSoon() || User::can( 'manage_options' ) ) ) {
-      add_filter( 'assistant_for_woocommerce_site_fly_icons', [ $this, 'addFlyIcon' ] );
-      add_action( 'assistant_for_woocommerce_site_modals', [ $this, 'printCart' ] );
-      add_action( 'assistant_for_woocommerce_fly_cart_modal_body', [ $this, 'printCartBody' ] );
+      add_filter( 'jetexir_site_fly_icons', [ $this, 'addFlyIcon' ] );
+      add_action( 'jetexir_site_modals', [ $this, 'printCart' ] );
+      add_action( 'jetexir_fly_cart_modal_body', [ $this, 'printCartBody' ] );
 
       if ( $this->getSetting( 'fly_cart_overlay_layer', true ) ) {
-        add_filter( 'assistant_for_woocommerce_site_modal_overlay', '__return_true' );
+        add_filter( 'jetexir_site_modal_overlay', '__return_true' );
       }
     }
   }
@@ -40,7 +40,7 @@ class FlyCart extends Addon implements AddonInterface {
 
     wp_send_json_error( [
       'error'   => 'nonce-invalid',
-      'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'assistant-for-woocommerce' ),
+      'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'jetexir' ),
       'refresh' => true
     ], 403 );
   }
@@ -67,7 +67,7 @@ class FlyCart extends Addon implements AddonInterface {
 
     wp_send_json_error( [
       'error'   => 'nonce-invalid',
-      'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'assistant-for-woocommerce' ),
+      'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'jetexir' ),
       'refresh' => true
     ], 403 );
   }
@@ -76,22 +76,22 @@ class FlyCart extends Addon implements AddonInterface {
     $echo = ! is_bool( $echo ) || $echo;
 
     ob_start();
-    echo '<div class="asfowoo-loader-wrap" style="display: none"><div class="asfowoo-loader"></div></div>';
+    echo '<div class="jetexir-loader-wrap" style="display: none"><div class="jetexir-loader"></div></div>';
 
     if ( ! WordPress::isAjax() && $this->getSetting( 'fly_cart_reload_page_load', true ) ) {
-      echo '<p>' . esc_html__( 'Loading...', 'assistant-for-woocommerce' ) . '</p>';
+      echo '<p>' . esc_html__( 'Loading...', 'jetexir' ) . '</p>';
 
     } else {
       $cart = WooCommerce::getCart();
 
       if ( $cart->is_empty() ) {
-        echo '<p>' . esc_html( $this->getSetting( 'fly_cart_empty_message', esc_html__( 'Your cart is currently empty!', 'assistant-for-woocommerce' ) ) ) . '</p>';
+        echo '<p>' . esc_html( $this->getSetting( 'fly_cart_empty_message', esc_html__( 'Your cart is currently empty!', 'jetexir' ) ) ) . '</p>';
 
       } else {
         $itemPrice       = $this->getSetting( 'fly_cart_item_price', 'price' );
         $quantityButtons = $this->getSetting( 'fly_cart_quantity_buttons', true );
 
-        echo '<div class="asfowoo-fly-cart-items asfowoo-product-list-wrap">';
+        echo '<div class="jetexir-fly-cart-items jetexir-product-list-wrap">';
         $items = $cart->get_cart();
 
         foreach ( $items as $itemKey => $item ) {
@@ -104,33 +104,33 @@ class FlyCart extends Addon implements AddonInterface {
           $maxValue    = $_product->get_max_purchase_quantity();
           $buttons     = $quantityButtons && ! ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() );
 
-          echo '<div class="asfowoo-fly-cart-item asfowoo-product-item-wrap" data-item-key="' . esc_html( $itemKey ) . '" data-product-id="' . esc_html( $productID ) . '">';
-          echo '<a href="' . esc_url( $productLink ) . '" class="asfowoo-fly-cart-item-image asfowoo-product-item-image">' . wp_kses_post( $_product->get_image() ) . '</a>';
+          echo '<div class="jetexir-fly-cart-item jetexir-product-item-wrap" data-item-key="' . esc_html( $itemKey ) . '" data-product-id="' . esc_html( $productID ) . '">';
+          echo '<a href="' . esc_url( $productLink ) . '" class="jetexir-fly-cart-item-image jetexir-product-item-image">' . wp_kses_post( $_product->get_image() ) . '</a>';
 
-          echo '<div class="asfowoo-fly-cart-item-info asfowoo-product-item-info">';
-          echo '<a href="' . esc_url( $productLink ) . '" class="asfowoo-fly-cart-item-title asfowoo-product-item-title">' . esc_html( $name ) . '</a>';
+          echo '<div class="jetexir-fly-cart-item-info jetexir-product-item-info">';
+          echo '<a href="' . esc_url( $productLink ) . '" class="jetexir-fly-cart-item-title jetexir-product-item-title">' . esc_html( $name ) . '</a>';
           if ( $itemPrice === 'price' ) {
-            echo sprintf( '<div class="asfowoo-fly-cart-item-price asfowoo-product-item-price">%s</div>', wp_kses_post( $_product->get_price_html() ) );
+            echo sprintf( '<div class="jetexir-fly-cart-item-price jetexir-product-item-price">%s</div>', wp_kses_post( $_product->get_price_html() ) );
 
           } elseif ( $itemPrice === 'subtotal' ) {
-            echo sprintf( '<div class="asfowoo-fly-cart-item-price asfowoo-product-item-price">%s</div>', wp_kses_post( WC()->cart->get_product_subtotal( $_product, $item->quantity ) ) );
+            echo sprintf( '<div class="jetexir-fly-cart-item-price jetexir-product-item-price">%s</div>', wp_kses_post( WC()->cart->get_product_subtotal( $_product, $item->quantity ) ) );
           }
           echo '</div>';
 
-          echo '<div class="asfowoo-fly-cart-item-actions asfowoo-product-item-actions">';
+          echo '<div class="jetexir-fly-cart-item-actions jetexir-product-item-actions">';
 
-          echo '<div class="asfowoo-fly-cart-item-quantity ' . ( $buttons ? 'asfowoo-fly-cart-item-quantity-buttons asfowoo-appearance-text-field' : '' ) . '">';
+          echo '<div class="jetexir-fly-cart-item-quantity ' . ( $buttons ? 'jetexir-fly-cart-item-quantity-buttons jetexir-appearance-text-field' : '' ) . '">';
           if ( $buttons ) {
-            echo '<button type="button" data-action="minus" aria-label="' . esc_html__( 'Reduce quantity', 'assistant-for-woocommerce' ) . '">-</button>';
+            echo '<button type="button" data-action="minus" aria-label="' . esc_html__( 'Reduce quantity', 'jetexir' ) . '">-</button>';
           }
 
           if ( ( $maxValue && $minValue === $maxValue ) || $_product->is_sold_individually() ) {
-            echo '<span class="asfowoo-fly-cart-item-quantity-value">' . esc_html( $item->quantity ) . '</span>';
+            echo '<span class="jetexir-fly-cart-item-quantity-value">' . esc_html( $item->quantity ) . '</span>';
           } else {
-            add_filter( 'assistant_for_woocommerce_quantity_input_display_plus_minus', '__return_false' );
+            add_filter( 'jetexir_quantity_input_display_plus_minus', '__return_false' );
             $quantity = isset( $item->quantity ) ? wc_stock_amount( $item->quantity ) : $_product->get_min_purchase_quantity();
             woocommerce_quantity_input( [
-              'input_name'  => ASSISTANTFORWOOCOMMERCE_INPUT_PREFIX . 'quantity_' . $productID,
+              'input_name'  => JETEXIR_INPUT_PREFIX . 'quantity_' . $productID,
               'input_value' => $quantity,
               'min_value'   => $minValue,
               'max_value'   => $maxValue,
@@ -138,12 +138,12 @@ class FlyCart extends Addon implements AddonInterface {
           }
 
           if ( $buttons ) {
-            echo '<button type="button" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'assistant-for-woocommerce' ) . '">+</button>';
+            echo '<button type="button" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'jetexir' ) . '">+</button>';
           }
 
           echo '</div>';
 
-          echo '<a href="#" class="asfowoo-fly-cart-item-remove asfowoo-flex asfowoo-product-item-remove" ><i class="asfowoo-icon-cross"></i> ' . esc_html__( 'Remove', 'assistant-for-woocommerce' ) . '</a>';
+          echo '<a href="#" class="jetexir-fly-cart-item-remove jetexir-flex jetexir-product-item-remove" ><i class="jetexir-icon-cross"></i> ' . esc_html__( 'Remove', 'jetexir' ) . '</a>';
           echo '</div>';
 
           echo '</div>';
@@ -152,10 +152,10 @@ class FlyCart extends Addon implements AddonInterface {
         echo '</div>';
 
         if ( $this->getSetting( 'fly_cart_subtotal', true ) ) {
-          echo '<div class="asfowoo-fly-cart-subtotal asfowoo-fly-cart-meta asfowoo-flex"><span>' . esc_html__( 'Subtotal', 'assistant-for-woocommerce' ) . '</span>' . wp_kses_post( $cart->get_cart_subtotal() ) . '</div>';
+          echo '<div class="jetexir-fly-cart-subtotal jetexir-fly-cart-meta jetexir-flex"><span>' . esc_html__( 'Subtotal', 'jetexir' ) . '</span>' . wp_kses_post( $cart->get_cart_subtotal() ) . '</div>';
         }
         if ( $this->getSetting( 'fly_cart_total', true ) ) {
-          echo '<div class="asfowoo-fly-cart-total asfowoo-fly-cart-meta asfowoo-flex"><span>' . esc_html__( 'Total', 'assistant-for-woocommerce' ) . '</span>' . wp_kses_post( $cart->get_cart_total() ) . '</div>';
+          echo '<div class="jetexir-fly-cart-total jetexir-fly-cart-meta jetexir-flex"><span>' . esc_html__( 'Total', 'jetexir' ) . '</span>' . wp_kses_post( $cart->get_cart_total() ) . '</div>';
         }
       }
     }
@@ -176,14 +176,14 @@ class FlyCart extends Addon implements AddonInterface {
     $icons[] = array(
       'id'          => $this->addonID,
       'tag'         => 'a',
-      'title'       => $this->getSetting( 'fly_cart_title', esc_html__( 'Cart', 'assistant-for-woocommerce' ) ),
-      'icon'        => self::getBasketIcons( $this->getSetting( 'fly_cart_icon', 'asfowoo-icon-shopping-cart' ), true ),
+      'title'       => $this->getSetting( 'fly_cart_title', esc_html__( 'Cart', 'jetexir' ) ),
+      'icon'        => self::getBasketIcons( $this->getSetting( 'fly_cart_icon', 'jetexir-icon-shopping-cart' ), true ),
       'count_badge' => WooCommerce::getCartItemsCount(),
       'attributes'  => array(
-        'class'               => 'asfowoo-fly-cart',
+        'class'               => 'jetexir-fly-cart',
         'href'                => '#',
-        'data-asfowoo-toggle' => 'modal',
-        'data-asfowoo-target' => '#asfowoo-fly-cart-modal'
+        'data-jetexir-toggle' => 'modal',
+        'data-jetexir-target' => '#jetexir-fly-cart-modal'
       ),
       'position'    => $this->getSetting( 'fly_cart_position', 'bottom-left' ),
     );
@@ -223,7 +223,7 @@ class FlyCart extends Addon implements AddonInterface {
       $hide = true;
     }
 
-    $hide = apply_filters( 'assistant_for_woocommerce_fly_cart_hide', $hide );
+    $hide = apply_filters( 'jetexir_fly_cart_hide', $hide );
 
     Cache::set( 'fly_cart_hide', $hide );
 
@@ -232,27 +232,27 @@ class FlyCart extends Addon implements AddonInterface {
 
   public static function getBasketIcons( $icon = null, $tag = false ) {
     $icons = array(
-      'asfowoo-icon-shopping-cart',
-      'asfowoo-icon-shopping-cart1',
-      'asfowoo-icon-shopping-cart2',
-      'asfowoo-icon-shopping-cart3',
-      'asfowoo-icon-shopping-cart4',
-      'asfowoo-icon-shopping-cart5',
-      'asfowoo-icon-shopping-cart6',
-      'asfowoo-icon-shopping-cart7',
-      'asfowoo-icon-shopping-bag',
-      'asfowoo-icon-shopping-bag1',
-      'asfowoo-icon-shopping-basket',
-      'asfowoo-icon-shopping-basket1',
-      'asfowoo-icon-shopping-basket2',
-      'asfowoo-icon-shopping-basket3',
+      'jetexir-icon-shopping-cart',
+      'jetexir-icon-shopping-cart1',
+      'jetexir-icon-shopping-cart2',
+      'jetexir-icon-shopping-cart3',
+      'jetexir-icon-shopping-cart4',
+      'jetexir-icon-shopping-cart5',
+      'jetexir-icon-shopping-cart6',
+      'jetexir-icon-shopping-cart7',
+      'jetexir-icon-shopping-bag',
+      'jetexir-icon-shopping-bag1',
+      'jetexir-icon-shopping-basket',
+      'jetexir-icon-shopping-basket1',
+      'jetexir-icon-shopping-basket2',
+      'jetexir-icon-shopping-basket3',
     );
 
     if ( is_null( $icon ) ) {
       return $icons;
     }
 
-    $icon = in_array( $icon, $icons, true ) ? $icon : 'asfowoo-icon-shopping-cart';
+    $icon = in_array( $icon, $icons, true ) ? $icon : 'jetexir-icon-shopping-cart';
 
     return $tag ? '<i class="' . $icon . '"></i>' : $icon;
   }
@@ -264,47 +264,47 @@ class FlyCart extends Addon implements AddonInterface {
       $basketIcons[ $icon ] = '<i class="' . $icon . '"></i>';
     }
     $sections[ $this->addonID ] = array(
-      'title'        => esc_html__( 'Fly Cart', 'assistant-for-woocommerce' ),
-      'desc'         => esc_html__( 'Fly Cart', 'assistant-for-woocommerce' ),
+      'title'        => esc_html__( 'Fly Cart', 'jetexir' ),
+      'desc'         => esc_html__( 'Fly Cart', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => [
         'fly_cart_start_grid_icon' => array(
           'id'    => 'fly_cart_start_grid_icon',
-          'title' => esc_html__( 'Fly Cart Icon', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Fly Cart Icon', 'jetexir' ),
           'type'  => 'startGrid',
         ),
         'fly_cart_position'        => array(
           'id'       => 'fly_cart_position',
-          'title'    => esc_html__( 'Position', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Position', 'jetexir' ),
           'type'     => 'select',
           'options'  => array(
-            'top-left'     => esc_html__( 'Top Left', 'assistant-for-woocommerce' ),
-            'top-right'    => esc_html__( 'Top Right', 'assistant-for-woocommerce' ),
-            'bottom-left'  => esc_html__( 'Bottom Left', 'assistant-for-woocommerce' ),
-            'bottom-right' => esc_html__( 'Bottom Right', 'assistant-for-woocommerce' ),
+            'top-left'     => esc_html__( 'Top Left', 'jetexir' ),
+            'top-right'    => esc_html__( 'Top Right', 'jetexir' ),
+            'bottom-left'  => esc_html__( 'Bottom Left', 'jetexir' ),
+            'bottom-right' => esc_html__( 'Bottom Right', 'jetexir' ),
           ),
           'default'  => 'bottom-left',
           'sanitize' => 'text'
         ),
         'fly_cart_icon'            => array(
           'id'       => 'fly_cart_icon',
-          'title'    => esc_html__( 'Icon', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Icon', 'jetexir' ),
           'type'     => 'radioInline',
-          'default'  => 'asfowoo-icon-shopping-cart',
+          'default'  => 'jetexir-icon-shopping-cart',
           'options'  => $basketIcons,
           'sanitize' => 'text'
         ),
         'fly_cart_title'           => array(
           'id'      => 'fly_cart_title',
-          'title'   => esc_html__( 'Title', 'assistant-for-woocommerce' ),
+          'title'   => esc_html__( 'Title', 'jetexir' ),
           'type'    => 'text',
-          'default' => esc_html__( 'Cart', 'assistant-for-woocommerce' )
+          'default' => esc_html__( 'Cart', 'jetexir' )
         ),
         'fly_cart_empty_message'   => array(
           'id'      => 'fly_cart_empty_message',
-          'title'   => esc_html__( 'Empty shopping cart message', 'assistant-for-woocommerce' ),
+          'title'   => esc_html__( 'Empty shopping cart message', 'jetexir' ),
           'type'    => 'text',
-          'default' => esc_html__( 'Your cart is currently empty!', 'assistant-for-woocommerce' )
+          'default' => esc_html__( 'Your cart is currently empty!', 'jetexir' )
         ),
         'fly_cart_end_grid_icon'   => array(
           'type' => 'endGrid',
@@ -312,23 +312,23 @@ class FlyCart extends Addon implements AddonInterface {
 
         'fly_cart_start_grid_modal'         => array(
           'id'    => 'fly_cart_start_grid_modal',
-          'title' => esc_html__( 'Cart Modal', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Cart Modal', 'jetexir' ),
           'type'  => 'startGrid',
         ),
         'fly_cart_item_price'               => array(
           'id'       => 'fly_cart_item_price',
-          'title'    => esc_html__( 'Product price', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Product price', 'jetexir' ),
           'type'     => 'select',
           'options'  => array(
-            'price'    => esc_html__( 'Price', 'assistant-for-woocommerce' ),
-            'subtotal' => esc_html__( 'Subtotal', 'assistant-for-woocommerce' ),
+            'price'    => esc_html__( 'Price', 'jetexir' ),
+            'subtotal' => esc_html__( 'Subtotal', 'jetexir' ),
           ),
           'default'  => 'price',
           'sanitize' => 'text'
         ),
         'fly_cart_quantity_buttons'         => array(
           'id'       => 'fly_cart_quantity_buttons',
-          'title'    => esc_html__( 'Quantity plus/minus buttons', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Quantity plus/minus buttons', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -336,7 +336,7 @@ class FlyCart extends Addon implements AddonInterface {
         ),
         'fly_cart_subtotal'                 => array(
           'id'       => 'fly_cart_subtotal',
-          'title'    => esc_html__( 'Subtotal', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Subtotal', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -344,14 +344,14 @@ class FlyCart extends Addon implements AddonInterface {
         ),
         'fly_cart_total'                    => array(
           'id'       => 'fly_cart_total',
-          'title'    => esc_html__( 'Total', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Total', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
           'sanitize' => 'bool'
         ),
         'start_inline_elements_cart_button' => array(
-          'title' => esc_html__( 'Cart button', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Cart button', 'jetexir' ),
           'type'  => 'startInlineElements',
         ),
         'fly_cart_cart_button_enable'       => array(
@@ -364,14 +364,14 @@ class FlyCart extends Addon implements AddonInterface {
         'fly_cart_cart_button'              => array(
           'id'      => 'fly_cart_cart_button',
           'type'    => 'text',
-          'default' => esc_html__( 'Cart', 'assistant-for-woocommerce' )
+          'default' => esc_html__( 'Cart', 'jetexir' )
         ),
         'end_inline_elements_cart_button'   => array(
           'type' => 'endInlineElements',
         ),
 
         'start_inline_elements_checkout_button' => array(
-          'title' => esc_html__( 'Checkout button', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Checkout button', 'jetexir' ),
           'type'  => 'startInlineElements',
         ),
         'fly_cart_checkout_button_enable'       => array(
@@ -384,15 +384,15 @@ class FlyCart extends Addon implements AddonInterface {
         'fly_cart_checkout_button'              => array(
           'id'      => 'fly_cart_checkout_button',
           'type'    => 'text',
-          'default' => esc_html__( 'Checkout', 'assistant-for-woocommerce' )
+          'default' => esc_html__( 'Checkout', 'jetexir' )
         ),
         'end_inline_elements_checkout_button'   => array(
           'type' => 'endInlineElements',
         ),
         'fly_cart_reload_page_load'             => array(
           'id'       => 'fly_cart_reload_page_load',
-          'title'    => esc_html__( 'Reload cart', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Reload the shopping cart after the page opens.', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Reload cart', 'jetexir' ),
+          'desc'     => esc_html__( 'Reload the shopping cart after the page opens.', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -400,7 +400,7 @@ class FlyCart extends Addon implements AddonInterface {
         ),
         'fly_cart_overlay_layer'                => array(
           'id'       => 'fly_cart_overlay_layer',
-          'title'    => esc_html__( 'Overlay layer', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Overlay layer', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => true,
@@ -412,13 +412,13 @@ class FlyCart extends Addon implements AddonInterface {
 
         'fly_cart_start_grid_hide'  => array(
           'id'    => 'fly_cart_start_grid_icon',
-          'title' => esc_html__( 'Hide on', 'assistant-for-woocommerce' ),
+          'title' => esc_html__( 'Hide on', 'jetexir' ),
           'type'  => 'startGrid',
         ),
         'fly_cart_hide_on_home'     => array(
           'id'       => 'fly_cart_hide_on_home',
-          'title'    => esc_html__( 'Home', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Hide on Home page', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Home', 'jetexir' ),
+          'desc'     => esc_html__( 'Hide on Home page', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => false,
@@ -426,8 +426,8 @@ class FlyCart extends Addon implements AddonInterface {
         ),
         'fly_cart_hide_on_blog'     => array(
           'id'       => 'fly_cart_hide_on_blog',
-          'title'    => esc_html__( 'Blog', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Hide on Blog page', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Blog', 'jetexir' ),
+          'desc'     => esc_html__( 'Hide on Blog page', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => false,
@@ -435,8 +435,8 @@ class FlyCart extends Addon implements AddonInterface {
         ),
         'fly_cart_hide_on_posts'    => array(
           'id'       => 'fly_cart_hide_on_posts',
-          'title'    => esc_html__( 'Posts', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Hide on Posts', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Posts', 'jetexir' ),
+          'desc'     => esc_html__( 'Hide on Posts', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => false,
@@ -444,8 +444,8 @@ class FlyCart extends Addon implements AddonInterface {
         ),
         'fly_cart_hide_on_cart'     => array(
           'id'       => 'fly_cart_hide_on_cart',
-          'title'    => esc_html__( 'Cart', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Hide on Cart page', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Cart', 'jetexir' ),
+          'desc'     => esc_html__( 'Hide on Cart page', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => false,
@@ -453,8 +453,8 @@ class FlyCart extends Addon implements AddonInterface {
         ),
         'fly_cart_hide_on_checkout' => array(
           'id'       => 'fly_cart_hide_on_checkout',
-          'title'    => esc_html__( 'Checkout', 'assistant-for-woocommerce' ),
-          'desc'     => esc_html__( 'Hide on Checkout page', 'assistant-for-woocommerce' ),
+          'title'    => esc_html__( 'Checkout', 'jetexir' ),
+          'desc'     => esc_html__( 'Hide on Checkout page', 'jetexir' ),
           'type'     => 'toggle',
           'value'    => 1,
           'default'  => false,
@@ -462,7 +462,7 @@ class FlyCart extends Addon implements AddonInterface {
         ),
         'fly_cart_hide_on_pages'    => array(
           'id'                => 'fly_cart_hide_on_pages',
-          'title'             => esc_html__( 'Hide on Pages', 'assistant-for-woocommerce' ),
+          'title'             => esc_html__( 'Hide on Pages', 'jetexir' ),
           'type'              => 'postSelect',
           'args'              => array(
             'post_type' => 'page'
@@ -487,9 +487,9 @@ class FlyCart extends Addon implements AddonInterface {
 
     return array(
       'id'             => $this->addonID,
-      'title'          => esc_html__( 'Fly Cart', 'assistant-for-woocommerce' ),
-      'desc'           => esc_html__( 'Floating Cart for WooCommerce', 'assistant-for-woocommerce' ),
-      'tags'           => [ esc_html__( 'Cart', 'assistant-for-woocommerce' ) ],
+      'title'          => esc_html__( 'Fly Cart', 'jetexir' ),
+      'desc'           => esc_html__( 'Floating Cart for WooCommerce', 'jetexir' ),
+      'tags'           => [ esc_html__( 'Cart', 'jetexir' ) ],
       'cat'            => 'cart',
       'icon'           => $icon,
       'more_info_link' => 'https://parsa.ws',
@@ -499,17 +499,17 @@ class FlyCart extends Addon implements AddonInterface {
 
   public function wpEnqueueScriptsAction(): void {
     $pluginVersion = Assets::getVersion();
-    $debugName     = ASSISTANTFORWOOCOMMERCE_DEBUG_MODE ? '' : '.min';
+    $debugName     = JETEXIR_DEBUG_MODE ? '' : '.min';
 
-    wp_enqueue_style( ASSISTANTFORWOOCOMMERCE_PLUGIN_KEY . '-fly-cart-style',
+    wp_enqueue_style( JETEXIR_PLUGIN_KEY . '-fly-cart-style',
       Assets::url( 'css/fly-cart' . $debugName . '.css' ),
       false, $pluginVersion );
 
-    wp_enqueue_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-fly-cart-script',
+    wp_enqueue_script( JETEXIR_PLUGIN_SLUG . '-fly-cart-script',
       Assets::url( 'js/fly-cart.min.js' ),
-      [ ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
+      [ JETEXIR_PLUGIN_SLUG . '-global' ], $pluginVersion, [ 'in_footer' => true ] );
 
-    wp_localize_script( ASSISTANTFORWOOCOMMERCE_PLUGIN_SLUG . '-fly-cart-script', ASSISTANTFORWOOCOMMERCE_PLUGIN_KEYCAP . 'FlyCart', array(
+    wp_localize_script( JETEXIR_PLUGIN_SLUG . '-fly-cart-script', JETEXIR_PLUGIN_KEYCAP . 'FlyCart', array(
       'reloadOnLoad' => Sanitizing::int( $this->getSetting( 'fly_cart_reload_page_load', true ) )
     ) );
   }

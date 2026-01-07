@@ -1,6 +1,6 @@
 <?php
 
-use AssistantForWooCommerce\Providers\UI\AbstractDataTableUI;
+use Jetexir\Providers\UI\AbstractDataTableUI;
 
 defined( 'ABSPATH' ) or die();
 
@@ -8,14 +8,14 @@ if ( ! isset( $args ) || ! isset( $args[ $args['bulk_action_position'] . '_bulk_
   return;
 }
 ?>
-<div class="asfowoo-dtu-actions asfowoo-dtu-actions-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
+<div class="jetexir-dtu-actions jetexir-dtu-actions-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
   <?php
   if ( $args['has_bulk_action'] ) {
     ?>
     <div
-      class="asfowoo-dtu-bulk-actions asfowoo-dtu-bulk-actions-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
+      class="jetexir-dtu-bulk-actions jetexir-dtu-bulk-actions-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
       <label for="bulk-action-selector-<?php echo esc_html( $args['bulk_action_position'] ) ?>"
-             class="screen-reader-text"><?php esc_html_e( 'Select bulk action', 'assistant-for-woocommerce' ) ?></label>
+             class="screen-reader-text"><?php esc_html_e( 'Select bulk action', 'jetexir' ) ?></label>
       <select name="action" id="bulk-action-selector-<?php echo esc_html( $args['bulk_action_position'] ) ?>">
         <option value="">---</option>
         <?php
@@ -26,13 +26,13 @@ if ( ! isset( $args ) || ! isset( $args[ $args['bulk_action_position'] . '_bulk_
         }
         ?>
       </select>
-      <button class="asfowoo-button asfowoo-button-secondary"
-              type="button"><?php esc_html_e( 'Apply', 'assistant-for-woocommerce' ) ?></button>
+      <button class="jetexir-button jetexir-button-secondary"
+              type="button"><?php esc_html_e( 'Apply', 'jetexir' ) ?></button>
     </div>
   <?php }
 
   if ( $args['sortable'] ) {
-    echo '<button class="asfowoo-button asfowoo-button-secondary asfowoo-dtu-save-changes" type="button" disabled>' . esc_html__( 'Save changes', 'assistant-for-woocommerce' ) . '</button>';
+    echo '<button class="jetexir-button jetexir-button-secondary jetexir-dtu-save-changes" type="button" disabled>' . esc_html__( 'Save changes', 'jetexir' ) . '</button>';
   }
   ?>
 </div>

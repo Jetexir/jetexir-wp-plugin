@@ -2,24 +2,24 @@
 @use "../utilities/variables";
 
 .#{variables.$plugin_key}-wrap {
-  .asfowoo-content {
-    > .asfowoo-notices {
+  .jetexir-content {
+    > .jetexir-notices {
       padding: 20px 30px 0 30px;
     }
 
-    > .asfowoo-notices + .asfowoo-notices {
+    > .jetexir-notices + .jetexir-notices {
       padding-top: 0;
     }
   }
 }
 
-.asfowoo-notices {
+.jetexir-notices {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 10px;
 
-  .asfowoo-notice {
+  .jetexir-notice {
     color: variables.$default;
     background-color: variables.$default_light;
     border-radius: 10px;
@@ -52,7 +52,7 @@
       background-color: color.scale(variables.$default_light, $lightness: -5%);
     }
 
-    &.asfowoo-notice-info {
+    &.jetexir-notice-info {
       color: variables.$info;
       background-color: variables.$info_light;
 
@@ -62,7 +62,7 @@
       }
     }
 
-    &.asfowoo-notice-success {
+    &.jetexir-notice-success {
       color: variables.$success;
       background-color: variables.$success_light;
 
@@ -72,7 +72,7 @@
       }
     }
 
-    &.asfowoo-notice-warning {
+    &.jetexir-notice-warning {
       color: variables.$warning;
       background-color: variables.$warning_light;
 
@@ -82,7 +82,7 @@
       }
     }
 
-    &.asfowoo-notice-error {
+    &.jetexir-notice-error {
       color: variables.$error;
       background-color: variables.$error_light;
 
@@ -95,7 +95,7 @@
 }
 
 body.rtl.#{variables.$plugin_key}-notices {
-  .asfowoo-notice {
+  .jetexir-notice {
     letter-spacing: normal;
   }
 }

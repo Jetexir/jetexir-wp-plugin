@@ -1,6 +1,6 @@
-# Assistant for WooCommerce
+# Jetexir
 
-Assistant for WooCommerce integrates with WooCommerce to help you further enhance your website.
+Jetexir integrates with WooCommerce to help you further enhance your website.
 
 # Changelog
 

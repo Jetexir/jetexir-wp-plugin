@@ -1,26 +1,26 @@
 @use "../utilities/variables";
 
-.asfowoo-faqs-wrap {
+.jetexir-faqs-wrap {
   display: flex;
   flex-direction: column;
   gap: 15px;
   font-size: 18px;
 
-  .asfowoo-faq-item {
-    border: 1.5px solid var(--asfowoo-element-border-color, variables.$border_color);
+  .jetexir-faq-item {
+    border: 1.5px solid var(--jetexir-element-border-color, variables.$border_color);
     display: flex;
     flex-direction: column;
-    border-radius: var(--asfowoo-element-border-radius, 0);
+    border-radius: var(--jetexir-element-border-radius, 0);
     overflow: hidden;
     transition: all 0.3s ease;
 
-    .asfowoo-faq-question {
+    .jetexir-faq-question {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 15px;
-      color: var(--asfowoo-element-color, variables.$text);
-      background-color: var(--asfowoo-element-bg-color, variables.$white2);
+      color: var(--jetexir-element-color, variables.$text);
+      background-color: var(--jetexir-element-bg-color, variables.$white2);
       transition: all 0.3s ease;
       cursor: pointer;
       outline: none;
@@ -33,16 +33,16 @@
       }
     }
 
-    &:not(.asfowoo-active):hover {
-      border-color: var(--asfowoo-element-hover-border-color, variables.$border_color);
+    &:not(.jetexir-active):hover {
+      border-color: var(--jetexir-element-hover-border-color, variables.$border_color);
 
-      .asfowoo-faq-question {
-        color: var(--asfowoo-element-hover-color, variables.$text);
-        background-color: var(--asfowoo-element-hover-bg-color, variables.$white2);
+      .jetexir-faq-question {
+        color: var(--jetexir-element-hover-color, variables.$text);
+        background-color: var(--jetexir-element-hover-bg-color, variables.$white2);
       }
     }
 
-    .asfowoo-faq-answer {
+    .jetexir-faq-answer {
       max-height: 0;
       overflow: hidden;
       transition: 0.3s;
@@ -50,18 +50,18 @@
       font-size: .9em;
     }
 
-    &.asfowoo-active {
-      .asfowoo-faq-question {
-        & i:is(.asfowoo-icon-chevrons-down, .asfowoo-icon-chevron-down ,.asfowoo-icon-arrow-down, .asfowoo-icon-circle-down) {
+    &.jetexir-active {
+      .jetexir-faq-question {
+        & i:is(.jetexir-icon-chevrons-down, .jetexir-icon-chevron-down ,.jetexir-icon-arrow-down, .jetexir-icon-circle-down) {
           transform: rotate(180deg);
         }
 
-        & i.asfowoo-icon-plus {
+        & i.jetexir-icon-plus {
           transform: rotate(45deg);
         }
       }
 
-      .asfowoo-faq-answer {
+      .jetexir-faq-answer {
         padding: 15px;
       }
     }
