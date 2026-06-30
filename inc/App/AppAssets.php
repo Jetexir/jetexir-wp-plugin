@@ -10,7 +10,7 @@ use Jetexir\Helper\WordPress;
 
 class AppAssets {
   public function __construct() {
-    add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScripts' ) );
+    add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScripts' ), PHP_INT_MAX );
   }
 
   public function enqueueScripts(): void {
