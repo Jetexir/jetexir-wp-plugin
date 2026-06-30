@@ -35,7 +35,7 @@ if ( ! isset( $args ) ) {
           $addAttr    .= ' data-order-type="' . ( $args['order_by_type'] === 'ASC' ? 'ASC' : 'DESC' ) . '"';
         }
       }
-      $addClass = empty( $addClass ) ? '' : ' class="' . implode( ' ', $addClass ) . '"';
+      $addClass = empty( $addClass ) ? '' : ' class="' . esc_attr( implode( ' ', $addClass ) ) . '"';
 
       echo '<th data-column="' . esc_html( $column['field'] ) . '"' . wp_kses_post( $addClass ) . wp_kses_post( $addAttr ) . '>' . esc_html( $column['name'] ) . '</th>';
     }
@@ -77,7 +77,7 @@ if ( ! isset( $args ) ) {
           if ( isset( $args['thead'][ $data['field'] ]['hide_on_mobile'] ) && $args['thead'][ $data['field'] ]['hide_on_mobile'] ) {
             $addClass[] = 'jetexir-dtu-col-hide-on-mobile';
           }
-          $addClass = empty( $addClass ) ? '' : ' class="' . implode( ' ', $addClass ) . '"';
+          $addClass = empty( $addClass ) ? '' : ' class="' . esc_attr( implode( ' ', $addClass ) ) . '"';
 
           if ( $data['field'] === AbstractDataTableUI::ACTIVE_FIELD &&
                in_array( $data['content'], [ '1', '0' ], true ) ) {
@@ -92,7 +92,8 @@ if ( ! isset( $args ) ) {
             ) );
           }
 
-          echo '<td ' . esc_attr( $addClass ) . ' ' . wp_kses_post( $attributes ) . '>' . wp_kses_post( $data['content'] ) . '</td>';
+          // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+          echo '<td ' . wp_kses_post( $addClass ) . ' ' . wp_kses_post( $attributes ) . '>' . $data['content'] . '</td>';
         }
 
         echo '<td class="jetexir-dtu-actions-wrap">';
