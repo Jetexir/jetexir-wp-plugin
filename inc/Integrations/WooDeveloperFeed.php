@@ -26,10 +26,6 @@ class WooDeveloperFeed extends Addon implements AddonInterface {
 	 viewbox="0 0 183.6 47.5" style="enable-background:new 0 0 183.6 47.5;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#873EFF;}
-	.st1{fill-rule:evenodd;clip-rule:evenodd;}
-	.st2{fill:#873EFF;}
-	.st3{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
-	.st4{fill:#FFFFFF;}
 </style>
 <g>
 	<path class="st0" d="M77.4,0c-4.3,0-7.1,1.4-9.6,6.1L56.4,27.6V8.5c0-5.7-2.7-8.5-7.7-8.5s-7.1,1.7-9.6,6.5L28.3,27.6V8.7
