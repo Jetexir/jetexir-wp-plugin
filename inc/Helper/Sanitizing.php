@@ -10,8 +10,12 @@ class Sanitizing {
   public static function svg( $svg ) {
     $Sanitizer = new Sanitizer();
     $Sanitizer->removeXMLTag( true );
+    // $Sanitizer->removeRemoteReferences( true );
+    $Sanitizer->minify( true );
 
-    return $Sanitizer->sanitize( $svg );
+    $sanitized = $Sanitizer->sanitize( $svg );
+
+    return $sanitized === false ? '' : $sanitized;
   }
 
   public static function clean( $value ) {
@@ -94,5 +98,59 @@ class Sanitizing {
 
   public static function username( $value ): string {
     return sanitize_user( $value );
+  }
+
+  public static function svgAllowedTags(): array {
+    $kses_defaults = wp_kses_allowed_html( 'post' );
+
+    $svg_args = array(
+      'svg'   => array(
+        'xml:space'       => true,
+        'xmlns:x'         => true,
+        'xmlns:i'         => true,
+        'xmlns:graph'     => true,
+        'class'           => true,
+        'aria-hidden'     => true,
+        'aria-labelledby' => true,
+        'role'            => true,
+        'xmlns'           => true,
+        'width'           => true,
+        'height'          => true,
+        'viewbox'         => true, // <= Must be lower case!
+        'fill'            => true,
+        'x'               => true,
+        'y'               => true,
+        'style'           => true,
+        'version'         => true,
+        'transform'       => true,
+      ),
+      'g'     => array(
+        'transform'       => true,
+        'd'               => true,
+        'id'              => true,
+        'fill'            => true,
+        'fill-rule'       => true,
+        'stroke'          => true,
+        'stroke-width'    => true,
+        'stroke-linecap'  => true,
+        'stroke-linejoin' => true,
+      ),
+      'title' => array( 'title' => true ),
+      'path'  => array(
+        'class'           => true,
+        'transform'       => true,
+        'd'               => true,
+        'fill'            => true,
+        'stroke'          => true,
+        'stroke-width'    => true,
+        'stroke-linecap'  => true,
+        'stroke-linejoin' => true,
+        'style'           => true,
+      ),
+    );
+
+    $svg_args = array_map( '_wp_add_global_attributes', $svg_args );
+
+    return array_merge( $kses_defaults, $svg_args );
   }
 }
