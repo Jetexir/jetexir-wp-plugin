@@ -4,7 +4,7 @@ namespace Jetexir\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use Jetexir\Helper\{Cache, DebugTrait, Notice, Assets, Param};
+use Jetexir\Helper\{Cache, DebugTrait, Notice, Assets, Param, Sanitizing};
 
 class AdminPages {
   use DebugTrait;
@@ -108,7 +108,7 @@ class AdminPages {
                 $addonSep = true;
               }
 
-              echo wp_kses_post( self::menuItem( $tab, $menu ) );
+              echo wp_kses( self::menuItem( $tab, $menu ), Sanitizing::svgAllowedTags() );
             }
             do_action( 'jetexir_end_menus' );
             ?>

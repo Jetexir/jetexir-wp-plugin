@@ -8,6 +8,7 @@ use Jetexir\Addons\Addon;
 use Jetexir\Helper\Assets;
 use Jetexir\Helper\Cache;
 use Jetexir\Helper\Param;
+use Jetexir\Helper\Sanitizing;
 use Jetexir\Interfaces\AddonInterface;
 
 class CurrencySymbolTools extends Addon implements AddonInterface {
@@ -44,6 +45,7 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
           if ( $file ) {
             $file = file_get_contents( Assets::pathCorrection( $file ) );
             $file = Assets::setSvgDimensions( $file, $this->getSetting( 'currency_media_size', 14 ) );
+            $file = wp_kses( $file, Sanitizing::svgAllowedTags() );
             Cache::set( $cacheKey, $file );
 
             return $file;

@@ -5,7 +5,7 @@ namespace Jetexir\Admin;
 defined( 'ABSPATH' ) || exit;
 
 use Jetexir\Addons\Addons;
-use Jetexir\Helper\{Assets, Notice, User};
+use Jetexir\Helper\{Assets, Notice, Sanitizing, User};
 use Jetexir\Interfaces\AdminTabInterface;
 
 class AdminDashboard implements AdminTabInterface {
@@ -55,7 +55,7 @@ class AdminDashboard implements AdminTabInterface {
     foreach ( $dashboardTypeLinks as $dashboardLinks ) {
       foreach ( $dashboardLinks as $link ) {
         $icon = ! empty( $link['icon'] ) && Assets::isSvgImageString( $link['icon'] ) ? Assets::setSvgDimensions( $link['icon'], 50 ) : '';
-        echo '<a href="' . esc_url( $link['link'] ) . '" title="' . esc_html( $link['desc'] ) . '" class="jetexir-link-type-' . esc_html( $link['type'] ) . '">' . wp_kses_post( $icon ) . '<span>' . esc_html( $link['title'] ) . '</span></a>';
+        echo '<a href="' . esc_url( $link['link'] ) . '" title="' . esc_html( $link['desc'] ) . '" class="jetexir-link-type-' . esc_html( $link['type'] ) . '">' . wp_kses( $icon, Sanitizing::svgAllowedTags() ) . '<span>' . esc_html( $link['title'] ) . '</span></a>';
       }
     }
     echo '</div>';
