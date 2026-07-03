@@ -10,6 +10,16 @@ use Jetexir\Helper\Nonce;
 class AdminAssets {
   public function __construct() {
     add_action( 'admin_enqueue_scripts', array( $this, 'enqueueScripts' ) );
+
+    add_filter( 'safe_style_css', [ $this, 'addSafeStyle' ], 99999 );
+  }
+
+  public function addSafeStyle( $styles ): array {
+    return array_merge( $styles, [
+      'clip-rule',
+      'fill-rule',
+      'fill'
+    ] );
   }
 
   public function enqueueScripts(): void {
