@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Jetexir\n"
-"POT-Creation-Date: 2025-12-13 02:53+0330\n"
-"PO-Revision-Date: 2025-12-13 02:55+0330\n"
+"POT-Creation-Date: 2026-07-04 03:58+0330\n"
+"PO-Revision-Date: 2026-07-04 03:58+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -10,11 +10,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 2.2\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-KeywordsList: "
-"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-WPHeader: Jetexir.php\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -100,7 +101,7 @@ msgstr "پرداخت"
 
 #: inc/Addons/Addons.php:240 inc/Admin/AdminOrder.php:33
 #: inc/Admin/AdminOrder.php:50 inc/App/Checkout/CheckoutFields.php:131
-#: inc/App/Order/OrderNumber.php:375 inc/App/Order/OrderStatus.php:599
+#: inc/App/Order/OrderNumber.php:375 inc/App/Order/OrderStatus.php:600
 msgid "Order"
 msgstr "سفارش"
 
@@ -144,16 +145,16 @@ msgstr "افزونه‌های دیگر"
 msgid "Save active addons"
 msgstr "ذخیره افزونه‌های فعال"
 
-#: inc/Admin/AdminAssets.php:54 inc/App/Cart/FlyCart.php:146
+#: inc/Admin/AdminAssets.php:64 inc/App/Cart/FlyCart.php:146
 #: inc/App/Product/ProductWishList.php:393
 msgid "Remove"
 msgstr "حذف"
 
-#: inc/Admin/AdminAssets.php:55
+#: inc/Admin/AdminAssets.php:65
 msgid "Are you sure you want to delete this item(s)?"
 msgstr "آیا مطمئن هستید که می‌خواهید این مورد(ها) را حذف کنید؟"
 
-#: inc/Admin/AdminAssets.php:56
+#: inc/Admin/AdminAssets.php:66
 msgid "Click to copy this text."
 msgstr "برای کپی کردن این متن کلیک کنید."
 
@@ -318,8 +319,8 @@ msgstr "پایین راست"
 msgid "Icon"
 msgstr "آیکن"
 
-#: inc/App/Cart/FlyCart.php:299 inc/App/Order/OrderStatus.php:280
-#: inc/App/Order/OrderStatus.php:415 inc/App/Order/OrderStatus.php:448
+#: inc/App/Cart/FlyCart.php:299 inc/App/Order/OrderStatus.php:281
+#: inc/App/Order/OrderStatus.php:416 inc/App/Order/OrderStatus.php:449
 #: inc/App/Product/ProductRelated.php:250
 #: inc/App/Product/ProductSocialShare.php:380
 #: inc/App/Tools/AnnouncementBarTools.php:229
@@ -496,8 +497,8 @@ msgstr "فیلد یافت نشد!"
 #. translators: %s: Slug
 #. translators: %s: Title
 #. translators: %s: Text
-#: inc/App/Checkout/CheckoutFields.php:324 inc/App/Order/OrderStatus.php:280
-#: inc/App/Order/OrderStatus.php:284 inc/App/Tools/AnnouncementBarTools.php:229
+#: inc/App/Checkout/CheckoutFields.php:324 inc/App/Order/OrderStatus.php:281
+#: inc/App/Order/OrderStatus.php:285 inc/App/Tools/AnnouncementBarTools.php:229
 #: inc/App/Tools/AnnouncementBarTools.php:232
 #, php-format
 msgid "%s field is empty!"
@@ -517,11 +518,11 @@ msgstr "فیلد با موفقیت ذخیره شد."
 msgid "Field added successfully."
 msgstr "فیلد با موفقیت اضافه شد."
 
-#: inc/App/Checkout/CheckoutFields.php:388 inc/App/Order/OrderStatus.php:347
+#: inc/App/Checkout/CheckoutFields.php:388 inc/App/Order/OrderStatus.php:348
 msgid "Order status removed!"
 msgstr "وضعیت سفارش حذف شد!"
 
-#: inc/App/Checkout/CheckoutFields.php:399 inc/App/Order/OrderStatus.php:358
+#: inc/App/Checkout/CheckoutFields.php:399 inc/App/Order/OrderStatus.php:359
 #: inc/App/Tools/AnnouncementBarTools.php:303
 msgid "Selected item not found!"
 msgstr "مورد انتخاب شده یافت نشد!"
@@ -573,7 +574,7 @@ msgstr "متن چند سطر"
 msgid "Type"
 msgstr "نوع"
 
-#: inc/App/Checkout/CheckoutFields.php:461 inc/App/Order/OrderStatus.php:423
+#: inc/App/Checkout/CheckoutFields.php:461 inc/App/Order/OrderStatus.php:424
 msgid "Use english alphabetic characters"
 msgstr "از حروف الفبای انگلیسی استفاده کنید"
 
@@ -634,30 +635,30 @@ msgstr "اضافه کردن فیلد جدید"
 msgid "Edit field"
 msgstr "ویرایش فیلد"
 
-#: inc/App/Checkout/CheckoutFields.php:569 inc/App/Order/OrderStatus.php:442
+#: inc/App/Checkout/CheckoutFields.php:569 inc/App/Order/OrderStatus.php:443
 #: inc/App/Tools/AnnouncementBarTools.php:319
 #: inc/Providers/UI/AbstractDataTableUI.php:440
 #: inc/Templates/plugin/data-table/data_table_modal.php:17
 msgid "Add new"
 msgstr "افزودن"
 
-#: inc/App/Checkout/CheckoutFields.php:574 inc/App/Order/OrderStatus.php:445
+#: inc/App/Checkout/CheckoutFields.php:574 inc/App/Order/OrderStatus.php:446
 #: inc/App/Tools/AnnouncementBarTools.php:322
 msgid "Enable"
 msgstr "فعال کردن"
 
-#: inc/App/Checkout/CheckoutFields.php:575 inc/App/Order/OrderStatus.php:446
+#: inc/App/Checkout/CheckoutFields.php:575 inc/App/Order/OrderStatus.php:447
 #: inc/App/Tools/AnnouncementBarTools.php:323
 msgid "Disable"
 msgstr "غیرفعال کردن"
 
-#: inc/App/Checkout/CheckoutFields.php:576 inc/App/Order/OrderStatus.php:447
+#: inc/App/Checkout/CheckoutFields.php:576 inc/App/Order/OrderStatus.php:448
 #: inc/App/Tools/AnnouncementBarTools.php:324
 msgid "Delete"
 msgstr "حذف"
 
-#: inc/App/Checkout/CheckoutFields.php:579 inc/App/Order/OrderStatus.php:452
-#: inc/App/Order/OrderStatus.php:583 inc/App/Tools/AnnouncementBarTools.php:329
+#: inc/App/Checkout/CheckoutFields.php:579 inc/App/Order/OrderStatus.php:453
+#: inc/App/Order/OrderStatus.php:584 inc/App/Tools/AnnouncementBarTools.php:329
 msgid "Status"
 msgstr "وضعیت"
 
@@ -760,14 +761,14 @@ msgstr "رنگ اصلی"
 
 #: inc/App/General/Styles.php:128 inc/App/General/Styles.php:189
 #: inc/App/General/Styles.php:405 inc/App/General/Styles.php:547
-#: inc/App/General/Styles.php:763 inc/App/Order/OrderStatus.php:394
+#: inc/App/General/Styles.php:763 inc/App/Order/OrderStatus.php:395
 #: inc/App/Tools/AnnouncementBarTools.php:476
 msgid "Text color"
 msgstr "رنگ متن"
 
 #: inc/App/General/Styles.php:153 inc/App/General/Styles.php:239
 #: inc/App/General/Styles.php:430 inc/App/General/Styles.php:597
-#: inc/App/General/Styles.php:813 inc/App/Order/OrderStatus.php:401
+#: inc/App/General/Styles.php:813 inc/App/Order/OrderStatus.php:402
 msgid "Background color"
 msgstr "رنگ زمینه"
 
@@ -945,79 +946,79 @@ msgstr "تغییر وضعیت سفارش به %s"
 msgid "Change status:"
 msgstr "تغییر وضعیت:"
 
-#: inc/App/Order/OrderStatus.php:284 inc/App/Order/OrderStatus.php:422
-#: inc/App/Order/OrderStatus.php:451
+#: inc/App/Order/OrderStatus.php:285 inc/App/Order/OrderStatus.php:423
+#: inc/App/Order/OrderStatus.php:452
 msgid "Slug"
 msgstr "نامک"
 
-#: inc/App/Order/OrderStatus.php:290
+#: inc/App/Order/OrderStatus.php:291
 msgid "Order status not found!"
 msgstr "وضعیت سفارش یافت نشد!"
 
-#: inc/App/Order/OrderStatus.php:312
+#: inc/App/Order/OrderStatus.php:313
 msgid "The order status was successfully saved."
 msgstr "وضعیت سفارش با موفقیت ذخیره شد."
 
-#: inc/App/Order/OrderStatus.php:316
+#: inc/App/Order/OrderStatus.php:317
 msgid "Order status added successfully."
 msgstr "وضعیت سفارش با موفقیت اضافه شد."
 
-#: inc/App/Order/OrderStatus.php:408
+#: inc/App/Order/OrderStatus.php:409
 msgid "Row background color"
 msgstr "رنگ زمینه سطر"
 
-#: inc/App/Order/OrderStatus.php:416
+#: inc/App/Order/OrderStatus.php:417
 msgid "Status title"
 msgstr "عنوان وضعیت"
 
-#: inc/App/Order/OrderStatus.php:424
+#: inc/App/Order/OrderStatus.php:425
 msgid "Status slug"
 msgstr "نامک وضعیت"
 
-#: inc/App/Order/OrderStatus.php:439 inc/App/Order/OrderStatus.php:584
+#: inc/App/Order/OrderStatus.php:440 inc/App/Order/OrderStatus.php:585
 msgid "Custom Order Status"
 msgstr "وضعیت سفارش سفارشی"
 
-#: inc/App/Order/OrderStatus.php:440
+#: inc/App/Order/OrderStatus.php:441
 msgid "Add new order status"
 msgstr "افزودن وضعیت سفارش جدید"
 
-#: inc/App/Order/OrderStatus.php:441
+#: inc/App/Order/OrderStatus.php:442
 msgid "Edit order status"
 msgstr "ویرایش وضعیت سفارش"
 
-#: inc/App/Order/OrderStatus.php:519
+#: inc/App/Order/OrderStatus.php:520
 msgid "Order status"
 msgstr "وضعیت سفارش"
 
-#: inc/App/Order/OrderStatus.php:524
+#: inc/App/Order/OrderStatus.php:525
 msgid "Default order status"
 msgstr "وضعیت پیشفرض سفارش"
 
-#: inc/App/Order/OrderStatus.php:527 inc/App/Order/OrderStatus.php:546
-#: inc/App/Tools/CurrencySymbolTools.php:90
+#: inc/App/Order/OrderStatus.php:528 inc/App/Order/OrderStatus.php:547
+#: inc/App/Tools/CurrencySymbolTools.php:92
 msgid "No changes"
 msgstr "بدون تغییر"
 
-#: inc/App/Order/OrderStatus.php:533
+#: inc/App/Order/OrderStatus.php:534
 msgid "Fallback delete order status"
 msgstr "وضعیت حذف جایگزین سفارش"
 
 #. translators: %s: Payment gateway title
-#: inc/App/Order/OrderStatus.php:545
+#: inc/App/Order/OrderStatus.php:546
 #, php-format
 msgid "Default order status for \"%s\" method"
 msgstr "وضعیت پیشفرض سفارش برای روش «%s»"
 
-#: inc/App/Order/OrderStatus.php:564
+#: inc/App/Order/OrderStatus.php:565
 msgid "Orders row background color"
 msgstr "رنگ زمینه سطر سفارش‌ها"
 
-#: inc/App/Order/OrderStatus.php:597
+#: inc/App/Order/OrderStatus.php:598
 msgid "Order Status"
 msgstr "وضعیت سفارش"
 
-#: inc/App/Order/OrderStatus.php:598
+#: inc/App/Order/OrderStatus.php:599
 msgid "Add custom order statuses to your WooCommerce store."
 msgstr "وضعیت‌های سفارش سفارشی را به فروشگاه ووکامرس خود اضافه کنید."
 
@@ -1839,7 +1840,7 @@ msgid "Progress bar height"
 msgstr "ارتفاع نوار پیشرفت"
 
 #: inc/App/Product/ProductSaleProgressBar.php:164
-#: inc/App/Tools/CurrencySymbolTools.php:113
+#: inc/App/Tools/CurrencySymbolTools.php:115
 msgid "Pixel"
 msgstr "پیکسل"
 
@@ -2347,42 +2348,42 @@ msgstr "با استفاده از انواع مختلف بنرهای نوار ا�
 msgid "Notification"
 msgstr "اعلان"
 
-#: inc/App/Tools/CurrencySymbolTools.php:78
-#: inc/App/Tools/CurrencySymbolTools.php:82
-#: inc/App/Tools/CurrencySymbolTools.php:149
+#: inc/App/Tools/CurrencySymbolTools.php:80
+#: inc/App/Tools/CurrencySymbolTools.php:84
+#: inc/App/Tools/CurrencySymbolTools.php:151
 msgid "Currency Symbol"
 msgstr "نماد ارز"
 
-#: inc/App/Tools/CurrencySymbolTools.php:87
-#: inc/App/Tools/CurrencySymbolTools.php:151
+#: inc/App/Tools/CurrencySymbolTools.php:89
+#: inc/App/Tools/CurrencySymbolTools.php:153
 msgid "Currency"
 msgstr "ارز"
 
-#: inc/App/Tools/CurrencySymbolTools.php:96
+#: inc/App/Tools/CurrencySymbolTools.php:98
 msgid "Symbol"
 msgstr "نماد"
 
-#: inc/App/Tools/CurrencySymbolTools.php:102
+#: inc/App/Tools/CurrencySymbolTools.php:104
 msgid "SVG Icon"
 msgstr "آیکن SVG"
 
-#: inc/App/Tools/CurrencySymbolTools.php:103
+#: inc/App/Tools/CurrencySymbolTools.php:105
 msgid "Select SVG"
 msgstr "انتخاب SVG"
 
-#: inc/App/Tools/CurrencySymbolTools.php:112
+#: inc/App/Tools/CurrencySymbolTools.php:114
 msgid "SVG media size"
 msgstr "اندازه رسانه SVG"
 
-#: inc/App/Tools/CurrencySymbolTools.php:127
+#: inc/App/Tools/CurrencySymbolTools.php:129
 msgid "Price style"
 msgstr "سبک قیمت"
 
-#: inc/App/Tools/CurrencySymbolTools.php:131
+#: inc/App/Tools/CurrencySymbolTools.php:133
 msgid "Styling the price along with the currency symbol"
 msgstr "سبک‌دهی به قیمت به همراه نماد ارز"
 
-#: inc/App/Tools/CurrencySymbolTools.php:150
+#: inc/App/Tools/CurrencySymbolTools.php:152
 msgid "Change the currency symbol"
 msgstr "تغییر نماد ارز"
 
@@ -2490,15 +2491,15 @@ msgstr "دایره"
 msgid "Rotation °"
 msgstr "درجه چرخش °"
 
-#: inc/Integrations/WooDeveloperFeed.php:47
+#: inc/Integrations/WooDeveloperFeed.php:40
 msgid "Woo Developer Feed"
 msgstr "خوراک توسعه‌دهنده‌گان ووکامرس"
 
-#: inc/Integrations/WooDeveloperFeed.php:48
+#: inc/Integrations/WooDeveloperFeed.php:41
 msgid "WooCommerce Developer Blog RSS Feed"
 msgstr "خوراک RSS وبلاگ توسعه‌دهندگان ووکامرس"
 
-#: inc/Integrations/WooDeveloperFeed.php:54
+#: inc/Integrations/WooDeveloperFeed.php:47
 msgid "Feed"
 msgstr "خوراک"
 
