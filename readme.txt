@@ -14,7 +14,7 @@ Jetexir integrates with WooCommerce to help you further enhance your website.
 
 ### Jetexir for WooCommerce ###
 
-Jetexir is the ultimate enhancement suite for your WooCommerce store, designed to elevate both customer experience and administrative efficiency.
+Jetexir is the enhancement suite for your WooCommerce store, designed to elevate both customer experience and administrative efficiency.
 
 = Key Features: =
 
