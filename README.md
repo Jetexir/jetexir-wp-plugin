@@ -7,7 +7,7 @@ Jetexir integrates with WooCommerce to help you further enhance your website.
 Install requirements:
 
 ```shell
-npm run install
+npm install
 ```
 
 ```shell
