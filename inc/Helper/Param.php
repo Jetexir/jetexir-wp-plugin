@@ -1,4 +1,8 @@
 <?php
+/**
+ * Param is helper class for get inputs
+ * All data sanitized with 'Sanitizing' helper class
+ */
 
 namespace Jetexir\Helper;
 
