@@ -174,12 +174,11 @@ class OrderStatus extends Addon implements AddonInterface {
         'exclude_from_search'       => false,
         'show_in_admin_all_list'    => true,
         'show_in_admin_status_list' => true,
-        /* translators: 1: Status label defined by user 2: Number of orders */
         'label_count'               => array(
-          0          => sprintf( '%1$s <span class="count">(%2$s)</span>', esc_html( $title ), '%s' ),
-          1          => sprintf( '%1$s <span class="count">(%2$s)</span>', esc_html( $title ), '%s' ),
-          'singular' => sprintf( '%1$s <span class="count">(%2$s)</span>', esc_html( $title ), '%s' ),
-          'plural'   => sprintf( '%1$s <span class="count">(%2$s)</span>', esc_html( $title ), '%s' ),
+          0          => $title . ' <span class="count">(%s)</span>',
+          1          => $title . ' <span class="count">(%s)</span>',
+          'singular' => $title . ' <span class="count">(%s)</span>',
+          'plural'   => $title . ' <span class="count">(%s)</span>',
           'context'  => null,
           'domain'   => 'jetexir',
         )
