@@ -43,6 +43,14 @@ Jetexir transforms your WooCommerce store into a more engaging, user-friendly sh
 
 7. Brand Consistency Tools: The announcement bar and customizable elements help maintain a cohesive brand identity across your entire store.
 
+### Develop version:
+
+Jetexir is open source project, you can find source in [GitHub](https://github.com/Jetexir/jetexir-wp-plugin)
+
+== External services ==
+
+This plugin don't use any 3rd party / external service, Your data is not sent to any external service.
+
 == Installation ==
 
 = Minimum Requirements =
