@@ -86,7 +86,7 @@ if ( ! isset( $args ) ) {
               'type'          => 'toggle',
               'value'         => 1,
               'default'       => true,
-              'setting_value' => (bool) $data['content'],
+              'setting_value' => (bool) intval( $data['content'] ),
               'attributes'    => [ 'disabled' => 'disabled' ],
               'wrap'          => false
             ) );
