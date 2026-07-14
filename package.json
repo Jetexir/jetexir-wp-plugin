@@ -5,7 +5,7 @@
   "homepage": "https://parsa.ws",
   "author": "Parsa Kafi (https://parsa.ws)",
   "scripts": {
-    "jetexir-css": "concurrently \"npm run jetexir-admin-css\" \"npm run jetexir-admin-compressed-css\" \"npm run jetexir-site-css\" \"npm run jetexir-site-compressed-css\" \"npm run jetexir-product-compare-css\" \"npm run jetexir-product-compare-compressed-css\" \"npm run jetexir-product-share-css\" \"npm run jetexir-product-share-compressed-css\" \"npm run jetexir-fly-cart-css\" \"npm run jetexir-fly-cart-compressed-css\"",
+    "jetexir-css": "concurrently \"npm run jetexir-admin-css\" \"npm run jetexir-admin-compressed-css\" \"npm run jetexir-site-css\" \"npm run jetexir-site-compressed-css\" \"npm run jetexir-product-compare-css\" \"npm run jetexir-product-compare-compressed-css\" \"npm run jetexir-product-share-css\" \"npm run jetexir-product-share-compressed-css\" \"npm run jetexir-product-related-css\" \"npm run jetexir-product-related-compressed-css\" \"npm run jetexir-product-sale-progress-bar-css\" \"npm run jetexir-product-sale-progress-bar-compressed-css\" \"npm run jetexir-fly-cart-css\" \"npm run jetexir-fly-cart-compressed-css\"",
     "jetexir-admin-css": "sass --watch assets/scss/admin-style.scss:assets/css-admin/admin-style.css",
     "jetexir-admin-compressed-css": "sass --watch assets/scss/admin-style.scss:assets/css-admin/admin-style.min.css --style compressed",
     "jetexir-site-css": "sass --watch assets/scss/style.scss:assets/css/style.css",
