@@ -5,9 +5,7 @@ namespace Jetexir\App\Product;
 defined( 'ABSPATH' ) || exit;
 
 use Jetexir\Addons\Addon;
-use Jetexir\Helper\Param;
-use Jetexir\Helper\PostMeta;
-use Jetexir\Helper\Templates;
+use Jetexir\Helper\{Param, PostMeta, Sanitizing, Templates};
 use Jetexir\Interfaces\AddonInterface;
 
 class ProductFAQ extends Addon implements AddonInterface {
@@ -98,7 +96,7 @@ class ProductFAQ extends Addon implements AddonInterface {
   }
 
   public function adminProductSaveMeta( $productID ): void {
-    $enable = (int) wc_string_to_bool( Param::post( JETEXIR_INPUT_PREFIX . 'product_faq_enable' ) );
+    $enable = (int) Sanitizing::bool( Param::post( JETEXIR_INPUT_PREFIX . 'product_faq_enable' ) );
     PostMeta::update( $productID, JETEXIR_INPUT_PREFIX . 'product_faq_enable', $enable );
 
     $FAQs = Param::post( JETEXIR_INPUT_PREFIX . 'product_faq' );
