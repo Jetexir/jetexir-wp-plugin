@@ -67,7 +67,7 @@ class CurrencySymbolTools extends Addon implements AddonInterface {
       $styles = '.woocommerce-Price-amount bdi{display: inline-flex;align-items: center;gap: 3px;line-height: 1.2;}';
       wp_register_style( JETEXIR_PLUGIN_SLUG . '-' . $this->addonID . '-style', false, [], Assets::getVersion() );
       wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-' . $this->addonID . '-style' );
-      wp_add_inline_style( JETEXIR_PLUGIN_SLUG . '-' . $this->addonID . '-style', $styles );
+      wp_add_inline_style( JETEXIR_PLUGIN_SLUG . '-' . $this->addonID . '-style', esc_html( $styles ) );
     }
   }
 

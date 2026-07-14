@@ -639,7 +639,7 @@ class ProductQuantity extends Addon implements AddonInterface {
     if ( ! empty( $style ) ) {
       wp_register_style( JETEXIR_PLUGIN_SLUG . '-product-quantity-inline-style', false, [], Assets::getVersion() );
       wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-product-quantity-inline-style' );
-      wp_add_inline_style( JETEXIR_PLUGIN_SLUG . '-product-quantity-inline-style', $style );
+      wp_add_inline_style( JETEXIR_PLUGIN_SLUG . '-product-quantity-inline-style', esc_html( $style ) );
     }
   }
 

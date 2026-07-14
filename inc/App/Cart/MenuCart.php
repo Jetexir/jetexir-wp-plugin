@@ -25,7 +25,9 @@ class MenuCart extends Addon implements AddonInterface {
 
     wp_register_style( JETEXIR_PLUGIN_SLUG . '-menu-cart', false, [], Assets::getVersion() );
     wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-menu-cart' );
-    wp_add_inline_style( JETEXIR_PLUGIN_SLUG . '-menu-cart', '.jetexir-menu-cart a{display: inline-flex !important;column-gap: 5px;align-items: center;}' );
+
+    $styles = '.jetexir-menu-cart a{display: inline-flex !important;column-gap: 5px;align-items: center;}';
+    wp_add_inline_style( JETEXIR_PLUGIN_SLUG . '-menu-cart', esc_html( $styles ) );
   }
 
   public function addCartToMenu( $items, $args ) {

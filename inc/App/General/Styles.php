@@ -70,7 +70,7 @@ class Styles {
 
     wp_register_style( JETEXIR_PLUGIN_SLUG . '-general-inline-style', false, [], Assets::getVersion() );
     wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-general-inline-style' );
-    wp_add_inline_style( JETEXIR_PLUGIN_SLUG . '-general-inline-style', $styles );
+    wp_add_inline_style( JETEXIR_PLUGIN_SLUG . '-general-inline-style', esc_html( $styles ) );
   }
 
   public function addSectionSettings( $sections ) {

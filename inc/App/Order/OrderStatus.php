@@ -492,7 +492,7 @@ class OrderStatus extends Addon implements AddonInterface {
 
     wp_register_style( $styleID, false, [], Assets::getVersion() );
     wp_enqueue_style( $styleID );
-    wp_add_inline_style( $styleID, $styles );
+    wp_add_inline_style( $styleID, esc_html( $styles ) );
   }
 
   public function addSectionSettings( $sections ): array {
