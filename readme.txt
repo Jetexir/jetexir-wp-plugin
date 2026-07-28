@@ -51,6 +51,10 @@ Jetexir is open source project, you can find source in [GitHub](https://github.c
 
 This plugin don't use any 3rd party / external service, Your data is not sent to any external service.
 
+Some URLs used in plugin:
+[https://developer.woocommerce.com/feed/](https://developer.woocommerce.com/feed/) Feed url of WooCommerce developer blog used in **Woo Developer Feed** addon
+[https://api.whatsapp.com/send](https://api.whatsapp.com/send) WhatsApp share link used in **Product Social Share** addon
+
 == Installation ==
 
 = Minimum Requirements =
