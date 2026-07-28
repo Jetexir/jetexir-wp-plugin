@@ -1,7 +1,7 @@
 <?php
 /**
  * Param is helper class for get inputs
- * All data sanitized with 'Sanitizing' helper class
+ * All data sanitized with 'Jetexir\Helper\Sanitizing' helper class
  */
 
 namespace Jetexir\Helper;

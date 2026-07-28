@@ -56,11 +56,26 @@ class Sanitizing {
     return sanitize_title( $value );
   }
 
-  public static function color( $value ): string {
+  /**
+   * Sanitizes a hex color.
+   *
+   * @param $value string
+   *
+   * @return string|null
+   */
+  public static function color( $value ): ?string {
     return sanitize_hex_color( $value );
   }
 
-  public static function colorNoHash( $value ): string {
+  /**
+   * Sanitizes a hex color without a hash. Use sanitize_hex_color() when possible.
+   *
+   * @param string $value The color value to sanitize. Can be with or without a #.
+   *
+   * @return string|null The sanitized hex color without the hash prefix,
+   *                     empty string if input is empty, or null if invalid.
+   */
+  public static function colorNoHash( $value ): ?string {
     return sanitize_hex_color_no_hash( $value );
   }
 
