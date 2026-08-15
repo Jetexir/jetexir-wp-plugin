@@ -23,6 +23,19 @@ class UserMeta {
   public static function get( $userId, $metaKey = '', $single = true ) {
     $metaValue = get_user_meta( $userId, $metaKey, $single );
 
+    /**
+     * Filters the retrieved user meta value.
+     *
+     * @param mixed $metaValue Meta value.
+     * @param int $userId User ID.
+     * @param string $metaKey Meta key.
+     * @param bool $single Whether to return a single value.
+     *
+     * @return mixed Meta value.
+     *
+     * @since 1.0
+     *
+     */
     return apply_filters( 'jetexir_get_user_meta', $metaValue, $userId, $metaKey, $single );
   }
 
@@ -48,7 +61,24 @@ class UserMeta {
    *                  is the same as the one that is already in the database.
    */
   public static function update( $userId, $metaKey, $metaValue, $prevValue = '' ) {
-    if ( ( $metaValue = apply_filters( 'jetexir_update_user_meta', $metaValue, $userId, $metaKey, $prevValue ) ) !== false ) {
+    /**
+     * Filters the user meta value before it is updated.
+     *
+     * Return false to prevent the meta value from being updated.
+     *
+     * @param mixed $metaValue Meta value.
+     * @param int $userId User ID.
+     * @param string $metaKey Meta key.
+     * @param mixed $prevValue Previous value.
+     *
+     * @return mixed|false Meta value, or false to prevent the update.
+     *
+     * @since 1.0
+     *
+     */
+    $metaValue = apply_filters( 'jetexir_update_user_meta', $metaValue, $userId, $metaKey, $prevValue );
+
+    if ( $metaValue !== false ) {
       return update_user_meta( $userId, $metaKey, $metaValue, $prevValue );
     }
 
@@ -72,7 +102,22 @@ class UserMeta {
    *
    */
   public static function delete( $userId, $metaKey = '', $metaValue = '' ): bool {
-    if ( apply_filters( 'jetexir_delete_user_meta', true, $userId, $metaKey, $metaValue ) ) {
+    /**
+     * Filters whether to delete a user meta field.
+     *
+     * @param bool $delete Whether to delete the meta value.
+     * @param int $userId User ID.
+     * @param string $metaKey Meta key.
+     * @param mixed $metaValue Meta value.
+     *
+     * @return bool Whether to delete the meta value.
+     *
+     * @since 1.0
+     *
+     */
+    $deleteMeta = (bool) apply_filters( 'jetexir_delete_user_meta', true, $userId, $metaKey, $metaValue );
+
+    if ( $deleteMeta ) {
       return delete_user_meta( $userId, $metaKey, $metaValue );
     }
 

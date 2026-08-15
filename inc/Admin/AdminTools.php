@@ -47,10 +47,22 @@ class AdminTools implements AdminTabInterface {
 
   public function settings(): array {
     if ( self::$settings === null ) {
+      /**
+       * Filters the Tools settings sections.
+       *
+       * @param array $sections Settings sections.
+       *
+       * @return array Settings sections.
+       *
+       * @since 1.0
+       *
+       */
+      $sections = (array) apply_filters( 'jetexir_' . self::tab . '_settings_sections', [] );
+
       self::$settings = array(
         'title'    => esc_html__( 'Tools', 'jetexir' ),
         'desc'     => esc_html__( 'Tools for WordPress and WooCommerce', 'jetexir' ),
-        'sections' => apply_filters( 'jetexir_' . self::tab . '_settings_sections', [] )
+        'sections' => $sections
       );
     }
 

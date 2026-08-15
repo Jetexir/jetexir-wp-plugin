@@ -68,9 +68,9 @@ class HTML {
     }
 
     $controlDisabled = isset( $data['attributes']['disabled'] ) && $data['attributes']['disabled'] === 'disabled';
-    $style           = isset( $data['wrap_style'] ) ? 'style="' . $data['wrap_style'] . '"' : '';
+    $style           = isset( $data['wrap_style'] ) ? 'style="' . esc_attr( $data['wrap_style'] ) . '"' : '';
 
-    return '<div class="' . self::getClass( $data, self::prefix . 'field-wrap ' . self::prefix . 'field-' . $data['type'] . ( $controlDisabled ? ' ' . self::prefix . 'control-disabled' : '' ) ) . '" ' . $style . '><div class="' . self::prefix . 'field-head">' . $field . '</div>' . ( ! empty( $data['desc'] ) ? '<div class="' . self::prefix . 'description">' . $data['desc'] . '</div>' : '' ) . '</div>';
+    return '<div class="' . self::getClass( $data, self::prefix . 'field-wrap ' . self::prefix . 'field-' . $data['type'] . ( $controlDisabled ? ' ' . self::prefix . 'control-disabled' : '' ) ) . '" ' . $style . '><div class="' . self::prefix . 'field-head">' . $field . '</div>' . ( ! empty( $data['desc'] ) ? '<div class="' . self::prefix . 'description">' . wp_kses_post( $data['desc'] ) . '</div>' : '' ) . '</div>';
   }
 
   public static function textarea( $data ): string {
@@ -88,10 +88,10 @@ class HTML {
     $field = '';
 
     if ( ! empty( $data['title'] ) ) {
-      $field .= '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . $data['required_text'] . '</label>';
+      $field .= '<label for="' . esc_attr( $id ) . '" class="' . self::prefix . 'input-label">' . esc_html( $data['title'] ) . $data['required_text'] . '</label>';
     }
 
-    $field .= '<textarea name="' . $name . '" id="' . $id . '" class="' . self::getClass( $data, self::prefix . 'field-textarea' ) . '" ' . self::getAttributes( $data ) . '>' . $data['setting_value'] . '</textarea>';
+    $field .= '<textarea name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" class="' . self::getClass( $data, self::prefix . 'field-textarea' ) . '" ' . self::getAttributes( $data ) . '>' . esc_textarea( $data['setting_value'] ) . '</textarea>';
 
     return self::wrap( $field, $data );
   }
@@ -115,10 +115,10 @@ class HTML {
     $field = '';
 
     if ( ! empty( $data['title'] ) ) {
-      $field .= '<label for="' . $id . '" class="' . self::prefix . 'input-label">' . $data['title'] . $data['required_text'] . '</label>';
+      $field .= '<label for="' . esc_attr( $id ) . '" class="' . self::prefix . 'input-label">' . esc_html( $data['title'] ) . $data['required_text'] . '</label>';
     }
 
-    $field .= '<input type="' . $data['type'] . '" name="' . $name . '" id="' . $id . '" class="' . self::prefix . 'input-' . $data['type'] . '" value="' . $data['setting_value'] . '" ' . self::getAttributes( $data ) . '>';
+    $field .= '<input type="' . esc_attr( $data['type'] ) . '" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" class="' . self::prefix . 'input-' . esc_attr( $data['type'] ) . '" value="' . esc_attr( $data['setting_value'] ) . '" ' . self::getAttributes( $data ) . '>';
 
     return self::wrap( $field, $data );
   }
@@ -168,13 +168,13 @@ class HTML {
     $field = '';
 
     if ( ! empty( $data['title'] ) ) {
-      $field .= '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'select-label">' . $data['title'] . $data['required_text'] . '</label>';
+      $field .= '<label for="' . esc_attr( self::prefix . $data['type'] . '-' . $data['id'] ) . '" class="' . self::prefix . 'select-label">' . esc_html( $data['title'] ) . $data['required_text'] . '</label>';
     }
 
-    $field .= '<select name="' . $name . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'input-' . $data['type'] . '" ' . self::getAttributes( $data ) . '>';
+    $field .= '<select name="' . esc_attr( $name ) . '" id="' . esc_attr( self::prefix . $data['type'] . '-' . $data['id'] ) . '" class="' . self::prefix . 'input-' . esc_attr( $data['type'] ) . '" ' . self::getAttributes( $data ) . '>';
 
     if ( ! empty( $data['option_none'] ) ) {
-      $field .= '<option value="' . $data['option_none_value'] . '">-- ' . $data['option_none'] . ' --</option>';
+      $field .= '<option value="' . esc_attr( $data['option_none_value'] ) . '">-- ' . esc_html( $data['option_none'] ) . ' --</option>';
     }
 
     if ( ! empty( $data['options'] ) && is_array( $data['options'] ) ) {
@@ -183,7 +183,7 @@ class HTML {
       foreach ( $data['options'] as $key => $value ) {
         $selected = isset( $data['multiple'] ) && $data['multiple'] && is_array( $data['setting_value'] ) ? in_array( ( $isList ? $value : $key ), $data['setting_value'], true ) : $data['setting_value'] == ( $isList ? $value : $key );
 
-        $field .= '<option value="' . ( $isList ? $value : $key ) . '" ' . selected( $selected, true, false ) . '>' . $value . '</option>';
+        $field .= '<option value="' . esc_attr( $isList ? $value : $key ) . '" ' . selected( $selected, true, false ) . '>' . esc_html( $value ) . '</option>';
       }
     }
 
@@ -196,7 +196,17 @@ class HTML {
     if ( ! $data = self::checkData( $data ) ) {
       return '';
     }
-    $data['options'] = apply_filters( 'jetexir_image_sizes_select_items', Assets::getImageSizes() );
+    /**
+     * Filters the available image sizes items for the image size select field.
+     *
+     * @param array $sizes Image sizes items.
+     *
+     * @return array Image sizes items.
+     *
+     * @since 1.0
+     *
+     */
+    $data['options'] = (array) apply_filters( 'jetexir_image_sizes_select_items', Assets::getImageSizes() );
 
     return self::select( $data );
   }
@@ -367,7 +377,7 @@ class HTML {
 
     $field = '';
     if ( ! empty( $data['title'] ) ) {
-      $field .= '<label class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
+      $field .= '<label class="' . self::prefix . 'input-label">' . esc_html( $data['title'] ) . '</label>';
     }
 
     $id                                           = self::prefix . $data['type'] . '-' . $data['id'];
@@ -419,8 +429,8 @@ class HTML {
       }
     }
 
-    $field .= '<div id="' . $id . '" class="' . self::getClass( $data, self::prefix . 'media-wrap ' . ( count( $medias ) ? self::prefix . 'media-selected' : '' ) ) . '" ' . self::getAttributes( $data ) . '>';
-    $field .= '<input type="hidden" name="' . self::prefixName . $data['id'] . '" class="' . self::prefix . 'media-value"  value="' . implode( ',', $mediaIDs ) . '">';
+    $field .= '<div id="' . esc_attr( $id ) . '" class="' . self::getClass( $data, self::prefix . 'media-wrap ' . ( count( $medias ) ? self::prefix . 'media-selected' : '' ) ) . '" ' . self::getAttributes( $data ) . '>';
+    $field .= '<input type="hidden" name="' . esc_attr( self::prefixName . $data['id'] ) . '" class="' . self::prefix . 'media-value"  value="' . esc_attr( implode( ',', $mediaIDs ) ) . '">';
 
     // Image(s)
     $field .= '<div class="' . self::prefix . 'media-images">';
@@ -443,7 +453,7 @@ class HTML {
 
       $imageTitle .= ' (' . $imageType . ')';
 
-      $field .= '<div class="' . self::prefix . 'media-image" data-id="' . $id . '"><img src="' . ( $media ?: '' ) . '" title="' . $imageTitle . '" alt="image"><span class="' . self::prefix . 'media-image-title">' . $imageTitle . '</span></div>';
+      $field .= '<div class="' . self::prefix . 'media-image" data-id="' . esc_attr( $id ) . '"><img src="' . esc_url( $media ?: '' ) . '" title="' . esc_attr( $imageTitle ) . '" alt="image"><span class="' . self::prefix . 'media-image-title">' . esc_html( $imageTitle ) . '</span></div>';
     }
     $field .= '</div>';
 
@@ -469,7 +479,7 @@ class HTML {
     $field .= '</div>';
 
     // Placeholder
-    $field .= '<div class="' . self::prefix . 'media-placeholder ' . self::prefix . 'media-select">' . $placeholder . '</div>';
+    $field .= '<div class="' . self::prefix . 'media-placeholder ' . self::prefix . 'media-select">' . esc_html( $placeholder ) . '</div>';
 
     $field .= '</div>';
 
@@ -484,13 +494,13 @@ class HTML {
     $field = '';
 
     if ( ! empty( $data['title'] ) ) {
-      $field .= '<label for="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::prefix . 'title ' . self::prefix . 'input-label ">' . $data['title'] . '</label>';
+      $field .= '<label for="' . esc_attr( self::prefix . $data['type'] . '-' . $data['id'] ) . '" class="' . self::prefix . 'title ' . self::prefix . 'input-label ">' . esc_html( $data['title'] ) . '</label>';
     }
 
-    $field .= '<div class="' . self::prefix . 'range-field-wrap' . '"><input type="' . $data['type'] . '" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" class="' . self::getClass( $data, self::prefix . 'input-' . $data['type'] ) . '" value="' . $data['setting_value'] . '" ' . self::getAttributes( $data ) . '>';
+    $field .= '<div class="' . self::prefix . 'range-field-wrap' . '"><input type="' . esc_attr( $data['type'] ) . '" name="' . esc_attr( self::prefixName . $data['id'] ) . '" id="' . esc_attr( self::prefix . $data['type'] . '-' . $data['id'] ) . '" class="' . self::getClass( $data, self::prefix . 'input-' . esc_attr( $data['type'] ) ) . '" value="' . esc_attr( $data['setting_value'] ) . '" ' . self::getAttributes( $data ) . '>';
 
     if ( isset( $data['display_value'] ) && $data['display_value'] ) {
-      $field .= '<output>' . $data['setting_value'] . '</output>';
+      $field .= '<output>' . esc_html( $data['setting_value'] ) . '</output>';
     }
 
     $field .= '</div>';
@@ -499,7 +509,7 @@ class HTML {
   }
 
   public static function hidden( $data ): string {
-    return '<input type="hidden" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" value="' . $data['setting_value'] . '" >';
+    return '<input type="hidden" name="' . esc_attr( self::prefixName . $data['id'] ) . '" id="' . esc_attr( self::prefix . $data['type'] . '-' . $data['id'] ) . '" value="' . esc_attr( $data['setting_value'] ) . '" >';
   }
 
   public static function radio( $data ): string {
@@ -507,8 +517,8 @@ class HTML {
       return '';
     }
     $field = '<label class="' . self::prefix . 'radio-wrap">' .
-             '<input type="radio" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" value="' . $data['value'] . '"  ' . checked( $data['setting_value'] == $data['value'], true, false ) . self::getAttributes( $data ) . '>' .
-             '<span class="' . self::prefix . 'checkmark"></span><span class="' . self::prefix . 'title">' . $data['title'] . '</span></label>';
+             '<input type="radio" name="' . esc_attr( self::prefixName . $data['id'] ) . '" id="' . esc_attr( self::prefix . $data['type'] . '-' . $data['id'] ) . '" value="' . esc_attr( $data['value'] ) . '"  ' . checked( $data['setting_value'] == $data['value'], true, false ) . self::getAttributes( $data ) . '>' .
+             '<span class="' . self::prefix . 'checkmark"></span><span class="' . self::prefix . 'title">' . esc_html( $data['title'] ) . '</span></label>';
 
     return self::wrap( $field, $data );
   }
@@ -526,9 +536,9 @@ class HTML {
     $labelClass = self::prefix . 'radio-inline' . ( isset( $data['not_equal'] ) && $data['not_equal'] ? ' jetexir-not-equal' : '' );
 
     foreach ( $data['options'] as $key => $value ) {
-      $field .= '<label class="' . $labelClass . '">' .
-                '<input type="radio" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" value="' . $key . '"  ' . checked( $data['setting_value'] == $key, true, false ) . self::getAttributes( $data ) . '>' .
-                '<span class="' . self::prefix . 'checkmark"></span><span class="' . self::prefix . 'title">' . $value . '</span></label>';
+      $field .= '<label class="' . esc_attr( $labelClass ) . '">' .
+                '<input type="radio" name="' . esc_attr( self::prefixName . $data['id'] ) . '" id="' . esc_attr( self::prefix . $data['type'] . '-' . $data['id'] ) . '" value="' . esc_attr( $key ) . '"  ' . checked( $data['setting_value'] == $key, true, false ) . self::getAttributes( $data ) . '>' .
+                '<span class="' . self::prefix . 'checkmark"></span><span class="' . self::prefix . 'title">' . wp_kses_post( $value ) . '</span></label>';
     }
 
     $field .= self::endinlineelements( $data );
@@ -552,8 +562,8 @@ class HTML {
     foreach ( $data['options'] as $key => $value ) {
       $checked = is_array( $data['setting_value'] ) ? in_array( ( $isList ? $value : $key ), $data['setting_value'], true ) : $data['setting_value'] == ( $isList ? $value : $key );
 
-      $field .= '<label class="' . $labelClass . '">' .
-                '<input type="checkbox" name="' . self::prefixName . $data['id'] . '[]" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" value="' . $key . '"  ' . checked( $checked, true, false ) . self::getAttributes( $data ) . '>' .
+      $field .= '<label class="' . esc_attr( $labelClass ) . '">' .
+                '<input type="checkbox" name="' . esc_attr( self::prefixName . $data['id'] ) . '[]" id="' . esc_attr( self::prefix . $data['type'] . '-' . $data['id'] ) . '" value="' . esc_attr( $key ) . '"  ' . checked( $checked, true, false ) . self::getAttributes( $data ) . '>' .
                 '<span class="' . self::prefix . 'checkmark"></span><span class="' . self::prefix . 'title">' . $value . '</span></label>';
     }
 
@@ -567,9 +577,9 @@ class HTML {
       return '';
     }
     $field = '<label class="' . self::prefix . 'checkbox-wrap">' .
-             '<input type="hidden" name="' . self::prefixName . $data['id'] . '" value="' . $data['unchecked_value'] . '">' .
-             '<input type="checkbox" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . $data['type'] . '-' . $data['id'] . '" value="' . $data['value'] . '"  ' . checked( $data['setting_value'] == $data['value'], true, false ) . self::getAttributes( $data ) . '>' .
-             '<span class="' . self::prefix . 'checkmark"></span>' . ( ! empty( $data['title'] ) ? '<span class="' . self::prefix . 'title">' . $data['title'] . '</span>' : '' ) . '</label>';
+             '<input type="hidden" name="' . esc_attr( self::prefixName . $data['id'] ) . '" value="' . esc_attr( $data['unchecked_value'] ) . '">' .
+             '<input type="checkbox" name="' . esc_attr( self::prefixName . $data['id'] ) . '" id="' . esc_attr( self::prefix . $data['type'] . '-' . $data['id'] ) . '" value="' . esc_attr( $data['value'] ) . '"  ' . checked( $data['setting_value'] == $data['value'], true, false ) . self::getAttributes( $data ) . '>' .
+             '<span class="' . self::prefix . 'checkmark"></span>' . ( ! empty( $data['title'] ) ? '<span class="' . self::prefix . 'title">' . esc_html( $data['title'] ) . '</span>' : '' ) . '</label>';
 
     return self::wrap( $field, $data );
   }
@@ -580,11 +590,11 @@ class HTML {
     }
 
     $field = '<label class="' . self::prefix . 'toggle">' .
-             '<input type="hidden" name="' . self::prefixName . $data['id'] . '" value="' . $data['unchecked_value'] . '">' .
-             '<input type="checkbox" name="' . self::prefixName . $data['id'] . '" id="' . self::prefix . 'toggle-' . $data['id'] . '" value="' . $data['value'] . '" ' . checked( $data['setting_value'] == $data['value'], true, false ) . self::getAttributes( $data ) . '>' .
+             '<input type="hidden" name="' . esc_attr( self::prefixName . $data['id'] ) . '" value="' . esc_attr( $data['unchecked_value'] ) . '">' .
+             '<input type="checkbox" name="' . esc_attr( self::prefixName . $data['id'] ) . '" id="' . esc_attr( self::prefix . 'toggle-' . $data['id'] ) . '" value="' . esc_attr( $data['value'] ) . '" ' . checked( $data['setting_value'] == $data['value'], true, false ) . self::getAttributes( $data ) . '>' .
              '<span class="' . self::prefix . 'toggle-slider" type="button"><span class="' . self::prefix . 'toggle-handle">' . self::checkIcon . self::crossIcon . '</span></span></label>';
     if ( ! empty( $data['title'] ) ) {
-      $field .= '<label for="' . self::prefix . 'toggle-' . $data['id'] . '" class="' . self::prefix . 'input-title">' . $data['title'] . '</label>';
+      $field .= '<label for="' . esc_attr( self::prefix . 'toggle-' . $data['id'] ) . '" class="' . self::prefix . 'input-title">' . esc_html( $data['title'] ) . '</label>';
     }
 
     return self::wrap( $field, $data );
@@ -596,7 +606,7 @@ class HTML {
       return '';
     }
 
-    return '<button id="' . self::prefix . $data['id'] . '-button" class="' . self::getClass( $data, self::prefix . 'button ' . self::prefix . 'button-' . $data['button_type'] ) . '" type="' . $data['button_type'] . '" ' . self::getAttributes( $data ) . '>' . $data['title'] . '</button>';
+    return '<button id="' . esc_attr( self::prefix . $data['id'] . '-button' ) . '" class="' . self::getClass( $data, self::prefix . 'button ' . self::prefix . 'button-' . $data['button_type'] ) . '" type="' . esc_attr( $data['button_type'] ) . '" ' . self::getAttributes( $data ) . '>' . esc_html( $data['title'] ) . '</button>';
   }
 
   public static function hr(): string {
@@ -608,7 +618,7 @@ class HTML {
       return '';
     }
 
-    return '<div style="height: ' . $data['size'] . 'px"></div>';
+    return '<div style="height: ' . esc_attr( $data['size'] ) . 'px"></div>';
   }
 
   public static function startinlineelements( $data ): string {
@@ -619,12 +629,12 @@ class HTML {
     } else {
       $type = 'checkbox';
     }
-    $style = isset( $data['wrap_style'] ) ? 'style="' . $data['wrap_style'] . '"' : '';
+    $style = isset( $data['wrap_style'] ) ? 'style="' . esc_attr( $data['wrap_style'] ) . '"' : '';
 
     // fieldset
-    $element = '<div id="' . self::prefix . ( empty( $data['id'] ) ? '' : $data['id'] . '-' ) . $type . '-group" class="' . self::getClass( $data, self::prefix . $type . '-group' ) . '" ' . $style . '>';
+    $element = '<div id="' . esc_attr( self::prefix . ( empty( $data['id'] ) ? '' : $data['id'] . '-' ) . $type . '-group' ) . '" class="' . self::getClass( $data, self::prefix . $type . '-group' ) . '" ' . $style . '>';
     if ( ! empty( $data['title'] ) ) {
-      $element .= '<legend class="' . self::prefix . 'title">' . $data['title'] . '</legend>';
+      $element .= '<legend class="' . self::prefix . 'title">' . esc_html( $data['title'] ) . '</legend>';
     }
     $element .= '<div class="' . self::prefix . $type . '-group-options">';
 
@@ -642,9 +652,9 @@ class HTML {
 
     $addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="start"><i class="jetexir-icon-plus-circle"></i></a>';
 
-    return '<div class="' . self::prefix . 'repeatable ' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '" ' . self::getAttributes( $data ) . '>' .
-           '<div class="' . self::prefix . 'title">' . $data['title'] . $addRepeat . '</div>' .
-           ( ! empty( $data['desc'] ) ? '<div class="' . self::prefix . 'description">' . $data['desc'] . '</div>' : '' ) .
+    return '<div class="' . self::prefix . 'repeatable ' . ( ! empty( $data['class'] ) ? ' ' . esc_attr( $data['class'] ) : '' ) . '" ' . self::getAttributes( $data ) . '>' .
+           '<div class="' . self::prefix . 'title">' . esc_html( $data['title'] ) . $addRepeat . '</div>' .
+           ( ! empty( $data['desc'] ) ? '<div class="' . self::prefix . 'description">' . wp_kses_post( $data['desc'] ) . '</div>' : '' ) .
            '<div class="' . self::prefix . 'repeatable-wrap">';
   }
 
@@ -653,7 +663,7 @@ class HTML {
       return '';
     }
 
-    $addText   = ! empty( $data['add_text'] ) ? ' ' . $data['add_text'] : '';
+    $addText   = ! empty( $data['add_text'] ) ? ' ' . esc_html( $data['add_text'] ) : '';
     $addRepeat = '<a href="#" class="' . self::prefix . 'add-repeatable" data-position="end"><i class="jetexir-icon-plus-circle"></i>' . $addText . '</a>';
 
     return '</div>' . $addRepeat . '</div>';
@@ -685,7 +695,7 @@ class HTML {
     </g>
 </svg></a>';
 
-    return '<div class="' . self::prefix . 'repeatable-fields-wrap" data-repeat-title="' . ( $data['title'] ?? '' ) . '">' .
+    return '<div class="' . self::prefix . 'repeatable-fields-wrap" data-repeat-title="' . esc_attr( $data['title'] ?? '' ) . '">' .
            '<div class="' . self::prefix . 'repeatable-actions">' . $moveUpRepeat . $moveDownRepeat . $removeRepeat . '</div>';
   }
 
@@ -698,8 +708,8 @@ class HTML {
       $data['cols'] = 2;
     }
 
-    return '<div class="' . self::prefix . 'grid ' . self::prefix . 'grid-cols-' . $data['cols'] . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '">' .
-           '<div class="' . self::prefix . 'title">' . $data['title'] . '</div>' .
+    return '<div class="' . self::prefix . 'grid ' . self::prefix . 'grid-cols-' . esc_attr( $data['cols'] ) . ( ! empty( $data['class'] ) ? ' ' . esc_attr( $data['class'] ) : '' ) . '">' .
+           '<div class="' . self::prefix . 'title">' . esc_html( $data['title'] ) . '</div>' .
            '<div class="' . self::prefix . 'fields-wrap">';
   }
 
@@ -708,7 +718,7 @@ class HTML {
   }
 
   public static function h2( $data ): string {
-    return '<h2 class="' . self::prefix . 'heading-2">' . $data['title'] . '</h2>';
+    return '<h2 class="' . self::prefix . 'heading-2">' . esc_html( $data['title'] ) . '</h2>';
   }
 
   public static function addon( $data ): string {
@@ -726,7 +736,7 @@ class HTML {
              '<div class="' . self::prefix . 'image-wrap">';
 
     if ( is_array( $data['tags'] ) && ! empty( $data['tags'] ) && is_string( $data['tags'][0] ) ) {
-      $addon .= '<span class="' . self::prefix . 'tag">' . $data['tags'][0] . '</span>';
+      $addon .= '<span class="' . self::prefix . 'tag">' . esc_html( $data['tags'][0] ) . '</span>';
     }
 
     $image = '';
@@ -738,16 +748,16 @@ class HTML {
 
     if ( ! empty( $image ) ) {
       if ( ! empty( $data['image_link'] ) ) {
-        $addon .= '<a href="' . $data['image_link'] . '" target="_blank" class="' . self::prefix . 'image-link">' . $image . '</a>';
+        $addon .= '<a href="' . esc_url( $data['image_link'] ) . '" target="_blank" class="' . self::prefix . 'image-link">' . $image . '</a>';
       } else {
         $addon .= $image;
       }
     }
 
 
-    $addon .= '</div><div class="' . self::prefix . 'title-desc"><strong class="' . self::prefix . 'title">' . $data['title'] . '</strong>' .
-              ( ! empty( $data['desc'] ) ? '<p class="' . self::prefix . 'desc">' . $data['desc'] . '</p>' : '' ) .
-              ( ! empty( $data['more_info_link'] ) ? '<a href="' . $data['more_info_link'] . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="jetexir-icon-chevron-right"></i><span>' . esc_html__( 'More info', 'jetexir' ) . '</span></a>' : '' ) .
+    $addon .= '</div><div class="' . self::prefix . 'title-desc"><strong class="' . self::prefix . 'title">' . esc_html( $data['title'] ) . '</strong>' .
+              ( ! empty( $data['desc'] ) ? '<p class="' . self::prefix . 'desc">' . wp_kses_post( $data['desc'] ) . '</p>' : '' ) .
+              ( ! empty( $data['more_info_link'] ) ? '<a href="' . esc_url( $data['more_info_link'] ) . '" target="_blank" class="' . self::prefix . 'more-info-link"><i class="jetexir-icon-chevron-right"></i><span>' . esc_html__( 'More info', 'jetexir' ) . '</span></a>' : '' ) .
               '</div><div class="' . self::prefix . 'action-wrap">';
 
     if ( $canActivate ) {
@@ -761,7 +771,7 @@ class HTML {
       ) );
 
     } else if ( ! empty( $data['action_link'] ) ) {
-      $addon .= '<a href="' . $data['action_link'] . '" ' . ( $data['action_link_external'] ? 'target="_blank"' : '' ) . ' class="' . self::prefix . 'action-link">' . $data['action_title'] . '</a>';
+      $addon .= '<a href="' . esc_url( $data['action_link'] ) . '" ' . ( $data['action_link_external'] ? 'target="_blank"' : '' ) . ' class="' . self::prefix . 'action-link">' . esc_html( $data['action_title'] ) . '</a>';
 
     }
 
@@ -771,7 +781,7 @@ class HTML {
   }
 
   public static function startaddons( $data ): string {
-    return '<div class="' . self::prefix . 'addons-wrap' . ( ! empty( $data['class'] ) ? ' ' . $data['class'] : '' ) . '">' . self::h2( $data ) . '<div class="' . self::prefix . 'addons-grid">';
+    return '<div class="' . self::prefix . 'addons-wrap' . ( ! empty( $data['class'] ) ? ' ' . esc_attr( is_array( $data['class'] ) ? implode( ' ', $data['class'] ) : $data['class'] ) : '' ) . '">' . self::h2( $data ) . '<div class="' . self::prefix . 'addons-grid">';
   }
 
   public static function endaddons( $data ): string {
@@ -795,7 +805,7 @@ class HTML {
 
     $class = self::getClass( $data, self::prefix . 'paragraph-wrap' );
 
-    return '<p class="' . $class . '">' . $data['text'] . '</p>';
+    return '<p class="' . $class . '">' . wp_kses_post( $data['text'] ) . '</p>';
   }
 
   public static function image( $data ): string {
@@ -803,7 +813,7 @@ class HTML {
       return '';
     }
 
-    return '<img src="' . $data['src'] . '" class="' . self::getClass( $data, self::prefix . 'image' ) . '" ' . self::getAttributes( $data ) . '>';
+    return '<img src="' . esc_url( $data['src'] ) . '" class="' . self::getClass( $data, self::prefix . 'image' ) . '" ' . self::getAttributes( $data ) . '>';
   }
 
   public static function gradientcolorpicker( $data ): string {
@@ -813,7 +823,7 @@ class HTML {
 
     $field = '';
     if ( ! empty( $data['title'] ) ) {
-      $field .= '<label class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
+      $field .= '<label class="' . self::prefix . 'input-label">' . esc_html( $data['title'] ) . '</label>';
     }
 
     $id            = self::prefix . $data['type'] . '-' . $data['id'];
@@ -826,14 +836,14 @@ class HTML {
     $jsonValue     = str_replace( '"', "'", JSON::encode( $value ) );
     $firstColor    = false;
 
-    $field .= '<div id="' . $id . '" class="' . self::getClass( $data, self::prefix . 'gradient-color-picker-wrap' ) . '" ' . self::getAttributes( $data ) . '>';
-    $field .= '<input type="hidden" name="' . self::prefixName . $data['id'] . '" class="' . self::prefix . 'gradient-color-picker-value"  value="' . $jsonValue . '">';
+    $field .= '<div id="' . esc_attr( $id ) . '" class="' . self::getClass( $data, self::prefix . 'gradient-color-picker-wrap' ) . '" ' . self::getAttributes( $data ) . '>';
+    $field .= '<input type="hidden" name="' . esc_attr( self::prefixName . $data['id'] ) . '" class="' . self::prefix . 'gradient-color-picker-value"  value="' . esc_attr( $jsonValue ) . '">';
 
-    $field .= '<div class="' . self::prefix . 'gradient-color-picker" style="' . $gradientStyle . '">';
+    $field .= '<div class="' . self::prefix . 'gradient-color-picker" style="' . esc_attr( $gradientStyle ) . '">';
     $i     = 0;
     foreach ( $colors as $position => $color ) {
       $pointID = $id . '-' . $i;
-      $field   .= '<div id="' . $pointID . '" class="' . self::prefix . 'gradient-color-point ' . ( ! $firstColor ? 'is-active' : '' ) . '" data-color="' . $color . '" data-position="' . $position . '" data-index="' . $i . '" style="left:5px"><span style="background-color: ' . $color . '"></span></div>';
+      $field   .= '<div id="' . esc_attr( $pointID ) . '" class="' . self::prefix . 'gradient-color-point ' . ( ! $firstColor ? 'is-active' : '' ) . '" data-color="' . esc_attr( $color ) . '" data-position="' . esc_attr( $position ) . '" data-index="' . esc_attr( $i ) . '" style="left:5px"><span style="background-color: ' . esc_attr( $color ) . '"></span></div>';
       $i ++;
       if ( ! $firstColor ) {
         $firstColor = $color;
@@ -901,7 +911,7 @@ class HTML {
 
     $field = '';
     if ( ! empty( $data['title'] ) ) {
-      $field .= '<label class="' . self::prefix . 'input-label">' . $data['title'] . '</label>';
+      $field .= '<label class="' . self::prefix . 'input-label">' . esc_html( $data['title'] ) . '</label>';
     }
 
     $colors = is_array( $data['setting_value'] ) ? $data['setting_value'] : [];
@@ -958,8 +968,7 @@ class HTML {
     }
 
     if ( $echo ) {
-      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-      echo $output;
+      echo wp_kses_post( $output );
     } else {
       return $output;
     }
@@ -986,7 +995,7 @@ class HTML {
         $requiredText = $data['required_text'];
       }
 
-      $data['required_text'] = ' <abbr class="required" title="' . esc_html__( 'Required', 'jetexir' ) . '">' . $requiredText . '</abbr>';
+      $data['required_text'] = ' <abbr class="required" title="' . esc_html__( 'Required', 'jetexir' ) . '">' . esc_html( $requiredText ) . '</abbr>';
     }
 
     $attributes = empty( $data['attributes'] ) || ! is_array( $data['attributes'] ) ? [] : $data['attributes'];

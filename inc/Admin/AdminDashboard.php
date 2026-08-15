@@ -36,9 +36,21 @@ class AdminDashboard implements AdminTabInterface {
   }
 
   public function content(): void {
+    /**
+     * Filters the custom dashboard links.
+     *
+     * @param array $links Dashboard links.
+     *
+     * @return array Dashboard links.
+     *
+     * @since 1.0
+     *
+     */
+    $customLinks = (array) apply_filters( 'jetexir_dashboard_custom_links', [] );
+
     $dashboardTypeLinks = array(
       'addons' => $this->getAddons(),
-      'custom' => apply_filters( 'jetexir_dashboard_custom_links', [] )
+      'custom' => $customLinks
     );
 
     if ( empty( $dashboardTypeLinks['addons'] ) ) {
@@ -62,7 +74,17 @@ class AdminDashboard implements AdminTabInterface {
   }
 
   private function getAddons(): array {
-    $addons    = apply_filters( 'jetexir_dashboard_addon_links', [] );
+    /**
+     * Filters the dashboard addon links.
+     *
+     * @param array $addons Addon links.
+     *
+     * @return array Addon links.
+     *
+     * @since 1.0
+     *
+     */
+    $addons    = (array) apply_filters( 'jetexir_dashboard_addon_links', [] );
     $addonCats = Addons::getAddonCats();
     $addonList = array();
     foreach ( array_keys( $addonCats ) as $addonCat ) {

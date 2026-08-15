@@ -17,7 +17,15 @@ defined( 'ABSPATH' ) or die();
                 aria-label="<?php esc_html_e( 'Close', 'jetexir' ) ?>"></button>
       </div>
       <div class="jetexir-modal-body">
-        <?php do_action( 'jetexir_fly_cart_modal_body' ); ?>
+        <?php
+        /**
+         * Fires to display the fly cart modal body content.
+         *
+         * @since 1.0
+         *
+         */
+        do_action( 'jetexir_fly_cart_modal_body' );
+        ?>
       </div>
 
       <?php

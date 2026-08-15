@@ -531,7 +531,7 @@ class ProductRelated extends Addon implements AddonInterface {
   }
 
   public function info(): array {
-    $icon = '<svg viewBox="-19.2 -19.2 230.40 230.40" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-19.2, -19.2), scale(7.199999999999999)" d="M16,31.95005203586291C20.729034042849662,32.057941980240564,24.892865642906695,29.14154989047278,27.7939028469599,25.405323671514942C30.643255322670957,21.7356618650651,32.67733498527118,16.916921800594032,31.05219222082645,12.564435350330186C29.56499785151951,8.581404761919824,24.584712867260606,7.959911811022065,20.665096590517507,6.3128271127137445C17.153362406260584,4.837140915129632,13.570083245004778,2.176567771938685,10.10692464411791,3.7629029318977025C6.604148593971601,5.3673852690296195,5.927230011508407,9.749823841674491,4.998634398855501,13.489010092158498C4.035554422244052,17.36705491338472,2.816591144768958,21.449585290023457,4.8621364256757555,24.882149809526236C7.230335328969726,28.856149117411846,11.375078033710494,31.84453734318515,16,31.95005203586291" fill="#fff" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path stroke="#873eff" stroke-linecap="round" stroke-linejoin="round" stroke-width="12" d="M60 32h72v128H60zm92 108h18V52h-18M40 140H22V52h18"></path></g></svg>';
+    $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke="#873eff" stroke-width="1.5"><path d="M12.5 5c1.886 0 2.828 0 3.414.586S16.5 7.114 16.5 9v6c0 1.886 0 2.828-.586 3.414S14.386 19 12.5 19h-1c-1.886 0-2.828 0-3.414-.586S7.5 16.886 7.5 15V9c0-1.886 0-2.828.586-3.414S9.614 5 11.5 5z"/><path stroke-linecap="round" d="M22 19h-.5a2.5 2.5 0 0 1-2.5-2.5v-9A2.5 2.5 0 0 1 21.5 5h.5M2 19h.5A2.5 2.5 0 0 0 5 16.5v-9A2.5 2.5 0 0 0 2.5 5H2"/></g></svg>';
 
     return array(
       'id'             => $this->addonID,
@@ -540,7 +540,7 @@ class ProductRelated extends Addon implements AddonInterface {
       'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
-      'more_info_link' => 'https://parsa.ws',
+      'more_info_link' => '{jetexir_website}/addons/related-products',
       'settings_key'   => $this->addonID,
     );
   }

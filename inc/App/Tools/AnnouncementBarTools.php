@@ -42,7 +42,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
       return '';
     }
 
-    return $this->getAnnouncement( $announcement, false );
+    return wp_kses_post( $this->getAnnouncement( $announcement, false ) );
   }
 
   public function wpBodyOpenAction(): void {
@@ -90,15 +90,19 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
   }
 
   public function getAnnouncement( $announcement, $position = true ): string {
-    $style = '--jetexir-announcement-bar-text-color: ' . ( $announcement['text_color'] ?? '#333' ) . ';';
+    $textColor = sanitize_hex_color( $announcement['text_color'] ?? '' );
+    $textColor = $textColor ?: '#333';
+    $style     = '--jetexir-announcement-bar-text-color: ' . esc_attr( $textColor ) . ';';
 
     $bgColorType = $announcement['bg_color_type'] ?? 'solid';
     if ( $bgColorType === 'gradient' ) {
       $bgColorGradient = $announcement['bg_color_gradient'] ?? [];
-      $style           .= '--jetexir-announcement-bar-bg: ' . Assets::cssGradient( $bgColorGradient ) . ';';
+      $style           .= '--jetexir-announcement-bar-bg: ' . esc_attr( Assets::cssGradient( $bgColorGradient ) ) . ';';
 
     } else {
-      $style .= '--jetexir-announcement-bar-bg: ' . $announcement['bg_color_solid'] ?? '#ebe5ff' . ';';
+      $bgColorSolid = sanitize_hex_color( $announcement['bg_color_solid'] ?? '' );
+      $bgColorSolid = $bgColorSolid ?: '#ebe5ff';
+      $style        .= '--jetexir-announcement-bar-bg: ' . esc_attr( $bgColorSolid ) . ';';
     }
 
     $tag         = 'div';
@@ -111,16 +115,19 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
       $withButtons = true;
     }
 
-    $output = '<' . $tag . ( $tag === 'a' ? ' href="' . $announcement['primary_button_url'] . '"' : '' ) . ' id="jetexir-announcement-bar-' . $announcement['code'] . '" class="jetexir-announcement-bar' . ( $position ? ' jetexir-announcement-bar-fixed jetexir-announcement-bar-' . $announcement['position'] : ' jetexir-announcement-bar-inline' ) . ( ! $withButtons ? ' jetexir-announcement-bar-center' : '' ) . '" style="' . $style . '">';
+    $code          = esc_attr( $announcement['code'] ?? '' );
+    $positionClass = $position ? ' jetexir-announcement-bar-fixed jetexir-announcement-bar-' . esc_attr( $announcement['position'] ?? '' ) : ' jetexir-announcement-bar-inline';
+
+    $output = '<' . $tag . ( $tag === 'a' ? ' href="' . esc_url( $announcement['primary_button_url'] ) . '"' : '' ) . ' id="jetexir-announcement-bar-' . $code . '" class="jetexir-announcement-bar' . $positionClass . ( ! $withButtons ? ' jetexir-announcement-bar-center' : '' ) . '" style="' . $style . '">';
     $output .= '<span class="jetexir-announcement-bar-container">';
-    $output .= '<span class="jetexir-announcement-bar-text">' . esc_html( $announcement['text'] ) . '</span>';
+    $output .= '<span class="jetexir-announcement-bar-text">' . esc_html( $announcement['text'] ?? '' ) . '</span>';
     if ( $withButtons ) {
       $output .= '<span class="jetexir-announcement-bar-buttons">';
       if ( ! empty( $announcement['primary_button'] ) && ! empty( $announcement['primary_button_url'] ) ) {
-        $output .= '<a href="' . $announcement['primary_button_url'] . '" class="jetexir-button jetexir-button-primary">' . $announcement['primary_button'] . '</a>';
+        $output .= '<a href="' . esc_url( $announcement['primary_button_url'] ) . '" class="jetexir-button jetexir-button-primary">' . esc_html( $announcement['primary_button'] ) . '</a>';
       }
       if ( ! empty( $announcement['secondary_button'] ) && ! empty( $announcement['secondary_button_url'] ) ) {
-        $output .= '<a href="' . $announcement['secondary_button_url'] . '" class="jetexir-button jetexir-button-secondary">' . $announcement['secondary_button'] . '</a>';
+        $output .= '<a href="' . esc_url( $announcement['secondary_button_url'] ) . '" class="jetexir-button jetexir-button-secondary">' . esc_html( $announcement['secondary_button'] ) . '</a>';
       }
       $output .= '</span>';
     }
@@ -548,7 +555,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
   }
 
   public function info(): array {
-    $icon = '<svg viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-2.4, -2.4), scale(0.8999999999999999)" d="M16,30.34219599266847C19.53854807102261,29.988282275140428,21.989671739665788,27.000879805461366,24.2825855858541,24.282585585854104C26.320012422667293,21.867176213806044,27.80378894063114,19.14624528623579,28.097814702739317,16C28.427019799015813,12.47731554222226,28.193866509703074,8.777741066663864,25.99023362521868,6.009766374781325C23.558883780392648,2.955757295058568,19.900147867998868,0.9691490147634005,16.000000000000004,0.803982024391491C11.948862212034367,0.6324207762884754,7.464055646601889,1.8132576668453049,5.12619728832431,5.126197288324306C2.9534664946819245,8.205137424957991,5.1419810888702076,12.234031029187655,5.276551432907581,15.999999999999998C5.402044120395668,19.511929545284723,3.772168539228551,23.30903988384227,5.876499363903365,26.12350063609663C8.152243863634983,29.167220521558622,12.218440241290523,30.720414924670298,16,30.34219599266847" fill="#fff" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M22 7.99992V11.9999M10.25 5.49991H6.8C5.11984 5.49991 4.27976 5.49991 3.63803 5.82689C3.07354 6.11451 2.6146 6.57345 2.32698 7.13794C2 7.77968 2 8.61976 2 10.2999L2 11.4999C2 12.4318 2 12.8977 2.15224 13.2653C2.35523 13.7553 2.74458 14.1447 3.23463 14.3477C3.60218 14.4999 4.06812 14.4999 5 14.4999V18.7499C5 18.9821 5 19.0982 5.00963 19.1959C5.10316 20.1455 5.85441 20.8968 6.80397 20.9903C6.90175 20.9999 7.01783 20.9999 7.25 20.9999C7.48217 20.9999 7.59826 20.9999 7.69604 20.9903C8.64559 20.8968 9.39685 20.1455 9.49037 19.1959C9.5 19.0982 9.5 18.9821 9.5 18.7499V14.4999H10.25C12.0164 14.4999 14.1772 15.4468 15.8443 16.3556C16.8168 16.8857 17.3031 17.1508 17.6216 17.1118C17.9169 17.0756 18.1402 16.943 18.3133 16.701C18.5 16.4401 18.5 15.9179 18.5 14.8736V5.1262C18.5 4.08191 18.5 3.55976 18.3133 3.2988C18.1402 3.05681 17.9169 2.92421 17.6216 2.88804C17.3031 2.84903 16.8168 3.11411 15.8443 3.64427C14.1772 4.55302 12.0164 5.49991 10.25 5.49991Z" stroke="#873eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>';
+    $icon = '<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="200" height="200" fill="#873eff" stroke="#873eff" stroke-width=".002" viewBox="0 0 239.56 239.56"><path d="M146.962 36.978h-1.953L85.568 69.611H42.605C19.113 69.611 0 88.723 0 112.216c0 21.012 15.301 38.474 35.334 41.943L21.56 202.585h47.523l13.584-47.756h2.901l59.443 32.628h1.953c12.585 0 22.826-10.239 22.826-22.826V59.803c-.003-12.584-10.244-22.825-22.828-22.825zm-89.37 150.388H41.71l8.352-29.364h15.882zm51.867-36.785-19.988-10.972H42.605c-15.103 0-27.388-12.29-27.388-27.393s12.285-27.388 27.388-27.388h46.866l19.988-10.974zm45.111 14.05c0 3.637-2.567 6.683-5.978 7.431l-23.916-13.127V65.502l23.916-13.13c3.414.748 5.978 3.797 5.978 7.434zM198.989 79.377 188.106 90.26c5.623 7.789 8.976 17.32 8.976 27.637 0 10.32-3.353 19.851-8.976 27.637l10.883 10.883c8.326-10.629 13.31-24 13.31-38.52s-4.984-27.89-13.31-38.52z"/><path d="m218.358 60.009-10.794 10.794c10.482 12.856 16.782 29.252 16.782 47.094 0 17.845-6.3 34.238-16.782 47.094l10.794 10.794c13.216-15.648 21.205-35.849 21.205-57.888s-7.989-42.24-21.205-57.888z"/></svg>';
 
     return array(
       'id'             => $this->addonID,
@@ -557,7 +564,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
       'tags'           => [ esc_html__( 'Notification', 'jetexir' ) ],
       'cat'            => 'customizations',
       'icon'           => $icon,
-      'more_info_link' => 'https://parsa.ws',
+      'more_info_link' => '{jetexir_website}/addons/announcement-bar',
       'settings_key'   => $this->addonID,
     );
   }

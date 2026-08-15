@@ -33,7 +33,21 @@ class WooCommerce {
    * @param string $defaultPath Default WooCommerce templates path.
    */
   public function locateTemplate( $template, $templateName, $templatePath, $defaultPath ): string {
-    $waTemplate = apply_filters( 'jetexir_wc_locate_template', false, $templateName, $template, $templatePath, $defaultPath );
+    /**
+     * Filters the WooCommerce template path located by Jetexir.
+     *
+     * @param string|bool $override Template path to use instead of the default one, or false.
+     * @param string $templateName Template name.
+     * @param string $template Full file path of the template.
+     * @param string $templatePath Template path.
+     * @param string $defaultPath Default WooCommerce templates path.
+     *
+     * @return string|bool Template path to use instead of the default one, or false.
+     *
+     * @since 1.0
+     *
+     */
+    $waTemplate = (string) apply_filters( 'jetexir_wc_locate_template', false, $templateName, $template, $templatePath, $defaultPath );
 
     if ( ! $waTemplate ) {
       return $template;

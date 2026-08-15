@@ -11,7 +11,7 @@ if ( ! isset( $args ) ) {
 ?>
 
 <div id="<?php echo esc_html( $args['component_id'] ) ?>"
-     class="jetexir-data-table-ui <?php echo $args['sortable'] ? 'jetexir-data-table-sortable' : '' ?>"
+     class="jetexir-data-table-ui <?php echo esc_attr( $args['sortable'] ? 'jetexir-data-table-sortable' : '' ) ?>"
      data-id="<?php echo esc_html( ! empty( $args['id'] ) ? $args['id'] : str_replace( 'jetexir-datatable-', '', $args['component_id'] ) ) ?>">
   <div class="jetexir-loader-wrap" style="display: none">
     <div class="jetexir-loader"></div>

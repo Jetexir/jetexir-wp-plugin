@@ -1,10 +1,10 @@
-=== Jetexir ===
+=== Jetexir for WooCommerce ===
 Contributors: parselearn
 Tags: WooCommerce, Product, Cart, Checkout, Order
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,11 +49,25 @@ Jetexir is open source project, you can find source in [GitHub](https://github.c
 
 == External services ==
 
-This plugin don't use any 3rd party / external service, Your data is not sent to any external service.
+This plugin connects to external services only when you enable the add-ons that require them. When enabled, the following services are used:
 
-Some URLs used in plugin:
-[https://developer.woocommerce.com/feed/](https://developer.woocommerce.com/feed/) Feed url of WooCommerce developer blog used in **Woo Developer Feed** addon
-[https://api.whatsapp.com/send](https://api.whatsapp.com/send) WhatsApp share link used in **Product Social Share** addon
+### WooCommerce Developer Blog feed (Woo Developer Feed add-on)
+
+The **Woo Developer Feed** add-on fetches the latest posts from the official WooCommerce Developer Blog to display them in the add-on feed widget.
+
+When this add-on is enabled, the plugin sends a standard HTTP request to the feed URL ([https://developer.woocommerce.com/feed/](https://developer.woocommerce.com/feed/)) to retrieve the blog posts. No personal data is sent; only the standard request headers that a web browser or server sends with any HTTP request (such as IP address and user agent) are transmitted. The feed is fetched in the background, cached locally on your site for up to one day, and is only requested again after the cached data expires.
+
+This service is provided by WooCommerce (Automattic Inc.):
+- Terms of service: [https://woocommerce.com/terms-conditions/](https://woocommerce.com/terms-conditions/)
+- Privacy policy: [https://woocommerce.com/privacy-policy/](https://woocommerce.com/privacy-policy/)
+
+### WhatsApp (Product Social Share add-on)
+
+The **Product Social Share** add-on includes a "Share on WhatsApp" button. When a visitor clicks the button, their browser opens a WhatsApp share URL ([https://api.whatsapp.com/send](https://api.whatsapp.com/send)) to share the current product page link. The plugin itself does not send any data to WhatsApp; the share is initiated by the visitor in their own browser.
+
+This service is provided by Meta Platforms, Inc.:
+- Terms of service: [https://www.whatsapp.com/legal/terms-of-service](https://www.whatsapp.com/legal/terms-of-service)
+- Privacy policy: [https://www.whatsapp.com/legal/privacy-policy](https://www.whatsapp.com/legal/privacy-policy)
 
 == Installation ==
 
@@ -81,15 +95,31 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 
 == Screenshots ==
 
-1.
-2.
-3.
-4.
-5.
-
+1. Dashboard tab
+2. Product general settings (Sale Badge, Price Variation)
+3. Product Compare
+4. Product Quantity
+5. Product Wishlist
+6. Product Social Share
+7. Product FAQ
+8. Product Related
+9. Product Call for Price
+10. Product Sale Progress Bar
+20. Fly Cart
+21. Menu Cart
+30. Checkout Fields
+40. Order Custom Statuses
+41. Order Number
+50. Announcement Bar
+51. Currency Symbol
+60. WordPress enhance tools
+70. Addons page
 
 == Changelog ==
-### 1.0 - 2025-08-15
+### 1.0.1 - 2026-08-15
+- Fixed some bugs
+
+### 1.0 - 2026-08-10
 **Initial release**
 - Release Jetexir V1.0 with 17 add-ons and basic settings.
 - Product Add-ons: Sale Badge, Price Variation, Compare, Quantity, WishList, Social Share, FAQ, Products, Call for price

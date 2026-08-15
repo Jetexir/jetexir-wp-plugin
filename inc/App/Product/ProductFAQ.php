@@ -26,9 +26,9 @@ class ProductFAQ extends Addon implements AddonInterface {
 
   public function productTabContent(): void {
     $productID          = get_the_ID();
-    $globalFAQsPosition = $this->getSetting( 'product_faq_global_position', 'before' );
+    $globalFAQsPosition = $this->getSetting( 'global_position', 'before' );
     $globalFAQs         = $this->getSetting( 'product_faq', [] );
-    $buttonIcon         = $this->getSetting( 'product_faq_button_icon', 'chevron' );
+    $buttonIcon         = $this->getSetting( 'button_icon', 'chevron' );
     $productFAQs        = PostMeta::get( $productID, JETEXIR_INPUT_PREFIX . 'product_faq' );
     $productFAQs        = is_array( $productFAQs ) ? $productFAQs : [];
 
@@ -38,7 +38,31 @@ class ProductFAQ extends Addon implements AddonInterface {
       $FAQs = array_merge( $productFAQs, $globalFAQs );
     }
 
-    $title = apply_filters( 'jetexir_product_faq_tab_title', esc_html__( 'FAQs', 'jetexir' ) );
+    /**
+     * Product FAQ items
+     *
+     * @param array $FAQs FAQs items
+     * @param string $productID Current product ID
+     *
+     * @return array FAQ items
+     *
+     * @since 1.0
+     *
+     */
+    $FAQs = (array) apply_filters( 'jetexir_product_faq_items', $FAQs, $productID );
+
+    /**
+     * Product FAQ title
+     *
+     * @param array $FAQs FAQ tab title
+     * @param string $productID Current product ID
+     *
+     * @return string FAQ title
+     *
+     * @since 1.0
+     *
+     */
+    $title = (string) apply_filters( 'jetexir_product_faq_tab_title', $this->getSetting( 'tab_title', esc_html__( 'FAQs', 'jetexir' ) ), $productID );
 
     Templates::load( Templates::getPath( 'product-faq/product_faq.php' ), array(
       'title' => $title,
@@ -55,9 +79,35 @@ class ProductFAQ extends Addon implements AddonInterface {
       return $tabs;
     }
 
+    /**
+     * Product FAQ title
+     *
+     * @param array $FAQs FAQ tab title
+     * @param string $productID Current product ID
+     *
+     * @return string FAQ title
+     *
+     * @since 1.0
+     *
+     */
+    $title = (string) apply_filters( 'jetexir_product_faq_tab_title', $this->getSetting( 'tab_title', esc_html__( 'FAQs', 'jetexir' ) ), $productID );
+
+    /**
+     * Product FAQ title
+     *
+     * @param array $FAQs FAQ tab priority
+     * @param string $productID Current product ID
+     *
+     * @return int FAQ tab priority
+     *
+     * @since 1.0
+     *
+     */
+    $priority = (int) apply_filters( 'jetexir_product_faq_tab_priority', 50, $productID );
+
     $tabs['jetexir_product_faq'] = array(
-      'title'    => apply_filters( 'jetexir_product_faq_tab_title', esc_html__( 'FAQs', 'jetexir' ) ),
-      'priority' => 50,
+      'title'    => $title,
+      'priority' => $priority,
       'callback' => [ $this, 'productTabContent' ],
     );
 
@@ -180,13 +230,21 @@ class ProductFAQ extends Addon implements AddonInterface {
       'desc'         => esc_html__( 'Product frequently asked questions', 'jetexir' ),
       'settings_key' => $this->addonID,
       'settings'     => array(
-        'product_faq_start_grid_1'    => array(
+        'product_faq_start_grid_1' => array(
           'id'    => 'product_faq_start_grid_1',
           'title' => esc_html__( 'Frequently asked questions', 'jetexir' ),
           'type'  => 'startgrid',
         ),
-        'product_faq_global_position' => array(
-          'id'       => 'product_faq_global_position',
+        'tab_title'                => array(
+          'id'          => 'tab_title',
+          'title'       => esc_html__( 'Title', 'jetexir' ),
+          'type'        => 'text',
+          'default'     => esc_html__( 'FAQs', 'jetexir' ),
+          'placeholder' => esc_html__( 'FAQs', 'jetexir' ),
+          'desc'        => esc_html__( 'Product FAQ tab title', 'jetexir' )
+        ),
+        'global_position'          => array(
+          'id'       => 'global_position',
           'title'    => esc_html__( 'Global FAQ position', 'jetexir' ),
           'type'     => 'select',
           'options'  => array(
@@ -196,8 +254,8 @@ class ProductFAQ extends Addon implements AddonInterface {
           'default'  => 'before',
           'sanitize' => 'text'
         ),
-        'product_faq_button_icon'     => array(
-          'id'       => 'product_faq_button_icon',
+        'button_icon'              => array(
+          'id'       => 'button_icon',
           'title'    => esc_html__( 'Button icon', 'jetexir' ),
           'type'     => 'radioInline',
           'default'  => 'chevron',
@@ -210,7 +268,7 @@ class ProductFAQ extends Addon implements AddonInterface {
           ),
           'sanitize' => 'text'
         ),
-        'product_faq_end_grid_1'      => array(
+        'product_faq_end_grid_1'   => array(
           'type' => 'endgrid',
         ),
 
@@ -263,7 +321,7 @@ class ProductFAQ extends Addon implements AddonInterface {
   }
 
   public function info(): array {
-    $icon = '<svg fill="#873eff" viewBox="-2.4 -2.4 28.80 28.80" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-2.4, -2.4), scale(0.8999999999999999)" d="M16,31.965446455294597C20.406759313481942,31.744183831601248,22.385060002277697,26.732112649062696,25.015434445256012,23.18956905930547C27.46066883355492,19.89636894825435,31.174361707140367,16.743764821892324,30.273475416344745,12.742172379351086C29.371206456275125,8.734438341611988,24.695895827434633,7.4078928448546435,21.04046107126705,5.533374736924053C17.191078881952365,3.559399792892778,13.213080969520368,0.25236148361584476,9.235796291003204,1.953986267494189C5.166684346217215,3.6948980435666883,4.0156900015017944,8.735971820057475,3.3336411605343645,13.108986250607973C2.722245691171473,17.029000551203772,3.560801396536637,20.862353400017675,5.7730427963683955,24.155726219135406C8.28936695005648,27.901788277496678,11.492932558850207,32.191745532746076,16,31.965446455294597" fill="#fff" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M12,1A11,11,0,1,0,23,12,11.013,11.013,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9.011,9.011,0,0,1,12,21Zm1-4.5v2H11v-2Zm3-7a3.984,3.984,0,0,1-1.5,3.122A3.862,3.862,0,0,0,13.063,15H11.031a5.813,5.813,0,0,1,2.219-3.936A2,2,0,0,0,13.1,7.832a2.057,2.057,0,0,0-2-.14A1.939,1.939,0,0,0,10,9.5,1,1,0,0,1,8,9.5V9.5a3.909,3.909,0,0,1,2.319-3.647,4.061,4.061,0,0,1,3.889.315A4,4,0,0,1,16,9.5Z"></path></g></svg>';
+    $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#873eff" stroke-width="1.5"/><path stroke="#873eff" stroke-linecap="round" stroke-width="1.5" d="M10.125 8.875a1.875 1.875 0 1 1 2.828 1.615c-.475.281-.953.708-.953 1.26V13"/><circle cx="12" cy="16" r="1" fill="#873eff"/></svg>';
 
     return array(
       'id'             => $this->addonID,
@@ -272,7 +330,7 @@ class ProductFAQ extends Addon implements AddonInterface {
       'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
-      'more_info_link' => 'https://parsa.ws',
+      'more_info_link' => '{jetexir_website}/addons/faq-section',
       'settings_key'   => $this->addonID,
     );
   }

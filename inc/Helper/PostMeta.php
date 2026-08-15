@@ -23,6 +23,19 @@ class PostMeta {
   public static function get( $postId, $metaKey = '', $single = true ) {
     $metaValue = get_post_meta( $postId, $metaKey, $single );
 
+    /**
+     * Filters the retrieved post meta value.
+     *
+     * @param mixed $metaValue Meta value.
+     * @param int $postId Post ID.
+     * @param string $metaKey Meta key.
+     * @param bool $single Whether to return a single value.
+     *
+     * @return mixed Meta value.
+     *
+     * @since 1.0
+     *
+     */
     return apply_filters( 'jetexir_get_post_meta', $metaValue, $postId, $metaKey, $single );
   }
 
@@ -48,7 +61,24 @@ class PostMeta {
    *                  is the same as the one that is already in the database.
    */
   public static function update( $postId, $metaKey, $metaValue, $prevValue = '' ) {
-    if ( ( $metaValue = apply_filters( 'jetexir_update_post_meta', $metaValue, $postId, $metaKey, $prevValue ) ) !== false ) {
+    /**
+     * Filters the post meta value before it is updated.
+     *
+     * Return false to prevent the meta value from being updated.
+     *
+     * @param mixed $metaValue Meta value.
+     * @param int $postId Post ID.
+     * @param string $metaKey Meta key.
+     * @param mixed $prevValue Previous value.
+     *
+     * @return mixed|false Meta value, or false to prevent the update.
+     *
+     * @since 1.0
+     *
+     */
+    $metaValue = apply_filters( 'jetexir_update_post_meta', $metaValue, $postId, $metaKey, $prevValue );
+
+    if ( $metaValue !== false ) {
       return update_post_meta( $postId, $metaKey, $metaValue, $prevValue );
     }
 
@@ -72,7 +102,22 @@ class PostMeta {
    *
    */
   public static function delete( $postId, $metaKey = '', $metaValue = '' ): bool {
-    if ( apply_filters( 'jetexir_delete_post_meta', true, $postId, $metaKey, $metaValue ) ) {
+    /**
+     * Filters whether to delete a post meta field.
+     *
+     * @param bool $delete Whether to delete the meta value.
+     * @param int $postId Post ID.
+     * @param string $metaKey Meta key.
+     * @param mixed $metaValue Meta value.
+     *
+     * @return bool Whether to delete the meta value.
+     *
+     * @since 1.0
+     *
+     */
+    $deleteMeta = (bool) apply_filters( 'jetexir_delete_post_meta', true, $postId, $metaKey, $metaValue );
+
+    if ( $deleteMeta ) {
       return delete_post_meta( $postId, $metaKey, $metaValue );
     }
 

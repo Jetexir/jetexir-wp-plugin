@@ -212,7 +212,7 @@ class MenuCart extends Addon implements AddonInterface {
   }
 
   public function info(): array {
-    $icon = '<svg fill="#873eff" version="1.1" id="Layer_1" xmlns:x="&amp;ns_extend;" xmlns:i="&amp;ns_ai;" xmlns:graph="&amp;ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-2.4 -2.4 28.80 28.80" enable-background="new 0 0 24 24" xml:space="preserve" transform="rotate(90)"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-2.4, -2.4), scale(0.8999999999999999)" d="M16,31.364685096942328C19.972705723191634,31.287791043722077,23.549010166801654,29.165917028319917,26.275359660338694,26.275359660338697C28.91615599135494,23.47550831697567,30.92988568496685,19.823753492102156,30.49184226419996,16C30.084474223170172,12.444016972720618,26.72284702068782,10.338630774361551,24.163079893260466,7.8369201067395355C21.65239567325643,5.383179128150218,19.510518913641796,1.8620768977255568,16,1.836838047732325C12.480268481147702,1.8115329637814712,9.680889514140395,4.796547460009457,7.7186933099563255,7.718693309956324C6.101421191651408,10.127170606295117,6.853784455740706,13.121863435609042,6.489556630963788,15.999999999999998C6.022094776649552,19.69389421630223,3.359365957687479,23.515047852581304,5.319018035755056,26.68098196424494C7.446066852751814,30.117355431898616,11.959346266269309,31.442894323825737,16,31.364685096942328" fill="#fff" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <metadata> <sfw xmlns="&amp;ns_sfw;"> <slices> </slices> <slicesourcebounds width="505" height="984" bottomleftorigin="true" x="0" y="-984"> </slicesourcebounds> </sfw> </metadata> <g> <g> <g> <path d="M12,7c-1.7,0-3-1.3-3-3s1.3-3,3-3s3,1.3,3,3S13.7,7,12,7z M12,3c-0.6,0-1,0.4-1,1s0.4,1,1,1s1-0.4,1-1S12.6,3,12,3z"></path> </g> </g> <g> <g> <path d="M12,23c-1.7,0-3-1.3-3-3s1.3-3,3-3s3,1.3,3,3S13.7,23,12,23z M12,19c-0.6,0-1,0.4-1,1s0.4,1,1,1s1-0.4,1-1S12.6,19,12,19 z"></path> </g> </g> <g> <g> <path d="M12,15c-1.7,0-3-1.3-3-3s1.3-3,3-3s3,1.3,3,3S13.7,15,12,15z M12,11c-0.6,0-1,0.4-1,1s0.4,1,1,1s1-0.4,1-1S12.6,11,12,11 z"></path> </g> </g> </g> </g></svg>';
+    $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke="#873eff" stroke-width="1.5"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></g></svg>';
 
     return array(
       'id'             => $this->addonID,
@@ -221,7 +221,7 @@ class MenuCart extends Addon implements AddonInterface {
       'tags'           => [ esc_html__( 'Cart', 'jetexir' ) ],
       'cat'            => 'cart',
       'icon'           => $icon,
-      'more_info_link' => 'https://parsa.ws',
+      'more_info_link' => '{jetexir_website}/addons/menu-cart',
       'settings_key'   => $this->addonID,
     );
   }

@@ -2080,8 +2080,29 @@ body.toplevel_page_jetexir .jetexir-wrap .jetexir-sidebar .jetexir-sidebar-head 
   align-items: center;
   justify-content: space-between;
 }
+body.toplevel_page_jetexir .jetexir-wrap .jetexir-sidebar .jetexir-sidebar-head .jetexir-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-inline-start: 5px;
+}
+body.toplevel_page_jetexir .jetexir-wrap .jetexir-sidebar .jetexir-sidebar-head .jetexir-logo-wrap .jetexir-logo-title {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  line-height: 1;
+}
+body.toplevel_page_jetexir .jetexir-wrap .jetexir-sidebar .jetexir-sidebar-head .jetexir-logo-wrap .jetexir-logo-title span:first-child {
+  color: black;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+body.toplevel_page_jetexir .jetexir-wrap .jetexir-sidebar .jetexir-sidebar-head .jetexir-logo-wrap .jetexir-logo-title span:last-child {
+  color: #525252;
+  font-size: 0.9em;
+}
 body.toplevel_page_jetexir .jetexir-wrap .jetexir-sidebar .jetexir-sidebar-head .jetexir-logo {
-  max-width: 40px;
+  max-width: 30px;
 }
 body.toplevel_page_jetexir .jetexir-wrap .jetexir-sidebar .menu-items {
   display: flex;

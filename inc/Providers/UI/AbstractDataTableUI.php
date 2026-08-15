@@ -369,10 +369,6 @@ abstract class AbstractDataTableUI {
           $columnData = '-';
         }
 
-        if ( $column['is_html'] == false ) {
-          $columnData = htmlspecialchars( $columnData, ENT_QUOTES );
-        }
-
         $attributes = [];
 
         if ( isset( $column['attr'] ) ) {
@@ -382,7 +378,8 @@ abstract class AbstractDataTableUI {
         $newRow[] = [
           'field'      => $column['field'],
           'content'    => $columnData,
-          'attributes' => $attributes
+          'attributes' => $attributes,
+          'is_html'    => (bool) $column['is_html']
         ];
       }
 

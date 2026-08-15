@@ -203,10 +203,7 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
   }
 
   public function info(): array {
-    $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-2.4 -2.4 28.8 28.8">
-  <path fill="#fff" stroke-width="0" d="M12 20.834c1.654-.067 3.11-.935 4.519-1.803 1.434-.883 2.78-1.87 3.717-3.27 1.057-1.58 1.89-3.329 1.968-5.228.086-2.126.109-4.685-1.508-6.068-1.637-1.401-4.212-.093-6.303-.616-1.962-.49-3.456-2.515-5.47-2.326C6.84 1.72 5.026 3.191 3.75 4.852c-1.237 1.612-1.182 3.76-1.763 5.708-.7 2.351-3.252 4.817-2 6.926 1.303 2.195 4.793 1.237 7.252 1.922 1.629.454 3.072 1.494 4.761 1.426"/>
-  <path fill="#873eff" fill-rule="evenodd" d="M0 10a5 5 0 0 1 5-5h14a5 5 0 0 1 5 5v4a5 5 0 0 1-5 5H5a5 5 0 0 1-5-5v-4Zm5-3a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-3H5Zm5 4a2 2 0 1 1 4 0v2a2 2 0 1 1-4 0v-2ZM6 9a2 2 0 0 0-2 2v2a2 2 0 1 0 4 0v-2a2 2 0 0 0-2-2Z" clip-rule="evenodd"/>
-</svg>';
+    $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="#873eff" fill-rule="evenodd" d="M0 10a5 5 0 0 1 5-5h14a5 5 0 0 1 5 5v4a5 5 0 0 1-5 5H5a5 5 0 0 1-5-5zm5-3a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-3zm5 4a2 2 0 1 1 4 0v2a2 2 0 1 1-4 0zM6 9a2 2 0 0 0-2 2v2a2 2 0 1 0 4 0v-2a2 2 0 0 0-2-2" clip-rule="evenodd"/></svg>';
 
     return array(
       'id'             => $this->addonID,
@@ -215,7 +212,7 @@ class ProductSaleProgressBar extends Addon implements AddonInterface {
       'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
-      'more_info_link' => 'https://parsa.ws',
+      'more_info_link' => '{jetexir_website}/addons/sale-progress-bar',
       'settings_key'   => $this->addonID,
     );
   }

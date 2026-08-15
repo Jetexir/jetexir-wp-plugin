@@ -11,11 +11,11 @@ class Admin {
     new AdminPages();
 
     new AdminDashboard();
-    new AdminTools();
     new AdminProduct();
     new AdminCart();
     new AdminCheckout();
     new AdminOrder();
+    new AdminTools();
     new AdminWordPress();
     new AdminGeneral();
   }

@@ -12,7 +12,17 @@ class ProductGeneral {
   }
 
   public function addSectionSettings( $sections ) {
-    $settings = apply_filters( 'jetexir_product_general_settings', [] );
+    /**
+     * Filters the product general settings.
+     *
+     * @param array $settings Settings.
+     *
+     * @return array Settings.
+     *
+     * @since 1.0
+     *
+     */
+    $settings = (array) apply_filters( 'jetexir_product_general_settings', [] );
 
     if ( empty( $settings ) ) {
       return $sections;

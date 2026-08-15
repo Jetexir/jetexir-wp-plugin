@@ -100,10 +100,30 @@ class FlyIcons {
   }
 
   public function siteIcons(): void {
-    $this->printIcons( apply_filters( 'jetexir_site_fly_icons', [] ) );
+    /**
+     * Filters the site fly icons.
+     *
+     * @param array $icons Fly icons.
+     *
+     * @return array Fly icons.
+     *
+     * @since 1.0
+     *
+     */
+    $this->printIcons( (array) apply_filters( 'jetexir_site_fly_icons', [] ) );
   }
 
   public function adminIcons(): void {
-    $this->printIcons( apply_filters( 'jetexir_admin_fly_icons', [] ) );
+    /**
+     * Filters the admin fly icons.
+     *
+     * @param array $icons Fly icons.
+     *
+     * @return array Fly icons.
+     *
+     * @since 1.0
+     *
+     */
+    $this->printIcons( (array) apply_filters( 'jetexir_admin_fly_icons', [] ) );
   }
 }

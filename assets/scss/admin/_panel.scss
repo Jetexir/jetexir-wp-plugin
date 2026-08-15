@@ -123,8 +123,33 @@ body.toplevel_page_#{variables.$plugin_key} {
         align-items: center;
         justify-content: space-between;
 
+        .jetexir-logo-wrap {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding-inline-start: 5px;
+
+          .jetexir-logo-title {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            line-height: 1;
+
+            span:first-child {
+              color: black;
+              font-weight: bold;
+              font-size: 1.1em;
+            }
+
+            span:last-child {
+              color: variables.$gray;
+              font-size: 0.9em;
+            }
+          }
+        }
+
         .jetexir-logo {
-          max-width: 40px;
+          max-width: 30px;
         }
       }
 

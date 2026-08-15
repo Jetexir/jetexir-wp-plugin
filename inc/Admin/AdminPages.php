@@ -30,6 +30,14 @@ class AdminPages {
   public function checkSubmitForm(): void {
     $tab = self::getActiveTab();
     if ( isset( $_POST['_form_nonce'] ) && check_admin_referer( 'settings_submit_' . $tab, '_form_nonce' ) ) {
+      /**
+       * Fires when the Jetexir settings form is submitted.
+       *
+       * @param string $tab Current tab.
+       *
+       * @since 1.0
+       *
+       */
       do_action( 'jetexir_submit_settings_form', $tab );
     }
   }
@@ -41,7 +49,20 @@ class AdminPages {
   public function pageContent( $currentTab ): void {
     $settings = AdminSettings::getSettings( $currentTab );
 
-    if ( $settings && apply_filters( 'jetexir_display_tab_settings', true, $currentTab ) ) {
+    /**
+     * Filters whether to display the settings page content for a tab.
+     *
+     * @param bool $display Whether to display the settings page content.
+     * @param string $currentTab Current tab.
+     *
+     * @return bool Whether to display the settings page content.
+     *
+     * @since 1.0
+     *
+     */
+    $displayTabSettings = (bool) apply_filters( 'jetexir_display_tab_settings', true, $currentTab );
+
+    if ( $settings && $displayTabSettings ) {
       AdminSettings::printPage( $currentTab, $settings );
     }
   }
@@ -59,18 +80,46 @@ class AdminPages {
 
   public function init(): void {
     if ( self::isSettingPage() ) {
+      /**
+       * Fires during admin init on the Jetexir settings page.
+       *
+       * @param string $tab Current tab.
+       *
+       * @since 1.0
+       *
+       */
       do_action( 'jetexir_admin_init', self::getActiveTab() );
     }
   }
 
   public function adminMenuInit(): void {
     if ( self::isSettingPage() ) {
+      /**
+       * Fires when the Jetexir admin menus are initialized.
+       *
+       * @param string $tab Current tab.
+       *
+       * @since 1.0
+       *
+       */
       do_action( 'jetexir_admin_init_menu', self::getActiveTab() );
     }
   }
 
   public function displayNotices( $tab ): void {
-    if ( apply_filters( 'jetexir_' . $tab . '_tab_display_notice', true ) ) {
+    /**
+     * Filters whether to display admin notices for a tab.
+     *
+     * @param bool $display Whether to display the notices.
+     *
+     * @return bool Whether to display the notices.
+     *
+     * @since 1.0
+     *
+     */
+    $displayNotices = (bool) apply_filters( 'jetexir_' . $tab . '_tab_display_notice', true );
+
+    if ( $displayNotices ) {
       Notice::display( '*' );
       Notice::display( $tab );
     }
@@ -91,14 +140,26 @@ class AdminPages {
         class="jetexir-wrap jetexir-<?php echo esc_html( $currentTab ) ?>-wrap jetexir-wrapper">
         <div class="jetexir-sidebar" id="jetexir-sidebar">
           <div class="jetexir-sidebar-head">
-            <img src="<?php echo esc_url( Assets::url( 'images/jetexir.svg' ) ) ?>" alt="Logo"
-                 class="jetexir-logo">
+            <a href="<?php echo esc_url( JETEXIR_WEBSITE ) ?>" target="_blank"
+               title="<?php esc_html_e( 'Jetexir website', 'jetexir' ) ?>" class="jetexir-logo-wrap">
+              <img src="<?php echo esc_url( Assets::url( 'images/jetexir.svg' ) ) ?>" alt="Logo" class="jetexir-logo">
+              <span class="jetexir-logo-title">
+                <span><?php esc_html_e( 'Jetexir', 'jetexir' ); ?></span>
+                <span><?php esc_html_e( 'for WooCommerce', 'jetexir' ); ?></span>
+              </span>
+            </a>
             <a href="#" class="jetexir-hide-sidebar" id="jetexir-hide-sidebar">
               <i class="jetexir-icon-close"></i>
             </a>
           </div>
           <div class="menu-items">
             <?php
+            /**
+             * Fires before the Jetexir sidebar menus are rendered.
+             *
+             * @since 1.0
+             *
+             */
             do_action( 'jetexir_start_menus' );
             $menus    = self::getMenus();
             $addonSep = false;
@@ -110,6 +171,12 @@ class AdminPages {
 
               echo wp_kses( self::menuItem( $tab, $menu ), Sanitizing::svgAllowedTags() );
             }
+            /**
+             * Fires after the Jetexir sidebar menus are rendered.
+             *
+             * @since 1.0
+             *
+             */
             do_action( 'jetexir_end_menus' );
             ?>
           </div>
@@ -123,21 +190,81 @@ class AdminPages {
              id="jetexir-content-wrap">
           <?php
           // Display tab header
+          /**
+           * Fires to display the current tab header.
+           *
+           * @since 1.0
+           *
+           */
           do_action( 'jetexir_' . $currentTab . '_tab_header' );
+
+          /**
+           * Fires to display the Jetexir page header.
+           *
+           * @param string $currentTab Current tab.
+           *
+           * @since 1.0
+           *
+           */
           do_action( 'jetexir_header', $currentTab );
 
           echo '<div class="jetexir-content-body">';
           // Display notice
+          /**
+           * Fires to display the Jetexir page notices.
+           *
+           * @param string $currentTab Current tab.
+           *
+           * @since 1.0
+           *
+           */
           do_action( 'jetexir_notice', $currentTab );
+
+          /**
+           * Fires to display the current tab notices.
+           *
+           * @since 1.0
+           *
+           */
           do_action( 'jetexir_' . $currentTab . '_tab_notice' );
 
           // Display tab content
+          /**
+           * Fires to display the current tab content.
+           *
+           * @since 1.0
+           *
+           */
           do_action( 'jetexir_' . $currentTab . '_tab_content' );
+
+          /**
+           * Fires to display the Jetexir page content.
+           *
+           * @param string $currentTab Current tab.
+           *
+           * @since 1.0
+           *
+           */
           do_action( 'jetexir_content', $currentTab );
           echo '</div>';
 
           // Display tab footer
+          /**
+           * Fires to display the current tab footer.
+           *
+           * @since 1.0
+           *
+           */
           do_action( 'jetexir_' . $currentTab . '_tab_footer' );
+
+          /**
+           * Fires to display the Jetexir page footer.
+           *
+           * @param string $currentTab Current tab.
+           *
+           * @since 1.0
+           *
+           */
           do_action( 'jetexir_footer', $currentTab );
           ?>
         </div>
@@ -147,7 +274,17 @@ class AdminPages {
   }
 
   public static function getMenus(): array {
-    return apply_filters( 'jetexir_menus', [] );
+    /**
+     * Filters the Jetexir admin sidebar menus.
+     *
+     * @param array $menus Admin menus.
+     *
+     * @return array Admin menus.
+     *
+     * @since 1.0
+     *
+     */
+    return (array) apply_filters( 'jetexir_menus', [] );
 
     /*$settings = AdminSettings::defaultSettings();
     return array_map( static function ( $setting ) {

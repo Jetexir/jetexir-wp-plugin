@@ -220,7 +220,8 @@ abstract class Addon {
     $addon = Cache::get( $this->addonID . '_internal_addon_info', false );
 
     if ( ! is_array( $addon ) ) {
-      $addon = $this->info();
+      $addon                   = $this->info();
+      $addon['more_info_link'] = $this->getMoreInfoLink( $addon['more_info_link'] ?? '' );
       Cache::set( $this->addonID . '_internal_addon_info', $addon );
     }
 
@@ -231,8 +232,16 @@ abstract class Addon {
     return $addon;
   }
 
+  public function getMoreInfoLink( $link ): string {
+    if ( strpos( $link, '{jetexir_website}' ) !== false ) {
+      $link = str_replace( '{jetexir_website}', JETEXIR_WEBSITE, $link );
+    }
+
+    return $link;
+  }
+
   public function isActivated(): bool {
-    if ( ! $this->getInfo( 'force_enable', false ) && Settings::get( 'internal_addon_' . $this->addonID, false ) !== 1 ) {
+    if ( ! $this->getInfo( 'force_enable', false ) && ! Settings::get( 'internal_addon_' . $this->addonID, false ) ) {
       return false;
     }
 

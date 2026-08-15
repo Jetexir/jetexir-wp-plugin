@@ -44,11 +44,23 @@ class AdminProduct implements AdminTabInterface {
 
   public function settings(): array {
     if ( self::$settings === null ) {
+      /**
+       * Filters the Product settings sections.
+       *
+       * @param array $sections Settings sections.
+       *
+       * @return array Settings sections.
+       *
+       * @since 1.0
+       *
+       */
+      $sections = (array) apply_filters( 'jetexir_' . self::tab . '_settings_sections', [] );
+
       self::$settings = array(
         'title'    => esc_html__( 'Product', 'jetexir' ),
         'desc'     => esc_html__( 'Tools to enhance your WooCommerce products', 'jetexir' ),
         // 'header_image' => AdminAssets::imageUrl( 'header/product-header.png' ),
-        'sections' => apply_filters( 'jetexir_' . self::tab . '_settings_sections', [] )
+        'sections' => $sections
       );
     }
 

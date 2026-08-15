@@ -281,7 +281,17 @@ class WooCommerce {
       ];
     }
 
-    return apply_filters( 'jetexir_attribute_taxonomies', $wcAttributes );
+    /**
+     * Filters the WooCommerce attribute taxonomies.
+     *
+     * @param array $wcAttributes Attribute taxonomies.
+     *
+     * @return array Attribute taxonomies.
+     *
+     * @since 1.0
+     *
+     */
+    return (array) apply_filters( 'jetexir_attribute_taxonomies', $wcAttributes );
   }
 
   public static function getCheckoutFields( $type = '' ): array {

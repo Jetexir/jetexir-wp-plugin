@@ -2,7 +2,7 @@
 /**
  * Plugin Name:             Jetexir
  * Description:             Jetexir, First plugin you need for your WooCommerce store.
- * Version:                 1.0
+ * Version:                 1.0.1
  * Author:                  Parsa Kafi
  * Author URI:              https://parsa.ws
  * Text Domain:             jetexir
@@ -23,9 +23,8 @@ use Jetexir\Admin\Admin;
 use Jetexir\App\App;
 use Jetexir\AppHelper\AppHelper;
 use Jetexir\Integrations\Integrations;
-use Jetexir\Plugin\Plugin;
+use Jetexir\Plugin\{Plugin, Install};
 use Jetexir\Settings\Settings;
-use Jetexir\Plugin\Install;
 
 final class Jetexir {
   public function __construct() {
@@ -49,6 +48,7 @@ final class Jetexir {
     define( 'JETEXIR_PLUGIN_URL', plugins_url( '/', JETEXIR_PLUGIN_FILE_PATH ) );
     define( 'JETEXIR_INPUT_PREFIX', JETEXIR_PLUGIN_KEY . '_' );
     define( 'JETEXIR_CLASS_PREFIX', 'jetexir-' );
+    define( 'JETEXIR_WEBSITE', 'https://jetexir.ir' );
 
     add_action( 'init', static function () {
       if ( ! function_exists( 'get_plugin_data' ) ) {
@@ -76,6 +76,7 @@ final class Jetexir {
   private function instance(): void {
     define( 'JETEXIR_DEBUG_MODE', Settings::get( 'debug_mode', false ) );
 
+    new Install();
     new Plugin();
     new Admin();
     new Addons();
@@ -86,4 +87,4 @@ final class Jetexir {
 }
 
 new Jetexir();
-register_activation_hook( __FILE__, array( Install::class, 'run' ) );
+register_activation_hook( __FILE__, array( Install::class, 'update' ) );

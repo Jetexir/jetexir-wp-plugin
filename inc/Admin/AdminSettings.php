@@ -5,11 +5,7 @@ namespace Jetexir\Admin;
 defined( 'ABSPATH' ) || exit;
 
 use Jetexir\Helper\Cache;
-use Jetexir\Helper\HTML;
-use Jetexir\Helper\Notice;
-use Jetexir\Helper\Param;
-use Jetexir\Helper\Sanitizing;
-use Jetexir\Helper\Validating;
+use Jetexir\Helper\{HTML, Notice, Param, Sanitizing, Validating};
 use Jetexir\Settings\Settings;
 
 class AdminSettings {
@@ -17,15 +13,6 @@ class AdminSettings {
 
   public function __construct() {
     add_action( 'jetexir_submit_settings_form', [ $this, 'saveForm' ], 0 );
-    //add_filter( 'jetexir_settings_header_image', [ $this, 'headerImage' ], 0 );
-  }
-
-  public function headerImage( $image ) {
-    if ( empty( $image ) ) {
-      return AdminAssets::imageUrl( 'header/settings-header.png' );
-    }
-
-    return $image;
   }
 
   public function saveForm( $tab ): void {
@@ -76,22 +63,77 @@ class AdminSettings {
             $value = array_values( $value );
           }
 
+          /**
+           * Filters a setting value before it is saved.
+           *
+           * @param mixed $value Setting value.
+           * @param array $setting Setting field data.
+           *
+           * @return mixed Setting value.
+           *
+           * @since 1.0
+           *
+           */
           $value = apply_filters( 'jetexir_setting_value_before_save', $value, $setting );
 
           $options[ $setting['id'] ] = $value;
         }
       }
 
-      $options = apply_filters( 'jetexir_settings_before_save', $options, $tab );
-      if ( count( $options ) ) {
+      /**
+       * Filters all settings options before they are saved.
+       *
+       * @param array $options Settings options.
+       * @param string $tab Current tab.
+       *
+       * @return array Settings options.
+       *
+       * @since 1.0
+       *
+       */
+      $options = (array) apply_filters( 'jetexir_settings_before_save', $options, $tab );
+      if ( ! empty( $options ) ) {
         $saved = Settings::saves( $options, $optionsName );
 
         if ( $saved ) {
           Cache::set( 'settings_saved', true );
-          Notice::add( $tab, apply_filters( 'jetexir_save_settings_success_message', esc_html__( 'Settings saved.', 'jetexir' ), $tab ), 'success' );
+          /**
+           * Filters the success message shown after saving settings.
+           *
+           * @param string $message Success message.
+           * @param string $tab Current tab.
+           *
+           * @return string Success message.
+           *
+           * @since 1.0
+           *
+           */
+          Notice::add( $tab, (string) apply_filters( 'jetexir_save_settings_success_message', esc_html__( 'Settings saved.', 'jetexir' ), $tab ), 'success' );
+
+          /**
+           * Fires after settings are saved successfully.
+           *
+           * @param string $tab Current tab.
+           * @param string|null $currentSection Current section.
+           * @param array $options Saved options.
+           *
+           * @since 1.0
+           *
+           */
           do_action( 'jetexir_save_settings_success', $tab, $currentSection, $options );
         } else {
-          Notice::add( $tab, apply_filters( 'jetexir_save_settings_error_message', esc_html__( 'Error saving settings!', 'jetexir' ), $tab ), 'error' );
+          /**
+           * Filters the error message shown when saving settings fails.
+           *
+           * @param string $message Error message.
+           * @param string $tab Current tab.
+           *
+           * @return string Error message.
+           *
+           * @since 1.0
+           *
+           */
+          Notice::add( $tab, (string) apply_filters( 'jetexir_save_settings_error_message', esc_html__( 'Error saving settings!', 'jetexir' ), $tab ), 'error' );
         }
       }
     }
@@ -167,13 +209,13 @@ class AdminSettings {
     $default = ! empty( $setting['default'] ) ? $setting['default'] : null;
 
     // Set default value for toggle, checkbox, addon
-    if ( empty( $setting['default'] ) && in_array( $setting['type'], [
-        'toggle',
-        'checkbox',
-        'addon'
-      ], true ) ) {
+    if ( empty( $setting['default'] ) && in_array( $setting['type'], [ 'toggle', 'checkbox', 'addon' ], true ) ) {
       $default = 0;
     }
+
+    /*if ( empty( $setting['default'] ) && in_array( $setting['type'], [ 'addon' ], true ) ) {
+      $default = false;
+    }*/
 
     // Set default value for imageSizeSelect
     if ( empty( $setting['default'] ) && $setting['type'] === 'imagesizeselect' ) {
@@ -193,7 +235,7 @@ class AdminSettings {
       $default = [];
     }
 
-    if ( $setting['type'] === 'checkboxinline' ) {
+    if ( empty( $setting['default'] ) && $setting['type'] === 'checkboxinline' ) {
       $default = [];
     }
 
@@ -293,7 +335,7 @@ class AdminSettings {
         $setting['sanitize'] = 'absint';
 
       } elseif ( $setting['type'] === 'addon' ) {
-        $setting['sanitize'] = 'int';
+        $setting['sanitize'] = 'bool';
 
       } elseif ( $setting['type'] === 'gradientcolorpicker' ) {
         $setting['sanitize'] = 'jsonArray';
@@ -309,14 +351,34 @@ class AdminSettings {
 
   public static function getSettings( $tab ) {
     if ( ! isset( self::$settings[ $tab ] ) ) {
-      self::$settings[ $tab ] = apply_filters( 'jetexir_' . $tab . '_settings', [] );
+      /**
+       * Filters the settings for a specific tab.
+       *
+       * @param array $settings Tab settings.
+       *
+       * @return array Tab settings.
+       *
+       * @since 1.0
+       *
+       */
+      self::$settings[ $tab ] = (array) apply_filters( 'jetexir_' . $tab . '_settings', [] );
     }
 
     return self::$settings[ $tab ];
   }
 
   public static function allSettings( $tab = null ) {
-    $settings = apply_filters( 'jetexir_settings', [] );
+    /**
+     * Filters all Jetexir settings.
+     *
+     * @param array $settings All settings.
+     *
+     * @return array All settings.
+     *
+     * @since 1.0
+     *
+     */
+    $settings = (array) apply_filters( 'jetexir_settings', [] );
 
     if ( ! is_null( $tab ) ) {
       return ! empty( $settings[ $tab ] ) ? $settings[ $tab ] : false;
@@ -326,8 +388,7 @@ class AdminSettings {
   }
 
   public static function printPage( $currentTab, $settings ): void {
-    $optionsName    = $settings['settings_key'] ?? null;
-    $currentSection = null;
+    $optionsName = $settings['settings_key'] ?? null;
 
     //echo '<div class="jetexir-content-body">';
     echo '<form method="post" id="jetexir-settings-form">';
@@ -337,6 +398,16 @@ class AdminSettings {
       $currentSettings = $settings['sections'][ $currentSection ]['settings'] ?? [];
       $optionsName     = $settings['sections'][ $currentSection ]['settings_key'] ?? $optionsName;
 
+      /**
+       * Fires before printing a section settings content.
+       *
+       * @param string $currentTab Current tab.
+       * @param string $currentSection Current section.
+       * @param array $currentSettings Current section settings.
+       *
+       * @since 1.0
+       *
+       */
       do_action( 'jetexir_section_content', $currentTab, $currentSection, $currentSettings );
       self::printSettings( $currentSettings, $optionsName );
     } else {
@@ -362,6 +433,8 @@ class AdminSettings {
 
           $field['type'] = strtolower( $field['type'] );
 
+          // PHPCS ignore reason: `HTML::{$field['type']}()` returns HTML markup
+          // where every dynamic value is escaped inside the field renderer.
           // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
           echo HTML::{$field['type']}( $field );
         }
@@ -464,8 +537,21 @@ class AdminSettings {
     }
 
     $currentSection = self::getActiveSection( $settings );
-    $headerImage    = apply_filters( 'jetexir_settings_header_image', $settings['header_image'] ?? '', $currentTab, $currentSection, $settings );
-    $headerImage    = ! empty( $headerImage ) && Validating::isUrl( $headerImage ) ? $headerImage : false;
+    /**
+     * Filters the settings page header image.
+     *
+     * @param string $headerImage Header image URL.
+     * @param string $currentTab Current tab.
+     * @param string|false $currentSection Current section.
+     * @param array $settings Tab settings.
+     *
+     * @return string Header image URL.
+     *
+     * @since 1.0
+     *
+     */
+    $headerImage = (string) apply_filters( 'jetexir_settings_header_image', $settings['header_image'] ?? '', $currentTab, $currentSection, $settings );
+    $headerImage = ! empty( $headerImage ) && Validating::isUrl( $headerImage ) ? $headerImage : false;
 
     echo '<header id="jetexir-settings-header" class="jetexir-header ' . ( $headerImage ? 'jetexir-has-header-image' : '' ) . '">';
     echo '<div class="jetexir-header-title" style="' . ( $headerImage ? 'background-image: url(' . esc_url( $headerImage ) . ');' : '' ) . '">';
@@ -480,23 +566,74 @@ class AdminSettings {
     echo '</div>';
     echo '</header>';
 
-    if ( apply_filters( 'jetexir_' . $currentTab . '_tab_content_display_notice', false ) ) {
+    /**
+     * Filters whether to display notices before a tab content.
+     *
+     * @param bool $display Whether to display the notices.
+     *
+     * @return bool Whether to display the notices.
+     *
+     * @since 1.0
+     *
+     */
+    $displayTabContentNotice = (bool) apply_filters( 'jetexir_' . $currentTab . '_tab_content_display_notice', false );
+
+    if ( $displayTabContentNotice ) {
       Notice::display( '*' );
       Notice::display( $currentTab );
     }
   }
 
   public static function footerSettings( $currentTab, $currentSection ): void {
-    if ( ! apply_filters( 'jetexir_settings_display_footer', true, $currentTab, $currentSection ) || ! apply_filters( 'jetexir_' . $currentTab . '_settings_display_footer', true, $currentSection ) ) {
+    /**
+     * Filters whether to display the settings page footer.
+     *
+     * @param bool $display Whether to display the footer.
+     * @param string $currentTab Current tab.
+     * @param string|false $currentSection Current section.
+     *
+     * @return bool Whether to display the footer.
+     *
+     * @since 1.0
+     *
+     */
+    $_jetexirSettingsDisplayFooter = (bool) apply_filters( 'jetexir_settings_display_footer', true, $currentTab, $currentSection );
+
+    /**
+     * Filters whether to display the settings page footer for a specific tab.
+     *
+     * @param bool $display Whether to display the footer.
+     * @param string|false $currentSection Current section.
+     *
+     * @return bool Whether to display the footer.
+     *
+     * @since 1.0
+     *
+     */
+    $_jetexirTabSettingsDisplayFooter = (bool) apply_filters( 'jetexir_' . $currentTab . '_settings_display_footer', true, $currentSection );
+
+    if ( ! $_jetexirSettingsDisplayFooter || ! $_jetexirTabSettingsDisplayFooter ) {
       return;
     }
 
     echo '<footer id="jetexir-settings-footer" class="jetexir-footer jetexir-settings-footer">';
 
-    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    /**
+     * Filters the settings submit button title.
+     *
+     * @param string $title Button title.
+     * @param string $currentTab Current tab.
+     *
+     * @return string Button title.
+     *
+     * @since 1.0
+     *
+     */
+    $submitButtonTitle = (string) apply_filters( 'jetexir_settings_submit_button_title', esc_html__( 'Save changes', 'jetexir' ), $currentTab );
+
     echo HTML::button( [
       'id'          => 'settings-submit',
-      'title'       => esc_html( apply_filters( 'jetexir_settings_submit_button_title', esc_html__( 'Save changes', 'jetexir' ), $currentTab ) ),
+      'title'       => esc_html( $submitButtonTitle ),
       'button_type' => 'submit',
       'class'       => 'jetexir-button-primary',
       'attributes'  => [
@@ -504,11 +641,36 @@ class AdminSettings {
       ]
     ] );
 
-    if ( apply_filters( 'jetexir_' . $currentTab . '_settings_display_reset_button', true ) ) {
+    /**
+     * Filters whether to display the reset button in the settings page footer.
+     *
+     * @param bool $display Whether to display the reset button.
+     *
+     * @return bool Whether to display the reset button.
+     *
+     * @since 1.0
+     *
+     */
+    $displayResetButton = (bool) apply_filters( 'jetexir_' . $currentTab . '_settings_display_reset_button', true );
+
+    if ( $displayResetButton ) {
       // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      /**
+       * Filters the settings reset button title.
+       *
+       * @param string $title Button title.
+       * @param string $currentTab Current tab.
+       *
+       * @return string Button title.
+       *
+       * @since 1.0
+       *
+       */
+      $resetButtonTitle = (string) apply_filters( 'jetexir_settings_reset_button_title', esc_html__( 'Discard changes', 'jetexir' ), $currentTab );
+
       echo HTML::button( [
         'id'          => 'settings-reset',
-        'title'       => esc_html( apply_filters( 'jetexir_settings_reset_button_title', esc_html__( 'Discard changes', 'jetexir' ), $currentTab ) ),
+        'title'       => esc_html( $resetButtonTitle ),
         'button_type' => 'reset',
         'attributes'  => [
           'form' => 'jetexir-settings-form'
@@ -538,7 +700,21 @@ class AdminSettings {
       }
       echo '</ul>';
 
-      if ( ! empty( $sections[ $currentSection ]['desc'] ) && apply_filters( 'jetexir_display_section_description', false, $currentTab, $currentSection ) ) {
+      /**
+       * Filters whether to display the section description.
+       *
+       * @param bool $display Whether to display the description.
+       * @param string $currentTab Current tab.
+       * @param string $currentSection Current section.
+       *
+       * @return bool Whether to display the description.
+       *
+       * @since 1.0
+       *
+       */
+      $displaySectionDescription = (bool) apply_filters( 'jetexir_display_section_description', false, $currentTab, $currentSection );
+
+      if ( ! empty( $sections[ $currentSection ]['desc'] ) && $displaySectionDescription ) {
         echo '<p class="jetexir-description">' . esc_html( $sections[ $currentSection ]['desc'] ) . '</p>';
       }
 

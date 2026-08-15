@@ -49,6 +49,17 @@ class DataTableUI {
         $value = array_values( $value );
       }
 
+      /**
+       * Filters a Data Table value before it is saved.
+       *
+       * @param mixed $value Field value.
+       * @param array $field Field data.
+       *
+       * @return mixed Field value.
+       *
+       * @since 1.0
+       *
+       */
       $value                = apply_filters( 'jetexir_dtu_value_before_save', $value, $field );
       $data[ $field['id'] ] = $value;
     }
@@ -70,7 +81,27 @@ class DataTableUI {
       $rowID       = Sanitizing::text( Param::post( 'row_id' ) );
       $rowAction   = Sanitizing::text( Param::post( 'row_action' ) );
 
+      /**
+       * Fires a Data Table action for a specific data table.
+       *
+       * @param string $rowID Row ID.
+       * @param string $rowAction Row action.
+       *
+       * @since 1.0
+       *
+       */
       do_action( 'jetexir_data_table_ui_' . $dataTableID . '_action', $rowID, $rowAction );
+
+      /**
+       * Fires a Data Table action for any data table.
+       *
+       * @param string $dataTableID Data table ID.
+       * @param string $rowID Row ID.
+       * @param string $rowAction Row action.
+       *
+       * @since 1.0
+       *
+       */
       do_action( 'jetexir_data_table_ui_action', $dataTableID, $rowID, $rowAction );
 
       wp_send_json_error( [

@@ -20,6 +20,18 @@ class Templates {
   public static function getPath( $template, $dir = 'plugin' ): string {
     $path = Assets::pathCorrection( JETEXIR_PLUGIN_PATH . '/inc/Templates/' . $dir . '/' . $template );
 
-    return apply_filters( 'jetexir_template_path', $path, $template, $dir );
+    /**
+     * Filters the template file path.
+     *
+     * @param string $path Template file path.
+     * @param string $template Template name.
+     * @param string $dir Template directory.
+     *
+     * @return string Template file path.
+     *
+     * @since 1.0
+     *
+     */
+    return (string) apply_filters( 'jetexir_template_path', $path, $template, $dir );
   }
 }

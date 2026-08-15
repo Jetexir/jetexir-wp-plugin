@@ -11,17 +11,53 @@ class Modal {
   }
 
   public function printAdminModal(): void {
+    /**
+     * Fires to display admin modals.
+     *
+     * @since 1.0
+     *
+     */
     do_action( 'jetexir_admin_modals' );
 
-    if ( apply_filters( 'jetexir_admin_modal_overlay', true ) ) {
+    /**
+     * Filters whether to display the admin modal overlay.
+     *
+     * @param bool $display Whether to display the overlay.
+     *
+     * @return bool Whether to display the overlay.
+     *
+     * @since 1.0
+     *
+     */
+    $displayOverlay = (bool) apply_filters( 'jetexir_admin_modal_overlay', true );
+
+    if ( $displayOverlay ) {
       echo '<div id="jetexir-modal-overlay" class="jetexir-modal-overlay"></div>';
     }
   }
 
   public function printModal(): void {
+    /**
+     * Fires to display site modals.
+     *
+     * @since 1.0
+     *
+     */
     do_action( 'jetexir_site_modals' );
 
-    if ( apply_filters( 'jetexir_site_modal_overlay', false ) ) {
+    /**
+     * Filters whether to display the site modal overlay.
+     *
+     * @param bool $display Whether to display the overlay.
+     *
+     * @return bool Whether to display the overlay.
+     *
+     * @since 1.0
+     *
+     */
+    $displayOverlay = (bool) apply_filters( 'jetexir_site_modal_overlay', false );
+
+    if ( $displayOverlay ) {
       echo '<div id="jetexir-modal-overlay" class="jetexir-modal-overlay"></div>';
     }
   }

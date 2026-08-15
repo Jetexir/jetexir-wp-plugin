@@ -37,13 +37,13 @@ if ( ! isset( $args ) ) {
       }
       $addClass = empty( $addClass ) ? '' : ' class="' . esc_attr( implode( ' ', $addClass ) ) . '"';
 
-      echo '<th data-column="' . esc_html( $column['field'] ) . '"' . wp_kses_post( $addClass ) . wp_kses_post( $addAttr ) . '>' . esc_html( $column['name'] ) . '</th>';
+      echo '<th data-column="' . esc_attr( $column['field'] ) . '"' . $addClass . $addAttr . '>' . esc_html( $column['name'] ) . '</th>';
     }
     ?>
     <th></th>
   </tr>
   </thead>
-  <tbody class="<?php echo $args['sortable'] ? 'ui-sortable' : '' ?>">
+  <tbody class="<?php echo esc_attr( $args['sortable'] ? 'ui-sortable' : '' ) ?>">
   <?php
   if ( empty( $args['tbody'] ) ) {
     echo '<tr><td colspan="100%">' . esc_html__( 'No entries!', 'jetexir' ) . '</td></tr>';
@@ -53,12 +53,12 @@ if ( ! isset( $args ) ) {
       $attributes = '';
       if ( ! empty( $args['attributes'] ) && is_array( $args['attributes'] ) ) {
         foreach ( $args['attributes'] as $dataName => $dataValues ) {
-          $attributes .= ' data-' . $dataName . '="' . $dataValues . '"';
+          $attributes .= ' data-' . esc_attr( $dataName ) . '="' . esc_attr( $dataValues ) . '"';
         }
       }
       ?>
       <tr
-        data-id="<?php echo esc_html( $rowId ) ?>" <?php echo wp_kses_post( $attributes ) . ( ! $row['is_active'] ? ' data-disabled="true"' : '' ) ?>>
+        data-id="<?php echo esc_attr( $rowId ); ?>"<?php echo $attributes; ?><?php echo ! $row['is_active'] ? ' data-disabled="true"' : ''; ?>>
         <?php
         if ( $args['sortable'] ) {
           echo '<td class="jetexir-dtu-sortable-column sort ui-sortable-handle"><i class="jetexir-icon-move-vertical"></i><input type="hidden" class="jetexir-dtu-row-order" name="order[' . esc_html( $rowId ) . ']" value="' . esc_html( $index ) . '" ></td>';
@@ -68,9 +68,9 @@ if ( ! isset( $args ) ) {
         }
 
         foreach ( $row['data'] as $data ) {
-          $attributes = ' data-column="' . $data['field'] . '" ';
+          $attributes = ' data-column="' . esc_attr( $data['field'] ) . '" ';
           foreach ( $data['attributes'] as $dataName => $dataValues ) {
-            $attributes .= ' data-' . $dataName . '="' . $dataValues . '"';
+            $attributes .= ' data-' . esc_attr( $dataName ) . '="' . esc_attr( $dataValues ) . '"';
           }
 
           $addClass = [];
@@ -79,21 +79,27 @@ if ( ! isset( $args ) ) {
           }
           $addClass = empty( $addClass ) ? '' : ' class="' . esc_attr( implode( ' ', $addClass ) ) . '"';
 
+          $content = (string) $data['content'];
+
           if ( $data['field'] === AbstractDataTableUI::ACTIVE_FIELD &&
-               in_array( $data['content'], [ '1', '0' ], true ) ) {
-            $data['content'] = \Jetexir\Helper\HTML::toggle( array(
+               in_array( $content, [ '1', '0' ], true ) ) {
+            // Rendered by HTML::toggle(), which escapes every dynamic value.
+            $content = \Jetexir\Helper\HTML::toggle( array(
               'id'            => $args['id'] . '_row_active_' . $rowId,
               'type'          => 'toggle',
               'value'         => 1,
               'default'       => true,
-              'setting_value' => (bool) intval( $data['content'] ),
+              'setting_value' => (bool) intval( $content ),
               'attributes'    => [ 'disabled' => 'disabled' ],
               'wrap'          => false
             ) );
+          } elseif ( ! empty( $data['is_html'] ) ) {
+            $content = wp_kses_post( $content );
+          } else {
+            $content = esc_html( $content );
           }
 
-          // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-          echo '<td ' . wp_kses_post( $addClass ) . ' ' . wp_kses_post( $attributes ) . '>' . $data['content'] . '</td>';
+          echo '<td' . $addClass . $attributes . '>' . $content . '</td>';
         }
 
         echo '<td class="jetexir-dtu-actions-wrap">';

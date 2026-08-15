@@ -40,10 +40,22 @@ class AdminCheckout implements AdminTabInterface {
 
   public function settings(): array {
     if ( self::$settings === null ) {
+      /**
+       * Filters the Checkout settings sections.
+       *
+       * @param array $sections Settings sections.
+       *
+       * @return array Settings sections.
+       *
+       * @since 1.0
+       *
+       */
+      $sections = (array) apply_filters( 'jetexir_' . self::tab . '_settings_sections', [] );
+
       self::$settings = array(
         'title'    => esc_html__( 'Checkout', 'jetexir' ),
         'desc'     => esc_html__( 'Tools to enhance your WooCommerce checkout', 'jetexir' ),
-        'sections' => apply_filters( 'jetexir_' . self::tab . '_settings_sections', [] )
+        'sections' => $sections
       );
     }
 

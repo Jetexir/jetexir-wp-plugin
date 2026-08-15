@@ -139,7 +139,17 @@ class ProductQuantity extends Addon implements AddonInterface {
       )
     );
 
-    $inputs = apply_filters( 'jetexir_product_quantity_settings', $inputs );
+    /**
+     * Filters the product quantity admin fields.
+     *
+     * @param array $inputs Admin fields.
+     *
+     * @return array Admin fields.
+     *
+     * @since 1.0
+     *
+     */
+    $inputs = (array) apply_filters( 'jetexir_product_quantity_settings', $inputs );
     if ( ! empty( $inputs ) ) {
       foreach ( $inputs as $input ) {
         woocommerce_wp_text_input( $input );
@@ -239,7 +249,17 @@ class ProductQuantity extends Addon implements AddonInterface {
       )
     );
 
-    $inputs = apply_filters( 'jetexir_product_variation_quantity_settings', $inputs );
+    /**
+     * Filters the product variation quantity admin fields.
+     *
+     * @param array $inputs Admin fields.
+     *
+     * @return array Admin fields.
+     *
+     * @since 1.0
+     *
+     */
+    $inputs = (array) apply_filters( 'jetexir_product_variation_quantity_settings', $inputs );
     if ( ! empty( $inputs ) ) {
       foreach ( $inputs as $input ) {
         woocommerce_wp_text_input( $input );
@@ -667,7 +687,18 @@ class ProductQuantity extends Addon implements AddonInterface {
       return;
     }
 
-    $displayButton = apply_filters( 'jetexir_quantity_input_display_plus_minus', true, $productID );
+    /**
+     * Filters whether to display the minus quantity button.
+     *
+     * @param bool $display Whether to display the button.
+     * @param int $productID Current product ID.
+     *
+     * @return bool Whether to display the button.
+     *
+     * @since 1.0
+     *
+     */
+    $displayButton = (bool) apply_filters( 'jetexir_quantity_input_display_plus_minus', true, $productID );
 
     if ( $displayButton ) {
       self::$printed = true;
@@ -680,8 +711,19 @@ class ProductQuantity extends Addon implements AddonInterface {
       return;
     }
 
-    $productID     = WooCommerce::getCurrentProductId();
-    $displayButton = apply_filters( 'jetexir_quantity_input_display_plus_minus', true, $productID );
+    $productID = WooCommerce::getCurrentProductId();
+    /**
+     * Filters whether to display the plus quantity button.
+     *
+     * @param bool $display Whether to display the button.
+     * @param int $productID Current product ID.
+     *
+     * @return bool Whether to display the button.
+     *
+     * @since 1.0
+     *
+     */
+    $displayButton = (bool) apply_filters( 'jetexir_quantity_input_display_plus_minus', true, $productID );
 
     if ( $displayButton ) {
       echo '<button type="button" class="jetexir-button jetexir-button-change-quantity" data-action="plus" aria-label="' . esc_html__( 'Increase quantity', 'jetexir' ) . '">+</button>';
@@ -868,7 +910,7 @@ class ProductQuantity extends Addon implements AddonInterface {
   }
 
   public function info(): array {
-    $icon = '<svg viewBox="-2.4 -2.4 28.80 28.80" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-2.4, -2.4), scale(0.8999999999999999)" d="M16,31.12033211439848C18.530283848748677,31.782735758387147,21.154156914770756,30.142637762271093,23.31114255574842,28.66327036793524C25.381255990223888,27.243484227795925,27.305765294873353,25.33157663310361,27.96986668242001,22.91080575125913C28.598915391158545,20.61780828742065,26.628751001415665,18.37257021379276,26.78511668741703,16C26.958087504373985,13.375476559710885,29.453261516102195,11.117401865184682,28.916820597537473,8.54247015093764C28.36255965227664,5.882001800128064,26.51450405862154,3.0984370486690587,23.92532746866346,2.2729301576536614C21.272101936979354,1.427002549502883,18.73979665523863,3.9254897736000043,16,4.424201642473539C13.8533018682126,4.81495466976993,11.408086628680854,3.6893828242977804,9.582040973628565,4.883768885429381C7.759144818607677,6.076094911026477,7.9802264979325095,8.88786942597975,6.599738249988281,10.572756348177787C4.840835722435482,12.719498177025658,1.0158092210312542,13.278087937777569,0.4741143745680638,15.999999999999996C-0.039928757954186045,18.582967536151354,2.2223065386100322,21.051764690301123,4.159132768187844,22.836327883725357C5.884355043554317,24.425922306848037,8.68657619672315,23.993130931017554,10.60875555935005,25.337909287228957C12.80547451857235,26.874758640873164,13.406452968550797,30.441366785928494,16,31.12033211439848" fill="#fff" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path stroke="#873eff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 4 4 20M4 7h3m3 0H7m0 0V4m0 3v3m7 7h6"></path></g></svg>';
+    $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="#873eff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 4 4 20M4 7h3m3 0H7m0 0V4m0 3v3m7 7h6"/></svg>';
 
     return array(
       'id'             => $this->addonID,
@@ -877,8 +919,8 @@ class ProductQuantity extends Addon implements AddonInterface {
       'tags'           => [ esc_html__( 'Product', 'jetexir' ) ],
       'cat'            => 'product',
       'icon'           => $icon,
-      'more_info_link' => 'https://parsa.ws',
-      'settings_key'   => $this->addonID,
+      'more_info_link' => '{jetexir_website}/addons/quantity-fields',
+      'settings_key'   => $this->addonID
     );
   }
 }

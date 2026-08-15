@@ -39,6 +39,8 @@ class Media {
           'x'               => true,
           'y'               => true,
           'xml:space'       => true,
+          'stroke'          => true,
+          'stroke-width'    => true,
         ),
         'g'        => array(
           'fill'            => true,
@@ -59,14 +61,18 @@ class Media {
           'type' => true
         ),
         'circle'   => array(
-          'cx' => true,
-          'cy' => true,
-          'r'  => true,
+          'cx'           => true,
+          'cy'           => true,
+          'r'            => true,
+          'fill'         => true,
+          'stroke'       => true,
+          'stroke-width' => true,
         ),
         'path'     => array(
           'd'               => true,
           'id'              => true,
           'transform'       => true,
+          'style'           => true,
           'fill'            => true,
           'class'           => true,
           'sketch:type'     => true,

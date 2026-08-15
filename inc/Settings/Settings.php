@@ -71,10 +71,35 @@ class Settings {
     }
 
     if ( $key !== null ) {
+      /**
+       * Filters the value of a single setting.
+       *
+       * @param mixed $value Setting value.
+       * @param string $key Setting key.
+       * @param mixed $default Default value.
+       * @param array $options Settings options.
+       * @param string $optionsName Options name.
+       *
+       * @return mixed Setting value.
+       *
+       * @since 1.0
+       *
+       */
       return apply_filters( 'jetexir_get_setting', $options[ $key ] ?? $default, $key, $default, $options, $optionsName );
     }
 
-    return apply_filters( 'jetexir_get_settings', $options ?: $default, $optionsName );
+    /**
+     * Filters the settings options array.
+     *
+     * @param array $options Settings options.
+     * @param string $optionsName Options name.
+     *
+     * @return array Settings options.
+     *
+     * @since 1.0
+     *
+     */
+    return (array) apply_filters( 'jetexir_get_settings', $options ?: $default, $optionsName );
   }
 
   public static function delete( string $key, $optionsName = null ): bool {

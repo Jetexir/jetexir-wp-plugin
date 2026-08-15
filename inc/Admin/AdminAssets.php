@@ -56,11 +56,35 @@ class AdminAssets {
 
     wp_add_inline_script( JETEXIR_PLUGIN_SLUG . '-admin', 'var jetexirAjax = false, jetexirModalCloseEvent;', 'before' );
 
+    /**
+     * Filters the delay (in milliseconds) before the settings page is refreshed after saving.
+     *
+     * @param int $delay Delay in milliseconds.
+     *
+     * @return int Delay in milliseconds.
+     *
+     * @since 1.0
+     *
+     */
+    $pageRefreshedAfter = (int) apply_filters( 'jetexir_settings_page_refreshed_after', 0 );
+
+    /**
+     * Filters the URL to redirect the settings page to after saving.
+     *
+     * @param string|null $url Redirect URL.
+     *
+     * @return string|null Redirect URL.
+     *
+     * @since 1.0
+     *
+     */
+    $pageRefreshUrl = (string) apply_filters( 'jetexir_settings_page_refresh_url', null );
+
     wp_localize_script( JETEXIR_PLUGIN_SLUG . '-admin', JETEXIR_PLUGIN_KEYCAP, array(
       'ajaxUrl'            => admin_url( 'admin-ajax.php' ),
       'ajaxNonce'          => Nonce::create(),
-      'pageRefreshedAfter' => apply_filters( 'jetexir_settings_page_refreshed_after', 0 ),
-      'pageRefreshUrl'     => apply_filters( 'jetexir_settings_page_refresh_url', null ),
+      'pageRefreshedAfter' => $pageRefreshedAfter,
+      'pageRefreshUrl'     => $pageRefreshUrl,
       'removeText'         => esc_html__( 'Remove', 'jetexir' ),
       'dtuConfirmDelete'   => esc_html__( 'Are you sure you want to delete this item(s)?', 'jetexir' ),
       'copyText'           => esc_html__( 'Click to copy this text.', 'jetexir' ),
