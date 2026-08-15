@@ -18,12 +18,14 @@ Jetexir is the enhancement suite for your WooCommerce store, designed to elevate
 
 = Key Features: =
 
-* Visual Enhancements: Customize sale badges, price variations, and product comparison tools
-* Customer Engagement: Add wish lists, social sharing buttons, FAQ sections, and related products
-* Flexible Product Display: Implement call-for-price functionality and customize quantity fields
-* Streamlined Shopping: Introduce Fly Cart and Menu Cart options for convenient access to the shopping cart
-* Checkout Optimization: Customize checkout fields and order statuses with advanced configuration options
-* Branding Tools: Personalize your store with an announcement bar and custom currency symbols
+* Sale & Price Tools: Customizable sale badges with percentage discounts, sale progress bars, and flexible variable price variations
+* Product Enhancements: Product comparison, wish lists, quantity field controls, and call-for-price functionality
+* Customer Engagement: Social sharing buttons, FAQ sections, and related products to keep shoppers on your site
+* Streamlined Shopping: Fly Cart and Menu Cart options for convenient access to the shopping cart
+* Checkout & Order Management: Customizable checkout fields, custom order statuses, and order number customization
+* Branding Tools: Announcement bars and custom currency symbols to personalize your store
+* Style Customizer: Global color and style controls to match your brand identity
+* WordPress Enhancements: Useful tools to enhance your WordPress site beyond WooCommerce
 
 Jetexir transforms your WooCommerce store into a more engaging, user-friendly shopping destination while giving you powerful tools to manage every aspect of the customer journey.
 
@@ -117,7 +119,13 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 
 == Changelog ==
 ### 1.0.1 - 2026-08-15
-- Fixed some bugs
+- **Fixed:** Output escaping issues in settings fields, admin templates, data table rendering, and the announcement bar.
+- **Improved:** Added PHP DocBlocks for hooks, filters, actions, and settings across the codebase.
+- **Improved:** Added type casting (array/bool/int/string) to filter return values to prevent display/type errors.
+- **Added:** New plugin install/update routine that seeds default settings and tracks the plugin version.
+- **Added:** Configurable Product FAQ tab title, FAQ items filter, and FAQ tab priority filter.
+- **Added:** "More info" links for all add-ons now point to the Jetexir website (https://jetexir.ir).
+- **Added:** Additional SVG attributes (`stroke`, `stroke-width`, `style`) to the media sanitizer.
 
 ### 1.0 - 2026-08-10
 **Initial release**
