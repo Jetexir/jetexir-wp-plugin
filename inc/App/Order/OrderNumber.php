@@ -375,7 +375,7 @@ class OrderNumber extends Addon implements AddonInterface {
       'tags'           => [ esc_html__( 'Order', 'jetexir' ) ],
       'cat'            => 'order',
       'icon'           => $icon,
-      'more_info_link' => '{jetexir_website}',
+      'more_info_link' => '{jetexir_website}/addons/order-numbers',
       'settings_key'   => $this->addonID,
     );
   }
