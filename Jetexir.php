@@ -1,6 +1,8 @@
 <?php
 /**
  * Plugin Name:             Jetexir
+ * Plugin URI:              https://jetexir.ir
+ * Donate link:             https://jetexir.ir/donate
  * Description:             Jetexir, First plugin you need for your WooCommerce store.
  * Version:                 1.0.1
  * Author:                  Parsa Kafi
