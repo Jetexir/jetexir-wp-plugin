@@ -53,14 +53,17 @@ class Media {
           'strokewidth'     => true,
           'stroke-linecap'  => true,
           'stroke-linejoin' => true,
+          'data-name'       => true
         ),
         'title'    => array(
           'title' => true
         ),
+        'defs'     => array(),
         'style'    => array(
           'type' => true
         ),
         'circle'   => array(
+          'class'        => true,
           'cx'           => true,
           'cy'           => true,
           'r'            => true,
@@ -74,6 +77,8 @@ class Media {
           'transform'       => true,
           'style'           => true,
           'fill'            => true,
+          'fill-rule'       => true,
+          'clip-rule'       => true,
           'class'           => true,
           'sketch:type'     => true,
           'stroke'          => true,
@@ -83,11 +88,12 @@ class Media {
           'stroke-linejoin' => true,
         ),
         'line'     => array(
-          'id' => true,
-          'x1' => true,
-          'y1' => true,
-          'x2' => true,
-          'y2' => true
+          'id'    => true,
+          'class' => true,
+          'x1'    => true,
+          'y1'    => true,
+          'x2'    => true,
+          'y2'    => true
         ),
         'polygon'  => array(
           'points' => true
