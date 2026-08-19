@@ -23,19 +23,22 @@ class AdminAssets {
   }
 
   public function enqueueScripts(): void {
+    $pluginVersion = Assets::getVersion();
+    $debugName     = JETEXIR_DEBUG_MODE ? '' : '.min';
+
+    wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-admin',
+      Assets::url( 'css-admin/admin' . $debugName . '.css' ), false, $pluginVersion );
+
     if ( ! AdminPages::isSettingPage() ) {
       return;
     }
-
-    $pluginVersion = Assets::getVersion();
-    $debugName     = JETEXIR_DEBUG_MODE ? '' : '.min';
 
     wp_enqueue_media();
     wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_script( 'wp-color-picker' );
 
-    wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-admin-style',
-      Assets::url( 'css-admin/admin-style' . $debugName . '.css' ), false, $pluginVersion );
+    wp_enqueue_style( JETEXIR_PLUGIN_SLUG . '-plugin',
+      Assets::url( 'css-admin/plugin' . $debugName . '.css' ), false, $pluginVersion );
 
     wp_enqueue_script( JETEXIR_PLUGIN_SLUG . '-dom-drag',
       Assets::url( 'js-admin/dom-drag.js' ),
@@ -45,8 +48,8 @@ class AdminAssets {
       Assets::url( 'js-admin/modal.min.js' ),
       [], $pluginVersion, [ 'in_footer' => true ] );*/
 
-    wp_enqueue_script( JETEXIR_PLUGIN_SLUG . '-admin',
-      Assets::url( 'js-admin/script.min.js' ),
+    wp_enqueue_script( JETEXIR_PLUGIN_SLUG . '-plugin',
+      Assets::url( 'js-admin/plugin.min.js' ),
       [
         'jquery',
         'jquery-ui-sortable',
@@ -54,7 +57,7 @@ class AdminAssets {
         //JETEXIR_PLUGIN_SLUG . '-modal'
       ], $pluginVersion, [ 'in_footer' => true ] );
 
-    wp_add_inline_script( JETEXIR_PLUGIN_SLUG . '-admin', 'var jetexirAjax = false, jetexirModalCloseEvent;', 'before' );
+    wp_add_inline_script( JETEXIR_PLUGIN_SLUG . '-plugin', 'var jetexirAjax = false, jetexirModalCloseEvent;', 'before' );
 
     /**
      * Filters the delay (in milliseconds) before the settings page is refreshed after saving.
@@ -80,7 +83,7 @@ class AdminAssets {
      */
     $pageRefreshUrl = (string) apply_filters( 'jetexir_settings_page_refresh_url', null );
 
-    wp_localize_script( JETEXIR_PLUGIN_SLUG . '-admin', JETEXIR_PLUGIN_KEYCAP, array(
+    wp_localize_script( JETEXIR_PLUGIN_SLUG . '-plugin', JETEXIR_PLUGIN_KEYCAP, array(
       'ajaxUrl'            => admin_url( 'admin-ajax.php' ),
       'ajaxNonce'          => Nonce::create(),
       'pageRefreshedAfter' => $pageRefreshedAfter,
