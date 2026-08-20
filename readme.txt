@@ -128,7 +128,7 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 - **Added:** Additional SVG attributes (`stroke`, `stroke-width`, `style`) to the media sanitizer.
 
 ### 1.0 - 2026-08-10
-**Initial release**
+- **Initial release**
 - Release Jetexir V1.0 with 17 add-ons and basic settings.
 - Product Add-ons: Sale Badge, Price Variation, Compare, Quantity, WishList, Social Share, FAQ, Products, Call for price
 - Cart Add-ons: Fly Cart, Menu Cart
