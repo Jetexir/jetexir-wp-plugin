@@ -11,6 +11,19 @@ class WooCommerce {
   public function __construct() {
     add_filter( 'woocommerce_locate_template', [ $this, 'locateTemplate' ], 10, 4 );
     add_filter( 'admin_body_class', [ $this, 'addBodyClass' ] );
+    add_action( 'before_woocommerce_init', [ $this, 'declareCompatibility' ] );
+  }
+
+  /**
+   * Declare WooCommerce feature compatibility
+   *
+   * @return void
+   */
+  public function declareCompatibility() {
+    if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+      \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', JETEXIR_PLUGIN_FILE_PATH, true );
+      \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'product_instance_caching', JETEXIR_PLUGIN_FILE_PATH, true );
+    }
   }
 
   public function addBodyClass( $classes ) {
@@ -47,13 +60,13 @@ class WooCommerce {
      * @since 1.0
      *
      */
-    $waTemplate = (string) apply_filters( 'jetexir_wc_locate_template', false, $templateName, $template, $templatePath, $defaultPath );
+    $jetexirTemplate = (string) apply_filters( 'jetexir_wc_locate_template', false, $templateName, $template, $templatePath, $defaultPath );
 
-    if ( ! $waTemplate ) {
+    if ( ! $jetexirTemplate ) {
       return $template;
     }
 
-    $path = Templates::getPath( $waTemplate, 'woocommerce' );
+    $path = Templates::getPath( $jetexirTemplate, 'woocommerce' );
     if ( file_exists( $path ) ) {
       $template = $path;
     }
