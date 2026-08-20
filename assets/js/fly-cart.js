@@ -1,3 +1,7 @@
+/******/ (() => { // webpackBootstrap
+/*!***********************************!*\
+  !*** ./assets/js-src/fly-cart.js ***!
+  \***********************************/
 jQuery(document).ready(function ($) {
   let jetexirFlyCartChanged = false, jetexirFlyCartReloadTimer;
 
@@ -109,3 +113,6 @@ jQuery(document).ready(function ($) {
     }, 2000);
   }
 });
+
+/******/ })()
+;

@@ -2,8 +2,18 @@ const fs = require('fs');
 const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
 
+const tsRule = {
+  test: /\.tsx?$/,
+  use: 'ts-loader',
+  exclude: /node_modules/,
+};
+
+const resolve = {
+  extensions: ['.tsx', '.ts', '.js'],
+};
+
 const optimization = {
-  minimize: false,
+  minimize: true,
   minimizer: [
     new TerserPlugin({
       terserOptions: {
@@ -11,21 +21,6 @@ const optimization = {
         parse: {},
         compress: {},
         mangle: true,
-        // mangle: {
-        //     properties: {
-        //         debug: false,
-        //         reserved: ['jetexirAjax'],
-        //         keep_quoted: false
-        //     }
-        // },
-        // mangle: {
-        //     keep_fnames: true,
-        //     keep_classnames: true,
-        //     properties: {
-        //         //reserved: ['jetexirAjax', 'BaseModel'],
-        //         regex: /(^jetexirAjax|^p1|^_p1)[A-Z]\w*/
-        //     }
-        // }, // Note `mangle.properties` is `false` by default.
         module: false,
         // Deprecated
         output: null,
@@ -49,14 +44,13 @@ let watchOptions = {
 
 module.exports = [
   {
-    name: 'site',
+    name: 'site-min',
     mode: 'production',
     watch: true,
     optimization: optimization,
     watchOptions: watchOptions,
-    /*entry: {
-        'product-quantity': './assets/js-src/product-quantity.js',
-    },*/
+    resolve: resolve,
+    module: { rules: [tsRule] },
 
     entry: (() => {
       const toReturn = {};
@@ -75,14 +69,41 @@ module.exports = [
     }
   },
   {
-    name: 'admin',
+    name: 'site',
+    mode: 'development',
+    devtool: false,
+    watch: true,
+    optimization: {
+      minimize: false,
+    },
+    watchOptions: watchOptions,
+    resolve: resolve,
+    module: { rules: [tsRule] },
+
+    entry: (() => {
+      const toReturn = {};
+
+      const addFiles = (dirpath) => fs.readdirSync(dirpath).forEach((f) => {
+        toReturn[f.split('.').slice(0, -1).join('.')] = dirpath + "/" + f;
+      });
+
+      addFiles("./assets/js-src");
+      //  toReturn["main"] = "./js/index.js";
+
+      return toReturn;
+    })(),
+    output: {
+      path: path.resolve('./assets/js'), filename: "[name].js"
+    }
+  },
+  {
+    name: 'admin-min',
     mode: 'production',
     watch: true,
     optimization: optimization,
     watchOptions: watchOptions,
-    /*entry: {
-        'product-quantity': './assets/js-src/product-quantity.js',
-    },*/
+    resolve: resolve,
+    module: { rules: [tsRule] },
 
     entry: (() => {
       const toReturn = {};
@@ -92,12 +113,40 @@ module.exports = [
       });
 
       addFiles("./assets/js-admin-src");
-      //  toReturn["main"] = "./js/index.js";
 
       return toReturn;
     })(),
     output: {
       path: path.resolve('./assets/js-admin'), filename: "[name].min.js"
+    }
+  },
+  {
+    name: 'admin',
+    mode: 'development',
+    devtool: false,
+    watch: true,
+    optimization: {
+      minimize: false,
+      nodeEnv: "development",
+      splitChunks: false
+    },
+    watchOptions: watchOptions,
+    resolve: resolve,
+    module: { rules: [tsRule] },
+
+    entry: (() => {
+      const toReturn = {};
+
+      const addFiles = (dirpath) => fs.readdirSync(dirpath).forEach((f) => {
+        toReturn[f.split('.').slice(0, -1).join('.')] = dirpath + "/" + f;
+      });
+
+      addFiles("./assets/js-admin-src");
+
+      return toReturn;
+    })(),
+    output: {
+      path: path.resolve('./assets/js-admin'), filename: "[name].js"
     }
   }
 ];

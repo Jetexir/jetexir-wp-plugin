@@ -1,3 +1,7 @@
+/******/ (() => { // webpackBootstrap
+/*!******************************************!*\
+  !*** ./assets/js-src/product-related.js ***!
+  \******************************************/
 jQuery(document).ready(function ($) {
   let relatedProducts = $('.related .products');
 
@@ -29,3 +33,6 @@ jQuery(document).ready(function ($) {
     }
   })
 });
+
+/******/ })()
+;

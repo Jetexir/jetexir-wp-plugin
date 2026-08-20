@@ -1,3 +1,7 @@
+/******/ (() => { // webpackBootstrap
+/*!*******************************************!*\
+  !*** ./assets/js-src/product-quantity.js ***!
+  \*******************************************/
 jQuery(document).ready(function ($) {
   const jetexirWcCart = $('form.cart');
 
@@ -39,3 +43,6 @@ jQuery(document).ready(function ($) {
     }
   }, 1000);
 });
+
+/******/ })()
+;

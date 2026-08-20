@@ -1,3 +1,7 @@
+/******/ (() => { // webpackBootstrap
+/*!*******************************************!*\
+  !*** ./assets/js-src/product-wishlist.js ***!
+  \*******************************************/
 jQuery(document).ready(function ($) {
   $('.jetexir-product-wishlist-button').on('click', function (e) {
     e.preventDefault();
@@ -43,3 +47,6 @@ jQuery(document).ready(function ($) {
       });
   })
 });
+
+/******/ })()
+;

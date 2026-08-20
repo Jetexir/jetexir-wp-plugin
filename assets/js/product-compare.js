@@ -1,3 +1,7 @@
+/******/ (() => { // webpackBootstrap
+/*!******************************************!*\
+  !*** ./assets/js-src/product-compare.js ***!
+  \******************************************/
 jQuery(document).ready(function ($) {
   $('.jetexir-product-compare-button').on('click', function (e) {
     var $this = $(this);
@@ -26,3 +30,6 @@ jQuery(document).ready(function ($) {
       });
   });
 });
+
+/******/ })()
+;

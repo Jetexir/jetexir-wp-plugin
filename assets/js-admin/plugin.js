@@ -1,3 +1,7 @@
+/******/ (() => { // webpackBootstrap
+/*!***************************************!*\
+  !*** ./assets/js-admin-src/plugin.js ***!
+  \***************************************/
 jQuery(document).ready(function ($) {
   let jetexirWpColorPickerPalettes = ['#333', '#5de0f0', '#608bf7', '#7fff3f', '#00b700', '#fff200', '#ffae63', '#e64f6f', '#ef32e3', '#d1c1ff', '#873eff'],
     jetexirWpColorPickerOptions = {
@@ -1020,3 +1024,6 @@ jQuery(document).ready(function ($) {
 
   jetexirCopyTextInit();
 });
+
+/******/ })()
+;

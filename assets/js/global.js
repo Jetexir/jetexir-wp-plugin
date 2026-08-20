@@ -1,3 +1,7 @@
+/******/ (() => { // webpackBootstrap
+/*!*********************************!*\
+  !*** ./assets/js-src/global.js ***!
+  \*********************************/
 jetexirAjax = false;
 
 jQuery(document).ready(function ($) {
@@ -141,3 +145,6 @@ jQuery(document).ready(function ($) {
       });
   })
 });
+
+/******/ })()
+;

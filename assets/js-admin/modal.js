@@ -1,3 +1,7 @@
+/******/ (() => { // webpackBootstrap
+/*!**************************************!*\
+  !*** ./assets/js-admin-src/modal.js ***!
+  \**************************************/
 jQuery(document).ready(function ($) {
   var jetexirBody = $('body');
 
@@ -47,3 +51,6 @@ jQuery(document).ready(function ($) {
     jetexirToggleModal(false);
   });
 });
+
+/******/ })()
+;
