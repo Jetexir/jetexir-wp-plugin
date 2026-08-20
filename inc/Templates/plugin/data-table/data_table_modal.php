@@ -8,13 +8,13 @@ defined( 'ABSPATH' ) or die();
 <div id="jetexir-data-table-ui-modal"
      class="jetexir-data-table-ui-modal jetexir-modal jetexir-modal-large jetexir-fade jetexir-wrap"
      tabindex="-1"
-     aria-labelledby="waDataTableUiModalLabel" aria-hidden="true"
+     aria-labelledby="jetexirDataTableUiModalLabel" aria-hidden="true"
      style="--jetexir-modal-border-width:0; --jetexir-modal-bg-color:white; --jetexir-modal-border-radius: 10px; --jetexir-modal-font-size: 14px">
   <div class="jetexir-modal-dialog">
     <div class="jetexir-modal-content">
       <div class="jetexir-modal-header">
                         <span class="jetexir-modal-title"
-                              id="waDataTableUiModalLabel"><?php esc_html_e( 'Add new', 'jetexir' ) ?></span>
+                              id="jetexirDataTableUiModalLabel"><?php esc_html_e( 'Add new', 'jetexir' ) ?></span>
         <button type="button" class="jetexir-button jetexir-button-close" data-jetexir-dismiss="modal"
                 aria-label="<?php esc_html_e( 'Close', 'jetexir' ) ?>"></button>
       </div>
