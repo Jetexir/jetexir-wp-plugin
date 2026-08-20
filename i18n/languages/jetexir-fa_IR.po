@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Jetexir\n"
-"POT-Creation-Date: 2026-08-19 18:09+0330\n"
-"PO-Revision-Date: 2026-08-19 18:09+0330\n"
+"POT-Creation-Date: 2026-08-20 17:07+0330\n"
+"PO-Revision-Date: 2026-08-20 17:07+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -260,7 +260,7 @@ msgstr "سایت شما از SSL پشتیبانی نمی‌کند، برای م�
 
 #: inc/App/Cart/FlyCart.php:43 inc/App/Cart/FlyCart.php:70
 #: inc/App/Product/ProductCompare.php:221 inc/App/Product/ProductWishList.php:161
-#: inc/AppHelper/DataTableUI.php:115
+#: inc/AppHelper/DataTableUI.php:25 inc/AppHelper/DataTableUI.php:129
 msgid "Security code is not valid, page will be refreshed."
 msgstr "کد امنیتی معتبر نیست، صفحه به‌روز خواهد شد."
 
@@ -510,7 +510,7 @@ msgstr "فیلد یافت نشد!"
 #: inc/App/Tools/AnnouncementBarTools.php:239
 #, php-format
 msgid "%s field is empty!"
-msgstr "%s فیلد خالی است!"
+msgstr "فیلد %s خالی است!"
 
 #: inc/App/Checkout/CheckoutFields.php:324
 #: inc/App/Checkout/CheckoutFields.php:460
@@ -2288,6 +2288,10 @@ msgstr "چسبیده به بالا"
 msgid "Sticky on bottom"
 msgstr "چسبیده به پایین"
 
+#: inc/App/Tools/AnnouncementBarTools.php:431
+msgid "Use shortcode"
+msgstr "استفاده از کد کوتاه"
+
 #: inc/App/Tools/AnnouncementBarTools.php:439
 msgid "Single post/page/product"
 msgstr "نوشته/صفحه/محصول تکی"
@@ -2400,23 +2404,23 @@ msgstr "سبک‌دهی به قیمت به همراه نماد ارز"
 msgid "Change the currency symbol"
 msgstr "تغییر نماد ارز"
 
-#: inc/App/WordPress/Media.php:155
+#: inc/App/WordPress/Media.php:161
 msgid "Enable SVG support"
 msgstr "فعال کردن پشتیبانی از SVG"
 
-#: inc/App/WordPress/Media.php:159
+#: inc/App/WordPress/Media.php:165
 msgid "Allows upload SVG Files into your Media library"
 msgstr "اجازه می‌دهد فایل‌های SVG را در کتابخانه رسانه خود بارگذاری کنید"
 
-#: inc/App/WordPress/Media.php:168
+#: inc/App/WordPress/Media.php:174
 msgid "Media"
 msgstr "رسانه"
 
-#: inc/App/WordPress/Media.php:169
+#: inc/App/WordPress/Media.php:175
 msgid "Media Settings"
 msgstr "تنظیمات رسانه"
 
-#: inc/AppHelper/DataTableUI.php:109
+#: inc/AppHelper/DataTableUI.php:123
 msgid "Not registered action for this data table:"
 msgstr "اقدام ثبت نشده برای این جدول داده:"
 
