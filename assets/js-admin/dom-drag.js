@@ -1,5 +1,5 @@
 /**************************************************
- * dom-waDrag.js
+ * dom-jetexirDrag.js
  * 09.25.2001
  * www.youngpup.net
  * https://github.com/aboodman/dom-drag
@@ -8,11 +8,11 @@
  * sometimes fired off the handle, not the root.
  **************************************************/
 
-var waDrag = {
+var jetexirDrag = {
   obj: null,
 
   init: function (o, oRoot, minX, maxX, minY, maxY, bSwapHorzRef, bSwapVertRef, fXMapper, fYMapper) {
-    o.onmousedown = waDrag.start;
+    o.onmousedown = jetexirDrag.start;
 
     o.hmode = !bSwapHorzRef;
     o.vmode = !bSwapVertRef;
@@ -38,8 +38,8 @@ var waDrag = {
   },
 
   start: function (e) {
-    var o = waDrag.obj = this;
-    e = waDrag.fixE(e);
+    var o = jetexirDrag.obj = this;
+    e = jetexirDrag.fixE(e);
     var y = parseInt(o.vmode ? o.root.style.top : o.root.style.bottom);
     var x = parseInt(o.hmode ? o.root.style.left : o.root.style.right);
     o.root.onDragStart(x, y);
@@ -63,15 +63,15 @@ var waDrag = {
       if (o.maxY != null) o.minMouseY = -o.maxY + e.clientY + y;
     }
 
-    document.onmousemove = waDrag.drag;
-    document.onmouseup = waDrag.end;
+    document.onmousemove = jetexirDrag.drag;
+    document.onmouseup = jetexirDrag.end;
 
     return false;
   },
 
   drag: function (e) {
-    e = waDrag.fixE(e);
-    var o = waDrag.obj;
+    e = jetexirDrag.fixE(e);
+    var o = jetexirDrag.obj;
 
     var ey = e.clientY;
     var ex = e.clientX;
@@ -87,24 +87,26 @@ var waDrag = {
     nx = x + ((ex - o.lastMouseX) * (o.hmode ? 1 : -1));
     ny = y + ((ey - o.lastMouseY) * (o.vmode ? 1 : -1));
 
-    if (o.xMapper) nx = o.xMapper(y)
-    else if (o.yMapper) ny = o.yMapper(x)
+    if (o.xMapper) {
+      nx = o.xMapper(y)
+    } else if (o.yMapper) {
+      ny = o.yMapper(x)
+    }
 
-    waDrag.obj.root.style[o.hmode ? "left" : "right"] = nx + "px";
-    waDrag.obj.root.style[o.vmode ? "top" : "bottom"] = ny + "px";
-    waDrag.obj.lastMouseX = ex;
-    waDrag.obj.lastMouseY = ey;
+    jetexirDrag.obj.root.style[o.hmode ? "left" : "right"] = nx + "px";
+    jetexirDrag.obj.root.style[o.vmode ? "top" : "bottom"] = ny + "px";
+    jetexirDrag.obj.lastMouseX = ex;
+    jetexirDrag.obj.lastMouseY = ey;
 
-    waDrag.obj.root.onDrag(o, nx, ny);
+    jetexirDrag.obj.root.onDrag(o, nx, ny);
     return false;
   },
 
   end: function () {
     document.onmousemove = null;
     document.onmouseup = null;
-    waDrag.obj.root.onDragEnd(parseInt(waDrag.obj.root.style[waDrag.obj.hmode ? "left" : "right"]),
-      parseInt(waDrag.obj.root.style[waDrag.obj.vmode ? "top" : "bottom"]));
-    waDrag.obj = null;
+    jetexirDrag.obj.root.onDragEnd(parseInt(jetexirDrag.obj.root.style[jetexirDrag.obj.hmode ? "left" : "right"]), parseInt(jetexirDrag.obj.root.style[jetexirDrag.obj.vmode ? "top" : "bottom"]));
+    jetexirDrag.obj = null;
   },
 
   fixE: function (e) {

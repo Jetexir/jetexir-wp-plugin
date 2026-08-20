@@ -41,7 +41,7 @@ class AdminAssets {
       Assets::url( 'css-admin/plugin' . $debugName . '.css' ), false, $pluginVersion );
 
     wp_enqueue_script( JETEXIR_PLUGIN_SLUG . '-dom-drag',
-      Assets::url( 'js-admin/dom-drag.js' ),
+      Assets::url( 'js-admin/dom-drag' . $debugName . '.js' ),
       [], $pluginVersion, [ 'in_footer' => true ] );
 
     /*wp_enqueue_script( JETEXIR_PLUGIN_SLUG . '-modal',
