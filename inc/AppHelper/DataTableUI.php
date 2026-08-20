@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Jetexir\Admin\AdminPages;
 use Jetexir\Admin\AdminSettings;
-use Jetexir\Helper\{HTML, Nonce, Param, Sanitizing, Templates, User};
+use Jetexir\Helper\{HTML, Nonce, Notice, Param, Sanitizing, Templates, User};
 
 class DataTableUI {
   public function __construct() {
@@ -15,8 +15,22 @@ class DataTableUI {
   }
 
   public static function getFormData( $fields ): array {
-    $postedData = Param::decodeSerialize( Param::post( 'form_data' ) );
-    $data       = [
+    if ( ! Nonce::verify() ) {
+      wp_send_json_error( [
+        'error'   => 'nonce-invalid',
+        'refresh' => true,
+        'message' => Notice::addAndDisplay( JETEXIR_PLUGIN_KEY . '-data-table', array(
+          array(
+            'type'    => 'error',
+            'message' => esc_html__( 'Security code is not valid, page will be refreshed.', 'jetexir' )
+          )
+        ), false ),
+      ], 403 );
+    }
+
+    $postedData = Param::decodeSerialize( $_POST['form_data'] );
+
+    $data = [
       'is_active' => Sanitizing::bool( Param::post( 'row_active' ) )
     ];
 
