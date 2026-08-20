@@ -428,7 +428,7 @@ class AnnouncementBarTools extends Addon implements AddonInterface {
           'sticky-top'    => esc_html__( 'Sticky on top', 'jetexir' ),
           'sticky-bottom' => esc_html__( 'Sticky on bottom', 'jetexir' ),
         ),
-        'option_none'       => 'Use shortcode',
+        'option_none'       => esc_html__( 'Use shortcode', 'jetexir' ),
         'option_none_value' => '',
         'default'           => 'top',
         'setting_value'     => $data['position'] ?? 'top',
